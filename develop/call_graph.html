@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title></title>
+	<meta name="generator" content="LibreOffice 4.2.4.2 (Linux)">
+	<meta name="created" content="20140928;0">
+	<meta name="changed" content="20140928;180215372067942">
+	<style type="text/css">
+	<!--
+		h1 { color: #000000 }
+		p { color: #000000 }
+	-->
+	</style>
+</head>
+<body lang="en-US" text="#000000" dir="ltr" style="background: transparent">
+<h1 align="left">Stepping through the code</h1>
+<p align="left">The diagram below illustrates the operations
+conducted during a single iteration of the SU2_CFD flow solver. The
+blue boxes represent different C++ classes. Class heirarchy is
+displayed, with child classes represented inside their parent class.
+The green boxes represent methods. The chart below is an image map.
+Clicking on a component will take you to the corresponding location
+in the code (on github). Clicking on a class name will take you to
+the header file where this class is first declared. Clicking on a
+method will take you to the definition of this method.</p>
+<p align="left">The chart below is not comprehensive; it does not
+contain all of the routines in SU2. Rather, it is intended to contain
+only enough information to help you to understand the workings of the
+solver. All three types of spatial terms (convective, viscous, and
+source) are demonstrated. Furthermore, the details below apply only
+to the mean flow solver; in general you may wish to solve additional
+equation systems (eg. the Spalart Allmaras or SST equations). The
+process for those additional equations is analogous with different
+choices of classes.</p>
+<p align="center"><map name="map1">
+<area shape=rect coords="795,457,952,487" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/Common/src/linear_solvers_structure.cpp#L309" target="_self">
+<area shape=rect coords="494,769,732,799" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/numerics_structure.hpp#l4789">
+<area shape=rect coords="96,782,250,814" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/numerics_structure.hpp#l1563">
+<area shape=rect coords="229,705,450,730" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/numerics_structure.hpp#l3287">
+<area shape=rect coords="598,705,720,739" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/numerics_structure.hpp#l43">
+<area shape=rect coords="190,599,306,630" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/solver_structure.hpp#l3069">
+<area shape=rect coords="623,639,719,668" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/solver_structure.hpp#l53">
+<area shape=rect coords="547,425,700,455" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/solver_structure.hpp#l1950">
+<area shape=rect coords="804,319,919,347" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/Common/include/linear_solvers_structure.hpp#l46">
+<area shape=rect coords="166,105,436,139" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/integration_structure.hpp#l312">
+<area shape=rect coords="158,68,316,98" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/include/integration_structure.hpp#l40">
+<area shape=rect coords="797,359,945,394" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/Common/src/linear_solvers_structure.cpp#L596">
+<area shape=rect coords="537,805,687,830" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/numerics_direct_mean.cpp#L3208">
+<area shape=rect coords="263,744,408,768" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/numerics_direct_mean.cpp#L2910">
+<area shape=rect coords="101,828,241,853" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/numerics_direct_mean.cpp#L1176">
+<area shape=rect coords="106,535,256,562" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/solver_direct_mean.cpp#L9620">
+<area shape=rect coords="493,363,697,387" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/solver_direct_mean.cpp#L4205">
+<area shape=rect coords="396,461,525,493" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/solver_direct_mean.cpp#L5841">
+<area shape=rect coords="126,452,271,473" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/solver_direct_mean.cpp#L3261">
+<area shape=rect coords="304,393,434,423" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/solver_direct_mean.cpp#L5483">
+<area shape=rect coords="83,371,235,394" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/solver_direct_mean.cpp#L3009">
+<area shape=rect coords="428,238,585,270" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/integration_structure.cpp#L227">
+<area shape=rect coords="176,242,332,266" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/integration_structure.cpp#L41">
+<area shape=rect coords="225,149,374,177" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/integration_time.cpp#L98">
+<area shape=rect coords="442,149,613,177" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/integration_time.cpp#L29">
+<area shape=rect coords="399,0,641,29" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/iteration_structure.cpp#L25">
+<area shape=rect coords="205,0,275,31" href="https://github.com/su2code/SU2/blob/101f4addb004eccdc025dbfb8a660bc454041a9a/SU2_CFD/src/SU2_CFD.cpp#L46">
+</map><img src="diagram2.png" name="Image1" align="bottom" width="970" height="928" border="0" usemap="#map1"></p>
+<p>This chart was generated for SU2 version 3.2.2.</p>
+</body>
+</html>

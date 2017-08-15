@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Official Release of SU2 v5.0</title>
+<style>
+/* -------------------------------------
+		GLOBAL
+------------------------------------- */
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 100%;
+	line-height: 1.6;
+}
+
+img {
+	max-width: 100%;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: none;
+	width: 100%!important;
+	height: 100%;
+}
+
+
+/* -------------------------------------
+		ELEMENTS
+------------------------------------- */
+a {
+	color: #348eda;
+}
+
+.btn-primary {
+  text-decoration: none;
+  color: #FFF;
+  background-color: #002975;
+  border: solid #002975;
+  border-width: 10px 20px;
+  line-height: 2;
+  font-weight: bold;
+  margin-right: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 20px;
+}
+
+.btn-secondary {
+  text-decoration: none;
+  color: #FFF;
+  background-color: #AB002F;
+  border: solid #AB002F;
+  border-width: 10px 20px;
+  line-height: 2;
+  font-weight: bold;
+  margin-right: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 20px;
+}
+
+.last {
+	margin-bottom: 0;
+}
+
+.first {
+	margin-top: 0;
+}
+
+.padding {
+	padding: 10px 0;
+}
+
+
+/* -------------------------------------
+		BODY
+------------------------------------- */
+table.body-wrap {
+	width: 100%;
+	padding: 10px;
+}
+
+table.body-wrap .container {
+  border: 2px solid #FFFFFF;
+}
+
+
+/* -------------------------------------
+		FOOTER
+------------------------------------- */
+table.footer-wrap {
+	width: 100%;	
+	clear: both!important;
+}
+
+.footer-wrap .container p {
+	font-size: 12px;
+	color: #666;
+	
+}
+
+table.footer-wrap a {
+	color: #999;
+}
+
+
+/* -------------------------------------
+		TYPOGRAPHY
+------------------------------------- */
+h1, h2, h3 {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	line-height: 1.1;
+	margin-bottom: 15px;
+	color: #000;
+	margin: 40px 0 10px;
+	line-height: 1.2;
+	font-weight: 200;
+}
+
+h1 {
+	font-size: 36px;
+}
+h2 {
+	font-size: 28px;
+    margin-bottom: 5px;
+}
+h3 {
+    margin: 10px 0 10px;
+	font-size: 22px;
+}
+
+p, ul, ol {
+	margin-bottom: 10px;
+	font-weight: normal;
+	font-size: 15px;
+}
+
+ul li, ol li {
+	margin-left: 5px;
+	list-style-position: inside;
+}
+
+/* ---------------------------------------------------
+		RESPONSIVENESS
+		Nuke it from orbit. It's the only way to be sure.
+------------------------------------------------------ */
+
+/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+.container {
+	display: block!important;
+	max-width: 600px!important;
+	margin: 0 auto!important; /* makes it centered */
+	clear: both!important;
+}
+
+/* Set the padding on the td rather than the div for Outlook compatibility */
+.body-wrap .container {
+	padding: 20px;
+}
+
+/* This should also be a block element, so that it will fill 100% of the .container */
+.content {
+	max-width: 600px;
+	margin: 0 auto;
+	display: block;
+}
+
+/* Let's make sure tables in the content area are 100% wide */
+.content table {
+	width: 100%;
+}
+
+</style>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<!-- body -->
+<table class="body-wrap">
+	<tr>
+		<td></td>
+		<td class="container" bgcolor="#FFFFFF">
+
+			<!-- content -->
+			<div class="content">
+			<table>
+				<tr>
+					<td>
+            
+            <center><a href="http://su2.stanford.edu"><img src="http://su2.stanford.edu/emails/logoSU2_v3.3_small.jpeg" height="152" width="250"></a>
+
+              <br>
+              <p><h1>SU2 v5.0 Raven</h1></p>
+              <p><h3>Get wrapped up in it.</h3></p>
+            <br>
+
+            </center>
+
+            <center>
+            <p> On January 19, 2012, we launched <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> v1.0. What started as a small project has snowballed into a movement. The <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> community continues to grow, numbering in the thousands of users and hundreds of developers. Our open-source philosophy let's us bring together the top expertise in CFD from around the world to accomplish new feats at a lightning pace. Today marks the 5th anniversary of SU2, and we're celebrating with the official release of SU2 v5.0 "Raven," featuring a new in-memory Python wrapper.</p>
+            
+            <table>
+              <tr>
+                <td class="padding">
+                  <center>
+                    <p><a href="https://github.com/su2code/SU2/releases" class="btn-primary"> Download SU2 v5.0 </a></p>
+                  </center>
+                </td>
+              </tr>
+            </table>
+            
+            <p>A primary new feature of <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> v5.0 is an extended Python module (wrapper) developed in collaboration with the Multiphysics and Turbulent Flows Control Lab at University of Liège. The goal of the Python wrapper is to provide a true customization layer for <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> that leverages the existing object-oriented design of the C++ code. This high-level Python framework can be used to drive the solver (even in parallel with MPI) and dynamically exchange data during runtime. The new wrapper opens the door to endless opportunities for coupling with external software packages, especially for multiphysics simulations. For more information, please see our paper on coupled FSI simulations in the proceedings of ECCOMAS 2016 and a forthcoming tutorial on the <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> GitHub wiki. And don't miss our AIAA Journal article covering the entire SU2 suite! </p>
+            
+            <table>
+              <tr>
+                <td class="padding">
+                  <center>
+                    <p><a href="http://arc.aiaa.org/doi/10.2514/1.J053813" class="btn-secondary">SU2 in the AIAA Journal</a></p>
+                  </center>
+                </td>
+              </tr>
+            </table>
+            
+            </center>
+
+            <center>
+            <p><font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> v5.0 contains many new features and improvements, including the following:
+            </center>
+              <uL>
+                  <li> New in-memory Python wrapping of SU2 using SWIG with accompanying high-level API.
+                  <li> Class enhancements for multiphysics applications, including interpolation and transfer.
+                  <li> Free-form deformation (FFD) extensions, including bezier curves and improved usability.
+                  <li> Reorganization of the incompressible solver for future expansion.
+                  <li> Harmonic Balance flow analysis capability.
+                  <li> Algebraic transition model implementation.
+                  <li> More and better boundary conditions (accuracy and convergence improvements).
+                  <li> Extensions to scripting for automated database creation (compute_polar.py).
+                  <li> Critical improvements in I/O, including more feedback to the user.
+                  <li> Additional bug fixes, stability improvements, and general code maintenance.
+              </ul>
+          </p>
+          
+          <br>
+          <center>
+           <p><font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> v5.0 is now available on our <a href="http://su2.stanford.edu/download.html">Download</a> page and <a href="https://github.com/su2code/SU2/releases">GitHub</a>.</p>
+           </center>
+
+            
+            <center><p><h1>Celebrating 5 years of <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font>.</h1></p>
+               <br>
+
+             </center>
+
+<center>
+  
+             <p>Join us as we look back at the first 5 years of <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> and prepare for the next 5. See many of the people and major events that have shaped the history of <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> in the timeline below, and look ahead to the exciting new developments that are keeping our team busy as we speak. </p>
+             
+             
+            <br>
+
+
+            <a href="http://su2.stanford.edu/emails/su2_timeline.pdf"><img src="http://su2.stanford.edu/emails/su2_timeline.png"></a><br>Click to see the complete SU2 timeline.
+            <br>
+            <br>
+
+            <br>
+
+
+            <a href="http://su2.stanford.edu/emails/su2_v5_future.pdf"><img src="http://su2.stanford.edu/emails/su2_v5_future.png"></a><br>Get a glimpse of what we're working on for the future.
+            <br>
+            <br>
+</center>
+
+           <br>
+           
+           <center><p><h1>Let's change the world together.</h1></p></center>
+           <br>
+           
+           <center>
+
+    <p>
+    
+    If you want to change the world through simulation-based design, join the movement:</p>
+    
+    </center>
+           
+    <uL>
+      <li> The code is free and open. Always.
+      <li> You can be part of an active, enthusiastic, international development team.
+      <li> Accelerate your research: you won't have to start from scratch.
+      <li> You will thrive in a large, supportive, open-source community.
+      <li> Get extra visibility for your research.
+      <li> You can make your personal mark in the history of SU2 and open-source software.
+    </ul>
+    
+    <center>
+    
+<p> If you like <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font>, show your support by giving us a star on GitHub and following us on Twitter. If you're interested in joining the open-source movement as a developer, get involved on GitHub by watching and forking the code, and join our developer email list to keep up with the latest dev. news. We're always looking for talent and passion!</p>
+
+           <table>
+             <tr>
+               <td class="padding">
+                 <center>
+                   <p><a href="https://github.com/su2code/SU2" class="btn-primary"> SU2 on GitHub </a></p>
+                 </center>
+               </td>
+             </tr>
+           </table>
+          
+           
+           <table>
+             <tr>
+               <td class="padding">
+                 <center>
+                   <p><a href="https://github.com/su2code/SU2"><img src="http://su2.stanford.edu/emails/GitHub_45.png" height="45" width="45"></a> <a href="http://su2.stanford.edu"><img src="http://su2.stanford.edu/emails/su2_buttons_home_45.jpg" height="45" width="45" style="PADDING-LEFT: 15px; PADDING-RIGHT: 15px"></a> <a href="https://twitter.com/intent/user?screen_name=su2code"><img src="http://su2.stanford.edu/emails/su2_buttons_twitter_45.png" height="45" width="45"></a></p>
+                 </center>
+               </td>
+             </tr>
+           </table>
+
+
+
+           <center>
+  
+            <br>
+            <br>
+
+
+            <a href="http://su2.stanford.edu/emails/su2_word_cloud.pdf"><img src="http://su2.stanford.edu/emails/su2_word_cloud.png"></a><br>Click the image to see in full.
+            <br>
+
+           </center>
+           
+					</td>
+				</tr>
+			</table>
+			</div>
+			<!-- /content -->
+			
+		</td>
+		<td></td>
+	</tr>
+</table>
+<!-- /body -->
+
+<br>
+<br>
+<!-- footer -->
+<table class="footer-wrap">
+	<tr>
+		<td></td>
+		<td class="container">
+			
+			<!-- content -->
+			<div class="content">
+				<table>
+					<tr>
+						<td align="center">
+              <p> Having trouble viewing this email? View it as a <a href="http://su2.stanford.edu/emails/su2_email_v5.html">webpage.</a></p>
+              
+							<p>SU2 is maintained by developers at Stanford University, and now all around the world, and is released under an open-source license (LGPL v2.1).
+              This list is only used to disseminate important information and updates regarding our software. The development team respects your privacy, and should you wish, you can <a href="https://mailman.stanford.edu/mailman/listinfo/susquared-users"><unsubscribe>unsubscribe</unsubscribe></a>.
+							</p><br>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- /content -->
+			
+		</td>
+		<td></td>
+	</tr>
+</table>
+<!-- /footer -->
+
+</body>
+</html>

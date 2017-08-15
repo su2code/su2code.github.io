@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>SU2, the open-source CFD code</title>
+    <meta name="description" content="Open-source collection of software tools for performing Computational Fluid Dynamics (CFD) analysis and design.">
+      <meta name="author" content="Aerospace Design Laboratory, Aeronautics and Astronautics Department, Stanford University">
+        <meta name="copyright" content="&copy; 2013 Aerospace Design Laboratory">
+          <meta name="keywords" content="CFD,open-source,free,SU2,Computational,Fluid,Dynamics,SImulation">
+            
+            <link rel="icon" type="image/icon" href="images/su2icon.ico" />
+            <link rel="shortcut icon" href="images/su2icon.ico" />
+            <link rel="stylesheet" type="text/css" href="css/css_reset.css" />
+            <link rel="stylesheet" type="text/css" href="css/components.css" />
+            <link rel="stylesheet" type="text/css" href="css/layout.css" />
+            
+            <!-- Scripts -->
+            <script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.min.js"></script>
+            <script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/stanfordmodern.js"></script>
+            <script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.swfobject.js"></script>
+            <script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.ceebox-min.js"></script>
+            <script type="text/javascript" src="js/scrolling.js"></script>
+            <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" type="text/css">
+              <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700" rel="stylesheet" type="text/css">
+                
+                <!-- HEAD -->
+                </head>
+  
+  <body id="center">
+    
+    <!-- Start #layout -->
+    <div id="layout">
+      
+      <!-- Start #wrapper -->
+      <div id="wrapper">
+        
+        <!-- Start #header -->
+        <div id="header">
+          
+        </div>
+        <!-- End #header -->
+        
+        <!-- Start #container -->
+        <div id="container">
+          
+          <!-- Start #content -->
+          <div id="content" style="height:100%">
+            
+            <div id="vert_border"><div id="vert_border_img"> </div></div>
+            
+            <div id="main_content">
+              
+              <a name="top"></a>
+              
+              <!-- Start #navlist -->
+              <div id="navlist">
+                <a id="home"     href="index.html"></a>
+                <a id="download" href="download.html"></a>
+                <a id="guides"   href="https://github.com/su2code/SU2/wiki"></a>
+                <a id="forum"    href="http://www.cfd-online.com/Forums/su2/"></a>
+                <a id="training" href="training.html"></a>
+                <div id="develop" class="on"></div>
+                <a id="contact"  href="https://github.com/su2code/SU2/wiki/Contact"></a>
+              </div>
+              <!-- End #navlist -->
+              
+              <div id="titlebar" style="text-align:left"><h1>
+                SU2 Developers
+              </h1></div>
+              
+              <!-- Start Main Column -->
+              <div id="main_column">
+                
+                <h4>Join the Team</h4>
+                
+                <p>
+                The SU2 community has reached a critical mass, and we're now seeing contributions from all over the world. It's time to tap into our collective expertise, creativity, and coding abilities to take SU2 to the next level. We invite everyone to join the official developer team by first subscribing to the developer email list:
+                </p>
+                <br>
+                <p>
+                <center><a href="https://mailman.stanford.edu/mailman/listinfo/su2code-dev">
+                  <img src="images/email.jpg" style="width:62px;height:43px"> <br>
+                    Join the Dev List!</a></center>
+                </p>
+                <br>
+                
+                <p>Join the discussion to be a part of the development campaign for SU2. This is a completely open, archived email list that the entire development team can use for the following: </p>
+                <br>
+                <ul>
+                  <li> Help shape the future direction of the SU2 suite.</li>
+                  <li> Meet other developers and collaborate.</li>
+                  <li> Share ideas, innovations, and results.</li>
+                  <li> Receive recognition for contributions.</li>
+                </ul>
+                <br>
+                
+                <p>SU2 is being developed by individuals and organized teams around the world. Currently, the most active teams contributing to SU2 are:</p>
+                <br>
+                <ul>
+                  <li><a href="teams/SU_Team.html">Team at Stanford University.</a></li>
+                  <li><a href="teams/TD_Team.html">Team at Delft University of Technology.</a></li>
+                  <li><a href="teams/KL_Team.html">Team at Kaiserslautern University of Technology.</a></li>
+                  <li><a href="teams/IC_Team.html">Team at Imperial College.</a></li>
+                  <li><a href="teams/USB_Team.html">Team at the University of Basilicata.</a></li>
+                  <li><a href="teams/PM_Team.html">Team at Polytechnic University of Milan.</a></li>
+                  <li><a href="teams/UB_Team.html">Team at University of Brescia.</a></li>
+                  <li><a href="teams/US_Team.html">Team at University of Strathclyde.</a></li>
+                  <li>Team at University of Twente.</li>
+                  <li>Team at the University of Michigan.</li>
+                  <li>Team at Queen's University.</li>
+                  <li>Team at Royal Military College of Canada.</li>
+                  <li>Team at the Indian Institute of Technology Gandhinagar.</li>
+                  <li>Team at the University of Sydney.</li>
+                  <li>Team at Virginia Tech.</li>
+                </ul>
+                <br>
+                
+                <p><b>Note I: If you are actively working on SU2 and your team is not in the list, please let us know and we will add your team and profile to this webpage</a>.</b></p>
+                <p></p>
+                <br>
+                
+                <p> Developers on the email list are encouraged to share their development initiatives in SU2, to get involved with the organization of SU2 events, and to share their opinions about the future direction for the SU2 project in general. As detailed below, we also encourage all developers on the list to create accounts and interface with the SU2 project on GitHub.</p>
+                
+                <p><b>Note II: questions or issues concerning the use of SU2 should be directed to the <a href="http://www.cfd-online.com/Forums/su2/">CFD Online forum for SU2</a>.</b></p>
+                <br>
+                
+                <!--
+                <p>
+                In addition, we're now opening up the developer meetings in order to deliver important content to the SU2 community. A significant portion of upcoming meetings will cover two new features: a spotlight discussion of a relevant SU2 topic led by one of the developers, as well as a Q &amp; A session during which the development team will answer pressing forum questions. Folks are encouraged to submit their questions and topics ahead of the meetings for inclusion on the <a href="http://www.cfd-online.com/Forums/su2">SU2 CFD Online forum</a>. Join us on Wednesdays at 10 am PDT for live broadcasts on YouTube:
+                </p>
+                
+                <br>
+                <p>
+                <center><a href="https://www.youtube.com/channel/UCxv_00gWLAQPBUnl9mGRQjA">
+                  <img src="images/logos/logo_youtube.png" style="width:98px;height:43px"> <br>
+                    SU2 on YouTube!
+                    </a></center>
+                </p>
+                -->
+                
+               
+                
+                <div style="height:30px; width:100%"></div>
+                
+                <h4>Gitting Started</h4>
+                
+                <p> GitHub is the center of all development efforts in SU2.  The su2code GitHub organization contains the <a href="https://github.com/su2code/SU2">main code</a> repository as well as supporting materials:</p>
+                <br>
+                <p><center>
+                  <a href="https://github.com/su2code">
+                    <img src="images/logos/logo_github.png" style="width:82px;height:43px"> <br>
+                      SU2 on Github!</a>
+                </center></p>
+                
+                <br>
+                
+                <p>You can check out all of the development activity, and new developers are encouraged to log feature requests, questions, and bug reports through the GitHub <a href="https://github.com/su2code/SU2/issues">issue tracker</a>. Developers can have their code contributions integrated through GitHub as well.  For more information, look at the  <a href="https://github.com/su2code/SU2/wiki">SU2 wiki</a> on GitHub. </p>
+                
+                <div style="height:30px; width:100%"></div>
+                 <!--
+                <h4>Branching Model</h4>
+                
+                <p> This list describes the three types of branches on the SU2 repository. You'll want to pick the right one to work with, in order keep the merging process simple.</p>
+                
+                <ul>
+                  <li> master -- stable, latest release and fixes </li>
+                  <li> develop -- current development, generally the branch for you to start with </li>
+                  <li> feature-* -- feature specific branches, check with the developer email list if you think this a better place to contribute </li>
+                </ul>
+                
+                <div style="height:30px; width:100%"></div>
+                
+                
+                <h4>Contributing Code</h4>
+                
+                <p> SU2 merges new code contributions through <a href="https://help.github.com/articles/creating-a-pull-request">pull requests</a>.  As a new developer, you'll want to <a href="https://help.github.com/articles/fork-a-repo/">fork</a> SU2 to your personal account.  This creates a clone of the whole SU2 repository, branches and all, inside your github account.  Generally you'll want to start from the develop branch, but you can check with the dev-list if you think it would be more appropriate to work on a feature branch.  </p>
+                
+                <p> You can push all of your working changes to your forked repository.  Once you're happy with these, and want to push them to the origin repository, submit a pull request for your branch.  Make sure to pull any new changes from the origin repository before submitting the pull request, so that the changes can be merged more simply.  The senior developers will check out the changes, make comments, ask for some edits.  Then when everything looks good, your changes will merge into the main development branch! </p>
+                
+                <div style="height:30px; width:100%"></div>
+                -->
+                
+                <!--
+                <h4>Developer Materials</h4>
+                
+                <div style="height:10px; width:100%"></div>
+                
+                <h5>SU2-Pointwise joint workshop. September 29-30, 2014 (SU2 ver. 3.2.2)</h5>
+                
+                <ul>
+                  <li> <a href="https://github.com/su2code/Documentation/tree/master/Presentations/3rd%20Workshop">Webinar Presentation Slides [GitHub]</a> </li>
+                  <li> <a href="http://www.youtube.com/channel/UCxv_00gWLAQPBUnl9mGRQjA">Webinar Recording (s) [YouTube]</a> </li>
+                  
+                  <li> <a href="http://su2.stanford.edu/develop/code_intro.html">High-Level Source Code Overview</a> </li>
+                  
+                  <li> <a href="http://su2.stanford.edu/develop/call_graph.html">Program Call Structure</a> </li>
+                  
+                  <li> <a href="https://github.com/su2code/SU2/wiki/Coding+style+guidelines">SU2 Style Guide</a> </li>
+                  
+                </ul>
+                
+                <div style="height:30px; width:100%"></div>
+                
+                 -->
+                
+                
+                 <!--
+                <h4>We want you to improve SU2!</h4>
+                
+                <div style="height:10px; width:100%"></div>
+                
+                
+                <div class="bio_img"> <img class="framed_img"
+                  src="images/photo/Uncle-Sam.jpg" alt="SU2 wants you!" width="158px" height="213px"/>
+                </div>
+                
+                <p> SU2 is now in prime position for the next major wave of development, and we want it to include contributions from developers all over the globe. Simply put, we want your help in adding new features to your favorite open-source CFD suite! </p>
+                
+                <p> Below, you will find information regarding some important contributions that we believe are ripe for implementation in SU2 with a little help from the open-source community. We want to hear from any developers out there with an interest in tackling these topics or others (innovative ideas encouraged)!</p>
+                
+                <div class="content_clear"></div>
+                
+                <h3> 1) A Graphical User Interface (GUI) for SU2 </h3>
+                
+                <p>With so many available options, setting up a configuration file
+                can sometimes be an obstacle to your analysis. SU2 would
+                benefit significantly from a graphical
+                interface to ease the creation and manipulation of
+                configuration files. Some
+                requested features for a GUI are:</p>
+                <ul>
+                  <li>Minimal use of external libraries (easy to
+                    install).</li>
+                  <li>Attractive, intuitive, and discoverable visual
+                    design.</li>
+                  <li>Easily adaptable to changes in the configuration file
+                    format or options.</li>
+                </ul>
+                
+                <div style="height:30px; width:100%"></div>
+                
+                <h3> 2) Expanded Support for the CGNS Standard</h3>
+                
+                <p>We believe that open data formats are important, and with that in
+                mind, we would like to further expand our support for the
+                <a href="http://cgns.sourceforge.net"> CFD General Notation System (CGNS)
+                  Standard</a>. The current version of SU2 accepts CGNS
+                unstructured, single-block meshes for input, and CGNS
+                output is also supported, although these features could
+                be expanded. For example, the current
+                implementation generates a new file for output rather
+                than writing solution data into the original CGNS input
+                file. This would reduce disk storage, improve
+                performance, and also make it easier to
+                interface SU2 with other pre- and
+                post-processors. Some ideas might be: </p>
+                
+                <ul>
+                  <li>Implement an HDF5 based CGNS reader/writer.</li>
+                  <li>Add full support for mixed-element and multi-zone unstructured meshes.</li>
+                  <li>Streamline file I/O by reusing the original mesh file for solution output.</li>
+                </ul>
+                
+                <div style="height:30px; width:100%"></div>
+                
+                <h3>3) Extended Documentation</h3>
+                
+                <p>Clear documentation is one of the most important features of the code,
+                and it provides the fastest way to get up to speed with SU2.
+                We would like your help improving the general documentation of
+                SU2. In particular, we would appreciate contributions
+                in the following areas:</p>
+                <ul>
+                  <li>Expanded tutorials: we would like additional tutorials that complement the existing set found in the web-based documentation. The tutorials can either detail and explain the functionality of SU2 (shape optimization, parallel computing, mesh deformation, etc.) or demonstrate general CFD knowledge (highlighting good meshes vs. bad meshes, the importance of CFL number, etc.). Tutorials are intended to be tools for teaching and learning, and they should follow the same style as the existing tutorials. They must provide any mesh or config files that are necessary for their completion. New or unique verification and validation cases would be of particular interest here. </li>
+                  <li>Source code: help us increase the legibility of the SU2 source code either by providing further comments within the code or by highlighting code portions that are unclear. Specific additional comments (or wording changes) should be sent to us via GitHub pull requests. Those wishing to make requests for added clarity in particular source locations can use the github issue tracker. Please be specific on comment requests.</li>
+                </ul>
+                
+                <div style="height:30px; width:100%"></div>
+                
+                <h3>4) Additional Ideas</h3>
+                <ul>
+                  <li>Memory layout optimization</li>
+                  <li>Binary versions for mesh/restart files</li>
+                  <li>Additional turbulence models</li>
+                  <li>Interfaces to PETSC or other linear solvers</li>
+                  <li>OpenMP implementation (within the linear solver only)</li>
+                  <li>Code performance profiling/optimization</li>
+                  <li>Python wrapping</li>
+                  <li>Posing open-source analysis and design problems</li>
+                  <li>Sharing test cases and/or meshes</li>
+                  <li>Your own great idea?</li>
+                </ul>
+                -->
+                <div class="content_clear"></div>
+                
+              </div>
+              <!-- End Main Column -->
+              
+              <!-- Start Side Column -->
+              <div id="side_column"><div id="side_column_bkg">
+              </div></div>
+              <!-- End Side Column -->
+              
+            </div> <!-- End #main_content -->
+            
+            <div id="vert_border"><div id="vert_border_img"> </div></div>
+            
+            <div class="content_clear"></div>
+            
+          </div> <!-- End #content -->
+          
+        </div>
+        <!-- End #container -->
+      </div>
+      <!-- End #wrapper -->
+      
+    </div>
+    <!-- End #layout -->
+    
+    
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-28187985-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+       })();
+      </script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-35193029-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+       })();
+      </script>
+    
+  </body>
+</html>

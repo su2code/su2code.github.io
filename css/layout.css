@@ -1,0 +1,81 @@
+/****************************************************************************************
+Layout Stylesheet: defines general widths, margins, floats, a classes, and other display attributes
+****************************************************************************************/
+
+* {margin: 0; padding: 0;}
+html, body { height: 100%; }
+body { font: 18px 'Source Sans Pro',Arial,Helvetica,sans-serif; background-color: #fff; color: #585754;}
+
+#layout {background: url(../images/layout/bkg_body.jpg) repeat-x left top;}
+
+#wrapper { width: 960px; min-height: 100%; margin: 0 auto; padding: 0; }
+.wrap { width: 960px; margin: 0 auto; }
+
+#header { width: 960px; height: 60px; margin: 0 auto; padding: 0; }
+#header a { border: none; }
+#header #home_logo {float: left; width:700px; height:60px; padding: 15px 0px 15px 0px;}
+
+#container { width: 960px; margin: 0; padding: 0;}
+#content { margin: 0; position: top left; display: block; overflow:hidden;}
+#main_content { display:block; float: left; width:940px; height:100%; margin: 0; padding: 0; }
+
+#main_column { display:block; float: left; width:700px; padding: 15px 20px 15px 15px; border-left: solid #4D4F53 2px; border-right: solid #4D4F53 2px; }
+#main_column ul { padding-left:25px; }
+#main_column li { list-style-type:square }
+/* #main_column img { padding:4px; border:1px solid #ddd; margin:4px 0 4px 0; } */
+#side_column { display:block; float: left; width:199px; border-right: solid #4D4F53 2px; background:#fff; padding-bottom:10000px; margin-bottom:-10000px;}
+#side_column_bkg { display:block; float: left; width:100%; background:url('../images/layout/bkg_sidecolumn.png') no-repeat; padding-bottom:10000px; margin-bottom:-10000px;}
+
+#full_column { display:block; float: left; width:901px; padding: 15px 20px 15px 15px; border-left: solid #4D4F53 2px; border-right: solid #4D4F53 2px;}
+#full_column ul { padding-left:25px; }
+#full_column li { list-style-type:square }
+
+a { text-decoration: none; color: #565347; border-bottom: 1px dotted #81785a;}
+a:focus { outline: 1px #8a887d dotted; }
+a:hover { color: #820000; border-bottom: 1px dotted #81785a;}
+hr { background:#eae9e6; border:0; clear:both; height:1px; }
+img {border: none; }
+
+.framed_img { padding:4px; border:1px solid #ddd; margin:4px 0 4px 0; } 
+.content_clear {clear: both; background: #fff;}
+
+/**********************************
+Headers
+************************************/
+h1 { font-size:47px; font-family: 'Crimson Text', "Times New Roman", Times, serif; color: #565245; font-weight: 400  }
+h2 { font-size:28px; font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif; color: #FFFFFF; font-weight: 400; }
+h3 { font-size:16px; font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif; font-weight: 400; }
+h4 { font-size:28px; font-family: 'Crimson Text', "Times New Roman", Times, serif; color: #565245; font-weight: 400; border-bottom:solid 1px #565245;  }
+h5 { font-size:20px; font-family: 'Crimson Text', "Times New Roman", Times, serif; color: #565245; font-weight: 400  }
+h6 { font-size:18px; font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif; font-weight: 400; }
+	
+/**********************************
+Block-level
+***********************************/
+p,dl,hr,h1,h2,h3,h4,h5,h6,ol,ul,pre,table,address,fieldset { margin-bottom:5px }
+p,li,dl { color: #565347;}
+dd{ padding-left: 15px; padding-bottom:0.7em }
+ul li { color: #565347; }
+sup {line-height:100%; font-size: 50%;}
+table, td, th { border:1px solid black; text-align: center }
+td { padding:4px; }
+
+/*********************************
+Footer
+**********************************/
+#footer { position: relative; width: auto; min-width: 960px; height: 120px; background: #8C1515; box-shadow:inset 0 4px 8px -2px rgba(0, 0, 0, 0.2); clear: both;}
+#footer .wrap { padding:12px 0 10px 0;  }
+#footer_logo  { float: left; width: 125px; margin: 0px 15px 0 25px;}
+#footer_logo a {border-bottom: none;}
+#footer_content { float: left; width: 760px; margin-top: 20px; }
+#footer_content p { color: #e3dfd5; font-size:15px;}
+#footer_content li {display: inline; padding: 0 19px 0 0;}
+#footer_content li a { font-size: 15px; color:#e3dfd5; border-bottom: none; }
+#footer_content li a:hover { color:#fff; border-bottom: 1px dotted #fff;}
+
+#copyright { line-height: 1.85em }
+#copyright a { margin: 0;  border-bottom: 1px dotted #e3dfd5; color:#e3dfd5; }
+#copyright a:hover { color:#fff; border-bottom: 1px dotted #fff;}
+
+
+

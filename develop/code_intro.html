@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.0  (Unix)">
+	<META NAME="CREATED" CONTENT="20140925;19595800">
+	<META NAME="CHANGED" CONTENT="20140929;21542900">
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1>Introduction to the SU2_CFD code</H1>
+<P><B>Goal</B>: To familiarize a new SU2 user with the most important
+data structures and high-level patterns in the code.</P>
+<HR>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Important
+directories</FONT></FONT></P>
+<TABLE WIDTH=100% BORDER=1 CELLPADDING=4 CELLSPACING=4 STYLE="page-break-inside: avoid">
+	<COL WIDTH=61*>
+	<COL WIDTH=195*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=24%>
+			<P><A HREF="https://github.com/su2code/SU2/tree/master/SU2_CFD/src">SU2_CFD/src/</A></P>
+		</TD>
+		<TD WIDTH=76%>
+			<P>Source files (*.cpp) for CFD solver</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=24%>
+			<P><A HREF="https://github.com/su2code/SU2/tree/master/SU2_CFD/include">SU2_CFD/include/</A></P>
+		</TD>
+		<TD WIDTH=76%>
+			<P>Header files and inline files (*.hpp, *.inl)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=24%>
+			<P><A HREF="https://github.com/su2code/SU2/tree/master/Common/src">Common/src/</A></P>
+		</TD>
+		<TD WIDTH=76%>
+			<P>Source files (*.cpp) related to config, geometry, and linear
+			solver classes</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=24%>
+			<P><A HREF="https://github.com/su2code/SU2/tree/master/Common/include">Common/include/</A></P>
+		</TD>
+		<TD WIDTH=76%>
+			<P>Header files and inline files (*.hpp, *.inl)</P>
+		</TD>
+	</TR>
+</TABLE>
+<P><BR><BR>
+</P>
+<TABLE WIDTH=100% BORDER=1 CELLPADDING=4 CELLSPACING=4 STYLE="page-break-inside: avoid">
+	<COL WIDTH=27*>
+	<COL WIDTH=33*>
+	<COL WIDTH=196*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=11%>
+			<P><B>Filetype</B></P>
+		</TD>
+		<TD WIDTH=13%>
+			<P><B>What's there</B></P>
+		</TD>
+		<TD WIDTH=76%>
+			<P><B>Example</B></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=11%>
+			<P>*.hpp</P>
+		</TD>
+		<TD WIDTH=13%>
+			<P>Declarations</P>
+		</TD>
+		<TD WIDTH=76%>
+			<P><A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/include/solver_structure.hpp#L1951"><FONT FACE="Courier, monospace"><SPAN STYLE="font-style: normal">class</SPAN></FONT>
+			<FONT FACE="Courier, monospace"><SPAN STYLE="font-style: normal">CEulerSolver</SPAN></FONT></A></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=11%>
+			<P>*.inl</P>
+		</TD>
+		<TD WIDTH=13%>
+			<P>Inline function definitions</P>
+		</TD>
+		<TD WIDTH=76%>
+			<P><A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/include/solver_structure.inl#L524"><FONT FACE="Courier, monospace">GetVelocity_Inf</FONT></A></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=11%>
+			<P>*.cpp</P>
+		</TD>
+		<TD WIDTH=13%>
+			<P>Function definitions</P>
+		</TD>
+		<TD WIDTH=76%>
+			<P><A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/src/solver_direct_mean.cpp#L3008"><FONT FACE="Courier, monospace">CEulerSolver::Upwind_Residual</FONT></A></P>
+		</TD>
+	</TR>
+</TABLE>
+<P><BR><BR>
+</P>
+<P>Code entry point: <A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/src/SU2_CFD.cpp">SU2_CFD.cpp</A></P>
+<HR>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Data
+structures</FONT></FONT></P>
+<P>The primary data structures in SU2 have several indexes. For
+example, in SU2_CFD.cpp you will find:</P>
+<P STYLE="line-height: 0.14in"><FONT SIZE=3><FONT COLOR="#333333"><FONT FACE="Consolas, Liberation Mono, Menlo, Courier, monospace"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">CNumerics</SPAN></SPAN></FONT></FONT><FONT COLOR="#333333">
+</FONT><FONT COLOR="#333333"><FONT FACE="Consolas, Liberation Mono, Menlo, Courier, monospace"><SPAN STYLE="font-style: normal"><B>*****</B></SPAN></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Consolas, Liberation Mono, Menlo, Courier, monospace"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">numerics_container</SPAN></SPAN></FONT></FONT><FONT COLOR="#333333">
+</FONT><FONT COLOR="#333333"><FONT FACE="Consolas, Liberation Mono, Menlo, Courier, monospace"><SPAN STYLE="font-style: normal"><B>=</B></SPAN></FONT></FONT><FONT COLOR="#333333">
+</FONT><FONT COLOR="#000000"><FONT FACE="Consolas, Liberation Mono, Menlo, Courier, monospace"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">NULL</SPAN></SPAN></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Consolas, Liberation Mono, Menlo, Courier, monospace"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">;</SPAN></SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in">In general, the number of indexes
+required to access information from this structure is <FONT FACE="Courier, monospace">n-1</FONT>,
+where <FONT FACE="Courier, monospace">n</FONT> is the number of *s in
+the declaration. For example, the structure above is addressed using
+something like:</P>
+<P STYLE="margin-bottom: 0in; font-style: normal; font-weight: normal">
+<FONT COLOR="#333333"><FONT FACE="Consolas, Liberation Mono, Menlo, Courier, monospace"><FONT SIZE=3>numerics_container[iZone][iMesh][iSol][iTerm]-&gt;DoSomething();</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="font-style: normal; font-weight: normal"><FONT COLOR="#333333">The
+following chart explains the indexing scheme.</FONT></P>
+<TABLE WIDTH=100% BORDER=1 CELLPADDING=4 CELLSPACING=4 STYLE="page-break-inside: avoid">
+	<COL WIDTH=74*>
+	<COL WIDTH=182*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=29%>
+			<P><B>Variables or references in code and comments</B></P>
+		</TD>
+		<TD WIDTH=71%>
+			<P><B>Explanation</B></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=29%>
+			<P><FONT FACE="Courier, monospace">#ZONES, nZones, iZone</FONT></P>
+		</TD>
+		<TD WIDTH=71%>
+			<P>Indexes the zones in the mesh. The number of zones is set in
+			the config file. The boundary between zones should be specified as
+			a MARKER_INTERFACE</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=29%>
+			<P><FONT FACE="Courier, monospace">#MG_GRIDS, iMesh</FONT></P>
+		</TD>
+		<TD WIDTH=71%>
+			<P>Indexes each multigrid level. The finest mesh has index 0.</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=29%>
+			<P><FONT FACE="Courier, monospace">#EQ_SYSTEMS, iSol</FONT></P>
+		</TD>
+		<TD WIDTH=71%>
+			<P>Refers to the different types of equations which can be solve.
+			Typically, you do NOT want to use an explicit integer in this
+			location. Instead, use one of <A HREF="https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp#L266">these</A>
+			constants to refer to a particular equation. 
+			</P>
+			<P>Examples: <FONT FACE="Courier, monospace">FLOW_SOL</FONT>,
+			<FONT FACE="Courier, monospace">TURB_SOL</FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=29%>
+			<P><FONT FACE="Courier, monospace">#EQ_TERMS, iTerm</FONT></P>
+		</TD>
+		<TD WIDTH=71%>
+			<P>Refers to a term of the equation. Again, do NOT use an explicit
+			integer in this location. Instead, use one of <A HREF="https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp#L286">these</A>
+			constants. 
+			</P>
+			<P>Examples: <FONT FACE="Courier, monospace">VISC_TERM</FONT>,
+			<FONT FACE="Courier, monospace">CONV_BOUND_TERM</FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P><BR><BR>
+</P>
+<P STYLE="font-style: normal; font-weight: normal"><FONT COLOR="#333333"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>With
+this indexing scheme, the primary data structures are:</FONT></FONT></FONT></P>
+<PRE><FONT COLOR="#000000">  <FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">output[#ZONES]</SPAN></SPAN></FONT></FONT>
+<FONT COLOR="#000000">  <FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">integration_container[#ZONES][#EQ_SYSTEMS]</SPAN></SPAN></FONT></FONT>
+<FONT COLOR="#000000">  <FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">geometry_container[#ZONES][#MG_GRIDS]</SPAN></SPAN></FONT></FONT>
+<FONT COLOR="#000000">  <FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">solver_container[#ZONES][#MG_GRIDS][#EQ_SYSTEMS]</SPAN></SPAN></FONT></FONT>
+<FONT COLOR="#000000">  <FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">numerics_container[#ZONES][#MG_GRIDS][#EQ_SYSTEMS][#EQ_TERMS]</SPAN></SPAN></FONT></FONT>
+<FONT COLOR="#000000">  <FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">config_container[#ZONES]</SPAN></SPAN></FONT></FONT>
+<FONT COLOR="#000000"> </FONT></PRE>
+<HR>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Where
+is the data stored?</FONT></FONT></P>
+<P><IMG SRC="diagram.png" NAME="graphics1" ALIGN=LEFT WIDTH=604 HEIGHT=453 BORDER=0><BR CLEAR=LEFT>A
+<FONT FACE="Courier, monospace">CSolver</FONT> class contains an
+array called <FONT FACE="Courier, monospace">node[]</FONT>. Each
+element of <FONT FACE="Courier, monospace">node[]</FONT> points to a
+<FONT FACE="Courier, monospace">CVariable</FONT> class, which
+contains data. (<A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/include/variable_structure.hpp#L46">Parent
+<FONT FACE="Courier, monospace">CVariable</FONT> class.</A>)</P>
+<HR>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Some
+common patterns</FONT></FONT></P>
+<P>Getting and setting</P>
+<P>Looping over edges – Example: <A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/src/solver_direct_mean.cpp#L3008">Upwind
+Residual</A></P>
+<P>Looping over points – Example: <A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/src/solver_direct_mean.cpp#L3260">Source
+Residual</A></P>
+<P>Access variables from another equation system – Example: <A HREF="https://github.com/su2code/SU2/blob/master/SU2_CFD/src/solver_direct_mean.cpp#L6101">Setting
+TKE</A></P>
+<HR>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid">Next: <A HREF="call_graph.html">Program
+call graph</A></P>
+<P><BR><BR>
+</P>
+</BODY>
+</HTML>
