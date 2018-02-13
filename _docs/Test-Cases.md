@@ -3,8 +3,6 @@ title: Test Cases
 permalink: /docs/Test-Cases/
 ---
 
-## Test Cases
-
 If you would like to experiment with some available cases, be sure to check out the suite of test cases that are available to you, as described below.
 
 **Note:** While many of the cases are used for regression testing, the test case suite is provided **without any guarantees on performance or expected results**. Tutorials (which are more thoroughly checked for convergence and results) can be found [here](/tutorials/home/).
