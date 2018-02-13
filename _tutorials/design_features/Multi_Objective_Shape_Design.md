@@ -178,19 +178,19 @@ Optimization terminated successfully.    (Exit mode 0)
 
 The function value listed is the combination of the objective and the penalty function value. Looking at the history of the combined objective, we can see that the combined value has approached a constant value, which is why the optimization problem stopped before reaching the maximum number of iterations. 
 
-![Combined Objective History](images/hist_combo.png)
+![Combined Objective History](../../Multi_Objective_Shape_Design/images/hist_combo.png)
 
 Investigating the history of the total pressure, we can see that the total pressure is still being reduced at the last step, indicating that it could have obtained a lower value if the constraint had not been present, and that the drag value initially oscillates about the specified constraint.  
 
-![Total Pressure History](images/hist_pt.png)
+![Total Pressure History](../../Multi_Objective_Shape_Design/images/hist_pt.png)
 
-![Lower Surface Drag History](images/hist_cd.png)
+![Lower Surface Drag History](../../Multi_Objective_Shape_Design/images/hist_cd.png)
 
 Note that the 'Cd_lower' value is plotted rather than 'DRAG' because the latter is the total drag over all monitored surfaces. 
 
 The geometry change to the wedge can be seen in the following figures. The shock structure of the flow has changed in order to approach the constraint and lower the total pressure at the outflow.
-![Mach Contour on Initial Geometry](images/flow.png)
-![Mach Contour on Final Geometry](images/flowopt.png)
+![Mach Contour on Initial Geometry](../../Multi_Objective_Shape_Design/images/flow.png)
+![Mach Contour on Final Geometry](../../Multi_Objective_Shape_Design/images/flowopt.png)
 
 
 ### Comparison to OPT_COMBINE_OBJECTIVE = NO
