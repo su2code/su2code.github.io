@@ -1,0 +1,51 @@
+- title: Introduction to SU2
+  docs:
+  - home
+  - contribute
+
+- title: Quick Start
+  docs:
+  - Quick-Start
+
+- title: Installation
+  docs:
+  - Download
+  - Installation
+  - Build-from-Source
+  - Simple-Build
+  - Parallel-Build
+  - AD-Build
+  - Python-Wrapper-Build
+  - Windows-Installation
+  - Windows-Demo
+  - Cygwin-Build-for-Windows
+
+- title: Input Files
+  docs:
+  - Configuration-File
+  - Mesh-File
+  - Restart-File
+
+- title: Running SU2
+  docs:
+  - Execution
+  - Post-processing
+  - Test-Cases
+
+- title: Developer Docs
+  docs:
+  - Gitting-Started
+  - Developing-SU2-on-GitHub-(Internal-Developers)
+  - Running-Regression-Tests
+  - Code-Review
+  - Code-Structure
+  - Style-Guide
+  - Advanced-AD-Techniques
+
+- title: FAQ
+  docs:
+  - FAQ
+
+- title: Contact
+  docs:
+  - Contact

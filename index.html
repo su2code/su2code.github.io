@@ -1,356 +1,91 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>SU2, the open-source CFD code</title>
-<meta name="description" content="Open-source collection of software tools for performing Computational Fluid Dynamics (CFD) analysis and design.">
-<meta name="author" content="Aerospace Design Laboratory, Aeronautics and Astronautics Department, Stanford University">
-<meta name="copyright" content="&copy; 2013 Aerospace Design Laboratory">
-<meta name="keywords" content="CFD,open-source,free,SU2,Computational,Fluid,Dynamics,Simulation">
-  
-<link rel="icon" type="image/icon" href="images/su2icon.ico" />
-<link rel="shortcut icon" href="images/su2icon.ico" />
-<link rel="stylesheet" type="text/css" href="css/css_reset.css" />
-<link rel="stylesheet" type="text/css" href="css/components.css" />
-<link rel="stylesheet" type="text/css" href="css/layout.css" />
+---
+layout: default
+---
 
-<!-- Scripts -->
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/stanfordmodern.js"></script>
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.swfobject.js"></script>
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.ceebox-min.js"></script>
-<script type="text/javascript" src="js/facebook_feed.js"></script>
-<script type="text/javascript" src="js/jquery-1.2.2.min.js"></script>
-<script type="text/javascript" src="js/slideshow.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700" rel="stylesheet" type="text/css">
-
-<!-- GitHub banner --->
-<a href="https://github.com/su2code"><img style="position: absolute;
-top: 0; left: 0; border: 0;"
-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"
-alt="Fork me on GitHub"></a>
-
-<!-- HEAD -->
-</head>
-
-<body id="center">
-
-<!-- Start #layout -->
-<div id="layout">
-
-<!-- Start #wrapper -->
-<div id="wrapper"> 
-  
-    <!-- Start #header -->
-    <div id="header"> 
-    		
-    </div>
-    <!-- End #header --> 
-    
-    <!-- Start #container -->
-    <div id="container"> 
-      
-	<!-- Start #content -->
-	<div id="content"> 
-	
-	<div id="vert_border" ><div id="vert_border_img"> </div></div>
-	
-	<div id="main_content" style="border-left: solid #4D4F53 2px; border-right: solid #4D4F53 2px;">
-
-		<!-- Start #navlist -->
-		<div id="navlist">
-			<a id="home"     href="index.html"><div id="home"></div></a>
-			<a id="download" href="download.html"></a>
-			<a id="guides"   href="https://github.com/su2code/SU2/wiki"></a>
-			<a id="forum"    href="http://www.cfd-online.com/Forums/su2/"></a>
-			<a id="training" href="training.html"></a>
-			<a id="develop"  href="develop.html"></a>
-            <a id="contact"  href="https://github.com/su2code/SU2/wiki/Contact"></a>
-		</div>
-		<!-- End #navlist -->
-
-		<!-- Begin #main_grid -->
-		<div id="main_grid">
-            
-			<!-- Big Logo -->
-			<div id="su2_logo"><img src="images/layout/logoSU2_v3.3.png"></div>
-            
-			<!-- Mission Statement -->
-			<div id="statement"> <p>
-				Computational analysis tools have revolutionized the way we design aerospace systems, but most established codes are proprietary, unavailable, or prohibitively expensive for many users. The <font color="#B22234">S</font><font color="#3C3B6E">U</font><font color="#B22234">2</font> team is changing this, making computational analysis and design freely available as open-source software and involving everyone in its creation and development. 
-			</p></div>
-			
-			<!-- Slideshow -->
-            <div id="slideshow_container">
-				<div id="slideshow_title" align="center" ><h2>Analyze. Optimize. Design!</h2></div>
-
-				<div id="slideshow_content" class="slide_show_clear" align="center" style="display:block">
-					<div id="slideshow_images" ></div>
-				</div>
-				
-				<div id="about_code_content" class="slideshow_opaque" align="center" style="display:none">
-					<p>CFD owes much to a history of published results in the field of computational science. As benefactors of this legacy, we believe that by offering an open-source tool we are continuing this tradition, and providing a foundation for future research.</p>
-					<p>SU2 suite is an <b>open-source collection of software tools written in C++ for performing Partial Differential Equation (PDE) analysis and solving PDE-constrained optimization problems</b>. The toolset is designed with <b>computational fluid dynamics and aerodynamic shape optimization</b> in mind, but it is extensible (and has been extended) to treat arbitrary sets of governing equations such as electrodynamics, chemically reacting flows, and many others.</p>
-					<p>SU2 is under active development by academic institutions, government organizations, industry, and individuals all over the world and has been released under an open-source license.</p>
-				</div>
-				
-				<div id="cite_us_content" class="slideshow_opaque" align="center" style="display:none">
-					<div style="height:5px; width:100%"></div>
-					
-                    <p>If you are using SU2, please cite and support our work. Thanks!</p>
-                    
-                    <p style="font-sze:9px"> T. D. Economon, F. Palacios, S. R. Copeland, T. W. Lukaczyk, and J. J. Alonso, "SU2: An open-
-                    source suite for multiphysics simulation and design," AIAA Journal, 54(3):828-846, 2016. doi:
-                    10.2514/1.J053813.</font></p>
-                    
-                    <a
-                      href="documents/su2_aiaa_journal.bib">
-                      Download the bibtex citation here >>
-                    </a>
-                    
-                    <div style="height:10px; width:100%"></div>
-                    
-					<p style="font-sze:9px">F. Palacios,
-					et al., <i>"Stanford
-					University Unstructured
-					(SU2): An
-					open-source integrated
-					computational environment for
-					multi-physics simulation and
-					design</i>", AIAA Paper
-					2013-0287.</font></p>
-                    
-					<a
-					href="documents/SU2_AIAA_ASM2013.pdf">
-					Download the paper here >>
-					</a>
-
-					<div style="height:10px; width:100%"></div>
-
-					<p style="font-sze:9px">F. Palacios,
-					et al., <i>"Stanford
-					University Unstructured
-					(SU2): Open-source
-					analysis and design technology
-					for turbulent flows</i>", AIAA Paper
-					2014-0243.</font></p>
-					
-          
-					<a href="documents/SU2_AIAA_SciTech2014.pdf"> Download the paper here >> </a>
-				</div>
-				
-				
-				<div id="slideshow_links" align="center" >
-              	<div align="center" style="width:463px; height:10px; display:block"></div>
-				<div align="center" style="width:463px; height:33px; display:block">
-                    <div id="visualizations" class="off" onclick="set_slideshow_display('slideshow_content')"></div>
-                    <div id="about_code" class="on" onclick="set_slideshow_display('about_code_content')"></div>
-                    <div id="cite_us" class="on" onclick="set_slideshow_display('cite_us_content')"></div>
-                </div>
-               	<div align="center" style="width:463px; height:11px; display:block"></div>
-                </div>
-            </div>
-			
-        </div>
-		<!-- End #main_grid -->
-
-		<div id="horz_border"></div>
-    
-        		<!-- Begin Special Banner for temporary announcements ... end the comment here to
-		enable... -->
-
-      <div id="special_banner" style="width:100%">
-        <center>
-          <p style="font-size:24px">
-          <br>
-          <b>
-          <a href="https://su2code.github.io/documents/SU2_Dev_Meeting_Agenda_20171218.pdf"
-            title="Dev Meeting Agenda">2nd Annual SU2 Developers Meeting</a></b></p>
-          <p style="font-size:20px">
-          December 18-19, 2017
-          <br> Stanford University Campus </p>
-          <p style="font-size:24px">
-          <b>
-            <a href="https://su2code.github.io/documents/SU2_Dev_Meeting_Agenda_20171218.pdf"
-              title="Dev Meeting Agenda">View the Agenda and Download the Linked Presentations</a></b></p>
-          <p style="font-size:24px">
-          <b>
-            <a href="http://adl.stanford.edu/dropbox/2ndAnnualSU2DevelopersMeeting-Day1-Morning.mp4"
-              title="Dev Meeting Recording">View the Webinar Recording</a></b></p>
-        </center>
-      </div>
-
-      <div id="horz_border"></div>
-
-      <!-- Begin Special Banner this is for the AIAA Paper (regularly here)... end the comment here to
-       enable...
-
-		      <div id="special_banner" style="width:100%">
-      <center>
-      <p style="font-size:20px">
-      <br>
-      <a href="http://arc.aiaa.org/doi/10.2514/1.J053813"
-        title="SU2_AIAA_Journal">"SU2: An Open-Source Suite for Multiphysics Simulation and Design," AIAA Journal, 54(3):828-846, 2016.</a>
-                </p>
-     </center>
-		</div>
-
-				 <div id="horz_border"></div>
-
-		<!-- End Special Banner -->
-		
-		<!-- Begin #more_content -->		
-		<div id="more_content" style="height:500px">
-		
-			<!-- Info -->
-	        <div id="info" > 	
-				<div id="info_title"></div>
-		        <div id="info_content">
-
-<p><a href="http://arc.aiaa.org/doi/10.2514/1.J053813"
-  title="SU2_AIAA_Journal">SU2 in the AIAA Journal </a>
-
-<p><a href="http://dx.doi.org/10.1016/j.compfluid.2016.02.003"
-  title="SU2_Computer_Fluids">SU2 in Computers &amp; Fluids </a>
-
- 			                  <p><a href="documents/AIAA-2015-1946.pdf"
-                                  title="SU2_AIAA_SciTech2015">SU2 AIAA Paper 2015-1946 [<span
-                                      class="downloadable">PDF</span>]</a>
-                        
-                        <p><a href="documents/SU2_Dev_Meeting_Agenda_20160905.pdf"
-                          title="SU2_DEV">SU2 Dev Meeting Presentations </a>
-<!---
-                <p><a href="documents/AIAA-2015-1949.pdf"
-                    title="SU2_AIAA_SciTech2015_2">SU2 AIAA Paper 2015-1949 [<span
-                        class="downloadable">PDF</span>]</a>
-
-			   <p><a href="documents/SU2_AIAA_SciTech2014.pdf"
-			  title="SU2 AIAA Paper
-			  2014-0243">SU2 AIAA Paper
-			  2014-0243 [<span
-			  class="downloadable">PDF</span>]</a>
-			  
-               <p><a href="documents/SU2_ver3.0_flyer.pdf" title="SU2 ver3.0, release promotional flyer">SU2 ver 3.0, release promotional flyer [<span class="downloadable">PDF</span>]</a> </p>
-			  			  
-                -->
-                
-		<!-- Old links                <p><a href="documents/SU2_AIAA_ASM2013.pdf"
-			  title="SU2 AIAA Paper
-			  2013-0287">SU2 AIAA Paper
-			  2013-0287 [<span
-			  class="downloadable">PDF</span>]</a>
--->
-
-			  		    <div style="height:20px; width:100%"></div>
-
-<center>
-
-<a href="https://twitter.com/su2code" class="twitter-follow-button" data-show-count="false">Follow @su2code</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-</center>
-
-<br>
-
-<p>If you like SU2, support us on GitHub, follow on Twitter, and <a href="https://mailman.stanford.edu/mailman/listinfo/su2code-users">join the users mailing list!</a></p>
+<div class="header-container jumbotron">
+    <div class="container">   <!--- style="background-color:white" --->
+      <right>
         <br>
-<center>
-<iframe src="https://ghbtns.com/github-btn.html?user=su2code&repo=SU2&type=watch&count=true&size=large&v=2" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
-<iframe src="https://ghbtns.com/github-btn.html?user=su2code&repo=SU2&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
-<iframe src="https://ghbtns.com/github-btn.html?user=su2code&repo=SU2&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
-        
-<br><br>
-
-         </center>
-				</div>
-            </div>
-			
-			<div id="slim_divider"></div>
-			
-			<!-- News -->
-	        <div id="latest" >
-				<div id="latest_title"></div>
-				<div id="latest_content">
-				<dl>
-   
-   <dt><a href="emails/su2_email_devmeeting_2017.html">December 18<sup>th</sup>, 2017</a></dt>
-   <dd>2nd Annual SU2 Developers Meeting hosted at Stanford</dd>
-   
-   <dt><a href="emails/su2_email_v5.html">January 19<sup>th</sup>, 2017</a></dt>
-   <dd>Official Release of SU2 v5.0</dd>
-   
-   <dt><a href="emails/su2_email_delftmeeting.html">September 5<sup>th</sup>, 2016</a></dt>
-   <dd>1st Annual SU2 Developers Meeting hosted at TU Delft</dd>
-   
-   <dt><a href="emails/su2_email_v4p2.html">June 15<sup>th</sup>, 2016</a></dt>
-   <dd>Official Release of SU2 v4.2 at AIAA Aviation</dd>
-   
-   <dt><a href="emails/su2_email_solar_car.html">April 5<sup>th</sup>, 2016</a></dt>
-   <dd>SU2 participates in joint webinar with Pointwise, Tecplot, and the Stanford Solar Car team</dd>
-   
-<!--   <dt><a href="emails/su2_email_v4p1.html">January 7<sup>th</sup>, 2016</a></dt>
-   <dd>Official Release of SU2 v4.1 at AIAA Scitech</dd> -->
-  
-<!--  <dt><a href="emails/su2_email_v4.html">June 23<sup>rd</sup>, 2015</a></dt>
-     <dd>Official Release of SU2 v4.0</dd> --->
-     
-<!--<dt><a href="emails/SU2_Aviation_2015.html">June 10<sup>th</sup>, 2015</a></dt>
-<dd>Join us at AIAA Aviation</dd>-->
-
-<!--<dt><a href="news/news_20140728.html">July 28<sup>th</sup>, 2014</a></dt>
-<dd>Pointwise&reg; and SU2 joint workshop</dd>-->
-
-<!--<dt><a href="news/news_20140707.html">July 7<sup>th</sup>, 2014</a></dt>
-<dd>SU2 is the focus of a new Intel Parallel Computing Center</dd>-->
-
-<!--<dt><a href="news/news_20140617.html">June 17<sup>th</sup>, 2014</a></dt>
-<dd>SU2 version 3.2 released!</dd>-->
-
-<!--<dt><a href="news/news_20140414.html">April 14<sup>th</sup>, 2014</a></dt>
-<dd>Pointwise&reg; and SU2 to Present Joint Webinar. Official Release of SU2 V3.1.</dd>-->
-
-<!-- Old links	
-		<dt><a href="news/news_20140221.html">Feb 21<sup>st</sup>, 2014</a></dt>
-                    <dd>Arrive before leaving, the
-		challenge of supersonic aircraft design (NASA AMS seminar series)</dd>
-
-					  -->
-
-
-				</dl>
-				</div>
-            </div>
-			
-            <div id="slim_divider"></div>
-			
-			<!-- Tweet -->
-	        <div id="tweet" >
-				<div id="tweet_title"></div>
-				<div id="tweet_content">
-				
-				<a class="twitter-timeline" href="https://twitter.com/su2code" data-widget-id="258336857383899136">Tweets by @su2code</a>
-				
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-				
-				</div>
-            </div>
-			
-	    </div> <!-- End #more_content -->
-    
-	</div> <!-- End #main_content --> 	
-	
-	<div id="vert_border" ><div id="vert_border_img"> </div></div>
-
-    <div class="content_clear"></div>
-    
-	</div> <!-- End #content --> 
-    
+        <br>
+      <p><a class="btn btn-info btn-lg" href="{{ "" | prepend: site.baseurl }}" role="button">
+        SU2 v6 Falcon: Coming Soon</a></p>
+      <br>
+      <br>
+      </right>
+    </div>
 </div>
-<!-- End #container --> 
-</div>
-<!-- End #wrapper --> 
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="header-light regular-pad">What is SU2?</h2>
+            <blockquote>
+              <p>SU2 is an open-source collection of software tools written in C++ and Python for the analysis of partial differential equations (PDEs) and PDE-constrained optimization problems on unstructured meshes with state-of-the-art numerical methods. SU2 is a leading technology for adjoint-based optimization. Through the initiative of users and developers around the world, SU2 is now a well established tool in the computational sciences with wide applicability to aeronautical, automotive, naval, and renewable energy industries, to name a few.</p>
+
+
+            </blockquote>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="img/logoSU2_v3.3.png" alt="" class="img-responsive">
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <h1 class="text-center"><i class="fa fa-bullhorn" aria-hidden="true"></i></h1>
+            <h3 class="text-center">Stay informed.</h3>
+            <p> Keep up with the latest announcements and events by registering for our <a href="http://su2devsociety.org/su2-user-registration/">mailing list</a> and following us on <a href="https://twitter.com/intent/user?screen_name=su2code">twitter</a> and <a href="https://www.facebook.com/su2code/">facebook</a>. For detailed updates on the source code, watch the SU2 repository on <a href="https://github.com/su2code/SU2">GitHub</a>.
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <h1 class="text-center"><i class="fa fa-fast-forward" aria-hidden="true"></i></h1>
+            <h3 class="text-center">Accelerate your research.</h3>
+            <p> You won't have to start from scratch - use SU2 as a strong foundation for your research. Level up your SU2 skills with our <a href="https://economon.github.io/docs/home/">documentation</a> and <a href="https://economon.github.io/tutorials/home/">tutorials</a> sections.
+         </div>
+        <div class="col-sm-4">
+          <h1 class="text-center"><i class="fa fa-users" aria-hidden="true"></i></h1>
+          <h3 class="text-center">Free and open. Always.</h3>
+          <p> SU2 is open source and released under the LGPL 2.1. It's under active
+          development by individuals all around the world. Get the code and get involved on <a href="https://github.com/su2code/SU2">GitHub</a>.
+          </p>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <img src="img/hl_crm_01.png" alt="" class="img-responsive">
+      </div>
+    </div>
+
+   <hr>
+
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <h1 class="text-center"><i class="fa fa-connectdevelop" aria-hidden="true"></i></h1>
+        <h3 class="text-center">Developers, developers, developers.</h3>
+
+        <p> We're working on something big. Soon, we will announce an exciting new initiative to connect and inspire SU2 developers. And guess what? It's going to be free, just like the source code. Stay tuned.</p>
+        <!--<p>The SU2 community continues to grow rapidly, and together, we are making a measurable, worldwide impact on CFD. Now, it's time to tap into our collective expertise, creativity, and programming skills to take SU2 to the next level.</p>
+         
+         <p>We invite all contributors to the SU2 project to become members of the <a href="http://su2devsociety.org">SU2 International Developers Society (IDS)</a>. The mission of the society is to connect, inspire, and expand the SU2 developer community. Membership is free and offers some serious perks.</p>-->
+
+      </div>
+      <div class="col-md-6 text-center">
+        <h1 class="text-center"><i class="fa fa-book" aria-hidden="true"></i></h1>
+        <h3 class="text-center">Meet state of the art.</h3>
+        <p> SU2 isn't just software. It's a research platform. Catch up to the state of the art and push the boundaries in your field with SU2.</p>
+
+        <p>Find a detailed description of the code philosophy,
+        components, and implementations in the SU2 <a href="https://arc.aiaa.org/doi/abs/10.2514/1.J053813">AIAA Journal article</a>. Whether it's <a href="documents/AIAA-2016-3518.pdf">discrete adjoints</a>, <a href="documents/2017_J._Phys.3A_Conf._Ser._821_012013.pdf">non-ideal compressible CFD</a>, or <a href="http://dx.doi.org/10.1016/j.compfluid.2016.02.003">high-performance computing</a>, SU2 has something for you.</p>
+
+      </div>
+    </div>
 
 </div>
-<!-- End #layout -->
-
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -358,22 +93,19 @@ alt="Fork me on GitHub"></a>
   _gaq.push(['_setAccount', 'UA-28187985-1']);
   _gaq.push(['_trackPageview']);
   (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+  </script>
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-35193029-1']);
   _gaq.push(['_trackPageview']);
   (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
 </script>
-
-</body>
-</html>

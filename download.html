@@ -1,297 +1,135 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>SU2, the open-source CFD code</title>
-<meta name="description" content="Open-source collection of software tools for performing Computational Fluid Dynamics (CFD) analysis and design.">
-<meta name="author" content="Aerospace Design Laboratory, Aeronautics and Astronautics Department, Stanford University">
-<meta name="copyright" content="&copy; 2013 Aerospace Design Laboratory">
-<meta name="keywords" content="CFD,open-source,free,SU2,Computational,Fluid,Dynamics,SImulation">
-  
-<link rel="icon" type="image/icon" href="images/su2icon.ico" />
-<link rel="shortcut icon" href="images/su2icon.ico" />
-<link rel="stylesheet" type="text/css" href="css/css_reset.css" />
-<link rel="stylesheet" type="text/css" href="css/components.css" />
-<link rel="stylesheet" type="text/css" href="css/layout.css" />
+---
+title: Downloading SU2
+layout: default
+---
 
-<!-- Scripts -->
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/stanfordmodern.js"></script>
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.swfobject.js"></script>
-<script type="text/javascript" src="https://www.stanford.edu/stanfordmodern/js/jquery.ceebox-min.js"></script>
-<script type="text/javascript" src="js/facebook_feed.js"></script>
-<script type="text/javascript" src="js/jquery-1.2.2.min.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700' rel='stylesheet' type='text/css'>
- 
-<!-- HEAD -->
-</head>
+<div class="container">
 
-<body id="center">
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <img src="img/hl_crm_03.png" alt="" class="img-responsive">
+      </div>
+</div>
 
-<!-- Start #layout -->
-<div id="layout">
- 
-<!-- Start #wrapper -->
-<div id="wrapper"> 
-  
-    <!-- Start #header -->
-    <div id="header"> 
-		
-    </div>
-    <!-- End #header --> 
-    
-    <!-- Start #container -->
-    <div id="container"> 
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="text-center">Downloading SU2</h1>
 
-	<!-- Start #content -->
-	<div id="content" style="height:100%"> 
-	
-	<div id="vert_border" ><div id="vert_border_img"> </div></div>
-	
-	<!-- Start Main Column -->
-	<div id="main_content">
+    <br>
 
-		<!-- Start #navlist -->
-		<div id="navlist">
-			<a id="home"     href="index.html"></a>
-			<div id="download" class="on"></div>
-			<a id="guides"   href="https://github.com/su2code/SU2/wiki"></a>
-			<a id="forum"    href="http://www.cfd-online.com/Forums/su2/"></a>
-			<a id="training" href="training.html"></a>
-			<a id="develop"     href="develop.html"></a>
-			<a id="contact"  href="https://github.com/su2code/SU2/wiki/Contact"></a>
-		</div>
-		<!-- End #navlist -->
+    <p>SU2 is available freely for use under the GNU Lesser General Public License, version 2.1. Please reference the <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">license details</a> for terms and conditions.</p>
 
-		<div id="titlebar" style="text-align:left">
-		<h1>Downloading SU2</h1> </div>
+    <p> Before downloading the software, please take a moment to register for the <a href="http://su2devsociety.org/su2-user-registration/">user email list</a>, so you won't miss out on the latest news and announcements from the SU2 project. We respect your privacy, and the information we collect is used only for statistics and never shared. Your participation lets us build a better tool to suit the needs of our community. Should you wish, you can unsubscribe at any time <a href="http://su2devsociety.org/unsubscribe-su2/">here</a>.</p>
 
-		<div id="main_column"> 
-		
-        
-        <p> SU2 is available for download under the GNU Lesser General Public License, version 2.1. Please reference the <a href="https://github.com/su2code/SU2/wiki/License">License</a> page for terms and conditions. For details about major and interim releases, please see the <a href="https://github.com/su2code/SU2/releases">GitHub release page</a>.
-        </p>
-        
-        </br>
-        
-        <!--<h1>SU2</h1> -->
-        <!--<div style="height:40px; width:100%"></div> -->
-        
-        <h4>Binary Versions</h4>
+    <br>
 
-        <p>This option is for users who wish to use SU2 without the need to compile the program from source.</p>
-        </br>
-        
-        <p>The following binary versions are available for download:
-            <ul>
-            <li>macOS Sierra 10.12.2: Apple LLVM version 8.0.0 (clang-800.0.38).</li>
-            <li>Linux (Redhat 7.0): g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-4).</li>
-            <li>Linux (Ubuntu 16.04): g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609.</li>
-            <li>Windows 10 x64: Intel C++ Compiler version 16.0, update 2. Visual Studio 2015.</li>
-            </ul>
-        </p>
+    <center>
+    <p><a class="btn btn-warning btn-lg" href="{{ "http://su2devsociety.org/su2-user-registration/" | prepend: site.baseurl }}" role="button">Register</a>
+    </center>
 
-        <br>
-        <p>To download SU2, please take a few seconds to register by filling out the form on the page linked below.  Upon registration, you will be re-directed to the appropriate distribution of the software.  If you have already registered, you may proceed to directly to the download page you were provided.  The information we collect is used ONLY for usage statistics by the ADL development team. We encourage all our users to join our growing community by joining the <a href="https://github.com/su2code/SU2/wiki/Contact">susquared-users mailing list</a>.  Your cooperation is greatly appreciated and lets us build a better tool to suit the needs of our community.  Thanks!</p>
-        
-        </br>
-        <h5>SU2 Suite v5.0.0 (current stable release)</h5>
-        
-        <div id="su2_download" style="height:60px; width:100%; padding: 5px 0px 5px 100px;">
-          <a href="https://docs.google.com/forms/d/1hc1IXqjOeV4mbadyV2Q3IpUX-t2qLWGFES-gYm9nOFo/viewform">
-          <div style="border-bottom:none; float:left"> <img src="images/download.jpg" width="69" height="59"> </div>
-          <div style="line-height:2.5em; float:left"> Click here to
-          register and download the <b> SU2 suite binaries</b>! </div>
-          </a>
-        </div>
+    <br>
+    <hr>
 
-	<p>Note I: Binary distributions for Mac OS X, Linux, and Windows have reduced functionality; all optional libraries and dependencies are removed (serial versions only). To run CGNS meshes and parallel computations, you must download the developers version (see below) and compile from source.</p>
-    
-    
-    <!--    <p>Note II: The Windows installer contains options for
-        building with MPI and CGNS support.</p>-->
+    <h2>Current Stable Release: SU2 v5.0.0</h2>
+    <h3>Binary Executables</h3>
+    <p>This option is for users who wish to use SU2 without the need to compile the program from source. Note: binary distributions for macOS, Linux, and Windows have reduced functionality; non-default libraries and dependencies are removed (serial versions only).</p>
 
-</br>
+    <p>The following binaries are available for download by clicking the buttons below:
+    <ul>
+    <li>macOS Sierra 10.12.2: Apple LLVM version 8.0.0 (clang-800.0.38).
+    <li>Linux (Redhat 7.0): g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-4).
+    <li>Linux (Ubuntu 16.04): g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609.
+    <li>Windows 10 x64: Intel C++ Compiler version 16.0, update 2. Visual Studio 2015.
+      </ul>
+    </p>
 
-<!--
-<h5>SU2_EDU v1.1 (current stable release)</h5>
+  </div>
+</div>
 
-	<div id="su2_suite_download" style="height:60px; width:100%; padding: 5px 0px 5px 100px;">
-          <a href="https://docs.google.com/forms/d/1dJy7UnAbDs22Nr-TcD1uKGRRVujxhUGg95adQsno9J8/viewform">
-          <div style="border-bottom:none; float:left"> <img src="images/download.jpg" width="69" height="59"> </div>
-          <div style="line-height:2.5em; float:left"> Click here to
-          register and download the <b>SU2 EDUCATIONAL version</b>! </div>
-          </a>
-        </div>
-        <p>Note I: The simplified structure of this version of SU2 makes it well suited for students and beginners in CFD. SU2 EDU is ideal for use in CFD courses, for independent studies, or just to learn about a new field!</p>
+  <br>
 
-</br>
--->
-
-<!--
-<h5>SU2 on Raspberry Pi (current stable release)</h5>
-
-    <div id="su2_suite_download" style="height:60px; width:100%; padding: 5px 0px 5px 100px;">
-    <a href="https://docs.google.com/forms/d/1QHGa9-USAWfvPTPdOILEviW_L4STRKIh54u9gjlk5WA/viewform">
-    <div style="border-bottom:none; float:left"> <img src="images/download.jpg" width="69" height="59"> </div>
-    <div style="line-height:2.5em; float:left"> Click here to
-    register and download the <b>SU2 Raspberry Pi Binaries</b>! </div>
-    </a>
-    </div>
-    <p>Note I: We now host a set of binaries for use on the <a href="http://www.raspberrypi.org">Raspberry Pi</a> (with the Raspbian OS) contributed by the open-source community (thanks Travis Carrigan!). The full SU2 suite and a version of SU2_EDU for the Raspberry Pi are now both available!</p>
-		
-</br>
--->
-        <h4>Developer Versions</h4>
-        
-        <p>SU2 is hosted on <a href='https://github.com/su2code/SU2'>github.</a> Instructions to download and install SU2 from Github are available at the <a href='https://github.com/su2code/SU2/wiki/Download'>wiki.</a></p>
-        
-        </br>
-        
-        <p>SU2 Educational, or SU2_EDU, is a simplified version of SU2 for students and beginners in CFD, and it is also hosted on <a href='https://github.com/su2code/SU2_EDU'>GitHub</a>. SU2 EDU is ideal for use in CFD courses, for independent studies, or just to learn about a new field!</p>
-        <br>
-
-        <p>There are a number of ways to access the SU2 source code:
-        <ul>
-            <li> Using a git client you may clone into the repository. On a Linux/Unix/Mac system with the standard git client, this can be done by executing: </br>
-            <code><pre>$ git clone https://github.com/su2code/SU2.git</pre></code></li>
-            
-            <li> If you don't have git available but have access to svn, the latest version may also be checked out with: </br><code><pre>$ svn checkout https://github.com/su2code/SU2/trunk</pre></code></li>
-            
-            <li> You may also browse the code on <a href='https://github.com/su2code/SU2'>github</a> directly. A link on the right hand side provides the option to download a current snapshot of the master branch repository as a ZIP file.  </li>
-        </ul></p>
-        
-        <br>
-
-        <p>Before you download, we ask you to please <a href="https://docs.google.com/forms/d/1hc1IXqjOeV4mbadyV2Q3IpUX-t2qLWGFES-gYm9nOFo/viewform">register</a>. Registration lets us know who is using our code and informs our decisions as we continue to develop the capabilities. We will never share your information with anybody.</p>
-  
-        <br>
-        <p>Once you have obtained a copy of the code, follow the <a href="https://github.com/su2code/SU2/wiki/Build-from-Source">installation instructions</a> to compile and install on Mac or Unix/Linux. Compiling from source on Windows is also possible through a terminal emulator like Cygwin, for instance.</p>
-        
-        
-        
-        </br>
-        <div style="height:40px; width:100%"></div>
-        <h4>Test Case Suite</h4>
-
-<p>SU2 comes with an extensive collection of common test cases. The test cases contain meshes and configuration files that can be run to ensure different components of the suite are working properly. The directory structure is organized by governing equations and their specific cases. </p>
+<div class="row">
+  <div class="col-sm-3 text-center">
+    <p><a class="btn btn-success btn-lg" href="{{ "/download/su2-macos-latest.tgz" | prepend: site.baseurl }}" role="button">macOS (.tgz)</a>
+    </p>
+  </div>
+  <div class="col-sm-3 text-center">
+    <p> <a class="btn btn-info btn-lg" href="{{ "/download/su2-ubuntu-latest.tgz" | prepend: site.baseurl }}" role="button">Ubuntu (.tgz)</a>
+    </p>
+  </div>
+  <div class="col-sm-3 text-center">
+    <p> <a class="btn btn-warning btn-lg" href="{{ "/download/su2-redhat-latest.tgz" | prepend: site.baseurl }}" role="button">Redhat (.tgz)</a>
+    </p>
+  </div>
+  <div class="col-sm-3 text-center">
+    <p> <a class="btn btn-danger btn-lg" href="{{ "/download/su2-windows-latest.zip" | prepend: site.baseurl }}" role="button">Windows (.zip)</a>
+    </p>
+  </div>
+</div>
 
 <br>
-<p>The test cases for the current stable release can be downloaded after registering above. They are also now available directly from <a href="https://github.com/su2code/TestCases">GitHub</a> and can be accessed using:  </br> </br>
-<code><pre>$ git clone https://github.com/su2code/TestCases.git</pre></code></p>
-</br>
 
-<p>Note that, while many of the cases are used for regression testing, this test case suite is provided without any guarantees on performance or expected results. Keep in mind that small changes to the configuration options can often result in large changes to the output. A detailed description of how to run the test cases is provided in the <a href="https://github.com/su2code/SU2/wiki/Test-Cases">SU2 wiki</a> . We encourage the community to experiment with these test cases, or even try (and share!) other interesting validation cases with SU2!</p>
+<div class="row">
+  <div class="col-lg-12">
+<h3>Source Code</h3>
+<p>There are a number of ways to access the SU2 source code. If you will be developing the code, we recommend that you clone the repository. On a Linux/Unix/Mac system with the standard git client, this can be done by executing:</p>
 
+<p><code>$ git clone https://github.com/su2code/SU2.git</code></p>
 
-<!--
-<div style="height:40px; width:100%"></div>
-<h1>SU2_EDU</h1> -->
-<!--<div style="height:40px; width:100%"></div>-->
+<p>You may also browse the code on <a href="https://github.com/su2code/SU2">GitHub</a> directly. A link on the right hand side provides the option to download a current snapshot of the master branch repository as a ZIP file. The latest release will also be tagged and available on the GitHub <a href="https://github.com/su2code/SU2/releases">releases page</a>, and for convenience, you can download the this source code from the latest release directly with the button below:</p>
 
-<!--
-<h4>Binary Versions</h4>
-</br>
+<br>
 
-<h5>SU2_EDU V1.1 (current stable release)</h5>
+<center>
+  <p><a class="btn btn-primary btn-lg" href="{{ "https://github.com/su2code/SU2/archive/v5.0.0.tar.gz" | prepend: site.baseurl }}" role="button">Source (.tar.gz)</a>
+</center>
 
-<div id="su2_suite_download" style="height:60px; width:100%; padding: 5px 0px 5px 100px;">
-<a href="https://docs.google.com/forms/d/1dJy7UnAbDs22Nr-TcD1uKGRRVujxhUGg95adQsno9J8/viewform">
-<div style="border-bottom:none; float:left"> <img src="images/download.jpg" width="69" height="59"> </div>
-<div style="line-height:2.5em; float:left"> Click here to
-register and download the <b>SU2 EDUCATIONAL version</b>! </div>
-</a>
-</div>
-<p>Note I: The simplified structure of this version of SU2 makes it well suited for students and beginners in CFD. SU2 EDU is ideal for use in CFD courses, for independent studies, or just to learn about a new field!</p>
+<br>
 
-</br>
-
-</br>
--->
-
-<!--
-<h4>Developer Versions</h4>
-SU2_EDU is hosted on <a href='https://github.com/su2code/SU2_EDU'>GitHub.</a> This provides a number of ways to access the source code:
-<ul>
-<li> Using a git client you may clone into the repository. On a Linux/Unix/Mac system with the standard git client, this can be done by executing -- </br>
-
-<code><pre>$ git clone https://github.com/su2code/SU2_EDU</pre></code></li>
-
-<li> If you don't have git available but have access to svn, the latest version may also be checked out with -- </br>
-<code><pre>$ svn checkout https://github.com/su2code/SU2_EDU/trunk</pre></code>
-</li>
-            
-            <li> You may also browse the code on <a href='https://github.com/su2code'>github</a> directly. A link on the right hand side provides the option to download the code repository as a ZIP file.  </li>
-                </ul> -->
-                
-
-                
-            <!--    <p>Before you download, we ask you to please <a href="https://docs.google.com/forms/d/1hc1IXqjOeV4mbadyV2Q3IpUX-t2qLWGFES-gYm9nOFo/viewform">register</a>. Registration lets us know who is using our code and informs our decisions as we continue to develop the capabilities. We will never share your information with anybody.</p>
-                
-                <p>Once you have obtained a copy of the code, follow the <a href="https://github.com/su2code/SU2/wiki/Linux+and+Mac+Installation+from+Source">installation instructions</a> to compile and install on Mac or Unix/Linux. Compiling from source on Windows is also possible through a terminal emulator like Cygwin, for instance.</p>
-                
-                </br>
-                -->
+<p>Once you have obtained a copy of the code, follow the <a href="/docs/installation">installation instructions</a> to compile and install from source.</p>
 
 
+<br>
+<hr>
+<h2>Previous Versions</h2>
+<p>SU2 is hosted on GitHub, and previous versions are tagged and available on the <a href="https://github.com/su2code/SU2/releases">releases page</a>.</p>
 
-<!--
-<h4>Feedback</h4>
+<br>
+<hr>
 
-        <p>The development team welcomes your feedback! Please join the SU2 community by subscribing to the user's mailing list to receive important updates about the code, and send your feedback directly to the developers through the developer's mailing list. See the <a href="contact.html">Contact</a> page for details on the mailing lists.</p>
-        
-        <div style="height:40px; width:100%"></div>
-        -->
-        
-        
-		</div>
-		<!-- End Main Column -->
-	
-		<!-- Start Side Column -->
-		<div id="side_column"><div id="side_column_bkg">
-		
-		</div></div>
-		<!-- End Side Column -->
-		
-	</div> <!-- End #main_content --> 	
-	
-	<div id="vert_border"><div id="vert_border_img"> </div></div>
+<h2>Tutorials</h2>
+<p>As part of our documentation and training, we ship a set of tutorials that walk the user through setting up and executing a number of examples. These cases start from the basics and help the user learn SU2 quickly. Later tutorials cover advanced SU2 capabilities, such as optimal shape design.</p>
 
-    <div class="content_clear"></div>
-    
-	</div> <!-- End #content --> 
-    
-</div>
-<!-- End #container --> 
-</div>
-<!-- End #wrapper --> 
+<!-- Add a button to download the tagged release version. -->
+
+<p>The entire set of documentation and tutorials ships with the main project website repository. You can download all of the necessary files (including config files and grids) using the following:</p>
+
+<p><code>$ git clone https://github.com/su2code/su2code.github.io</code></p>
+
+<br>
+<hr>
+
+<h2>Test Case Suite</h2>
+<p>SU2 comes with an extensive collection of common test cases. The test cases contain meshes and configuration files that can be run to ensure different components of the suite are working properly. Test cases (configuration and mesh files) are included in a separate repository, also available on <a href="https://github.com/su2code/TestCases">GitHub</a> that can be accessed using:</p>
+
+<p><code>$ git clone https://github.com/su2code/TestCases.git</code></p>
+
+The latest release of the test cases will also be tagged and available on the GitHub <a href="https://github.com/su2code/TestCases/releases">releases page</a>, and for convenience, you can download the this source code from the latest release directly with the button below:</p>
+
+<br>
+
+<center>
+  <p><a class="btn btn-success btn-lg" href="{{ "https://github.com/su2code/TestCases/archive/v5.0.0.tar.gz" | prepend: site.baseurl }}" role="button">Test Cases (.tar.gz)</a>
+</center>
+<br>
+
+<p>Note that, while many of the cases are used for regression testing, this test case suite is provided <b>without any guarantees on performance or expected results</b>. Keep in mind that small changes to the configuration options can often result in large changes to the output. We encourage the community to experiment with these test cases, or even try (and share!) other interesting validation cases with SU2!</p>
+
+<p> Please see the documentation on <a href="/docs/Test-Cases/">how to use the test cases</a>.</p>
 
 </div>
-<!-- End #layout -->
+</div>
+
+</div>
 
 
-<!-- Google Analytics -->
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28187985-1']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-35193029-1']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-</body>
-</html>

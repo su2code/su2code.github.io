@@ -1,0 +1,26 @@
+- title: Getting Started
+  tutorials:
+  - home
+  - contribute
+
+- title: Analysis Features
+  tutorials:
+  - Inviscid_Bump
+  - Inviscid_Wedge
+  - Inviscid_ONERAM6
+  - Laminar_Flat_Plate
+  - Laminar_Cylinder
+  - Turbulent_Flat_Plate
+  - Transitional_Flat_Plate
+  - Turbulent_ONERAM6
+
+- title: Design Features
+  tutorials:
+  - Inviscid_2D_Unconstrained_NACA0012
+  - Turbulent_2D_Constrained_RAE2822
+  - Inviscid_3D_Constrained_ONERAM6
+  - Multi_Objective_Shape_Design
+
+- title: Event Content
+  tutorials:
+  - event_content
