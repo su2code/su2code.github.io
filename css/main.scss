@@ -44,7 +44,15 @@ body {
   background-color: black;
   background: url('../img/su2image.png') no-repeat 50% 0;
   color: #fff;
+  h1 {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+  }
 
+  h2 {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+  }
   // background-attachment: fixed;
   background-size: cover;
   background-position: center 36%;
