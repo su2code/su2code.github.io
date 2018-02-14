@@ -16,6 +16,7 @@
 
 - title: Design Features
   tutorials:
+  - Inviscid_2D_Basic_NACA0012
   - Inviscid_2D_Unconstrained_NACA0012
   - Turbulent_2D_Constrained_RAE2822
   - Inviscid_3D_Constrained_ONERAM6
