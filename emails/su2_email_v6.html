@@ -154,6 +154,15 @@
     .content table {
       width: 100%;
     }
+    #wrapper {
+      overflow: auto; /* so the size of the wrapper is alway the size of the longest content */
+    }  
+    #first {
+      float: left;
+    }
+    #second {
+      float: left;
+    }
     </style>
   </head>
   
@@ -183,9 +192,9 @@
                     <table>
                       <tr>
                         <td class="padding">
-                          <center>
-                            <div><a href="https://su2code.github.io" class="btn-primary"> Visit the New SU2 Website </a></div><div><a href="http://su2devsociety.org" class="btn-secondary"> Join the Developers Society </a></div>
-                          </center>
+                          <div id="wrapper">
+                            <div id="first"><a href="https://su2code.github.io" class="btn-primary"> Visit the New SU2 Website </a></div><div id="second"><a href="http://su2devsociety.org" class="btn-secondary"> Join the Developers Society </a></div>
+                          </div>
                         </td>
                       </tr>
 
