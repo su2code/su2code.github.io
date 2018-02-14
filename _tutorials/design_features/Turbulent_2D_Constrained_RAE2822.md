@@ -42,7 +42,7 @@ Remember that the free-stream pressure is computed from this values (assuming pe
 
 The mesh consists of a far-field boundary and a Navier-Stokes wall (non-slip) along the airfoil surface. The mesh can be seen in Figure (1).
 
-![RAE 2822 Mesh](../../ Turbulent_2D_Constrained_RAE2822/images/rae_mesh.png)
+![RAE 2822 Mesh](../../Turbulent_2D_Constrained_RAE2822/images/rae_mesh.png)
 Figure (1): Zoom view of the initial computational mesh.
 
 ### Configuration File Options
@@ -133,7 +133,7 @@ The first value in the parentheses is the variable type, which is 1 for a Hicks-
 
 Note that there are many other types of design variables available in SU2 (including 2D FFD), and each has their own specific input format. 3D design variables based on the free-form deformation approach (FFD) will be discussed in another tutorial.
 
-![RAE 2822 Pressure](../../ Turbulent_2D_Constrained_RAE2822/images/rae2822_pressure.png)
+![RAE 2822 Pressure](../../Turbulent_2D_Constrained_RAE2822/images/rae2822_pressure.png)
 Figure (2): Pressure contours for the baseline RAE 2822 airfoil.
 
 ### Running SU2_GEO
