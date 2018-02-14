@@ -1,6 +1,6 @@
 ---
 title: Constrained shape design of a transonic inviscid wing at a cte. C<sub>L</sub>
-permalink: /docs/Inviscid_3D_Constrained_ONERAM6/
+permalink: /tutorials/Inviscid_3D_Constrained_ONERAM6/
 ---
 
 ![Opt. ONERA Orig](../../Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)

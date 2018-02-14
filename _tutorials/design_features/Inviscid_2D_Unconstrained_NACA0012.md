@@ -1,6 +1,6 @@
 ---
 title: Unconstrained shape design of a transonic inviscid airfoil at a cte. AoA
-permalink: /docs/Inciscid_2D_Unconstrained_NACA0012/
+permalink: /tutorials/Inciscid_2D_Unconstrained_NACA0012/
 ---
 
 ![Optimization Diagram](../../Inciscid_2D_Unconstrained_NACA0012/images/optimization_diagram.png)

@@ -1,6 +1,6 @@
 ---
 title: Constrained shape design of a transonic turbulent airfoil at a cte. C<sub>L</sub> 
-permalink: /docs/Turbulent_2D_Constrained_RAE2822/
+permalink: /tutorials/Turbulent_2D_Constrained_RAE2822/
 ---
 
 ## Goals
