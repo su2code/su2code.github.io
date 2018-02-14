@@ -1,13 +1,13 @@
 ---
-title: Unconstrained shape design of an transonic inviscid airfoil at a cte. AoA
-permalink: /tutorials/Inviscid_2D_Unconstrained_NACA0012/
+title: Unconstrained shape design of a transonic inviscid airfoil at a cte. AoA
+permalink: /docs/Inciscid_2D_Unconstrained_NACA0012/
 ---
 
-![Optimization Diagram](../../Inviscid_2D_Unconstrained_NACA0012/images/optimization_diagram.png)
+![Optimization Diagram](../../Inciscid_2D_Unconstrained_NACA0012/images/optimization_diagram.png)
 
 ## Goals
 
-For this tutorial, we return to the classic NACA 0012 test case that was the subject of the [Quick Start](/docs/Quick-Start/) and perform aerodynamic shape design. Upon completing this tutorial, the user will be familiar with performing an optimal shape design of a 2D geometry. The initial geometry chosen for the tutorial is the NACA 0012 airfoil in transonic, inviscid flow. This tutorial is meant to be an introduction for using the components of SU2 for shape design in the context of a simple, unconstrained optimization problem. Consequently, the following SU2 tools will be showcased in this tutorial:
+For this tutorial, we return to the classic NACA 0012 test case that was the subject of the [Quick Start](https://github.com/su2code/SU2/wiki/Quick-Start) and perform aerodynamic shape design. Upon completing this tutorial, the user will be familiar with performing an optimal shape design of a 2D geometry. The initial geometry chosen for the tutorial is the NACA 0012 airfoil in transonic, inviscid flow. This tutorial is meant to be an introduction for using the components of SU2 for shape design in the context of a simple, unconstrained optimization problem. Consequently, the following SU2 tools will be showcased in this tutorial:
 - **SU2_CFD** - performs the direct and the adjoint flow simulations
 - **SU2_DOT** - projects the adjoint surface sensitivities into the design space to obtain the gradient
 - **SU2_DEF** - deforms the geometry and mesh with changes in the design variables during the shape optimization process
@@ -17,17 +17,17 @@ We will walk through the shape design process and highlight several options rela
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Inviscid_2D_Unconstrained_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/Inviscid_2D_Unconstrained_NACA0012) in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the mesh file [mesh_NACA0012_inv.su2](../../Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2) and the config file [inv_NACA0012_basic.cfg](../../Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg).
+You can find the resources for this tutorial in the folder [Inciscid_2D_Unconstrained_NACA0012](https://github.com/su2code/Tutorials/tree/master/Inciscid_2D_Unconstrained_NACA0012) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_NACA0012_inv.su2](../../Inciscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2) and the config file [inv_NACA0012_basic.cfg](../../Inciscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when performing shape design for the transonic airfoil using SU2. It is assumed that you have already obtained and compiled SU2_CFD, SU2_DOT, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages. It may also be helpful to review the [Quick Start](/docs/Quick-Start/) tutorial to refamiliarize yourself with this problem.
+The following tutorial will walk you through the steps required when performing shape design for the transonic airfoil using SU2. It is assumed that you have already obtained and compiled SU2_CFD, SU2_DOT, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](https://github.com/su2code/SU2/wiki/Download) and [Installation](https://github.com/su2code/SU2/wiki/Installation) pages. It may also be helpful to review the [Quick Start](https://github.com/su2code/SU2/wiki/Quick-Start) tutorial to refamiliarize yourself with this problem.
 
 ### Background
 
-This example uses a 2D airfoil geometry (initially the NACA 0012) in transonic inviscid flow. See the [Quick Start](/docs/Quick-Start/) for more information on the baseline geometry. 
+This example uses a 2D airfoil geometry (initially the NACA 0012) in transonic inviscid flow. See the [Quick Start](https://github.com/su2code/SU2/wiki/Quick-Start) for more information on the baseline geometry. 
 
-The general process for performing gradient-based shape optimization with SU2 is given in the flow chart at the top of the page. We start with a baseline geometry and grid as input to our design cycle, along with a chosen objective function (J) and set of design variables (x). For this tutorial, we will use the NACA 0012 and the unstructured mesh from the [Quick Start](/docs/Quick-Start/) as our inputs with drag as our chosen objective and a set of Hicks-Henne bump functions to parameterize the shape. 
+The general process for performing gradient-based shape optimization with SU2 is given in the flow chart at the top of the page. We start with a baseline geometry and grid as input to our design cycle, along with a chosen objective function (J) and set of design variables (x). For this tutorial, we will use the NACA 0012 and the unstructured mesh from the [Quick Start](https://github.com/su2code/SU2/wiki/Quick-Start) as our inputs with drag as our chosen objective and a set of Hicks-Henne bump functions to parameterize the shape. 
 
 From there, everything needed for automatic shape design is provided for you in the SU2 framework! By launching the shape_optimization.py script (described below), a gradient-based optimizer will orchestrate the design cycle consisting of the flow solver, adjoint solver, and geometry/mesh deformation tools available in SU2. This iterative design loop will proceed until a minimum is found or until reaching a maximum number of optimizer iterations. Many useful output files will be available to you at the conclusion.
 
@@ -39,13 +39,13 @@ The flow conditions of this numerical experiment are such that transonic shocks 
 - Temperature = 273.15 K
 - Mach number = 0.8
 
-While more advanced design problems can be selected, such as those containing flow and/or geoemtric constraints, we will consider a simple unconstrained drag minimization problem here to get started. Please note that, becuase this is a 2D Euler problem without constratins, the expected minimmum drag is going to be zero (or a small value due to numerical error in the spatial integration of the equation). To achive that theoretical minimum will depend on the selected design variables and the hability of the optimizer to identify a global minimum.
+While more advanced design problems can be selected, such as those containing flow and/or geoemtric constraints, we will consider a simple unconstrained drag minimization problem here to get started. Please note that, because this is a 2D Euler problem without constraints, the expected minimum drag is going to be zero (or a small value due to numerical error in the spatial integration of the equation). To achieve that theoretical minimum will depend on the selected design variables and the ability of the optimizer to identify a global minimum.
 
 ### Mesh Description
 
 The mesh consists of a far-field boundary and an Euler wall (flow tangency) along the airfoil surface. The mesh can be seen in Figure (2).
 
-![NACA 0012 Mesh](../../Inviscid_2D_Unconstrained_NACA0012/images/rotating_mesh.png)
+![NACA 0012 Mesh](../../Inciscid_2D_Unconstrained_NACA0012/images/rotating_mesh.png)
 Figure (2): Far-field and zoom view of the initial computational mesh.
 
 ### Configuration File Options
@@ -86,7 +86,8 @@ For this inviscid case, we have selected a modified version of the JST scheme fo
 
 If you are having trouble converging your adjoint calculation, we often recommend adjusting the level of dissipation, along with reducing the CFL condition with the `CFL_REDUCTION_ADJFLOW` option, or even imposing a hard limit on the value of the adjoint density variable using the `LIMIT_ADJFLOW` option. While increasing the dissipation or limiting the adjoint variables can sometimes help to stabilize a solution, **note that overly increasing the dissipation or imposing limits that are too strict can result in decreased accuracy**. One should fully investigate the effect of these parameters, and ideally, a gradient accuracy/verification study should be performed (one can always compare against finite differencing).
 
-As a side note, in case you are planning to use the discrete adjoint mode, SU2 software will not use these parameters unless you activate the option `INCONSISTENT_AD`
+As a side note, in case you are planning to use the discrete adjoint mode, SU2 software will not use these parameters unless you activate the option `INCONSISTENT_AD`. 
+
 
 Now, we present the options that specify the optimal shape design problem:
 ```
@@ -131,55 +132,24 @@ The SLSQP optimizer from the SciPy package for Python is the default optimizer c
 
 The `DEFINITION_DV` is the list of design variables. For the airfoil problem, we want to minimize the drag by changing the surface profile shape. To do so, we define a set of Hicks-Henne bump functions. Each design variable is separated by a semicolon, although **note that there is no final semicolon at the end of the list**. 
 
-It is quite common to introduce angle of attack as a design variable (with a given Cl). In that case, you should add to the config file the following extra information:
-```
-% -------------------------- CL & CM DRIVER DEFINITION ------------------------%
-%
-% Activate fixed lift mode (specify a CL instead of AoA, NO/YES)
-FIXED_CL_MODE= YES
-%
-% Target coefficient of lift for fixed lift mode (0.80 by default)
-TARGET_CL= 0.326
-%
-% Estimation of dCL/dAlpha (0.2 per degree by default)
-DCL_DALPHA= 0.2
-%
-% Number of times the AoA is updated in a fix CL problem (5 by default)
-UPDATE_ALPHA= 5
-%
-% Number of iterations to evaluate dCL_dAlpha by using finite differences (500 by default)
-ITER_DCL_DALPHA= 250
-
-```
-With this new setting the angle of attack design variable and the Cl constratint are indirectly introduced into the optimization problem without running an extra adjoint for the lift or grid deformation to account for the change in AoA.
-
 The first value in the parentheses is the variable type, which is 1 for a Hicks-Henne bump function. The second value is the scale of the variable (typically left as 1.0). The name between the vertical bars is the marker tag where the variable deformations will be applied. Only the airfoil surface will be deformed in this problem. The final two values in the parentheses specify whether the bump function is applied to the upper (1) or lower (0) side and the x-location of the bump between 0 and 1 (we assume a chord of 1.0 for the Hicks-Henne bumps), respectively. 
 
-Note that there are many other types of design variables available in SU2, and each has their own specific input format. 3D design variables based on the free-form deformation approach (FFD) will be discussed in the next tutorial.
+Note that there are many other types of design variables available in SU2, and each has their own specific input format.
 
-![NACA 0012 Pressure](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_pressure_opt.png)
+
+![NACA 0012 Pressure](../../Inciscid_2D_Unconstrained_NACA0012/images/naca0012_pressure_opt.png)
 Figure (3): Pressure contours for the baseline NACA 0012 airfoil.
-
-### Running SU2_GEO
-
-To prepare the ground for a future optimization with geometrical constratints it is interesting to execute the SU2_GEO software by typing 
-```
-$ SU2_GEO inv_NACA0012
-```
-The screen output of this software provides useful geometrical information (airfoil thickness, choord, etc) that the designer can use in the future, for example, by adding a basic geometrical constraint in the config file
-```
-OPT_CONSTRAINT= (AIRFOIL_THICKNESS > 0.12)
-```
 
 ### Running SU2
 
-The continuous adjoint methodology for obtaining surface sensitivities is implemented for several equation sets within SU2. After solving the direct flow problem, the adjoint problem is also solved which offers an efficient approach for calculating the gradient of an objective function with respect to a large set of design variables. This leads directly to a gradient-based optimization framework. With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Two other SU2 tools are used to compute the gradient from the adjoint solution (SU2_DOT) and deform the computational mesh (SU2_DEF) during the process. Note that if a geometrical constratint is added, its value and gradient will be coumpued by SU2_GEO
+The continuous adjoint methodology for obtaining surface sensitivities is implemented for several equation sets within SU2. After solving the direct flow problem, the adjoint problem is also solved which offers an efficient approach for calculating the gradient of an objective function with respect to a large set of design variables. This leads directly to a gradient-based optimization framework. With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Two other SU2 tools are used to compute the gradient from the adjoint solution (SU2_DOT) and deform the computational mesh (SU2_DEF) during the process.
 
-![NACA 0012 Adjoint](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_psi_density.png)
+
+![NACA 0012 Adjoint](../../Inciscid_2D_Unconstrained_NACA0012/images/naca0012_psi_density.png)
 Figure (4): Adjoint density contours on the baseline NACA 0012 airfoil.
 
 To run this design case, follow these steps at a terminal command line:
-1. Move to the directory containing the config file ([inv_NACA0012_basic.cfg](../../Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg) and the mesh file ([mesh_NACA0012_inv.su2](../../Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2)). Assuming that SU2 tools were compiled, installed, and that their install location was added to your path, the shape_optimization.py script, SU2_CFD, SU2_DOT, SU2_GEO and SU2_DEF should all be available.
+1. Move to the directory containing the config file ([inv_NACA0012_basic.cfg](../../Inciscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg) and the mesh file ([mesh_NACA0012_inv.su2](../../Inciscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2)). Assuming that SU2 tools were compiled, installed, and that their install location was added to your path, the shape_optimization.py script, SU2_CFD, SU2_DOT, SU2_GEO and SU2_DEF should all be available.
 
 2. Execute the shape optimization script by entering 
 
@@ -193,15 +163,16 @@ To run this design case, follow these steps at a terminal command line:
 
 4. Solution files containing the flow and surface data will be written for each flow solution and adjoint solution and can be found in the DESIGNS directory that is created. The flow solutions are in the DESIGNS/DSN_*/DIRECT/ directories. The file named history_project.dat (or history_project.csv for ParaView) will contain the functional values of interest resulting from each evaluation during the optimization.
 
-5. To switch between discrete and continuous adjoint (only affect the gradient evaluation) you just need to change `CONTINUOUS_ADJOINT` by `DISCRETE_ADJOINT` when calling the `shape_optimization.py` script (assuming that the software has been compiled with the [adjoint mode capability](/docs/AD-Build/).**note that by typing python shape_optimization.py -h you will see all the options (including different optimizers)**
+5. To switch between discrete and continuous adjoint (only affect the gradient evaluation) you just need to change `CONTINUOUS_ADJOINT` by `DISCRETE_ADJOINT` when calling the `shape_optimization.py` script (assuming that the software has been compiled with the [adjoint mode capability](https://github.com/su2code/SU2/wiki/AD-Build).**note that by typing python shape_optimization.py -h you will see all the options (including different optimizers)**
 
 ### Results for the optimal shape design problem:
 
-![NACA 0012 Final Contour](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_contour.png)
+![NACA 0012 Final Contour](../../Inciscid_2D_Unconstrained_NACA0012/images/naca0012_final_contour.png)
 Figure (5): Pressure contours around the final airfoil design. Note the nearly shock-free final design.
 
-![NACA 0012 Final Cp](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_cp.png)
+![NACA 0012 Final Cp](../../Inciscid_2D_Unconstrained_NACA0012/images/naca0012_final_cp.png)
 Figure (6): Cp distribution and profile shape comparison for the initial and final airfoil designs.
 
-![NACA 0012 Final History](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_history.png)
+![NACA 0012 Final History](../../Inciscid_2D_Unconstrained_NACA0012/images/naca0012_final_history.png)
 Figure (7): Function evaluation history during the optimization process.
+

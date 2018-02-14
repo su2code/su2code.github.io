@@ -1,6 +1,6 @@
 ---
 title: Constrained shape design of a transonic inviscid wing at a cte. C<sub>L</sub>
-permalink: /tutorials/Inviscid_3D_Constrained_ONERAM6/
+permalink: /docs/Inviscid_3D_Constrained_ONERAM6/
 ---
 
 ![Opt. ONERA Orig](../../Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)
@@ -8,15 +8,16 @@ permalink: /tutorials/Inviscid_3D_Constrained_ONERAM6/
 ## Goals
 
 Upon completing this tutorial, the user will be familiar with performing an optimal shape design of a 3D geometry. The initial geometry chosen for the tutorial is a ONERA M6 wing at transonic speed in inviscid fluid and constant Cl (common setting in aeronautical problems). The following SU2 tools will be showcased in this tutorial:
-- **SU2_CFD** - performs the direct and the adjoint flow simulations.
-- **SU2_DOT** - projects the adjoint surface sensitivities into the design space to obtain the gradient.
+- **SU2_CFD** - performs the direct flow simulations.
+- **SU2_CFD_AD** - performs the adjoint flow simulations.
+- **SU2_DOT_AD** - projects the adjoint surface sensitivities into the design space to obtain the gradient.
 - **SU2_DEF** - deforms the geometry and mesh with changes in the design variables during the shape optimization process.
-- **SU2_GEO** - evaluates the thickness of the specified wing sections and their gradients.
+- **SU2_GEO** - evaluates the thickness of the specified wing stations and their gradients.
 - **shape_optimization.py** - automates the entire shape design process by executing the SU2 tools and optimizer.
 
 ## Resources
 
-The resources for this tutorial can be found in the directory [Inviscid_3D_Constrained_ONERAM6](https://github.com/su2code/su2code.github.io/tree/master/Inviscid_3D_Constrained_ONERAM6) in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([inv_ONERAM6_adv.cfg](../../Inviscid_3D_Constrained_ONERAM6/inv_ONERAM6_adv.cfg)) and the mesh file ([mesh_ONERAM6_inv_FFD.su2](../../Inviscid_3D_Constrained_ONERAM6/mesh_ONERAM6_inv_FFD.su2)).
+The resources for this tutorial can be found in the directory [Inviscid_3D_Constrained_ONERAM6](https://github.com/su2code/Tutorials/tree/master/Inviscid_3D_Constrained_ONERAM6) in the [tutorials repository](https://github.com/su2code/Tutorials/tree/master/). You will need the configuration file ([inv_ONERAM6_adv.cfg](../../Inviscid_3D_Constrained_ONERAM6/inv_ONERAM6_adv.cfg)) and the mesh file ([mesh_ONERAM6_inv_FFD.su2](../../Inviscid_3D_Constrained_ONERAM6/mesh_ONERAM6_inv_FFD.su2)).
 
 Note that the mesh file already contains information about the definition of the Free Form Deformation (FFD) used for the definition of 3D design variables, but we will discuss how this is created below.
 
@@ -26,21 +27,21 @@ The following tutorial will walk you through the steps required when performing 
 
 ### Problem Setup
 
-The goal of this wing design problem is to minimize the coefficient of drag by changing the shape while imposing lift and wing section thickness constraints. As design variables, we will use a free-form deformation approach. In this approach, a lattice of control points making up a bounding box are placed around the geometry, and the movement of these control points smoothly deforms the surface shape of the geometry inside. We begin with a 3D fixed-wing geometry (initially the ONERA M6) at transonic speed in air (inviscid). The flow conditions are the same as for the previous [Inviscid ONERA M6](/tutorials/Inviscid_OneraM6/) tutorial.
+The goal of this wing design problem is to minimize the coefficient of drag by changing the shape while imposing lift and wing section thickness constraints. As design variables, we will use a free-form deformation approach. In this approach, a lattice of control points making up a bounding box are placed around the geometry, and the movement of these control points smoothly deforms the surface shape of the geometry inside. We begin with a 3D fixed-wing geometry (initially the ONERA M6) at transonic speed in air (inviscid). The flow conditions are the same as for the previous [Inviscid ONERA M6](https://su2code.github.io/Tutorials/docs/Inviscid_OneraM6/) tutorial.
 
 ![Opt. ONERA Grid](../../Inviscid_3D_Constrained_ONERAM6/images/onera_grid.png)
 Figure (1): View of the initial surface computational mesh.
 
 ### Mesh Description
 
-The mesh consists of a far-field boundary divided in three surfaces (XNORMAL_FACES, ZNORMAL_FACES, YNORMAL_FACES), an Euler wall (flow tangency) divided into three surfaces (UPPER_SIDE, LOWER_SIDE, TIP), and a symmetry plane (SYMMETRY_FACE). The baseline mesh is the same as for the previous [Inviscid ONERA M6](/tutorials/Inviscid_OneraM6/) tutorial. The surface mesh can be seen in Figure (1).
+The mesh consists of a far-field boundary divided in three surfaces (XNORMAL_FACES, ZNORMAL_FACES, YNORMAL_FACES), an Euler wall (flow tangency) divided into three surfaces (UPPER_SIDE, LOWER_SIDE, TIP), and a symmetry plane (SYMMETRY_FACE). The baseline mesh is the same as for the previous [Inviscid ONERA M6](https://su2code.github.io/Tutorials/docs/Inviscid_OneraM6/) tutorial. The surface mesh can be seen in Figure (1).
 
 ![Opt. ONERA FFD](../../Inviscid_3D_Constrained_ONERAM6/images/onera_ffd.png)
 Figure (2): View of the initial FFD box around the ONERA M6 wing, including the control points (spheres).
 
 ### Setting a constant Cl mode
 
-In aeronautical application is common to design at a constant Cl instead of at constant Angle of Attack (AoA). In other words, the AoA is introduced as a design variable to achive a particular Cl value. SU2 can directly use AoA as design variable but, that method requires to solve an adjoint equation for the Cl constratint. The prefered strategy is to run the direct solver in cte. Cl mode and the adjoint solver will compute the appropiate derivative for that mode. The basic setting for running at a constant Cl mode is described below:
+In aeronautical application is common to design at a constant Cl instead of at constant Angle of Attack (AoA). In this case, the AoA is introduced as a design variable to achieve a particular Cl value. SU2 can directly use AoA as design variable but, that method requires to solve an adjoint equation for the Cl constraint. The preferred strategy is to run the direct solver in cte. Cl mode and the adjoint solver will compute the appropriate derivative for that mode. The basic setting for running at a constant Cl mode is described below:
 ```
 % -------------------------- CL & CM DRIVER DEFINITION ------------------------%
 %
@@ -57,14 +58,14 @@ DCL_DALPHA= 0.1
 UPDATE_ALPHA= 10
 
 ``` 
-In this particular problem we are setting a value for the lift equal to 
+In this particular problem we are setting a value for the lift coefficient equal to 0.286.
 
 
 ### Setting up a Free-Form Deformation Box
  
 The mesh file that is provided for this test case already contains the FFD information. However, if you are interested in repeating this process for your own design cases, it is necessary to calculate the position of the control points and the parametric coordinates. The description below describes how to set up FFD boxes for deformation.
 
-The design variables are defined using the FFD methodology. We will customize a set a options that specifically target FFD box creation:
+The design variables are defined using the FFD methodology. We will customize a set an options that specifically target FFD box creation:
  
 ```
 % -------------------- FREE-FORM DEFORMATION PARAMETERS -----------------------%
@@ -89,7 +90,7 @@ FFD_DEGREE= (10, 8, 1)
 FFD_CONTINUITY= 2ND_DERIVATIVE
 ```
 
-As the current implementation requires each FFD box to be a quadrilaterally-faced hexahedron (6 faces, 12 edges, 8 vertices), we can simply specify the the 8 corner points of the box and the polynomial degree we would like to represent along each coordinate direction (x,y,z) in order to create the complete lattice of control points. It is convenient to think of the FFD box as a small structured mesh block with (i,j,k) indices for the control points, and note that the number of control points in each direction is the specified polynomial degree plus one. 
+As the current implementation requires each FFD box to be a quadrilaterally-faced hexahedron (6 faces, 12 edges, 8 vertices), we can simply specify the 8 corner points of the box and the polynomial degree we would like to represent along each coordinate direction (x,y,z) in order to create the complete lattice of control points. It is convenient to think of the FFD box as a small structured mesh block with (i,j,k) indices for the control points, and note that the number of control points in each direction is the specified polynomial degree plus one. 
 
 In the example above, we are creating a box with control point dimensions 11, 9, and 2 in the x-, y-, and z-directions, respectively, for a total of 198 available control points. In the `FFD_DEFINITION` option, we give a name to the box ("WING"), and then list out the x, y, and z coordinates of each corner point. The order is important, and you can use the example above to match the convention. The degree is then specified in the `FFD_DEGREE` option. A view of the box with the control points numbered is in Figure (3). Note that the numbering in the figure is 1-based just for visualization, but within SU2, the control points have 0-based indexing. For example, the (1,1,1) control point in the figure is control point (0,0,0) within SU2. This is critical for specifying the design variables in the config file.
 
@@ -108,7 +109,7 @@ With this preprocessing, the position of the control points and the parametric c
 
 ### Evaluating the Geometry
 
-In this particular problem the objective is to introduce a set of geometrical constraints. The first step is to check that SU2 is able to compute the correct geometrical quantities via executing SU2_GEO. The important information for SU2_GEO config file is provided below
+In this particular problem the objective is to introduce a set of geometrical constraints. The first step is to check that SU2 is able to compute the correct geometrical quantities via executing SU2_GEO. The important information for SU2_GEO configuration file is provided below
 
 ```
 % ----------------------- GEOMETRY EVALUATION PARAMETERS ----------------------%
@@ -136,9 +137,9 @@ GEO_NUMBER_STATIONS= 25
 GEO_MODE= FUNCTION
 ```
 
-On other words, we need to specify where the wing sections are located for applying the thickness constraints. In this config file, 5 thickness constraints can be applied during design defined in `GEO_LOCATION_STATIONS`. The thicknesses and their gradients are computed using the SU2_GEO module. As you can see, we need to specify the names of the markers that make up the geometry of interest in `GEO_MARKER` the kind of geometry that SU2_GEO is slicing `GEO_DESCRIPTION` and the physical bounds for the wing (Y coordinate). By using `GEO_PLOT_STATIONS` SU2_CFD will plot the Cp at each section and a spanload distribution plot.
+On other words, we need to specify where the wing stations are located to apply the thickness constraints. In this config file, 5 thickness constraints can be applied during design defined in `GEO_LOCATION_STATIONS`. The thicknesses and their gradients are computed using the SU2_GEO module. As you can see, we need to specify the names of the markers that make up the geometry of interest in `GEO_MARKER` the kind of geometry that SU2_GEO is slicing `GEO_DESCRIPTION` and the physical bounds for the wing (Y coordinate). By using `GEO_PLOT_STATIONS` SU2_CFD will plot the Cp at each section and a spanload distribution plot.
 
-With this setting it is now appropiate to execute SU2_GEO by typing "SU2_GEO inv_ONERAM6_adv.cfg" at the command line to obtain a baseline meassurement of the wing thickness at the 5 stations. Remember that SU2_GEO can also be executed in parallel (e.g. $mpirun -n 10 SU2_GEO inv_ONERAM6_adv.cfg). The following information came from the SU2_GEO screeen output:
+With this setting it is now appropriate to execute SU2_GEO by typing "SU2_GEO inv_ONERAM6_adv.cfg" at the command line to obtain a baseline measurement of the wing thickness at the 5 stations. Remember that SU2_GEO can also be executed in parallel (e.g. $mpirun -n 10 SU2_GEO inv_ONERAM6_adv.cfg). The following information came from the SU2_GEO screen output:
 
 ```
 Wing volume: 0.0260712 m^3. Wing min. thickness: 0.0553114 m. Wing max. thickness: 0.0784087 m.
@@ -160,7 +161,7 @@ Station 5. YCoord: 0.8 m, Area: 0.0220888 m^2, Thickness: 0.0553114 m,
 Chord: 0.5688 m, LE radius: 117.586 1/m, ToC: 0.0972423, Twist angle: 0 deg.
 ```
 
-Futhermore, SU2_GEO has created two interesting files with geometrical information: `wing_description.dat` and `wing_slices.dat` that can be used to fully understand the wing geometry.
+Furthermore, SU2_GEO has created two interesting files with geometrical information: `wing_description.dat` and `wing_slices.dat` that can be used to fully understand the wing geometry.
 
 
 ### Defining the Optimization Problem
@@ -171,11 +172,11 @@ Several of the key configuration file options are highlighted here. Since we are
 %
 % Optimization objective function with scaling factor
 % ex= Objective * Scale
-OPT_OBJECTIVE= DRAG * 1.0
+OPT_OBJECTIVE= DRAG 
 %
 % Optimization constraint functions with scaling factors, separated by semicolons
 % ex= (Objective = Value ) * Scale, use '>','<','='
-OPT_CONSTRAINT= (LIFT > 0.286) * 1.0; (MAX_THICKNESS_SEC1 > 0.078) * 1.0; (MAX_THICKNESS_SEC2 > 0.073) * 1.0; (MAX_THICKNESS_SEC3 > 0.067) * 1.0; (MAX_THICKNESS_SEC4 > 0.061) * 1.0; (MAX_THICKNESS_SEC5 > 0.055) * 1.0
+OPT_CONSTRAINT= (STATION1_THICKNESS > 0.077) * 0.001; (STATION2_THICKNESS > 0.072) * 0.001; (STATION3_THICKNESS > 0.066) * 0.001; (STATION4_THICKNESS > 0.060) * 0.001; (STATION5_THICKNESS > 0.054) * 0.001
 %
 % Factor to reduce the norm of the gradient (affects the objective function and gradient in the python scripts)
 % In general, a norm of the gradient ~1E-6 is desired.
@@ -183,7 +184,7 @@ OPT_GRADIENT_FACTOR= 1E-5
 %
 % Factor to relax or accelerate the optimizer convergence (affects the line search in SU2_DEF)
 % In general, surface deformations of 0.01'' or 0.0001m are desirable
-OPT_RELAX_FACTOR= 1E4
+OPT_RELAX_FACTOR= 1E3
 %
 % Maximum number of iterations
 OPT_ITERATIONS= 100
@@ -202,14 +203,14 @@ OPT_BOUND_LOWER= -0.3
 DEFINITION_DV= ( 7, 1.0 | UPPER_SIDE, LOWER_SIDE, TIP | WING, 0, 1, 0, 0.0, 0.0, 1.0 ); ( 7, 1.0 | UPPER_SIDE, LOWER_SIDE, TIP | WING, 1, 1, 0, 0.0, 0.0, 1.0 ); ...
 ```
 
-Here, we define the objective function for the optimization as drag with a pitching moment constraint and thickness constraints along 5 sections of the wing. The `DEFINITION_DV` is the list of design variables, note that this is a simulation/optimization at a cte. Cl and the angle of attack is a design variable. For this problem, we want to minimize the drag by changing the position of the control points of the control box. To do so, we list the set of FFD control points that we would like to use as variables. Each design variable is separated by a semicolon. The first value in the parentheses is the variable type, which is 7 for an FFD control point movement. The second value is the scale of the variable (typically left as 1.0). The name between the vertical bars is the marker tag(s) where the variable deformations will be applied. The final seven values in the parentheses are the particular information about the deformation: identification of the FFD tag, the i, j, and k index of the control point, and the allowed x, y, and z movement direction of the control point. Note that other types of design variables have their own specific input format. For this example, we have a long list of design variables that are not all listed above. You can quickly generate a list of FFD variables in the necessary format using the **set_ffd_design_var.py** script that is shipped with the other Python utilities with the source code.
+Here, we define the objective function for the optimization as drag with thickness constraints along 5 sections of the wing. The `DEFINITION_DV` is the list of design variables, note that this is a simulation/optimization at a cte. Cl and the angle of attack is a design variable. For this problem, we want to minimize the drag by changing the position of the control points of the control box. To do so, we list the set of FFD control points that we would like to use as variables. Each design variable is separated by a semicolon. The first value in the parentheses is the variable type, which is 7 for an FFD control point movement. The second value is the scale of the variable (typically left as 1.0). The name between the vertical bars is the marker tag(s) where the variable deformations will be applied. The final seven values in the parentheses are the particular information about the deformation: identification of the FFD tag, the i, j, and k index of the control point, and the allowed x, y, and z movement direction of the control point. Note that other types of design variables have their own specific input format. For this example, we have a long list of design variables that are not all listed above. You can quickly generate a list of FFD variables in the necessary format using the **set_ffd_design_var.py** script that is shipped with the other Python utilities with the source code.
 ```
 $ python set_ffd_design_var.py -i 10 -j 8 -k 1 -b WING -m 'UPPER_SIDE, LOWER_SIDE, TIP'
 ```
 
-The selection of `OPT_GRADIENT_FACTOR` and `OPT_RELAX_FACTOR` has a particular impact on the optimization. The `OPT_GRADIENT_FACTOR` is used to obtain a gradient norm (GNORM column in the shape_optimization.py screen ouput) of the order of 1E-6. On the other hand, `OPT_RELAX_FACTOR` is used to aid the optimizer in taking a physically appropriate first step (i.e., not too small or too large), the easiest way to check the initial step is by looking at `Max Diff:` value in `DSN_002/DEFORM/log_Deform.out`, in fact that value is the maximum diference beween the baseline geometry and the deformed geometry in the first step of the optimization.
+The selection of `OPT_GRADIENT_FACTOR` and `OPT_RELAX_FACTOR` has a particular impact on the optimization. The `OPT_GRADIENT_FACTOR` is used to obtain a gradient norm (GNORM column in the shape_optimization.py screen output) of the order of 1E-6. On the other hand, `OPT_RELAX_FACTOR` is used to aid the optimizer in taking a physically appropriate first step (i.e., not too small or too large), the easiest way to check the initial step is by looking at `Max Diff:` value in `DSN_002/DEFORM/log_Deform.out`, in fact that value is the maximum difference between the baseline geometry and the deformed geometry in the first step of the optimization.
 
-In this particular optimization problem it is also important to adjust the scale of the `OPT_CONSTRAINT` this scale factor is an effective method to control how much the violated constraint is going to change the objective function gradient (push factor). The selection and adjustment of these three parameters is important to fully explout the posibilities of the Python gradient based optimizers.
+In this particular optimization problem it is also important to adjust the scale of the `OPT_CONSTRAINT` this scale factor is an effective method to control how much the violated constraint is going to change the objective function gradient (push factor). The selection and adjustment of these three parameters is important to fully exploit the possibilities of the Python gradient based optimizers.
 
 
 ### Running SU2
@@ -243,3 +244,4 @@ Figure (6): View of the initial (black) and final (blue) FFD control point posit
 
 ![Opt. ONERA History](../../Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)
 Figure (7): Optimization history. The drag is reduced and the lift constraint is easily met.
+
