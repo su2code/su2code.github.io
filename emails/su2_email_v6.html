@@ -155,11 +155,14 @@
       width: 100%;
     }
     #wrapper {
-      margin: auto;
-      overflow: auto; /* so the size of the wrapper is alway the size of the longest content */
+      display: flex;
+      flex-wrap: wrap; /* optional. only if you want the items to wrap */
+      justify-content: center; /* for horizontal alignment */
+      align-items: center; /* for vertical alignment */
     }  
     #first {
       float: left;
+      margin-top: 10px;
     }
     #second {
       float: left;
