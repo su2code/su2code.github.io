@@ -27,14 +27,14 @@ The following tutorial will walk you through the steps required when performing 
 
 ### Problem Setup
 
-The goal of this wing design problem is to minimize the coefficient of drag by changing the shape while imposing lift and wing section thickness constraints. As design variables, we will use a free-form deformation approach. In this approach, a lattice of control points making up a bounding box are placed around the geometry, and the movement of these control points smoothly deforms the surface shape of the geometry inside. We begin with a 3D fixed-wing geometry (initially the ONERA M6) at transonic speed in air (inviscid). The flow conditions are the same as for the previous [Inviscid ONERA M6](https://su2code.github.io/Tutorials/docs/Inviscid_OneraM6/) tutorial.
+The goal of this wing design problem is to minimize the coefficient of drag by changing the shape while imposing lift and wing section thickness constraints. As design variables, we will use a free-form deformation approach. In this approach, a lattice of control points making up a bounding box are placed around the geometry, and the movement of these control points smoothly deforms the surface shape of the geometry inside. We begin with a 3D fixed-wing geometry (initially the ONERA M6) at transonic speed in air (inviscid). The flow conditions are the same as for the previous ONERA M6 tutorial.
 
 ![Opt. ONERA Grid](../../Inviscid_3D_Constrained_ONERAM6/images/onera_grid.png)
 Figure (1): View of the initial surface computational mesh.
 
 ### Mesh Description
 
-The mesh consists of a far-field boundary divided in three surfaces (XNORMAL_FACES, ZNORMAL_FACES, YNORMAL_FACES), an Euler wall (flow tangency) divided into three surfaces (UPPER_SIDE, LOWER_SIDE, TIP), and a symmetry plane (SYMMETRY_FACE). The baseline mesh is the same as for the previous [Inviscid ONERA M6](https://su2code.github.io/Tutorials/docs/Inviscid_OneraM6/) tutorial. The surface mesh can be seen in Figure (1).
+The mesh consists of a far-field boundary divided in three surfaces (XNORMAL_FACES, ZNORMAL_FACES, YNORMAL_FACES), an Euler wall (flow tangency) divided into three surfaces (UPPER_SIDE, LOWER_SIDE, TIP), and a symmetry plane (SYMMETRY_FACE). The baseline mesh is the same as for the previous ONERA M6 tutorial. The surface mesh can be seen in Figure (1).
 
 ![Opt. ONERA FFD](../../Inviscid_3D_Constrained_ONERAM6/images/onera_ffd.png)
 Figure (2): View of the initial FFD box around the ONERA M6 wing, including the control points (spheres).

@@ -1,5 +1,5 @@
 ---
-title: Unconstrained shape design of an transonic inviscid airfoil at a cte. AoA
+title: Unconstrained shape design of a transonic inviscid airfoil at a cte. AoA
 permalink: /tutorials/Inviscid_2D_Unconstrained_NACA0012/
 ---
 
@@ -39,7 +39,7 @@ The flow conditions of this numerical experiment are such that transonic shocks 
 - Temperature = 273.15 K
 - Mach number = 0.8
 
-While more advanced design problems can be selected, such as those containing flow and/or geoemtric constraints, we will consider a simple unconstrained drag minimization problem here to get started. Please note that, becuase this is a 2D Euler problem without constratins, the expected minimmum drag is going to be zero (or a small value due to numerical error in the spatial integration of the equation). To achive that theoretical minimum will depend on the selected design variables and the hability of the optimizer to identify a global minimum.
+While more advanced design problems can be selected, such as those containing flow and/or geoemtric constraints, we will consider a simple unconstrained drag minimization problem here to get started. Please note that, because this is a 2D Euler problem without constraints, the expected minimum drag is going to be zero (or a small value due to numerical error in the spatial integration of the equation). To achieve that theoretical minimum will depend on the selected design variables and the ability of the optimizer to identify a global minimum.
 
 ### Mesh Description
 
@@ -160,20 +160,9 @@ Note that there are many other types of design variables available in SU2, and e
 ![NACA 0012 Pressure](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_pressure_opt.png)
 Figure (3): Pressure contours for the baseline NACA 0012 airfoil.
 
-### Running SU2_GEO
-
-To prepare the ground for a future optimization with geometrical constratints it is interesting to execute the SU2_GEO software by typing 
-```
-$ SU2_GEO inv_NACA0012
-```
-The screen output of this software provides useful geometrical information (airfoil thickness, choord, etc) that the designer can use in the future, for example, by adding a basic geometrical constraint in the config file
-```
-OPT_CONSTRAINT= (AIRFOIL_THICKNESS > 0.12)
-```
-
 ### Running SU2
 
-The continuous adjoint methodology for obtaining surface sensitivities is implemented for several equation sets within SU2. After solving the direct flow problem, the adjoint problem is also solved which offers an efficient approach for calculating the gradient of an objective function with respect to a large set of design variables. This leads directly to a gradient-based optimization framework. With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Two other SU2 tools are used to compute the gradient from the adjoint solution (SU2_DOT) and deform the computational mesh (SU2_DEF) during the process. Note that if a geometrical constratint is added, its value and gradient will be coumpued by SU2_GEO
+The continuous adjoint methodology for obtaining surface sensitivities is implemented for several equation sets within SU2. After solving the direct flow problem, the adjoint problem is also solved which offers an efficient approach for calculating the gradient of an objective function with respect to a large set of design variables. This leads directly to a gradient-based optimization framework. With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Two other SU2 tools are used to compute the gradient from the adjoint solution (SU2_DOT) and deform the computational mesh (SU2_DEF) during the process. Note that if a geometrical constrains is added, its value and gradient will be computed by SU2_GEO
 
 ![NACA 0012 Adjoint](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_psi_density.png)
 Figure (4): Adjoint density contours on the baseline NACA 0012 airfoil.

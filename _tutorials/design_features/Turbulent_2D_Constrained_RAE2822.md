@@ -21,7 +21,7 @@ You can find the resources for this tutorial in the folder [Turbulent_Shape_Desi
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when performing shape design for the transonic turbulent airfoil using SU2 and the automatic differentiation tool. It is assumed that you have already obtained and compiled SU2_CFD, SU2_CFD_AD, SU2_DOT, SU2_DOT_AD, SU2_GEO, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](https://github.com/su2code/SU2/wiki/Download) and [Installation](https://github.com/su2code/SU2/wiki/Installation) pages. And do not forget to install the AD design capability [AD Build](https://github.com/su2code/SU2/wiki/AD-Build).
+The following tutorial will walk you through the steps required when performing shape design for the transonic turbulent airfoil using SU2 and the automatic differentiation tool. It is assumed that you have already obtained and compiled SU2_CFD, SU2_CFD_AD, SU2_DOT, SU2_DOT_AD, SU2_GEO, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages. And do not forget to install the AD design capability [AD Build](/docs/AD-Build/).
 
 ### Background
 
