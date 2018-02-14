@@ -173,12 +173,11 @@ where #cores is the number of cores. Depending of the installation, the keyword 
 
 ### Results for the optimal shape design problem:
 
-![RAE 2822 Final Contour](../../Turbulent_2D_Constrained_RAE2822/images/rae2822_final_contour.png)
-Figure (4): Pressure contours around the final airfoil design. Note the nearly shock-free final design.
+![RAE 2822 Final Cp](../../Turbulent_2D_Constrained_RAE2822/images/Optimization.png)
+Figure (4): Cp distribution comparison for the initial and final airfoil designs.
 
-![RAE 2822 Final Cp](../../Turbulent_2D_Constrained_RAE2822/images/rae2822_final_cp.png)
-Figure (5): Cp distribution and profile shape comparison for the initial and final airfoil designs.
+![RAE 2822 Final History Objective Function](../../Turbulent_2D_Constrained_RAE2822/images/CD_CL.png)
+Figure (5): Objective function evaluation history during the optimization process.
 
-![RAE 2822 Final History](../../Turbulent_2D_Constrained_RAE2822/images/rae2822_final_history.png)
-Figure (6): Function evaluation history during the optimization process.
-
+![RAE 2822 Final History Constraints](../../Turbulent_2D_Constrained_RAE2822/images/CM_THICK.png)
+Figure (6): Constraints evaluation history during the optimization process.
