@@ -7,7 +7,7 @@ It is recommended to read the information at [Build from Source](/docs/Build-fro
 
 The following requires a compiler which supports most of the C++11 features, i.e. GCC >= v4.7, Clang >= v3.0 or Intel C++ >= v12.0.
 
-In order to use the discrete adjoint solver the compilation requires two additional libraries. [CoDi](https://github.com/SciCompKL/CoDiPack) provides the AD datatype and [AdjointMPI](https://github.com/michel2323/AdjointMPI) provides the infrastructure for the MPI communication when the reverse mode of AD is used. Both libraries are added as submodules in `externals/` in the git repository of SU2. 
+In order to use the discrete adjoint solver the compilation requires two additional (header-only) libraries. [CoDi](https://github.com/SciCompKL/CoDiPack) provides the AD datatype and [MeDi](https://github.com/SciCompKL/MeDiPack) provides the infrastructure for the MPI communication when the reverse mode of AD is used. Both libraries are added as submodules in `externals/` in the git repository of SU2. 
 
 ## Configuration with AD support
 The initialization and compilation of these libraries as well as the configuration of SU2 is handled by the python script `preconfigure.py` inside the main directory. This script accepts the **same arguments** as the usual configure script (except `CXXFLAGS=...`) but in addition it offers the option `--enable-autodiff` to enable AD (reverse mode) for the discrete adjoint solver.
