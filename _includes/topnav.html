@@ -17,7 +17,8 @@
                 <li {% if page.sectionid=='docs' %} class="active" {% endif %}><a href="{{ "/docs/home/" | prepend: site.baseurl }}">Docs</a></li>
                 <li {% if page.sectionid=='tutorials' %} class="active" {% endif %}><a href="{{ "/tutorials/home/" | prepend: site.baseurl }}">Tutorials</a></li>
                 <li {% if page.sectionid=='forum' %} class="active" {% endif %}><a href="{{ "https://www.cfd-online.com/Forums/su2/" | prepend: site.baseurl }}">Forum</a></li>
-                <li {% if page.sectionid=='develop' %} class="disabled" {% endif %}><a href="{{ "http://su2devsociety.org" | prepend: site.baseurl }}">Develop</a></li>
+                <li {% if page.sectionid=='develop' %} class="active" {% endif %}><a href="{{ "/develop.html" | prepend: site.baseurl }}">Develop</a></li>
+                <li {% if page.sectionid=='ids' %} class="active" {% endif %}><a href="{{ "http://su2devsociety.org" | prepend: site.baseurl }}">IDS</a></li>
                 <li {% if page.sectionid=='blog' %} class="active" {% endif %}><a href="{{ site.posts.first.url | prepend: site.baseurl }}">News</a></li>
             </ul>
             <div class="navbar-right">
