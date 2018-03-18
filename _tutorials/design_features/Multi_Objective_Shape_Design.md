@@ -17,7 +17,7 @@ The capabilities of combining multiple objectives and incorporating penalty func
 
 ## Resources
 
-The resources for this tutorial can be found in the [Multi_Objective_Shape_Design](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design) directory in the [project website repository](https://github.com/su2code/su2code.github.io). Two examples are provided: an inviscid wedge which will be the main subject of this tutorial, and a variation on the previous tutorial on constrained optimization. You will need the configuration file [inv_wedge_ROE_multiobj_combo.cfg](inv_wedge_ROE_multiobj_combo.cfg), the mesh file [mesh_wedge_inv_FFD.su2](mesh_wedge_inv_FFD.su2), and solution files [solution_flow.dat](solution_flow.dat), [solution_adj_combo.dat](solution_adj_combo.dat).
+The resources for this tutorial can be found in the [Multi_Objective_Shape_Design](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file [inv_wedge_ROE_multiobj_combo.cfg](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/inv_wedge_ROE_multiobj_combo.cfg), the mesh file [mesh_wedge_inv_FFD.su2](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/mesh_wedge_inv_FFD.su2), and solution files [solution_flow.dat](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/solution_flow.dat), [solution_adj_combo.dat](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/solution_adj_combo.dat).
 
 ## Tutorial
 
