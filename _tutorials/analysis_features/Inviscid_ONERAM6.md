@@ -161,7 +161,7 @@ If SU2 has been built with parallel support, the recommended method for running 
      
     at the command line with `NP` being the number of processors to be used for the simulation.
  3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
- 4. The python script will automatically call the `SU2_SOL` executable for merging the decomposed solution files from each processor into a single file. The files containing the results will be written upon exiting SU2. The flow solution can then be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+ 4. The python script will automatically call the `SU2_SOL` executable for generating visualization files from the native restart file written during runtime. The flow solution can then be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
 
 ### Results
 
