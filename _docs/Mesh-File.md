@@ -17,7 +17,7 @@ The SU2 mesh format carries an extension of .su2, and the files are in a readabl
 
 Consider the following simple, 2D mesh for a square domain consisting of 8 triangular elements. It will be used to explain the .su2 mesh format.
 
-![Square Mesh Example](../docs_files/square.png)
+![Square Mesh Example](../../docs_files/square.png)
 
 **Square Mesh Example: Note that the figure uses Tecplot node and element number (1-based).  The node and element numbering for SU2 start at 0.**
 
