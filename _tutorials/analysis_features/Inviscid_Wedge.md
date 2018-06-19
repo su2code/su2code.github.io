@@ -96,27 +96,17 @@ Two dimensional problem.
 
 SU2 prints out information about the CGNS mesh including the filename, the number of points, and the number of elements. Another useful piece of information is the listing of the sections within the mesh. These descriptions give the type of elements for the section as well as any name given to it. For instance, when the inlet boundary information is read, SU2 prints "Loading section inlet of element type Line" to the console. This information can be used to verify that your mesh is being read correctly, or to help you remember (or even to learn for the first time) the names for each of the boundary markers that you will need for specifying boundary conditions in the config file.
 
-A converter for creating native .su2 meshes from CGNS meshes is built directly into SU2_DEF, along with many other facilities for manipulating and deforming grids (e.g., scaling, translating, rotating). We will discuss many more capabilities of SU2_DEF in future tutorials, especially features needed for design parameterization and mesh deformation for optimal shape design.
-
-First, we set several options that are used by SU2_DEF in order to convert the mesh. We will take advantage of the `SCALE` capability (`DV_KIND`) while setting the scale factor 1.0 in the `DV_VALUE` option. List *all* of the markers within the mesh in `DV_MARKER` option in order to perform a direct scaling of the mesh, i.e., every grid point location will be multiplied by the scaling factor in all dimensions. This will result in a 1-to-1 conversion of the mesh from the CGNS format to the SU2 native format. 
+A converter for creating native .su2 meshes from CGNS meshes is built directly into SU2_DEF, along with many other facilities for manipulating and deforming grids (e.g., scaling, translating, rotating). We will discuss many more capabilities of SU2_DEF in future tutorials, especially features needed for design parameterization and mesh deformation for optimal shape design. To perform a simple conversion of the grid with SU2_DEF, choose the following option:
 
 ```
 % ----------------------- DESIGN VARIABLE PARAMETERS --------------------------%
 %
-% Kind of deformation (TRANSLATION, ROTATION, SCALE)
-DV_KIND= SCALE
-%
-% Marker of the surface in which we are going apply the shape deformation
-DV_MARKER= ( upper, lower, inlet, outlet )
-%
-% Parameters of the shape deformation
-% - TRANSLATION ( x_Disp, y_Disp, z_Disp )
-% - ROTATION ( x_Orig, y_Orig, z_Orig, x_End, y_End, z_End )
-% - SCALE ( 1.0 )
-DV_PARAM= ( 1.0 )
-%
-% Value of the deformation
-DV_VALUE= 1.0
+% Kind of deformation (NO_DEFORMATION, SCALE_GRID, TRANSLATE_GRID, ROTATE_GRID,
+%                      FFD_SETTING, FFD_NACELLE,
+%                      FFD_CONTROL_POINT, FFD_CAMBER, FFD_THICKNESS, FFD_TWIST
+%                      FFD_CONTROL_POINT_2D, FFD_CAMBER_2D, FFD_THICKNESS_2D,
+%                      FFD_TWIST_2D, HICKS_HENNE, SURFACE_BUMP, SURFACE_FILE)
+DV_KIND= NO_DEFORMATION
 ```
 
 Provide a name for the converted mesh to be written (set to "mesh_out.su2" by default):
@@ -132,7 +122,30 @@ and lastly, run the SU2_DEF module:
 $ SU2_DEF inv_Wedge_HLLC.cfg
 ```
 
-You will now have a new mesh in the current working directory named "mesh_out.su2" that is in the SU2 native format. To use it, adjust the `MESH_FILENAME` and `MESH_FORMAT` options. The same process can be used to scale any mesh by entering a scale factor larger or smaller than 1.0.
+No other options related to the grid deformation capability are required. You will now have a new mesh in the current working directory named "mesh_out.su2" by default that is in the SU2 native format. To use it, adjust the `MESH_FILENAME` and `MESH_FORMAT` options. 
+
+SU2_DEF has other useful capability for quickly transforming grids. For example, we often need to scale the grid to be smaller or larger so that the grid is in units of meters. Here, we can take advantage of the `SCALE_GRID` capability (`DV_KIND`) while setting a constant scale factor in the `DV_VALUE` option. In this case, every grid point location will be multiplied by the scaling factor in all dimensions. It is also possible to rigidly rotate or translate the grid with the options `ROTATE_GRID` and `TRANSLATE_GRID`, respectively. For example, to scale the grid units by a factor of 10.0, the following options can be used:
+
+```
+% ----------------------- DESIGN VARIABLE PARAMETERS --------------------------%
+%
+%
+% Kind of deformation (NO_DEFORMATION, SCALE_GRID, TRANSLATE_GRID, ROTATE_GRID,
+%                      FFD_SETTING, FFD_NACELLE,
+%                      FFD_CONTROL_POINT, FFD_CAMBER, FFD_THICKNESS, FFD_TWIST
+%                      FFD_CONTROL_POINT_2D, FFD_CAMBER_2D, FFD_THICKNESS_2D,
+%                      FFD_TWIST_2D, HICKS_HENNE, SURFACE_BUMP, SURFACE_FILE)
+DV_KIND= SCALE_GRID
+%
+% - NO_DEFORMATION ( 1.0 )
+% - TRANSLATE_GRID ( x_Disp, y_Disp, z_Disp ), as a unit vector
+% - ROTATE_GRID ( x_Orig, y_Orig, z_Orig, x_End, y_End, z_End ) axis, DV_VALUE in deg.
+% - SCALE_GRID ( 1.0 )
+DV_PARAM= ( 1.0 )
+%
+% Value of the deformation
+DV_VALUE= 10.0
+```
 
 ### Running SU2
 
