@@ -1,5 +1,5 @@
 ---
-title: Turbulent NACA 0012 (incompressible)
+title: Turbulent NACA 0012
 permalink: /tutorials/Inc_Turbulent_NACA0012/
 ---
 

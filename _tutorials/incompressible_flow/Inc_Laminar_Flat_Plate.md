@@ -1,5 +1,5 @@
 ---
-title: Laminar Flat Plate with Heat Transfer (incompressible)
+title: Laminar Flat Plate with Heat Transfer
 permalink: /tutorials/Inc_Laminar_Flat_Plate/
 ---
 

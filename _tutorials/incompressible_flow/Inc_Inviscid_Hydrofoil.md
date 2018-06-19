@@ -1,5 +1,5 @@
 ---
-title: Inviscid Hydrofoil (incompressible)
+title: Inviscid Hydrofoil
 permalink: /tutorials/Inc_Inviscid_Hydrofoil/
 ---
 

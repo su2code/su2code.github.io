@@ -1,5 +1,5 @@
 ---
-title: Laminar Backward-facing Step(incompressible)
+title: Laminar Backward-facing Step
 permalink: /tutorials/Inc_Laminar_Step/
 ---
 

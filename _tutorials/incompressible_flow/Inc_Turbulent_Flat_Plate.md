@@ -1,5 +1,5 @@
 ---
-title: Turbulent Flat Plate (incompressible)
+title: Turbulent Flat Plate
 permalink: /tutorials/Inc_Turbulent_Flat_Plate/
 ---
 
