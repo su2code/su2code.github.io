@@ -18,11 +18,11 @@ The intent of this tutorial is to introduce the density-based incompressible flo
 ## Resources
 
 You can find the resources for this tutorial in the folder [Inc_Inviscid_Hydrofoil](https://github.com/su2code/su2code.github.io/tree/master/Inc_Inviscid_Hydrofoil) in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the mesh file [mesh_NACA0012_5deg_6814.su2](../../Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)
-and the config file [inv_NACA0012.cfg](../../Inc_Inviscid_Hydrofoil/inv_NACA0012.cfg).
+and the config file [inv_naca0012.cfg](../../Inc_Inviscid_Hydrofoil/inv_naca0012.cfg).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow past the hydrofoil. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow past the hydrofoil. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](../../_docs/Download.md) and [Installation](../../_docs/Installation.md) pages.
 
 ## Background
 
@@ -49,7 +49,7 @@ In order to use the incompressible solver, the flow regime should first be switc
 REGIME_TYPE= INCOMPRESSIBLE
 ```
  
- Once the incompressible mode is activated, the flow throughout the domain is initialized using a different set of options as compared to the compressible mode. The present problem is inviscid (no energy equation), so the only required initialization data is the density (constant) and flow velocity. These initialization values are set with the following options:
+Once the incompressible mode is activated, the flow throughout the domain is initialized using a different set of options as compared to the compressible mode. The present problem is inviscid (no energy equation), so the only required initialization data is the density (constant) and flow velocity. These initialization values are set with the following options:
 
  ```
 % Initial density for incompressible flows
@@ -87,11 +87,11 @@ The pressure outlet condition is prescibed as a uniform static (gauge) pressure.
 ### Running SU2
 
 The channel simulation uses a small mesh and a very aggressive CFL number, so this case will be run in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([inv_NACA0012.cfg](../../Inc_Inviscid_Hydrofoil/inv_NACA0012.cfg)) and the mesh file ([mesh_NACA0012_5deg_6814.su2](../../Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([inv_naca0012.cfg](../../Inc_Inviscid_Hydrofoil/inv_naca0012.cfg)) and the mesh file ([mesh_NACA0012_5deg_6814.su2](../../Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```
-    $ SU2_CFD inv_NACA0012.cfg
+    $ SU2_CFD inv_naca0012.cfg
     ```
      
      at the command line.
