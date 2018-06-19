@@ -22,7 +22,7 @@ The resources for this tutorial can be found in the [Inc_Laminar_Step](https://g
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow over a backward-facing step using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow over a backward-facing step using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](../../_docs/Download.md) and [Installation](../../_docs/Installation.md) pages.
 
 ### Background
 
@@ -31,16 +31,16 @@ The backward-facing step is another common test case for CFD codes. Although the
 
 ### Problem Setup
 
-This problem will solve the for the incompressible flow over the backward-facing step with the following conditions that are set to match the Reynolds numbers of 400 and 800 based on a channel height of 1 m:
+This problem will solve for the incompressible flow over the backward-facing step with the following conditions that are set to match the Reynolds numbers of 400 and 800 based on a channel height of 1 m:
 - Density (constant) = 1.0 kg/m^3
 - Outlet Pressure = 0.0 N/m^2
 - Viscosity (constant) = 0.0025 kg/(m-s) for Re 400, 0.00125 kg/(m-s) for Re 800
 
-The flow enters the domain from the inlet boundary on the upper half of the chnanel height in the positive x-direction with the following velocity profile: u(y) = 24.0 * y * (0.5 - y) for 0 <= y <= 0.5.
+The flow enters the domain from the inlet boundary on the upper half of the channel height in the positive x-direction with the following velocity profile: u(y) = 24.0 * y * (0.5 - y) for 0 <= y <= 0.5.
 
 ### Mesh Description
 
-The computational mesh for the backward-facing step is composed of quadrilaterals with 485 nodes in the x-direction and 65 nodes in the y-direction. The spacing of the nodes is uniform in the x- and y-directions. The domain is 15 channel heights in width. We will impose The upper and lower boundaries of the channel are no-slip walls.
+The computational mesh for the backward-facing step is composed of quadrilaterals with 485 nodes in the x-direction and 65 nodes in the y-direction. The spacing of the nodes is uniform in the x- and y-directions. The domain is 15 channel heights in width. We will impose that the upper and lower boundaries of the channel are no-slip walls.
 
 The upper half of the left vertical boundary of the domain is the inlet, while the bottom half is a no-slip wall representing the step face. Rather than simulate the upstream portion of the channel leading up to the step, we will impose the developed velocity profile given above as an inlet condition. A typical pressure outlet condition is imposed at the downstream boundary of the domain.
 
