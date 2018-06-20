@@ -7,7 +7,7 @@ permalink: /tutorials/Inc_Turbulent_Flat_Plate/
 
 ## Goals
 
-Upon completing this tutorial, the user will be familiar with performing a simulation of external, turbulent, incompressible flow over a flat plate. We repeat the [compressible turbulent flate plate tutorial](../analysis_features/Turbulent_Flat_Plate.md) here for incompressible flow and with different code-to-code comparisons. Consequently, the following capabilities of SU2 will be verified against other codes and theoretical results in this tutorial:
+Upon completing this tutorial, the user will be familiar with performing a simulation of external, turbulent, incompressible flow over a flat plate. We repeat the [compressible turbulent flate plate tutorial](/tutorials/Turbulent_Flat_Plate/) here for incompressible flow and with different code-to-code comparisons. Consequently, the following capabilities of SU2 will be verified against other codes and theoretical results in this tutorial:
 - Steady, 2D, incompressible RANS equations 
 - Spalart-Allmaras turbulence model
 - Flux Difference Splitting convective scheme in space (2nd-order, upwind)
@@ -24,7 +24,7 @@ The resources for this tutorial can be found in the [Inc_Turbulent_Flat_Plate](h
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the turbulent flow over a flat plate using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](../../_docs/Download.md) and [Installation](../../_docs/Installation.md) pages.
+The following tutorial will walk you through the steps required when solving for the turbulent flow over a flat plate using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
 ### Background
 
