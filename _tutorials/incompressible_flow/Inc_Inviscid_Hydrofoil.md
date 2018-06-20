@@ -22,7 +22,7 @@ and the config file [inv_naca0012.cfg](../../Inc_Inviscid_Hydrofoil/inv_naca0012
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow past the hydrofoil. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](../../_docs/Download.md) and [Installation](../../_docs/Installation.md) pages.
+The following tutorial will walk you through the steps required when solving for the flow past the hydrofoil. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
 ## Background
 
