@@ -26,7 +26,7 @@ of upper-surface roughness simulation hoar frost. NASA R & M 3726, 1970.), from 
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the turbulent flow over the NACA 0012 using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](../../_docs/Download.md) and [Installation](../../_docs/Installation.md) pages.
+The following tutorial will walk you through the steps required when solving for the turbulent flow over the NACA 0012 using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
 ### Background
 
