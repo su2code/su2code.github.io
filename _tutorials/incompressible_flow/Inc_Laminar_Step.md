@@ -22,7 +22,7 @@ The resources for this tutorial can be found in the [Inc_Laminar_Step](https://g
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow over a backward-facing step using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](../../_docs/Download.md) and [Installation](../../_docs/Installation.md) pages.
+The following tutorial will walk you through the steps required when solving for the flow over a backward-facing step using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
 ### Background
 
