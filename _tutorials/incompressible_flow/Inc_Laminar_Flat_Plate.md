@@ -91,7 +91,7 @@ We also now set the temperature as part of the input to the inlet boundary condi
 MARKER_INLET= ( inlet, 297.62, 69.1687, 1.0, 0.0, 0.0 )
 ```
 
-Defining a no-slip boundary condition for viscous walls can be accomplished in the same manner as in the compressible solver with the `MARKER_HEATFLUX` and `MARKER_ISOTHERMAL` options. The constant temperature boundary condition of 197.62 K is set on the flat plate as follows:
+Defining a no-slip boundary condition for viscous walls can be accomplished in the same manner as in the compressible solver with the `MARKER_HEATFLUX` and `MARKER_ISOTHERMAL` options. The constant temperature boundary condition of 148.81 K is set on the flat plate as follows:
 
 ```
 % -------------------- BOUNDARY CONDITION DEFINITION --------------------------%
