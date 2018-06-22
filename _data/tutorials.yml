@@ -3,7 +3,7 @@
   - home
   - contribute
 
-- title: Analysis Features
+- title: Compressible Flow
   tutorials:
   - Inviscid_Bump
   - Inviscid_Wedge
@@ -13,6 +13,15 @@
   - Turbulent_Flat_Plate
   - Transitional_Flat_Plate
   - Turbulent_ONERAM6
+
+- title: Incompressible Flow
+  tutorials:
+  - Inc_Inviscid_Hydrofoil
+  - Inc_Laminar_Flat_plate
+  - Inc_Turbulent_Flat_Plate
+  - Inc_Turbulent_NACA0012
+  - Inc_Laminar_Step
+  - Inc_Laminar_Cavity
 
 - title: Design Features
   tutorials:
