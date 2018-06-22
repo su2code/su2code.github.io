@@ -17,7 +17,7 @@
 - title: Incompressible Flow
   tutorials:
   - Inc_Inviscid_Hydrofoil
-  - Inc_Laminar_Flat_plate
+  - Inc_Laminar_Flat_Plate
   - Inc_Turbulent_Flat_Plate
   - Inc_Turbulent_NACA0012
   - Inc_Laminar_Step

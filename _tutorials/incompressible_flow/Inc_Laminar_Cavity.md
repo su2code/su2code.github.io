@@ -1,5 +1,5 @@
 ---
-title: Buoyancy-driven Cavity
+title: Laminar Buoyancy-driven Cavity
 permalink: /tutorials/Inc_Laminar_Cavity/
 ---
 
@@ -161,14 +161,14 @@ Figure (2): A plot of non-dim. density contours in the cavity.
 
 Figure (3): A plot of non-dim. velocity magnitude contours in the cavity.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_Ra1e3.png)
+![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_ra1e3.png)
 
 Figure (4): X-velocity comparison at the centerline for Ra = 1e3.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_Ra1e5.png)
+![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_ra1e5.png)
 
 Figure (5): X-velocity comparison at the centerline for Ra = 1e5.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_Ra1e6.png)
+![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_ra1e6.png)
 
 Figure (6): X-velocity comparison at the centerline for Ra = 1e6.
