@@ -40,7 +40,7 @@ Simulation of external, viscous flow around a 3D geometry (isolated wing) using 
 
 * [Inviscid Hydrofoil](/tutorials/Inc_Inviscid_Hydrofoil/)   
 A simulation of internal, inviscid, incompressible flow around a NACA 0012 hydrofoil.
-* [Laminar Flat Plate](/tutorials/Inc_Laminar_Flat_Plate/)    
+* [Laminar Flat Plate with Heat Transfer](/tutorials/Inc_Laminar_Flat_Plate/)    
 Simulation of external, laminar, incompressible flow over a flat plate (classical Navier-Stokes case).
 * [Turbulent Flat Plate](/tutorials/Inc_Turbulent_Flat_Plate/)    
 Simulation of external, turbulentm incompressible flow over a flat plate (classical RANS case).
