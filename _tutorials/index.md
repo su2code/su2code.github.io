@@ -17,7 +17,7 @@ You can get all the mesh and config files either by cloning or downloading the [
 ## Summary of tutorials
 ------
 
-#### Analysis Features
+#### Compressible Flow
 
 * [Inviscid Bump in a Channel](/tutorials/Inviscid_Bump/)   
 A simulation of internal, inviscid flow through a 2D geometry.
@@ -26,15 +26,30 @@ Get familiar with a basic supersonic flows with analytical solution.
 * [Inviscid ONERAM6](/tutorials/Inviscid_ONERAM6/)    
 Simulation of external, inviscid flow around a 3D geometry (isolated wing).
 * [Laminar Flat Plate](/tutorials/Laminar_Flat_Plate/)   
-Simulation of external, laminar flow over a flat plate (clasical Navier-Stokes validation).
+Simulation of external, laminar flow over a flat plate (classical Navier-Stokes validation).
 * [Laminar Cylinder](/tutorials/Laminar_Cylinder/)    
 Simulation of external, laminar flow around a 2D cylinder.
 * [Turbulent Flat Plate](/tutorials/Turbulent_Flat_Plate/)    
-Simulation of external, turbulent flow over a flat plate (clasical RANS validation).
+Simulation of external, turbulent flow over a flat plate (classical RANS validation).
 * [Transitional Flat Plate](/tutorials/Transitional_Flat_Plate/)    
 Simulation of external, transitional flow over a flat plate (transitional latminar-turbulent case)
 * [Turbulent ONERAM6](/tutorials/Turbulent_ONERAM6/)    
 Simulation of external, viscous flow around a 3D geometry (isolated wing) using a turbulence model.
+
+#### Incompressible Flow
+
+* [Inviscid Hydrofoil](/tutorials/Inc_Inviscid_Hydrofoil/)   
+A simulation of internal, inviscid, incompressible flow around a NACA 0012 hydrofoil.
+* [Laminar Flat Plate with Heat Transfer](/tutorials/Inc_Laminar_Flat_Plate/)    
+Simulation of external, laminar, incompressible flow over a flat plate (classical Navier-Stokes case).
+* [Turbulent Flat Plate](/tutorials/Inc_Turbulent_Flat_Plate/)    
+Simulation of external, turbulentm incompressible flow over a flat plate (classical RANS case).
+* [Turbulent NACA 0012](/tutorials/Inc_Turbulent_NACA0012/)    
+Simulation of external, viscous, incompressible flow around the NACA 0012 using a turbulence model.
+* [Laminar Backward-facing Step](/tutorials/Inc_Laminar_Step/)    
+Simulation of internal, laminar, incompressible flow over a backward-facing step with an inlet velocity profile input from file.
+* [Laminar Buoyancy-driven Cavity](/tutorials/Inc_Laminar_Cavity/)    
+Simulation of internal, laminar, incompressible flow in a differentially-heated cavity under the influence of gravity (classical natural convection case).
 
 #### Shape Design Features
 
