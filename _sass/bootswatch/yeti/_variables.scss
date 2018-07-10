@@ -491,8 +491,7 @@ $jumbotron-bg:                   #fafafa !default;
 $jumbotron-heading-color:        inherit !default;
 $jumbotron-font-size:            ceil(($font-size-base * 1.5)) !default;
 $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
-//$jumbotron-text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-$jumbotron-text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
+$jumbotron-text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 
 //== Form states and alerts
 //
