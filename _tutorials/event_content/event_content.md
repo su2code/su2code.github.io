@@ -7,6 +7,29 @@ Below, you will find an archive of materials from the various SU2 workshops, web
 
 ------
 
+#### 3rd Annual SU2 Developers Meeting. Sept. 16-17, 2018
+
+* [Meeting Agenda](../../documents/dev_meeting_2018/SU2_Dev_Meeting_Agenda_20180916.pdf)
+
+* [Introduction to developing in SU2](../../documents/dev_meeting_2018/su2_hackathon_economon.pdf)
+* [Day 1 Meeting Recording](http://adl.stanford.edu/dropbox/Hackathon-Shortened.mov)
+
+* [Welcome & Year in Review](../../documents/dev_meeting_2018/su2_dev_alonso_economon.pdf)
+* [SU2-NEMO - Thermochemistry and high-Mach aerothermodynamics](../../documents/dev_meeting_2018/su2_dev_alonso_economon.pdf)
+* [Toward optimization for reactive flows in SU2](../../documents/dev_meeting_2018/su2_dev_beishuizen.pdf)
+* [Conjugate heat transfer problems and computing coupled discrete adjoints using AD](../../documents/dev_meeting_2018/su2_dev_burghardt.pdf)
+* [Physics-based RANS model-form UQ in SU2](../../documents/dev_meeting_2018/su2_dev_mukhopadhaya.pdf)
+* [Aeroacoustics prediction and optimization capabilities in SU2](../../documents/dev_meeting_2018/su2_dev_zhou.pdf)
+* [Higher-order SU2: DG-FEM solver and WENO-FV solver with LES/ILES/WMLES applications](../../documents/dev_meeting_2018/su2_dev_vanderweide_singh.pdf)
+* [Unsteady optimization with SU2: application to turbomachinery design](../../documents/dev_meeting_2018/su2_dev_rubino.pdf)
+* [Preliminary results on rotor-fuselage aerodynamics using SU2: status and challenges](../../documents/dev_meeting_2018/su2_dev_morelli.pdf)
+* [Anisotropic mesh adaptation with the INRIA AMG library](../../documents/dev_meeting_2018/su2_dev_loseille.pdf)
+* [Simulation and adjoint-based design for variable density incompressible flows with heat transfer](../../documents/dev_meeting_2018/su2_dev_economon.pdf)
+* [Implementation of pressure-based Navier-Stokes for wind energy applications](../../documents/dev_meeting_2018/su2_dev_koodlyravishankara.pdf)
+* [SU2-IDS: International Developers Society](../../documents/dev_meeting_2018/su2_dev_albring_sanchez.pdf)
+* [Day 2 Meeting Recording](http://adl.stanford.edu/dropbox/3rdAnnualSU2DevelopersMeeting-Presentations.mov)
+
+
 #### 2nd Annual SU2 Developers Meeting. Dec. 18th, 2017
 
 * [Meeting Agenda](../../documents/SU2_Dev_Meeting_Agenda_20171218.pdf)
