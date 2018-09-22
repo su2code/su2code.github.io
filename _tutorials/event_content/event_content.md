@@ -12,7 +12,7 @@ Below, you will find an archive of materials from the various SU2 workshops, web
 * [Meeting Agenda](../../documents/dev_meeting_2018/SU2_Dev_Meeting_PresentationAgenda_20180916.pdf)
 
 * [Introduction to developing in SU2](../../documents/dev_meeting_2018/00_su2_hackathon_economon.pdf)
-* [Day 1 Meeting Recording](http://adl.stanford.edu/dropbox/Hackathon-Shortened.mov)
+* [Day 1 Meeting Recording](https://youtu.be/QgYzFLoEAYA)
 
 * [Welcome & Year in Review](../../documents/dev_meeting_2018/01_su2_dev_alonso_economon.pdf)
 * [SU2-NEMO - Thermochemistry and high-Mach aerothermodynamics](../../documents/dev_meeting_2018/02_su2_dev_fossati.pdf)
@@ -27,7 +27,7 @@ Below, you will find an archive of materials from the various SU2 workshops, web
 * [Simulation and adjoint-based design for variable density incompressible flows with heat transfer](../../documents/dev_meeting_2018/11_su2_dev_economon.pdf)
 * [Implementation of pressure-based Navier-Stokes for wind energy applications](../../documents/dev_meeting_2018/12_su2_dev_koodlyravishankara.pdf)
 * [SU2-IDS: International Developers Society](../../documents/dev_meeting_2018/13_su2_dev_albring_sanchez.pdf)
-* [Day 2 Meeting Recording](http://adl.stanford.edu/dropbox/3rdAnnualSU2DevelopersMeeting-Presentations.mov)
+* [Day 2 Meeting Recording](https://youtu.be/jkZaPsKDvvQ)
 
 
 #### 2nd Annual SU2 Developers Meeting. Dec. 18th, 2017
