@@ -9,24 +9,24 @@ Below, you will find an archive of materials from the various SU2 workshops, web
 
 #### 3rd Annual SU2 Developers Meeting. Sept. 16-17, 2018
 
-* [Meeting Agenda](../../documents/dev_meeting_2018/SU2_Dev_Meeting_Agenda_20180916.pdf)
+* [Meeting Agenda](../../documents/dev_meeting_2018/SU2_Dev_Meeting_PresentationAgenda_20180916.pdf)
 
-* [Introduction to developing in SU2](../../documents/dev_meeting_2018/su2_hackathon_economon.pdf)
+* [Introduction to developing in SU2](../../documents/dev_meeting_2018/00_su2_hackathon_economon.pdf)
 * [Day 1 Meeting Recording](http://adl.stanford.edu/dropbox/Hackathon-Shortened.mov)
 
-* [Welcome & Year in Review](../../documents/dev_meeting_2018/su2_dev_alonso_economon.pdf)
-* [SU2-NEMO - Thermochemistry and high-Mach aerothermodynamics](../../documents/dev_meeting_2018/su2_dev_alonso_economon.pdf)
-* [Toward optimization for reactive flows in SU2](../../documents/dev_meeting_2018/su2_dev_beishuizen.pdf)
-* [Conjugate heat transfer problems and computing coupled discrete adjoints using AD](../../documents/dev_meeting_2018/su2_dev_burghardt.pdf)
-* [Physics-based RANS model-form UQ in SU2](../../documents/dev_meeting_2018/su2_dev_mukhopadhaya.pdf)
-* [Aeroacoustics prediction and optimization capabilities in SU2](../../documents/dev_meeting_2018/su2_dev_zhou.pdf)
-* [Higher-order SU2: DG-FEM solver and WENO-FV solver with LES/ILES/WMLES applications](../../documents/dev_meeting_2018/su2_dev_vanderweide_singh.pdf)
-* [Unsteady optimization with SU2: application to turbomachinery design](../../documents/dev_meeting_2018/su2_dev_rubino.pdf)
-* [Preliminary results on rotor-fuselage aerodynamics using SU2: status and challenges](../../documents/dev_meeting_2018/su2_dev_morelli.pdf)
-* [Anisotropic mesh adaptation with the INRIA AMG library](../../documents/dev_meeting_2018/su2_dev_loseille.pdf)
-* [Simulation and adjoint-based design for variable density incompressible flows with heat transfer](../../documents/dev_meeting_2018/su2_dev_economon.pdf)
-* [Implementation of pressure-based Navier-Stokes for wind energy applications](../../documents/dev_meeting_2018/su2_dev_koodlyravishankara.pdf)
-* [SU2-IDS: International Developers Society](../../documents/dev_meeting_2018/su2_dev_albring_sanchez.pdf)
+* [Welcome & Year in Review](../../documents/dev_meeting_2018/01_su2_dev_alonso_economon.pdf)
+* [SU2-NEMO - Thermochemistry and high-Mach aerothermodynamics](../../documents/dev_meeting_2018/02_su2_dev_fossati.pdf)
+* [Toward optimization for reactive flows in SU2](../../documents/dev_meeting_2018/03_su2_dev_beishuizen.pdf)
+* [Conjugate heat transfer problems and computing coupled discrete adjoints using AD](../../documents/dev_meeting_2018/04_su2_dev_burghardt.pdf)
+* [Physics-based RANS model-form UQ in SU2](../../documents/dev_meeting_2018/05_su2_dev_mukhopadhaya.pdf)
+* [Aeroacoustics prediction and optimization capabilities in SU2](../../documents/dev_meeting_2018/06_su2_dev_zhou.pdf)
+* [Higher-order SU2: DG-FEM solver and WENO-FV solver with LES/ILES/WMLES applications](../../documents/dev_meeting_2018/07_su2_dev_vanderweide_singh.pdf)
+* [Unsteady optimization with SU2: application to turbomachinery design](../../documents/dev_meeting_2018/08_su2_dev_rubino.pdf)
+* [Preliminary results on rotor-fuselage aerodynamics using SU2: status and challenges](../../documents/dev_meeting_2018/09_su2_dev_morelli.pdf)
+* [Anisotropic mesh adaptation with the INRIA AMG library](../../documents/dev_meeting_2018/10_su2_dev_loseille.pdf)
+* [Simulation and adjoint-based design for variable density incompressible flows with heat transfer](../../documents/dev_meeting_2018/11_su2_dev_economon.pdf)
+* [Implementation of pressure-based Navier-Stokes for wind energy applications](../../documents/dev_meeting_2018/12_su2_dev_koodlyravishankara.pdf)
+* [SU2-IDS: International Developers Society](../../documents/dev_meeting_2018/13_su2_dev_albring_sanchez.pdf)
 * [Day 2 Meeting Recording](http://adl.stanford.edu/dropbox/3rdAnnualSU2DevelopersMeeting-Presentations.mov)
 
 
