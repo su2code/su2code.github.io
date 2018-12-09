@@ -62,35 +62,35 @@ The module is built to be *versatile*, such that it can be used by experts and n
 If there is a need to perform the perturbations individually (for example to run them in parallel, or on different machines), configuration options need to be set to specify the kind of perturbation to perform. 
 
 ```
-% ------------------ UNCERTAINTY QUANTIFICATION DEFINITION ------------------%
+% ------------------- UNCERTAINTY QUANTIFICATION DEFINITION -------------------%
 %
 % Using uncertainty quantification module (YES, NO). Only available with SST
 USING_UQ= YES
 %
 % Eigenvalue perturbation definition (1, 2, or 3)
-COMPONENTALITY= 1
+UQ_COMPONENT= 1
 %
 % Permuting eigenvectors (YES, NO)
-PERMUTE= NO
+UQ_PERMUTE= NO
 %
 % Under-relaxation factor (float [0,1], default = 0.1)
-URLX= 0.1
+UQ_URLX= 0.1
 %
 % Perturbation magnitude (float [0,1], default= 1.0)
-BETA_DELTA= 1.0
+UQ_DELTA_B= 1.0
 
 ```
 
 1. USING_UQ: Boolean that ensures EQUiPS module is used. This is required to be set to YES. 
-2. COMPONENTALITY: Number that specifies the eigenvalue perturbation to be performed
-3. PERMUTE: Boolean that indicates whether eigenvector permutation needs to be performed
+2. UQ_COMPONENT: Number that specifies the eigenvalue perturbation to be performed
+3. UQ_PERMUTE: Boolean that indicates whether eigenvector permutation needs to be performed
 4. URLX: Sets the under-relaxation factor used in performing perturbation. This option need not be changed unless the perturbation simulations are unstable. URXL can be in the range of [0; 1] and it's default value is 0:1. This should not be set to < 0:05 as the perturbations may not be completed
 by convergence.
-5. BETA_DELTA: Sets the magnitude of perturbation. This option should not be touched without having read the references on the Eigenspace Perturbation methodology. BETA_DELTA [0; 1] and it's default value is 1.0. The default value corresponds to a full perturbation and is required to correctly characterize the epistemic uncertainties
+5. UQ_DELTA_B: Sets the magnitude of perturbation. This option should not be touched without having read the references on the Eigenspace Perturbation methodology. UQ_DELTA_B [0; 1] and it's default value is 1.0. The default value corresponds to a full perturbation and is required to correctly characterize the epistemic uncertainties
 
-Specific combinations of COMPONENTALITY and PERMUTE are required to perform the 5 perturbed simulations needed to characterize the interval estimates on the QOIs. The combinations are highlighted in Table (1)
+Specific combinations of UQ_COMPONENT and UQ_PERMUTE are required to perform the 5 perturbed simulations needed to characterize the interval estimates on the QOIs. The combinations are highlighted in Table (1)
 
-| Perturbation | COMPONENTALITY | PERMUTE |
+| Perturbation | UQ_COMPONENT | UQ_PERMUTE |
 |--------------|----------------|---------|
 |1c | 1 | NO |
 |2c | 2 | NO |
