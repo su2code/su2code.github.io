@@ -13,6 +13,7 @@
   - Turbulent_Flat_Plate
   - Transitional_Flat_Plate
   - Turbulent_ONERAM6
+  - UQ_NACA0012
 
 - title: Incompressible Flow
   tutorials:

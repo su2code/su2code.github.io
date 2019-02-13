@@ -35,6 +35,8 @@ Simulation of external, turbulent flow over a flat plate (classical RANS validat
 Simulation of external, transitional flow over a flat plate (transitional latminar-turbulent case)
 * [Turbulent ONERAM6](/tutorials/Turbulent_ONERAM6/)    
 Simulation of external, viscous flow around a 3D geometry (isolated wing) using a turbulence model.
+* [Epistemic Uncertainty Quantification of RANS predictions of NACA 0012 airfoil](/tutorials/UQ_NACA0012/)
+Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models
 
 #### Incompressible Flow
 
