@@ -8,12 +8,20 @@ SU2 uses the GNU automake tools to configure and build the software from source 
 To illustrate an advanced build, let's assume that you would like to build SU2 for running parallel calculations. In short, you will need to make sure some extra software is available and then execute a set of commands like the following:
 ```
 $ cd /path/to/SU2
+$ ./bootstrap
 $ ./configure --prefix=/path/to/install/SU2 CXXFLAGS="-O3" --enable-mpi 
 --with-cc=/path/to/mpicc --with-cxx=/path/to/mpicxx
 $ make -j 8 install
 ```
 
 Let's break this down and discuss the configure process and options in more detail.
+
+### Bootstrap
+Before building, a bootstrap script is included in the SU2/ directory for quickly customizing the autotools structure on your system. Simply run 
+```
+$ ./bootstrap 
+```
+in the SU2/ root directory (you may need to adjust your PATH after running this script) to build the appropriate dependencies and reset the makefile structure rather than calling autoreconf on your own. 
 
 ### Compiler Flags
 You can submit flags to your compiler for building SU2 using the `CXXFLAGS` variable. The most common choices are to impose a level of compiler optimization or perhaps a debug flag with `-g`. For example, a high level of compiler optimization can be set by adding 

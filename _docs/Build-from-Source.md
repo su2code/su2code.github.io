@@ -9,7 +9,9 @@ This section provides details on the various tools and requirements when buildin
 
 ### GNU Autoconf / Automake Tools
 
-These tools are widely used and frequently installed with most installations of Linux and Max OS X. Please check your system to ensure these tools are available prior to installation. Starting from release 3.1.0 and onward, the required versions of autotools are included inside the externals/ directory, and a bootstrap script is included in the SU2/ directory for quickly building them and reseting the makefile structure if they are not available on your system or are an earlier version. Simply run ./bootstrap in the SU2/ root directory (you may need to adjust your PATH after running this script) to build the appropriate dependencies and reset the makefile structure (rather than calling autoreconf on your own). 
+These tools are widely used and frequently installed with most installations of Linux and Max OS X. Please check your system to ensure these tools are available prior to installation. Starting from release 3.1.0 and onward, the required versions of autotools are included inside the externals/ directory, and a bootstrap script is included in the SU2/ directory for quickly building them and reseting the makefile structure if they are not available on your system or are an earlier version. 
+
+Simply run ./bootstrap in the SU2/ root directory (you may need to adjust your PATH after running this script) to build the appropriate dependencies and reset the makefile structure rather than calling autoreconf on your own. 
 
 ### Compilers
 
@@ -20,15 +22,21 @@ Installing SU2 from source requires a C++ compiler. The GNU compilers (gcc/g++) 
 
 ### Parallel Tools
 
-The ParMETIS graph partitioning software and an MPI implementation are required to compile and run SU2 in parallel. The source for ParMETIS is shipped with SU2 and can be found in the externals/ directory. ParMETIS will automatically be built and linked if you set 
+The ParMETIS graph partitioning software and a Message Passing Interface (MPI) implementation are required to compile and run SU2 in parallel. The source for ParMETIS is shipped with SU2 and can be found in the externals/ directory. ParMETIS will automatically be built and linked if you set 
 ```
 --enable-mpi --with-cc=/path/to/mpicc --with-cxx=/path/to/mpicxx
 ``` 
-in your configure options, which requests a build of the parallel version of the code with the specified MPI implementation on your machine. An implementation of the Message Passing Interface (MPI) standard is required for building the parallel version, and a number of available implementations are linked from the main installation page. In particular, you will need both a C (for ParMETIS) and C++ (for SU2) MPI implementation.
+in your configure options, which requests a build of the parallel version of the code with the specified MPI implementation on your machine. If you do not have a MPI implementation, a number of available packages are listed on the main installation page. In particular, you will need both a C (for ParMETIS) and C++ (for SU2) MPI implementation.
 
 ## Configuration 
 
-Before building, SU2 must run the configuration script that will scan your system for the necessary prerequisites and generate the appropriate makefiles. The simplest version of SU2 can be configured by running configure with no arguments, or 
+Before building, a bootstrap script is included in the SU2/ directory for quickly customizing the autotools structure on your system. Simply run 
+```
+$ ./bootstrap 
+```
+in the SU2/ root directory (you may need to adjust your PATH after running this script) to build the appropriate dependencies and reset the makefile structure rather than calling autoreconf on your own. 
+
+Next, SU2 must run the configuration script that will scan your system for the necessary prerequisites and generate the appropriate makefiles. The simplest version of SU2 can be configured by running configure with no arguments, or 
 ```
 $ cd /path/to/SU2/
 $ ./configure
@@ -82,11 +90,11 @@ For example, add these lines to your ~/.bashrc (linux) or ~/.bash_profile (macos
 ```
 export SU2_RUN="your/prefix/bin"
 export SU2_HOME="/path/to/SU2"
-export PATH=$PATH:$SU2_RUN
+export PATH=$SU2_RUN:$PATH
 ```
 If you plan to use the Python scripts for parallel calculations or design and optimization tasks, you may also want to include $SU2_RUN in your Python path:
 ```
-export PYTHONPATH=$PYTHONPATH:$SU2_RUN
+export PYTHONPATH=$SU2_RUN:$PYTHONPATH
 ```
 
 That's it: you're now ready to run SU2! Check out the Quick Start and additional tutorials.
@@ -96,9 +104,3 @@ That's it: you're now ready to run SU2! Check out the Quick Start and additional
 In order to prepare your Mac for compiling/running/developing SU2, you will need to download Xcode from the App Store. After obtaining Xcode, you should also install the Developer Tools package from inside of the Xcode distribution. This contains tools like make and the LLVM compiler, and after installing the dev tools, they will be available from within the native Terminal app. If you can not find gcc, make, etc. at the command line after installing Xcode, you may need to install the remaining developer tools by entering the following command in the terminal: `xcode-select --install`. 
 
 Environment variables, such as SU2_RUN and SU2_HOME, on Mac OS X can be set within ~/.bash_profile (this file may not exist by default, so you can create it yourself if necessary). Lastly, note also that project files for developing the SU2 modules in Xcode are provided inside the SU2/SU2_IDE/Xcode/ directory of the SU2 source distribution. 
-
-To have the TecIO library (the source ships with SU2) automatically built and linked on Mac, include the following configure options:
-```
---enable-tecio CPPFLAGS="-I/opt/X11/include"
-```
-where the CPPFLAGS flag makes sure that it can find the correct X11 dependencies. For platforms other than Mac OS X, the configure script must also be able to find the X11 library headers for the TecIO library to be built. If ```--enable-tecio``` is used in the configure step and the output states that TecIO will not be built, it is likely that the configure program was unable to locate the X11 header files.
