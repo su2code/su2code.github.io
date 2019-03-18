@@ -50,7 +50,9 @@ The shell used for all command line steps is the the default Cygwin bash shell.
    b) unzip and untar                                                                                    
    c) change into the folder where files were untarred                                                    
       NOTE: this is later (see step 7) the folder where the SU2_HOME variable points to                  
-                                                                                                         
+
+3a) ./bootstrap
+
 4) Launch following configure command:                                                                   
    NOTE: didn't get tecio working, therefore disabled with --disable-tecio                               
    NOTE: "--enable-mpi-cxx" instead of "--enable-mpi"                                                    
