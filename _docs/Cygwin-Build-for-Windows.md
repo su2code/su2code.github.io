@@ -134,8 +134,8 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
 
 1. Create Makefiles:
 
-   NOTE: didn't yet get `tecio` working, therefore disabled with `--disable-tecio`<br>
-   NOTE: Removed `-DHAVE_EXECINFO_H` from metis cppflags (potentially could be solved via [gnulib](https://www.gnu.org/software/gnulib/manual/html_node/execinfo_002eh.html))
+   > NOTE: didn't yet get `tecio` working, therefore disabled with `--disable-tecio`<br>
+   > NOTE: Removed `-DHAVE_EXECINFO_H` from metis cppflags (potentially could be solved via [gnulib](https://www.gnu.org/software/gnulib/manual/html_node/execinfo_002eh.html))
   
    ```bash
    ./configure --prefix=/home/Andreas/SU2-6.2.0 -enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx --disable-tecio --with-metis-cppflags="-D_FILE_OFFSET_BITS=64 -DNDEBUG -DNDEBUG2 -DHAVE_GETLINE" 
