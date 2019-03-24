@@ -62,6 +62,7 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
         * openmpi
      1. Miscellaneous
         * vim (or any other editor in order to be able to edit files)
+        * rsh
         * wget (to be able to download from the command line)
         * zlib-devel
     
@@ -70,7 +71,7 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
    > NOTE: Prepend path to `setup-x86_64.exe` (depending where it has been downloaded)
      
      ```bash
-     setup-x86_64.exe -q -P autoconf,autoconf2.5,autogen,automake,automake1.15,libtool,make,gcc-g++,mingw64-x86_64-gcc-core,mingw64-x86_64-gcc-g++,python37,python37-devel,python3-configobj,libopenmpi-devel,openmpi,vim,wget,zlib-devel
+     setup-x86_64.exe -q -P autoconf,autoconf2.5,autogen,automake,automake1.15,libtool,make,gcc-g++,mingw64-x86_64-gcc-core,mingw64-x86_64-gcc-g++,python37,python37-devel,python3-configobj,libopenmpi-devel,openmpi,vim,rsh,wget,zlib-devel
      ```
    
 1. Configure CYGWINs default mount point (optional, but following steps use a syntax relying on this)
