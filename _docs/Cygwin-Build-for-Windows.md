@@ -190,9 +190,3 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
    ```bash
    mpiexec -n 8 -oversubscribe SU2_CFD.exe inv_NACA0012.cfg
    ```
-   
-   or
-   
-   ```bash
-   mpiexec --use-hwthread-cpus -n 8 SU2_CFD.exe inv_NACA0012.cfg
-   ```
