@@ -81,7 +81,6 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
    mount -m > /etc/fstab
    ```
 
-
 1. Configure OpenMPI
 
    Because in OpenMPI the C++ interface was removed, the option `-lmpi_cxx` has to be removed from the linker defaults. We need to check if this option is contained in the wrapper control file. This depends on the installed OpenMPI libraries.
@@ -103,7 +102,6 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
 
        libs=-lmpi                                        
        libs_static=-lmpi -lopen-rte -lopen-pal -lm -lgdi3
-
 
 1. Set the Python version for the installation process (for permanent setting add this line to `~/.profile`)
    
