@@ -28,7 +28,6 @@ At the package selection step, search for the following terms and select the ass
 
 The CYGWIN `bash` shell is used for all steps on the command line. It is automatically available after the first installation step  (typically to be launched via the CYGWIN desktop icon).
 
-
 1. Install CYGWIN (64-bit version) and development packages
    * Download and run:
    
