@@ -4,7 +4,7 @@ layout: default
 ---
 
 | Time  | Title  | Authors  | 
-|---|---|---|---|
+|-------|--------|---------|
 |  0830 - 0850 | **Vision and perspective of SU2 development center at National Institute of Aerospace (NIA) (Invited Talk)** | <u>Boris Diskin</u> (National Institute of Aerospace)  |  
 |  0850 - 0910 |  **Turbomachinery Capabilities in SU2: Status of Current Developments and Future Perspectives**  |  <u>Nitish Anand</u>, <u>Matteo Pini</u>, Piero Colonna (TU Delft) | 
 |  0910 - 0930 | **Aerodynamics of hinged rotorcraft in SU2, with applications to ice accretion and noise**   |  <u>Myles Morelli</u>, Alberto Guardone (PoliMi) | 
