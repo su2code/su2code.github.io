@@ -3,8 +3,6 @@ title: Basics of Multi-Zone Computations
 permalink: /docs/Multizone
 ---
 
-# Basics of Multi-Zone Computations #
-
 SU2 is capable of solving physical problems in distinct zones coupled through interfaces. Applications range from Fluid-Fluid coupling (e.g. using a sliding mesh approach) over Conjugate-Heat-Transfer to Fluid-Structure Interactions problems. The following section gives an overview on the general terminology for multizone computations and how you can make use of these features. For specific problem-related options, please refer to the Tutorials.
 
 ## What is a Zone ? ##
@@ -92,6 +90,7 @@ The files `configFlow.cfg` and `configSolid.cfg` contain a **full set of options
 For a multizone problem you have two options to provide the mesh (set with the option `MULTIZONE_MESH`). 
 
 - *Multi-zone mesh* (`MULTIZONE_MESH= YES` (default)): In this case the mesh information for all zones is in one file. Note that this option currently only works with the native SU2 mesh format (`MESH_FORMAT= SU2`) and the keywords `NZONE=` and `IZONE=` have to be present in the mesh file. Example:
+
 ```
 % Number of zones
 NZONE= 2
@@ -122,6 +121,6 @@ NELEM= 6365
  5   364  365  366    0
 ...
 
-
 ```
+
 - *Single-zone mesh* (`MULTIZONE_MESH= NO`):  In this case there is a separate mesh file for each zone and `MESH_FILENAME` must be set in the sub-config files. 
