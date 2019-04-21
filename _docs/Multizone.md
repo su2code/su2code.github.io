@@ -10,7 +10,7 @@ SU2 is capable of solving physical problems in distinct zones coupled through in
 ## What is a Zone ? ##
 We refer to a Zone as a subdomain in your physical problem. For example consider a heated cylinder immersed into a fluid. In this case, the solid cylinder would be refered to as zone 0 and the fluid domain as zone 1. All zones can be discretized independently and do not need to be matching at the interfaces. See the figure below.
 
-![Definition of a Zone](../../docs_files/zone.png)
+![Definition of a Zone](../docs_files/zone.png)
 
 ## Multi-zone and Multi-physics ##
 
