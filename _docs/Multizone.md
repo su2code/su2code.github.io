@@ -14,8 +14,8 @@ We refer to a Zone as a subdomain in your physical problem. For example consider
 
 A *multi-zone problem* is a problem that consists of multiple zones. If there are additionally different physical problems solved in the individual zones (i.e. the option `PHYSICAL_PROBLEM` is different) then we refer to that as a *multi-physics problem*, otherwise we call it a *single-physics problem*. In that sense, every *multi-physics problem* is also a *multi-zone problem*. However, both cases differ slighty in how a problem is set up using the config files. 
 
-
-### <a name="singlephysics"></a> How to set up a multi-zone, single-physics problem ###
+ <a name="singlephysics"></a> 
+### How to set up a single-physics problem ###
 
 To enable the multi-zone mode use the option `MULTIZONE = YES` (default is `NO`). If all zones share all config options and are not connected, this is all you have to do. To define a common interface between zones use the option `MARKER_ZONE_INTERFACE`. This option should be set to a list of markers, in which every two consecutive markers are considered as a connected pair, e.g.: 
 ```
@@ -25,6 +25,8 @@ In this example `internal_interface, inner_interface` and `domain_interface, ext
 
 **Note:** Currently the only *single-physics* problems available are Fluid-Fluid cases (that means `PHYSICAL_PROBLEM` must be set to `EULER`, `NAVIER_STOKES` or `RANS`).
 
+ <a name="subconfig"></a> 
+#### Sub-config files ####
 Even if you run a *single-physics* problem, there might be cases where you want to use different config options in the individual zones. For example to specify a rotation in one zone or to use a different numerical scheme. This can be accomplished using the *sub-config file* feature of SU2. A *sub-config file* is similar to the usual config file, but only contains options which are different from the main config file in the particular zone. This allows to override or to only set options in certain zones. To use this feature just provide a list of sub-config files using the `CONFIG_LIST` option. The number of items in that list must match the number of zones (of course you can provide an empty file or the same file for multiple zones). The first item in that list sets options in zone 0, the second in zone 1 and so on.
 
 As an example consider a problem with two zones coupled using a Fluid-Fluid interface. In the second zone we want to add a rotation. The two additional entries in the main config file are the following:
@@ -64,8 +66,8 @@ MOTION_ORIGIN= 0.3 0.0 0.0
 % Angular velocity vector (rad/s) about the motion origin. 
 ROTATION_RATE = 0.0 0.0 160.0
 ```
-
-### How to set up a multi-zone, multi-physics problem ###
+ <a name="multiphysics"></a> 
+### How to set up a multi-physics problem ###
 
 While for the single-physics problems the usage of sub-config files is optional, setting up a multi-physics problem heavily relies on this feature. A good way to start is to first create a separate config file for each individual zone. If it is possible, also try to run each zone independently (with appropriate boundary conditions) to find proper numerical settings. To couple the zones create a new config file with the option `MATH_PROBLEM` set to `MULTIPHYSICS`. Then specify the list of config files with `CONFIG_LIST`. These two options are mandatory. To set a coupling between the zones the `MARKER_ZONE_INTERFACE` option can be used (same way as for the [single-physics problem](#singlephysics)). As an example consider the following main config file:
 
@@ -85,7 +87,8 @@ MARKER_ZONE_INTERFACE= (PIN, PINSD)
 
 The files `configFlow.cfg` and `configSolid.cfg` contain a **full set of options** to run a flow or a heat equation problem, respectively (apart from a definition of the boundary conditions for the markers `PIN` and  `PINSD`, which will be determined automatically). However, every option not present in the sub-config files **will be inherited** from the main config file. If it is also not set there, then the default value will be used. This means options common in all zones, can be written to the main config file.
 
-## Providing mesh information for a multi-zone problem ##
+ <a name="multizone-mesh"></a> 
+### Providing mesh information for a multi-zone problem ###
 
 For a multizone problem you have two options to provide the mesh (set with the option `MULTIZONE_MESH`). 
 
