@@ -24,7 +24,7 @@ At the package selection step, search for the following terms and select the ass
 * python: install the packages under the python sub-heading
 * cpp: all debug, pre-processor, regular expression packages. 
 
-#### Example SU2 installation on WINDOWS 10 using 64-bit Cygwin
+### Example SU2 installation on WINDOWS 10 using 64-bit Cygwin
 
 The CYGWIN `bash` shell is used for all steps on the command line. It is automatically available after the first installation step  (typically to be launched via the CYGWIN desktop icon).
 
