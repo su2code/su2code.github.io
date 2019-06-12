@@ -9,8 +9,8 @@ As you now know, GitHub is the center of all development efforts in SU2.  The su
                 
 We follow [a popular git branching strategy](http://nvie.com/posts/a-successful-git-branching-model/) in order to leverage decentralized development. This list describes the types of branches on the SU2 repository. You'll want to pick the right one to work with, in order keep the merging process simple.
                 
-- master -- stable, latest release and fixes </li>
-- develop -- current development, generally the branch for you to fork or start a new branch from </li>
+- master -- stable, latest release and fixes
+- develop -- current development, generally the branch for you to fork or start a new branch from
 - feature_* -- feature specific branches
 - fix_* -- branches that fix a particular bug or capability (not new features)
                 
