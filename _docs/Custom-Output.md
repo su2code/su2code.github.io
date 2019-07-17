@@ -14,9 +14,9 @@ Let's define some terminology first.
 - **Output field**: A single scalar value for screen and history output or a vector of a scalar quantity at every node in the mesh for the volume output.
 - **Output group**: A collection of output fields.
 
-## Customizing the screen and history output
+## Customizing the screen and history output ##
 
-### Screen output
+### Screen output ###
 You can define the output fields you want to have on screen by using the config option `SCREEN_OUTPUT`. 
 That fields available depend on the solver you are using. Fields available for **all solvers** are the following:
 
@@ -32,13 +32,13 @@ That fields available depend on the solver you are using. Fields available for *
 If you run a multizone problem, the convergence history of the individual zones (i.e. the convergence of the inner iteration) is disabled by default and only the convergence of the outer iteration is shown. That means `SCREEN_OUTPUT` in the sub-config files is ignored. You can still print fields from individual zones by using the field name and the zone index. For example in an Fluid-Structure interaction problem the drag in zone 0 and the von-Mises stress in zone 1 can be used as fields by adding `DRAG[0]` and/or `VMS[1]` to the screen output in the main config file. It is possible to force the output of the full inner convergence history per zone by setting `WRT_ZONE_CONV` to `YES`. 
 
 
-### History output
+### History output ###
 
 The history output can be customized in a similar fashion to the screen output by using the `HISTORY_OUTPUT` option. In fact, screen and history outputs share all fields which means that everything that can written to screen can be written also to the history file and vice versa. However, instead of specifying single output fields, for the history output it is **only possible** to specify output groups by using the group name.
 
 If you run a multizone problem, in addition to the history files per zone, a file (default: `history_multizone.dat`) will be created where the convergence history of the outer iteration is stored. Groups for this output can be by using the `HISTORY_OUTPUT` option in the main config file.
 
-### Example
+### Example ###
 
 For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
 
@@ -66,11 +66,11 @@ For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`
 |  `FORCE-Z` | Total Force in z direction.|  `AERO_COEFF`  |
 |  `EFFICIENCY` | Total Lift-to-drag ratio. |  `AERO_COEFF`  |
 
-## Volume Output
+## Volume Output ##
 
 The `VOLUME_OUTPUT` option can be used to set fields for the restart and visualization files. Here you have the option to specify either single fields and/or groups.
 
-### Example
+### Example ###
 
 For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
 
