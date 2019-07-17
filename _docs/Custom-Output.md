@@ -1,6 +1,6 @@
 ---
 title: Customizing the output of your Simulation
-permalink: /docs/custom_output
+permalink: /docs/Custom-Output/
 ---
 
 With v7.0 we have introduced a new way of customizing the output on screen, in the history file and in the visualization files.
