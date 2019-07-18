@@ -1,5 +1,5 @@
 ---
-title: Customizing the output of your Simulation
+title: Customizing the output of the simulation
 permalink: /docs/Custom-Output/
 ---
 
@@ -36,7 +36,7 @@ If you run a multizone problem, the convergence history of the individual zones 
 
 The history output can be customized in a similar fashion to the screen output by using the `HISTORY_OUTPUT` option. In fact, screen and history outputs share all fields which means that everything that can written to screen can be written also to the history file and vice versa. However, instead of specifying single output fields, for the history output it is **only possible** to specify output groups by using the group name.
 
-If you run a multizone problem, in addition to the history files per zone, a file (default: `history_multizone.dat`) will be created where the convergence history of the outer iteration is stored. Groups for this output can be by using the `HISTORY_OUTPUT` option in the main config file.
+If you run a multizone problem, in addition to the history files per zone, a file (default: `history_multizone.dat`) will be created where the convergence history of the outer iteration is stored. Groups for this output can be set by using the `HISTORY_OUTPUT` option in the main config file.
 
 ### Example ###
 
