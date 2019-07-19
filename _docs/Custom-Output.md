@@ -18,7 +18,7 @@ Let's define some terminology first.
 
 ### Screen output ###
 You can define the output fields you want to have on screen by using the config option `SCREEN_OUTPUT`. 
-That fields available depend on the solver you are using. Fields available for **all solvers** are the following:
+Fields available depend on the solver you are using. Fields available for **all solvers** are the following:
 
 - `TIME_ITER`:  Time iteration index
 - `OUTER_ITER`: Outer (coupling) iteration index (for multi-zone problems only)
