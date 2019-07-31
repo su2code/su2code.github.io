@@ -6,7 +6,7 @@ permalink: /docs/build-su2-from-source
 ## Requirements ##
 
 ### Compilers ###
-Compilers Installing SU2 from source requires a C++ compiler. The GNU compilers (gcc/g++) are open-source, widely used, and reliable for building SU2. The Intel compiler set has been optimized to run on Intel hardware and has also been used successfully by the development team to build the source code, though it is commercially licensed. The Apple LLVM compiler (Clang) is also commonly used by the developers.
+Installing SU2 from source requires a C++ compiler. The GNU compilers (gcc/g++) are open-source, widely used, and reliable for building SU2. The Intel compiler set has been optimized to run on Intel hardware and has also been used successfully by the development team to build the source code, though it is commercially licensed. The Apple LLVM compiler (Clang) is also commonly used by the developers.
 
 - GNU gcc / g++ 
 - Intel icc / icpc 
@@ -42,9 +42,6 @@ The build system of SU2 is based on a combination of [meson](http://mesonbuild.c
 ### CoDiPack and MeDiPack ###
 In order to use the discrete adjoint solver the compilation requires two additional (header-only) libraries. [CoDi](https://github.com/SciCompKL/CoDiPack) provides the AD datatype and [MeDi](https://github.com/SciCompKL/MeDiPack) provides the infrastructure for the MPI communication when the reverse mode of AD is used. 
 
-
-
-
 ## Configuration and Compilation ##
 
 Like mentioned above, SU2 uses meson and ninja for configuration and compilation, respectively. A configuration using meson is generated first and then an invocation of ninja is used to compile SU2 with this configuration. 
@@ -60,12 +57,12 @@ Options can be passed to the script to enable or disable different features of S
  
 | Option | Default value | Description |
 |---| --- | --- |
-| -Denable-autodiff  | false   |   enable AD (reverse) support (needed for discrete adjoint solver)  |
-| -Denable-directdiff | false      |  enable AD (forward) support |
-| -Denable-mpi       | true (depends on whether a MPI installation can be found) |   enable MPI support           |
-| -Denable-pywrapper | false      |    enable Python wrapper support|
-| -Denable-cgns      | true    |       enable CGNS support           |        
-| -Denable-tecio    |  true       |    enable TECIO support         |
+| `-Denable-autodiff`  | `false`   |   enable AD (reverse) support (needed for discrete adjoint solver)  |
+| `-Denable-directdiff` | `false`     |  enable AD (forward) support |
+| `-Denable-mpi`       | `true` (depends on whether a MPI installation can be found) |   enable MPI support           |
+| `-Denable-pywrapper` | `false`      |    enable Python wrapper support|
+| `-Denable-cgns`     | `true`    |       enable CGNS support           |        
+| `-Denable-tecio`    |  `true`       |    enable TECIO support         |
 
 For example to enable AD support pass the option to the `meson.py` script along with a value:
 ```
@@ -79,8 +76,26 @@ To set a installation directory for the binaries and python scripts, use the `--
 If you are not interested in setting custom compiler flags and other options you can now go directly to the [Compilation](#compilation) section, otherwise continue reading the next section.
 
 ### Advanced Configuration ###
+In general meson appends flags set with the environment variable `CXX_FLAGS`. It is however recommended to use 
+mesons built-in options to set debug mode, warning levels and optimizations. All options can be found [here](https://mesonbuild.com/Builtin-options.html) or by using `./meson.py configure`. An already created configuration can be modified by using the `--reconfigure` flag, e.g.:
+```
+./meson.py build --reconfigure --debug
+```
+Note that it is only possible to change one option at once.
 
-TODO
+#### Build Type ####
+
+The debug mode can be enabled by using the `--buildtype=debug` option or `--debug`. This adds `-g` flag and disables all compiler optimizations. If you still want to have optimizations, use `--buildtype=debugoptimized`. The default build type is `release`.
+
+#### Compiler optimizations ####
+
+The optimization level can be set with `--optimization=level`, where `level` corresponds to a number between 0 (no optimization) and 3 (highest level of optimizations). The default level is 3.
+
+#### Warning level ####
+
+The warning level can be set with `--warnlevel=level`, where  `level` corresponds to a number between 0 (no warnings) and 3 (highest level of warning output). Level 1 corresponds to `-Wall`, level 2 to `-Wall -Wextra` and level 3 to `-Wall -Wextra -Wpedantic`. The default level is 0.
+
+**Note:** The warning flags `-Wno-unused-parameter`, `-Wno-empty-body` and `-Wno-format-security` are always added by default.
 
 ### Compilation ###
 
