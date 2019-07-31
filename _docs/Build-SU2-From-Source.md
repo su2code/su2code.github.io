@@ -1,6 +1,6 @@
 ---
 title: Build SU2 From Source
-permalink: /docs/build-su2-from-source
+permalink: /docs/Build-SU2-From-Source
 ---
 
 ## Requirements ##
@@ -32,6 +32,7 @@ Install mpi4py with Python pip using easy install:
 
     $ sudo easy_install pip
     $ sudo pip install mpi4py
+    
 ## Automatically installed dependencies ##
 
 The following dependencies are added as submodules in the `git` repository and are automatically cloned during the [configuration](#configuration-and-compilation). If you downloaded the SU2 sources directly *without* `git clone`, a fallback method using `wget` is used. When even that fails, steps to download the dependencies manually will printed on screen.
@@ -49,8 +50,9 @@ Like mentioned above, SU2 uses meson and ninja for configuration and compilation
 
 ### Basic Configuration ###
 In the root folder of the sources you will find a python script called `meson.py`. This script generates a configuration. Like mentioned above, it will also check whether all dependencies are found and downloads some of them if necessary see [previous section](#automatically-installed-dependencies). The only required argument for that script is a name of a directory where it should store the configuration. You can have multiple configurations in different folders next to each other. To generate a basic configuration that will be stored in the folder `build` use
+
 ```
-./meson.py build
+ ./meson.py build
 ```
 
 Options can be passed to the script to enable or disable different features of SU2.  Below you find a list of project options and their default values:
