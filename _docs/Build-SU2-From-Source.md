@@ -4,7 +4,7 @@ permalink: /docs/Build-SU2-From-Source
 ---
 
 ***This guide is for version 7 only.*** 
-For information on how to build older versions of SU2, have a look [here](https://github.com/su2code/su2code.github.io/blob/master/_docs/Build-from-Source.md).
+For information on how to build older versions of SU2, have a look [here](/docs/Build-from-Source/).
 
 ---
 
