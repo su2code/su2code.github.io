@@ -3,7 +3,11 @@ title: Build SU2 From Source
 permalink: /docs/Build-SU2-From-Source
 ---
 
+***This guide is for version 7 only.*** 
+For information on how to build older versions of SU2, have a look [here](https://github.com/su2code/su2code.github.io/blob/master/_docs/Build-from-Source.md).
+
 ---
+
 ## Quick Compilation Guide ##
 
 This is a quick guide to compile and install a basic version of SU2. For more information on the requirements and a more detailed description of the build system continue reading the rest of this page.
@@ -134,6 +138,8 @@ Finally to compile and install SU2 use
 ./ninja -C build install
 ```
 where `build` is again a folder with a configuration created using a call to `meson.py` described in the previous section. By default ninja uses all available cores in your system for the compilation. You can set the number of cores manually by using the `-jN` flag, where `N` is the number of cores you want to use.
+
+---
 
 ## Troubleshooting ##
 
