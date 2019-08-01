@@ -89,8 +89,8 @@ Options can be passed to the script to enable or disable different features of S
 |---| --- | --- |
 | `-Denable-autodiff`  | `false`   |   enable AD (reverse) support (needed for discrete adjoint solver)  |
 | `-Denable-directdiff` | `false`     |  enable AD (forward) support |
-| `-Denable-mpi`       | `true` (depends on whether a MPI installation can be found) |   enable MPI support           |
 | `-Denable-pywrapper` | `false`      |    enable Python wrapper support|
+| `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`required`,`disabled`)  |
 | `-Denable-cgns`     | `true`    |       enable CGNS support           |        
 | `-Denable-tecio`    |  `true`       |    enable TECIO support         |
 
@@ -134,3 +134,13 @@ Finally to compile and install SU2 use
 ./ninja -C build install
 ```
 where `build` is again a folder with a configuration created using a call to `meson.py` described in the previous section. By default ninja uses all available cores in your system for the compilation. You can set the number of cores manually by using the `-jN` flag, where `N` is the number of cores you want to use.
+
+## Troubleshooting ##
+
+### MPI installation is not found ###
+Meson looks for an MPI installation using [pkg-config](https://en.wikipedia.org/wiki/Pkg-config). But if your MPI implementation does not provide them, it will search for the standard wrapper executables, `mpic`, `mpicxx`, `mpic++`. If these are not in your path, they can be specified by setting the standard environment variables `MPICC`, `MPICXX` during configuration.
+
+### mpi4py library is not found ###
+The build system uses [`get_python_lib()`](https://docs.python.org/3/distutils/apiref.html#distutils.sysconfig.get_python_lib) to look for the library installation path. If `mpi4py` is not installed in that path, you can provide a custom library path with `--python_path=<path_to_library>`.
+
+
