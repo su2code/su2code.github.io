@@ -33,7 +33,7 @@ Installing SU2 from source requires a C++ compiler. The GNU compilers (gcc/g++) 
 - Intel icc / icpc 
 - Apple LLVM (clang)
   
-**Note**: SU2 uses some C++11 features, that means at least GCC >= v4.7, Clang >= v3.0 or Intel C++ >= v12.0 is necessary.
+> **Note**: SU2 uses some C++11 features, that means at least GCC >= v4.7, Clang >= v3.0 or Intel C++ >= v12.0 is necessary.
 
 ### MPI ###
 In order to build SU2 with parallel support, you need a suitable MPI installation on your machine. During the configuration the build tool does a check and enables MPI support. If no installation is found, a serial version of SU2 will be compiled.
@@ -70,7 +70,11 @@ Like mentioned above, SU2 uses meson and ninja for configuration and compilation
 
 
 ### Basic Configuration ###
-In the root folder of the sources you will find a python script called `meson.py`. This script generates a configuration. Like mentioned above, it will also check whether all dependencies are found and downloads some of them if necessary see [previous section](#automatically-installed-dependencies). The only required argument for that script is a name of a directory where it should store the configuration. You can have multiple configurations in different folders next to each other. To generate a basic configuration that will be stored in the folder `build` use
+In the root folder of the sources you will find a python script called `meson.py`. This script generates a configuration. Like mentioned above, it will also check whether all dependencies are found and downloads some of them if necessary see [previous section](#automatically-installed-dependencies). 
+
+> **Note**: For the following steps you can also use preinstalled versions of `meson` and `ninja` available on your machine. Just replace the `./meson.py` and `./ninja` calls with the binaries of the respective installations. However, this way you have to manually make sure that the correct versions of [CoDiPack and MeDiPack](#codipack-and-medipack) are placed in the `externals/` folders.
+
+The only required argument for `meson.py` is a name of a directory where it should store the configuration. You can have multiple configurations in different folders next to each other. To generate a basic configuration that will be stored in the folder `build` use
 
 ```
  ./meson.py build
@@ -118,7 +122,7 @@ The optimization level can be set with `--optimization=level`, where `level` cor
 
 The warning level can be set with `--warnlevel=level`, where  `level` corresponds to a number between 0 (no warnings) and 3 (highest level of warning output). Level 1 corresponds to `-Wall`, level 2 to `-Wall -Wextra` and level 3 to `-Wall -Wextra -Wpedantic`. The default level is 0.
 
-**Note:** The warning flags `-Wno-unused-parameter`, `-Wno-empty-body` and `-Wno-format-security` are always added by default.
+> **Note:** The warning flags `-Wno-unused-parameter`, `-Wno-empty-body` and `-Wno-format-security` are always added by default.
 
 ### Compilation ###
 
