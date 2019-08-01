@@ -3,6 +3,27 @@ title: Build SU2 From Source
 permalink: /docs/Build-SU2-From-Source
 ---
 
+## Quick Compilation Guide ##
+
+This is a quick guide to compile and install a basic version of SU2. For more information on the requirements and a more detailed description of the build system continue reading the rest of this page.
+
+Short summary of the minimal requirements:
+
+- C/C++ compiler
+- Python 3
+
+If you have these tools installed, you can create a configuration using the `meson.py` found in the root source code folder:
+```
+ ./meson.py build
+```
+Use `ninja` to compile and install the code
+
+```
+./ninja -C build install
+```
+
+
+
 ## Requirements ##
 
 ### Compilers ###
