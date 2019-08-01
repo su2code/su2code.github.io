@@ -101,8 +101,8 @@ The warning level can be set with `--warnlevel=level`, where  `level` correspond
 
 ### Compilation ###
 
-Finally to compile SU2 use 
+Finally to compile and install SU2 use 
 ```
-./ninja -C build
+./ninja -C build install
 ```
 where `build` is again a folder with a configuration created using a call to `meson.py` described in the previous section. By default ninja uses all available cores in your system for the compilation. You can set the number of cores manually by using the `-jN` flag, where `N` is the number of cores you want to use.
