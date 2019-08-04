@@ -10,12 +10,14 @@ For information on how to build older versions of SU2, have a look [here](/docs/
 
 ## Quick Compilation Guide ##
 
-This is a quick guide to compile and install a basic version of SU2. For more information on the requirements and a more detailed description of the build system continue reading the rest of this page.
+This is a quick guide to compile and install a *basic version* of SU2. For more information on the requirements and a more detailed description of the build system **continue reading** the rest of this page.
 
 Short summary of the minimal requirements:
 
 - C/C++ compiler
 - Python 3
+
+**Note:** all other necessary build tools and dependencies are shipped with the source code or are downloaded automatically.
 
 If you have these tools installed, you can create a configuration using the `meson.py` found in the root source code folder:
 ```
@@ -63,7 +65,7 @@ Install mpi4py with Python pip using easy install:
 
 ## Automatically installed dependencies ##
 
-The following dependencies are added as submodules in the `git` repository and are automatically cloned during the [configuration](#configuration-and-compilation). If you downloaded the SU2 sources directly *without* `git clone`, a fallback method using `wget` is used. When even that fails, steps to download the dependencies manually will printed on screen.
+The following dependencies are automatically downloaded (or initialized if source code was cloned using `git`) during the [configuration](#configuration-and-compilation). 
 
 ### Meson and Ninja ###
 The build system of SU2 is based on a combination of [meson](http://mesonbuild.com/) (as the front-end) and [ninja](https://ninja-build.org/) (as the back-end). Meson is an open source build system meant to be both extremely fast, and, even more importantly, as user friendly as possible. Ninja is a small low-level build system with a focus on speed. 
