@@ -79,7 +79,7 @@ In order to use the discrete adjoint solver the compilation requires two additio
 Like mentioned above, SU2 uses meson and ninja for configuration and compilation, respectively. A configuration using meson is generated first and then an invocation of ninja is used to compile SU2 with this configuration. 
 
 ### Basic Configuration ###
-In the root folder of the sources you will find a python script called `meson.py`. This script generates a configuration. Like mentioned above, it will also check whether all dependencies are found and downloads some of them if necessary see [previous section](#automatically-installed-dependencies). 
+In the root folder of the sources you will find a python script called `meson.py`. This script generates a configuration. It will also check whether all dependencies are found and downloads some of them if necessary see [previous section](#automatically-installed-dependencies). 
 
 **Note**: For the following steps you can also use preinstalled versions of `meson` and `ninja` available on your machine. Just replace the `./meson.py` and `./ninja` calls with the binaries of the respective installations. However, this way you have to manually make sure that the correct versions of [CoDiPack and MeDiPack](#codipack-and-medipack) are placed in the `externals/` folders.
 
@@ -115,13 +115,13 @@ If you are not interested in setting custom compiler flags and other options you
 In general meson appends flags set with the environment variable `CXX_FLAGS`. It is however recommended to use 
 mesons built-in options to set debug mode, warning levels and optimizations. All options can be found [here](https://mesonbuild.com/Builtin-options.html) or by using `./meson.py configure`. An already created configuration can be modified by using the `--reconfigure` flag, e.g.:
 ```
-./meson.py build --reconfigure --debug
+./meson.py build --reconfigure --debug=true
 ```
 Note that it is only possible to change one option at once.
 
 #### Build Type ####
 
-The debug mode can be enabled by using the `--buildtype=debug` option or `--debug`. This adds `-g` flag and disables all compiler optimizations. If you still want to have optimizations, use `--buildtype=debugoptimized`. The default build type is `release`.
+The debug mode can be enabled by using the `--buildtype=debug` option or `--debug=true`. This adds `-g` flag and disables all compiler optimizations. If you still want to have optimizations, use `--buildtype=debugoptimized`. The default build type is `release`.
 
 #### Compiler optimizations ####
 
