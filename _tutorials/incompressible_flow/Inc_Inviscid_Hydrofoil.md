@@ -42,11 +42,11 @@ The mesh is composed of 6814 triangles with 3559 vertices in total, 128 edges al
 
 ### Configuration File Options
 
-In order to use the incompressible solver, the flow regime should first be switched from COMPRESSIBLE (default) to INCOMPRESSIBLE with the following option:
+In order to use the incompressible solver, choose the appropriate setting with the `SOLVER` option:
 
 ```
-% Regime type (COMPRESSIBLE, INCOMPRESSIBLE)
-REGIME_TYPE= INCOMPRESSIBLE
+% Solver type
+REGIME_TYPE= INC_EULER
 ```
  
 Once the incompressible mode is activated, the flow throughout the domain is initialized using a different set of options as compared to the compressible mode. The present problem is inviscid (no energy equation), so the only required initialization data is the density (constant) and flow velocity. These initialization values are set with the following options:

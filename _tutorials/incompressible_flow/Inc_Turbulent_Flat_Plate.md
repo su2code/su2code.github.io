@@ -51,13 +51,10 @@ Several of the key configuration file options for this simulation are highlighte
 % ------------- DIRECT, ADJOINT, AND LINEARIZED PROBLEM DEFINITION ------------%
 %
 % Physical governing equations (EULER, NAVIER_STOKES, ...
-PHYSICAL_PROBLEM= NAVIER_STOKES
+SOLVER= INC_NAVIER_STOKES
 %
 % If Navier-Stokes, kind of turbulent model (NONE, SA)
 KIND_TURB_MODEL= SA
-%
-% Regime type (COMPRESSIBLE, INCOMPRESSIBLE)
-REGIME_TYPE= INCOMPRESSIBLE
 ```
 
 We activate the turbulence model using the same options as for the compressible solver. Here, we employ the SA model, but all turbulence models available for the compressible solver can also be used with the incompressible version. The selection of numerical methods for the turbulence equations and other parameters unique to the turbulence models are set using the same options covered by previous compressible tutorials.
