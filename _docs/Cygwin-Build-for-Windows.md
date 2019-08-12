@@ -153,6 +153,12 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
    make install
    ```
 
+1. Reduce size of executables significantly (strip symbols, see also [CYGWIN FAQ 6.3](https://www.cygwin.com/faq.html). The SU2_CFD.exe is reduced from approx. 600MB to 15MB. Can be omitted if compiled with the -s option to gcc.
+
+   ```bash
+   make install-strip
+   ```
+
 1. Add the `$SU2_HOME` and `$SU2_RUN` environment variables to `~/.bashrc` (and `source ~/.bashrc`)
 
    ```bash
