@@ -159,6 +159,12 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
    make install-strip
    ```
 
+1. Cleanup the installation. This removes also the intermediate big executables from the build folders.
+
+   ```bash
+   make clean
+   ```
+
 1. Add the `$SU2_HOME` and `$SU2_RUN` environment variables to `~/.bashrc` (and `source ~/.bashrc`)
 
    ```bash
