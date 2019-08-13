@@ -132,6 +132,13 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
    ./bootstrap
    ```
 
+1. Set compiler flags (just to be sure not to use the debug option -g)
+   
+   ```bash
+   export CFLAGS='-O2'
+   export CXXFLAGS='-O2'
+   ```
+
 1. Create Makefiles:
 
    > NOTE: didn't yet get `tecio` working, therefore disabled with `--disable-tecio`<br>
@@ -151,6 +158,18 @@ The CYGWIN `bash` shell is used for all steps on the command line. It is automat
 
    ```bash
    make install
+   ```
+
+1. Reduce size of executables significantly (strip symbols, see also [CYGWIN FAQ 6.3](https://www.cygwin.com/faq.html). The SU2_CFD.exe is reduced from approx. 600MB to 15MB. Can be omitted if compiled with the -s option to gcc.
+   > NOTE: This should **NOT** be necessary if compiler flags are set as shown in step 7
+   ```bash
+   make install-strip
+   ```
+
+1. Cleanup the installation. This removes also the intermediate big executables from the build folders.
+
+   ```bash
+   make clean
    ```
 
 1. Add the `$SU2_HOME` and `$SU2_RUN` environment variables to `~/.bashrc` (and `source ~/.bashrc`)
