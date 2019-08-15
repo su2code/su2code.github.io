@@ -108,9 +108,9 @@ Despite setting the maximum number of iterations, it is possible to use a conver
 
 ### Residual ###
 If the field set with `CONV_FIELD` is a residual, the solver will stop if it is smaller than the value set with 
-`RESIDUAL_MINVAL` option.
+`CONV_RESIDUAL_MINVAL` option.
 
 ### Coefficient ###
-If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the difference of the coefficient between two consecutive iterations. The solver will stop if the sum over a certain number of elements (set with `CAUCHY_ELEMS`) is smaller than the value set with `CAUCHY_EPS`.
+If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the difference of the coefficient between two consecutive iterations. The solver will stop if the sum over a certain number of elements (set with `CONV_CAUCHY_ELEMS`) is smaller than the value set with `CONV_CAUCHY_EPS`.
 
-For both methods the option `STARTCONV_ITER` defines when the solver should start monitoring the criterion.
+For both methods the option `CONV_STARTITER` defines when the solver should start monitoring the criterion.
