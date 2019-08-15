@@ -94,7 +94,7 @@ TIME_ITER= 200
 %
 ```
 
-The solver will stop either when it reaches the maximum time (`MAX_TIME`) or the maximum number of time steps (`TIME_ITER`), whichever event occurs first. Depending on the `TIME_MARCHING` option, the solver will use an inner iteration loop to converge each physical time step. The number of iterations within each time step is controlled using the `INNER_ITER` option.
+The solver will stop either when it reaches the maximum time (`MAX_TIME`) or the maximum number of time steps (`TIME_ITER`), whichever event occurs first. Depending on the `TIME_MARCHING` option, the solver might use an inner iteration loop to converge each physical time step. The number of iterations within each time step is controlled using the `INNER_ITER` option.
 
 ## Steady-state Simulation ##
 
@@ -108,9 +108,34 @@ Despite setting the maximum number of iterations, it is possible to use a conver
 
 ### Residual ###
 If the field set with `CONV_FIELD` is a residual, the solver will stop if it is smaller than the value set with 
-`CONV_RESIDUAL_MINVAL` option.
+`CONV_RESIDUAL_MINVAL` option. Example:
+
+```
+% ------------------------- Residual-based Convergence Criteria -------------------------------%
+%
+CONV_FIELD= RMS_DENSITY
+%
+%
+% Min value of the residual (log10 of the residual)
+CONV_RESIDUAL_MINVAL= -8
+%
+```
 
 ### Coefficient ###
-If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the difference of the coefficient between two consecutive iterations. The solver will stop if the sum over a certain number of elements (set with `CONV_CAUCHY_ELEMS`) is smaller than the value set with `CONV_CAUCHY_EPS`.
+If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the difference of the coefficient between two consecutive iterations. The solver will stop if the sum over a certain number of elements (set with `CONV_CAUCHY_ELEMS`) is smaller than the value set with `CONV_CAUCHY_EPS`. Example:
 
+```
+% ------------------------- Coefficient-based Convergence Criteria -------------------------------%
+%
+CONV_FIELD= DRAG
+%
+%
+% Number of elements to apply the criteria
+CONV_CAUCHY_ELEMS= 100
+%
+% Epsilon to control the series convergence
+CAUCHY_EPS= 1E-10
+%
+```
 For both methods the option `CONV_STARTITER` defines when the solver should start monitoring the criterion.
+
