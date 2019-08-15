@@ -13,7 +13,7 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
 SU2 is capable of dealing with different kinds of physical problems. The kind of problem is defined by choosing a solver using the `SOLVER` option. A list of possible values and a description can be found in the following table:
 
 | Option Value | Problem | Type |
-|---|---| --- |
+|---|---|---|
 |`EULER` | **Euler's equation** |Finite-Volume method |
 |`NAVIER_STOKES` | **Navier-Stokes' equation** | Finite-Volume method |
 |`RANS` | **Reynolds-averaged Navier-Stokes'** | Finite-Volume method|
@@ -22,7 +22,7 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 |`INC_RANS` | **Incompressible Reynolds-averaged Navier-Stokes'** | Finite-Volume method|
 |`HEAT_EQUATION_FVM` | **Heat equation** | Finite-Volume method |
 |`ELASTICITY` | **Equations of elasticity** | Finite-Element method |
-|`FEM_EULER` | **Euler`s equation** | Discontinuous Galerkin FEM |
+|`FEM_EULER` | **Euler's equation** | Discontinuous Galerkin FEM |
 |`FEM_NAVIER_STOKES`| **Navier-Stokes' equation** | Discontinuous Galerkin FEM |
 |`MULTIPHYSICS` | Multi-zone problem with different solvers in each zone | - |
 
