@@ -1,13 +1,13 @@
 ---
-title: Setting up a simulation
-permalink: /docs/Controlling-the-Simulation
+title: Solver Setup
+permalink: /docs/Solver-Setup
 ---
 
 **This guide is for version 7 only**
 
 ---
 
-This is a basic introduction on how to set up a simulation using SU2. We distinguish between single-zone computation and multi-zone computations. The following considers a single zone only. For an explanation on multi-zone problems, continue with [Basics of Multi-Zone Computations](/docs/Multizone).
+This is a basic introduction on how to set up a simulation using SU2. We distinguish between single-zone computations and multi-zone computations. The following considers a single zone only. For an explanation on multi-zone problems, continue with [Basics of Multi-Zone Computations](/docs/Multizone).
 
 # Defining the Problem #
 SU2 is capable of dealing with different kinds of physical problems. The kind of problem is defined by choosing a solver using the `SOLVER` option. A list of possible values and a description can be found in the following table:
