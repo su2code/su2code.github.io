@@ -116,13 +116,13 @@ CONV_CRITERIA= RESIDUAL
 RESIDUAL_REDUCTION= 6
 %
 % Min value of the residual (log10 of the residual)
-RESIDUAL_MINVAL= -12
+CONV_RESIDUAL_MINVAL= -12
 %
 % Start convergence criteria at iteration number
-STARTCONV_ITER= 10
+CONV_STARTITER= 10
 ```
 
-There are three different types of criteria for terminating a simulation in SU2: running a specified number of iterations (`ITER` option), reducing the residual of the density equation by a specified order of magnitude (or reaching a specified lower limit), or by converging an objective, such as drag, to a certain tolerance. The most common convergence criteria is the `RESIDUAL` option which is used in this tutorial by setting the `CONV_CRITERIA`. The `RESIDUAL_REDUCTION` option controls how many orders of magnitude reduction in the density residual are required for convergence, and `RESIDUAL_MINVAL` sets the minimum value that the residual is allowed to reach before automatically terminating. The user can set a specific iteration number to use for the initial value of the density residual using the `STARTCONV_ITER` option. For example, the simulation for the inviscid channel will terminate once the density residual reaches a value that is 6 orders of magnitude smaller than its value at iteration 10. Note, however, that SU2 will always use the maximum value of the density residual to compute the relative reduction, even if the maximum value occurs after the iteration specified in `STARTCONV_ITER`.
+There are three different types of criteria for terminating a simulation in SU2: running a specified number of iterations (`ITER` option), reducing the residual of the density equation by a specified order of magnitude (or reaching a specified lower limit), or by converging an objective, such as drag, to a certain tolerance. The most common convergence criteria is the `RESIDUAL` option which is used in this tutorial by setting the `CONV_CRITERIA`. The `RESIDUAL_REDUCTION` option controls how many orders of magnitude reduction in the density residual are required for convergence, and `CONV_RESIDUAL_MINVAL` sets the minimum value that the residual is allowed to reach before automatically terminating. The user can set a specific iteration number to use for the initial value of the density residual using the `CONV_STARTITER` option. For example, the simulation for the inviscid channel will terminate once the density residual reaches a value that is 6 orders of magnitude smaller than its value at iteration 10. Note, however, that SU2 will always use the maximum value of the density residual to compute the relative reduction, even if the maximum value occurs after the iteration specified in `CONV_STARTITER`.
 
 ### Running SU2
 
