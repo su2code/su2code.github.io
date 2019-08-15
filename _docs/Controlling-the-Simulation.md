@@ -122,7 +122,7 @@ CONV_RESIDUAL_MINVAL= -8
 ```
 
 ### Coefficient ###
-If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the difference of the coefficient between two consecutive iterations. The solver will stop if the sum over a certain number of elements (set with `CONV_CAUCHY_ELEMS`) is smaller than the value set with `CONV_CAUCHY_EPS`. Example:
+If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the difference of the coefficient between two consecutive iterations. The solver will stop if the sum over a certain number of elements (set with `CONV_CAUCHY_ELEMS`) is smaller than the value set with `CONV_CAUCHY_EPS`. The current value of the Cauchy coefficient can be written to screen or history by adding the `CAUCHY` field to the `SCREEN_OUTPUT` or `HISTORY_OUTPUT` option (see [Custom Output](/docs/Custom-Output/)). Example:
 
 ```
 % ------------------- Coefficient-based Convergence Criteria -------------------------%
