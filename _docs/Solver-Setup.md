@@ -134,7 +134,7 @@ CONV_FIELD= DRAG
 CONV_CAUCHY_ELEMS= 100
 %
 % Epsilon to control the series convergence
-CAUCHY_EPS= 1E-10
+CONV_CAUCHY_EPS= 1E-10
 %
 ```
 For both methods the option `CONV_STARTITER` defines when the solver should start monitoring the criterion.
