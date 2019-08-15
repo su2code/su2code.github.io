@@ -111,7 +111,7 @@ If the field set with `CONV_FIELD` is a residual, the solver will stop if it is 
 `CONV_RESIDUAL_MINVAL` option. Example:
 
 ```
-% ------------------------- Residual-based Convergence Criteria -------------------------------%
+% ------------------- Residual-based Convergence Criteria -------------------------%
 %
 CONV_FIELD= RMS_DENSITY
 %
@@ -125,7 +125,7 @@ CONV_RESIDUAL_MINVAL= -8
 If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the difference of the coefficient between two consecutive iterations. The solver will stop if the sum over a certain number of elements (set with `CONV_CAUCHY_ELEMS`) is smaller than the value set with `CONV_CAUCHY_EPS`. Example:
 
 ```
-% ------------------------- Coefficient-based Convergence Criteria -------------------------------%
+% ------------------- Coefficient-based Convergence Criteria -------------------------%
 %
 CONV_FIELD= DRAG
 %
