@@ -115,13 +115,13 @@ If you are not interested in setting custom compiler flags and other options you
 In general meson appends flags set with the environment variable `CXX_FLAGS`. It is however recommended to use 
 mesons built-in options to set debug mode, warning levels and optimizations. All options can be found [here](https://mesonbuild.com/Builtin-options.html) or by using `./meson.py configure`. An already created configuration can be modified by using the `--reconfigure` flag, e.g.:
 ```
-./meson.py build --reconfigure --debug=true
+./meson.py build --reconfigure --buildtype=debug
 ```
 Note that it is only possible to change one option at once.
 
 #### Build Type ####
 
-The debug mode can be enabled by using the `--buildtype=debug` option or `--debug=true`. This adds `-g` flag and disables all compiler optimizations. If you still want to have optimizations, use `--buildtype=debugoptimized`. The default build type is `release`.
+The debug mode can be enabled by using the `--buildtype=debug` option. This adds `-g` flag and disables all compiler optimizations. If you still want to have optimizations, use `--buildtype=debugoptimized`. The default build type is `release`.
 
 #### Compiler optimizations ####
 
