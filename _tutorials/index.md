@@ -44,8 +44,6 @@ Perform uncertainty quantification of errors arising due to assumptions inherent
 A simulation of internal, inviscid, incompressible flow around a NACA 0012 hydrofoil.
 * [Laminar Flat Plate with Heat Transfer](/tutorials/Inc_Laminar_Flat_Plate/)    
 Simulation of external, laminar, incompressible flow over a flat plate (classical Navier-Stokes case).
-* [Heated Cylinders with Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders/)    
-Simulation of heated hollow cylinders (fixed temperature at their inner perimeters) in an incompressible, coolant fluid flow.
 * [Turbulent Flat Plate](/tutorials/Inc_Turbulent_Flat_Plate/)    
 Simulation of external, turbulentm incompressible flow over a flat plate (classical RANS case).
 * [Turbulent NACA 0012](/tutorials/Inc_Turbulent_NACA0012/)    
