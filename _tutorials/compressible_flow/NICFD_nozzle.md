@@ -67,7 +67,7 @@ The governing equations are Navier-Stokes, but by entering `KIND_TURB_MODEL= SST
 %                               FEM_EULER, FEM_NAVIER_STOKES, FEM_RANS, FEM_LES,
 %                               WAVE_EQUATION, HEAT_EQUATION, FEM_ELASTICITY,
 %                               POISSON_EQUATION)
-PHYSICAL_PROBLEM= NAVIER_STOKES
+SOLVER= NAVIER_STOKES
 %
 % Specify turbulence model (NONE, SA, SA_NEG, SST, SA_E, SA_COMP, SA_E_COMP)
 KIND_TURB_MODEL= SST

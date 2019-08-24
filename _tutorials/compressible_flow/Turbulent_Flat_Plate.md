@@ -54,7 +54,7 @@ Several of the key configuration file options for this simulation are highlighte
 % Physical governing equations (EULER, NAVIER_STOKES,
 %                               WAVE_EQUATION, HEAT_EQUATION, FEM_ELASTICITY,
 %                               POISSON_EQUATION)
-PHYSICAL_PROBLEM= NAVIER_STOKES
+SOLVER= NAVIER_STOKES
 %
 % Specify turbulence model (NONE, SA, SA_NEG, SST)
 KIND_TURB_MODEL= SA

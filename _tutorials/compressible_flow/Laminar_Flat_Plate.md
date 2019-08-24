@@ -71,13 +71,13 @@ Several of the key configuration file options for this simulation are highlighte
 % Physical governing equations (EULER, NAVIER_STOKES,
 %                               WAVE_EQUATION, HEAT_EQUATION, FEM_ELASTICITY,
 %                               POISSON_EQUATION)
-PHYSICAL_PROBLEM= NAVIER_STOKES
+SOLVER= NAVIER_STOKES
 %
 % Specify turbulence model (NONE, SA, SA_NEG, SST)
 KIND_TURB_MODEL= NONE
 ```
 
-To compute viscous flows, the Navier-Stokes governing equations are selected. In conjunction with selecting Navier-Stokes as the problem type, the type of turbulence model must also be specified. Laminar flows can be computed by entering `KIND_TURB_MODEL= NONE`. For turbulent flows, SU2 currently contains implementations of the Spalart-Allmaras model (`SA`, `SA_NEG`) and the Shear Stress Transport (`SST`) model of Menter. If this were an inviscid flow problem, the user would enter `PHYSICAL_PROBLEM = EULER` for the problem type. SU2 supports other governing equations, as well, and the user is invited to review the configuration page for a description of the possible options.
+To compute viscous flows, the Navier-Stokes governing equations are selected. In conjunction with selecting Navier-Stokes as the problem type, the type of turbulence model must also be specified. Laminar flows can be computed by entering `KIND_TURB_MODEL= NONE`. For turbulent flows, SU2 currently contains implementations of the Spalart-Allmaras model (`SA`, `SA_NEG`) and the Shear Stress Transport (`SST`) model of Menter. If this were an inviscid flow problem, the user would enter `SOLVER = EULER` for the problem type. SU2 supports other governing equations, as well, and the user is invited to review the configuration page for a description of the possible options.
 
 Defining a no-slip boundary condition for viscous walls can be accomplished in one of two ways:
 
