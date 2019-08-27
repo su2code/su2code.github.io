@@ -51,7 +51,7 @@ Several of the key configuration file options for this simulation are highlighte
 % Physical governing equations (EULER, NAVIER_STOKES,
 %                               WAVE_EQUATION, HEAT_EQUATION, 
 %                               LINEAR_ELASTICITY, POISSON_EQUATION)
-PHYSICAL_PROBLEM= NAVIER_STOKES
+SOLVER= NAVIER_STOKES
 %
 % Specify turbulent model (NONE, SA, SA_NEG, SST)
 KIND_TURB_MODEL= SA
@@ -61,9 +61,6 @@ KIND_TRANS_MODEL= BC
 %
 % Specify Turbulence Intensity (%)
 FREESTREAM_TURBULENCEINTENSITY = 0.18
-%
-% Regime type (COMPRESSIBLE, INCOMPRESSIBLE, FREESURFACE)
-REGIME_TYPE= INCOMPRESSIBLE
 ```
 
 The governing equations are RANS with the Spalart-Allmaras (`SA`) turbulence model. By entering `KIND_TRANS_MODEL= BC`, the Bas-Cakmakcioglu Algebraic Transition Model is activated. This model requires freestream turbulence intensity that is to be used in the transition correlation, thus the `FREESTREAM_TURBULENCEINTENSITY` option is also used. The BC model achieves its purpose by modifying the production term of the 1-equation SA turbulence model. The production term of the SA model is damped until a considerable amount of turbulent viscosity is generated, and after that point, the damping effect on the transition model is disabled. Thus, a transition from laminar to turbulent flow is obtained.
