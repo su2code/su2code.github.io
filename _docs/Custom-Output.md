@@ -40,6 +40,8 @@ The history output can be customized in a similar fashion to the screen output b
 
 If you run a multizone problem, in addition to the history files per zone, a file (default: `history_multizone.dat`) will be created where the convergence history of the outer iteration is stored. Groups for this output can be set by using the `HISTORY_OUTPUT` option in the main config file.
 
+You can also customize the frequency when the convergence history should be written to the history file by using `HISTORY_WRT_FREQ_INNER`, `HISTORY_WRT_FREQ_OUTER` and `HISTORY_WRT_FREQ_TIME`.
+
 ### Example ###
 
 For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
@@ -67,8 +69,6 @@ For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`
 |  `FORCE-Y` | Total Force in y direction. |  `AERO_COEFF`  |
 |  `FORCE-Z` | Total Force in z direction.|  `AERO_COEFF`  |
 |  `EFFICIENCY` | Total Lift-to-drag ratio. |  `AERO_COEFF`  |
-
-You can also customize the frequency when the convergence history should be written to the history file by using `HISTORY_WRT_FREQ_INNER`, `HISTORY_WRT_FREQ_OUTER` and `HISTORY_WRT_FREQ_TIME`.
 
 ## Customizing the volume Output ##
 
