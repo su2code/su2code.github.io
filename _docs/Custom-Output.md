@@ -31,6 +31,8 @@ Fields available depend on the solver you are using. Fields available for **all 
 
 If you run a multizone problem, the convergence history of the individual zones (i.e. the convergence of the inner iteration) is disabled by default and only the convergence of the outer iteration is shown. That means `SCREEN_OUTPUT` in the sub-config files is ignored. You can still print fields from individual zones by using the field name and the zone index. For example in an Fluid-Structure interaction problem the drag in zone 0 and the von-Mises stress in zone 1 can be used as fields by adding `DRAG[0]` and/or `VMS[1]` to the screen output in the main config file. It is possible to force the output of the full inner convergence history per zone by setting `WRT_ZONE_CONV` to `YES`. 
 
+You can also customize the frequency when the convergence history should be written to screen by using `SCREEN_WRT_FREQ_INNER`, `SCREEN_WRT_FREQ_OUTER` and `SCREEN_WRT_FREQ_TIME`.
+
 
 ### History output ###
 
@@ -65,6 +67,8 @@ For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`
 |  `FORCE-Y` | Total Force in y direction. |  `AERO_COEFF`  |
 |  `FORCE-Z` | Total Force in z direction.|  `AERO_COEFF`  |
 |  `EFFICIENCY` | Total Lift-to-drag ratio. |  `AERO_COEFF`  |
+
+You can also customize the frequency when the convergence history should be written to the history file by using `HISTORY_WRT_FREQ_INNER`, `HISTORY_WRT_FREQ_OUTER` and `HISTORY_WRT_FREQ_TIME`.
 
 ## Customizing the volume Output ##
 
