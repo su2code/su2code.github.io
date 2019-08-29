@@ -44,7 +44,7 @@ You can also customize the frequency when the convergence history should be writ
 
 ### Example ###
 
-For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
+For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
 
 | Field Name (for screen output)  | Description  | Group Name (for history output)  |  
 |---|---|---|
@@ -76,7 +76,7 @@ The `VOLUME_OUTPUT` option can be used to set fields for the restart and visuali
 
 ### Example ###
 
-For the compressible Navier-Stokes solver (i.e. `PHYSICAL_PROBLEM=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
+For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
 
 | Field Name | Description  | Group Name  |  
 |---|---|---|
