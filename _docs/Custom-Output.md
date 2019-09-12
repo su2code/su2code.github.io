@@ -14,6 +14,57 @@ Let's define some terminology first.
 - **Output field**: A single scalar value for screen and history output or a vector of a scalar quantity at every node in the mesh for the volume output.
 - **Output group**: A collection of output fields.
 
+## Customizing the volume Output ##
+
+SU2 can output the solution in several file formats. You can specify what files you want to have by setting the option `OUTPUT_FILES` to a list of files. The valid options are described in the following table:
+
+| Option value | Description |
+|---|---|
+| `RESTART` | Native SU2 binary restart format |
+| `RESTART_ASCII` | ASCII CSV restart format |
+| `CSV` | ASCII CSV restart format (identical to `RESTART_ASCII`) |
+| `PARAVIEW` | Binary Paraview .vtk format |
+| `PARAVIEW_ASCII` | ASCII Paraview .vtk format |
+| `TECPLOT` | Binary Tecplot .szplt format |
+| `TECPLOT_ASCII` | ASCII Tecplot .dat format |
+| `SURFACE_CSV` | Surface values in CSV format (includes all markers set with `MARKER_PLOTTING`) |
+| `SURFACE_PARAVIEW` | Surface values in binary Paraview .vtk format (includes all markers set with `MARKER_PLOTTING`)|
+| `SURFACE_PARAVIEW_ASCII` | Surface values in ASCII Paraview .vtk format (includes all markers set with `MARKER_PLOTTING`)|
+| `SURFACE_TECPLOT` | Surface values in binary Tecplot .szplt format (includes all markers set with `MARKER_PLOTTING`)|
+| `SURFACE_TECPLOT_ASCII` | Surface values in ASCII Tecplot .dat format (includes all markers set with `MARKER_PLOTTING`)|
+
+The default value of `OUTPUT_FILES` is `(RESTART, PARAVIEW, SURFACE_PARAVIEW)`. The output frequency can be set by using the `OUTPUT_WRT_FREQ` option. If it is a time-dependent problem, the frequency is based on the time iterations, while for steady-state problems it is based on the outer or inner iterations, depending on whether it is a multi-zone or single-zone problem, respectively.
+
+**Note:** If run SU2 in parallel you should always use binary output files to get the best performance.
+
+The `VOLUME_OUTPUT` option can be used to set fields for the restart and visualization files. Here you have the option to specify either single fields and/or groups.
+
+### Example ###
+
+For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
+
+| Field Name | Description  | Group Name  |  
+|---|---|---|
+|  `COORD-X` | x coordinate | `COORDINATES`   |
+|  `COORD-Y` | y coordinate   | `COORDINATES`   |
+|  `COORD-Z` | z coordinate   |  `COORDINATES`  |
+| `DENSITY` | Density | `SOLUTION`   |
+|  `MOMENTUM-X` | Momentum x-component | `SOLUTION`   |
+|  `MOMENTUM-Y` | Momentum y-component  | `SOLUTION`   |
+|  `MOMENTUM-Z` | Momentum z-component |  `SOLUTION`  |
+|  `ENERGY` | Energy  |  `SOLUTION`  |
+|  `PRESSURE` | Pressure|  `PRIMITIVE`  |
+|  `TEMPERATURE` | Temperature |  `PRIMITIVE`  |
+|  `MACH` | Mach Number |  `PRIMITIVE`  |
+|  `PRESSURE_COEFF` | Pressure Coefficient  |  `PRIMITIVE`  |
+|  `LAMINAR_VISCOSITY` | Laminar viscosity  |  `PRIMITIVE`  |
+|  `SKIN_FRICTION-X` | Skin friction coefficient x-component |  `PRIMITIVE`  |
+|  `SKIN_FRICTION-Y` | Skin friction coefficient y-component  |  `PRIMITIVE`  |
+|  `SKIN_FRICTION-Z` | Skin friction coefficient z-component |  `PRIMITIVE`  |
+|  `HEAT_FLUX` | Heat flux |  `PRIMITIVE`  |
+|  `Y_PLUS` | Y-Plus |  `PRIMITIVE`  |
+
+
 ## Customizing the screen and history output ##
 
 ### Screen output ###
@@ -70,31 +121,3 @@ For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non
 |  `FORCE-Z` | Total Force in z direction.|  `AERO_COEFF`  |
 |  `EFFICIENCY` | Total Lift-to-drag ratio. |  `AERO_COEFF`  |
 
-## Customizing the volume Output ##
-
-The `VOLUME_OUTPUT` option can be used to set fields for the restart and visualization files. Here you have the option to specify either single fields and/or groups.
-
-### Example ###
-
-For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
-
-| Field Name | Description  | Group Name  |  
-|---|---|---|
-|  `COORD-X` | x coordinate | `COORDINATES`   |
-|  `COORD-Y` | y coordinate   | `COORDINATES`   |
-|  `COORD-Z` | z coordinate   |  `COORDINATES`  |
-| `DENSITY` | Density | `SOLUTION`   |
-|  `MOMENTUM-X` | Momentum x-component | `SOLUTION`   |
-|  `MOMENTUM-Y` | Momentum y-component  | `SOLUTION`   |
-|  `MOMENTUM-Z` | Momentum z-component |  `SOLUTION`  |
-|  `ENERGY` | Energy  |  `SOLUTION`  |
-|  `PRESSURE` | Pressure|  `PRIMITIVE`  |
-|  `TEMPERATURE` | Temperature |  `PRIMITIVE`  |
-|  `MACH` | Mach Number |  `PRIMITIVE`  |
-|  `PRESSURE_COEFF` | Pressure Coefficient  |  `PRIMITIVE`  |
-|  `LAMINAR_VISCOSITY` | Laminar viscosity  |  `PRIMITIVE`  |
-|  `SKIN_FRICTION-X` | Skin friction coefficient x-component |  `PRIMITIVE`  |
-|  `SKIN_FRICTION-Y` | Skin friction coefficient y-component  |  `PRIMITIVE`  |
-|  `SKIN_FRICTION-Z` | Skin friction coefficient z-component |  `PRIMITIVE`  |
-|  `HEAT_FLUX` | Heat flux |  `PRIMITIVE`  |
-|  `Y_PLUS` | Y-Plus |  `PRIMITIVE`  |
