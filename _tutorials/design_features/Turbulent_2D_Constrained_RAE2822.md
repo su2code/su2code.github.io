@@ -73,8 +73,8 @@ TARGET_CL= 0.724
 % Estimation of dCL/dAlpha (0.2 per degree by default)
 DCL_DALPHA= 0.2
 %
-% Number of times the AoA is updated in a fix CL problem (5 by default)
-UPDATE_ALPHA= 5
+% Maximum number of iterations between AoA updates
+UPDATE_AOA_ITER_LIMIT= 100
 %
 % Number of iterations to evaluate dCL/dAlpha at the end of the simulation
 ITER_DCL_DALPHA= 500
