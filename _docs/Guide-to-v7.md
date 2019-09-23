@@ -3,7 +3,7 @@ title: Guide to Version v7
 permalink: /docs/Guide-to-v7/
 ---
 
-With v7.0 we have introduced a lot of updates and changes that affect how you interact with the code. This document gives an overview on the most important changes, so that you can quickly update you existing config files to be compatible with v7.0. 
+With v7.0 we have introduced a lot of updates and changes that affect how you interact with the code. This document gives an overview on the most important changes, so that you can quickly update your existing config files to be compatible with v7.0. 
 
 ### Definition of the physical problem and solver ###
 
@@ -61,6 +61,6 @@ Below are the options that have changed or are removed:
 | `CAUCHY_ELEMS` | `CONV_CAUCHY_ELEMS` | - |
 | `CAUCHY_EPS` | `CONV_CAUCHY_EPS` | - |
 | `CONV_CRITERIA` | `CONV_FIELD` | Accepts all fields available as output for the current solver (see [Solver Setup](/docs/Solver-Setup))|
-| `RESIDUAL_REDUCTION` | - | Removed. Equivalent behavior can be achieved by choosing a relative residuals for `CONV_FIELD` and setting `RESIDUAL_MINVAL` appropriately. 
+| `RESIDUAL_REDUCTION` | - | Removed. Equivalent behavior can be achieved by choosing a relative residual field for `CONV_FIELD` and setting `RESIDUAL_MINVAL` appropriately. 
 
 
