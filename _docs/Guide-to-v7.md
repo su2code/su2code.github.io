@@ -40,8 +40,9 @@ A lot of effort has been put into making the output more customizable. Below you
 | - | `OUTPUT_FILES` | Replaces the options `WRT_VOL_SOL`, `WRT_SRF_SOL`, `WRT_CSV_SOL`, `WRT_BINARY_RESTART` by specifying a list of files to output (see [Custom Output](/docs/Custom-Output))|
 | `WRT_SOL_FREQ_DUALTIME`,  `WRT_SOL_FREQ` |  `OUTPUT_WRT_FREQ` | - |
 | `WRT_CON_FREQ_DUALTIME`,  `WRT_CON_FREQ` |  `SCREEN_WRT_FREQ_INNER`, `SCREEN_WRT_FREQ_OUTER`, `SCREEN_WRT_FREQ_TIME` | Same options exist for history output (by replacing `SCREEN_*` with `HISTORY_*`) |
+| `WRT_OUTPUT`|  - | Removed. Equivalent behavior can be achieved by setting `OUTPUT_FILES` to `NONE` |
 
-**Important notes**: Visualization files are now also written when the code runs in parallel (if added to `OUTPUT_FILES`). 
+**Important note**: Visualization files are now also written when the code runs in parallel (if added to `OUTPUT_FILES`). 
 
 ### ASCII Restart format ###
 
@@ -50,5 +51,16 @@ The ASCII restart format has been changed to a `CSV` format. As a consequence re
 convert_to_csv.py -i your_restart.dat
 ```
 to run the script. This will create a file called `your_restart.csv` wich can be used as input if you disable reading binary files with `READ_BINARY_RESTART` set to `NO`.
+
+### Setting convergence critera ###
+Below are the options that have changed or are removed:
+
+| Old option name | New option name | Note
+| --- | --- | --- |
+| `RESIDUAL_MINVAL` | `CONV_RESIDUAL_MINVAL` | - |
+| `CAUCHY_ELEMS` | `CONV_CAUCHY_ELEMS` | - |
+| `CAUCHY_EPS` | `CONV_CAUCHY_EPS` | - |
+| `CONV_CRITERIA` | `CONV_FIELD` | Accepts all fields available as output for the current solver (see [Solver Setup](/docs/Solver-Setup))|
+| `RESIDUAL_REDUCTION` | - | Removed. Equivalent behavior can be achieved by choosing a relative residuals for `CONV_FIELD` and setting `RESIDUAL_MINVAL` appropriately. 
 
 
