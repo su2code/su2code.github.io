@@ -52,7 +52,7 @@ convert_to_csv.py -i your_restart.dat
 ```
 to run the script. This will create a file called `your_restart.csv` wich can be used as input if you disable reading binary files with `READ_BINARY_RESTART` set to `NO`.
 
-### Setting convergence critera ###
+### Setting convergence criteria ###
 Below are the options that have changed or are removed:
 
 | Old option name | New option name | Note
