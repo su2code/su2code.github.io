@@ -1,5 +1,5 @@
 ---
-title: Guide to update Cases to Version v7
+title: Guide to Version v7
 permalink: /docs/Guide-to-v7/
 ---
 
