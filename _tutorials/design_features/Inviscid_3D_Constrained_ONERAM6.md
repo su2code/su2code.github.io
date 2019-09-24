@@ -54,8 +54,8 @@ TARGET_CL= 0.286
 % Estimation of dCL/dAlpha (0.2 per degree by default)
 DCL_DALPHA= 0.1
 %
-% Number of times the AoA is updated in a fix CL problem (5 by default)
-UPDATE_ALPHA= 10
+% Maximum number of iterations between AoA updates
+UPDATE_AOA_ITER_LIMIT= 150
 
 ``` 
 In this particular problem we are setting a value for the lift coefficient equal to 0.286.
