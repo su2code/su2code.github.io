@@ -133,7 +133,7 @@ The `DEFINITION_DV` is the list of design variables. For the airfoil problem, we
 
 It is quite common to introduce angle of attack as a design variable (with a given Cl). In that case, you should add to the config file the following extra information:
 ```
-% -------------------------- CL & CM DRIVER DEFINITION ------------------------%
+% -------------------------- CL DRIVER DEFINITION -----------------------------%
 %
 % Activate fixed lift mode (specify a CL instead of AoA, NO/YES)
 FIXED_CL_MODE= YES

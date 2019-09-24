@@ -43,7 +43,7 @@ Figure (2): View of the initial FFD box around the ONERA M6 wing, including the 
 
 In aeronautical application is common to design at a constant Cl instead of at constant Angle of Attack (AoA). In this case, the AoA is introduced as a design variable to achieve a particular Cl value. SU2 can directly use AoA as design variable but, that method requires to solve an adjoint equation for the Cl constraint. The preferred strategy is to run the direct solver in cte. Cl mode and the adjoint solver will compute the appropriate derivative for that mode. The basic setting for running at a constant Cl mode is described below:
 ```
-% -------------------------- CL & CM DRIVER DEFINITION ------------------------%
+% -------------------------- CL DRIVER DEFINITION ------------------------%
 %
 % Activate fixed lift mode (specify a CL instead of AoA, NO/YES)
 FIXED_CL_MODE= YES
@@ -58,7 +58,7 @@ DCL_DALPHA= 0.1
 UPDATE_AOA_ITER_LIMIT= 150
 
 ``` 
-In this particular problem we are setting a value for the lift coefficient equal to 0.286.
+In this particular problem we are setting a value for the lift coefficient equal to 0.286. The `FIXED_CL_MODE` works by updating the angle of attack (AoA) during the simulation run such that the resulting CL matches the `TARGET_CL` value. The `UPDATE_AOA_ITER_LIMIT` specifies the maximum number of iterations between two AoA updates. The AoA might update sooner if the solution converges (as defined by the convergence parameters) to the wrong CL. The level of CL convergence can be specified by the `CAUCHY_EPS` value which is defined in the Convergence Parameters. `DCL_DALPHA` is the proportional constant that is used to calculate the change in AoA when it updates (Change in AoA = (TARGET_CL - CURRENT_CL)/DCL_DALPHA). The `ITER_DCL_DALPHA` defines the number of iterations that the run to calculate dCL/dAlpha at the end of the Fixed CL simulation. This calculated value is used by the adjoint to give more accurate gradients with respect to the objective function, when the optimization is run in Fixed CL mode. 
 
 
 ### Setting up a Free-Form Deformation Box
