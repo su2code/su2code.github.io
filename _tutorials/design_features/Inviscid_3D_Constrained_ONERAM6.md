@@ -43,7 +43,7 @@ Figure (2): View of the initial FFD box around the ONERA M6 wing, including the 
 
 In aeronautical application is common to design at a constant Cl instead of at constant Angle of Attack (AoA). In this case, the AoA is introduced as a design variable to achieve a particular Cl value. SU2 can directly use AoA as design variable but, that method requires to solve an adjoint equation for the Cl constraint. The preferred strategy is to run the direct solver in cte. Cl mode and the adjoint solver will compute the appropriate derivative for that mode. The basic setting for running at a constant Cl mode is described below:
 ```
-% -------------------------- CL DRIVER DEFINITION ------------------------%
+% -------------------------- CL DRIVER DEFINITION -----------------------------%
 %
 % Activate fixed lift mode (specify a CL instead of AoA, NO/YES)
 FIXED_CL_MODE= YES
