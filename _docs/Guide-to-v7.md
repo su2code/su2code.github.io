@@ -37,10 +37,12 @@ A lot of effort has been put into making the output more customizable. Below you
 | `SURFACE_FLOW_FILENAME` | `SURFACE_FILENAME` | - |
 | `VOLUME_FLOW_FILENAME` | `VOLUME_FILENAME` | - |
 | `OUTPUT_FORMAT` | `TABULAR_FORMAT` | This option now defines **only** the format of tabular outputs like the history files (values are `CSV`, `TECPLOT`) |
-| - | `OUTPUT_FILES` | Replaces the options `WRT_VOL_SOL`, `WRT_SRF_SOL`, `WRT_CSV_SOL`, `WRT_BINARY_RESTART` by specifying a list of files to output (see [Custom Output](/docs/Custom-Output))|
+| - | `OUTPUT_FILES` | Replaces the options `WRT_VOL_SOL`, `WRT_SRF_SOL`, `WRT_CSV_SOL`, `WRT_BINARY_RESTART`, by specifying a list of files to output (see [Custom Output](/docs/Custom-Output))|
 | `WRT_SOL_FREQ_DUALTIME`,  `WRT_SOL_FREQ` |  `OUTPUT_WRT_FREQ` | - |
 | `WRT_CON_FREQ_DUALTIME`,  `WRT_CON_FREQ` |  `SCREEN_WRT_FREQ_INNER`, `SCREEN_WRT_FREQ_OUTER`, `SCREEN_WRT_FREQ_TIME` | Same options exist for history output (by replacing `SCREEN_*` with `HISTORY_*`) |
 | `WRT_OUTPUT`|  - | Removed. Equivalent behavior can be achieved by setting `OUTPUT_FILES` to `NONE` |
+| `WRT_RESIDUALS`, `WRT_LIMITERS` | `VOLUME_OUTPUT`| Add the corresponding fields to the new option | 
+| `LOW_MEMORY_OUTPUT` | - | Removed. Equivalent behavior can be achieved by setting `VOLUME_OUTPUT` to `COORDINATES, SOLUTION`|
 
 **Important note**: Visualization files are now also written when the code runs in parallel (if added to `OUTPUT_FILES`). 
 
@@ -51,6 +53,16 @@ The ASCII restart format has been changed to a `CSV` format. As a consequence re
 convert_to_csv.py -i your_restart.dat
 ```
 to run the script. This will create a file called `your_restart.csv` wich can be used as input if you disable reading binary files with `READ_BINARY_RESTART` set to `NO`.
+
+### Grid/mesh movement ###
+
+Mesh movement has been split into grid movement (motion is applied on the whole mesh, `GRID_MOVEMENT` option) and surface movement (motion is defined for a particular marker, `SURFACE_MOVEMENT` option).
+
+| Option | Option values | Options to define the movement|
+| --- | --- | --- |
+|`GRID_MOVEMENT`| `RIGID_MOTION`, `ROTATING_FRAME`, `STEADY_TRANSLATION` | `MOTION_ORIGIN`, `TRANSLATION_RATE`, `ROTATION_RATE`, `PITCHING_OMEGA`, `PITCHING_AMPL`, `PITCHING_PHASE`, `PLUNGING_OMEGA`, `PLUNGING_AMPL`
+| `SURFACE_MOVEMENT` | `DEFORMING`, `MOVING_WALL`, `EXTERNAL`, `EXTERNAL_ROTATION` | `SURFACE_MOTION_ORIGIN`, `SURFACE_TRANSLATION_RATE`, `SURFACE_ROTATION_RATE`, `SURFACE_PITCHING_OMEGA`, `SURFACE_PITCHING_AMPL`, `SURFACE_PITCHING_PHASE`, `SURFACE_PLUNGING_OMEGA`, `SURFACE_PLUNGING_AMPL`
+
 
 ### Setting convergence criteria ###
 Below are the options that have changed or are removed:
