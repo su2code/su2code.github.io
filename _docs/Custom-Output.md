@@ -14,6 +14,13 @@ Let's define some terminology first.
 - **Output field**: A single scalar value for screen and history output or a vector of a scalar quantity at every node in the mesh for the volume output.
 - **Output group**: A collection of output fields.
 
+
+**Note**: You can print all available output fields and groups available for the current solver (set with the `SOLVER` option) by calling `SU2_CFD` with the `-d` flag, i.e.
+```
+SU2_CFD -d <your_config_file.cfg>
+```
+
+
 ## Customizing the volume Output ##
 
 SU2 can output the solution in several file formats. You can specify what files you want to have by setting the option `OUTPUT_FILES` to a list of files. The valid options are described in the following table:
