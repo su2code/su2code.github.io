@@ -139,3 +139,4 @@ CONV_CAUCHY_EPS= 1E-10
 ```
 For both methods the option `CONV_STARTITER` defines when the solver should start monitoring the criterion.
 
+**Note:** The option `CONV_FIELD` also accepts a list of fields to monitor. The solver will stop if all fields reach their respective stopping criterion (i.e. the minimum value for residuals or the cauchy series threshold for coefficients as mentioned above).
