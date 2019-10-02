@@ -1,6 +1,6 @@
 ---
 title: Basics of Multi-Zone Computations
-permalink: /docs/Multizone
+permalink: /docs/Multizone/
 ---
 
 SU2 is capable of solving physical problems in distinct zones coupled through interfaces. Applications range from Fluid-Fluid coupling (e.g. using a sliding mesh approach) over Conjugate-Heat-Transfer to Fluid-Structure Interactions problems. The following section gives an overview on the general terminology for multizone computations and how you can make use of these features. For specific problem-related options, please refer to the Tutorials.
