@@ -19,7 +19,6 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
   
 ---
 
-
 # Defining the Problem #
 SU2 is capable of dealing with different kinds of physical problems. The kind of problem is defined by choosing a solver using the `SOLVER` option. A list of possible values and a description can be found in the following table:
 
