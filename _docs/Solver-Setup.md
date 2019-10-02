@@ -1,6 +1,6 @@
 ---
 title: Solver Setup
-permalink: /docs/Solver-Setup
+permalink: /docs/Solver-Setup/
 ---
 
 **This guide is for version 7 only**
