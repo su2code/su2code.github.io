@@ -5,6 +5,9 @@ permalink: /docs/Solver-Setup
 
 **This guide is for version 7 only**
 
+This is a basic introduction on how to set up a simulation using SU2. We distinguish between single-zone computations and multi-zone computations. The following considers a single zone only. For an explanation on multi-zone problems, continue with [Basics of Multi-Zone Computations](/docs/Multizone).
+---
+
 ## Content ##
 - [Defining the Problem](#defining-the-problem)
   - [Restarting the Simulation](#restarting-the-simulation)
@@ -15,7 +18,6 @@ permalink: /docs/Solver-Setup
   
 ---
 
-This is a basic introduction on how to set up a simulation using SU2. We distinguish between single-zone computations and multi-zone computations. The following considers a single zone only. For an explanation on multi-zone problems, continue with [Basics of Multi-Zone Computations](/docs/Multizone).
 
 # Defining the Problem #
 SU2 is capable of dealing with different kinds of physical problems. The kind of problem is defined by choosing a solver using the `SOLVER` option. A list of possible values and a description can be found in the following table:
@@ -24,10 +26,10 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 |---|---|---|
 |`EULER` | **Euler's equation** |Finite-Volume method |
 |`NAVIER_STOKES` | **Navier-Stokes' equation** | Finite-Volume method |
-|`RANS` | **Reynolds-averaged Navier-Stokes'** | Finite-Volume method|
+|`RANS` | **Reynolds-averaged Navier-Stokes' equation** | Finite-Volume method|
 |`INC_EULER` | **Incompressible Euler's equation** | Finite-Volume method |
-|`INC_NAVIER_STOKES` | **Incompressible Navier-Stokes'** | Finite-Volume method|
-|`INC_RANS` | **Incompressible Reynolds-averaged Navier-Stokes'** | Finite-Volume method|
+|`INC_NAVIER_STOKES` | **Incompressible Navier-Stokes' equation** | Finite-Volume method|
+|`INC_RANS` | **Incompressible Reynolds-averaged Navier-Stokes' equation** | Finite-Volume method|
 |`HEAT_EQUATION_FVM` | **Heat equation** | Finite-Volume method |
 |`ELASTICITY` | **Equations of elasticity** | Finite-Element method |
 |`FEM_EULER` | **Euler's equation** | Discontinuous Galerkin FEM |
