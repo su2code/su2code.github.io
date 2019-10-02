@@ -1,6 +1,6 @@
 ---
 title: Build SU2 From Source
-permalink: /docs/Build-SU2-From-Source
+permalink: /docs/Build-SU2-From-Source/
 ---
 
 ***This guide is for version 7 only.*** 
