@@ -6,6 +6,17 @@ permalink: /docs/Custom-Output/
 With v7.0 we have introduced a new way of customizing the output on screen, in the history file and in the visualization files.
 It is now possible to individually define what you want to have in your output. 
 
+## Content ##
+
+- [Restart and Visualization Files](#restart-and-visualization-files)
+  - [Setting Output Fields](#setting-output-fields)
+- [Customizing the Screen and History output](#customizing-the-screen-and-history-output)
+  - [Screen Output](#screen-output)
+  - [History Output](#history-output)
+  
+---
+
+
 Let's define some terminology first.
 
 - **Screen output** : The convergence history printed on the console.
@@ -21,7 +32,7 @@ SU2_CFD -d <your_config_file.cfg>
 ```
 
 
-## Customizing the volume Output ##
+## Output Files ##
 
 SU2 can output the solution in several file formats. You can specify what files you want to have by setting the option `OUTPUT_FILES` to a list of files. The valid options are described in the following table:
 
@@ -43,6 +54,8 @@ SU2 can output the solution in several file formats. You can specify what files 
 The default value of `OUTPUT_FILES` is `(RESTART, PARAVIEW, SURFACE_PARAVIEW)`. The output frequency can be set by using the `OUTPUT_WRT_FREQ` option. If it is a time-dependent problem, the frequency is based on the time iterations, while for steady-state problems it is based on the outer or inner iterations, depending on whether it is a multi-zone or single-zone problem, respectively.
 
 **Note:** If run SU2 in parallel you should always use binary output files to get the best performance.
+
+### Setting Output Fields ###
 
 The `VOLUME_OUTPUT` option can be used to set fields for the restart and visualization files. Here you have the option to specify either single fields and/or groups.
 
@@ -72,9 +85,9 @@ For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non
 |  `Y_PLUS` | Y-Plus |  `PRIMITIVE`  |
 
 
-## Customizing the screen and history output ##
+## Customizing the Screen and History Output ##
 
-### Screen output ###
+### Screen Output ###
 You can define the output fields you want to have on screen by using the config option `SCREEN_OUTPUT`. 
 Fields available depend on the solver you are using. Fields available for **all solvers** are the following:
 
@@ -92,7 +105,7 @@ If you run a multizone problem, the convergence history of the individual zones 
 You can also customize the frequency when the convergence history should be written to screen by using `SCREEN_WRT_FREQ_INNER`, `SCREEN_WRT_FREQ_OUTER` and `SCREEN_WRT_FREQ_TIME`.
 
 
-### History output ###
+### History Output ###
 
 The history output can be customized in a similar fashion to the screen output by using the `HISTORY_OUTPUT` option. In fact, screen and history outputs share all fields which means that everything that can written to screen can be written also to the history file and vice versa. However, instead of specifying single output fields, for the history output it is **only possible** to specify output groups by using the group name.
 
