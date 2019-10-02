@@ -32,7 +32,7 @@ SU2_CFD -d <your_config_file.cfg>
 ```
 
 
-## Output Files ##
+## Restart and Visualization Files ##
 
 SU2 can output the solution in several file formats. You can specify what files you want to have by setting the option `OUTPUT_FILES` to a list of files. The valid options are described in the following table:
 
