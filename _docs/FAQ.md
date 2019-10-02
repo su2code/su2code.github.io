@@ -8,11 +8,11 @@ permalink: /docs/FAQ/
 If the answer to your question is not here, try the [forum](http://cfd-online.com/Forums/su2/).
 
 ### I am new to CFD and I don't know where to start. Can you help me?
-The best place to start for a new user after installing the code is the [Quick Start](/docs/QuickStart/) tutorial. 
+The best place to start for a new user after installing the code is the [Quick Start](/docs/Quick-Start/) tutorial. 
 
 ### Where is the documentation?
 The most easy-to-use documentation is the github wiki, and you just found it! Try starting with the [[Quick Start]].
-For more detail on what configuration options are available and their syntax, see the file config_template_basic.cfg in the SU2 root directory: https://github.com/su2code/SU2/blob/master/config_template_basic.cfg
+For more detail on what configuration options are available and their syntax, see the file config_template.cfg in the SU2 root directory: https://github.com/su2code/SU2/blob/master/config_template.cfg
 Further documentation is available in the su2code/Documentation repository.
 
 ### My simulation diverges. What should I do?

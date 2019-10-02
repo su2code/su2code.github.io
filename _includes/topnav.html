@@ -14,6 +14,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li {% if page.sectionid=='download' %} class="active" {% endif %}><a href="{{ "/download.html" | prepend: site.baseurl }}">Download</a></li>
+                <li {% if page.sectionid=='docs' %} class="active" {% endif %}><a href="{{ "/publications.html" | prepend: site.baseurl }}">Publications</a></li>
                 <li {% if page.sectionid=='docs' %} class="active" {% endif %}><a href="{{ "/docs/home/" | prepend: site.baseurl }}">Docs</a></li>
                 <li {% if page.sectionid=='tutorials' %} class="active" {% endif %}><a href="{{ "/tutorials/home/" | prepend: site.baseurl }}">Tutorials</a></li>
                 <li {% if page.sectionid=='forum' %} class="active" {% endif %}><a href="{{ "https://www.cfd-online.com/Forums/su2/" | prepend: site.baseurl }}">Forum</a></li>
@@ -26,7 +27,7 @@
                     <li><a href="{{ site.git_address }}"><i class="fa fa-github" aria-hidden="true"></i></a></li>
                     <li><a href="https://twitter.com/intent/user?screen_name=su2code"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                     <li><a href="https://www.facebook.com/su2code/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-
+                    <li><a href="https://www.linkedin.com/company/su2code/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                 </ul>
             </div>
         </div>
