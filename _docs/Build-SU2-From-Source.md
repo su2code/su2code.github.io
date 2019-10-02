@@ -8,6 +8,22 @@ For information on how to build older versions of SU2, have a look [here](/docs/
 
 ---
 
+## Content ##
+- [Quick Compilation Guide](#quick-compilation-guide)
+- [Requirements](#requirements)
+  - [Compilers](#compilers)
+  - [Python](#python)
+  - [Optional: swig and mpi4py](#optional-swig-and-mpi4py)
+- [Automatically Installed Dependencies](#automatically-installed-dependencies)
+  - [Meson and Ninja](#meson-and-ninja)
+  - [CoDiPack and MeDiPack](#codipack-and-medipack)
+- [Configuration and Compilation](#configuration-and-compilation)
+  - [Basic Configuration](#basic-configuration)
+  - [Advanced Configuration](#advanced-configuration)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 ## Quick Compilation Guide ##
 
 This is a quick guide to compile and install a *basic version* of SU2. For more information on the requirements and a more detailed description of the build system **continue reading** the rest of this page.
