@@ -20,6 +20,7 @@ For information on how to build older versions of SU2, have a look [here](/docs/
 - [Configuration and Compilation](#configuration-and-compilation)
   - [Basic Configuration](#basic-configuration)
   - [Advanced Configuration](#advanced-configuration)
+  - [Compilation](#compilation)
 - [Troubleshooting](#troubleshooting)
 
 ---
