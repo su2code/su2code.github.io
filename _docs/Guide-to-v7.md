@@ -48,7 +48,7 @@ A lot of effort has been put into making the output more customizable. Below you
 
 ### ASCII Restart format ###
 
-The ASCII restart format has been changed to a `CSV` format. As a consequence restart files generated with a version before 7.0 are not compatible any more. However, in your installation directory you will find a python script called `convert_to_csv.py` that will convert old restart files to the new format. On your commandline use
+The ASCII restart format has been changed to a `CSV` format. As a consequence **ASCII restart files** generated with a version before 7.0 are not compatible any more. However, in your installation directory you will find a python script called `convert_to_csv.py` that will convert old restart files to the new format. On your commandline use
 ```
 convert_to_csv.py -i your_restart.dat
 ```
