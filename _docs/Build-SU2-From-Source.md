@@ -116,6 +116,9 @@ Options can be passed to the script to enable or disable different features of S
 | `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`required`,`disabled`)  |
 | `-Denable-cgns`     | `true`    |       enable CGNS support           |        
 | `-Denable-tecio`    |  `true`       |    enable TECIO support         |
+| `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
+| `-Denable-openblas` |  `false`      |    enable OpenBLAS support      |
+| `-Denable-pastix`   |  `false`      |    enable PaStiX support        |
 
 For example to enable AD support pass the option to the `meson.py` script along with a value:
 ```
@@ -149,6 +152,16 @@ The optimization level can be set with `--optimization=level`, where `level` cor
 The warning level can be set with `--warnlevel=level`, where  `level` corresponds to a number between 0 (no warnings) and 3 (highest level of warning output). Level 1 corresponds to `-Wall`, level 2 to `-Wall -Wextra` and level 3 to `-Wall -Wextra -Wpedantic`. The default level is 0.
 
 **Note:** The warning flags `-Wno-unused-parameter`, `-Wno-empty-body` and `-Wno-format-security` are always added by default.
+
+#### Linear algebra options ####
+
+Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function interpolation in fluid structure interaction problems.
+`-Denable-mkl` takes precedence over `-Denable-openblas`, by default the build system looks for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
+When OpenBLAS support is requested the build system uses [pkg-config](https://en.wikipedia.org/wiki/Pkg-config) to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
+
+For large structural FEA problems on highly anisotropic grids iterative linear solvers might fail. Version 7 introduces experimental support for the direct sparse solver [PaStiX](https://gforge.inria.fr/projects/pastix/) (`-Denable-pastix`) see detailed instructions in `TestCases/pastix_support/readme.txt`.
+
+**Note:** The BLAS library needs to provide support for LAPACK functions.
 
 ### Compilation ###
 
