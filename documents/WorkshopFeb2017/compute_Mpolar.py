@@ -60,7 +60,7 @@ def main():
     
     # prepare config
     config.NUMBER_PART = options.partitions
-    config.EXT_ITER    = options.iterations
+    config.ITER    = options.iterations
     
     # Initialize results arrays   
     nMach = 5

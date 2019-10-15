@@ -150,17 +150,17 @@ Lastly, SU2 features multiple ways to assess convergence:
 CONV_CRITERIA= CAUCHY
 %
 % Number of elements to apply the criteria
-CAUCHY_ELEMS= 100
+CONV_CAUCHY_ELEMS= 100
 %
 % Epsilon to control the series convergence
-CAUCHY_EPS= 1E-6
+CONV_CAUCHY_EPS= 1E-6
 %
 % Function to apply the criteria (LIFT, DRAG, NEARFIELD_PRESS, SENS_GEOMETRY,
 % SENS_MACH, DELTA_LIFT, DELTA_DRAG)
 CAUCHY_FUNC_FLOW= DRAG 
 ```
 
-Rather than achieving a certain order of magnitude in the density residual to judge convergence, what we call the Cauchy convergence criteria is chosen for this problem. This type of criteria measures the change in a specific quantity of interest over a specified number of previous iterations. With the options selected above, the calculation will terminate when the change in the drag coefficient (`CAUCHY_FUNC_FLOW`) for the wing over the previous 100 iterations (`CAUCHY_ELEMS`) becomes less than 1E-6 (`CAUCHY_EPS`). A convergence criteria of this nature can be very useful for design problems where the solver is embedded in a larger design loop and reliable convergence behavior is essential.
+Rather than achieving a certain order of magnitude in the density residual to judge convergence, what we call the Cauchy convergence criteria is chosen for this problem. This type of criteria measures the change in a specific quantity of interest over a specified number of previous iterations. With the options selected above, the calculation will terminate when the change in the drag coefficient (`CAUCHY_FUNC_FLOW`) for the wing over the previous 100 iterations (`CONV_CAUCHY_ELEMS`) becomes less than 1E-6 (`CONV_CAUCHY_EPS`). A convergence criteria of this nature can be very useful for design problems where the solver is embedded in a larger design loop and reliable convergence behavior is essential.
 
 
 ### Running SU2
