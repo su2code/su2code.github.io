@@ -14,6 +14,11 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 - [Isothermal (no-slip) Wall](#isothermal-no-slip-wall)
 - [Farfield Boundary Condition](#farfield-boundary-condition)
 - [Inlet Boundary Condition](#inlet-boundary-condition)
+  - [Total Conditions](#total-conditions)
+  - [Mass Flow (Compressible)](#mass_flow_compressible)
+  - [Mass Flow (Incompressible)](#mass_flow_incompressible)
+  - [Velocity](#velocity)
+  - [Pressure](#pressure)
 - [Outlet Boundary Condition](#outlet-boundary-condition)
 - [Periodic Boundary Condition](#periodic-boundary-condition)
 
