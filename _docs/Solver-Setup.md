@@ -24,6 +24,7 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
   - [Inlet Boundary Condition](#inlet-boundary-condition)
   - [Outlet Boundary Condition](#outlet-boundary-condition)
   - [Periodic Boundary Condition](#periodic-boundary-condition)
+  
 ---
 
 # Defining the Problem #
