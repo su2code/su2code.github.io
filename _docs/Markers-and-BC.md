@@ -73,7 +73,7 @@ INLET_TYPE= TOTAL_CONDITIONS
 MARKER_INLET = (inlet1, 300, 1e6, 1.0, 0.0, 0.0, inlet2, 400, 1e6, 0.0, 1.0, 0.0)
 ```
 
-### Mass Flow ###
+### Mass Flow Inlet ###
 
 | Solver | Version | 
 | --- | --- |
