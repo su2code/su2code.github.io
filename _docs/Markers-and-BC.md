@@ -15,10 +15,9 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 - [Farfield Boundary Condition](#farfield-boundary-condition)
 - [Inlet Boundary Condition](#inlet-boundary-condition)
   - [Total Conditions](#total-conditions)
-  - [Mass Flow (Compressible)](#mass_flow_compressible)
-  - [Mass Flow (Incompressible)](#mass_flow_incompressible)
-  - [Velocity](#velocity)
-  - [Pressure](#pressure)
+  - [Mass Flow Inlet](#mass_flow_inlet)
+  - [Velocity Inlet](#velocity-inlet)
+  - [Pressure Inlet](#pressure-inlet)
 - [Outlet Boundary Condition](#outlet-boundary-condition)
 - [Periodic Boundary Condition](#periodic-boundary-condition)
 
@@ -73,7 +72,7 @@ If you want to describe the total conditions at the inlet, set the option `INLET
 MARKER_INLET = (inlet1, 300, 1e6, 1.0, 0.0, 0.0, inlet2, 400, 1e6, 0.0, 1.0, 0.0)
 ```
 
-### Mass Flow (Compressible) ###
+### Mass Flow ###
 
 | Solver | Version | 
 | --- | --- |
@@ -84,18 +83,7 @@ If you want to describe the mass flow at the inlet, set the option `INLET_TYPE= 
 MARKER_INLET = (inlet1, 1.13 , 20, 1.0, 0.0, 0.0, inlet2, 1.15, 10, 0.0, 1.0, 0.0)
 ```
 
-### Mass Flow (Incompressible) ###
-
-| Solver | Version | 
-| --- | --- |
-| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.0.0 |
-
-If you want to describe the mass flow at the inlet, set the option `INC_INLET_TYPE= MASS_FLOW`. The format for `MARKER_INLET` then is the marker name, followed by the Density (in `[kg/m^3`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). For example:
-```
-MARKER_INLET = (inlet1, 1.13 , 20, 1.0, 0.0, 0.0, inlet2, 1.15, 10, 0.0, 1.0, 0.0)
-```
-
-### Velocity ###
+### Velocity Inlet ###
 
 | Solver | Version | 
 | --- | --- |
@@ -107,7 +95,7 @@ If you want to describe the velocity at the inlet, set the option `INC_INLET_TYP
 MARKER_INLET = (inlet1, 300 , 20, 1.0, 0.0, 0.0, inlet2, 200, 10, 0.0, 1.0, 0.0)
 ```
 
-### Pressure ###
+### Pressure Inlet ###
 
 | Solver | Version | 
 | --- | --- |
