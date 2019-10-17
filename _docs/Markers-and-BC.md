@@ -55,10 +55,29 @@ MARKER_ISOTHERMAL = (Wall1, 300.0, Wall2, 250.0)
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
 ## Inlet Boundary Condition ##
+Inlet boundary conditions are set using the option `MARKER_INLET`.
+
+### Total Conditions ###
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+If you want to describe the total conditions at the inlet, set the option `INLET_TYPE= TOTAL_CONDITIONS` (which is the default). The format for `MARKER_INLET` than is the marker name, followed by the Total Temperature (in Kelvin `[K]`), the total Pressure (in Pascal `[Pa]`) and the flow direction unity vector (in meter per second `[m/s]`). For example:
+```
+MARKER_INLET = (inlet1, 300, 1e6, 1.0, 0.0, 0.0, inlet2, 400, 1e6, 0.0, 1.0, 0.0)
+```
+
+### Mass Flow ###
+
+| Solver | Version | 
+| --- | --- |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+If you want to describe the mass flow at the inlet, set the option `INLET_TYPE= MASS_FLOW` (which is the default). The format for `MARKER_INLET` than is the marker name, followed by the Density (in `[kg/m^3`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). For example:
+```
+MARKER_INLET = (inlet1, 1.13 , 20, 1.0, 0.0, 0.0, inlet2, 1.15, 10, 0.0, 1.0, 0.0)
+```
 
 ## Outlet Boundary Condition ##
 
