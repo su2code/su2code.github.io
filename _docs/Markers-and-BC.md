@@ -20,6 +20,7 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 ---
 
 ## Euler (Slip) Wall ##
+
 | Solver | Version | 
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
@@ -48,21 +49,25 @@ MARKER_ISOTHERMAL = (Wall1, 300.0, Wall2, 250.0)
 ```
 
 ## Farfield Boundary Condition ##
+
 | Solver | Version | 
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
 ## Inlet Boundary Condition ##
+
 | Solver | Version | 
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
 ## Outlet Boundary Condition ##
+
 | Solver | Version | 
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
 ## Periodic Boundary Condition ##
+
 | Solver | Version | 
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
