@@ -15,7 +15,7 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 - [Farfield Boundary Condition](#farfield-boundary-condition)
 - [Inlet Boundary Condition](#inlet-boundary-condition)
   - [Total Conditions](#total-conditions)
-  - [Mass Flow Inlet](#mass_flow_inlet)
+  - [Mass Flow Inlet](#mass-flow-inlet)
   - [Velocity Inlet](#velocity-inlet)
   - [Pressure Inlet](#pressure-inlet)
 - [Outlet Boundary Condition](#outlet-boundary-condition)
