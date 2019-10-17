@@ -68,7 +68,7 @@ If you want to describe the total conditions at the inlet, set the option `INLET
 MARKER_INLET = (inlet1, 300, 1e6, 1.0, 0.0, 0.0, inlet2, 400, 1e6, 0.0, 1.0, 0.0)
 ```
 
-### Mass Flow ###
+### Mass Flow (Compressible) ###
 
 | Solver | Version | 
 | --- | --- |
@@ -77,6 +77,41 @@ MARKER_INLET = (inlet1, 300, 1e6, 1.0, 0.0, 0.0, inlet2, 400, 1e6, 0.0, 1.0, 0.0
 If you want to describe the mass flow at the inlet, set the option `INLET_TYPE= MASS_FLOW` (which is the default). The format for `MARKER_INLET` than is the marker name, followed by the Density (in `[kg/m^3`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). For example:
 ```
 MARKER_INLET = (inlet1, 1.13 , 20, 1.0, 0.0, 0.0, inlet2, 1.15, 10, 0.0, 1.0, 0.0)
+```
+
+### Mass Flow (Incompressible) ###
+
+| Solver | Version | 
+| --- | --- |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.0.0 |
+
+If you want to describe the mass flow at the inlet, set the option `INC_INLET_TYPE= MASS_FLOW` (which is the default). The format for `MARKER_INLET` than is the marker name, followed by the Density (in `[kg/m^3`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). For example:
+```
+MARKER_INLET = (inlet1, 1.13 , 20, 1.0, 0.0, 0.0, inlet2, 1.15, 10, 0.0, 1.0, 0.0)
+```
+
+### Velocity ###
+
+| Solver | Version | 
+| --- | --- |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+
+If you want to describe the velocity at the inlet, set the option `INC_INLET_TYPE= VELOCITY_INLET` (which is the default). The format for `MARKER_INLET` than is the marker name, followed by the Temperature (in Kelvin `[K`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). 
+
+```
+MARKER_INLET = (inlet1, 300 , 20, 1.0, 0.0, 0.0, inlet2, 200, 10, 0.0, 1.0, 0.0)
+```
+
+### Pressure ###
+
+| Solver | Version | 
+| --- | --- |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+
+If you want to describe the total pressure at the inlet, set the option `INC_INLET_TYPE= PRESSURE_INLET` (which is the default). The format for `MARKER_INLET` than is the marker name, followed by the Temperature (in Kelvin `[K]`), the Total Pressure (in Pascal `[Pa]`) and the flow direction unity vector (in meter per second `[m/s]`). 
+
+```
+MARKER_INLET = (inlet1, 300 , 1e6, 1.0, 0.0, 0.0, inlet2, 200, 1e6, 0.0, 1.0, 0.0)
 ```
 
 ## Outlet Boundary Condition ##
