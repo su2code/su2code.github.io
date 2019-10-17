@@ -10,11 +10,9 @@ This page contains a very brief summary of the different governing equation sets
 ---
 
 ## Content ##
-- [Compressible Reynolds-averaged Navier-Stokes](#compressible-rans)
-- [Compressible Laminar Navier-Stokes](#compressible-navier-stokes)
+- [Compressible Navier-Stokes](#compressible-rans)
 - [Compressible Euler](#compressible-euler)
-- [Incompressible Reynolds-averaged Navier-Stokes](#compressible-rans)
-- [Incompressible Laminar Navier-Stokes](#compressible-navier-stokes)
+- [Incompressible Navier-Stokes](#compressible-rans)
 - [Incompressible Euler](#compressible-euler)
 - [Elasticity](#elasticity)
 - [Heat Conduction](#heat-conduction)
@@ -31,7 +29,7 @@ where the conservative variables are given by
 
 $$U = \left \{  \rho, \rho \bar{v},  \rho E \right \}^\mathsf{T}$$ 
 
-$$S$$ is a generic source term to be discussed later, and the convective and viscous fluxes are
+$$S$$ is a generic source term, and the convective and viscous fluxes are
 
 $$\bar{F}^{c}   = \left \{ \begin{array}{c} \rho \bar{v}  \\ \rho \bar{v} \otimes  \bar{v} + \bar{\bar{I}} p \\ \rho E \bar{v} + p \bar{v}   \end{array} \right \}$$
 
@@ -43,7 +41,7 @@ where $$\rho$$ is the fluid density, $$\bar{v}=\left\lbrace u, v, w \right\rbrac
 
 $$\bar{\bar{\tau}}= \mu \left ( \nabla \bar{v} + \nabla \bar{v}^{T} \right ) - \mu \frac{2}{3} \bar{\bar I} \left ( \nabla \cdot \bar{v} \right )$$
 
-Assuming a perfect gas with a ratio of specific heats $$\gamma$$ and gas constant $$R$$, one can close the system by determining pressure from $$p = (\gamma-1) \rho \left [ E - 0.5(\bar{v} \cdot \bar{v} ) \right ]$$ and temperature from the ideal gas equation of state $$T = p/(\rho R)$$. Conductivity can be a constant, or we assume a constant Prandtl number $Pr$ such that the conductivity varies with viscosity as $$\kappa = \mu c_p / Pr$$. 
+Assuming a perfect gas with a ratio of specific heats $$\gamma$$ and gas constant $$R$$, one can close the system by determining pressure from $$p = (\gamma-1) \rho \left [ E - 0.5(\bar{v} \cdot \bar{v} ) \right ]$$ and temperature from the ideal gas equation of state $$T = p/(\rho R)$$. Conductivity can be a constant, or we assume a constant Prandtl number $$Pr$$ such that the conductivity varies with viscosity as $$\kappa = \mu c_p / Pr$$. 
 
 It is also possible to model non-ideal fluids within SU2 using more advanced fluid models that are available, but this is not discussed here. Please see the tutorial on the topic.
 
@@ -55,10 +53,29 @@ Similarly, the thermal conductivity in the energy equation becomes an effective 
 
 $$\kappa =\frac{\mu_{d} \, c_p}{Pr_{d}}+\frac{\mu_{t} \, c_p}{Pr_{t}}$$,
 
-where we have introduced a turbulent Prandtl number $$Pr_t$$. The turbulent viscosity $$\mu_{t}$$ is obtained from a suitable turbulence model involving the mean flow state $U$ and a set of new variables for the turbulence. The Shear Stress Transport (SST) model of Menter and the Spalart-Allmaras (S-A) model are two of the most common and widely used turbulence models. The S-A and SST baseline models, along with several variants, are implemented in SU2.
+where we have introduced a turbulent Prandtl number $$Pr_t$$. The turbulent viscosity $$\mu_{t}$$ is obtained from a suitable turbulence model involving the mean flow state $$U$$ and a set of new variables for the turbulence. 
 
 # Compressible Euler #
+
+The compressible Euler equations can be obtained as a simplification of the compressible Navier-Stokes equations in the absence of viscosty and thermal conductivity. They can be expressed in differential form as
+
+ $$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - S = 0 $$
+
+where the conservative variables are given by 
+
+$$U = \left \{  \rho, \rho \bar{v},  \rho E \right \}^\mathsf{T}$$ 
+
+$$S$$ is a generic source term, and the convective flux is
+
+$$\bar{F}^{c}   = \left \{ \begin{array}{c} \rho \bar{v}  \\ \rho \bar{v} \otimes  \bar{v} + \bar{\bar{I}} p \\ \rho E \bar{v} + p \bar{v}   \end{array} \right \}$$
+
+where $$\rho$$ is the fluid density, $$\bar{v}=\left\lbrace u, v, w \right\rbrace^\mathsf{T}$$ $$\in$$ $$\mathbb{R}^3$$ is the flow speed in Cartesian system of reference, $$E$$ is the total energy per unit mass, $$p$$ is the static pressure, and $$T$$ is the temperature. Assuming a perfect gas with a ratio of specific heats $$\gamma$$ and gas constant $$R$$, one can close the system by determining pressure from $$p = (\gamma-1) \rho \left [ E - 0.5(\bar{v} \cdot \bar{v} ) \right ]$$ and temperature from the ideal gas equation of state $$T = p/(\rho R)$$.
+
 # Incompressible Navier-Stokes #
 # Incompressible Euler #
+# Turbulence Modeling #
+
+The Shear Stress Transport (SST) model of Menter and the Spalart-Allmaras (S-A) model are two of the most common and widely used turbulence models. The S-A and SST standard models, along with several variants, are implemented in SU2. The reader is referred to the [NASA Turbulence Modeling Resource](https://turbmodels.larc.nasa.gov/index.html) (TMR) for the details of each specific model, as the versions in SU2 are implemented according to the well-described formulations found there.
+
 # Elasticity #
 # Heat Conduction #
