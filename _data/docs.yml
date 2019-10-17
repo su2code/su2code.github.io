@@ -46,6 +46,7 @@
   docs:
   - Build-SU2-From-Source
   - Solver-Setup
+  - Markers-and-BC
   - Custom-Output
   - Multizone
   - Guide-to-v7
