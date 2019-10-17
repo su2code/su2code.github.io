@@ -22,8 +22,16 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 ## Euler (Slip) Wall ##
 
 ## Constant Heatflux (no-slip) Wall ##
+A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Joule per square meter `[J/m^2]`), e.g.
+```
+MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
+```
 
 ## Isothermal (no-slip) Wall ##
+A wall with a constant temperature is defined with the `MARKER_ISOTHERMAL` option. The option format is the marker name followed by the value of the temperature (in Kelvin `[K]`), e.g.
+```
+MARKER_ISOTHERMAL = (Wall1, 300.0, Wall2, 250.0)
+```
 
 ## Farfield Boundary Condition ##
 
