@@ -16,7 +16,14 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
   - [Time-dependent Simulation](#time-dependent-simulation)
   - [Steady-state Simulation](#steady-state-simulation)
   - [Setting convergence criteria](#setting-convergence-criteria)
-  
+- [Markers and Boundary Conditions](#markers-and-boundary-conditions)
+  - [Euler (Slip) Wall](#euler-slip-wall)
+  - [Constant Heatflux (no-slip) Wall](#constant-heatflux-no-slip-wall)
+  - [Isothermal (no-slip) Wall](#isothermal-no-slip-wall)
+  - [Farfield Boundary Condition](#farfield-boundary-condition)
+  - [Inlet Boundary Condition](#inlet-boundary-condition)
+  - [Outlet Boundary Condition](#outlet-boundary-condition)
+  - [Periodic Boundary Condition](#periodic-boundary-condition)
 ---
 
 # Defining the Problem #
@@ -150,3 +157,21 @@ CONV_CAUCHY_EPS= 1E-10
 For both methods the option `CONV_STARTITER` defines when the solver should start monitoring the criterion.
 
 **Note:** The option `CONV_FIELD` also accepts a list of fields to monitor. The solver will stop if all fields reach their respective stopping criterion (i.e. the minimum value for residuals or the cauchy series threshold for coefficients as mentioned above).
+
+# Markers and Boundary Conditions #
+
+The term *Marker* refers to a named entity in your mesh file. Boundary conditions are defined by assigning names of the markers to the corresponding option. Below you will find a list of the most common boundary conditions along with a short description.
+
+## Euler (Slip) Wall ##
+
+## Constant Heatflux (no-slip) Wall ##
+
+## Isothermal (no-slip) Wall ##
+
+## Farfield Boundary Condition ##
+
+## Inlet Boundary Condition ##
+
+## Outlet Boundary Condition ##
+
+## Periodic Boundary Condition ##
