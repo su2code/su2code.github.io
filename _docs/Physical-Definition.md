@@ -22,4 +22,4 @@ SU2 offers different ways of setting and computing this definition. This documen
 | Heatflux | $$\frac{W}{m^2}$$ | $$Q_{ref} = \rho_{ref}v^3_{ref} $$ |
 | Gas Constant | $$\frac{m^2}{s^2 K}$$ | $$R_{ref} = \frac{v^2_{ref}}{T_{ref}}$$|
 | Conductivity | $$\frac{W}{mK}$$ | $$k_{ref} = \mu_{ref}R_{ref}$$ |
-| Force | $$ N $$ | $$ F_{ref} = \rho_{ref}v^2_{ref}l^2_{ref} $$ |
+| Force | $$N$$ | $$ F_{ref} = \rho_{ref}v^2_{ref}l^2_{ref} $$ |
