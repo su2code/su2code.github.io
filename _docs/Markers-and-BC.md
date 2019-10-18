@@ -62,7 +62,7 @@ MARKER_SYM = (Symmetry_Wall1, Symmetry_Wall2, ...)
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
 
 
-A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watt per square meter `[W/m^2],[J/(s*m^2)]`), e.g.
+A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watts per square meter `[W/m^2],[J/(s*m^2)]`), e.g.
 ```
 MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
