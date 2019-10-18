@@ -36,7 +36,7 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
 
 
 A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watt `[W],[J/(s*m^2)]`), e.g.
@@ -48,7 +48,7 @@ MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
 
 A wall with a constant temperature is defined with the `MARKER_ISOTHERMAL` option. The option format is the marker name followed by the value of the temperature (in Kelvin `[K]`), e.g.
 ```
