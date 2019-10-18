@@ -12,8 +12,8 @@ This page contains a very brief summary of the different governing equation sets
 ## Content ##
 - [Compressible Navier-Stokes](#compressible-rans)
 - [Compressible Euler](#compressible-euler)
-- [Incompressible Navier-Stokes](#compressible-rans)
-- [Incompressible Euler](#compressible-euler)
+- [Incompressible Navier-Stokes](#incompressible-rans)
+- [Incompressible Euler](#incompressible-euler)
 - [Elasticity](#elasticity)
 - [Heat Conduction](#heat-conduction)
   
