@@ -19,6 +19,9 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
   - [Velocity Inlet](#velocity-inlet)
   - [Pressure Inlet](#pressure-inlet)
 - [Outlet Boundary Condition](#outlet-boundary-condition)
+  - [Pressure Outlet (Compressible)(#pressure-outlet-compressible)
+  - [Pressure Outlet (Incompressible)(#pressure-outlet-incompressible)
+  - [Mass Flow Outlet](#mass-flow-outlet)
 - [Periodic Boundary Condition](#periodic-boundary-condition)
 
 ---
@@ -116,9 +119,49 @@ MARKER_INLET = (inlet1, 300 , 1e6, 1.0, 0.0, 0.0, inlet2, 200, 1e6, 0.0, 1.0, 0.
 
 ## Outlet Boundary Condition ##
 
+Outlet boundary conditions are set using the `MARKER_OUTLET` option.
+
+### Pressure Outlet (Compressible) ###
+
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+To describe the static thermodynamic pressure at an outlet, the format for `MARKER_OUTLET` is the marker name, followed by the value of the static pressure (in Pascal `[Pa]`).
+
+```
+MARKER_OUTLET = (outlet, 1e5)
+```
+
+### Pressure Outlet (Incompressible) ###
+
+| Solver | Version | 
+| --- | --- |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.0.0 |
+
+To describe the pressure at an outlet, set the option `INC_OUTLET_TYPE= PRESSURE_OUTLET`. The format for `MARKER_OUTLET` is the marker name, followed by the value of the gauge pressure (in Pascal `[Pa]`).
+
+```
+INC_OUTLET_TYPE= PRESSURE_OUTLET
+MARKER_OUTLET = (outlet, 1e1)
+```
+
+**Note**: Gauge pressure is zero-referenced against ambient air pressure, so it is equal to absolute pressure minus atmospheric pressure.
+
+### Mass Flow Outlet ###
+
+| Solver | Version | 
+| --- | --- |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.0.0 |
+
+To describe the mass flow at an outlet, set the option `INC_OUTLET_TYPE= MASS_FLOW_OUTLET`. The format for `MARKER_OUTLET` is the marker name, followed by the value of the target mass flow (in kilogramm per second `[kg/s]`).
+
+```
+INC_OUTLET_TYPE= MASS_FLOW_OUTLET
+MARKER_OUTLET = (outlet, 1e1)
+```
+
+**Note**: The mass flow is presribed in an iterative manner. The damping coefficient for iterative updates of the mass flow can be changed using the `INC_OUTLET_DAMPING` option (default is `0.1`).
 
 ## Periodic Boundary Condition ##
 
