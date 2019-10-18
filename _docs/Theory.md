@@ -52,11 +52,11 @@ It is also possible to model non-ideal fluids within SU2 using more advanced flu
 
 For laminar flows, $$\mu$$ is simply the dynamic viscosity $$\mu_{d}$$, which can be constant or assumed to satisfy Sutherland's law as a function of temperature alone, and $$Pr$$ is the dynamic Prandtl number $$Pr_d$$. For turbulent flows, we solve the Reynolds-averaged Navier-Stokes (RANS) equations. In accord with the standard approach to turbulence modeling based upon the Boussinesq hypothesis, which states that the effect of turbulence can be represented as an increased viscosity, the viscosity is divided into dynamic and turbulent components, or  $$\mu_{d}$$ and $$\mu_{t}$$, respectively. Therefore, the effective viscosity in becomes
 
-$$\mu =\mu_{d}+\mu_{t}$$.
+$$\mu =\mu_{d}+\mu_{t}$$
 
 Similarly, the thermal conductivity in the energy equation becomes an effective thermal conductivity written as
 
-$$\kappa =\frac{\mu_{d} \, c_p}{Pr_{d}}+\frac{\mu_{t} \, c_p}{Pr_{t}}$$,
+$$\kappa =\frac{\mu_{d} \, c_p}{Pr_{d}}+\frac{\mu_{t} \, c_p}{Pr_{t}}$$
 
 where we have introduced a turbulent Prandtl number $$Pr_t$$. The turbulent viscosity $$\mu_{t}$$ is obtained from a suitable turbulence model involving the mean flow state $$U$$ and a set of new variables for the turbulence. 
 
@@ -84,7 +84,7 @@ $$\bar{F}^{c}   = \left \{ \begin{array}{c} \rho \bar{v}  \\ \rho \bar{v} \otime
 
 where $$\rho$$ is the fluid density, $$\bar{v}=\left\lbrace u, v, w \right\rbrace^\mathsf{T}$$ $$\in$$ $$\mathbb{R}^3$$ is the flow speed in Cartesian system of reference, $$E$$ is the total energy per unit mass, $$p$$ is the static pressure, and $$T$$ is the temperature. Assuming a perfect gas with a ratio of specific heats $$\gamma$$ and gas constant $$R$$, one can close the system by determining pressure from $$p = (\gamma-1) \rho \left [ E - 0.5(\bar{v} \cdot \bar{v} ) \right ]$$ and temperature from the ideal gas equation of state $$T = p/(\rho R)$$.
 
-Within the `EULER` solverss, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge. In the `FEM_EULER` solver, we discretize the equations in space with a nodal Discontinuous Galerkin (DG) finite element method (FEM) with high-order (> 2nd-order) capability.
+Within the `EULER` solvers, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge. In the `FEM_EULER` solver, we discretize the equations in space with a nodal Discontinuous Galerkin (DG) finite element method (FEM) with high-order (> 2nd-order) capability.
 
 ---
 
@@ -92,7 +92,7 @@ Within the `EULER` solverss, we discretize the equations in space using a finite
 
 | Solver | Version | 
 | --- | --- |
-| `INC_NAVIER_STOKES`, `INC_RANS`, | 7.0.0 |
+| `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
 
 
 SU2 solves the incompressible Navier-Stokes equations in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). The equations can be expressed in differential form as
@@ -121,11 +121,11 @@ In the low-Mach form of the equations, the pressure is decomposed into thermodyn
 
 Conductivity can be a constant, or we assume a constant Prandtl number $$Pr$$ such that the conductivity varies with viscosity as $$\kappa = \mu c_p / Pr$$. For laminar flows, $$\mu$$ is simply the dynamic viscosity $$\mu_{d}$$, which can be constant or assumed to satisfy Sutherland's law as a function of temperature alone, and $$Pr$$ is the dynamic Prandtl number $$Pr_d$$. For turbulent flows, we solve the incompressible Reynolds-averaged Navier-Stokes (RANS) equations. In accord with the standard approach to turbulence modeling based upon the Boussinesq hypothesis, which states that the effect of turbulence can be represented as an increased viscosity, the viscosity is divided into dynamic and turbulent components, or  $$\mu_{d}$$ and $$\mu_{t}$$, respectively. Therefore, the effective viscosity in becomes
 
-$$\mu =\mu_{d}+\mu_{t}$$.
+$$\mu =\mu_{d}+\mu_{t}$$
 
 Similarly, the thermal conductivity in the energy equation becomes an effective thermal conductivity written as
 
-$$\kappa =\frac{\mu_{d} \, c_p}{Pr_{d}}+\frac{\mu_{t} \, c_p}{Pr_{t}}$$,
+$$\kappa =\frac{\mu_{d} \, c_p}{Pr_{d}}+\frac{\mu_{t} \, c_p}{Pr_{t}}$$
 
 where we have introduced a turbulent Prandtl number $$Pr_t$$. The turbulent viscosity $$\mu_{t}$$ is obtained from a suitable turbulence model involving the mean flow state $$U$$ and a set of new variables for the turbulence. 
 
@@ -193,7 +193,7 @@ In the `ELASTICITY` solver, we discretize the equations in space with a nodal fi
 | --- | --- |
 | `HEAT_EQUATION_FVM` | 7.0.0 |
 
-The governing equation for heat conduction through a solid material can be expressed in differential form on a domain $\Omega \subset \mathbb{R}^3 $ with a disconnected boundary that is divided into a solid walls $S$ as the following:
+The governing equation for heat conduction through a solid material can be expressed in differential form as the following:
 
 $$ R(U) = \frac{\partial U}{\partial t} - \nabla \cdot \bar{F}^{v}(U,\nabla U) - S = 0 $$
 
