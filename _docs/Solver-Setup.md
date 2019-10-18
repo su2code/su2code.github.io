@@ -20,6 +20,11 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
 ---
 
 # Defining the Problem #
+
+| Solver | Version | 
+| --- | --- |
+| `ALL`| 7.0.0 |
+
 SU2 is capable of dealing with different kinds of physical problems. The kind of problem is defined by choosing a solver using the `SOLVER` option. A list of possible values and a description can be found in the following table:
 
 | Option Value | Problem | Type |
@@ -39,6 +44,10 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 Every solver has its specific options and we refer to the tutorial cases for more information. However, the basic controls detailed in the remainder of this page are the same for all problems.
 
 ## Restarting the simulation ##
+
+| Solver | Version | 
+| --- | --- |
+| `ALL`| 7.0.0 |
 
 A simulation can be restarted from a previous computation by setting `RESTART_SOL=YES`. If it is a time-dependent problem, additionally `RESTART_ITER` must be set to the time iteration index you want to restart from:
 
@@ -75,6 +84,11 @@ The option `MATH_PROBLEM` defines whether the direct problem (`DIRECT`, default)
 ---
 
 # Controlling the simulation #
+
+| Solver | Version | 
+| --- | --- |
+| `ALL`| 7.0.0 |
+
 A simulation is controlled by setting the number of iterations the solver should run (or by setting a convergence critera). The picture below depicts the two types of iterations we consider.
 
 ![Types of Iteration](../../docs_files/unst_singlezone.png)
@@ -83,6 +97,11 @@ A simulation is controlled by setting the number of iterations the solver should
 SU2 makes use of an outer time loop to march through the physical time, and of an inner loop which is usually a pseudo-time iteration or a (quasi-)Newton scheme. The actual method used depends again on the specific type of solver.
 
 ## Time-dependent Simulation ##
+
+| Solver | Version | 
+| --- | --- |
+| `ALL`| 7.0.0 |
+
 To enable a time-dependent simulation set the option `TIME_DOMAIN` to `YES` (default is `NO`). There are different methods available for certain solvers which can be set using the `TIME_MARCHING` option. For example for any of the FVM-type solvers a first or second-order dual-time stepping (`DUAL_TIME_STEPPING-1ST_ORDER`/`DUAL_TIME_STEPPING-2ND_ORDER`) method or a conventional time-stepping method (`TIME_STEPPING`) can be used.
 
 ```
@@ -108,11 +127,19 @@ The solver will stop either when it reaches the maximum time (`MAX_TIME`) or the
 
 ## Steady-state Simulation ##
 
+| Solver | Version | 
+| --- | --- |
+| `ALL`| 7.0.0 |
+
 A steady-state simulation is defined by using `TIME_DOMAIN=NO`, which is the default value if the option is not present. In this case the number of iterations is controlled by the option `ITER`.
 
 **Note:** To make it easier to switch between steady-state, time-dependent and multizone simulations, the option `INNER_ITER` can also be used to specify the number of iterations. If both options are present, `INNER_ITER` has precedence.
 
 ## Setting convergence criteria ##
+
+| Solver | Version | 
+| --- | --- |
+| `ALL`| 7.0.0 |
 
 Despite setting the maximum number of iterations, it is possible to use a convergence criterion so that the solver will stop when it reaches a certain value of a residual or if variations of a coefficient are below a certain threshold. To enable a convergence criterion use the option `CONV_FIELD` to set an output field that should be monitored. The list of possible fields depends on the solver. Take a look at [Custom Output](/docs/Custom-Output/) to learn more about output fields. Depending on the type of field (residual or coefficient) there are two types of methods:
 
