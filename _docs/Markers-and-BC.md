@@ -116,6 +116,7 @@ MARKER_INLET = (inlet1, 300 , 1e6, 1.0, 0.0, 0.0, inlet2, 200, 1e6, 0.0, 1.0, 0.
 ```
 
 **Note 1**: It is possible to combine Velocity Inlet BCs and Pressure Inlet BCs.
+
 **Note 2**: Updates to the velocity based on the prescribed pressure are damped in order to help with stability/convergence. The damping coefficient can be changed using the `INC_INLET_DAMPING` option (default is `0.1`).
 
 ## Outlet Boundary Condition ##
