@@ -10,6 +10,7 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 ## Content ##
 
 - [Euler (Slip) Wall](#euler-slip-wall)
+- [Symmetry Wall](#symmetry-wall)
 - [Constant Heatflux (no-slip) Wall](#constant-heatflux-no-slip-wall)
 - [Isothermal (no-slip) Wall](#isothermal-no-slip-wall)
 - [Farfield Boundary Condition](#farfield-boundary-condition)
@@ -31,6 +32,28 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 | Solver | Version | 
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+An Euler wall for inviscid flow is defined with the `MARKER_EULER` option. It can also be used as a slip wall in viscous flow. Only the marker name has to be given for this option.
+
+For all Finite Volume (FVM) solvers, i.e. not the `FEM_*` solvers, its implementation is identical to `MARKER_SYM` solvers and both options can be used interchangeably.
+
+```
+MARKER_EULER = (Euler_Wall1, Euler_Wall2, ...)
+```
+
+## Symmetry Wall ##
+
+| Solver | Version | 
+| --- | --- |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+A symmetry wall is defined with using the `MARKER_SYM` option. Only the marker name has to be given for this option.
+
+For all Finite Volume (FVM) solvers, i.e. not the `FEM_*` solvers, its implementation is identical to `MARKER_SYM` solvers and both options can be used interchangeably.
+
+```
+MARKER_SYM = (Symmetry_Wall1, Symmetry_Wall2, ...)
+```
 
 ## Constant Heatflux (no-slip) Wall ##
 
