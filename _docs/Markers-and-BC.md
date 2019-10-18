@@ -59,10 +59,10 @@ MARKER_SYM = (Symmetry_Wall1, Symmetry_Wall2, ...)
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
 
 
-A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Joule per square meter `[J/m^2]`), e.g.
+A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watt `[W],[J/(s*m^2)]`), e.g.
 ```
 MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
@@ -71,7 +71,7 @@ MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
 
 A wall with a constant temperature is defined with the `MARKER_ISOTHERMAL` option. The option format is the marker name followed by the value of the temperature (in Kelvin `[K]`), e.g.
 ```
@@ -138,7 +138,9 @@ INC_INLET_TYPE= PRESSURE_INLET, PRESSURE_INLET
 MARKER_INLET = (inlet1, 300 , 1e6, 1.0, 0.0, 0.0, inlet2, 200, 1e6, 0.0, 1.0, 0.0)
 ```
 
-**Note**: It is possible to combine Velocity Inlet BCs and Pressure Inlet BCs.
+**Note 1**: It is possible to combine Velocity Inlet BCs and Pressure Inlet BCs.
+
+**Note 2**: Updates to the velocity based on the prescribed pressure are damped in order to help with stability/convergence. The damping coefficient can be changed using the `INC_INLET_DAMPING` option (default is `0.1`).
 
 ## Outlet Boundary Condition ##
 
@@ -184,7 +186,7 @@ INC_OUTLET_TYPE= MASS_FLOW_OUTLET
 MARKER_OUTLET = (outlet, 1e1)
 ```
 
-**Note**: The mass flow is presribed in an iterative manner. The damping coefficient for iterative updates of the mass flow can be changed using the `INC_OUTLET_DAMPING` option (default is `0.1`).
+**Note**: Updates to the pressure based on the prescribed mass flow are damped in order to help with stability/convergence. The damping coefficient can be changed using the `INC_OUTLET_DAMPING` option (default is `0.1`).
 
 ## Periodic Boundary Condition ##
 
