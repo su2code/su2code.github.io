@@ -20,5 +20,5 @@ SU2 offers different ways of setting and computing this definition. This documen
 | Viscosity | $$\frac{kg}{ms}$$ | $$\mu_{ref} = \rho_{ref}v_{ref}l_{ref}$$ |
 | Time | $$s$$ | $$t_{ref} = \frac{l_{ref}}{v_{ref}}$$ |
 | Heatflux | $$\frac{W}{m^2}$$ | $$Q_{ref} = \rho_{ref}v^3_{ref} $$ |
-| Gas Constant | $$\frac{m^2}{s^2 K}$$ | $$R_{ref} = \frac{\v^2_{ref}}{K}$$|
+| Gas Constant | $$\frac{m^2}{s^2 K}$$ | $$R_{ref} = \frac{v^2_{ref}}{K}$$|
 | Conductivity | $$\frac{W}{mK}$$ | $$k_{ref} = \mu_{ref}R_{ref}$$ |
