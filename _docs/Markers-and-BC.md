@@ -19,8 +19,8 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
   - [Velocity Inlet](#velocity-inlet)
   - [Pressure Inlet](#pressure-inlet)
 - [Outlet Boundary Condition](#outlet-boundary-condition)
-  - [Pressure Outlet (Compressible)(#pressure-outlet-compressible)
-  - [Pressure Outlet (Incompressible)(#pressure-outlet-incompressible)
+  - [Pressure Outlet (Compressible)](#pressure-outlet-compressible)
+  - [Pressure Outlet (Incompressible)](#pressure-outlet-incompressible)
   - [Mass Flow Outlet](#mass-flow-outlet)
 - [Periodic Boundary Condition](#periodic-boundary-condition)
 
