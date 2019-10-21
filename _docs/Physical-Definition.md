@@ -28,6 +28,9 @@ SU2 offers different ways of setting and computing this definition. This documen
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
+The following table depicts the reference values used by most of the solvers in SU2. The highlighted variables vary depending on the actual solver and the user input.
+
+
 | Variable | Unit | Reference |
 |---|---|---|
 | Length | $$m$$ | $$l_{ref} = 1$$ |
@@ -42,7 +45,6 @@ SU2 offers different ways of setting and computing this definition. This documen
 | Conductivity | $$\frac{W}{mK}$$ | $$k_{ref} = \mu_{ref}R_{ref}$$ |
 | Force | $$N$$ | $$ F_{ref} = \rho_{ref}v^2_{ref}l^2_{ref} $$ |
 
-The reference values of the highlighted variables in the table above are based on the solver and user-defined options.
 
 ## Free-Stream Definition (Compressible) ##
 
