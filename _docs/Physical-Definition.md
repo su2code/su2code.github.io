@@ -86,13 +86,13 @@ The physical definition of the incompressible solvers is accomplished by setting
 
 ### Thermodynamic and Gauge Pressure ###
 
-In the incompressible problem the thermodynamic pressure is decoupled from the governing equations and density is therefore only a function of temperature variations. The absolute value of the pressure is not important and any reference to the pressure $p$ is considered as the gauge value, i.e. it is zero-referenced against ambient air pressure, so it is equal to absolute pressure minus (an arbitrary) atmospheric pressure.   
+In the incompressible problem the thermodynamic pressure is decoupled from the governing equations and density is therefore only a function of temperature variations. The absolute value of the pressure is not important and any reference to the pressure $$p$$ is considered as the gauge value, i.e. it is zero-referenced against ambient air pressure, so it is equal to absolute pressure minus (an arbitrary) atmospheric pressure.   
 
 ### Initial State and Non-Dimensionalization ###
 
 The initial state, i.e. the initial values of density $$\rho_0$$, velocity vector $$\bar{v}_{0}$$ and temperature $$T_0$$ are set with `INC_DENSITY_INIT`, `INC_VELOCITY_INIT` and `INC_TEMPERATURE_INIT`, respectively. The initial pressure $$p_0$$ is always set to `0.0`.
 
-The reference values $$\rho_ref, T_{ref}, v_{ref}$$ equal the initial state values by default (or if `INC_NONDIM= INITIAL_VALUES`). If `INC_NONDIM` is set to `REFERENCE_VALUES` you can define different values for them using the options `INC_DENSITY_REF`, `INC_VELOCITY_REF` and `INC_TEMPERATURE_REF`. The reference pressure is always computed by $$p_{ref} = \rho_{ref}*v^2_{ref}$$.
+The reference values $$\rho_{ref}, T_{ref}, v_{ref}$$ equal the initial state values by default (or if `INC_NONDIM= INITIAL_VALUES`). If `INC_NONDIM` is set to `REFERENCE_VALUES` you can define different values for them using the options `INC_DENSITY_REF`, `INC_VELOCITY_REF` and `INC_TEMPERATURE_REF`. The reference pressure is always computed by $$p_{ref} = \rho_{ref}v^2_{ref}$$.
 
 **Note:** The initial state is also used as boundary conditions for `MARKER_FAR`.
 
