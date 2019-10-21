@@ -12,8 +12,10 @@ SU2 offers different ways of setting and computing this definition. This documen
 
 - [Reference Values](#reference-values)
 - [Compressible Definition](#compressible-definition)
-  -[Free-Stream](#free-stream)
-  -[Non-Dimensionalization](#non-dimensionalization)
+  - [Free-Stream](#free-stream)
+  - [Non-Dimensionalization](#non-dimensionalization)
+
+---
 
 ## Reference Values ##
 
