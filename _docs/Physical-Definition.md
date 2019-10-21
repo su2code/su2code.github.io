@@ -11,11 +11,12 @@ SU2 offers different ways of setting and computing this definition. This documen
 ## Content ##
 
 - [Reference Values](#reference-values)
-- [Free-Stream Definition](#free-stream-definition)
+- [Free-stream Definition (Compressible)](#free-stream-definition-compressible)
   - [Thermodynamic State](#thermodynamic-state)
   - [Mach Number and Velocity](#mach-number-and-velocity)
   - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
+- [Flow Condition (Incompressible)](#flow-condition-incompressible)
 
 ---
 
@@ -41,15 +42,17 @@ SU2 offers different ways of setting and computing this definition. This documen
 
 The reference values of the highlighted variables in the table above are based on the solver and user-defined options.
 
-## Free-Stream Definition ##
+## Free-Stream Definition (Compressible) ##
 
 | Solver | Version | 
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
+The physical definition for the compressible solvers in SU2 based around the definition of the free-stream. The free-stream values are not only used as boundary conditions for the `MARKER_FAR` option, but also for initialization and non-dimensionalization. That means even if you don't have any farfield BCs in your problem, it might be important to prescribe physically meaningful values for the options.
+
 ### Thermodynamic State ###
 
-The thermodynamic state of the free-stream for the compressible solvers in SU2 is defined by the pressure $$p_{\infty}$$, the density $$\rho_{\infty}$$ and the temperature $$T_{\infty}$$. Since these quantities are not independent, only two of these values have to be described and the third one can be computed by an equation of state, depending on the fluid model used. There are two possible ways implemented that can be set using `FREESTREAM_OPTION`:
+The thermodynamic state of the free-stream is defined by the pressure $$p_{\infty}$$, the density $$\rho_{\infty}$$ and the temperature $$T_{\infty}$$. Since these quantities are not independent, only two of these values have to be described and the third one can be computed by an equation of state, depending on the fluid model used. There are two possible ways implemented that can be set using `FREESTREAM_OPTION`:
 
 - `TEMPERATURE_FS` (default): Density $$\rho_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and temperature $$T_{\infty}$$ (`FREESTREAM_TEMPERATURE`).
 - `DENSITY_FS`: Temperature $$T_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and density $$\rho_{\infty}$$ (`FREESTREAM_DENSITY`). 
@@ -70,4 +73,11 @@ For all schemes, as reference values for the density and temperature the free-st
 - `FREESTREAM_PRESS_EQ_ONE`: Reference pressure equals free-stream pressure, $$p_{ref} = p_{\infty}$$.
 - `FREESTREAM_VEL_EQ_MACH`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals the Mach number: $$p_{ref} = \gamma p_{\infty}$$.
 - `FREESTREAM_VEL_EQ_ONE`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals `1.0`: $$p_{ref} = Ma^2_{\infty} \gamma p_{\infty}$$.
+
+## Flow Condition (Incompressible) ##
+
+| Solver | Version | 
+| --- | --- |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+
 
