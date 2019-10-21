@@ -36,5 +36,10 @@ The reference values of the highlighted variables in the table above are based o
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
-The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION`. For all schemes, the values set with `FREESTREAM_DENSITY` and `FREESTREAM_TEMPERATURE` are used as reference values for Density and Temperature, respectively, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$.
+For all schemes, the values set with `FREESTREAM_DENSITY` and `FREESTREAM_TEMPERATURE` are used as reference values for Density and Temperature, respectively, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$. The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION` and defines how the reference pressure $$p_{ref}$$ is computed:
+
+- `DIMENSIONAL`: All reference values are set to `1.0`, i.e. the computation is dimensional.
+- `FREESTREAM_PRESS_EQ_ONE`: Reference pressure equals free-stream pressure, $$p_{ref} = p_{\infty}$$.
+- `FREESTREAM_VEL_EQ_MACH`: Reference pressure is chosen such that the free-stream velocity $$v_{\infty}$$ equals the Mach number: $$p_{ref} = \gamma p_{\infty}$$.
+- `FREESTREAM_VEL_EQ_ONE`: Reference pressure is chosen such that the free-stream velocity $$v_{\infty}$$ is one: $$p_{ref} = Ma^2_{\infty} \gamma p_{\infty}$$.
 
