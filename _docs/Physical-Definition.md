@@ -58,10 +58,10 @@ If it is a viscous computation, by default the pressure $$p_{\infty}$$ will be r
 
 ### Non-Dimensionalization ###
 
-For all schemes, the free-stream values for Density and Temperature are used as reference values respectively, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$. The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION` and defines how the reference pressure $$p_{ref}$$ is computed:
+For all schemes, for the density and temperature the free-stream values are used, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$. The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION` and defines how the reference pressure $$p_{ref}$$ is computed:
 
 - `DIMENSIONAL`: All reference values are set to `1.0`, i.e. the computation is dimensional.
 - `FREESTREAM_PRESS_EQ_ONE`: Reference pressure equals free-stream pressure, $$p_{ref} = p_{\infty}$$.
-- `FREESTREAM_VEL_EQ_MACH`: Reference pressure is chosen such that the free-stream velocity $$v_{\infty}$$ equals the Mach number: $$p_{ref} = \gamma p_{\infty}$$.
-- `FREESTREAM_VEL_EQ_ONE`: Reference pressure is chosen such that the free-stream velocity $$v_{\infty}$$ is one: $$p_{ref} = Ma^2_{\infty} \gamma p_{\infty}$$.
+- `FREESTREAM_VEL_EQ_MACH`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals the Mach number: $$p_{ref} = \gamma p_{\infty}$$.
+- `FREESTREAM_VEL_EQ_ONE`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals `1.0`: $$p_{ref} = Ma^2_{\infty} \gamma p_{\infty}$$.
 
