@@ -17,6 +17,8 @@ SU2 offers different ways of setting and computing this definition. This documen
   - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
+  - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
+  - [Initial State and Non-Dimensionalization](#initial-state-and-non-dimensionalization)
 
 ---
 
@@ -80,4 +82,17 @@ For all schemes, as reference values for the density and temperature the free-st
 | --- | --- |
 | `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
 
+The physical definition of the incompressible solvers is accomplished by setting an appropriate flow condition for initialization and non-dimensionalization. SU2 solves the [incompressible Navier-Stokes equations](/docs/Theory/#incompressible-rans) in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). 
+
+### Thermodynamic and Gauge Pressure ###
+
+In the incompressible problem the thermodynamic pressure is decoupled from the governing equations and density is therefore only a function of temperature variations. The absolute value of the pressure is not important and any reference to the pressure $p$ is considered as the gauge value, i.e. it is zero-referenced against ambient air pressure, so it is equal to absolute pressure minus (an arbitrary) atmospheric pressure.   
+
+### Initial State and Non-Dimensionalization ###
+
+The initial state, i.e. the initial values of density $$\rho_0$$, velocity vector $$\bar{v}_{0}$$ and temperature $$T_0$$ are set with `INC_DENSITY_INIT`, `INC_VELOCITY_INIT` and `INC_TEMPERATURE_INIT`, respectively. The initial pressure $$p_0$$ is always set to `0.0`.
+
+The reference values $$\rho_ref, T_{ref}, v_{ref}$$ equal the initial state values by default (or if `INC_NONDIM= INITIAL_VALUES`). If `INC_NONDIM` is set to `REFERENCE_VALUES` you can define different values for them using the options `INC_DENSITY_REF`, `INC_VELOCITY_REF` and `INC_TEMPERATURE_REF`. The reference pressure is always computed by $$p_{ref} = \rho_{ref}*v^2_{ref}$$.
+
+**Note:** The initial state is also used as boundary conditions for `MARKER_FAR`.
 
