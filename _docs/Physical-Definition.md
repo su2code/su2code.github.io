@@ -43,7 +43,9 @@ The thermodynamic state of the free-stream for the compressible solvers in SU2 i
 - `FREESTREAM_OPTION= TEMPERATURE_FS` (default): Density $$\rho_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and temperature $$T_{\infty}$$ (`FREESTREAM_TEMPERATURE`).
 - `FREESTREAM_OPTION= DENSITY_FS`: Temperature $$T_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and density $$\rho_{\infty}$$ (`FREESTREAM_DENSITY`). 
 
-The free-stream velocity $$v_{\infty}$$ is always computed from the specified Mach number $$Ma_{\infty}$$ (`MACH_NUMBER`) and its direction from the angle of attack (`AOA`) and the side-slip angle (`SIDESLIP_ANGLE`, for 3D).
+The free-stream velocity $$v_{\infty}$$ is always computed from the specified Mach number $$Ma_{\infty}$$ (`MACH_NUMBER`) and the computed thermodynamic state. The flow direction is based on the angle of attack (`AOA`) and the side-slip angle (`SIDESLIP_ANGLE`, for 3D).
+
+If it is a viscous computation, by default the pressure $$p_{\infty}$$ will be recomputed from a density $$\rho_{\infty}$$ that is found from the specified Reynolds number $Re$ (`REYNOLDS_NUMBER`). Note that for an ideal gas this does not change the Mach number $$Ma_{\infty}$$ as it is only a function of the temperature $$T_{\infty}$$. If you still want to use the thermodynamic state for the free-stream definition, set the option `INIT_OPTION` to `TD_CONDITIONS` (default: `REYNOLDS`). In both cases, the viscosity is computed from the dimensional version of Sutherland's law or the constant viscosity (`FREESTREAM_VISCOSITY`), depending on the `VISCOSITY_MODEL` option.
 
 ### Initialization ###
 
