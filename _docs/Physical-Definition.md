@@ -30,13 +30,26 @@ SU2 offers different ways of setting and computing this definition. This documen
 
 The reference values of the highlighted variables in the table above are based on the solver and user-defined options.
 
-## Non-Dimensionalization Schemes (Compressible) ##
+## Compressible Definition ##
 
 | Solver | Version | 
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
-For all schemes, the values set with `FREESTREAM_DENSITY` and `FREESTREAM_TEMPERATURE` are used as reference values for Density and Temperature, respectively, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$. The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION` and defines how the reference pressure $$p_{ref}$$ is computed:
+### Free-Stream Definition ###
+
+The thermodynamic state of the free-stream for the compressible solvers in SU2 is defined by the pressure $$p_{\infty}$$, the density $$\rho_{\infty}$$ and the temperature $$T_{\infty}$$. Since these quantities are not independent, only two of these values have to be described and the third one can be computed by an equation of state, depending on the fluid model used. There are two possible options currently implemented:
+
+- `FREESTREAM_OPTION= TEMPERATURE_FS` (default): Density $$\rho_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and temperature $$T_{\infty}$$ (`FREESTREAM_TEMPERATURE`).
+- `FREESTREAM_OPTION= DENSITY_FS`: Temperature $$T_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and density $$\rho_{\infty}$$ (`FREESTREAM_DENSITY`). 
+
+The free-stream velocity $$v_{\infty}$$ is always computed from the specified Mach number $$Ma_{\infty}$$ (`MACH_NUMBER`) and its direction from the angle of attack (`AOA`) and the side-slip angle (`SIDESLIP_ANGLE`, for 3D).
+
+### Initialization ###
+
+### Non-Dimensionalization Schemes ###
+
+For all schemes, the free-stream values for Density and Temperature are used as reference values respectively, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$. The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION` and defines how the reference pressure $$p_{ref}$$ is computed:
 
 - `DIMENSIONAL`: All reference values are set to `1.0`, i.e. the computation is dimensional.
 - `FREESTREAM_PRESS_EQ_ONE`: Reference pressure equals free-stream pressure, $$p_{ref} = p_{\infty}$$.
