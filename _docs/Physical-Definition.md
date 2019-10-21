@@ -13,8 +13,8 @@ SU2 offers different ways of setting and computing this definition. This documen
 - [Reference Values](#reference-values)
 - [Free-Stream Definition](#free-stream-definition)
   - [Thermodynamic State](#thermodynamic-state)
-  - [Mach Number](#mach-number)
-  - [Reynolds Number](#reynolds-number)
+  - [Mach Number and Velocity](#mach-number-and-velocity)
+  - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
 
 ---
