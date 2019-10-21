@@ -6,7 +6,14 @@ permalink: /docs/Physical-Definition/
 The physical definition of a case includes the definition of the free-stream, the reference values and the non-dimensionalization. 
 SU2 offers different ways of setting and computing this definition. This document gives a short overview on the config options and their physical relation.
 
+---
 
+## Content ##
+
+- [Reference Values](#reference-values)
+- [Compressible Definition](#compressible-definition)
+  -[Free-Stream](#free-stream)
+  -[Non-Dimensionalization](#non-dimensionalization)
 
 ## Reference Values ##
 
@@ -36,7 +43,7 @@ The reference values of the highlighted variables in the table above are based o
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
-### Free-Stream Definition ###
+### Free-Stream ###
 
 The thermodynamic state of the free-stream for the compressible solvers in SU2 is defined by the pressure $$p_{\infty}$$, the density $$\rho_{\infty}$$ and the temperature $$T_{\infty}$$. Since these quantities are not independent, only two of these values have to be described and the third one can be computed by an equation of state, depending on the fluid model used. There are two possible options currently implemented:
 
@@ -47,9 +54,7 @@ The free-stream velocity $$v_{\infty}$$ is always computed from the specified Ma
 
 If it is a viscous computation, by default the pressure $$p_{\infty}$$ will be recomputed from a density $$\rho_{\infty}$$ that is found from the specified Reynolds number $Re$ (`REYNOLDS_NUMBER`). Note that for an ideal gas this does not change the Mach number $$Ma_{\infty}$$ as it is only a function of the temperature $$T_{\infty}$$. If you still want to use the thermodynamic state for the free-stream definition, set the option `INIT_OPTION` to `TD_CONDITIONS` (default: `REYNOLDS`). In both cases, the viscosity is computed from the dimensional version of Sutherland's law or the constant viscosity (`FREESTREAM_VISCOSITY`), depending on the `VISCOSITY_MODEL` option.
 
-### Initialization ###
-
-### Non-Dimensionalization Schemes ###
+### Non-Dimensionalization ###
 
 For all schemes, the free-stream values for Density and Temperature are used as reference values respectively, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$. The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION` and defines how the reference pressure $$p_{ref}$$ is computed:
 
