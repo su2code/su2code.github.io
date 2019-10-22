@@ -82,7 +82,13 @@ MARKER_ISOTHERMAL = (Wall1, 300.0, Wall2, 250.0)
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+A marker can be defined as a Farfield boundary by addings its name to the `MARKER_FAR` option. No other values are necesseary for that option. The actual values which will be prescribed depend on the solver and other user input settings. More details can be found in the [Physical Definition](/docs/Physical-Definition/) section.
+
+```
+MARKER_FAR= (farfield)
+```
 
 ## Inlet Boundary Condition ##
 Inlet boundary conditions are set using the option `MARKER_INLET`.
