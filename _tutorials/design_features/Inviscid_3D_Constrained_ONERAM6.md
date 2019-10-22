@@ -43,7 +43,7 @@ Figure (2): View of the initial FFD box around the ONERA M6 wing, including the 
 
 In aeronautical application is common to design at a constant Cl instead of at constant Angle of Attack (AoA). In this case, the AoA is introduced as a design variable to achieve a particular Cl value. SU2 can directly use AoA as design variable but, that method requires to solve an adjoint equation for the Cl constraint. The preferred strategy is to run the direct solver in cte. Cl mode and the adjoint solver will compute the appropriate derivative for that mode. The basic setting for running at a constant Cl mode is described below:
 ```
-% -------------------------- CL & CM DRIVER DEFINITION ------------------------%
+% -------------------------- CL DRIVER DEFINITION -----------------------------%
 %
 % Activate fixed lift mode (specify a CL instead of AoA, NO/YES)
 FIXED_CL_MODE= YES
@@ -54,11 +54,11 @@ TARGET_CL= 0.286
 % Estimation of dCL/dAlpha (0.2 per degree by default)
 DCL_DALPHA= 0.1
 %
-% Number of times the AoA is updated in a fix CL problem (5 by default)
-UPDATE_ALPHA= 10
+% Maximum number of iterations between AoA updates
+UPDATE_AOA_ITER_LIMIT= 150
 
 ``` 
-In this particular problem we are setting a value for the lift coefficient equal to 0.286.
+In this particular problem we are setting a value for the lift coefficient equal to 0.286. The `FIXED_CL_MODE` works by updating the angle of attack (AoA) during the simulation run such that the resulting CL matches the `TARGET_CL` value. The `UPDATE_AOA_ITER_LIMIT` specifies the maximum number of iterations between two AoA updates. The AoA might update sooner if the solution converges (as defined by the convergence parameters) to the wrong CL. The level of CL convergence can be specified by the `CAUCHY_EPS` value which is defined in the Convergence Parameters. `DCL_DALPHA` is the proportional constant that is used to calculate the change in AoA when it updates (Change in AoA = (TARGET_CL - CURRENT_CL)/DCL_DALPHA). The `ITER_DCL_DALPHA` defines the number of iterations that the run to calculate dCL/dAlpha at the end of the Fixed CL simulation. This calculated value is used by the adjoint to give more accurate gradients with respect to the objective function, when the optimization is run in Fixed CL mode. 
 
 
 ### Setting up a Free-Form Deformation Box
@@ -199,11 +199,11 @@ OPT_BOUND_UPPER= 0.3
 OPT_BOUND_LOWER= -0.3
 %
 % Optimization design variables, separated by semicolons
-% ex= FFD_CONTROL_POINT ( 7, Scale | Mark. List | FFD_BoxTag, i_Ind, j_Ind, k_Ind, x_Mov, y_Mov, z_Mov )
-DEFINITION_DV= ( 7, 1.0 | UPPER_SIDE, LOWER_SIDE, TIP | WING, 0, 1, 0, 0.0, 0.0, 1.0 ); ( 7, 1.0 | UPPER_SIDE, LOWER_SIDE, TIP | WING, 1, 1, 0, 0.0, 0.0, 1.0 ); ...
+% ex= FFD_CONTROL_POINT ( 11, Scale | Mark. List | FFD_BoxTag, i_Ind, j_Ind, k_Ind, x_Mov, y_Mov, z_Mov )
+DEFINITION_DV= ( 11, 1.0 | UPPER_SIDE, LOWER_SIDE, TIP | WING, 0, 1, 0, 0.0, 0.0, 1.0 ); ( 11, 1.0 | UPPER_SIDE, LOWER_SIDE, TIP | WING, 1, 1, 0, 0.0, 0.0, 1.0 ); ...
 ```
 
-Here, we define the objective function for the optimization as drag with thickness constraints along 5 sections of the wing. The `DEFINITION_DV` is the list of design variables, note that this is a simulation/optimization at a cte. Cl and the angle of attack is a design variable. For this problem, we want to minimize the drag by changing the position of the control points of the control box. To do so, we list the set of FFD control points that we would like to use as variables. Each design variable is separated by a semicolon. The first value in the parentheses is the variable type, which is 7 for an FFD control point movement. The second value is the scale of the variable (typically left as 1.0). The name between the vertical bars is the marker tag(s) where the variable deformations will be applied. The final seven values in the parentheses are the particular information about the deformation: identification of the FFD tag, the i, j, and k index of the control point, and the allowed x, y, and z movement direction of the control point. Note that other types of design variables have their own specific input format. For this example, we have a long list of design variables that are not all listed above. You can quickly generate a list of FFD variables in the necessary format using the **set_ffd_design_var.py** script that is shipped with the other Python utilities with the source code.
+Here, we define the objective function for the optimization as drag with thickness constraints along 5 sections of the wing. The `DEFINITION_DV` is the list of design variables, note that this is a simulation/optimization at a cte. Cl and the angle of attack is a design variable. For this problem, we want to minimize the drag by changing the position of the control points of the control box. To do so, we list the set of FFD control points that we would like to use as variables. Each design variable is separated by a semicolon. The first value in the parentheses is the variable type, which is 11 for an FFD control point movement. The second value is the scale of the variable (typically left as 1.0). The name between the vertical bars is the marker tag(s) where the variable deformations will be applied. The final seven values in the parentheses are the particular information about the deformation: identification of the FFD tag, the i, j, and k index of the control point, and the allowed x, y, and z movement direction of the control point. Note that other types of design variables have their own specific input format. For this example, we have a long list of design variables that are not all listed above. You can quickly generate a list of FFD variables in the necessary format using the **set_ffd_design_var.py** script that is shipped with the other Python utilities with the source code.
 ```
 $ python set_ffd_design_var.py -i 10 -j 8 -k 1 -b WING -m 'UPPER_SIDE, LOWER_SIDE, TIP'
 ```
