@@ -41,6 +41,8 @@ For all Finite Volume (FVM) solvers, i.e. not the `FEM_*` solvers, its implement
 MARKER_EULER = (Euler_Wall1, Euler_Wall2, ...)
 ```
 
+**Note**: Be aware when switching from an Euler solver to a Navier-Stokes one that most solid walls should become `MARKER_HEATFLUX` (and vice versa).
+
 ## Symmetry Wall ##
 
 | Solver | Version | 
@@ -66,6 +68,8 @@ A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX`
 ```
 MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
+
+**Note**: Typically Navier-Stokes and RANS simulations are setup with adiabatic walls (heatflux = 0).
 
 ## Isothermal (no-slip) Wall ##
 
@@ -199,3 +203,55 @@ MARKER_OUTLET = (outlet, 1e1)
 | Solver | Version | 
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+## Clamped Boundary Condition ##
+
+| Solver | Version | 
+| --- | --- |
+| `ELASTICITY` | 7.0.0 |
+
+The format for this boundary condition consists of a list of all clamped surfaces (markers). Structural displacements are set to 0 for the nodes on those surfaces.
+
+```
+MARKER_CLAMPED = (surface_1,...,surface_N)
+```
+
+**Note**: A well posed structural problem requires at least one surface as `MARKER_CLAMPED` or `MARKER_DISPLACEMENT`.
+
+## Displacement Boundary Condition ##
+
+| Solver | Version | 
+| --- | --- |
+| `ELASTICITY` | 7.0.0 |
+
+The displacements of the nodes on `surface` are enforced, the displacement vector is specified by magnitude and direction (the x/y/z components), internally the solver makes the direction unitary, the multiplier (should usually be set to 1) can be used to increase/decrease the magnitude for example after scaling an existing mesh.
+```
+MARKER_DISPLACEMENT = (surface, multiplier, magnitude `[m]`, x component, y component, z component)
+```
+
+**Note**: Be aware of intersecting surfaces with incompatible displacements, there are shared nodes between adjacent surfaces.
+
+## Load Boundary Condition ##
+
+| Solver | Version | 
+| --- | --- |
+| `ELASTICITY` | 7.0.0 |
+
+A force-like boundary condition but specified in terms of pressure (units of Pa) which is integrated to obtain nodal forces. The syntax is identical to `MARKER_DISPLACEMENT`.
+```
+MARKER_LOAD = (surface, multiplier, magnitude `[Pa]`, x component, y component, z component)
+```
+
+**Note**: In the context of nonlinear elasticity, this is not a following force.
+
+## Normal Pressure Boundary Condition ##
+
+| Solver | Version | 
+| --- | --- |
+| `ELASTICITY` | 7.0.0 |
+
+Normal pressure boundary condition (positive means into the surface). This is a following force both magnitude and direction depend of the deformation of the structure.
+```
+MARKER_PRESSURE = (surface, inward pressure `[Pa]`)
+```
+
