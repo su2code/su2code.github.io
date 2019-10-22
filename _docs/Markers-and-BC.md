@@ -24,6 +24,11 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
   - [Pressure Outlet (Incompressible)](#pressure-outlet-incompressible)
   - [Mass Flow Outlet](#mass-flow-outlet)
 - [Periodic Boundary Condition](#periodic-boundary-condition)
+- [Structural Boundary Conditions](#structural-boundary-conditions)
+  - [Clamped Boundary](#clamped-boundary)
+  - [Displacement Boundary](#displacement-boundary)
+  - [Load Boundary](#load-boundary)
+  - [Normal Pressure Boundary](#normal-pressure-boundary)
 
 ---
 
@@ -198,13 +203,15 @@ MARKER_OUTLET = (outlet, 1e1)
 
 **Note**: Updates to the pressure based on the prescribed mass flow are damped in order to help with stability/convergence. The damping coefficient can be changed using the `INC_OUTLET_DAMPING` option (default is `0.1`).
 
-## Periodic Boundary Condition ##
+### Periodic Boundary Condition ###
 
 | Solver | Version | 
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
-## Clamped Boundary Condition ##
+## Structural Boundary Conditions ##
+
+### Clamped Boundary ###
 
 | Solver | Version | 
 | --- | --- |
@@ -218,7 +225,7 @@ MARKER_CLAMPED = (surface_1,...,surface_N)
 
 **Note**: A well posed structural problem requires at least one surface as `MARKER_CLAMPED` or `MARKER_DISPLACEMENT`.
 
-## Displacement Boundary Condition ##
+### Displacement Boundary ###
 
 | Solver | Version | 
 | --- | --- |
@@ -231,7 +238,7 @@ MARKER_DISPLACEMENT = (surface, multiplier, magnitude `[m]`, x component, y comp
 
 **Note**: Be aware of intersecting surfaces with incompatible displacements, there are shared nodes between adjacent surfaces.
 
-## Load Boundary Condition ##
+### Load Boundary ###
 
 | Solver | Version | 
 | --- | --- |
@@ -244,7 +251,7 @@ MARKER_LOAD = (surface, multiplier, magnitude `[Pa]`, x component, y component, 
 
 **Note**: In the context of nonlinear elasticity, this is not a following force.
 
-## Normal Pressure Boundary Condition ##
+### Normal Pressure Boundary ###
 
 | Solver | Version | 
 | --- | --- |
