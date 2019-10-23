@@ -83,19 +83,22 @@ For example central schemes like JST allow very high CFL values, however at some
 Upwind schemes are less plagued by this as stability considerations usually put a lower limit on CFL, and the linear systems are better conditioned to begin with.
 
 Like CFL, the linear solver tolerance should be the highest (i.e. less accurate) possible for which the flow solver is still stable, usually in the 0.05-0.001 range, having to go lower is often a sign of poor mesh quality resulting in localized high residuals.
+A high linear tolerance does not reduce the accuracy of the final results since the solution is iterative, and on each iteration of the flow solver the right hand side of the linear system is the nonlinear residual, only this residual needs to be low for accurate solution of the discretized nonlinear equations.
 
 The maximum number of iterations should allow the linear solver to converge, however the memory footprint of `FGMRES` (which should be your default solver) is proportional to that number, if that becomes a problem you can switch to `RESTARTED_FGMRES` or `BCGSTAB`, the latter may perform better for stiff systems like those resulting from central schemes at high CFL.
+For a typical problem with an upwind scheme 10 iterations should be sufficient, for central schemes up to 50 may be required.
 
 High CFL cases will usually require the `ILU` preconditioner, while low CFL cases may run better with `LU_SGS` as even if more linear iterations are required, `LU_SGS` has no setup cost.
 
-Finally, the concept of high/low CFL is somewhat case dependent, for RANS meshes (stretched close to walls) and upwind schemes, high is greater than 100 and low less than 20, central schemes move the limits down, time domain and less stretched meshes (e.g. for Euler or Navier-Stokes) move the limits up.
+Finally, the concept of high/low CFL is somewhat case dependent, for RANS meshes (stretched close to walls) and upwind schemes, high is greater than 100 and low less than 20, central schemes move the limits down, time domain and less stretched meshes (e.g. for Euler or Navier-Stokes simulations) move the limits up.
 
 ### Structural Simulations ###
 
 At scale these become the most difficult systems to solve in SU2 due to their elliptical nature, they are easier for time-domain problems nonetheless always start with the `ILU` preconditioner.
-A much larger number of linear iterations is required `RESTARTED_FGMRES` or `CONJUGATE_GRADIENT` should be used.
-For linear elasticity an error of at most 1e-8 should be targeted, for nonlinear elasticity 1e-6 may suffice as multiple iterations are performed.
-If the solution becomes challenging, and the problem is 2D or you have RAM to spare, consider using the external direct solvers.
+A much larger number of linear iterations is required (>100) `RESTARTED_FGMRES` or `CONJUGATE_GRADIENT` should therefore be used.
+For linear elasticity an error of at most 1e-8 should be targeted as contrary to fluid problems there are no outer iterations, for nonlinear elasticity 1e-6 may suffice as a few nonlinear iterations are required.
+
+**Note**: If the solution becomes challenging, and the problem is 2D or you have RAM to spare, consider using the external direct solvers.
 
 ### Mesh Deformation ###
 
@@ -105,4 +108,6 @@ For elasticity-based mesh deformation the advice is the same as for structural s
 
 Discrete adjoint applications respond well to high CFL values, the advice is generally the same as for the primal counterpart (fluid or structural).
 The `ILU` preconditioner should be used as `JACOBI` will only give an advantage for very low CFL values.
+
+**Note**: For steady-state discrete adjoint problems the system matrix does not change, therefore the external direct solvers may achieve the shortest solution time for 2D and medium scale (<1M nodes) 3D problems.
 
