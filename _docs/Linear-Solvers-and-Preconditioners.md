@@ -80,10 +80,14 @@ For tiny problems with ~10k nodes almost any solver will do, these settings are 
 
 Fastest overall convergence is usually obtained by using the highest CFL number for which the flow solver is stable, and the linear systems still reasonably economic to solve.
 For example central schemes like JST allow very high CFL values, however at some point (100-400 for RANS grids) the linear systems become too expensive to solve and performance starts decreasing.
-Upwind schemes are less plagued by this as stability considerations usually put a lower limit on CFL, and the linear systems are better conditioned to begin with.\\
-Opposite to CFL, the linear solver tolerance should be the lowest possible for which the flow solver is still stable, usually in the 0.05-0.001 range, having to go lower is often a sign of poor mesh quality resulting in localized high residuals.\\
-The maximum number of iterations should allow the linear solver to converge, however the memory footprint of `FGMRES` (which should be your default solver) is proportional to that number, if that becomes a problem you can switch to `RESTARTED_FGMRES` or `BCGSTAB`, the latter may perform better for stiff systems like those resulting from central schemes at high CFL.\\
-High CFL cases will usually require the `ILU` preconditioner, while low CFL cases may run better with `LU_SGS` as even if more linear iterations are required, `LU_SGS` has no setup cost.\\
+Upwind schemes are less plagued by this as stability considerations usually put a lower limit on CFL, and the linear systems are better conditioned to begin with.
+
+Opposite to CFL, the linear solver tolerance should be the lowest possible for which the flow solver is still stable, usually in the 0.05-0.001 range, having to go lower is often a sign of poor mesh quality resulting in localized high residuals.
+
+The maximum number of iterations should allow the linear solver to converge, however the memory footprint of `FGMRES` (which should be your default solver) is proportional to that number, if that becomes a problem you can switch to `RESTARTED_FGMRES` or `BCGSTAB`, the latter may perform better for stiff systems like those resulting from central schemes at high CFL.
+
+High CFL cases will usually require the `ILU` preconditioner, while low CFL cases may run better with `LU_SGS` as even if more linear iterations are required, `LU_SGS` has no setup cost.
+
 Finally, the concept of high/low CFL is somewhat case dependent, for RANS meshes (stretched close to walls) and upwind schemes, high is greater than 100 and low less than 20, central schemes move the limits down, time domain and less stretched meshes (e.g. for Euler or Navier-Stokes) move the limits up.
 
 ### Structural Simulations ###
