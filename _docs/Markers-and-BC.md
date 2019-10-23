@@ -257,7 +257,7 @@ MARKER_LOAD = (surface, multiplier, magnitude `[Pa]`, x component, y component, 
 | --- | --- |
 | `ELASTICITY` | 7.0.0 |
 
-Normal pressure boundary condition (positive means into the surface). This is a following force both magnitude and direction depend of the deformation of the structure.
+Normal pressure boundary condition (positive means into the surface). This is a following force both magnitude and direction depend on the deformation of the structure.
 ```
 MARKER_PRESSURE = (surface, inward pressure `[Pa]`)
 ```
