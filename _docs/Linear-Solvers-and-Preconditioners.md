@@ -82,7 +82,7 @@ Fastest overall convergence is usually obtained by using the highest CFL number 
 For example central schemes like JST allow very high CFL values, however at some point (100-400 for RANS grids) the linear systems become too expensive to solve and performance starts decreasing.
 Upwind schemes are less plagued by this as stability considerations usually put a lower limit on CFL, and the linear systems are better conditioned to begin with.
 
-Opposite to CFL, the linear solver tolerance should be the lowest possible for which the flow solver is still stable, usually in the 0.05-0.001 range, having to go lower is often a sign of poor mesh quality resulting in localized high residuals.
+Like CFL, the linear solver tolerance should be the highest (i.e. less accurate) possible for which the flow solver is still stable, usually in the 0.05-0.001 range, having to go lower is often a sign of poor mesh quality resulting in localized high residuals.
 
 The maximum number of iterations should allow the linear solver to converge, however the memory footprint of `FGMRES` (which should be your default solver) is proportional to that number, if that becomes a problem you can switch to `RESTARTED_FGMRES` or `BCGSTAB`, the latter may perform better for stiff systems like those resulting from central schemes at high CFL.
 
@@ -103,6 +103,6 @@ For elasticity-based mesh deformation the advice is the same as for structural s
 
 ### Discrete Adjoint ###
 
-Discrete adjoint applications respond well to high CFL values the advice is generally the same as for the primal counterpart (fluid or structural).
+Discrete adjoint applications respond well to high CFL values, the advice is generally the same as for the primal counterpart (fluid or structural).
 The `ILU` preconditioner should be used as `JACOBI` will only give an advantage for very low CFL values.
 
