@@ -38,6 +38,15 @@ defaults:
     sectionid: blog
 
 - scope:
+    path: _docs_v7
+    type: docs_v7
+  values:
+    layout: docs_v7
+    sectionid: docs_v7
+    seo:
+      type: "WebPage"
+
+- scope:
     path: _docs
     type: docs
   values:
@@ -57,6 +66,9 @@ defaults:
 
 collections:
   docs:
+    permalink: /:collection/:path/
+    output: true
+  docs_v7:
     permalink: /:collection/:path/
     output: true
   tutorials:

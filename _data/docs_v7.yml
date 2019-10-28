@@ -1,0 +1,52 @@
+- title: Introduction to SU2
+  docs_v7:
+  - home
+  - contribute
+  - Guide-to-v7
+
+- title: Quick Start
+  docs_v7:
+  - Quick-Start
+
+- title: Installation
+  docs_v7:
+  - Download
+  - Installation
+  - Build-SU2-From-Source
+
+- title: Input Files
+  docs_v7:
+  - Configuration-File
+  - Mesh-File
+  - Restart-File
+
+- title: Running SU2
+  docs_v7:
+  - Execution
+  - Post-processing
+  - Test-Cases
+
+- title: Users Guide
+  docs_v7:
+  - Solver-Setup
+  - Markers-and-BC
+  - Custom-Output
+  - Multizone
+
+- title: Developer Docs
+  docs_v7:
+  - Gitting-Started
+  - Developing-SU2-on-GitHub-(Internal-Developers)
+  - Running-Regression-Tests
+  - Code-Review
+  - Code-Structure
+  - Style-Guide
+  - Advanced-AD-Techniques
+
+- title: FAQ
+  docs_v7:
+  - FAQ
+
+- title: Contact
+  docs_v7:
+  - Contact
