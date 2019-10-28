@@ -1,6 +1,6 @@
 ---
 title: Linear Solvers and Preconditioners
-permalink: /docs/Linear-Solvers-and-Preconditioners/
+permalink: /docs_v7/Linear-Solvers-and-Preconditioners/
 ---
 
 Linear solvers (and preconditioners) are used in implicit (pseudo)time integration schemes (any option with "IMPLICIT" or "DUAL-TIME" in the name).
