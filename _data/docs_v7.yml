@@ -28,6 +28,7 @@
 
 - title: Users Guide
   docs_v7:
+  - Theory
   - Solver-Setup
   - Physical-Definition
   - Markers-and-BC
