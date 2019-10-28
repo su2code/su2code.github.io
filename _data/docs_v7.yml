@@ -29,6 +29,7 @@
 - title: Users Guide
   docs_v7:
   - Solver-Setup
+  - Physical-Definition
   - Markers-and-BC
   - Custom-Output
   - Linear-Solvers-and-Preconditioners
