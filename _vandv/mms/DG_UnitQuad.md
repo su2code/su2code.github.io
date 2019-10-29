@@ -1,5 +1,5 @@
 ---
-title: DG discretization of the Compressible Navier-Stokes
+title: DG discretization of Compressible Navier-Stokes
 permalink: /vandv/DG_UnitQuad/
 ---
 
