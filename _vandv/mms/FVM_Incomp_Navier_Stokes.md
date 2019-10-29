@@ -1,5 +1,5 @@
 ---
-title: Method of Manufactured Solutions (MMS) for the DG discretization of the Compressible Navier-Stokes
+title: FVM Discretization of Incompressible Navier-Stokes
 permalink: /vandv/FVM_Incomp_Navier_Stokes/
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Method of Manufactured Solutions (MMS) for the DG discretization of the Compressible Navier-Stokes
+title: DG discretization of the Compressible Navier-Stokes
 permalink: /vandv/DG_UnitQuad/
 ---
 

@@ -1,5 +1,5 @@
  ---
- title: Method of Manufactured Solutions (MMS) for Incompressible Euler
+ title: FVM Discretization of Incompressible Euler
  permalink: /vandv/FVM_Incomp_Euler/
  ---
 
