@@ -9,3 +9,7 @@
   - FVM_Incomp_Navier_Stokes
   - FVM_Navier_Stokes
 
+- title: Verification Cases
+  vandv:
+  - Bump_Channel
+  - Flat_Plate
