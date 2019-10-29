@@ -1,0 +1,8 @@
+---
+title: Home
+permalink: /vandv/home/
+redirect_from: /vandv/index.html
+---
+
+This is work in progress to provide a comprehensive set of Verification and Validation cases that showcases the abilities of SU2 and compares it to other common CFD solvers.
+

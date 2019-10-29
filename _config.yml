@@ -64,6 +64,14 @@ defaults:
     seo:
       type: "WebPage"
 
+- scope:
+    path: _vandv
+    type: vandv
+  values:
+    layout: vandv
+    sectionid: vandv
+    seo:
+      type: "WebPage"
 collections:
   docs:
     permalink: /:collection/:path/
@@ -72,6 +80,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   tutorials:
+    permalink: /:collection/:path/
+    output: true
+  vandv:
     permalink: /:collection/:path/
     output: true
   posts:
