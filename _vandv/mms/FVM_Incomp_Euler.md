@@ -1,7 +1,7 @@
- ---
- title: FVM Discretization of Incompressible Euler
- permalink: /vandv/FVM_Incomp_Euler/
- ---
+---
+title: FVM Discretization of Incompressible Euler
+permalink: /vandv/FVM_Incomp_Euler/
+---
 
 The compute_order_of_accuracy.py script drives the other files in this folder. Simply set the number of ranks on which to run the cases by modifying the 'nRank' variable at the top of the script and then execute with:
 
