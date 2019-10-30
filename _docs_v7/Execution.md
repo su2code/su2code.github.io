@@ -5,6 +5,20 @@ permalink: /docs_v7/Execution/
 
 Once downloaded and installed, SU2 will be ready to run simulations and design problems. Using simple command line syntax, users can execute the individual C++ programs while specifying the problem parameters in the all-purpose configuration file. For users seeking to utilize the more advanced features of the suite (such as shape optimization or adaptive mesh refinement), Python scripts that automate more complex tasks are available. Appropriate syntax and information for running the C++ modules and python scripts can be found below.
 
+---
+
+## Content
+
+- [C++ Modules](#c-modules)
+- [Python Scripts](#python-scripts)
+  - [Parallel Computation Script (parallel-computation.py)](#parallel-computation-script-parallel_computationpy)
+  - [Continuous Adjoint Gradient Calculation (continuous_adjoint.py)](#continuous-adjoint-gradient-calculation-continuous_adjointpy)
+  - [Discrete Adjoint Gradient Calculation (discrete_adjoint.py)](#discrete-adjoint-gradient-calculation-discrete_adjointpy)
+  - [Finite Difference Gradient Calculation (finite_differences.py)](#finite-difference-gradient-calculation-finite_differencespy)
+  - [Shape Optimization Script (shape_optimization.py)](#shape-optimization-script-shape_optimizationpy)
+  
+---
+
 ## C++ Modules
 
 As described in the [Software Components](/docs_v7/Software-Components/) page, there are a number of C++ modules that are the core of the SU2 suite. After compilation, each can be executed at the command line using a Unix-based terminal (or appropriate emulator, such as Cygwin). The executables for these modules can be found in the `$SU2_HOME/<MODULE_NAME>/bin` directories and in the `$SU2_HOME/SU2_PY` directory.  The configuration file specifies the problem and solver parameters for all SU2 modules and must be included at runtime.
@@ -40,10 +54,10 @@ The parallel computation script, parallel_computation.py, coordinates the steps 
 Usage: `$ python parallel_computation.py [options]`
 
 Options:
-* -h, --help show this help message and exit
-* -f FILE, --file=FILE read config from FILE
-* -n PARTITIONS, --partitions=PARTITIONS number of PARTITIONS
-* -c COMPUTE, --compute=COMPUTE COMPUTE direct and adjoint problem
+* `-h, --help` show help message and exit
+* `-f FILE, --file=FILE` read config from FILE
+* `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
+* `-c COMPUTE, --compute=COMPUTE COMPUTE` direct and adjoint problem
 
 ### Continuous Adjoint Gradient Calculation (continuous_adjoint.py)
 
@@ -52,11 +66,11 @@ The continuous adjoint calculation script, continuous_adjoint.py, automates the 
 Usage: `$ python continuous_adjoint.py [options]`
 
 Options:
-* -h, --help show this help message and exit
-* -f FILE, --file=FILE read config from FILE
-* -n PARTITIONS, --partitions=PARTITIONS number of PARTITIONS
-* -c COMPUTE, --compute=COMPUTE COMPUTE direct and adjoint problem
-* -s STEP, --step=STEP DOT finite difference STEP
+* `-h, --help` show help message and exit
+* `-f FILE, --file=FILE` read config from FILE
+* `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
+* `-c COMPUTE, --compute=COMPUTE COMPUTE` direct and adjoint problem
+* `-s STEP, --step=STEP DOT` finite difference STEP
 
 ### Discrete Adjoint Gradient Calculation (discrete_adjoint.py)
 
@@ -65,10 +79,10 @@ Similar to the continuous adjoint script, the discrete adjoint script calls SU2_
 Usage: `$ python discrete_adjoint.py [options]`
 
 Options:
-* -h, --help show this help message and exit
-* -f FILE, --file=FILE read config from FILE
-* -n PARTITIONS, --partitions=PARTITIONS number of PARTITIONS
-* -c COMPUTE, --compute=COMPUTE COMPUTE direct and adjoint problem
+* `-h, --help` show help message and exit
+* `-f FILE, --file=FILE` read config from FILE
+* `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
+* `-c COMPUTE, --compute=COMPUTE COMPUTE` direct and adjoint problem
 
 ### Finite Difference Gradient Calculation (finite_differences.py)
 
@@ -77,11 +91,11 @@ The finite difference calculation script is used to calculate the gradient of an
 Usage: `$ python finite_differences.py [options]`
 
 Options:
-* -h, --help show this help message and exit
-* -f FILE, --file=FILE read config from FILE
-* -n PARTITIONS, --partitions=PARTITIONS number of PARTITIONS
-* -s STEP, --step=STEP finite difference STEP
-* -q QUIET, --quiet=QUIET, if True, output QUIET to log files 
+* `-h, --help` show help message and exit
+* `-f FILE, --file=FILE` read config from FILE
+* `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
+* `-s STEP, --step=STEP` finite difference STEP
+* `-q QUIET, --quiet=QUIET` if True, output QUIET to log files 
 
 ### Shape Optimization Script (shape_optimization.py)
 
@@ -90,9 +104,9 @@ The shape optimization script coordinates and synchronizes the steps necessary t
 Usage: `$ python shape_optimization.py [options]`
 
 Options:
-* -h, --help show this help message and exit
-* -f FILE, --file=FILE read config from FILE
-* -r NAME, --name=NAME try to restart from project file NAME
-* -n PARTITIONS, --partitions=PARTITIONS number of PARTITIONS
-* -g GRADIENT, --gradient=GRADIENT Method for computing the GRADIENT (ADJOINT, DISCRETE_ADJOINT, FINDIFF, NONE)
-* -q QUIET, --quiet=QUIET True/False Quiet all SU2 output (optimizer output only)
+* `-h, --help` show help message and exit
+* `-f FILE, --file=FILE` read config from FILE
+* `-r NAME, --name=NAME` try to restart from project file NAME
+* `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
+* `-g GRADIENT, --gradient=GRADIENT` Method for computing the GRADIENT (ADJOINT, DISCRETE_ADJOINT, FINDIFF, NONE)
+* `-q QUIET, --quiet=QUIET` True/False Quiet all SU2 output (optimizer output only)
