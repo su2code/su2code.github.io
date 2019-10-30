@@ -2,9 +2,14 @@
 title: Method of Manufactured Solutions for Compressible Navier-Stokes
 permalink: /vandv/MMS_FVM_Navier_Stokes/
 ---
+
 <p align="center">
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rho.png" alt="Accuracy RMS Rho" width="435"/>
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rho.png" alt="Accuracy RMS Rho" />
 </p>
+
+| Solver | Version |
+| --- | --- |
+| `NAVIER_STOKES`| 7.0.0 |
 
 This page contains the results of running MMS for the compressible Navier-Stokes system in order to formally verify the order-of-accuracy for the 2nd-order finite volume solver in SU2. These cases were completed with SU2 v7.0.0.
 
@@ -45,21 +50,21 @@ $ compute_order_of_accuracy.py
 The script will automatically generate the required meshes and execute SU2 solutions for the four different cases on those meshes for comparison. Four config files are provided, but you can modify them or add new ones. Simply change the config files listed at the top of the compute_order_of_accuracy.py script. Postprocessing is also automatically performed by the script, including the creation of figures for global error vs relative grid size and observed order of accuracy vs relative grid size.
 
 <p align="center">
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rho.png" alt="Slope RMS Rho" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rho.png" alt="Accuracy RMS Rho" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rhou.png" alt="Slope RMS Rho-U" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rhou.png" alt="Accuracy RMS Rho-U" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rhov.png" alt="Slope RMS Rho-V" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rhov.png" alt="Accuracy RMS Rho-V" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rhoe.png" alt="Slope RMS Rho-E" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rhoe.png" alt="Accuracy RMS Rho-E" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rho.png" alt="Slope Max Rho" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rho.png" alt="Accuracy Max Rho" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rhou.png" alt="Slope Max Rho-U" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rhou.png" alt="Accuracy Max Rho-U" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rhov.png" alt="Slope Max Rho-V" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rhov.png" alt="Accuracy Max Rho-V" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rhoe.png" alt="Slope Max Rho-E" width="435"/>
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rhoe.png" alt="Accuracy Max Rho-E" width="435"/>
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rho.png" alt="Slope RMS Rho" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rho.png" alt="Accuracy RMS Rho" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rhou.png" alt="Slope RMS Rho-U" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rhou.png" alt="Accuracy RMS Rho-U" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rhov.png" alt="Slope RMS Rho-V" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rhov.png" alt="Accuracy RMS Rho-V" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_rms_rhoe.png" alt="Slope RMS Rho-E" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rhoe.png" alt="Accuracy RMS Rho-E" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rho.png" alt="Slope Max Rho" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rho.png" alt="Accuracy Max Rho" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rhou.png" alt="Slope Max Rho-U" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rhou.png" alt="Accuracy Max Rho-U" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rhov.png" alt="Slope Max Rho-V" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rhov.png" alt="Accuracy Max Rho-V" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/slope_max_rhoe.png" alt="Slope Max Rho-E" />
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_max_rhoe.png" alt="Accuracy Max Rho-E" />
 </p>
 

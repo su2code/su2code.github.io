@@ -3,10 +3,13 @@ title: 2D Zero Pressure Gradient Flat Plate RANS Verification Case
 permalink: /vandv/Flat_Plate/
 ---
 
-
 <p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" width="435"/>
+<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" />
 </p>
+
+| Solver | Version |
+| --- | --- |
+|  `RANS` | 7.0.0 |
 
 The details of the Zero Pressure Gradient Flat Plate case are taken from the [NASA TMR website](https://turbmodels.larc.nasa.gov/flatplate.html).
 
@@ -50,17 +53,17 @@ Both the SA and SST models exhibit excellent agreement in the figures below. Wit
 ### SA Model
 
 <p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cd_gridconv_sa.png" alt="Drag Grid Convergence SA" width="435"/>
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" width="435"/>
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_profile_sa.png" alt="Skin Friction Profile SA" width="435"/>
-<img src="/vandv_files/Flat_Plate/images/flatplate_residual_convergence_sa.png" alt="Residual Convergence SA" width="435"/>
+<img src="/vandv_files/Flat_Plate/images/flatplate_cd_gridconv_sa.png" alt="Drag Grid Convergence SA" />
+<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" />
+<img src="/vandv_files/Flat_Plate/images/flatplate_cf_profile_sa.png" alt="Skin Friction Profile SA" />
+<img src="/vandv_files/Flat_Plate/images/flatplate_residual_convergence_sa.png" alt="Residual Convergence SA" />
 </p>
 
 ### SST Model
 
 <p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cd_gridconv_sst.png" alt="Drag Grid Convergence SST" width="435"/>
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sst.png" alt="Skin Friction Grid Convergence SST" width="435"/>
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_profile_sst.png" alt="Skin Friction Profile SST" width="435"/>
-<img src="/vandv_files/Flat_Plate/images/flatplate_residual_convergence_sst.png" alt="Residual Convergence SST" width="435"/>
+<img src="/vandv_files/Flat_Plate/images/flatplate_cd_gridconv_sst.png" alt="Drag Grid Convergence SST" />
+<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sst.png" alt="Skin Friction Grid Convergence SST" />
+<img src="/vandv_files/Flat_Plate/images/flatplate_cf_profile_sst.png" alt="Skin Friction Profile SST" />
+<img src="/vandv_files/Flat_Plate/images/flatplate_residual_convergence_sst.png" alt="Residual Convergence SST" />
 </p>

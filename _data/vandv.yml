@@ -1,9 +1,10 @@
-- title: The SU2 Verification and Validation Collection
+- title: The SU2 V&V Collection
   vandv:
   - Home
+  - Contribute
   
 - title: Compressible Flow
   vandv:
   - MMS_FVM_Navier_Stokes
-  - Bump_Channel
   - Flat_Plate
+  - Bump_Channel
