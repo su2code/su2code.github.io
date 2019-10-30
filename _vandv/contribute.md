@@ -1,6 +1,6 @@
 ---
 title: Contribute
-permalink: /tutorials/contribute/
+permalink: /vandv/Contribute/
 ---
 
 Do you want to contribute to SU2 with a V&V case study? It's easy! Just create a fork of the [SU2 Project Website repository](https://github.com/su2code/su2code.github.io), write your case study and open a pull request. 

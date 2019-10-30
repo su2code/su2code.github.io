@@ -3,13 +3,14 @@ title: 2D Bump-in-Channel RANS Verification Case
 permalink: /vandv/Bump_Channel/
 ---
 
+| Solver | Version |
+| --- | --- |
+| `RANS` | 7.0.0 |
+
 <p align="center">
 <img src="/vandv_files/Bump_Channel/images/bump_cf_0p75_gridconv_sst.png" alt="Skin Friction Grid Convergence SST x = 0.75" />
 </p>
 
-| Solver | Version |
-| --- | --- |
-| `RANS` | 7.0.0 |
 
 The details of the 2D Bump-in-Channel Verification case are taken from the [NASA TMR website](https://turbmodels.larc.nasa.gov/bump.html). 
 

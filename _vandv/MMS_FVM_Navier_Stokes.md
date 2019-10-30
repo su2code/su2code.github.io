@@ -3,13 +3,13 @@ title: Method of Manufactured Solutions for Compressible Navier-Stokes
 permalink: /vandv/MMS_FVM_Navier_Stokes/
 ---
 
-<p align="center">
-<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rho.png" alt="Accuracy RMS Rho" />
-</p>
-
 | Solver | Version |
 | --- | --- |
 | `NAVIER_STOKES`| 7.0.0 |
+
+<p align="center">
+<img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rho.png" alt="Accuracy RMS Rho" />
+</p>
 
 This page contains the results of running MMS for the compressible Navier-Stokes system in order to formally verify the order-of-accuracy for the 2nd-order finite volume solver in SU2. These cases were completed with SU2 v7.0.0.
 

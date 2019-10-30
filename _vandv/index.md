@@ -10,7 +10,7 @@ When available, rigorous verification via formal order of accuracy assessment by
 
 We will continue to add cases over time to demonstrate V&V of additional physical models in SU2, and we encourage contributions from the community! Please see the contribute page for instructions on how to contribute.
 
-**NOTE**: The primary purpose of this section of the website is to demonstrate V&V of the SU2 suite, and as such, the case studies are not written as tutorials. However, you can typically find the files needed to run the cases yourself in the [project V&V repository](https://github.com/su2code/vandv).
+**NOTE**: The primary purpose of this section of the website is to demonstrate V&V of the SU2 suite, and as such, the case studies are not written as tutorials. However, you can typically find the files needed to run the cases yourself in the [project V&V repository](https://github.com/su2code/vandv) or here in the [project website repository](https://github.com/su2code/su2code.github.io) .
 
 
 ## Summary of V&V case studies

@@ -3,13 +3,13 @@ title: 2D Zero Pressure Gradient Flat Plate RANS Verification Case
 permalink: /vandv/Flat_Plate/
 ---
 
-<p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" />
-</p>
-
 | Solver | Version |
 | --- | --- |
 |  `RANS` | 7.0.0 |
+
+<p align="center">
+<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" />
+</p>
 
 The details of the Zero Pressure Gradient Flat Plate case are taken from the [NASA TMR website](https://turbmodels.larc.nasa.gov/flatplate.html).
 
