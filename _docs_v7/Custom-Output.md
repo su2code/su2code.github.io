@@ -1,6 +1,7 @@
 ---
 title: History and Solution Output
 permalink: /docs_v7/Custom-Output/
+redirect_from: /docs/Custom-Output/
 ---
 
 With v7.0 we have introduced a new way of customizing the output on screen, in the history file and in the visualization files.
