@@ -1,15 +1,9 @@
-- title: Validation and Verification Suite
+- title: The SU2 Verification and Validation Collection
   vandv:
-  - home
+  - Home
   
-- title: Method of Manufactured Solutions
+- title: Compressible Flow
   vandv:
-  - DG_UnitQuad
-  - FVM_Incomp_Euler
-  - FVM_Incomp_Navier_Stokes
-  - FVM_Navier_Stokes
-
-- title: Verification Cases
-  vandv:
+  - MMS_FVM_Navier_Stokes
   - Bump_Channel
   - Flat_Plate
