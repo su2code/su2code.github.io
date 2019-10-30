@@ -38,9 +38,6 @@ Structured meshes of increasing density are used to perform a grid convergence s
 4. 705x321 - 225280 quadrilaterals
 5. 1409x641 - 901120 quadrilaterals
 
-![Turb Plate Mesh](/vandv_files/Bump_Channel/images/turb_plate_mesh_bcs.png)
-Figure (1): Mesh with boundary conditions: inlet (red), outlet (blue), far-field (orange), symmetry (purple), wall (green).
-
 If you would like to run the bump-in-channel problem for yourself, you can use the files available in the [SU2 V&V repository](https://github.com/su2code/VandV/tree/master/rans/bump_in_channel_2d). Configuration files for both the SA and SST cases, as well as all grids in CGNS format, are provided. A Python script is also distributed in order to easily recreate the figures seen below from the data. *Please note that the mesh files found in the repository have been gzipped to reduce storage requirements and should be unzipped before use.*
 
 ## Results
