@@ -72,9 +72,9 @@ The first step in this tutorial is to solve the Euler equations:
  1. Either navigate to the QuickStart/ directory or create a directory in which to run the tutorial. If you have created a new directory, copy the config file (inv_NACA0012.cfg) and the mesh file (mesh_NACA0012_inv.su2) to this directory. 
  2. Run the executable by entering `SU2_CFD inv_NACA0012.cfg` at the command line. If you have not set the $SU2_RUN environment variable you will need to run `../bin/SU2_CFD inv_NACA0012.cfg` (from the QuickStart directory) or use the appropriate path to your SU2_CFD executable at the command line. 
  3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will finish after reaching the specified convergence criteria.
- 4. Files containing the flow results (with "flow" in the file name) will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat or .plt). More specifically, these files are:
-  - **flow.dat** or **flow.vtk** - full volume flow solution.
-  - **surface_flow.dat** or **surface_flow.vtk** - flow solution along the airfoil surface.
+ 4. Files containing the flow results (with "flow" in the file name) will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat or .szplt). More specifically, these files are:
+  - **flow.szplt** or **flow.vtk** - full volume flow solution.
+  - **surface_flow.szplt** or **surface_flow.vtk** - flow solution along the airfoil surface.
   - **surface_flow.csv** - comma separated values (.csv) file containing values along the airfoil surface.
   - **restart_flow.dat** - restart file in an internal format for restarting this simulation in SU2.
   - **history.dat** or **history.csv** - file containing the convergence history information.
@@ -84,9 +84,9 @@ Next, we want to run the adjoint solution to get the sensitivity of the objectiv
  2. Rename the restart file (restart_flow.dat) to "solution_flow.dat" so that the adjoint code has access to the direct flow solution.
  3. Run the executable again by entering `SU2_CFD inv_NACA0012.cfg` at the command line.
  4. SU2 will print residual updates with each iteration of the adjoint solver, and the simulation will finish after reaching the specified convergence criteria.
- 5. Files containing the adjoint results (with "adjoint" in the file name) will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat or .plt). More specifically, these files are:
-  - **adjoint.dat** or **adjoint.vtk** - full volume adjoint solution.
-  - **surface_adjoint.dat** or **surface_adjoint.vtk** - adjoint solution along the airfoil surface.
+ 5. Files containing the adjoint results (with "adjoint" in the file name) will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat or .szplt). More specifically, these files are:
+  - **adjoint.szplt** or **adjoint.vtk** - full volume adjoint solution.
+  - **surface_adjoint.szplt** or **surface_adjoint.vtk** - adjoint solution along the airfoil surface.
   - **surface_adjoint.csv** - comma separated values (.csv) file containing values along the airfoil surface.
   - **restart_adj_cd.dat** - restart file in an internal format for restarting this simulation in SU2. Note that the name of the objective appears in the file name.
   - **history.dat** or **history.csv** - file containing the convergence history information.
