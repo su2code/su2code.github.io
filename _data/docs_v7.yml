@@ -2,6 +2,9 @@
   docs_v7:
   - home
   - contribute
+
+- title: New in Version 7
+  docs_v7:
   - Guide-to-v7
 
 - title: Quick Start
@@ -13,21 +16,13 @@
   - Download
   - Installation
   - Build-SU2-From-Source
-
-- title: Input Files
-  docs_v7:
-  - Configuration-File
-  - Mesh-File
-  - Restart-File
-
-- title: Running SU2
-  docs_v7:
-  - Execution
-  - Post-processing
   - Test-Cases
 
 - title: Users Guide
   docs_v7:
+  - Configuration-File
+  - Mesh-File
+  - Restart-File
   - Theory
   - Solver-Setup
   - Physical-Definition
@@ -35,6 +30,7 @@
   - Custom-Output
   - Linear-Solvers-and-Preconditioners
   - Multizone
+  - Execution
 
 - title: Developer Docs
   docs_v7:
