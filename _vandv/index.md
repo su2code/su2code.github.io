@@ -8,5 +8,5 @@ The cases presented in this section demonstrate the verification and validation 
 
 When available, rigorous verification via formal order of accuracy assessment by exact or manufactured solutions is performed. When exact or manufactured solutions are not available, code-to-code comparisons are made. By comparing SU2 results against many well-established codes on a sequence of refined grids and seeing agreement of key quantities in the limit, we can build a high degree of confidence that the models found within SU2 are implemented correctly.
 
-We will continue to add cases over time to demonstrate V&V of additional physical models in SU2.
+We will continue to add cases over time to demonstrate V&V of additional physical models in SU2, and we encourage contributions from the community!
 

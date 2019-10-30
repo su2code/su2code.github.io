@@ -5,7 +5,7 @@ permalink: /vandv/Flat_Plate/
 
 
 <p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cd_gridconv_sa.png" alt="Drag Grid Convergence SA" width="435"/>
+<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" width="435"/>
 </p>
 
 The details of the Zero Pressure Gradient Flat Plate case are taken from the [NASA TMR website](https://turbmodels.larc.nasa.gov/flatplate.html).
