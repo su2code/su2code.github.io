@@ -1,5 +1,5 @@
 ---
-title: Customizing the output of the simulation
+title: History and Solution Output
 permalink: /docs_v7/Custom-Output/
 ---
 
