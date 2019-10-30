@@ -1,5 +1,5 @@
 ---
-title: 2D Bump-in-Channel Verification Case
+title: 2D Bump-in-Channel RANS Verification Case
 permalink: /vandv/Bump_Channel/
 ---
 

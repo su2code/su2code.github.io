@@ -1,5 +1,5 @@
 ---
-title: Zero Pressure Gradient Flat Plate
+title: 2D Zero Pressure Gradient Flat Plate RANS Verification Case
 permalink: /vandv/Flat_Plate/
 ---
 
