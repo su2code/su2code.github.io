@@ -42,15 +42,6 @@
   - Style-Guide
   - Advanced-AD-Techniques
 
-- title: v7 Docs
-  docs:
-  - Build-SU2-From-Source
-  - Solver-Setup
-  - Markers-and-BC
-  - Custom-Output
-  - Multizone
-  - Guide-to-v7
-
 - title: FAQ
   docs:
   - FAQ
