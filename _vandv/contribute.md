@@ -20,7 +20,7 @@ permalink: /docs/Your_Case_Name
 I'm contributing to SU2!
 ```
 
-**2.** Create a new subfolder in `_vandv_files/` as `_vand/Your_Case_Name`, where you can store any additional files needed for your case study, such as config file, mesh, and images of results. Don't forget to provide the relative links in your Markdown file to these auxiliary files, if necessary.
+**2.** Create a new subfolder in `_vandv_files/` as `_vand/Your_Case_Name`, where you can store any additional files needed for your case study, such as images of results. Don't forget to provide the relative links in your Markdown file to these auxiliary files, if necessary.
 
 **3.** Add the case study pagename to the `_data/vandv.yml` file, in order to list it in the navigation panel:
 
