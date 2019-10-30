@@ -5,6 +5,21 @@ permalink: /docs_v7/Mesh-File/
 
 SU2 mainly uses a native mesh file format as input into the various suite components. Limited support for the CGNS data format has also been included as an input mesh format. CGNS support can be useful when it is necessary to create complex geometries in a third-party mesh generation package that can export CGNS files. A converter from CGNS to the native format is also built into SU2. Details on how to create and use these mesh formats is given below.
 
+---
+
+## Content ##
+
+- [SU2 Native Format (.su2)](#su2-native-format-su2)
+  - [Description](#description)
+  - [Specification](#specification)
+  - [Examples](#examples)
+- [CGNS Format](#cgns-format)
+  - [Compiling with CGNS Support](#compiling-with-cgns-support)
+  - [Using and Converting CGNS Meshes](#using-and-converting-cgns-meshes)
+- [Third-Party Mesh Software](#third-party-mesh-software)
+
+---
+
 ## SU2 Native Format (.su2)
 
  In keeping with the open-source nature of the project, SU2 relies mostly on its own native mesh format. The format is meant to be simple and readable. A description of the mesh and some examples are below.
