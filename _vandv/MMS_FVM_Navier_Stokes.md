@@ -1,6 +1,6 @@
 ---
-title: FVM Discretization of Compressible Navier-Stokes
-permalink: /vandv/FVM_Navier_Stokes/
+title: Method of Manufactured Solutions for Compressible Navier-Stokes
+permalink: /vandv/MMS_FVM_Navier_Stokes/
 ---
 <p align="center">
 <img src="/vandv_files/FVM_Navier_Stokes/images/accuracy_rms_rho.png" alt="Accuracy RMS Rho" width="435"/>

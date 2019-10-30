@@ -1,6 +1,6 @@
 ---
 title: The SU2 V&V Collection
-permalink: /vandv/home/
+permalink: /vandv/Home/
 redirect_from: /vandv/index.html
 ---
 
