@@ -1,6 +1,7 @@
 ---
 title: Guide to Version v7
 permalink: /docs_v7/Guide-to-v7/
+redirect_from: /docs/Guide-to-v7/
 ---
 
 With v7.0 we have introduced a lot of updates and changes that affect how you interact with the code. This document gives an overview on the most important changes, so that you can quickly update your existing config files to be compatible with v7.0. 
