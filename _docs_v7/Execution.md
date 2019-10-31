@@ -3,7 +3,7 @@ title: Execution
 permalink: /docs_v7/Execution/
 ---
 
-Once downloaded and installed, SU2 will be ready to run simulations and design problems. Using simple command line syntax, users can execute the individual C++ programs while specifying the problem parameters in the all-purpose configuration file. For users seeking to utilize the more advanced features of the suite (such as shape optimization or adaptive mesh refinement), Python scripts that automate more complex tasks are available. Appropriate syntax and information for running the C++ modules and python scripts can be found below.
+Once downloaded and installed, and now that you know the basics for setting up your problems, SU2 will be ready to run simulations and design problems. Using simple command line syntax, users can execute the individual C++ programs while specifying the problem parameters in the all-purpose configuration file. For users seeking to utilize the more advanced features of the suite (such as shape optimization or adaptive mesh refinement), Python scripts that automate more complex tasks are available. Appropriate syntax and information for running the C++ modules and python scripts can be found below.
 
 ---
 
@@ -31,7 +31,7 @@ where `SU2_MODULE` can be any of the C++ modules on the [Software Components](/d
 ```
 $ ./SU2_CFD default.cfg
 ```
-where the executable, SU2_CFD, and the [Configuration File](/docs_v7/Configuration-File/), default.cfg, are located in the current working directory.  Please see the [Build from Source](/docs_v7/Build-from-Source/) page for how you can set up environment variables to run the modules from any directory. Additionally, SU2 is a fully-parallel suite, and assuming that you have compiled with MPI support, each of the modules can be executed in parallel. For example, to run the CFD solver on 8 cores, you might enter:
+where the executable, SU2_CFD, and the [Configuration File](/docs_v7/Configuration-File/), default.cfg, are located in the current working directory.  Please see the [Build from Source](/docs_v7/Build-SU2-from-Source/) page for how you can set up environment variables to run the modules from any directory. Additionally, SU2 is a fully-parallel suite, and assuming that you have compiled with MPI support, each of the modules can be executed in parallel. For example, to run the CFD solver on 8 cores, you might enter:
 ```
 $ mpirun -n 8 SU2_CFD default.cfg
 ```
@@ -49,7 +49,7 @@ where *script_name.py* is the name of the script to be run, and [options] is a l
 
 ### Parallel Computation Script (parallel_computation.py)
 
-The parallel computation script, parallel_computation.py, coordinates the steps necessary to run SU2_CFD in parallel and produce solution output files. The script calls SU2_CFD in parallel (using MPI) with the indicated number of ranks. At the conclusion of the simulation, the parallel_computation.py script generates the solution files from the restart file written during execution by calling the SU2_SOL module. **Note that during parallel execution, only restart files are written by SU2_CFD, not solution files, in order to reduce the overhead associated with I/O for large calculations**. The SU2_SOL module can be executed at any time (in serial or parallel) to generate solution files in a specified format from a restart file and corresponding mesh.
+The parallel computation script, parallel_computation.py, coordinates the steps necessary to run SU2_CFD in parallel and produce solution output files. The script calls SU2_CFD in parallel (using MPI) with the indicated number of ranks. At the conclusion of the simulation, the parallel_computation.py script generates the solution files from the restart file written during execution by calling the SU2_SOL module. The SU2_SOL module can be executed at any time (in serial or parallel) to generate solution files in a specified format from a restart file and corresponding mesh.
 
 Usage: `$ python parallel_computation.py [options]`
 
@@ -61,7 +61,7 @@ Options:
 
 ### Continuous Adjoint Gradient Calculation (continuous_adjoint.py)
 
-The continuous adjoint calculation script, continuous_adjoint.py, automates the procedure for calculating sensitivities using the SU2 suite using adjoint methods. The script calls SU2_CFD to first run a direct analysis to obtain a converged solution, then calls SU2_CFD again to run an adjoint analysis on the converged flow solution to obtain surface sensitivities. The SU2_DOT module is then called to project design variable perturbations onto the surface sensitivities calculated in the adjoint solution to arrive at the gradient of the objective function with respect to the specified design variables.
+The continuous adjoint calculation script, continuous_adjoint.py, automates the procedure for calculating sensitivities using a continuous adjoint method. The script calls SU2_CFD to first run a direct analysis to obtain a converged solution, then calls SU2_CFD again to run an adjoint analysis on the converged flow solution to obtain surface sensitivities. The SU2_DOT module is then called to project design variable perturbations onto the surface sensitivities calculated in the adjoint solution to arrive at the gradient of the objective function with respect to the specified design variables.
 
 Usage: `$ python continuous_adjoint.py [options]`
 

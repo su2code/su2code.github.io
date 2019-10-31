@@ -3,7 +3,7 @@ title: Mesh File
 permalink: /docs_v7/Mesh-File/
 ---
 
-SU2 mainly uses a native mesh file format as input into the various suite components. Limited support for the CGNS data format has also been included as an input mesh format. CGNS support can be useful when it is necessary to create complex geometries in a third-party mesh generation package that can export CGNS files. A converter from CGNS to the native format is also built into SU2. Details on how to create and use these mesh formats is given below.
+SU2 mainly uses a native mesh file format as input into the various suite components. Support for the CGNS data format has also been included as an input mesh format. CGNS support can be useful when it is necessary to create complex geometries in a third-party mesh generation package that can export CGNS files. A converter from CGNS to the native format is also built into SU2. Details on how to create and use these mesh formats is given below.
 
 ---
 
@@ -22,11 +22,11 @@ SU2 mainly uses a native mesh file format as input into the various suite compon
 
 ## SU2 Native Format (.su2)
 
- In keeping with the open-source nature of the project, SU2 relies mostly on its own native mesh format. The format is meant to be simple and readable. A description of the mesh and some examples are below.
+ In keeping with the open-source nature of the project, SU2 features its own native mesh format. The format is meant to be simple and readable. A description of the mesh and some examples are below.
 
 ### Description
 
-The SU2 mesh format carries an extension of .su2, and the files are in a readable ASCII format. As an unstructured code, SU2 requires information about both the node locations as well as their connectivity. The connectivity description provides information about the types of elements (triangle, rectangle, tetrahedron, hexahedral, etc.) that make up the volumes in the mesh and also which nodes make up each of those elements. Lastly, the boundaries of the mesh, or _markers_, are given names, or tags, and their connectivity is specified in a similar manner as the interior nodes.
+The SU2 mesh format carries an extension of .su2, and the files are in a readable ASCII format. As an unstructured code, SU2 requires information about both the node locations as well as their connectivity. The connectivity description provides information about the types of elements (triangle, rectangle, tetrahedron, hexahedron, etc.) that make up the volumes in the mesh and also which nodes make up each of those elements. Lastly, the boundaries of the mesh, or _markers_, are given names, or tags, and their connectivity is specified in a similar manner as the interior nodes.
 
 ### Specification
 
@@ -61,7 +61,7 @@ NPOIN= 9
 
 In this case, there are 9 nodes in the 3x3 square above. Immediately after the node number specification comes the list of node coordinates in cartesian space. Each line gives the coordinates for a single grid vertex. The grid points are assigned a global element index of 0 through 8 in the order they appear in the file. This global element index is implied by the ordering and does not need to be explicitly specified by the file, although some legacy meshes may still contain an explicit index at the end of the line that can be ignored.
 
-For a 2D mesh, only x and y coordinates are required, but a 3D mesh would give x, y, and z coordinates. Note that the global index values for the nodes and elements stored within SU2 are zero-based, as opposed to starting from 1 as Tecplot does. The location of each node in the list can be confirmed in space by adding 1 to the implied global index from the ordering and comparing with the figure above.
+For a 2D mesh, only x and y coordinates are required, but a 3D mesh would give x, y, and z coordinates. The global index values for the nodes and elements stored within SU2 are zero-based, as opposed to starting from 1 as Tecplot does. The global index numbering of the nodes is implicit in the order they are given in the file. For example, the point (0.0,0.0), the first in the list given in the mesh file, will carry global index 0, the point (0.5,0.0) carries global index 1, and so on. Therefore, the location of each node in the list above can be confirmed in space by adding 1 to the implied global index from the ordering and comparing with the figure above.
 
 The next part of the file describes the interior element connectivity, which begins with the `NELEM=` keyword:
 
@@ -128,11 +128,11 @@ First, the number of boundaries, or markers, is specified using the "NMARK=" str
 
 ## CGNS Format
 
-To make creating your own meshes easier and more accessible, support for the open CGNS data standard has been included within SU2. The main advantage gained is that complex meshes created in a third-party software package (one that supports unstructured, single-zone CGNS file export) can be used directly within SU2 without the need for conversion to the native format. Moreover, as CGNS is a binary format, the size of the mesh files can be significantly reduced.  If needed, a converter from CGNS to the SU2 format has been built into SU2 (See the [inviscid wedge tutorial](../tutorials/Inviscid_Wedge)). 
+To make creating your own meshes easier and more accessible, support for the open CGNS data standard has been included within SU2. The main advantage gained is that complex meshes created in a third-party software package (one that supports unstructured, single-zone CGNS file export in ADF format) can be used directly within SU2 without the need for conversion to the native format. Moreover, as CGNS is a binary format, the size of the mesh files can be significantly reduced. 
 
 ### Compiling with CGNS Support
 
-Starting with SU2 v4.3, the source for version 3.3.0 of the CGNS library is shipped with SU2 in the externals/ directory, and it is automatically built and linked for you when compiling SU2 (ADF support only).
+Starting with SU2 v4.3, the source code of the CGNS library is shipped with SU2 in the externals/ directory, and it is automatically built and linked for you when compiling SU2 (ADF support only).
 
 ### Using and Converting CGNS Meshes
 
@@ -144,8 +144,8 @@ MESH_FORMAT= CGNS
 
 It is important to note that SU2 will not use any specific boundary conditions that are embedded within the CGNS mesh. However, it *will* use the names given to each boundary as the marker tags. These marker tags are used to set the boundary conditions in the configuration file. Therefore, it is recommended that the user give names to each boundary in their mesh generation package before exporting to CGNS. If you do not know the number of markers or their tags within a CGNS file, you can simply attempt a simulation in SU2_CFD (leaving out the boundary information in the configuration file at first), and during the preprocessing stage, SU2 will read and print the names of all boundary markers to the console along with other grid information before throwing an error due to incomplete boundary definitions. The user can then incorporate these marker tags into the configuration file with the appropriate boundary conditions.
 
+ If needed, a converter from CGNS to the SU2 format has been built into SU2 (See the [inviscid wedge tutorial](../tutorials/Inviscid_Wedge)). 
+
 ## Third-Party Mesh Software
 
-We are continuously working to integrate SU2 with industry-standard tools.  We currently have an output plugin for the Pointwise(R) meshing software.  This custom addition allows users of Pointwise version 17.00 and later to directly output their meshes in the native SU2 format.  The plugin is available natively within recent versions of Pointwise (V17.0R2 or later).
-
-In addition, a number of other packages support direct output to the SU2 format, such as GMSH and CENTAUR. CGNS files created by a number of other meshing packages have been successfully tested and used, such as those from ICEM CFD, for instance.
+We are continuously working to integrate SU2 with industry-standard tools. The latest releases of the Pointwise meshing software can both export and import meshes in the native ASCII SU2 format. In addition, a number of other packages support direct output to the SU2 format, such as GMSH and CENTAUR. CGNS files created by a number of other meshing packages have been successfully tested and used, such as those from ICEM CFD, for instance.
