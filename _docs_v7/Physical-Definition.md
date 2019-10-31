@@ -1,6 +1,7 @@
 ---
 title: Physical Definition
 permalink: /docs_v7/Physical-Definition/
+redirect_from: /docs/Physical-Definition/
 ---
 
 The physical definition of a case includes the definition of the free-stream, the reference values and the non-dimensionalization. 
