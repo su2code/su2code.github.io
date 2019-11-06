@@ -29,48 +29,51 @@ Now that you have a local copy of SU2 from the GitHub repository, you can begin 
 
 Please read the "Code Reviews" section of the wiki before making changes to familiarize yourself with the requirements for a good code change.
 
-We follow the popular "GitFlow" branching model for scalable development. In the SU2 repository, the master branch represents the latest stable major or minor release (7.0, 6.2.0, etc.), it should only be modified during version releases. Work that is staged for release is put into the develop branch via Pull Requests (to be discussed in a moment) from various "feature" branches where folks do their day-to-day work on the code. At release time, the work that has been merged into the develop branch is pushed to the master branch and tagged as a release.
+We follow the popular ["GitFlow"](https://nvie.com/posts/a-successful-git-branching-model/) branching model for scalable development. In the SU2 repository, the master branch represents the latest stable major or minor release (7.0, 6.2.0, etc.), it should only be modified during version releases. Work that is staged for release is put into the develop branch via Pull Requests (to be discussed in a moment) from various "feature" branches where folks do their day-to-day work on the code. At release time, the work that has been merged into the develop branch is pushed to the master branch and tagged as a release.
 
 When a repository is cloned, all of the branches are as well, and so no additional work is necessary to acquire the development branch. However, you must tell git to switch to the development branch, which can be done with the "checkout" command
  ``` 
  git checkout -b develop origin/develop
  ```
+ 
+ 
+### Opening a Pull Request ###
+
 Now that changes will be on top of the development branch, code changes can be made. This next section describes the steps for creating a pull request. 
 
 1. Create a new branch for making your changes.
     ```
-    git checkout -b fixquadvol
+    git checkout -b fix_quadvol
     ```
-Additionally, create a branch with the same name on the SU2 github repository. First, make sure the current SU2 branch is set to develop
+   Additionally, create a branch with the same name on the SU2 github repository. First, make sure the current SU2 branch is set to develop
 
-![Develop Branch](../../docs_files/pr_develop_branch.png)
+   ![Develop Branch](../../docs_files/pr_develop_branch.png)
 
-then create a new branch with the appropriate name.
+   then create a new branch with the appropriate name.
 
-![Create Branch](../../docs_files/pr_create_branch.png)
-
- 
-1. Make changes to the existing files (using your favorite text editor or integrated development environment, IDE) or add local files or folders to be tracked and compared against the global repo files.
+   ![Create Branch](../../docs_files/pr_create_branch.png)
+  
+   Depending on whether your branch name starts with `fix_`, `feature_` or `chore_`, if you open a pull request for that branch, it will automatically get the label `fix`, `feature` or`chore`, respectively. Once it is merged, this label and the title of your PR will be used to generate a change log for the next release.
+  
+2. Make changes to the existing files (using your favorite text editor or integrated development environment, IDE) or add local files or folders to be tracked and compared against the global repo files.
 
     ```
     git add file1.cpp file2.cpp
     ```
 
-2. Optionally check that your changes have been registered and/or the files that you want have been added added
+3. Optionally check that your changes have been registered and/or the files that you want have been added added
 
     ```
     git status 
     ```
 
-3. Commit the changes to your local repository (not the global repository on GitHub) and create a descriptive message about your change. Commit messages are the easiest tool for examining past code changes, so it is important that they serve as documentation. A good commit message will consist of a short descriptive message on the first line, followed by a longer descriptive message. If the PR addresses any issues, they should be identified in the commit message. A good (fake) commit message is below.
+4. Commit the changes to your local repository (not the global repository on GitHub) and create a descriptive message about your change. Commit messages are the easiest tool for examining past code changes, so it is important that they serve as documentation. A good commit message will consist of a short descriptive message on the first line, followed by a longer descriptive message. If the PR addresses any issues, they should be identified in the commit message. A good (fake) commit message is below.
 
     ```
-    git commit -m "Fix computation of the volume for skewed quadrilateral elements.
-
-If a 2-D quadrilateral element is sufficiently skewed, the volume approximation is not computed properly. This modifies the volume computation to use the base and height of the quadrilateral instead of the base and hypotenuse. This fixes cases where the volume was incorrectly computed to be less than zero.
-
-Fixes issue 10."
+    git commit -m "Fix computation of the volume for skewed quadrilateral elements." \
+    -m "If a 2-D quadrilateral element is sufficiently skewed, the volume approximation is not computed properly. This modifies the volume computation to use the base and height of the quadrilateral instead of the base and hypotenuse. This fixes cases where the volume was incorrectly computed to be less than zero. Fixes issue #10."
     ```
+
 
 4. Push the code to the remote version of the branch on GitHub
 
@@ -80,9 +83,9 @@ Fixes issue 10."
 
 5. This will automatically register on github, and you can use the online API to make a pull request
 
-![Submit Request 1](../../docs_files/pr_submit_request_1.png)
+   ![Submit Request 1](../../docs_files/pr_submit_request_1.png)
 
-![Submit Request 2](../../docs_files/pr_submit_request_2.png)
+   ![Submit Request 2](../../docs_files/pr_submit_request_2.png)
 
 6. Now your code is available for code review!
 
