@@ -33,8 +33,7 @@ The following options accept a type of linear solver:
 - `DEFORM_LINEAR_SOLVER`: Linear solver for elasticity-based mesh deformation.
 
 In most applications the linear solver tolerance is defined by option `LINEAR_SOLVER_ERROR`, and the maximum number of iterations by `LINEAR_SOLVER_ITER`.
-Heat applications use `LINEAR_SOLVER_ERROR_HEAT` and `LINEAR_SOLVER_ITER_HEAT` instead.
-Similarly mesh deformation uses `DEFORM_LINEAR_SOLVER_ERROR` and `DEFORM_LINEAR_SOLVER_ITER`.
+Mesh deformation uses `DEFORM_LINEAR_SOLVER_ERROR` and `DEFORM_LINEAR_SOLVER_ITER`, as it may coexist with other physics in the same physical zone.
 
 The available types of (iterative) linear solver are:
 
