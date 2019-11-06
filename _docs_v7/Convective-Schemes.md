@@ -47,6 +47,7 @@ Option `CENTRAL_JACOBIAN_FIX_FACTOR` (default value 4.0) affects all central sch
 The following table lists the available upwind schemes for compressible flow and what secondary options apply to each one.
 
 | Scheme \ Option                                 | `ROE_KAPPA` | `ENTROPY_FIX_COEFF` | `ROE_LOW_DISSIPATION` | `USE_ACCURATE_FLUX_JACOBIANS` | `MIN/MAX_ROE_TURKEL_PREC` |
+| --- | --- | --- | --- | --- | --- |
 | `ROE` - Classic Roe scheme                      |      X      |          X          |           X           |                               |                           |
 | `L2ROE` - Low dissipation Low Mach Roe          |      X      |          X          |                       |                               |                           |
 | `LMROE` - Rieper's Low Mach Roe scheme          |      X      |          X          |                       |                               |                           |
