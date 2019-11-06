@@ -34,12 +34,50 @@ To achieve second order upwind schemes need to be used with MUSCL reconstruction
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS` | 7.0.0 |
 
+### Central Schemes ###
+
+- `JST`: Jameson-Schmidt-Turkel scheme with scalar dissipation defined by the second and fourth order dissipation coefficients in option `JST_SENSOR_COEFF = (2nd, 4th)` the default values are 0.5 and 0.02 respectively;
+- `JST-KE`: Equivalent to `JST` with 0 fourth order coefficient (computational effort is reduced as solution Laplacians no longer need to be computed);
+- `LAX-FRIEDRICH`: The simplest of central schemes with a first order dissipation term specified via `LAX_SENSOR_COEFF` (the default is 0.15), this scheme is the most stable and least accurate due to its very dissipative nature.
+
+Option `CENTRAL_JACOBIAN_FIX_FACTOR` (default value 4.0) affects all central schemes, in implicit time marching it improves the numerical properties of the Jacobian matrix so that higher CFL values can be used.
+
+### Upwind Schemes ###
+
+The following table lists the available upwind schemes for compressible flow and what secondary options apply to each one.
+
+| Scheme \ Option                                 | `ROE_KAPPA` | `ENTROPY_FIX_COEFF` | `ROE_LOW_DISSIPATION` | `USE_ACCURATE_FLUX_JACOBIANS` | `MIN/MAX_ROE_TURKEL_PREC` |
+| `ROE` - Classic Roe scheme                      |      X      |          X          |           X           |                               |                           |
+| `L2ROE` - Low dissipation Low Mach Roe          |      X      |          X          |                       |                               |                           |
+| `LMROE` - Rieper's Low Mach Roe scheme          |      X      |          X          |                       |                               |                           |
+| `TURKEL_PREC` - Row with Turkel preconditioning |             |                     |                       |                               |             X             |
+| `AUSM`                                          |             |                     |                       |                               |                           |
+| `AUSMPLUSUP` - AUSM+up                          |             |                     |                       |               X               |                           |
+| `AUSMPLUSUP2` - AUSM+up2                        |             |                     |                       |               X               |                           |
+| `SLAU`                                          |             |                     |           X           |               X               |                           |
+| `SLAU2`                                         |             |                     |           X           |               X               |                           |
+| `HLLC`                                          |      X      |                     |                       |                               |                           |
+| `CUSP`                                          |             |          X          |                       |                               |                           |
+| `MSW` - Modified Steger-Warming scheme          |             |                     |                       |                               |                           |
+
+- `ROE_KAPPA`, default 0.5, constant that multiplies the left and right state averages;
+- `ENTROPY_FIX_COEFF`, default 0.001, puts a lower bound on dissipation by limiting the minimum convective Eigenvalue to a fraction of the speed of sound;
+- `ROE_LOW_DISSIPATION`, default `NONE`, methods to reduce dissipation where certain conditions are verified, `FD` (wall distance based), `NTS` (Travin and Shur), `FD_DUCROS` and `NTS_DUCROS` as before plus Ducros' shock sensor;
+- `USE_ACCURATE_FLUX_JACOBIANS`, default `NO`, if set to `YES` accurate flux Jacobians are used instead of Roe approximates, slower on a per iteration basis but in some cases allows much higher CFL values to be used;
+- `MIN/MAX_ROE_TURKEL_PREC`, defaults 0.01 and 0.2, reference Mach numbers for Turkel preconditioning.
 
 ## Incompressible Flow ##
 
 | Solver | Version | 
 | --- | --- |
 | `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+
+### Central Schemes ###
+
+
+
+### Upwind Schemes ###
+
 
 
 ## Turbulence Equations ##
