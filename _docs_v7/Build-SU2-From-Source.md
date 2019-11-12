@@ -1,6 +1,7 @@
 ---
 title: Build SU2 From Source
 permalink: /docs_v7/Build-SU2-From-Source/
+redirect_from: /docs/Build-SU2-From-Source/
 ---
 
 ***This guide is for version 7 only.*** 
