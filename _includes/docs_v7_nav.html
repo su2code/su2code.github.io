@@ -13,7 +13,7 @@
         {% for item in section.docs_v7 %}
           {% assign item_url = item | prepend:"/docs_v7/" | append:"/" %}
           {% assign p = site.docs_v7 | where:"url", item_url | first %}
-          <a class="list-group-item {% if item_url == page.url %}active{% endif %}" href="{{ p.url  | prepend: site.baseurl }}">{{ p.title }}</a>
+          <a class="list-group-item {% if item_url == page.url %}active{% endif %}" href="{{ p.url  | relative_url }}">{{ p.title }}</a>
         {% endfor %}
       </ul>
     </div>
