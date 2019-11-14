@@ -7,6 +7,8 @@ redirect_from: /docs/Build-SU2-From-Source/
 ***This guide is for version 7 only.*** 
 For information on how to build older versions of SU2, have a look [here](/docs_v7/Build-from-Source/).
 
+Note that the following guide works only on Linux/MacOS and on Windows using Cygwin or the [Linux Subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
 ---
 
 ## Content ##
@@ -39,7 +41,7 @@ Short summary of the minimal requirements:
 
 If you have these tools installed, you can create a configuration using the `meson.py` found in the root source code folder:
 ```
- ./meson.py build
+./meson.py build
 ```
 Use `ninja` to compile and install the code
 
