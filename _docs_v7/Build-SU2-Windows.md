@@ -1,5 +1,5 @@
 ---
-title: Build SU2 On Windows
+title: Build SU2 on Windows
 permalink: /docs_v7/Build-SU2-Windows/
 ---
 
