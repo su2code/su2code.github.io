@@ -23,7 +23,7 @@ however, we can only document (and support) a limited number of possibilities.
 
 - Windows 10<sup>*</sup>
 - Python 3.7 (download [here](https://www.python.org/downloads/windows/) or from the Microsoft Store)
-- MinGW version 8.1.0<sup>*</sup> (download [here](https://osdn.net/projects/mingw/releases/))
+- MinGW-w64 version 8.1.0<sup>*</sup> (download [here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download))
 - Microsoft MPI v10.1.2<sup>*</sup> (download [here](https://www.microsoft.com/en-us/download/details.aspx?id=100593), you need the `msmpisetup.exe` and the `msmpisdk.msi`)
 - SU2 v7.x.x (download [here](https://su2code.github.io/download) or clone using git)
 
