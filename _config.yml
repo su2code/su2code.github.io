@@ -16,7 +16,7 @@ bootwatch: yeti
 # Build settings
 markdown: kramdown
 highlighter: rouge
-plugins:
+gems:
   - jekyll-feed
   - jekyll-redirect-from
   - jekyll-seo-tag
