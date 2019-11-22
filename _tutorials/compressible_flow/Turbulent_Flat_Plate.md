@@ -51,16 +51,14 @@ Several of the key configuration file options for this simulation are highlighte
 ```
 % ------------- DIRECT, ADJOINT, AND LINEARIZED PROBLEM DEFINITION ------------%
 %
-% Physical governing equations (EULER, NAVIER_STOKES,
-%                               WAVE_EQUATION, HEAT_EQUATION, FEM_ELASTICITY,
-%                               POISSON_EQUATION)
-SOLVER= NAVIER_STOKES
+% Physical governing equations
+SOLVER= RANS
 %
 % Specify turbulence model (NONE, SA, SA_NEG, SST)
 KIND_TURB_MODEL= SA
 ```
 
-The governing equations are Navier-Stokes, but by entering `KIND_TURB_MODEL= SA` we activate the RANS governing equations with the Spalart-Allmaras (SA) turbulence model. The SA model is a 1-equation model for a turbulence field variable that is directly related to the turbulent eddy viscosity. It is a popular choice for external aerodynamic flows, such as those around airfoils and wings. In previous tutorials, `KIND_TURB_MODEL= NONE` has been chosen, resulting in the use of the laminar Navier-Stokes governing equations. The SA Negative model (SA_NEG) and the Shear Stress Transport model (SST) of Menter are also available in SU2.
+The governing equations are first set to the Reynolds-averaged Navier-Stokes equations, and by entering `KIND_TURB_MODEL= SA` we activate the Spalart-Allmaras (SA) turbulence model. The SA model is a 1-equation model for a turbulence field variable that is directly related to the turbulent eddy viscosity. It is a popular choice for external aerodynamic flows, such as those around airfoils and wings. The SA Negative model (SA_NEG), other SA variants, and the Shear Stress Transport model (SST) of Menter are also available in SU2.
 
 We must also specify suitable numerical methods for the solution of any additional turbulence equations:
 

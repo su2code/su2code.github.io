@@ -105,24 +105,25 @@ CFL_NUMBER= 50.0
 MGLEVEL= 3    
 ```
 
-In general, users can choose from explicit or implicit time integration schemes. For the majority of problems, implicit integration is recommended for its higher stability and better convergence potential, especially for steady problems. Implicit methods typically offer stability at higher CFL numbers, and for this problem, Euler Implicit time integration with a CFL number of 50 is chosen. Convergence is also accelerated with three levels of multigrid. We will discuss some of these options in later tutorials.
+In general, users can choose from explicit or implicit time integration schemes. For the majority of problems, implicit integration is recommended for its higher stability and better convergence potential, especially for steady problems. Implicit methods typically offer stability at higher CFL numbers, and for this problem, Euler Implicit time integration with a CFL number of 50 is chosen, along with automatic CFL adaption. Convergence is also accelerated with three levels of multigrid. We will discuss some of these options in later tutorials.
 
 Setting the convergence criteria:
 ```
-% Convergence criteria (CAUCHY, RESIDUAL)
-CONV_CRITERIA= RESIDUAL
-%
-% Residual reduction (order of magnitude with respect to the initial value)
-RESIDUAL_REDUCTION= 6
+% Convergence field (see available fields with the -d flag at the command line)
+CONV_FIELD= RMS_DENSITY
 %
 % Min value of the residual (log10 of the residual)
-CONV_RESIDUAL_MINVAL= -12
+CONV_RESIDUAL_MINVAL= -10
 %
 % Start convergence criteria at iteration number
 CONV_STARTITER= 10
 ```
 
-There are three different types of criteria for terminating a simulation in SU2: running a specified number of iterations (`ITER` option), reducing the residual of the density equation by a specified order of magnitude (or reaching a specified lower limit), or by converging an objective, such as drag, to a certain tolerance. The most common convergence criteria is the `RESIDUAL` option which is used in this tutorial by setting the `CONV_CRITERIA`. The `RESIDUAL_REDUCTION` option controls how many orders of magnitude reduction in the density residual are required for convergence, and `CONV_RESIDUAL_MINVAL` sets the minimum value that the residual is allowed to reach before automatically terminating. The user can set a specific iteration number to use for the initial value of the density residual using the `CONV_STARTITER` option. For example, the simulation for the inviscid channel will terminate once the density residual reaches a value that is 6 orders of magnitude smaller than its value at iteration 10. Note, however, that SU2 will always use the maximum value of the density residual to compute the relative reduction, even if the maximum value occurs after the iteration specified in `CONV_STARTITER`.
+There are three different types of criteria for terminating a simulation in SU2: running a specified number of iterations (`ITER` option), reducing the residual of a chosen equation by a specified order of magnitude (or reaching a specified lower limit), or by converging a particular output quantity, such as drag, to a certain tolerance. 
+
+The most common convergence criteria is the residual reduction option which is used in this tutorial by setting the `CONV_FIELD` equal to `RMS_DENSITY`, which signifies that we will monitor the root-mean squared residual of the density equation. The `CONV_RESIDUAL_MINVAL` sets the minimum value that the residual is allowed to reach before automatically terminating. For a relative residual reduction criteria, one can set `CONV_FIELD= REL_RMS_DENSITY` to track the relative drop in the density residual. The user can set a specific iteration number to use for the initial value of the density residual using the `CONV_STARTITER` option. For more information on controlling the convergence criteria, see the output documentation page. 
+
+For example, the simulation for the inviscid channel will terminate once the density residual reaches a value of -10. For a relative reduction criteria, note that SU2 will always use the maximum value of the density residual to compute the relative reduction, even if the maximum value occurs after the iteration specified in `CONV_STARTITER`.
 
 ### Running SU2
 
