@@ -20,14 +20,41 @@ layout: default
               $ ('#zip_ball').attr("href", data.zipball_url)
               $ ('#tar_ball').attr("href", data.tarball_url)
               for (var key in data.assets) {
-                if (data.assets[key].name.includes("linux64")) {
+                if (data.assets[key].name.includes("linux64.zip")) {
                   $('#asset_linux').attr("href",data.assets[key].browser_download_url)
+                  $('#asset_linux').text("SU2 " + data.tag_name + " for Linux")
+                  $('#asset_linux_time').text(data.assets[key].created_at.substring(0, 10))
+                  $('#asset_linux_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                 }
-                if (data.assets[key].name.includes("mac64")) {
+                if (data.assets[key].name.includes("linux64-mpi.zip")) {
+                  $('#asset_linux_mpi').attr("href",data.assets[key].browser_download_url)
+                  $('#asset_linux_mpi').text("SU2 MPI " + data.tag_name + " for Linux")
+                  $('#asset_linux_mpi_time').text(data.assets[key].created_at)
+                  $('#asset_linux_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                }
+                if (data.assets[key].name.includes("mac64.zip")) {
                   $('#asset_mac').attr("href",data.assets[key].browser_download_url)
+                  $('#asset_mac').text("SU2 " + data.tag_name + " for macOS")
+                  $('#asset_mac_time').text(data.assets[key].created_at.substring(0, 10))
+                  $('#asset_mac_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                 }
-                if (data.assets[key].name.includes("win64")) {
+                if (data.assets[key].name.includes("mac64-mpi.zip")) {
+                  $('#asset_mac_mpi').attr("href",data.assets[key].browser_download_url)
+                  $('#asset_mac_mpi').text("SU2 MPI " + data.tag_name + " for macOS")
+                  $('#asset_mac_mpi_time').text(data.assets[key].created_at)
+                  $('#asset_mac_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')                
+                }
+                if (data.assets[key].name.includes("win64.zip")) {
                   $('#asset_win').attr("href",data.assets[key].browser_download_url)
+                  $('#asset_win').text("SU2 " + data.tag_name + " for Windows")
+                  $('#asset_win_time').text(data.assets[key].created_at.substring(0, 10))
+                  $('#asset_win_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                }
+                if (data.assets[key].name.includes("win64-mpi.zip")) {
+                  $('#asset_win_mpi').attr("href",data.assets[key].browser_download_url)
+                  $('#asset_win_mpi').text("SU2 MPI " + data.tag_name + " for Windows")
+                  $('#asset_win_mpi_time').text(data.assets[key].created_at.substring(0, 10))
+                  $('#asset_win_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                 }
               }
 
@@ -65,45 +92,77 @@ layout: default
     <hr>
 
     <h2>Binary Executables</h2>
-    <p>This option is for users who wish to use SU2 without the need to compile the program from source.<br><b> Note: binary distributions for macOS, Linux, and Windows are serial only!</b></p>
+    <p>This option is for users who wish to use SU2 without the need to compile the program from source. We provide serial and parallel (using MPI) versions. </p>
+    <b>Disclaimer:</b> For best performance and compatibility you should always consider building SU2 from source. Also note that the Discrete Adjoint functionality is not available when using the binary executables.
+
   </div>
 </div>
 
   <br>
   <h3 id="current_release"></h3>
-  
   <br>
-
-<div class="row">
-  <div class="col-sm-3 text-center">
-      <p> <a class="btn btn-info btn-lg" id="asset_linux" role="button">Linux (.zip)</a>
-      </p>
-    </div>
-  <div class="col-sm-3 text-center">
-    <p><a class="btn btn-success btn-lg" id="asset_mac" role="button">macOS (.zip)</a>
-    </p>
-  </div>
-</div>
+  <table style='width:100%;font-size:100%;'>
+    <tr>
+      <th><h4>Version</h4></th>
+      <th><h4>Notes</h4></th>
+      <th><h4>Published</h4></th>
+      <th><h4>Size</h4></th>
+    </tr>
+    <tr>
+      <td><a class="btn btn-info btn-lg" style="width: 280px;" id="asset_linux" role="button">SU2 for Linux</a></td>
+      <td>-</td>
+      <td><p id="asset_linux_time"></p></td>
+      <td><p id="asset_linux_size"></p></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><a class="btn btn-info btn-lg"  style="width: 280px;"id="asset_linux_mpi" role="button">SU2 MPI for Linux</a></td>
+      <td>Requires installation of <a href="https://www.mpich.org/downloads/">MPICH</a></td>
+      <td><p id="asset_linux_mpi_time"></p></td>
+      <td><p id="asset_linux_mpi_size"></p></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+      </tr>
+    <tr>
+      <td><a class="btn btn-success btn-lg" style="width: 280px;" id="asset_mac" role="button">SU2 for macOS</a></td>
+      <td>-</td>
+      <td><p id="asset_mac_time"></p></td>
+      <td><p id="asset_mac_size"></p></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+      </tr>
+    <tr>
+        <td><a class="btn btn-success btn-lg" style="width: 280px;" id="asset_mac_mpi" role="button">SU2 MPI macOS</a></td>
+        <td>Requires installation of <a href="https://www.mpich.org/downloads/">MPICH</a></td>
+        <td><p id="asset_mac_mpi_time"></p></td>
+        <td><p id="asset_mac_mpi_size"></p></td>
+      </tr>
+      <tr>
+          <td>&nbsp;</td>
+        </tr>
+      <tr>
+        <td><a class="btn btn-danger btn-lg" style="width: 280px;" id="asset_win" role="button">SU2 for Windows</a></td>
+        <td>-</td>
+        <td><p id="asset_win_time"></p></td>
+        <td><p id="asset_win_size"></p></td>
+      </tr>
+      <tr>
+          <td>&nbsp;</td>
+        </tr>
+      <tr>
+          <td><a class="btn btn-danger btn-lg" style="width: 280px;" id="asset_win_mpi" role="button">SU2 MPI for Windows</a></td>
+          <td>Requires installation of <a href="https://www.microsoft.com/en-us/download/details.aspx?id=100593">Microsoft MPI</a></td>
+          <td><p id="asset_win_mpi_time"></p></td>
+          <td><p id="asset_win_mpi_size"></p></td>
+        </tr>
+  </table>
 
 <br>
-<h3>Current Release for Windows: SU2 v6.0.0</h3>
-<br>
-
-<div class="row">
-  <div class="col-sm-3 text-center">
-    <p> <a class="btn btn-primary btn-lg" href="{{ "/download/su2-windows7-latest.zip" |  relative_url }}" role="button">Windows 7 (.zip)</a>
-    </p>
-  </div>
-  <div class="col-sm-3 text-center">
-    <p> <a class="btn btn-danger btn-lg" href="{{ "/download/su2-windows10-latest.zip" |  relative_url }}" role="button">Windows 10 (.zip)</a>
-    </p>
-  </div>
-</div>
-
-<br>
-
-<div class="row">
-  <div class="col-lg-12">
+<hr>
 <h2>Source Code</h2>
 <p>There are a number of ways to access the SU2 source code. If you will be developing the code, we recommend that you clone the repository. On a Linux/Unix/Mac system with the standard git client, this can be done by executing:</p>
 

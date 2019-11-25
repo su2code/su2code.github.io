@@ -42,7 +42,7 @@ body {
 
 .header-container {
   background-color: black;
-  background: url('../img/su2image.png') no-repeat 50% 0;
+  background: url('../img/su2header_new.jpg') no-repeat 100% 0;
   color: #fff;
   h1 {
     color: white;
@@ -54,8 +54,8 @@ body {
     text-shadow: 3px 3px 6px #000000;
   }
   // background-attachment: fixed;
-  background-size: cover;
-  background-position: center 36%;
+  background-size: 100%;
+  background-position: center 40%;
   margin-top: -37px;
 }
 .navbar-container {
