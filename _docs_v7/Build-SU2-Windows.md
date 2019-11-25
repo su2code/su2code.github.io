@@ -43,8 +43,5 @@ In the file browser go to the mingw installation directory and execute the file 
 Now you can follow the steps in the [Linux/MacOS Configuration and Compilation section](/docs_v7/Build-SU2-From-Source/#configuration-and-compilation). But make sure to use `python meson.py` and `ninja.exe` instead of `./meson.py` and `./ninja`, respectively.
 
 
-
-
 ## Running the executables
-Add SU2 to the system path. This will allow you to use the executables from any directory without explicitly specifying the path to the executable. To do that access the system variables by typing “environ” in the search/run box of the start menu, select “edit the system environment variables”, and then select “Environment Variables” from the System Properties menu. Edit the “Path” system variable (or select “New” if no “Path” system variable exists) and add the path to the SU2 executables, i.e. the path that you have set with the `--prefix` option (if option was not given, the default is `C:\bin`). When there is more than one directory listed in “Path” they must be separated by semicolons.
-Running SU2 in Windows is identical to running in [Linux or Mac OS environments](/_docs_v7/Execution.md) and is run from the command line (whether cmd.exe or the freely-available Console2 for Windows). However, you may have to use `mpiexec` instead of `mpirun` to execute the code in parallel.
+Follow the [installation guide](/docs_v7/SU2-Windows/).

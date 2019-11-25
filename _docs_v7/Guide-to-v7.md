@@ -6,6 +6,19 @@ redirect_from: /docs/Guide-to-v7/
 
 With v7.0 we have introduced a lot of updates and changes that affect how you interact with the code. This document gives an overview on the most important changes, so that you can quickly update your existing config files to be compatible with v7.0. 
 
+---
+
+- [Definition of the physical problem and solver](#definition-of-the-physical-problem-and-solver)
+- [Definition of the incompressible solver](#definition-of-the-incompressible-solver)
+- [Controlling the solver](#controlling-the-solver)
+- [Output options](#output-options)
+- [ASCII Restart format](#ascii-restart-format)
+- [Grid/mesh movement](#gridmesh-movement)
+- [Setting convergence criteria](#setting-convergence-criteria)
+
+---
+
+
 ### Definition of the physical problem and solver ###
 
 The option `PHYSICAL_PROBLEM` has been renamed to `SOLVER`. The rational behind this change is that we are going to have several different solvers in the future which essentially solve the same physical problems. You can find a list of current solvers in the new [Solver Setup](/docs_v7/Solver-Setup) section.

@@ -9,11 +9,11 @@ This page contains a very brief summary of the different governing equation sets
 
 ---
 
-## Content ##
-- [Compressible Navier-Stokes](#compressible-rans)
+- [Compressible Navier-Stokes](#compressible-navier-stokes)
 - [Compressible Euler](#compressible-euler)
-- [Incompressible Navier-Stokes](#incompressible-rans)
+- [Incompressible Navier-Stokes](#incompressible-navier-stokes)
 - [Incompressible Euler](#incompressible-euler)
+- [Turbulence Modeling](#turbulence-modeling)
 - [Elasticity](#elasticity)
 - [Heat Conduction](#heat-conduction)
   

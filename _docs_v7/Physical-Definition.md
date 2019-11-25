@@ -9,13 +9,11 @@ SU2 offers different ways of setting and computing this definition. This documen
 
 ---
 
-## Content ##
-
 - [Reference Values](#reference-values)
-- [Free-stream Definition (Compressible)](#free-stream-definition-compressible)
+- [Free-Stream Definition (Compressible)](#free-stream-definition-compressible)
   - [Thermodynamic State](#thermodynamic-state)
   - [Mach Number and Velocity](#mach-number-and-velocity)
-  - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
+  - [Reynolds Number and Viscosity ###](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)

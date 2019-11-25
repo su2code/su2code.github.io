@@ -3,19 +3,31 @@ title: Installation
 permalink: /docs_v7/Installation/
 ---
 
+---
+
+- [Installing SU2](#installing-su2)
+- [Required Software for Running SU2](#required-software-for-running-su2)
+  - [Command Line Terminal](#command-line-terminal)
+  - [Data Visualization](#data-visualization)
+- [Optional Third-Party Software](#optional-third-party-software)
+  - [Grid Generation](#grid-generation)
+  - [CGNS Library](#cgns-library)
+  - [Parallel Tools](#parallel-tools)
+  - [Python & Python Modules](#python--python-modules)
+  
+---
+
 ## Installing SU2
 
 SU2 has been designed with ease of installation and use in mind. This means that, wherever possible, a conscious effort was made to develop in-house code components rather than relying on third-party packages or libraries to maintain high portability. In simple cases (serial version with no external libraries), the flow solver can be compiled and executed with just a C++ compiler. 
 
 However, the capabilities of SU2 can be extended using externally-provided software. For example, parallel computations require an installed implementation of MPI (Message Passing Interface) for data communication. Again, to facilitate ease of use and to promote the open source nature, whenever external software is required within the SU2 suite, packages that are free or open source have been favored, and we try to ship, build, and link them automatically for you. These dependencies and third-party packages are discussed below.
 
-**Building from source**: refer to the [Source Installation Guide](/docs_v7/Build-SU2-From-Source/). This is the typical install method for Linux/Mac OS X.
+**Building from source**: This is the recommended way to get the best compatibility and performance on your machine. Refer to the guides for building SU2 on [Linux/MacOS](/docs_v7/Build-SU2-Linux-MacOS/) or on [Windows](/docs_v7/Build-SU2-Windows/).
 
-The binary executables available on the download page are intended to get new users up and running as quickly as possible. This option is best for new CFD users or those looking to quickly sample some of the features of SU2. To make these binary distributions available to a wide range of potential users, some advanced features requiring external libraries and dependencies have been disabled (most notably the ability to run simulations in parallel). In other words, the pre-compiled binary executables are simply the serial version of the SU2 C++ modules.
+The binary executables available on the download page are intended to get new users up and running as quickly as possible. This option is best for new CFD users or those looking to quickly sample some of the features of SU2. To make these binary distributions available to a wide range of potential users, some advanced features requiring external libraries and dependencies have been disabled. For example the Discrete Adjoint method is not available.
 
-No compilation is required for users who select the binary distribution of SU2. Simply install the binaries, open a terminal, and proceed to the Quick Start Tutorial. Binaries are available for multiple platforms, including installers for Windows.
-
-**Windows users**: please refer to the [Windows Installation Guide](/docs_v7/Windows-Installation/). 
+No compilation is required for users who select the binary distribution of SU2. Simply extract the binaries, open a terminal, and proceed to the Quick Start Tutorial. Binaries are available for all three platforms. Proceed to the installation guides for [Linux/MacOS](/docs_v7/SU2-Linux-MacOS) or [Windows](/docs_v7/SU2-Windows).
 
 ## Required Software for Running SU2
 

@@ -8,15 +8,13 @@ The options listed here do not apply to the high order DG solver.
 
 ---
 
-## Content ##
-
 - [Introduction](#introduction)
 - [Compressible Flow](#compressible-flow)
-  - [Central schemes](#central-schemes)
-  - [Upwind schemes](#upwind-schemes)
+  - [Central Schemes](#central-schemes)
+  - [Upwind Schemes](#upwind-schemes)
 - [Incompressible Flow](#incompressible-flow)
-  - [Central schemes](#central-schemes)
-  - [Upwind schemes](#upwind-schemes)
+  - [Central Schemes](#central-schemes-1)
+  - [Upwind Schemes](#upwind-schemes-1)
 - [Turbulence Equations](#turbulence-equations)
 
 ---

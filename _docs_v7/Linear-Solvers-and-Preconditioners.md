@@ -9,8 +9,6 @@ As the numerical properties of the linear systems vary significantly with applic
 
 ---
 
-## Content ##
-
 - [Option List](#option-list)
   - [Linear Solvers](#linear-solvers)
   - [Linear Preconditioners](#linear-preconditioners)

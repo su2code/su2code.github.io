@@ -15,15 +15,24 @@
   docs_v7:
   - Download
   - Installation
-  - Build-SU2-From-Source
+  - SU2-Linux-MacOS
+  - SU2-Windows
   - Test-Cases
+
+- title: Build From Source
+  docs_v7:
+  - Build-SU2-Linux-MacOS
+  - Build-SU2-Windows
+
+- title: Theory
+  docs_v7:
+  - Theory
 
 - title: Users Guide
   docs_v7:
   - Configuration-File
   - Mesh-File
   - Restart-File
-  - Theory
   - Solver-Setup
   - Physical-Definition
   - Markers-and-BC
