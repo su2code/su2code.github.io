@@ -27,7 +27,7 @@ The following tutorial will walk you through the steps required when using the E
 
 ### Background
 
-This test case is for the NACA 0012 airfoil in viscous flow. This is a simple 2D geometry that stalls, and exhibits separated flow, at high angles of attack. It is a ubiquitous geometry that has significant amounts of experimental data available that allows for the comparison of lower fidelity RANS CFD simulations, to the higher fidelity wind tunnel tests that have been conducted. 
+This test case is for the NACA 0012 airfoil in viscous flow. This is a simple 2D geometry that stalls, and exhibits seperated flow, at high angles of attack. It is a ubiquitous geometry that has significant amounts of experimental data available that allows for the comparison of lower fidelity RANS CFD simulations, to the higher fidelity wind tunnel tests that have been conducted. 
 
 The EQUiPS module uses the Eigenspace Perturbation methodology to estimate the uncertainties arising from RANS turbulence closures. This involves perturbing the eigenvalues and eigenvectors of the Reynolds stress tensor to explore the extremal states of componentality, and turbulence production of the flow. Utilizing 5 differently perturbed flow simulations, in addition to a baseline unperturbed flow simulation, the module provides interval estimates on the quantities of interest. Each perturbed simulation results in a different realization of the flow field, and by extension, a different realization of the QoIs. The interval bounds are formed by the maximum and minimum values the QoIs resulting from these 6 simulations.
 
@@ -140,7 +140,7 @@ To run each individual perturbed simulation seperately, configuration options fo
  5. If running in parallel, make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path. Run the python script which will automatically call SU2_CFD and will perform the simulation using `NP` number of processors by entering in the command line:
 
     ```
-    $ parallel_computation.py -n NP -f turb_ONERAM6.cfg
+    $ parallel_computation.py -n NP -f turb_NACA0012_uq.cfg
     ```
 
  6. SU2 will print residual updates with each iteration of the flow solver, and this first perturbed simulation will terminate after reaching the specified convergence criteria. 

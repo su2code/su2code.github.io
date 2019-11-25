@@ -1,3 +1,0 @@
-"Rank", "nNeighbors", "nPointTotal", "nEdge", "nPointGhost", "nSendTotal", "nRecvTotal", "nElemTotal", "nElemBoundary", "nElemHalo", "nnz"
-0, 1, 64115, 251046,3509, 3491, 3509, 120141,14905, 6878, 566207
-1, 1, 69424, 327197,3491, 3509, 3491, 202543,16425, 6878, 723818

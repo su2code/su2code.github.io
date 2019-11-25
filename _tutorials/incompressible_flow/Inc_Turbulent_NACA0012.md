@@ -3,7 +3,7 @@ title: Turbulent NACA 0012
 permalink: /tutorials/Inc_Turbulent_NACA0012/
 ---
 
-![Turb ONERA Pressure](../../Inc_Turbulent_NACA0012/images/n0012_cp_AoA10deg.png)
+![Turb NACA 0012 Pressure](../../Inc_Turbulent_NACA0012/images/n0012_cp_AoA10deg.png)
 
 ## Goals
 

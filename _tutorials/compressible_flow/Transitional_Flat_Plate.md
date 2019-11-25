@@ -51,7 +51,7 @@ Several of the key configuration file options for this simulation are highlighte
 % Physical governing equations (EULER, NAVIER_STOKES,
 %                               WAVE_EQUATION, HEAT_EQUATION, 
 %                               LINEAR_ELASTICITY, POISSON_EQUATION)
-SOLVER= NAVIER_STOKES
+SOLVER= INC_RANS
 %
 % Specify turbulent model (NONE, SA, SA_NEG, SST)
 KIND_TURB_MODEL= SA
@@ -68,17 +68,20 @@ The governing equations are RANS with the Spalart-Allmaras (`SA`) turbulence mod
 The incompressible freestream properties are specified as follows. (Please see "Notes" for freestream properties of other transitional flat plate test cases).
 
 ```
-% Free-stream density (1.2886 Kg/m^3 (air), 998.2 Kg/m^3 (water))
-FREESTREAM_DENSITY= 1.2
+% Initial density for incompressible flows (1.2886 kg/m^3 by default)
+INC_DENSITY_INIT= 1.2
 %
-% Free-stream velocity (m/s)
-FREESTREAM_VELOCITY= ( 50.1, 0.00, 0.00 )
+% Initial velocity for incompressible flows (1.0,0,0 m/s by default)
+INC_VELOCITY_INIT= ( 50.1, 0.0, 0.0 )
 %
-% Free-stream viscosity (1.853E-5 Ns/m^2 (air), 0.798E-3 Ns/m^2 (water))
-FREESTREAM_VISCOSITY= 1.8e-05
+% Viscosity model (SUTHERLAND, CONSTANT_VISCOSITY).
+VISCOSITY_MODEL= CONSTANT_VISCOSITY
+%
+% Molecular Viscosity that would be constant (1.716E-5 by default)
+MU_CONSTANT= 1.8e-05
 ```
 
-The Reynolds number for the Schubauer & Klebanoff test case is 3.34e6 for 1 meter long flat plate. However, in this test case, the length of the flat plate is 1.5 meters. Thus, in the configuration file `REYNOLDS_LENGTH = 1.0` and `REF_AREA= 1.5` are specified.
+The Reynolds number for the Schubauer & Klebanoff test case is 3.34e6 for 1 meter long flat plate and `REF_AREA= 1.5` are specified.
 
 ### Running SU2
 

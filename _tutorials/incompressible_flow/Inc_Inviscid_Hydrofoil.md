@@ -42,14 +42,14 @@ The mesh is composed of 6814 triangles with 3559 vertices in total, 128 edges al
 
 ### Configuration File Options
 
-In order to use the incompressible solver, choose the appropriate setting with the `SOLVER` option:
+In order to use the incompressible solver, choose the appropriate setting within the `SOLVER` option:
 
 ```
 % Solver type
-REGIME_TYPE= INC_EULER
+SOLVER= INC_EULER
 ```
  
-Once the incompressible mode is activated, the flow throughout the domain is initialized using a different set of options as compared to the compressible mode. The present problem is inviscid (no energy equation), so the only required initialization data is the density (constant) and flow velocity. These initialization values are set with the following options:
+The Euler, Navier-Stokes, and RANS equations are available for the incompressible solver by choosing `INC_EULER`, `INC_NAVIER_STOKES`, and `INC_RANS`, respectively. Once the incompressible mode is activated, the flow throughout the domain is initialized using a different set of options as compared to the compressible mode. The present problem is inviscid (no energy equation), so the only required initialization data is the density (constant) and flow velocity. These initialization values are set with the following options:
 
  ```
 % Initial density for incompressible flows
@@ -76,6 +76,19 @@ MARKER_INLET= ( inlet, 0.0, 1.775, 1.0, 0.0, 0.0 )
 %
 % Outlet boundary marker(s) (NONE = no marker)
 MARKER_OUTLET= ( outlet, 0.0 )
+```
+
+Both velocity and pressure inlets are available, as well as pressure and mass flow outlets. Therefore, we specify that we would like to use a velocity inlet and pressure outlet with the following options:
+
+```
+%
+% List of inlet types for incompressible flows. List length must
+% match number of inlet markers. Options: VELOCITY_INLET, PRESSURE_INLET.
+INC_INLET_TYPE= VELOCITY_INLET
+%
+% List of outlet types for incompressible flows. List length must
+% match number of outlet markers. Options: PRESSURE_OUTLET, MASS_FLOW_OUTLET
+INC_OUTLET_TYPE= PRESSURE_OUTLET
 ```
 
 The inlet condition is prescribed as a uniform velocity inlet, where the velocity magnitude and direction are imposed and held fixed at the inflow boundary. It is also possible to impose non-uniform boundary inlet data from a file, and this will be shown in a later tutorial. A pressure outlet boundary condition is applied to the outflow. 

@@ -168,7 +168,7 @@ CFL_ADAPT= YES
 %
 % Parameters of the adaptive CFL number (factor down, factor up, CFL min value,
 %                                        CFL max value )
-CFL_ADAPT_PARAM= ( 1.5, 0.5, 10.0, 1000.0 )
+CFL_ADAPT_PARAM= ( 0.1, 2.0, 10.0, 1000.0 )
 ```
 
 For this test case, we chose the Roe upwind scheme with 2nd-order reconstruction (`MUSCL_FLOW = YES`). Note that, in order to activate the slope limiter for the upwind methods, `SLOPE_LIMITER_FLOW` must be set to something other than `NONE`. For turbulent convective and viscous fluxes, the default schemes are the scalar upwind method and the corrected average-of-gradients method, respectively. Convective fluxes are computed here to 1st-order (`MUSCL_TURB= NO`).
