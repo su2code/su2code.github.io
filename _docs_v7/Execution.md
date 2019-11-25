@@ -7,15 +7,14 @@ Once downloaded and installed, and now that you know the basics for setting up y
 
 ---
 
-## Content
 
 - [C++ Modules](#c-modules)
 - [Python Scripts](#python-scripts)
-  - [Parallel Computation Script (parallel-computation.py)](#parallel-computation-script-parallel_computationpy)
-  - [Continuous Adjoint Gradient Calculation (continuous_adjoint.py)](#continuous-adjoint-gradient-calculation-continuous_adjointpy)
-  - [Discrete Adjoint Gradient Calculation (discrete_adjoint.py)](#discrete-adjoint-gradient-calculation-discrete_adjointpy)
-  - [Finite Difference Gradient Calculation (finite_differences.py)](#finite-difference-gradient-calculation-finite_differencespy)
-  - [Shape Optimization Script (shape_optimization.py)](#shape-optimization-script-shape_optimizationpy)
+  - [Parallel Computation Script (parallel_computation.py)](#parallel-computation-script-parallelcomputationpy)
+  - [Continuous Adjoint Gradient Calculation (continuous_adjoint.py)](#continuous-adjoint-gradient-calculation-continuousadjointpy)
+  - [Discrete Adjoint Gradient Calculation (discrete_adjoint.py)](#discrete-adjoint-gradient-calculation-discreteadjointpy)
+  - [Finite Difference Gradient Calculation (finite_differences.py)](#finite-difference-gradient-calculation-finitedifferencespy)
+  - [Shape Optimization Script (shape_optimization.py)](#shape-optimization-script-shapeoptimizationpy)
   
 ---
 

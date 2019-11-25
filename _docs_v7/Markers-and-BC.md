@@ -7,8 +7,6 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 
 ---
 
-## Content ##
-
 - [Euler (Slip) Wall](#euler-slip-wall)
 - [Symmetry Wall](#symmetry-wall)
 - [Constant Heatflux (no-slip) Wall](#constant-heatflux-no-slip-wall)
@@ -23,7 +21,7 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
   - [Pressure Outlet (Compressible)](#pressure-outlet-compressible)
   - [Pressure Outlet (Incompressible)](#pressure-outlet-incompressible)
   - [Mass Flow Outlet](#mass-flow-outlet)
-- [Periodic Boundary Condition](#periodic-boundary-condition)
+  - [Periodic Boundary Condition](#periodic-boundary-condition)
 - [Structural Boundary Conditions](#structural-boundary-conditions)
   - [Clamped Boundary](#clamped-boundary)
   - [Displacement Boundary](#displacement-boundary)

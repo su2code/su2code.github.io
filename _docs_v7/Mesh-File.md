@@ -7,8 +7,6 @@ SU2 mainly uses a native mesh file format as input into the various suite compon
 
 ---
 
-## Content ##
-
 - [SU2 Native Format (.su2)](#su2-native-format-su2)
   - [Description](#description)
   - [Specification](#specification)

@@ -7,13 +7,15 @@ redirect_from: /docs/Custom-Output/
 With v7.0 we have introduced a new way of customizing the output on screen, in the history file and in the visualization files.
 It is now possible to individually define what you want to have in your output. 
 
-## Content ##
+---
 
 - [Restart and Visualization Files](#restart-and-visualization-files)
   - [Setting Output Fields](#setting-output-fields)
-- [Customizing the Screen and History output](#customizing-the-screen-and-history-output)
+  - [Example](#example)
+- [Customizing the Screen and History Output](#customizing-the-screen-and-history-output)
   - [Screen Output](#screen-output)
   - [History Output](#history-output)
+  - [Example](#example-1)
   
 ---
 

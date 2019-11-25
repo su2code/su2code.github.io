@@ -9,13 +9,14 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
 
 ---
 
-## Content ##
 - [Defining the Problem](#defining-the-problem)
-  - [Restarting the Simulation](#restarting-the-simulation)
-- [Controlling the Simulation](#controlling-the-simulation)
+  - [Restarting the simulation](#restarting-the-simulation)
+- [Controlling the simulation](#controlling-the-simulation)
   - [Time-dependent Simulation](#time-dependent-simulation)
   - [Steady-state Simulation](#steady-state-simulation)
   - [Setting convergence criteria](#setting-convergence-criteria)
+    - [Residual](#residual)
+    - [Coefficient](#coefficient)
   
 ---
 

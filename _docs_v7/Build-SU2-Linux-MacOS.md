@@ -1,6 +1,6 @@
 ---
-title: Build SU2 From Source
-permalink: /docs_v7/Build-SU2-From-Source/
+title: Build SU2 on Linux/MacOS
+permalink: /docs_v7/Build-SU2-Linux-MacOS/
 redirect_from: /docs/Build-SU2-From-Source/
 ---
 
@@ -11,20 +11,27 @@ Note that the following guide works only on Linux/MacOS and on Windows using Cyg
 
 ---
 
-## Content ##
 - [Quick Compilation Guide](#quick-compilation-guide)
 - [Requirements](#requirements)
   - [Compilers](#compilers)
+  - [MPI](#mpi)
   - [Python](#python)
   - [Optional: swig and mpi4py](#optional-swig-and-mpi4py)
-- [Automatically Installed Dependencies](#automatically-installed-dependencies)
+- [Automatically installed dependencies](#automatically-installed-dependencies)
   - [Meson and Ninja](#meson-and-ninja)
   - [CoDiPack and MeDiPack](#codipack-and-medipack)
 - [Configuration and Compilation](#configuration-and-compilation)
   - [Basic Configuration](#basic-configuration)
   - [Advanced Configuration](#advanced-configuration)
+    - [Build Type](#build-type)
+    - [Compiler optimizations](#compiler-optimizations)
+    - [Warning level](#warning-level)
+    - [Linear algebra options](#linear-algebra-options)
   - [Compilation](#compilation)
+  - [Setting environment variables](#setting-environment-variables)
 - [Troubleshooting](#troubleshooting)
+  - [MPI installation is not found](#mpi-installation-is-not-found)
+  - [mpi4py library is not found](#mpi4py-library-is-not-found)
 
 ---
 
@@ -173,6 +180,10 @@ Finally to compile and install SU2 use
 ./ninja -C build install
 ```
 where `build` is again a folder with a configuration created using a call to `meson.py` described in the previous section. By default ninja uses all available cores in your system for the compilation. You can set the number of cores manually by using the `-jN` flag, where `N` is the number of cores you want to use.
+
+
+### Setting environment variables ###
+Set the environment variables to use the executables from any directory without explicity specifying the path as described in the [installation section](/docs_v7/SU2-Linux-MacOS).
 
 ---
 

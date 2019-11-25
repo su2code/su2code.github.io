@@ -7,13 +7,11 @@ SU2 is capable of solving physical problems in distinct zones coupled through in
 
 --- 
 
-## Content ##
-
-- [What is Zone ?](#what-is-a-zone-)
+- [What is a Zone ?](#what-is-a-zone)
 - [Multi-zone and Multi-physics](#multi-zone-and-multi-physics)
-  - [How to set up a single-physics Problem](#how-to-set-up-a-single-physics-problem)
-  - [Sub-config files](#sub-config-files)
-  - [How to set up a multi-physics Problem](#how-to-set-up-a-multi-physics-problem)
+  - [How to set up a single-physics problem](#how-to-set-up-a-single-physics-problem)
+    - [Sub-config files](#sub-config-files)
+  - [How to set up a multi-physics problem](#how-to-set-up-a-multi-physics-problem)
   - [Providing mesh information for a multi-zone problem](#providing-mesh-information-for-a-multi-zone-problem)
 
 ---
