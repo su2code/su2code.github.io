@@ -17,7 +17,7 @@ We will walk through the shape design process and highlight several options rela
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Turbulent_Shape_Design](https://github.com/su2code/su2code.github.io/tree/master/Turbulent_2D_Constrained_RAE2822) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_RAE2822_turb.su2](../../Turbulent_2D_Constrained_RAE2822/mesh_RAE2822_turb.su2), the config file [turb_SA_RAE2822.cfg](../../Turbulent_2D_Constrained_RAE2822/turb_SA_RAE2822.cfg) and initial solution files for the solver and adjoint [solution_flow.dat](../../Turbulent_2D_Constrained_RAE2822/solution_flow.dat), [solution_adj_cd.dat](../../Turbulent_2D_Constrained_RAE2822/solution_adj_cd.dat), and [solution_adj_cmz.dat](../../Turbulent_2D_Constrained_RAE2822/solution_adj_cmz.dat).
+You can find the resources for this tutorial in the folder [Turbulent_Shape_Design](https://github.com/su2code/su2code.github.io/tree/master/Turbulent_2D_Constrained_RAE2822) in the [tutorial/website repository](https://github.com/su2code/su2code.github.io). You will need the mesh file [mesh_RAE2822_turb.su2](../../Turbulent_2D_Constrained_RAE2822/mesh_RAE2822_turb.su2), the config file [turb_SA_RAE2822.cfg](../../Turbulent_2D_Constrained_RAE2822/turb_SA_RAE2822.cfg) and initial solution files for the solver and adjoint [solution_flow.dat](../../Turbulent_2D_Constrained_RAE2822/solution_flow.dat), [solution_adj_cd.dat](../../Turbulent_2D_Constrained_RAE2822/solution_adj_cd.dat), and [solution_adj_cmz.dat](../../Turbulent_2D_Constrained_RAE2822/solution_adj_cmz.dat).
 
 ## Tutorial
 

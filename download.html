@@ -11,6 +11,40 @@ layout: default
       </div>
 </div>
 
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script>
+      $(document).ready (function () {
+          $.getJSON("https://api.github.com/repos/su2code/SU2/releases/latest").done(function (data) {
+              $ ('#current_release').text ("Current Release: " + data.name); 
+              $ ('#zip_ball').attr("href", data.zipball_url)
+              $ ('#tar_ball').attr("href", data.tarball_url)
+              for (var key in data.assets) {
+                if (data.assets[key].name.includes("linux64")) {
+                  $('#asset_linux').attr("href",data.assets[key].browser_download_url)
+                }
+                if (data.assets[key].name.includes("mac64")) {
+                  $('#asset_mac').attr("href",data.assets[key].browser_download_url)
+                }
+                if (data.assets[key].name.includes("win64")) {
+                  $('#asset_win').attr("href",data.assets[key].browser_download_url)
+                }
+              }
+
+          })
+          $.getJSON("https://api.github.com/repos/su2code/su2code.github.io/releases/latest").done(function (data) {
+            $ ('#zip_ball_tut').attr("href", data.zipball_url)
+            $ ('#tar_ball_tut').attr("href", data.tarball_url)
+          })
+          $.getJSON("https://api.github.com/repos/su2code/TestCases/releases/latest").done(function (data) {
+            $ ('#zip_ball_test').attr("href", data.zipball_url)
+            $ ('#tar_ball_test').attr("href", data.tarball_url)
+          })
+      });
+      console.log(jQuery.getJSON("https://api.github.com/repos/su2code/SU2/releases/latest"))
+  </script>
+</head>
+
 <div class="row">
   <div class="col-lg-12">
     <h1 class="text-center">Downloading SU2</h1>
@@ -19,49 +53,34 @@ layout: default
 
     <p>SU2 is available freely for use under the GNU Lesser General Public License, version 2.1. Please reference the <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">license details</a> for terms and conditions.</p>
 
-    <p> Before downloading the software, please take a moment to register for the <a href="http://su2devsociety.org/su2-user-registration/">user email list</a>, so you won't miss out on the latest news and announcements from the SU2 project. We respect your privacy, and the information we collect is used only for statistics and never shared. Your participation lets us build a better tool to suit the needs of our community. Should you wish, you can unsubscribe at any time <a href="http://su2devsociety.org/unsubscribe-su2/">here</a>.</p>
+    <p> Before downloading the software, please take a moment to register for the <a href="http://su2foundation.org">email list</a>, so you won't miss out on the latest news and announcements from the SU2 project. We respect your privacy, and the information we collect is used only for statistics and never shared. Your participation lets us build a better tool to suit the needs of our community.</p>
 
     <br>
 
     <center>
-    <p><a class="btn btn-warning btn-lg" href="{{ "http://su2devsociety.org/su2-user-registration/" | prepend: site.baseurl }}" role="button">Register</a>
+    <p><a class="btn btn-warning btn-lg" href="{{ "http://su2foundation.org" }}" role="button">Register</a>
     </center>
 
     <br>
     <hr>
 
     <h2>Binary Executables</h2>
-    <p>This option is for users who wish to use SU2 without the need to compile the program from source. Note: binary distributions for macOS, Linux, and Windows have reduced functionality; non-default libraries and dependencies are removed (serial versions only).</p>
-
-    <p>The following binaries are available for download by clicking the buttons below:
-    <ul>
-    <li>macOS Sierra 10.13: Apple LLVM version 9.1.0.
-    <li>Linux (Redhat 6.6): g++ (GCC) 4.8.5.
-    <li>Linux (Ubuntu 14.04): g++ (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4.
-    <li>Windows 7: Microsoft Visual C++ 2010.
-    <li>Windows 10: MinGW version 7.3.0. Microsoft MPI for parallel binaries. <a href="http://www.math.ucla.edu/~wotaoyin/windows_coding.html">See details</a>.
-      </ul>
-    </p>
-
+    <p>This option is for users who wish to use SU2 without the need to compile the program from source.<br><b> Note: binary distributions for macOS, Linux, and Windows are serial only!</b></p>
   </div>
 </div>
 
   <br>
-  <h3>Current Release for macOS/Linux: SU2 v6.2.0</h3>
+  <h3 id="current_release"></h3>
   
   <br>
 
 <div class="row">
   <div class="col-sm-3 text-center">
-    <p><a class="btn btn-success btn-lg" href="{{ "/download/su2-macos-latest.tgz" | prepend: site.baseurl }}" role="button">macOS (.tgz)</a>
-    </p>
-  </div>
+      <p> <a class="btn btn-info btn-lg" id="asset_linux" role="button">Linux (.zip)</a>
+      </p>
+    </div>
   <div class="col-sm-3 text-center">
-    <p> <a class="btn btn-info btn-lg" href="{{ "/download/su2-ubuntu-latest.tgz" | prepend: site.baseurl }}" role="button">Ubuntu (.tgz)</a>
-    </p>
-  </div>
-  <div class="col-sm-3 text-center">
-    <p> <a class="btn btn-warning btn-lg" href="{{ "/download/su2-redhat-latest.tgz" | prepend: site.baseurl }}" role="button">Redhat (.tgz)</a>
+    <p><a class="btn btn-success btn-lg" id="asset_mac" role="button">macOS (.zip)</a>
     </p>
   </div>
 </div>
@@ -72,11 +91,11 @@ layout: default
 
 <div class="row">
   <div class="col-sm-3 text-center">
-    <p> <a class="btn btn-primary btn-lg" href="{{ "/download/su2-windows7-latest.zip" | prepend: site.baseurl }}" role="button">Windows 7 (.zip)</a>
+    <p> <a class="btn btn-primary btn-lg" href="{{ "/download/su2-windows7-latest.zip" |  relative_url }}" role="button">Windows 7 (.zip)</a>
     </p>
   </div>
   <div class="col-sm-3 text-center">
-    <p> <a class="btn btn-danger btn-lg" href="{{ "/download/su2-windows10-latest.zip" | prepend: site.baseurl }}" role="button">Windows 10 (.zip)</a>
+    <p> <a class="btn btn-danger btn-lg" href="{{ "/download/su2-windows10-latest.zip" |  relative_url }}" role="button">Windows 10 (.zip)</a>
     </p>
   </div>
 </div>
@@ -95,7 +114,14 @@ layout: default
 <br>
 
 <center>
-  <p><a class="btn btn-primary btn-lg" href="{{ "https://github.com/su2code/SU2/archive/v6.2.0.tar.gz" | prepend: site.baseurl }}" role="button">Source (.tar.gz)</a>
+    <div class="row">
+      <div class="col-sm-3 text-center">
+        <p><a class="btn btn-primary btn-lg" id="zip_ball" role="button">Source (.zip)</a></p>
+      </div>
+      <div class="col-sm-3 text-center">
+        <p><a class="btn btn-primary btn-lg" id="tar_ball" role="button">Source (.tar.gz)</a></p>
+      </div>
+  </div>
 </center>
 
 <br>
@@ -115,7 +141,14 @@ layout: default
 <p>As part of our documentation and training, we ship a set of tutorials that walk the user through setting up and executing a number of examples. These cases start from the basics and help the user learn SU2 quickly. Later tutorials cover advanced SU2 capabilities, such as optimal shape design.</p>
 
 <center>
-  <p><a class="btn btn-info btn-lg" href="{{ "https://github.com/su2code/su2code.github.io/archive/v6.2.0.tar.gz" | prepend: site.baseurl }}" role="button">Web Tutorials (.tar.gz)</a>
+    <div class="row">
+        <div class="col-sm-3 text-center">
+          <p><a class="btn btn-info btn-lg" id="zip_ball_tut" role="button">Web Tutorials (.zip)</a></p>
+        </div>
+        <div class="col-sm-3 text-center">
+          <p><a class="btn btn-info btn-lg" id="tar_ball_tut" role="button">Web Tutorials (.tar.gz)</a></p>
+        </div>
+    </div>
 </center>
 <br>
 <p>The entire set of documentation and tutorials ships with the main project website repository. You can download all of the necessary files (including config files and grids) using the following:</p>
@@ -133,10 +166,14 @@ layout: default
 The latest release of the test cases will also be tagged and available on the GitHub <a href="https://github.com/su2code/TestCases/releases">releases page</a>, and for convenience, you can download the this source code from the latest release directly with the button below:</p>
 
 <br>
-
-<center>
-  <p><a class="btn btn-success btn-lg" href="{{ "https://github.com/su2code/TestCases/archive/v6.2.0.tar.gz" | prepend: site.baseurl }}" role="button">Test Cases (.tar.gz)</a>
-</center>
+    <div class="row" style="display:block; margin: 0 auto">
+        <div class="col-sm-3 text-center">
+          <p><a class="btn btn-success btn-lg" id="zip_ball_test" role="button">Test Cases (.zip)</a></p>
+        </div>
+        <div class="col-sm-3 text-center">
+          <p><a class="btn btn-success btn-lg" id="tar_ball_test" role="button">Test Cases (.tar.gz)</a></p>
+        </div>
+    </div>
 <br>
 
 <p>Note that, while many of the cases are used for regression testing, this test case suite is provided <b>without any guarantees on performance or expected results</b>. Keep in mind that small changes to the configuration options can often result in large changes to the output. We encourage the community to experiment with these test cases, or even try (and share!) other interesting validation cases with SU2!</p>

@@ -1,6 +1,9 @@
 <head>
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="23ac3f98-782a-481c-b5d7-299d04034547" type="text/javascript" async></script>
-    <script type="text/plain" data-cookieconsent="statistics">
+<script type="text/javascript">
+var _iub = _iub || [];
+_iub.csConfiguration = {"enableRemoteConsent":true,"lang":"en","siteId":1608752,"cookiePolicyId":93470831,"cookiePolicyUrl":"https://su2code.github.io/cookie_declaration.html", "banner":{ "position":"float-bottom-left","textColor":"white","backgroundColor":"#333333" }};
+</script><script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+    <script>
     {% include ga.js %}
     </script>
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
@@ -12,12 +15,11 @@
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
 
-    <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ "/css/main.css" | relative_url}}">
+    <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | relative_url }}">
 
-    <link rel="shortcut icon" href="{{ "/favicon.ico?1" | prepend: site.baseurl }}">
-    {% seo %}
+    <link rel="shortcut icon" href="{{ "/favicon.ico?1" | relative_url }}">
 
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | relative_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | relative_url }}" />
 </head>

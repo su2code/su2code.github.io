@@ -1,6 +1,6 @@
 # Site settings
-title: SU2, the Open-Source CFD Code
-email: su2code.central@gmail.com
+title: SU2 | Multiphysics Simulation and Design Software
+email: info@su2foundation.org
 description: >
   Website for the SU2 Project
 
@@ -22,6 +22,10 @@ gems:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+whitelist:
+  - jekyll-redirect-from
+
+
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -36,6 +40,15 @@ defaults:
   values:
     layout: post
     sectionid: blog
+
+- scope:
+    path: _docs_v7
+    type: docs_v7
+  values:
+    layout: docs_v7
+    sectionid: docs_v7
+    seo:
+      type: "WebPage"
 
 - scope:
     path: _docs
@@ -55,11 +68,25 @@ defaults:
     seo:
       type: "WebPage"
 
+- scope:
+    path: _vandv
+    type: vandv
+  values:
+    layout: vandv
+    sectionid: vandv
+    seo:
+      type: "WebPage"
 collections:
   docs:
     permalink: /:collection/:path/
     output: true
+  docs_v7:
+    permalink: /:collection/:path/
+    output: true
   tutorials:
+    permalink: /:collection/:path/
+    output: true
+  vandv:
     permalink: /:collection/:path/
     output: true
   posts:
@@ -68,3 +95,6 @@ collections:
 
 # Google Analytics
 google_analytics: UA-28187985-1
+
+plugins:
+  - jekyll-gist

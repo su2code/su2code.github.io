@@ -1,0 +1,52 @@
+- title: Introduction to SU2
+  docs_v7:
+  - home
+  - contribute
+
+- title: New in Version 7
+  docs_v7:
+  - Guide-to-v7
+
+- title: Quick Start
+  docs_v7:
+  - Quick-Start
+
+- title: Installation
+  docs_v7:
+  - Download
+  - Installation
+  - Build-SU2-From-Source
+  - Test-Cases
+
+- title: Users Guide
+  docs_v7:
+  - Configuration-File
+  - Mesh-File
+  - Restart-File
+  - Theory
+  - Solver-Setup
+  - Physical-Definition
+  - Markers-and-BC
+  - Convective-Schemes
+  - Custom-Output
+  - Linear-Solvers-and-Preconditioners
+  - Multizone
+  - Execution
+
+- title: Developer Docs
+  docs_v7:
+  - Gitting-Started
+  - Developing-SU2-on-GitHub-(Internal-Developers)
+  - Running-Regression-Tests
+  - Code-Review
+  - Code-Structure
+  - Style-Guide
+  - Advanced-AD-Techniques
+
+- title: FAQ
+  docs_v7:
+  - FAQ
+
+- title: Contact
+  docs_v7:
+  - Contact

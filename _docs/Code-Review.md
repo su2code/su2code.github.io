@@ -12,19 +12,19 @@ The goal of code review is to maintain correct code in a consistent style. Human
 All developers and users (internal and external) are encouraged to participate in the code review process. The SU2 suite is a computational environment we are all working to maintain. When performing a code review, you should be asking yourself "Is this code that I want in our environment". A single developer may have written the bulk of the pull request, but once a change has been incorporated the whole community is in charge of future changes (maintenance, debugging, etc.). Questions you should ask yourself are
 
 1. Is this a desirable change to the code base? 
-- Does it make code more legible? 
+- Does it make the code more legible? 
 - Add new features? 
 - Fix a bug?
 
 2. Is the change implemented in the correct way?
 - Does it interact minimally with the rest of the code?
 - Does it have the correct algorithmic complexity?
-- Is it located in the place? (file, etc.)
+- Is it located in the right place? (file, etc.)
 
 3. Is the code legible?
 - Is the code mostly legible on its own without documentation?
 - Are the variable names concise and accurate?
-- Is there documentation where necessary, and it is correct?
+- Is there documentation where necessary, and is it correct?
 
 4. Does the code follow established conventions?
 - Does it match the SU2 code style?

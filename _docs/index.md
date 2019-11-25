@@ -1,5 +1,5 @@
 ---
-title: SU2, the Open-Source CFD Code
+title: SU2, Multiphysics Simulation and Design Software
 permalink: /docs/home/
 redirect_from: /docs/index.html
 ---

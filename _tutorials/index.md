@@ -32,11 +32,13 @@ Simulation of external, laminar flow around a 2D cylinder.
 * [Turbulent Flat Plate](/tutorials/Turbulent_Flat_Plate/)    
 Simulation of external, turbulent flow over a flat plate (classical RANS validation).
 * [Transitional Flat Plate](/tutorials/Transitional_Flat_Plate/)    
-Simulation of external, transitional flow over a flat plate (transitional latminar-turbulent case)
-* [Turbulent ONERAM6](/tutorials/Turbulent_ONERAM6/)    
+Simulation of external, transitional flow over a flat plate (transitional latminar-turbulent case).
+* [Turbulent ONERAM6](/tutorials/Turbulent_ONERAM6/)     
 Simulation of external, viscous flow around a 3D geometry (isolated wing) using a turbulence model.
-* [Epistemic Uncertainty Quantification of RANS predictions of NACA 0012 airfoil](/tutorials/UQ_NACA0012/)
-Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models
+* [Epistemic Uncertainty Quantification of RANS predictions of NACA 0012 airfoil](/tutorials/UQ_NACA0012/)    
+Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models.
+* [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
+Simulation of compressible flow in a nozzle using non-ideal thermodynamic models.
 
 #### Incompressible Flow
 

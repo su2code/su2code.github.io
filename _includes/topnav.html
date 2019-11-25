@@ -7,20 +7,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-            <a class="navbar-brand" href="{{ site.baseurl }}/">
-                <span><img src="{{site.baseurl}}/img/logos/logonav.png"></span>
+            <a class="navbar-brand" href="{{ / | relative_url }}/">
+                <span><img src="{{ "/img/logonav.png" | relative_url}}"></span>
             </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li {% if page.sectionid=='download' %} class="active" {% endif %}><a href="{{ "/download.html" | prepend: site.baseurl }}">Download</a></li>
-                <li {% if page.sectionid=='docs' %} class="active" {% endif %}><a href="{{ "/publications.html" | prepend: site.baseurl }}">Publications</a></li>
-                <li {% if page.sectionid=='docs' %} class="active" {% endif %}><a href="{{ "/docs/home/" | prepend: site.baseurl }}">Docs</a></li>
-                <li {% if page.sectionid=='tutorials' %} class="active" {% endif %}><a href="{{ "/tutorials/home/" | prepend: site.baseurl }}">Tutorials</a></li>
-                <li {% if page.sectionid=='forum' %} class="active" {% endif %}><a href="{{ "https://www.cfd-online.com/Forums/su2/" | prepend: site.baseurl }}">Forum</a></li>
-                <li {% if page.sectionid=='develop' %} class="active" {% endif %}><a href="{{ "/develop.html" | prepend: site.baseurl }}">Develop</a></li>
-<!--                <li {% if page.sectionid=='ids' %} class="active" {% endif %}><a href="{{ "http://su2devsociety.org" | prepend: site.baseurl }}">IDS</a></li>  -->
-                <li {% if page.sectionid=='blog' %} class="active" {% endif %}><a href="{{ site.posts.first.url | prepend: site.baseurl }}">News</a></li>
+                <li {% if page.sectionid=='download' %} class="active" {% endif %}><a href="{{ "/download.html" | relative_url }}">Download</a></li>
+                <li {% if page.sectionid=='publications' %} class="active" {% endif %}><a href="{{ "/publications.html" | relative_url }}">Publications</a></li>
+                <li {% if page.sectionid=='docs' %} class="active" {% endif %}><a href="{{ "/docs/home/" | relative_url }}">Docs</a></li>
+                <li {% if page.sectionid=='tutorials' %} class="active" {% endif %}><a href="{{ "/tutorials/home/" | relative_url }}">Tutorials</a></li>
+                <li {% if page.sectionid=='vandv' %} class="active" {% endif %}><a href="{{ "/vandv/home/" | relative_url }}">V&V</a></li>
+                <li {% if page.sectionid=='forum' %} class="active" {% endif %}><a href="{{ "https://www.cfd-online.com/Forums/su2/" }}">Forum</a></li>
+                <li {% if page.sectionid=='develop' %} class="active" {% endif %}><a href="{{ "/develop.html" relative_url }}">Develop</a></li>
             </ul>
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
