@@ -2,6 +2,7 @@
 title: SU2, Multiphysics Simulation and Design Software
 permalink: /docs_v7/home/
 redirect_from: /docs_v7/index.html
+disable_comments: true
 ---
 <p align="center">
 <img src="../../docs_files/SU2_Color_NoBackground.png" alt="SU2 Logo"/>
