@@ -24,6 +24,7 @@
   - Inc_Turbulent_NACA0012
   - Inc_Laminar_Step
   - Inc_Laminar_Cavity
+  - Inc_Heated_Cylinders
 
 - title: Design Features
   tutorials:
