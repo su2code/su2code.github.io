@@ -25,36 +25,42 @@ layout: default
                   $('#asset_linux').text("SU2 " + data.tag_name + " for Linux")
                   $('#asset_linux_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_linux_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                  $('#asset_linux_count').text(data.assets[key].download_count)
                 }
                 if (data.assets[key].name.includes("linux64-mpi.zip")) {
                   $('#asset_linux_mpi').attr("href",data.assets[key].browser_download_url)
                   $('#asset_linux_mpi').text("SU2 MPI " + data.tag_name + " for Linux")
                   $('#asset_linux_mpi_time').text(data.assets[key].created_at)
                   $('#asset_linux_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                  $('#asset_linux_mpi_count').text(data.assets[key].download_count)
                 }
                 if (data.assets[key].name.includes("mac64.zip")) {
                   $('#asset_mac').attr("href",data.assets[key].browser_download_url)
                   $('#asset_mac').text("SU2 " + data.tag_name + " for macOS")
                   $('#asset_mac_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_mac_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                  $('#asset_mac_count').text(data.assets[key].download_count)
                 }
                 if (data.assets[key].name.includes("mac64-mpi.zip")) {
                   $('#asset_mac_mpi').attr("href",data.assets[key].browser_download_url)
                   $('#asset_mac_mpi').text("SU2 MPI " + data.tag_name + " for macOS")
                   $('#asset_mac_mpi_time').text(data.assets[key].created_at)
-                  $('#asset_mac_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')                
+                  $('#asset_mac_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB') 
+                  $('#asset_mac_mpi_count').text(data.assets[key].download_count)               
                 }
                 if (data.assets[key].name.includes("win64.zip")) {
                   $('#asset_win').attr("href",data.assets[key].browser_download_url)
                   $('#asset_win').text("SU2 " + data.tag_name + " for Windows")
                   $('#asset_win_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_win_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                  $('#asset_win_count').text(data.assets[key].download_count)               
                 }
                 if (data.assets[key].name.includes("win64-mpi.zip")) {
                   $('#asset_win_mpi').attr("href",data.assets[key].browser_download_url)
                   $('#asset_win_mpi').text("SU2 MPI " + data.tag_name + " for Windows")
                   $('#asset_win_mpi_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_win_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                  $('#asset_win_mpi_count').text(data.assets[key].download_count)               
                 }
               }
 
@@ -106,12 +112,14 @@ layout: default
       <th><h4>Version</h4></th>
       <th><h4>Notes</h4></th>
       <th><h4>Published</h4></th>
+      <th><h4>Downloads</h4></th>
       <th><h4>Size</h4></th>
     </tr>
     <tr>
       <td><a class="btn btn-info btn-lg" style="width: 280px;" id="asset_linux" role="button">SU2 for Linux</a></td>
       <td>-</td>
       <td><p id="asset_linux_time"></p></td>
+      <td><p id="asset_linux_count"></p></td>
       <td><p id="asset_linux_size"></p></td>
     </tr>
     <tr>
@@ -121,6 +129,7 @@ layout: default
       <td><a class="btn btn-info btn-lg"  style="width: 280px;"id="asset_linux_mpi" role="button">SU2 MPI for Linux</a></td>
       <td>Requires installation of <a href="https://www.mpich.org/downloads/">MPICH</a></td>
       <td><p id="asset_linux_mpi_time"></p></td>
+      <td><p id="asset_linux_mpi_count"></p></td>
       <td><p id="asset_linux_mpi_size"></p></td>
     </tr>
     <tr>
@@ -130,6 +139,7 @@ layout: default
       <td><a class="btn btn-success btn-lg" style="width: 280px;" id="asset_mac" role="button">SU2 for macOS</a></td>
       <td>-</td>
       <td><p id="asset_mac_time"></p></td>
+      <td><p id="asset_mac_count"></p></td>
       <td><p id="asset_mac_size"></p></td>
     </tr>
     <tr>
@@ -139,6 +149,7 @@ layout: default
         <td><a class="btn btn-success btn-lg" style="width: 280px;" id="asset_mac_mpi" role="button">SU2 MPI macOS</a></td>
         <td>Requires installation of <a href="https://www.mpich.org/downloads/">MPICH</a></td>
         <td><p id="asset_mac_mpi_time"></p></td>
+        <td><p id="asset_mac_mpi_count"></p></td>
         <td><p id="asset_mac_mpi_size"></p></td>
       </tr>
       <tr>
@@ -148,6 +159,7 @@ layout: default
         <td><a class="btn btn-danger btn-lg" style="width: 280px;" id="asset_win" role="button">SU2 for Windows</a></td>
         <td>-</td>
         <td><p id="asset_win_time"></p></td>
+        <td><p id="asset_win_count"></p></td>
         <td><p id="asset_win_size"></p></td>
       </tr>
       <tr>
@@ -157,6 +169,7 @@ layout: default
           <td><a class="btn btn-danger btn-lg" style="width: 280px;" id="asset_win_mpi" role="button">SU2 MPI for Windows</a></td>
           <td>Requires installation of <a href="https://www.microsoft.com/en-us/download/details.aspx?id=100593">Microsoft MPI</a></td>
           <td><p id="asset_win_mpi_time"></p></td>
+          <td><p id="asset_win_mpi_count"></p></td>
           <td><p id="asset_win_mpi_size"></p></td>
         </tr>
   </table>
