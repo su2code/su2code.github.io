@@ -64,37 +64,37 @@ MESH_FORMAT= CGNS
 To use the supplied CGNS mesh, simply enter the filename and make sure that the `MESH_FORMAT` option is set to CGNS. The output written to the console during the grid reading process during runtime might look like the following for the supersonic wedge mesh:
 
 ```
----------------------- Read Grid File Information -----------------------
+------------------- Geometry Preprocessing ( Zone 0 ) -------------------
 Reading the CGNS file: mesh_wedge_inv.cgns.
 CGNS file contains 1 database(s).
-Database 1, Base: 1 zone(s), cell dimension of 2, physical dimension of 3.
-Zone 1, dom-1: 3750 vertices, 3626 cells, 0 boundary vertices.
-Reading grid coordinates.
-Number of coordinate dimensions is 3.
-Loading CoordinateX values.
-Loading CoordinateY values.
-Loading CoordinateZ values.
+Database 1, Base:  cell dimension of 2, physical dimension of 3.
+1 total zone(s).
+Zone 1, dom-1: 3750 total vertices, 3626 total elements.
+Loading CoordinateX values into linear partitions.
+Loading CoordinateY values into linear partitions.
+Distributing connectivity across all ranks.
 Number of connectivity sections is 5.
-Loading section QuadElements of element type Quadrilateral.
-Loading section inlet of element type Line.
-Loading section lower of element type Line.
-Loading section outlet of element type Line.
-Loading section upper of element type Line.
-Successfully closed the CGNS file.
-
-Loading CGNS data into SU2 data structures.
+Section QuadElements contains 3626 elements of type Quadrilateral.
+Section inlet contains 49 elements of type Line.
+Section lower contains 74 elements of type Line.
+Section outlet contains 49 elements of type Line.
+Section upper contains 74 elements of type Line.
+Loading volume section QuadElements from file.
+Loading surface section inlet from file.
+Loading surface section lower from file.
+Loading surface section outlet from file.
+Loading surface section upper from file.
 Two dimensional problem.
-3626 interior elements.
-3750 grid points.
+3750 grid points before partitioning.
+3626 volume elements before partitioning.
 4 surface markers.
 49 boundary elements in index 0 (Marker = inlet).
 74 boundary elements in index 1 (Marker = lower).
 49 boundary elements in index 2 (Marker = outlet).
 74 boundary elements in index 3 (Marker = upper).
-3626 quadrilaterals.
 ```
 
-SU2 prints out information about the CGNS mesh including the filename, the number of points, and the number of elements. Another useful piece of information is the listing of the sections within the mesh. These descriptions give the type of elements for the section as well as any name given to it. For instance, when the inlet boundary information is read, SU2 prints "Loading section inlet of element type Line" to the console. This information can be used to verify that your mesh is being read correctly, or to help you remember (or even to learn for the first time) the names for each of the boundary markers that you will need for specifying boundary conditions in the config file.
+SU2 prints out information about the CGNS mesh including the filename, the number of points, and the number of elements. Another useful piece of information is the listing of the sections within the mesh. These descriptions give the type of elements for the section as well as any name given to it. For instance, when the inlet boundary information is read, SU2 prints "Section inlet contains 49 elements of type Line" to the console. This information can be used to verify that your mesh is being read correctly, or to help you remember (or even to learn for the first time) the names for each of the boundary markers that you will need for specifying boundary conditions in the config file.
 
 A converter for creating native .su2 meshes from CGNS meshes is built directly into SU2_DEF, along with many other facilities for manipulating and deforming grids (e.g., scaling, translating, rotating). We will discuss many more capabilities of SU2_DEF in future tutorials, especially features needed for design parameterization and mesh deformation for optimal shape design. To perform a simple conversion of the grid with SU2_DEF, choose the following option:
 
@@ -124,7 +124,7 @@ $ SU2_DEF inv_Wedge_HLLC.cfg
 
 No other options related to the grid deformation capability are required. You will now have a new mesh in the current working directory named "mesh_out.su2" by default that is in the SU2 native format. To use it, adjust the `MESH_FILENAME` and `MESH_FORMAT` options. 
 
-SU2_DEF has other useful capability for quickly transforming grids. For example, we often need to scale the grid to be smaller or larger so that the grid is in units of meters. Here, we can take advantage of the `SCALE_GRID` capability (`DV_KIND`) while setting a constant scale factor in the `DV_VALUE` option. In this case, every grid point location will be multiplied by the scaling factor in all dimensions. It is also possible to rigidly rotate or translate the grid with the options `ROTATE_GRID` and `TRANSLATE_GRID`, respectively. For example, to scale the grid units by a factor of 10.0, the following options can be used:
+SU2_DEF has other useful capabilities for quickly transforming grids. For example, we often need to scale the grid to be smaller or larger so that the grid is in units of meters. Here, we can take advantage of the `SCALE_GRID` capability (`DV_KIND`) while setting a constant scale factor in the `DV_VALUE` option. In this case, every grid point location will be multiplied by the scaling factor in all dimensions. It is also possible to rigidly rotate or translate the grid with the options `ROTATE_GRID` and `TRANSLATE_GRID`, respectively. For example, to scale the grid units by a factor of 10.0, the following options can be used:
 
 ```
 % ----------------------- DESIGN VARIABLE PARAMETERS --------------------------%

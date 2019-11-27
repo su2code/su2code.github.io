@@ -51,7 +51,7 @@ Several of the key configuration file options for this simulation are highlighte
 % ------------- DIRECT, ADJOINT, AND LINEARIZED PROBLEM DEFINITION ------------%
 %
 % Physical governing equations (EULER, NAVIER_STOKES, ...
-SOLVER= INC_NAVIER_STOKES
+SOLVER= INC_RANS
 %
 % If Navier-Stokes, kind of turbulent model (NONE, SA)
 KIND_TURB_MODEL= SA

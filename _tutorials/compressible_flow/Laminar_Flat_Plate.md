@@ -57,7 +57,7 @@ The computational mesh for the flat plate is composed of quadrilaterals with 65 
 ![Lam Plate Mesh](../../Laminar_Flat_Plate/images/lam_plate_mesh_bcs.png)
 Figure (1): Figure of the computational mesh with boundary conditions.
 
-Because the flow is subsonic and disturbances caused by the presence of the plate can propagate both upstream and downstream, the characteristic-based, subsonic inlet and outlet boundary conditions are used for the flow entrance plane (red) and the outflow regions along the upper region of the domain and the exit plane at x = 0.3048 m (blue). 
+Because the flow is subsonic and disturbances caused by the presence of the plate can propagate both upstream and downstream, characteristic-based, subsonic inlet and outlet boundary conditions are used for the flow entrance plane (red) and the outflow regions along the upper region of the domain and the exit plane at x = 0.3048 m (blue). 
 
 In any simulation of viscous flow, it is important to capture the behavior of the boundary layer. Doing so requires an appropriate level of grid refinement near the wall. In this mesh, the vertical spacing is such that approximately 30 grid nodes lie within the boundary layer, which is typical for laminar flows of this nature.
 
@@ -77,7 +77,7 @@ SOLVER= NAVIER_STOKES
 KIND_TURB_MODEL= NONE
 ```
 
-To compute viscous flows, the Navier-Stokes governing equations are selected. In conjunction with selecting Navier-Stokes as the problem type, the type of turbulence model must also be specified. Laminar flows can be computed by entering `KIND_TURB_MODEL= NONE`. For turbulent flows, SU2 currently contains implementations of the Spalart-Allmaras model (`SA`, `SA_NEG`) and the Shear Stress Transport (`SST`) model of Menter. If this were an inviscid flow problem, the user would enter `SOLVER = EULER` for the problem type. SU2 supports other governing equations, as well, and the user is invited to review the configuration page for a description of the possible options.
+To compute viscous flows, the Navier-Stokes governing equations are selected. The option `NAVIER_STOKES` implies that we wish to solve a laminar Naviwe-Stokes problem, and therefore, we must also set `KIND_TURB_MODEL= NONE`. For turbulent flows, SU2 solves the Reynolds-averaged Navier-Stokes equations by setting `SOLVER= RANS`, and SU2 currently contains implementations of the Spalart-Allmaras model and several variants (`SA`, `SA_NEG`, etc.) and the Shear Stress Transport (`SST`) model of Menter. If this were an inviscid flow problem, the user would enter `SOLVER = EULER` for the problem type. SU2 supports other governing equations, as well, and the user is invited to review the governing equations documentation page for a description of the possible options.
 
 Defining a no-slip boundary condition for viscous walls can be accomplished in one of two ways:
 
@@ -93,7 +93,7 @@ MARKER_HEATFLUX= ( wall, 0.0 )
 MARKER_ISOTHERMAL= ( NONE )
 ```
 
-An adiabatic, no-slip boundary condition can be selected by using the `MARKER_HEATFLUX` option with the value of the heat flux set to 0.0. An isothermal wall condition is also available with a similar format.
+An adiabatic, no-slip boundary condition can be selected by using the `MARKER_HEATFLUX` option with the value of the heat flux set to 0.0. An isothermal wall condition is also available with a similar format for setting a fixed temperature on the wall.
 
 The convective fluxes are computed with a 2nd-order upwind method, and the viscous terms are computed with the corrected average-of-gradients method (the default in SU2). We will discuss the various options for specifying the convective scheme in the next tutorial. The flow variable gradients needed for the convective and viscous fluxes are calculated via a weighted least squares method, but a Green-Gauss method is also available: 
 
@@ -102,7 +102,7 @@ The convective fluxes are computed with a 2nd-order upwind method, and the visco
 NUM_METHOD_GRAD= WEIGHTED_LEAST_SQUARES
 ```
 
-For this problem, we are choosing a typical set of numerical methods. However, it is advised that users should experiment with various numerical methods for their own problems. 
+For this problem, we are choosing a typical set of numerical methods. However, it is always advised that users should experiment with various numerical methods for their own problems. 
 
 ### Running SU2
 

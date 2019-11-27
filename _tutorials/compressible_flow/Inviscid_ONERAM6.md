@@ -132,6 +132,19 @@ SU2 contains an agglomeration multigrid algorithm for convergence acceleration (
 
 It is important to note that the performance of the multigrid algorithm is highly-dependent on the initial grid and that the agglomeration is impacted by parallel partitioning: considerable tuning and experimentation with these parameters can be required. If you are having trouble tuning the multigrid, it is recommended to turn it off (set `MGLEVEL = 0`) and to try with a higher CFL number on the fine grid alone while converging the implicit system to a tighter tolerance (use the `LINEAR_SOLVER_ERROR` and `LINEAR_SOLVER_ITER` options).
 
+In addition to aggressive multigrid settings for this case, we also apply automatic CFL adaption, which allows for ramping of the CFL number to very high values. This results in rapid convergence of the problem after approximately 100 iterations. The CFL adaption is enabled using the following options:
+```
+%
+% Adaptive CFL number (NO, YES)
+CFL_ADAPT= YES
+%
+% Parameters of the adaptive CFL number (factor down, factor up, CFL min value,
+%                                        CFL max value )
+CFL_ADAPT_PARAM= ( 0.1, 2.0, 100.0, 1e10 )
+```
+
+First, we set `CFL_ADAPT= YES` to activate CFL adaption. The parameters for the adaption are set with `CFL_ADAPT_PARAM` in order to control the multiplicative factors to increase or decrease the CFL with each iteration (depending on the success of each nonlinear iteration) as well as minimum and maximum bounds on the allowable CFL. For Euler and laminar Navier-Stokes problems, an aggressive strategy that doubles the CFL up to a high max (here 1e10) is typically possible. For RANS cases, more conservative values are suggested (increase factor of 1.2 and a max of 1e3).
+
 ### Running SU2
 
 Instructions for running this test case are given here for both serial and parallel computations. The computational mesh is rather large, so if possible, performing this case in parallel is recommended.

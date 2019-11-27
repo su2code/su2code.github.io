@@ -10,7 +10,7 @@ permalink: /tutorials/Turbulent_ONERAM6/
 Upon completing this tutorial, the user will be familiar with performing a simulation of external, viscous flow around a 3D geometry using a turbulence model. The specific geometry chosen for the tutorial is the classic ONERA M6 wing. Consequently, the following capabilities of SU2 will be showcased in this tutorial:
 - Steady, 3D RANS equations 
 - Spalart-Allmaras turbulence model
-- Roe convective scheme in space (2nd-order, upwind)
+- JST convective scheme in space (2nd-order, centered)
 - Corrected average-of-gradients viscous scheme
 - Euler implicit time integration
 - Navier-Stokes Wall, Symmetry, and Far-field boundary conditions
@@ -146,21 +146,20 @@ This method for setting similar flow conditions assumes that all inputs are in S
 Lastly, SU2 features multiple ways to assess convergence:
 
 ```
-% Convergence criteria (CAUCHY, RESIDUAL)
-CONV_CRITERIA= CAUCHY
+% Convergence criteria
+CONV_FIELD= DRAG
+%
+% Start convergence criteria at iteration number
+CONV_STARTITER= 10
 %
 % Number of elements to apply the criteria
 CONV_CAUCHY_ELEMS= 100
 %
 % Epsilon to control the series convergence
 CONV_CAUCHY_EPS= 1E-6
-%
-% Function to apply the criteria (LIFT, DRAG, NEARFIELD_PRESS, SENS_GEOMETRY,
-% SENS_MACH, DELTA_LIFT, DELTA_DRAG)
-CAUCHY_FUNC_FLOW= DRAG 
 ```
 
-Rather than achieving a certain order of magnitude in the density residual to judge convergence, what we call the Cauchy convergence criteria is chosen for this problem. This type of criteria measures the change in a specific quantity of interest over a specified number of previous iterations. With the options selected above, the calculation will terminate when the change in the drag coefficient (`CAUCHY_FUNC_FLOW`) for the wing over the previous 100 iterations (`CONV_CAUCHY_ELEMS`) becomes less than 1E-6 (`CONV_CAUCHY_EPS`). A convergence criteria of this nature can be very useful for design problems where the solver is embedded in a larger design loop and reliable convergence behavior is essential.
+Rather than achieving a certain order of magnitude reduction in a residual to judge convergence, convergence of the drag coefficient is chosen for this problem. When a coefficient such as drag is chosen, we measure the change in the specific quantity of interest over a specified number of previous iterations. With the options selected above, the calculation will terminate when the change in the drag coefficient for the wing over the previous 100 iterations (`CONV_CAUCHY_ELEMS`) becomes less than 1E-6 (`CONV_CAUCHY_EPS`). A convergence criteria of this nature can be very useful for design problems where the solver is embedded in a larger design loop and reliable convergence behavior is essential.
 
 
 ### Running SU2

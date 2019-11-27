@@ -10,7 +10,6 @@ permalink: /tutorials/Inc_Laminar_Cavity/
 Upon completing this tutorial, the user will be familiar with performing a simulation of laminar, incompressible, buoyancy-driven flow within a cavity. Consequently, the following capabilities of SU2 will be showcased in this tutorial:
 
 - Steady, 2D, laminar, incompressible, Navier-Stokes equations 
-- Multigrid
 - Flux Difference Splitting (FDS) convective scheme in space (2nd-order, upwind)
 - Euler implicit time integration
 - No-slip wall (constant temperature and adiabatic) boundary conditions
@@ -35,7 +34,7 @@ The buoyancy-driven cavity is a classic natural convection case for testing inco
 
 We use the problem set up of Sockol here for comparison purposes (Peter M. Sockol. Multigrid solution of the navier–stokes equations at low speeds with large temperature variations. Journal of Computational Physics, 192(2):570 – 592, 2003). The Rayleigh number is the key parameter controlling the flow, defined as
 
-![Blasius Cf](../../Inc_Laminar_Cavity/images/buoyancy_rayleigh.png)
+![Buoyancy Rayleigh](../../Inc_Laminar_Cavity/images/buoyancy_rayleigh.png)
 
 where ∆T = 2(Th − Tc)/(Th + Tc), Th is the constant temperature of the hot left wall, Tc is the constant temperature of the cold right wall, g is the acceleration due to gravity, and L is the length of a side of the square cavity. Additionally, we impose that Th/Tc = 4 and that μ_dyn and κ are constants with κ = μ_dyn cp/Pr_d. The laminar Prandtl (Prd) and Froude (Fr) numbers are 0.7 and 1.2, respectively. A reference velocity can then be computed as V_ref = sqrt(F r g L).
 
