@@ -115,7 +115,7 @@ OPT_BOUND_UPPER= 0.1
 OPT_BOUND_LOWER= -0.1
 %
 % Optimization design variables, separated by semicolons
-DEFINITION_DV= (15, 1.0| lower | MAIN_BOX, 3,0,0,1.0);(15, 1.0| lower | MAIN_BOX, 4,0,0,1.0);(15, 1.0| lower | MAIN_BOX, 5,0,0,1.0);(15, 1.0| lower | MAIN_BOX, 6,0,0,1.0)
+DEFINITION_DV= ( 19, 1.0| lower | MAIN_BOX, 3,0,0,1.0);( 19, 1.0| lower | MAIN_BOX, 4,0,0,1.0);( 19, 1.0| lower | MAIN_BOX, 5,0,0,1.0);( 19, 1.0| lower | MAIN_BOX, 6,0,0,1.0)
 ```
 If OPT_COMBINE_OBJECTIVE is not included or set to 'NO', then the gradients will be evaluated separately in sequential operations when adjoint methods are used. Whether to combine the objectives or not will depend on the needs of the problem at hand. If you have a small number of objectives, have plenty of computing resources available, and may need to examine the gradients of the objectives separately from one another, then you may want to forgo combining the objectives and set this option to 'NO'. On the other hand, if you have a large number of objectives, limited computing resources, and do not need to separate the objective gradients from one another, then combining the objectives may be beneficial. 
 

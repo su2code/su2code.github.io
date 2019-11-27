@@ -60,9 +60,10 @@ OPT_OBJECTIVE= DRAG
 % ex= (Objective = Value ) * Scale, use '>','<','='
 OPT_CONSTRAINT= ( MOMENT_Z < 0.093 ) * 0.001; ( AIRFOIL_THICKNESS  > 0.12 ) * 0.001
 ```
-In this particular case we are running at a cte. lift value, in order to set that feature the relevant part of the configuration file is presented below
+In this particular case we are running at a constant lift value, in order to set that feature the relevant part of the configuration file is presented below. The `FIXED_CL_MODE` works by updating the angle of attack (AoA) during the simulation run such that the resulting CL matches the `TARGET_CL` value. The `UPDATE_AOA_ITER_LIMIT` specifies the maximum number of iterations between two AoA updates. The AoA might update sooner if the solution converges (as defined by the convergence parameters) to the wrong CL. The level of CL convergence can be specified by the `CAUCHY_EPS` value which is defined in the Convergence Parameters. `DCL_DALPHA` is the proportional constant that is used to calculate the change in AoA when it updates (Change in AoA = (TARGET_CL - CURRENT_CL)/DCL_DALPHA). The `ITER_DCL_DALPHA` defines the number of iterations that the run to calculate dCL/dAlpha at the end of the Fixed CL simulation. This calculated value is used by the adjoint to give more accurate gradients with respect to the objective function, when the optimization is run in Fixed CL mode. 
+
 ```
-% -------------------------- CL & CM DRIVER DEFINITION ------------------------%
+% -------------------------- CL DRIVER DEFINITION -----------------------------%
 %
 % Activate fixed lift mode (specify a CL instead of AoA, NO/YES)
 FIXED_CL_MODE= YES
@@ -73,8 +74,8 @@ TARGET_CL= 0.724
 % Estimation of dCL/dAlpha (0.2 per degree by default)
 DCL_DALPHA= 0.2
 %
-% Number of times the AoA is updated in a fix CL problem (5 by default)
-UPDATE_ALPHA= 5
+% Maximum number of iterations between AoA updates
+UPDATE_AOA_ITER_LIMIT= 100
 %
 % Number of iterations to evaluate dCL/dAlpha at the end of the simulation
 ITER_DCL_DALPHA= 500
@@ -121,7 +122,7 @@ OPT_BOUND_UPPER= 1E10
 OPT_BOUND_LOWER= -1E10
 %
 % Optimization design variables, separated by semicolons
-DEFINITION_DV= ( 1, 1.0 | AIRFOIL | 0, 0.05 ); ( 1, 1.0 | AIRFOIL | 0, 0.10 ); ( 1, 1.0 | AIRFOIL | 0, 0.15 ); ( 1, 1.0 | AIRFOIL | 0, 0.20 ); ( 1, 1.0 | AIRFOIL | 0, 0.25 ); ( 1, 1.0 | AIRFOIL | 0, 0.30 ); ( 1, 1.0 | AIRFOIL | 0, 0.35 ); ( 1, 1.0 | AIRFOIL | 0, 0.40 ); ( 1, 1.0 | AIRFOIL | 0, 0.45 ); ( 1, 1.0 | AIRFOIL | 0, 0.50 ); ( 1, 1.0 | AIRFOIL | 0, 0.55 ); ( 1, 1.0 | AIRFOIL | 0, 0.60 ); ( 1, 1.0 | AIRFOIL | 0, 0.65 ); ( 1, 1.0 | AIRFOIL | 0, 0.70 ); ( 1, 1.0 | AIRFOIL | 0, 0.75 ); ( 1, 1.0 | AIRFOIL | 0, 0.80 ); ( 1, 1.0 | AIRFOIL | 0, 0.85 ); ( 1, 1.0 | AIRFOIL | 0, 0.90 ); ( 1, 1.0 | AIRFOIL | 0, 0.95 ); ( 1, 1.0 | AIRFOIL | 1, 0.05 ); ( 1, 1.0 | AIRFOIL | 1, 0.10 ); ( 1, 1.0 | AIRFOIL | 1, 0.15 ); ( 1, 1.0 | AIRFOIL | 1, 0.20 ); ( 1, 1.0 | AIRFOIL | 1, 0.25 ); ( 1, 1.0 | AIRFOIL | 1, 0.30 ); ( 1, 1.0 | AIRFOIL | 1, 0.35 ); ( 1, 1.0 | AIRFOIL | 1, 0.40 ); ( 1, 1.0 | AIRFOIL | 1, 0.45 ); ( 1, 1.0 | AIRFOIL | 1, 0.50 ); ( 1, 1.0 | AIRFOIL | 1, 0.55 ); ( 1, 1.0 | AIRFOIL | 1, 0.60 ); ( 1, 1.0 | AIRFOIL | 1, 0.65 ); ( 1, 1.0 | AIRFOIL | 1, 0.70 ); ( 1, 1.0 | AIRFOIL | 1, 0.75 ); ( 1, 1.0 | AIRFOIL | 1, 0.80 ); ( 1, 1.0 | AIRFOIL | 1, 0.85 ); ( 1, 1.0 | AIRFOIL | 1, 0.90 ); ( 1, 1.0 | AIRFOIL | 1, 0.95 )
+DEFINITION_DV= ( 30, 1.0 | AIRFOIL | 0, 0.05 ); ( 30, 1.0 | AIRFOIL | 0, 0.10 ); ( 30, 1.0 | AIRFOIL | 0, 0.15 ); ( 30, 1.0 | AIRFOIL | 0, 0.20 ); ( 30, 1.0 | AIRFOIL | 0, 0.25 ); ( 30, 1.0 | AIRFOIL | 0, 0.30 ); ( 30, 1.0 | AIRFOIL | 0, 0.35 ); ( 30, 1.0 | AIRFOIL | 0, 0.40 ); ( 30, 1.0 | AIRFOIL | 0, 0.45 ); ( 30, 1.0 | AIRFOIL | 0, 0.50 ); ( 30, 1.0 | AIRFOIL | 0, 0.55 ); ( 30, 1.0 | AIRFOIL | 0, 0.60 ); ( 30, 1.0 | AIRFOIL | 0, 0.65 ); ( 30, 1.0 | AIRFOIL | 0, 0.70 ); ( 30, 1.0 | AIRFOIL | 0, 0.75 ); ( 30, 1.0 | AIRFOIL | 0, 0.80 ); ( 30, 1.0 | AIRFOIL | 0, 0.85 ); ( 30, 1.0 | AIRFOIL | 0, 0.90 ); ( 30, 1.0 | AIRFOIL | 0, 0.95 ); ( 30, 1.0 | AIRFOIL | 1, 0.05 ); ( 30, 1.0 | AIRFOIL | 1, 0.10 ); ( 30, 1.0 | AIRFOIL | 1, 0.15 ); ( 30, 1.0 | AIRFOIL | 1, 0.20 ); ( 30, 1.0 | AIRFOIL | 1, 0.25 ); ( 30, 1.0 | AIRFOIL | 1, 0.30 ); ( 30, 1.0 | AIRFOIL | 1, 0.35 ); ( 30, 1.0 | AIRFOIL | 1, 0.40 ); ( 30, 1.0 | AIRFOIL | 1, 0.45 ); ( 30, 1.0 | AIRFOIL | 1, 0.50 ); ( 30, 1.0 | AIRFOIL | 1, 0.55 ); ( 30, 1.0 | AIRFOIL | 1, 0.60 ); ( 30, 1.0 | AIRFOIL | 1, 0.65 ); ( 30, 1.0 | AIRFOIL | 1, 0.70 ); ( 30, 1.0 | AIRFOIL | 1, 0.75 ); ( 30, 1.0 | AIRFOIL | 1, 0.80 ); ( 30, 1.0 | AIRFOIL | 1, 0.85 ); ( 30, 1.0 | AIRFOIL | 1, 0.90 ); ( 30, 1.0 | AIRFOIL | 1, 0.95 )
 ```
 The `OPT_GRADIENT_FACTOR` of 1E-6 is chosen to reduce the value of the gradient norm (based on our experience, for the SLSQP python implementation a norm of the gradient ~1E-6 is desired) and `OPT_RELAX_FACTOR` of 1E2 is used to aid the optimizer in taking a physically appropriate first step (i.e., not too small that the optimizer is not able to detect a change in the objective function or too large that the subsequent calculations go unstable due to a large, non-physical deformation). 
 
@@ -129,7 +130,7 @@ The SLSQP optimizer from the SciPy package for Python is the default optimizer c
 
 The `DEFINITION_DV` is the list of design variables. For the airfoil problem, we want to minimize the drag by changing the surface profile shape. To do so, we define a set of Hicks-Henne bump functions. Each design variable is separated by a semicolon, although **note that there is no final semicolon at the end of the list**.
 
-The first value in the parentheses is the variable type, which is 1 for a Hicks-Henne bump function. The second value is the scale of the variable (typically left as 1.0). The name between the vertical bars is the marker tag where the variable deformations will be applied. Only the airfoil surface will be deformed in this problem. The final two values in the parentheses specify whether the bump function is applied to the upper (1) or lower (0) side and the x-location of the bump between 0 and 1 (we assume a chord of 1.0 for the Hicks-Henne bumps), respectively.
+The first value in the parentheses is the variable type, which is 30 for a Hicks-Henne bump function. The second value is the scale of the variable (typically left as 1.0). The name between the vertical bars is the marker tag where the variable deformations will be applied. Only the airfoil surface will be deformed in this problem. The final two values in the parentheses specify whether the bump function is applied to the upper (1) or lower (0) side and the x-location of the bump between 0 and 1 (we assume a chord of 1.0 for the Hicks-Henne bumps), respectively.
 
 Note that there are many other types of design variables available in SU2 (including 2D FFD), and each has their own specific input format. 3D design variables based on the free-form deformation approach (FFD) will be discussed in another tutorial.
 

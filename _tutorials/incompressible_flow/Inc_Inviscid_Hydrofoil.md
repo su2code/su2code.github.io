@@ -82,7 +82,7 @@ The inlet condition is prescribed as a uniform velocity inlet, where the velocit
 
 The format for the uniform velocity inlet boundary condition is (marker name, temperature, velocity magnitude, x-component of flow direction, y-component of flow direction, z-component of flow direction), where the final three components make up a unit flow direction vector (magnitude = 1.0). In this problem, the flow is exactly aligned with the x-direction of the coordinate system, and thus the flow direction vector is `(1.0, 0.0, 0.0)`. We are not solving the energy equation for this inviscid problem, so the temperature input value is ignored.
 
-The pressure outlet condition is prescibed as a uniform static (gauge) pressure. Note that, in the incompressible solver, the pressure variable is interpreted as a dynamic pressure instead of the thermodynamic pressure, as in the compressible solver. Therefore, the specified outlet pressure is a gauge value relative to the operating pressure, which is typically taken as the local atmospheric value at the outlet, and thus, the gauge pressure at the outlet is often set to 0.0 Pa. 
+The pressure outlet condition is prescribed as a uniform static (gauge) pressure. Note that, in the incompressible solver, the pressure variable is interpreted as a dynamic pressure instead of the thermodynamic pressure, as in the compressible solver. Therefore, the specified outlet pressure is a gauge value relative to the operating pressure, which is typically taken as the local atmospheric value at the outlet, and thus, the gauge pressure at the outlet is often set to 0.0 Pa. 
 
 ### Running SU2
 

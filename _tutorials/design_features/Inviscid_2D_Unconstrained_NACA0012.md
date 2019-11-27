@@ -123,7 +123,7 @@ OPT_BOUND_UPPER= 0.1
 OPT_BOUND_LOWER= -0.1
 %
 % Optimization design variables, separated by semicolons
-DEFINITION_DV= ( 1, 1.0 | airfoil | 0, 0.05 ); ( 1, 1.0 | airfoil | 0, 0.10 ); ( 1, 1.0 | airfoil | 0, 0.15 ); ( 1, 1.0 | airfoil | 0, 0.20 ); ( 1, 1.0 | airfoil | 0, 0.25 ); ( 1, 1.0 | airfoil | 0, 0.30 ); ( 1, 1.0 | airfoil | 0, 0.35 ); ( 1, 1.0 | airfoil | 0, 0.40 ); ( 1, 1.0 | airfoil | 0, 0.45 ); ( 1, 1.0 | airfoil | 0, 0.50 ); ( 1, 1.0 | airfoil | 0, 0.55 ); ( 1, 1.0 | airfoil | 0, 0.60 ); ( 1, 1.0 | airfoil | 0, 0.65 ); ( 1, 1.0 | airfoil | 0, 0.70 ); ( 1, 1.0 | airfoil | 0, 0.75 ); ( 1, 1.0 | airfoil | 0, 0.80 ); ( 1, 1.0 | airfoil | 0, 0.85 ); ( 1, 1.0 | airfoil | 0, 0.90 ); ( 1, 1.0 | airfoil | 0, 0.95 ); ( 1, 1.0 | airfoil | 1, 0.05 ); ( 1, 1.0 | airfoil | 1, 0.10 ); ( 1, 1.0 | airfoil | 1, 0.15 ); ( 1, 1.0 | airfoil | 1, 0.20 ); ( 1, 1.0 | airfoil | 1, 0.25 ); ( 1, 1.0 | airfoil | 1, 0.30 ); ( 1, 1.0 | airfoil | 1, 0.35 ); ( 1, 1.0 | airfoil | 1, 0.40 ); ( 1, 1.0 | airfoil | 1, 0.45 ); ( 1, 1.0 | airfoil | 1, 0.50 ); ( 1, 1.0 | airfoil | 1, 0.55 ); ( 1, 1.0 | airfoil | 1, 0.60 ); ( 1, 1.0 | airfoil | 1, 0.65 ); ( 1, 1.0 | airfoil | 1, 0.70 ); ( 1, 1.0 | airfoil | 1, 0.75 ); ( 1, 1.0 | airfoil | 1, 0.80 ); ( 1, 1.0 | airfoil | 1, 0.85 ); ( 1, 1.0 | airfoil | 1, 0.90 ); ( 1, 1.0 | airfoil | 1, 0.95 )
+DEFINITION_DV= ( 30, 1.0 | airfoil | 0, 0.05 ); ( 30, 1.0 | airfoil | 0, 0.10 ); ( 30, 1.0 | airfoil | 0, 0.15 ); ( 30, 1.0 | airfoil | 0, 0.20 ); ( 30, 1.0 | airfoil | 0, 0.25 ); ( 30, 1.0 | airfoil | 0, 0.30 ); ( 30, 1.0 | airfoil | 0, 0.35 ); ( 30, 1.0 | airfoil | 0, 0.40 ); ( 30, 1.0 | airfoil | 0, 0.45 ); ( 30, 1.0 | airfoil | 0, 0.50 ); ( 30, 1.0 | airfoil | 0, 0.55 ); ( 30, 1.0 | airfoil | 0, 0.60 ); ( 30, 1.0 | airfoil | 0, 0.65 ); ( 30, 1.0 | airfoil | 0, 0.70 ); ( 30, 1.0 | airfoil | 0, 0.75 ); ( 30, 1.0 | airfoil | 0, 0.80 ); ( 30, 1.0 | airfoil | 0, 0.85 ); ( 30, 1.0 | airfoil | 0, 0.90 ); ( 30, 1.0 | airfoil | 0, 0.95 ); ( 30, 1.0 | airfoil | 1, 0.05 ); ( 30, 1.0 | airfoil | 1, 0.10 ); ( 30, 1.0 | airfoil | 1, 0.15 ); ( 30, 1.0 | airfoil | 1, 0.20 ); ( 30, 1.0 | airfoil | 1, 0.25 ); ( 30, 1.0 | airfoil | 1, 0.30 ); ( 30, 1.0 | airfoil | 1, 0.35 ); ( 30, 1.0 | airfoil | 1, 0.40 ); ( 30, 1.0 | airfoil | 1, 0.45 ); ( 30, 1.0 | airfoil | 1, 0.50 ); ( 30, 1.0 | airfoil | 1, 0.55 ); ( 30, 1.0 | airfoil | 1, 0.60 ); ( 30, 1.0 | airfoil | 1, 0.65 ); ( 30, 1.0 | airfoil | 1, 0.70 ); ( 30, 1.0 | airfoil | 1, 0.75 ); ( 30, 1.0 | airfoil | 1, 0.80 ); ( 30, 1.0 | airfoil | 1, 0.85 ); ( 30, 1.0 | airfoil | 1, 0.90 ); ( 30, 1.0 | airfoil | 1, 0.95 )
 ```
 Here, we define the objective function for the optimization as drag without any constraints. The `OPT_GRADIENT_FACTOR` of 1E-6 is chosen to reduce the value of the gradient norm (based on our experience, for the SLSQP python implementation a norm of the gradient ~1E-6 is desired) and `OPT_RELAX_FACTOR` of 1E3 is used to aid the optimizer in taking a physically appropriate first step (i.e., not too small that the optimizer is not able to detect a change in the objective function or too large that the subsequent calculations go unstable due to a large, non-physical deformation). We could impose a constraint on the maximum thickness, for instance, or add a lift constraint. Constraints will be discussed in the next tutorial on 3D design.
 
@@ -133,7 +133,7 @@ The `DEFINITION_DV` is the list of design variables. For the airfoil problem, we
 
 It is quite common to introduce angle of attack as a design variable (with a given Cl). In that case, you should add to the config file the following extra information:
 ```
-% -------------------------- CL & CM DRIVER DEFINITION ------------------------%
+% -------------------------- CL DRIVER DEFINITION -----------------------------%
 %
 % Activate fixed lift mode (specify a CL instead of AoA, NO/YES)
 FIXED_CL_MODE= YES
@@ -144,8 +144,8 @@ TARGET_CL= 0.326
 % Estimation of dCL/dAlpha (0.2 per degree by default)
 DCL_DALPHA= 0.2
 %
-% Number of times the AoA is updated in a fix CL problem (5 by default)
-UPDATE_ALPHA= 5
+% Maximum number of iterations between AoA updates
+UPDATE_AOA_ITER_LIMIT= 50
 %
 % Number of iterations to evaluate dCL_dAlpha by using finite differences (500 by default)
 ITER_DCL_DALPHA= 250
