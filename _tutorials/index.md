@@ -2,6 +2,7 @@
 title: The SU2 Tutorial Collection
 permalink: /tutorials/home/
 redirect_from: /tutorials/index.html
+disable_comments: true
 ---
 
 ## Getting started with SU2

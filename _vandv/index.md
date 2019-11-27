@@ -2,6 +2,7 @@
 title: The SU2 V&V Collection
 permalink: /vandv/home/
 redirect_from: /vandv/index.html
+disable_comments: true
 ---
 
 The case studies presented in this section demonstrate the verification and validation (V&V) of the solvers within the SU2 suite. Verification activities assess whether a particular model has been implemented correctly in software, i.e., it is coded as specified and bug-free. Validation activities assess whether a particular model matches the physical reality for a situation of interest, typically via comparison with experiment. 
