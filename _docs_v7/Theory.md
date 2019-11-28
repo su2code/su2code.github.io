@@ -3,8 +3,6 @@ title: Governing Equations in SU2
 permalink: /docs_v7/Theory/
 ---
 
-**This guide is for version 7 only**
-
 This page contains a very brief summary of the different governing equation sets that are treated in each of the solvers within SU2. The reader will be referred to other references for the full detail of the numerical implementations, but we will also describe the approaches at a high level here.
 
 ---

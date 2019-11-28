@@ -4,7 +4,6 @@ permalink: /docs_v7/Build-SU2-Linux-MacOS/
 redirect_from: /docs/Build-SU2-From-Source/
 ---
 
-***This guide is for version 7 only.*** 
 For information on how to build older versions of SU2, have a look [here](/docs_v7/Build-from-Source/).
 
 Note that the following guide works only on Linux/MacOS and on Windows using Cygwin or the [Linux Subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10).

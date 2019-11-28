@@ -142,7 +142,7 @@ MESH_FORMAT= CGNS
 
 It is important to note that SU2 will not use any specific boundary conditions that are embedded within the CGNS mesh. However, it *will* use the names given to each boundary as the marker tags. These marker tags are used to set the boundary conditions in the configuration file. Therefore, it is recommended that the user give names to each boundary in their mesh generation package before exporting to CGNS. If you do not know the number of markers or their tags within a CGNS file, you can simply attempt a simulation in SU2_CFD (leaving out the boundary information in the configuration file at first), and during the preprocessing stage, SU2 will read and print the names of all boundary markers to the console along with other grid information before throwing an error due to incomplete boundary definitions. The user can then incorporate these marker tags into the configuration file with the appropriate boundary conditions.
 
- If needed, a converter from CGNS to the SU2 format has been built into SU2 (See the [inviscid wedge tutorial](../tutorials/Inviscid_Wedge)). 
+ If needed, a converter from CGNS to the SU2 format has been built into SU2 (See the [inviscid wedge tutorial](/tutorials/Inviscid_Wedge)). 
 
 ## Third-Party Mesh Software
 

@@ -3,6 +3,15 @@ title: Software Components
 permalink: /docs_v7/Software-Components/
 ---
 
+
+---
+
+- [C++ Software Modules](#c-software-modules)
+  - [Algorithmic Differentiation Support and Discrete Adjoint](#algorithmic-differentiation-support-and-discrete-adjoint)
+- [Python Scripts](#python-scripts)
+
+---
+
 The SU2 software suite is composed of a set of C++ based software modules that perform a wide range of CFD analysis and PDE-constrained optimization tasks. An overall description of each module is included below to give perspective on the suite's capabilities, while more details can be found in the Developer's Guide. Some modules can be executed individually, most notably SU2_CFD to perform high-fidelity analysis, but the real power of the suite lies in the coupling of the modules to perform complex activities, including design optimization and adaptive grid refinement, among others.
 
 A key feature of the C++ modules is that each has been designed to separate functionality as much as possible and to leverage the advantages of the class-inheritance structure of the programming language. This makes SU2 an ideal platform for prototyping new numerical methods, discretization schemes, governing equation sets, mesh perturbation algorithms, adaptive mesh refinement schemes, parallelization schemes, etc. You simply need to define a new subclass and get down to business. This philosophy makes SU2 quickly extensible to a wide variety of PDE analyses suited to the needs of the user, and work is ongoing to incorporate additional features for future SU2 releases.

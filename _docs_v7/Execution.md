@@ -30,7 +30,7 @@ where `SU2_MODULE` can be any of the C++ modules on the [Software Components](/d
 ```
 $ ./SU2_CFD default.cfg
 ```
-where the executable, SU2_CFD, and the [Configuration File](/docs_v7/Configuration-File/), default.cfg, are located in the current working directory.  Please see the [Build from Source](/docs_v7/Build-SU2-from-Source/) page for how you can set up environment variables to run the modules from any directory. Additionally, SU2 is a fully-parallel suite, and assuming that you have compiled with MPI support, each of the modules can be executed in parallel. For example, to run the CFD solver on 8 cores, you might enter:
+where the executable, SU2_CFD, and the [Configuration File](/docs_v7/Configuration-File/), default.cfg, are located in the current working directory.  Please see the [Build from Source](/docs_v7/Build-SU2-Linux-MacOS/) page for how you can set up environment variables to run the modules from any directory. Additionally, SU2 is a fully-parallel suite, and assuming that you have compiled with MPI support, each of the modules can be executed in parallel. For example, to run the CFD solver on 8 cores, you might enter:
 ```
 $ mpirun -n 8 SU2_CFD default.cfg
 ```

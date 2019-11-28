@@ -107,7 +107,7 @@ Next, we want to run the adjoint solution to get the sensitivity of the objectiv
   - **restart_adj_cd.dat** - restart file in an internal format for restarting this simulation in SU2. Note that the name of the objective appears in the file name.
   - **history.dat** or **history.csv** - file containing the convergence history information.
 
-Note that as of SU2 v4.1, you can also compute a discrete adjoint for the Euler equations. Assuming that you have built the code with [algorithmic differentiation support](/docs_v7/Build-SU2-From-Source/#basic-configuration), you can run the discrete adjoint with the following steps instead:
+Note that as of SU2 v4.1, you can also compute a discrete adjoint for the Euler equations. Assuming that you have built the code with [algorithmic differentiation support](/docs_v7/Build-SU2-Linux-MacOS/#basic-configuration), you can run the discrete adjoint with the following steps instead:
  1. Open the config file and change the parameter `MATH_PROBLEM` from `DIRECT` to `DISCRETE_ADJOINT`, and save this file.
  2. Rename the restart file (restart_flow.dat) to "solution_flow.dat" so that the adjoint code has access to the direct flow solution.
  3. Run the executable again by entering `SU2_CFD_AD inv_NACA0012.cfg` at the command line. Note that the `SU2_CFD_AD` executable will only be available when the source has been compiled with AD support.

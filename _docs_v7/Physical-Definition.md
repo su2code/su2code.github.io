@@ -13,7 +13,7 @@ SU2 offers different ways of setting and computing this definition. This documen
 - [Free-Stream Definition (Compressible)](#free-stream-definition-compressible)
   - [Thermodynamic State](#thermodynamic-state)
   - [Mach Number and Velocity](#mach-number-and-velocity)
-  - [Reynolds Number and Viscosity ###](#reynolds-number-and-viscosity)
+  - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
@@ -64,7 +64,7 @@ The thermodynamic state of the free-stream is defined by the pressure $$p_{\inft
 
 The free-stream velocity $$v_{\infty}$$ is always computed from the specified Mach number $$Ma_{\infty}$$ (`MACH_NUMBER`) and the computed thermodynamic state. The flow direction is based on the angle of attack (`AOA`) and the side-slip angle (`SIDESLIP_ANGLE`, for 3D).
 
-### Reynolds Number and Viscosity ### 
+### Reynolds Number and Viscosity ###
 
 If it is a viscous computation, by default the pressure $$p_{\infty}$$ will be recomputed from a density $$\rho_{\infty}$$ that is found from the specified Reynolds number $$Re$$ (`REYNOLDS_NUMBER`). Note that for an ideal gas this does not change the Mach number $$Ma_{\infty}$$ as it is only a function of the temperature $$T_{\infty}$$. If you still want to use the thermodynamic state for the free-stream definition, set the option `INIT_OPTION` to `TD_CONDITIONS` (default: `REYNOLDS`). In both cases, the viscosity is computed from the dimensional version of Sutherland's law or the constant viscosity (`FREESTREAM_VISCOSITY`), depending on the `VISCOSITY_MODEL` option.
 
@@ -83,7 +83,7 @@ For all schemes, as reference values for the density and temperature the free-st
 | --- | --- |
 | `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
 
-The physical definition of the incompressible solvers is accomplished by setting an appropriate flow condition for initialization and non-dimensionalization. SU2 solves the [incompressible Navier-Stokes equations](/docs_v7/Theory/#incompressible-rans) in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). 
+The physical definition of the incompressible solvers is accomplished by setting an appropriate flow condition for initialization and non-dimensionalization. SU2 solves the [incompressible Navier-Stokes equations](/docs_v7/Theory/#incompressible-navier-stokes) in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). 
 
 ### Thermodynamic and Gauge Pressure ###
 

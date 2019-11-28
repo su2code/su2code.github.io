@@ -3,7 +3,6 @@ title: Build SU2 on Windows
 permalink: /docs_v7/Build-SU2-Windows/
 ---
 
-***This guide is for version 7 only.*** 
 This document will guide you through the steps to compile SU2 on Windows using the [Minimalist GNU for Windows
 ](http://www.mingw.org/) development environment (MinGW) and [Microsoft MPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi).
 

@@ -3,8 +3,6 @@ title: Solver Setup
 permalink: /docs_v7/Solver-Setup/
 ---
 
-**This guide is for version 7 only**
-
 This is a basic introduction on how to set up a simulation using SU2. We distinguish between single-zone computations and multi-zone computations. The following considers a single zone only. For an explanation on multi-zone problems, continue with [Basics of Multi-Zone Computations](/docs_v7/Multizone).
 
 ---
