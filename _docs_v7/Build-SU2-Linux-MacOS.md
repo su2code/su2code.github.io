@@ -192,6 +192,6 @@ Set the environment variables to use the executables from any directory without 
 Meson looks for an MPI installation using [pkg-config](https://en.wikipedia.org/wiki/Pkg-config). But if your MPI implementation does not provide them, it will search for the standard wrapper executables, `mpic`, `mpicxx`, `mpic++`. If these are not in your path, they can be specified by setting the standard environment variables `MPICC`, `MPICXX` during configuration.
 
 ### mpi4py library is not found ###
-The build system uses [`get_python_lib()`](https://docs.python.org/3/distutils/apiref.html#distutils.sysconfig.get_python_lib) to look for the library installation path. If `mpi4py` is not installed in that path, you can provide a custom library path with `--python_path=<path_to_library>`.
+Meson imports the mpi4py module and searches for the include path. If it is installed in a custom location, make sure to add this path to the `PYTHONPATH` environment variable prior calling `meson.py`.
 
 

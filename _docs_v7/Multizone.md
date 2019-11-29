@@ -23,7 +23,7 @@ We refer to a Zone as a subdomain in your physical problem. For example consider
 
 ## Multi-zone and Multi-physics ##
 
-A *multi-zone problem* is a problem that consists of multiple zones. If there are additionally different physical problems solved in the individual zones (i.e. the option `PHYSICAL_PROBLEM` is different) then we refer to that as a *multi-physics problem*, otherwise we call it a *single-physics problem*. In that sense, every *multi-physics problem* is also a *multi-zone problem*. However, both cases differ slighty in how a problem is set up using the config files. 
+A *multi-zone problem* is a problem that consists of multiple zones. If there are additionally different physical problems solved in the individual zones (i.e. the option `SOLVER` is different) then we refer to that as a *multi-physics problem*, otherwise we call it a *single-physics problem*. In that sense, every *multi-physics problem* is also a *multi-zone problem*. However, both cases differ slighty in how a problem is set up using the config files. 
 
  <a name="singlephysics"></a> 
 ### How to set up a single-physics problem ###
@@ -32,9 +32,9 @@ To enable the multi-zone mode use the option `MULTIZONE = YES` (default is `NO`)
 ```
 MARKER_ZONE_INTERFACE= ( internal_interface, inner_interface, domain_interface, external_interface )
 ```
-In this example `internal_interface, inner_interface` and `domain_interface, external_interface` are connected. The type of interface is determined automatically, depending on the type of the physical problem (set with `PHYSICAL_PROBLEM`).
+In this example `internal_interface, inner_interface` and `domain_interface, external_interface` are connected. The type of interface is determined automatically, depending on the type of the physical problem (set with `SOLVER`).
 
-**Note:** Currently the only *single-physics* problems available are Fluid-Fluid cases (that means `PHYSICAL_PROBLEM` must be set to `EULER`, `NAVIER_STOKES` or `RANS`).
+**Note:** Currently the only *single-physics* problems available are Fluid-Fluid cases (that means `SOLVER` must be set to `EULER`/`INC_EULER`, `NAVIER_STOKES`/`INC_NAVIER_STOKES` or `RANS`/`INC_RANS`).
 
  <a name="subconfig"></a> 
 #### Sub-config files ####
