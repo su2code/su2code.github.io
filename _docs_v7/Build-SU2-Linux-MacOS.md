@@ -122,7 +122,7 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-autodiff`  | `false`   |   enable AD (reverse) support (needed for discrete adjoint solver)  |
 | `-Denable-directdiff` | `false`     |  enable AD (forward) support |
 | `-Denable-pywrapper` | `false`      |    enable Python wrapper support|
-| `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`required`,`disabled`)  |
+| `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`enabled`,`disabled`)  |
 | `-Denable-cgns`     | `true`    |       enable CGNS support           |        
 | `-Denable-tecio`    |  `true`       |    enable TECIO support         |
 | `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
