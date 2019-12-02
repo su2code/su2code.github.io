@@ -36,7 +36,7 @@ Upon completing this simple tutorial, the user will be familiar with performing 
 
 ## Resources
 
-The files necessary to run this tutorial are included in the SU2/QuickStart/ directory. For the other tutorials, the files will be found in the TestCases/ repository. Two files are needed as input to the code: a configuration file describing the options for the particular problem, and the corresponding computational mesh file. The files are in QuickStart/ and can also be found in the TestCases repository under TestCases/euler/naca0012.
+The files necessary to run this tutorial are included in the [SU2/QuickStart/](https://github.com/su2code/SU2/tree/master/QuickStart) directory. For the other tutorials, the files will be found in the TestCases/ repository. Two files are needed as input to the code: a [configuration file](https://github.com/su2code/SU2/blob/master/QuickStart/inv_NACA0012.cfg) describing the options for the particular problem, and the corresponding computational [mesh file](https://github.com/su2code/SU2/blob/master/QuickStart/mesh_NACA0012_inv.su2). The files are in QuickStart/ and can also be found in the TestCases repository under TestCases/euler/naca0012.
 
 ## Tutorial
 
