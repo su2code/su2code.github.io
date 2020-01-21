@@ -1,12 +1,12 @@
 ---
-title: Turbulent ONERA M6
-permalink: /tutorials/Turbulent_ONERAM6/
+title: Unsteady NACA0012
+permalink: /tutorials/Unsteady_NACA0012/
 ---
 
-![Turb ONERA Pressure](../../Unsteady_NACA0012/images/flow1.png)
+![Periodic Flow Field](../../Unsteady_NACA0012/images/flow1.png)
 Figure (1): A unsteady, periodic flow field. The detached flow about the airfoil results in a vortex street, that repeats itself after some time.
 
-## Goals
+## Goals ##
 
 Upon completing this tutorial, the user will be familiar with performing a simulation of external, viscous, unsteady periodic flow around a 2D geometry using a turbulence model. The specific geometry chosen for the tutorial is the classic NACA0012 airfoil.
 Furthermore, the user is introduced in the so-called windowing approach, a regularizing method for time averaging in unsteady periodic flows.
@@ -20,22 +20,21 @@ Furthermore, the user is introduced in the so-called windowing approach, a regul
 This tutorial also provides an explanation for properly setting up viscous, compressible, unsteady 2D flow conditions in SU2. We also introduce a new type of time convergence criteria for periodic flows, which monitors the change of the time average of a specific objective, such as lift or drag, in order to assess convergence.
 
 
-## Resources
+## Resources ##
 
 The resources for this tutorial can be found in the [Unsteady_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/Unsteady_NACA0012) directory in the [project website repository](https://github.com/su2code/su2code.github.io). 
 You will need the configuration file ([unsteady_naca0012.cfg](../../Unsteady_NACA0012/unsteady_naca0012.cfg)) and the mesh file ([unsteady_naca0012_mesh.su2](../../Unsteady_NACA0012/unsteady_naca0012_mesh.su2))
-as well as the restart files ([restart_flow_00497.dat](../../Unsteady_NACA0012/restart_flow_00497.dat), [restart_flow_00498.dat](../../Unsteady_NACA0012/restart_flow_00498.dat), [restart_flow_00499.dat](../../Unsteady_NACA0012/restart_flow_00499.dat)).*It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, and for comparison with literature, finer meshes should be used.*
-*It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, and for comparison with literature, finer meshes should be used.*
+as well as the restart files ([restart_flow_00497.dat](../../Unsteady_NACA0012/restart_flow_00497.dat), [restart_flow_00498.dat](../../Unsteady_NACA0012/restart_flow_00498.dat), [restart_flow_00499.dat](../../Unsteady_NACA0012/restart_flow_00499.dat)).
 
-## Tutorial
+## Tutorial ##
 
 The following tutorial will walk you through the steps required when solving for the flow around the NACA0012 using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
-### Background
+### Background ###
 
 This test case is for the NACA0012 airfoil in viscous unsteady flow. The NACA airfoils are two dimensional shapes for aircraft wings developed by the National Advisory Committee for Aeronautics (NACA, 1915-1958, predeccessor of NASA). The NACA-4-Digit series is a set of 78 airfoil configurations, which were created for wind-tunnel tests to explore the effect of different airfoil shapes on aerdynamic coefficients as drag or lift. 
 
-### Problem Setup
+### Problem Setup ###
 
 This problem will solve the flow about the airfoil with these conditions:
 - Freestream Temperature = 293.0 K
@@ -46,7 +45,7 @@ This problem will solve the flow about the airfoil with these conditions:
 
 These subsonic flow conditions will cause a detached flow about the airfoil, that exhibts a vortex street and is therefore periodic.
 
-### Mesh Description
+### Mesh Description ###
 The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. Again, we note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
 
 Two boundary conditions are employed: the Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
@@ -58,14 +57,18 @@ Figure (2): Far-field view of the computational mesh.
 Figure (3): Close-up view of the airfoil surface and the aerodynamic coefficients.
 
 
-### Configuration File Options
+### Configuration File Options ###
 
 Configuration of the physical problem is similar to the ONERA M6 tutorial, that one can access [here](../Turbulent_ONERAM6.md). However, contrary to the ONERA M6 case, here a unsteady simulation is performed, hence, the Unsteady RANS (URANS) equations in 2D must be solved.
 Unsteady simulations in SU2 are computed employing a dual time-stepping scheme. This means, that first a time discretization in physical time is performed, that results in a residual equation of the form
+
 $$ R(u^n) = 0 \qquad \forall n=1,\dots,N. $$
+
 Here, $$n$$ denotes the current physical time iteration, $$N$$ is the final (physical) time of the simulation, and $$R$$ is the residual, one has to solve. 
 The idea of dual time-stepping is, that the current solution $$u^n$$ of the residual equation is computed for each time step by solving an ordinary differential equation in fictional time $$\tau$$. The ODE for physical time-step $$n$$ reads
+
 $$ \partial_\tau u^n + R(u^n) = 0. $$
+
 Now, a steady state solution for this ODE is computed using the steady state solver. Once a solution is aquired, the residual equation for the next physical time step $$n+1$$ is set up.
 As a result there are two time iterators. The inner (fictional time) iterator and  the outer (physical time) iterator. The number of iterations for the fictional time iterator is specified by `INNER_ITER` and the number of iterations
 for the physical time iterator by `TIME_ITER`. The option `TIME_DOMAIN=YES` activates the time dependent solver in SU2. The option `TIME_MARCHING` specifies the numerical method to discretize the time domain in physical time and `TIME_STEP` denotes the physical time step used.
@@ -100,12 +103,18 @@ This time-span is called transient phase.
 Figure (4): Time dependent drag coefficient. The transient time spans approximately 500 (physical) time-steps.
 
 In a periodic flow, a insantaneous output value, e.g. $$C_D(t)$$ is not meaningful in some applications, e.g. aerodynamic shape optimization. Hence one often uses the average value of one period $$T$$.
+
 $$ \frac{1}{T}\int_0^T C_D(t) \mathcal{d}t$$
+
 However, the exact duration of a period is unknown or cannot be resolved due to a too coarse time discretization. Therefore, one averages over a finite time span $$M$$, which lasts 
 a couple of periods and hopes for convergence to the period-average. 
+
 $$ \frac{1}{M}\int_0^M C_D(t) \mathcal{d}t$$
+
 If one employs a weighting function $$w(t)$$ , called window-function, the time-average converges faster to the actual period average.
+
 $$ \frac{1}{M}\int_0^M w(t)C_D(t) \mathcal{d}t$$
+
 A windowing function is a function, that is zero on its boundaries $$0$$ and $$M$$ and has integral $$1$$. The iteration to start the windowed time-average is specified with `WINDOW_START_ITER`. Note that at this iteration, the transient phase of the flow must have passed. Otherwise a time average, that approximates a period average is not meaningful.
 The windowing function can be specified with the option `WINDOW_FUNCTION`.
 Note, that windowing functionality also works for sensitivities of time dependent outputs. In this case, the order of convergence is reduced by 1. 
