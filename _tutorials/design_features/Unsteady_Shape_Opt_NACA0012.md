@@ -16,14 +16,15 @@ Consequently, the following capabilities of SU2 will be showcased in this tutori
 - Unsteady Optimization
 - Code parallelism (optional)
 
-This tutorial uses the windowing techniques explained in [here](../compressible_flow/Unsteady_NACA0012.md), to compute meaningful optimization objectives. Hence it is recommended to read this tutorial first. 
+This tutorial uses the windowing techniques explained in [here](../Unsteady_NACA0012.md), to compute meaningful optimization objectives. Hence it is recommended to read this tutorial first. 
 
 
 ## Resources ##
 
 The resources for this tutorial can be found in the [Unsteady_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/Unsteady_Shape_Opt_NACA0012) directory in the [project website repository](https://github.com/su2code/su2code.github.io). 
 
-You will need the configuration file ([unsteady_naca0012_opt.cfg](../../Unsteady_NACA0012/unsteady_naca0012_opt.cfg)) and the mesh file ([unsteady_naca0012_FFD.su2](../../Unsteady_NACA0012/unsteady_naca0012_FFD.su2)).
+You will need the configuration file ([unsteady_naca0012_opt.cfg](../../Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_opt.cfg)) and 
+the mesh file ([unsteady_naca0012_FFD.su2](../../Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_FFD.su2)).
 
 ## Tutorial ##
 
@@ -87,9 +88,9 @@ Figure (2): Instantaneous drag and drag sensitivity shown. The time frame to ave
 
 Using the midpoint rule for above integral, we arrive at the following constrained optimization problem
 
-$$ \min_{\sigma} \frac{1}{M} \sum_n_{tr}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_D(\sigma,n) $$
+$$ \min_{\sigma} \frac{1}{M} \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_D(\sigma,n) $$
 $$ s.t. R(u^n) = 0 \qquad \forall n=1,\dots,N $$
-$$ s.t. \sum_n_{tr}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_L(\sigma,n) \geq c$$
+$$ s.t. \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_L(\sigma,n) \geq c$$
 
 The optimization constraint is given by the windowed time-averaged lift, that should be greater than a specific value $$c$$. We choose arbitrarily as $$c=0.96$$, which is the windowed
 time-averaged lift of the baseline geometry.
@@ -100,7 +101,7 @@ time-averaged lift of the baseline geometry.
 To compute the unsteady shape-optimization, we set up the unsteady simulation according to our test case above. More information about unsteady simulations can be found [here](../Unsteady_NACA0012.md)
 
 ```
-% ------------------------- UNSTEADY SIMULATION -------------------------------%
+% -------- UNSTEADY SIMULATION -----------------%
 %
 TIME_DOMAIN = YES
 %

@@ -75,7 +75,7 @@ for the physical time iterator by `TIME_ITER`. The option `TIME_DOMAIN=YES` acti
 The numerical method to solve the inner (fictional time) ODE is given by the option `TIME_DISCRE_FLOW`.
 
 ```
-% ------------------------- UNSTEADY SIMULATION -------------------------------%
+% ----------UNSTEADY SIMULATION ---------------%
 %
 TIME_DOMAIN = YES
 %
