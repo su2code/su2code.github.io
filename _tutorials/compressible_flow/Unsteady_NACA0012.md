@@ -75,7 +75,7 @@ for the physical time iterator by `TIME_ITER`. The option `TIME_DOMAIN=YES` acti
 The numerical method to solve the inner (fictional time) ODE is given by the option `TIME_DISCRE_FLOW`.
 
 ```
-% ----------UNSTEADY SIMULATION ---------------%
+% -------------UNSTEADY SIMULATION ----------------%
 %
 TIME_DOMAIN = YES
 %
@@ -140,7 +140,7 @@ The solver will stop, if the average over a certain number of elements (set with
 The windowed time-averaged Cauchy criterion can be activated by setting `WINDOW_CAUCHY_CRIT = YES` (default is `NO`).
 
 ```
-% ------------------ Coefficient-based Windowed Time Convergence Criteria -----------------------%
+% --- Coefficient-based Windowed Time Convergence Criteria ----%
 %
 % Activate the windowed cauchy criterion
 WINDOW_CAUCHY_CRIT = YES
