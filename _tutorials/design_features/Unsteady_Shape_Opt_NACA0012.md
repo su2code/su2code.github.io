@@ -90,7 +90,7 @@ Using the midpoint rule for above integral, we arrive at the following constrain
 
 $$ \min_{\sigma} \frac{1}{M} \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_D(\sigma,n) $$
 $$ s.t. \qquad R(u^n) = 0 \qquad \forall n=1,\dots,N $$
-$$ \qquad\qquad\sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_L(\sigma,n) \geq c$$
+$$ \qquad\qquad\frac{1}{M} \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_L(\sigma,n) \geq c$$
 
 The optimization constraint is given by the windowed time-averaged lift, that should be greater than a specific value $$c$$. We choose arbitrarily as $$c=0.96$$, which is the windowed
 time-averaged lift of the baseline geometry.
