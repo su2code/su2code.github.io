@@ -28,7 +28,7 @@ as well as the restart files ([restart_flow_00497.dat](../../Unsteady_NACA0012/r
 
 ## Tutorial ##
 
-The following tutorial will walk you through the steps required when solving for the flow around the NACA0012 using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow around the NACA0012 airfoil using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
 ### Background ###
 
@@ -40,13 +40,13 @@ This problem will solve the flow about the airfoil with these conditions:
 - Freestream Temperature = 293.0 K
 - Freestream Mach number = 0.3
 - Angle of attack (AOA) = 17.0 deg
-- Reynolds number = 1E6
+- Reynolds number = 1E3
 - Reynolds length = 1.0 m
 
 These subsonic flow conditions will cause a detached flow about the airfoil, that exhibts a vortex street and is therefore periodic.
 
 ### Mesh Description ###
-The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. Again, we note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
+The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. We note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
 
 Two boundary conditions are employed: the Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
 
@@ -113,7 +113,7 @@ $$ \frac{1}{M}\int_0^M C_D(t) \mathcal{d}t$$
 
 If one employs a weighting function $$w(t)$$ , called window-function, the time-average converges faster to the actual period average.
 
-$$ \frac{1}{M}\int_0^M w(t)C_D(t) \mathcal{d}t$$
+$$ \frac{1}{M}\int_0^M w(t/M)C_D(t) \mathcal{d}t$$
 
 A windowing function is a function, that is zero on its boundaries $$0$$ and $$M$$ and has integral $$1$$. The iteration to start the windowed time-average is specified with `WINDOW_START_ITER`. Note that at this iteration, the transient phase of the flow must have passed. Otherwise a time average, that approximates a period average is not meaningful.
 The windowing function can be specified with the option `WINDOW_FUNCTION`.
@@ -127,7 +127,7 @@ The following options are implemented:
 | `HANN_SQUARE`| 5 | 4 |
 | `BUMP`| exponential | exponential |
 
-![Turb ONERA Surface Mesh](../../Unsteady_NACA0012/images/wndFcts.png)
+![Windowing functions](../../Unsteady_NACA0012/images/wndFcts.png)
 Figure (5): Different window-functions in the time span from 0 to 1.
 
 The `SQUARE`-window denotes the case of uniform weighting by 1, i.e. the case, where no special windowing-function is applied. It is not recommended to use `SQUARE`- windowing for senstivities, since no convergence is guarantied.
@@ -216,4 +216,4 @@ The secon picture shows a simulation, where the convergence criterion is deactiv
 ![Windowed time-averages](../../Unsteady_NACA0012/images/wndAvgCDshortRe3.png)
 ![Windowed time-averages, long-time beavior](../../Unsteady_NACA0012/images/wndAvgCDlongRe3.png)
 
-Figure (3): Comparison of time-averages using different window-functions
+Figure (6): Comparison of time-averages using different window-functions
