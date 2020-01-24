@@ -7,8 +7,10 @@ permalink: /tutorials/Unsteady_Shape_Opt_NACA0012/
 Figure (1): Baseline NACA0012 airfoil (left), optimized design using Square-windowing (middle) and optimized design using Hann-Square-windowing (right).
 
 ## Goals ##
-It is assumed, that the user is familiar with the shape optimization capabilities of SU2 in steady state flows, which are explained in the previous tutorials about shape optimization.
-Upon completing this tutorial, the user will be familiar with perfoming a optimization of an viscous, unsteady, periodic flow about a 2D geometry using the URANS equations. 
+It is assumed, that the user is familiar with the shape optimization capabilities of SU2 in steady state flows, which are explained in
+ the previous tutorials.
+Upon completing this tutorial, the user will be familiar with perfoming an optimization of a viscous, unsteady, periodic flow about 
+a 2D geometry using the URANS equations. 
 The specific geometry chosen for the tutorial is the classic NACA0012 airfoil.
 Consequently, the following capabilities of SU2 will be showcased in this tutorial:
 - Windowed sensitivity calculation
@@ -16,7 +18,8 @@ Consequently, the following capabilities of SU2 will be showcased in this tutori
 - Unsteady Optimization
 - Code parallelism (optional)
 
-This tutorial uses the windowing techniques explained in [here](../Unsteady_NACA0012.md), to compute meaningful optimization objectives. Hence it is recommended to read this tutorial first. 
+This tutorial uses the windowing techniques explained in [here](../Unsteady_NACA0012.md), to compute meaningful optimization objectives.
+ Hence it is recommended to read that tutorial first. 
 
 
 ## Resources ##
@@ -29,7 +32,7 @@ the mesh file ([unsteady_naca0012_FFD.su2](../../Unsteady_Shape_Opt_NACA0012/uns
 ## Tutorial ##
 
 The following tutorial will walk you through the steps required when performing a shape optimization of the  NACA0012  airfoil using SU2. 
-The tutorial will also address procedures for both serial and parallel computations.
+The tutorial will also address procedures for parallel computations.
 To this end, it is assumed you have already obtained and compiled SU2_CFD and its adjoint capabilities. 
 If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
@@ -40,7 +43,7 @@ This test case is for the NACA0012 airfoil in viscous unsteady flow. The NACA ai
 ### Mesh Description ###
 The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. We note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
 
-Two boundary conditions are employed: the Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
+Two boundary conditions are employed: The Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
 
 ### Problem Setup ###
 
