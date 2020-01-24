@@ -33,6 +33,7 @@
   - Turbulent_2D_Constrained_RAE2822
   - Inviscid_3D_Constrained_ONERAM6
   - Multi_Objective_Shape_Design
+  - Unsteady_Shape_Opt_NACA0012
 
 - title: Event Content
   tutorials:
