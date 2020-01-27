@@ -4,20 +4,21 @@ permalink: /tutorials/Unsteady_NACA0012/
 ---
 
 ![Periodic Flow Field](../../Unsteady_NACA0012/images/flow1.png)
-Figure (1): A unsteady, periodic flow field. The detached flow about the airfoil results in a vortex street, that repeats itself after some time.
+Figure (1): An unsteady, periodic flow field. The detached flow about the airfoil results in a vortex street that repeats itself after some time.
 
 ## Goals ##
 
-Upon completing this tutorial, the user will be familiar with performing a simulation of external, viscous, unsteady periodic flow around a 2D geometry using a turbulence model. The specific geometry chosen for the tutorial is the classic NACA0012 airfoil.
+Upon completing this tutorial, the user will be familiar with performing a simulation of external, viscous, unsteady periodic flows around a 2D geometry using a turbulence model. The specific geometry chosen for the tutorial is the classic NACA0012 airfoil.
 Furthermore, the user is introduced in the so-called windowing approach, a regularizing method for time averaging in unsteady periodic flows.
  Consequently, the following capabilities of SU2 will be showcased in this tutorial:
 - Unsteady, 2D URANS equations 
-- JST convective scheme in space (2nd-order, centered) and time (Dual time-stepping)
+- Dual time-stepping for unsteady flows
 - Windowing
 - Time-convergence
 - Code parallelism (optional)
 
-This tutorial also provides an explanation for properly setting up viscous, compressible, unsteady 2D flow conditions in SU2. We also introduce a new type of time convergence criteria for periodic flows, which monitors the change of the time average of a specific objective, such as lift or drag, in order to assess convergence.
+This tutorial also provides an explanation for properly setting up viscous, compressible, unsteady 2D flow conditions in SU2.
+We also introduce a new type of time-convergence criteria for periodic flows, which monitors the change of the time-average of a specific objective, such as lift or drag, in order to assess convergence.
 
 
 ## Resources ##
@@ -28,7 +29,7 @@ as well as the restart files ([restart_flow_00497.dat](../../Unsteady_NACA0012/r
 
 ## Tutorial ##
 
-The following tutorial will walk you through the steps required when solving for the flow around the NACA0012 airfoil using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow about the NACA0012 airfoil using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
 ### Background ###
 
@@ -43,7 +44,7 @@ This problem will solve the flow about the airfoil with these conditions:
 - Reynolds number = 1E3
 - Reynolds length = 1.0 m
 
-These subsonic flow conditions will cause a detached flow about the airfoil, that exhibts a vortex street and is therefore periodic.
+These subsonic flow conditions cause a detached flow about the airfoil, that exhibts a vortex street and is therefore periodic.
 
 ### Mesh Description ###
 The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. We note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
@@ -51,7 +52,7 @@ The computational domain consists of a grid of 14495 quadrilaterals, that sourro
 Two boundary conditions are employed: the Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
 
 ![Airfoil Farfield view](../../Unsteady_NACA0012/images/airfoil_big.png)
-Figure (2): Far-field view of the computational mesh.
+Figure (2): Far-field view of the computational domain.
 
 ![Airfoil Close-up view](../../Unsteady_NACA0012/images/airfoil.png)
 Figure (3): Close-up view of the airfoil surface and the aerodynamic coefficients.
@@ -59,19 +60,23 @@ Figure (3): Close-up view of the airfoil surface and the aerodynamic coefficient
 
 ### Configuration File Options ###
 
-Configuration of the physical problem is similar to the ONERA M6 tutorial, that one can access [here](../Turbulent_ONERAM6.md). However, contrary to the ONERA M6 case, here a unsteady simulation is performed, hence, the Unsteady RANS (URANS) equations in 2D must be solved.
-Unsteady simulations in SU2 are computed employing a dual time-stepping scheme. This means, that first a time discretization in physical time is performed, that results in a residual equation of the form
+Configuration of the physical problem is similar to the ONERA M6 tutorial, that one can access [here](../Turbulent_ONERAM6). However, contrary to the ONERA M6 case, here a unsteady simulation is performed, hence, the Unsteady RANS (URANS) equations in 2D must be solved.
+Unsteady simulations in SU2 are computed employing a dual time-stepping scheme. To this end, one first performs a spatial discretization as explained in the [ONERA M6](../Turbulent_ONERAM6) tutoral. 
+After that, a time discretization in physical time is performed, that results in a residual equation of the form
 
 $$ R(u^n) = 0 \qquad \forall n=1,\dots,N. $$
 
 Here, $$n$$ denotes the current physical time iteration, $$N$$ is the final (physical) time of the simulation, and $$R$$ is the residual, one has to solve. 
+In this tutorial, a second order BDF scheme is employed.
 The idea of dual time-stepping is, that the current solution $$u^n$$ of the residual equation is computed for each time step by solving an ordinary differential equation in fictional time $$\tau$$. The ODE for physical time-step $$n$$ reads
 
 $$ \partial_\tau u^n + R(u^n) = 0. $$
 
 Now, a steady state solution for this ODE is computed using the steady state solver. Once a solution is aquired, the residual equation for the next physical time step $$n+1$$ is set up.
 As a result there are two time iterators. The inner (fictional time) iterator and  the outer (physical time) iterator. The number of iterations for the fictional time iterator is specified by `INNER_ITER` and the number of iterations
-for the physical time iterator by `TIME_ITER`. The option `TIME_DOMAIN=YES` activates the time dependent solver in SU2. The option `TIME_MARCHING` specifies the numerical method to discretize the time domain in physical time and `TIME_STEP` denotes the physical time step used.
+for the physical time iterator by `TIME_ITER`. The option `TIME_DOMAIN=YES` activates the time dependent solver in SU2. 
+The option `TIME_MARCHING` specifies the numerical method to discretize the time domain in physical time and `TIME_STEP` 
+denotes the length of the physical time-step used.
 The numerical method to solve the inner (fictional time) ODE is given by the option `TIME_DISCRE_FLOW`.
 
 ```
@@ -79,7 +84,7 @@ The numerical method to solve the inner (fictional time) ODE is given by the opt
 %
 TIME_DOMAIN = YES
 %
-% Numerical Method for Unsteady simulation(NO, TIME_STEPPING, DUAL_TIME_STEPPING-1ST_ORDER, DUAL_TIME_STEPPING-2ND_ORDER, TIME_SPECTRAL)
+% Numerical Method for Unsteady simulation
 TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER
 %
 % Time Step for dual time stepping simulations (s)
@@ -100,25 +105,27 @@ This unsteady simulation results in a periodic flow, which can be seen by the vo
 This time-span is called transient phase. 
 
 ![Periodic Drag](../../Unsteady_NACA0012/images/Time_Dep_Drag.png)
-Figure (4): Time dependent drag coefficient. The transient time spans approximately 500 (physical) time-steps.
+Figure (4): Time dependent drag (black) and lift (red) coefficient. The transient time spans approximately 300 (physical) time-steps.
 
-In a periodic flow, a insantaneous output value, e.g. $$C_D(t)$$ is not meaningful in some applications, e.g. aerodynamic shape optimization. Hence one often uses the average value of one period $$T$$.
+In a periodic flow, an insantaneous output value, e.g. $$C_D(t)$$ is not meaningful in some applications, e.g. aerodynamic shape optimization. Hence one often uses the average value of one period $$T$$.
 
 $$ \frac{1}{T}\int_0^T C_D(t) \mathcal{d}t$$
 
-However, the exact duration of a period is unknown or cannot be resolved due to a too coarse time discretization. Therefore, one averages over a finite time span $$M$$, which lasts 
+However, the exact duration of a period is unknown or cannot be resolved due to a too coarse time discretization. Therefore, 
+one averages over a finite time-span $$M$$, which lasts 
 a couple of periods and hopes for convergence to the period-average. 
 
 $$ \frac{1}{M}\int_0^M C_D(t) \mathcal{d}t$$
 
-If one employs a weighting function $$w(t)$$ , called window-function, the time-average converges faster to the actual period average.
+If one employs a weighting function $$w(t)$$ , called window-function, the time-average converges faster to the actual period-average.
 
 $$ \frac{1}{M}\int_0^M w(t/M)C_D(t) \mathcal{d}t$$
 
-A windowing function is a function, that is zero on its boundaries $$0$$ and $$M$$ and has integral $$1$$. The iteration to start the windowed time-average is specified with `WINDOW_START_ITER`. Note that at this iteration, the transient phase of the flow must have passed. Otherwise a time average, that approximates a period average is not meaningful.
+A windowing function is a function, that is zero on its boundaries $$0$$ and $$M$$ and has integral $$1$$. The iteration 
+to start the windowed time-average is specified with `WINDOW_START_ITER`.  Note, that at this iteration, the transient phase of the flow must have passed. Otherwise a time average, that approximates a period average is not meaningful.
 The windowing function can be specified with the option `WINDOW_FUNCTION`.
 Note, that windowing functionality also works for sensitivities of time dependent outputs. In this case, the order of convergence is reduced by 1. 
-The following options are implemented:
+The following options are implemented.
 
 | Window | Convergence Order | Convergence Order (sensitivity) |
 | --- | --- | --- |
@@ -133,12 +140,15 @@ Figure (5): Different window-functions in the time span from 0 to 1.
 The `SQUARE`-window denotes the case of uniform weighting by 1, i.e. the case, where no special windowing-function is applied. It is not recommended to use `SQUARE`- windowing for senstivities, since no convergence is guarantied.
 For further information about the windowing approach, we refer to the work of Krakos et al. ([Sensitivity Analysis of Limit Cycle Oscillations](https://arc.aiaa.org/doi/abs/10.2514/6.2011-3553 "Sensitivity Analysis of Limit Cycle Oscillations")) and 
 the work of Schotthöfer et al. ([AIAA PAPER, TBA](TBA "AIAA PAPER")).
-The windowing functionality can also be used to monitor time convergence: Similar to the steady-state case, a Cauchy-criterion can be employed for flow coefficients. 
+The windowed time-averaged output-field can be accessed in `SCREEN_OUTPUT` by adding the prefix `TAVG_` to the chosen output-field. For 
+time-averaged sensitivities, one adds the prefix `D_TAVG_`. 
+
+The windowing functionality can also be used to monitor time convergence. Similar to the steady-state case, a Cauchy-criterion can be employed for flow coefficients. 
 The Cauchy-criterion is applied to the windowed time-average from the iteration specified by `WINDOW_START_ITER + CONV_WINDOW_STARTITER` up to the current iteration.
 The field  or the list of fields to be monitored can be specified by `CONV_WINDOW_FIELD`.  
 The solver will stop, if the average over a certain number of elements (set with `CONV_WINDOW_CAUCHY_ELEMS`) is smaller than the value set with `CONV_WINDOW_CAUCHY_EPS`.
-The windowed time-averaged Cauchy criterion can be activated by setting `WINDOW_CAUCHY_CRIT = YES` (default is `NO`).
-
+The windowed time-averaged Cauchy criterion can be activated by setting `WINDOW_CAUCHY_CRIT = YES` (default is `NO`). 
+If a list of multiple convergence fields is chosen, the sovlver terminates, if the Cauchy criterion is satisfied for all fields on the list.
 ```
 % --- Coefficient-based Windowed Time Convergence Criteria ----%
 %
@@ -163,11 +173,11 @@ WINDOW_START_ITER = 500
 % Window-function to weight the time average. Options (SQUARE, HANN, HANN_SQUARE, BUMP), SQUARE is default.
 WINDOW_FUNCTION = HANN_SQUARE
 ```
-Note, that in application, it may happen that a test case is not purely periodic, but the period-mean has a slight shift upwards or downwards. Hence, the time-convergence threshold
-is typically not as small as in the time-steady case. 
+Note, that in application, it may happen that a test case is not purely periodic, but the period-mean has a slight shift upwards 
+or downwards. Hence, the time-convergence epsilon value is typically not as small as in the time-steady case. 
 
 As one can see in Fig. (4), the transient phase of drag (and lift) is about 500 iterations, thus a suitable starting time for the windowed-average is `WINDOW_START_ITER=500`.
-To skip the transient phase (and speed the tutorial up a bit), a restart solution is provided.
+To skip the transient phase (and speed up the tutorial a bit), a restart solution is provided.
 
 ```
 % Restart after the transient phase has passed
@@ -209,9 +219,13 @@ If SU2 has been built with parallel support, the recommended method for running 
 
 ### Results
 
-Results for the turbulent flow about the NACA0012 airfoil are shown below. The first picture shows the time dependent drag (black) as well as the windowed average from iteration 500 up to the current iteration computed with different windowing-functions.
-The Hann-Square-windowed time-average set up in this tutorial is displayed by magenta. The simulation terminates at iteration 532, since then, the Cauchy time-convergence criteria are satisfied.
-The secon picture shows a simulation, where the convergence criterion is deactivated. Note,  that the Square-window oscillates much longer than the other windows, due to its low convergence order.
+Results for the turbulent flow about the NACA0012 airfoil are shown below. The first picture shows the time dependent 
+drag (black) as well as the windowed average from iteration 500 up to the current iteration computed with different 
+windowing-functions.
+The Hann-Square-windowed time-average set up in this tutorial is displayed by the red line. 
+The simulation terminates at iteration 532, since then, the Cauchy time-convergence criteria are satisfied.
+The second picture shows a simulation, where the convergence criterion is deactivated. Note, 
+that the Square-window oscillates much longer than the other windows, due to its low convergence order.
 
 ![Windowed time-averages](../../Unsteady_NACA0012/images/wndAvgCDshortRe3.png)
 ![Windowed time-averages, long-time beavior](../../Unsteady_NACA0012/images/wndAvgCDlongRe3.png)

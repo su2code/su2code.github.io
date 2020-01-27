@@ -7,12 +7,14 @@ permalink: /tutorials/Unsteady_Shape_Opt_NACA0012/
 Figure (1): Baseline NACA0012 airfoil (left), optimized design using Square-windowing (middle) and optimized design using Hann-Square-windowing (right).
 
 ## Goals ##
+
 It is assumed, that the user is familiar with the shape optimization capabilities of SU2 in steady state flows, which are explained in
  the previous tutorials.
 Upon completing this tutorial, the user will be familiar with perfoming an optimization of a viscous, unsteady, periodic flow about 
 a 2D geometry using the URANS equations. 
 The specific geometry chosen for the tutorial is the classic NACA0012 airfoil.
-Consequently, the following capabilities of SU2 will be showcased in this tutorial:
+Consequently, the following capabilities of SU2 will be showcased in this tutorial.
+
 - Windowed sensitivity calculation
 - Unsteady adjoints
 - Unsteady Optimization
@@ -41,6 +43,7 @@ If you have yet to complete these requirements, please see the [Download](/docs/
 This test case is for the NACA0012 airfoil in viscous unsteady flow. The NACA airfoils are two dimensional shapes for aircraft wings developed by the National Advisory Committee for Aeronautics (NACA, 1915-1958, predeccessor of NASA). The NACA-4-Digit series is a set of 78 airfoil configurations, which were created for wind-tunnel tests to explore the effect of different airfoil shapes on aerdynamic coefficients as drag or lift. 
 
 ### Mesh Description ###
+
 The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. We note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
 
 Two boundary conditions are employed: The Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
@@ -62,7 +65,7 @@ These subsonic flow conditions will cause a detached flow about the airfoil, tha
 Depending on the windowing-function used to average the optimization objective, the flow about the optimized geometry will eventually be a steady state flow.
 
 We want to solve an optimization problem with a time dependent system output, e.g. Drag. A meaningful objective and constraint function is therefore a time average over a period. 
-The period average is approximated by a windowed time average over a finite time span $$M$$
+The period average is approximated by a windowed time average over a finite time span $$M$$.
 
 $$ \frac{1}{M}\int_0^M w(t/M)C_D(\sigma, t) \mathcal{d}t,$$
 
