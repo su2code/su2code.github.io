@@ -96,14 +96,15 @@ Figure (2): Instantaneous drag and drag sensitivity shown. The time frame to ave
 
 Using the midpoint rule for above integral, we arrive at the following constrained optimization problem
 
-$$ \min_{\sigma} \frac{1}{N-n_{tr}} \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_D(\sigma,n) $$
+$$ \min_{\sigma\in X_{ad} \frac{1}{N-n_{tr}} \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_D(\sigma,n) $$
 
 $$ s.t. \qquad R(u^n) = 0 \qquad \forall n=1,\dots,N $$
 
 $$ \qquad\qquad\frac{1}{N-n_{tr}} \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_L(\sigma,n) \geq c$$
 
 The optimization constraint is given by the windowed time-averaged lift, that should be greater than a specific value $$c$$. We choose arbitrarily as $$c=0.96$$, which is the windowed
-time-averaged lift of the baseline geometry. The time-span to average both lift and drag is given by $$M =N-n_{tr}$$.
+time-averaged lift of the baseline geometry. The time-span to average both lift and drag is given by $$M =N-n_{tr}$$. 
+The design space $$X_{ad}$$ is given by box-constraints specified by `OPT_BOUND_LOWER` and `OPT_BOUND_UPPER`.
 
 
 ### Configuration File Options ###
