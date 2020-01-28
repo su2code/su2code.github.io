@@ -24,7 +24,7 @@ The problem that we will be solving consists of a vertical, slender cantilever, 
 First, please make sure you have followed the [installation guide](https://su2code.github.io/docs_v7/home/) and that you have SU2 up and running in your system. You will only need the `SU2_CFD` binary for this tutorial. If you are [building the code from source](https://su2code.github.io/docs_v7/Build-SU2-Linux-MacOS/), a single core version of the code is sufficient for this tutorial.
 
 You can find the resources for this tutorial in the folder [structural_mechanics/cantilever](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever) in the [Tutorials repository](https://github.com/rsanfer/Tutorials). You will need the mesh file [mesh_cantilever.su2](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)
-and the config file [config_linear.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.su2).
+and the config file [config_linear.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.cfg).
 
 ### Background
 
@@ -105,7 +105,7 @@ LINEAR_SOLVER_ITER = 1000
 
 Finally, the output of the solver needs to be set. We set the screen output to print out the residual of the linear solver in the x and y components of the displacement, and the maximum Von Mises Stress (VMS) in the structure.
 
-In this case, we will write the volume file in [Paraview](https://www.paraview.org/) format, as _linear_elastic.vtk. The convergence file will be written as _history.csv_, which in this case will only consists of one line as the linear problem is computed in a single iteration. The binary restart file will be saved as *restart_linear_elastic.dat*.
+In this case, we will write the volume file in [Paraview](https://www.paraview.org/) format, as _linear_elastic.vtk_. The convergence file will be written as _history.csv_, which in this case will only consists of one line as the linear problem is computed in a single iteration. The binary restart file will be saved as *restart_linear_elastic.dat*.
 
 
 
@@ -123,7 +123,7 @@ RESTART_FILENAME = restart_linear_elastic
 ### Running SU2
 
 This is a very small example that we will run in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([config_linear.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.su2)) and the mesh file ([mesh_cantilever.su2](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([config_linear.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.cfg)) and the mesh file ([mesh_cantilever.su2](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```
