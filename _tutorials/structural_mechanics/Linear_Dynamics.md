@@ -10,9 +10,9 @@ permalink: /tutorials/Linear_Dynamics/
 ###### **At one glance** 
 
 ###### Solver: ```ELASTICITY```
-###### Requires: ```SU2_CFD```
+###### Uses: ```SU2_CFD```
 ###### Complexity: <span style="color: green;">**Basic**</span> 
-###### Follows: [**Linear Elasticity**](../Linear_Elasticity/)
+###### Prerequisites: [**Linear Elasticity**](../Linear_Elasticity/)
 
 
 ### Goals

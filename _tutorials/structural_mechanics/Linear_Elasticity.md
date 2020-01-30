@@ -11,8 +11,9 @@ permalink: /tutorials/Linear_Elasticity/
 ###### **At one glance** 
 
 ###### Solver: ```ELASTICITY```
-###### Requires: ```SU2_CFD```
+###### Uses: ```SU2_CFD```
 ###### Complexity: <span style="color: green;">**Basic**</span> 
+###### Prerequisites: None
 
 ### Goals
 
