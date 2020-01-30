@@ -5,8 +5,7 @@ permalink: /tutorials/Linear_Elasticity/
 
 | Written by | for Version | Revised by | Revision date | Revised version | 
 | --- | --- | --- | --- | --- |
-| [@rsanfer](https://github.com/rsanfer) | 7.0.0 | [@rsanfer](https://github.com/rsanfer) | Jan 27, 2020 | 7.0.1 |
-
+| [@rsanfer](https://github.com/rsanfer) | 7.0.1 | [@rsanfer](https://github.com/rsanfer) | Jan 27, 2020 | 7.0.1 |
 
 ###### **At one glance** 
 

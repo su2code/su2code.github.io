@@ -5,7 +5,7 @@ permalink: /tutorials/Linear_Dynamics/
 
 | Written by | for Version | Revised by | Revision date | Revised version | 
 | --- | --- | --- | --- | --- |
-| [@rsanfer](https://github.com/rsanfer) | 7.0.0 | [@rsanfer](https://github.com/rsanfer) | Jan 28, 2020 | 7.0.1 |
+| [@rsanfer](https://github.com/rsanfer) | 7.0.1 | [@rsanfer](https://github.com/rsanfer) | Jan 28, 2020 | 7.0.1 |
 
 ###### **At one glance** 
 
