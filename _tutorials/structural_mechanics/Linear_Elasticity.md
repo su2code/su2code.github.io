@@ -7,6 +7,13 @@ permalink: /tutorials/Linear_Elasticity/
 | --- | --- | --- | --- | --- |
 | [@rsanfer](https://github.com/rsanfer) | 7.0.0 | [@rsanfer](https://github.com/rsanfer) | Jan 27, 2020 | 7.0.1 |
 
+
+###### **At one glance** 
+
+###### Solver: ```ELASTICITY```
+###### Requires: ```SU2_CFD```
+###### Complexity: <span style="color: green;">**Basic**</span> 
+
 ### Goals
 
 As a first approach to the structural solver in SU2, this tutorial will cover the solution of linear elastic problems. This tutorial will guide you through the basic commands for structural analysis, including:
@@ -134,7 +141,7 @@ This is a very small example that we will run in serial. To run this test case, 
  3. SU2 will print the residual of the linear solver, and the simulation will finish after one iteration.
  4. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
  
-For this particular problem, the solver should have run very quickly. The output of the code will go over your settings, before initializing the solver. Once done so, you will obtain an output such as
+For this particular problem, the solver should have run very quickly. The screen output of the code will go over your settings, before initializing the solver. Once done so, you will obtain an output such as
 
 ```
 +---------------------------------------------------+
@@ -156,7 +163,7 @@ The output file contains the displacement field, the nodal tensions $$\sigma_{xx
 
 If you are using this content for your research, please kindly cite the following reference in your work:
 
-Sanchez, R. _et al._ (2016), [Towards a Fluid-Structure Interaction solver for problems with large deformations within the open-source SU2 suite](https://economon.github.io/docs/AIAA-2016-0205.pdf), 57th AIAA/ASCE/AHS/ASC Structures, Structural Dynamics, and Materials Conference, 4-8 January 2016, San Diego, California, USA. DOI: [10.2514/6.2016-0205](https://doi.org/10.2514/6.2016-0205)
+Sanchez, R. _et al._ (2016), [Towards a Fluid-Structure Interaction solver for problems with large deformations within the open-source SU2 suite](https://spiral.imperial.ac.uk/handle/10044/1/28633), 57th AIAA/ASCE/AHS/ASC Structures, Structural Dynamics, and Materials Conference, 4-8 January 2016, San Diego, California, USA. DOI: [10.2514/6.2016-0205](https://doi.org/10.2514/6.2016-0205)
 
 
 <dl>
