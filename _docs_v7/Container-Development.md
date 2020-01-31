@@ -3,6 +3,19 @@ title: Containers for Development
 permalink: /docs_v7/Container-Development/
 ---
 
+---
+
+- [Running a container](#running-a-container)
+- [Using the scripts to compile SU2](#using-the-scripts-to-compile-su2)
+  - [Accessing source code and binaries](#accessing-source-code-and-binaries)
+  - [Compile existing source code](#compile-existing-source-code)
+- [Running the Test Cases](#running-the-test-cases)
+
+
+---
+
+
+
 A container is a virtual runtime environment that runs on top of a single operating system (OS) kernel and emulates an operating system rather than the underlying hardware (as compared to a virtual machine). It allows you to locally run the same (or almost the same) environment for development, testing and production use.
 
 We use [Docker](https://www.docker.com/) container during the software development life-cycle for running the regression tests and creating binaries for different operating systems during the release process. The execution of these containers is triggered by events (e.g. by a push to an open pull request) on Github using the [Github Actions](https://github.com/features/actions) feature.

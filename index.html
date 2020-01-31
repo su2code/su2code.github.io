@@ -2,10 +2,22 @@
 layout: default
 ---
 
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+  $(document).ready (function () {
+      $.getJSON("https://api.github.com/repos/su2code/SU2/releases/latest").done(function (data) {
+        $ ('#current_release_tag').text ("SU2 " + data.tag_name + " Blackbird");
+      })
+  })
+</script>
+</head> 
+
 <div class="header-container jumbotron">
     <div class="container">   <!--- style="background-color:white" --->
       <right>
-      <h1 style="font-weight:800">SU2 v7 Blackbird</h1>   <!--  style="color:black" -->
+      <h1 style="font-weight:800" id="current_release_tag"></h1>   <!--  style="color:black" -->
       <h2 style="font-weight:700">Powerful. Fast. Free.</h2>
       <div class="row" style="display:block; margin: 0 auto">
       <p><a class="btn btn-danger btn-lg" href="{{ "/download.html" | prepend: relative_url }}" role="button">
