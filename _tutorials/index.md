@@ -36,6 +36,8 @@ Simulation of external, turbulent flow over a flat plate (classical RANS validat
 Simulation of external, transitional flow over a flat plate (transitional latminar-turbulent case).
 * [Turbulent ONERAM6](/tutorials/Turbulent_ONERAM6/)     
 Simulation of external, viscous flow around a 3D geometry (isolated wing) using a turbulence model.
+* [Unsteady NACA0012](/tutorials/Unsteady_NACA0012/)     
+Simulation of unsteady, external, viscous flow around an airfoil.
 * [Epistemic Uncertainty Quantification of RANS predictions of NACA 0012 airfoil](/tutorials/UQ_NACA0012/)    
 Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models.
 * [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
@@ -57,6 +59,7 @@ Simulation of internal, laminar, incompressible flow over a backward-facing step
 Simulation of internal, laminar, incompressible flow in a differentially-heated cavity under the influence of gravity (classical natural convection case).
 * [Heated Cylinders with Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders/)     
 Simulation of a coupled CHT problem incorporating multiple physical zones.
+
 #### Shape Design Features
 
 * [Unconstrained shape design of an transonic inviscid airfoil at a cte. AoA](/tutorials/Inviscid_2D_Unconstrained_NACA0012/)
@@ -67,3 +70,5 @@ Perform an optimal shape design of a 2D geometry (isolated airfoil at turbulent 
 Learn the basis of 3D design by performing an optimal shape design of an isolated wing with geometrical constraints.
 * [Multi-Objective Shape Design of an Inviscid Supersonic Ramp](/tutorials/Multi_Objective_Shape_Design/)    
  Perform an optimal shape design with multiple objectives and a penalty function
+* [Unsteady Shape Optimization](/tutorials/Unsteady_Shape_Opt_NACA0012/) 
+ Shape optimization of an 2D airfoil in unsteady flow conditions.

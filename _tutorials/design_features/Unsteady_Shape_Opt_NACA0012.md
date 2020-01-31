@@ -35,18 +35,18 @@ the mesh file ([unsteady_naca0012_FFD.su2](../../Unsteady_Shape_Opt_NACA0012/uns
 
 ## Tutorial ##
 
-The following tutorial will walk you through the steps required when performing a shape optimization of the  NACA0012  airfoil using SU2. 
+The following tutorial will walk you through the steps required when performing a shape optimization of the  NACA0012 airfoil using SU2. 
 The tutorial will also address procedures for parallel computations.
 To this end, it is assumed you have already obtained and compiled SU2_CFD and its adjoint capabilities. 
 If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
 
 ### Background ###
 
-This test case is for the NACA0012 airfoil in viscous unsteady flow. The NACA airfoils are two dimensional shapes for aircraft wings developed by the National Advisory Committee for Aeronautics (NACA, 1915-1958, predeccessor of NASA). The NACA-4-Digit series is a set of 78 airfoil configurations, which were created for wind-tunnel tests to explore the effect of different airfoil shapes on aerdynamic coefficients as drag or lift. 
+This test case is for the NACA0012 airfoil in viscous unsteady flow. The NACA airfoils are two dimensional shapes for aircraft wings developed by the National Advisory Committee for Aeronautics (NACA, 1915-1958, predeccessor of NASA). The NACA-4-Digit series is a set of 78 airfoil configurations which were created for wind-tunnel tests to explore the effect of different airfoil shapes on aerdynamic coefficients as drag or lift. 
 
 ### Mesh Description ###
 
-The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. We note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
+The computational domain consists of a grid of 14495 quadrilaterals that surrounds the NACA0012 airfoil. Note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
 
 Two boundary conditions are employed: The Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
 
@@ -66,7 +66,7 @@ These subsonic flow conditions will cause a detached flow about the airfoil, tha
 Depending on the windowing-function used to average the optimization objective, the flow about the optimized geometry will eventually be a steady state flow.
 
 We want to solve an optimization problem with a time dependent system output, e.g. Drag. A meaningful objective and constraint function is therefore a time average over a period. 
-The period average is approximated by a windowed time-average over a finite time-span $$M$$.
+The period average is approximated by a windowed time-average over a finite time-span $$M$$
 
 $$ \frac{1}{M}\int_0^M w(t/M)C_D(\sigma, t) \mathcal{d}t,$$
 
@@ -102,13 +102,13 @@ $$ s.t. \qquad R(u^n) = 0 \qquad \forall n=1,\dots,N $$
 
 $$ \qquad\qquad\frac{1}{N-n_{tr}} \sum_{n_{tr}}^{N} w\left(\frac{n-n_{tr}}{N-n_{tr}}\right)C_L(\sigma,n) \geq c$$
 
-The optimization constraint is given by the windowed time-averaged lift, that should be greater than a specific value $$c$$. We choose arbitrarily as $$c=0.96$$, which is the windowed
+The optimization constraint is given by the windowed time-averaged lift that should be greater than a specific value $$c$$. We choose arbitrarily as $$c=0.96$$, which is the windowed
 time-averaged lift of the baseline geometry. The time-span to average both lift and drag is given by $$M =N-n_{tr}$$.
 
 
 ### Configuration File Options ###
 
-To compute the unsteady shape-optimization, we set up the unsteady simulation according to our test case above. 
+To compute the unsteady shape optimization, we set up the unsteady simulation according to our test case above. 
 More information about setting up unsteady simulations can be found [here](../Unsteady_NACA0012)
 
 ```
@@ -148,13 +148,13 @@ to the one used for the direct simulation. Asymptotically, the convergence speed
 it may happen that the adjoint inner iterator needs more iterations to reach a steady state. Make sure that the option `INNER_ITER` is chosen big enough in your test case to get
 correct sensitivity results. 
 
-Note, that the adjoint iterator runs backwards in time, i.e. it starts at iteration given by `UNST_ADJOINT_START_ITER` and ends at iteration 0.
-We set the start iteration to the final iteration of the direct run, i.e. `UNST_ADJOINT_START_ITER = TIME_ITER = 2200`.
+Note, that the adjoint iterator runs backwards in time, i.e. it starts at iteration given by `UNST_ADJOINT_ITER` and ends at iteration 0.
+We set the start iteration to the final iteration of the direct run, i.e. `UNST_ADJOINT_ITER = TIME_ITER = 2200`.
 The time to average the objective and constraint function is given by the option `ITER_AVERAGE_OBJ`. Here we set `ITER_AVERAGE_OBJ=TIME_ITER-WINDOW_START_ITER=700`.
 
 ```
 %Iteration number to begin the reverse time integration in the direct solver for the unsteady adjoint.
-UNST_ADJOINT_START_ITER = 2200
+UNST_ADJOINT_ITER = 2200
 %
 %Number of iterations to average the objective 
 ITER_AVERAGE_OBJ =  700
@@ -177,7 +177,7 @@ OPT_BOUND_LOWER= -0.05
 
 ### Running SU2
 
-With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Each flow constraint requires the solution of an additional adjoint problem to compute its gradient (lift in this case). Three other SU2 tools are used in the design process here: SU2_DOT to compute the gradient from the adjoint surface sensitivities and input design space, SU2_GEO to compute wing section thicknesses and their gradients, and SU2_DEF to deform the computational mesh between design cycles. To run this case, follow these steps at a terminal command line:
+With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Each flow constraint requires the solution of an additional adjoint problem to compute its gradient (lift in this case). Two other SU2 tools are used in the design process here: SU2_DOT to compute the gradient from the adjoint surface sensitivities and input design space, and SU2_DEF to deform the computational mesh between design cycles. To run this case, follow these steps at a terminal command line:
  
  1. Execute the shape optimization script by entering 
     
@@ -185,8 +185,8 @@ With each design iteration, the direct and adjoint solutions are used to compute
     $ shape_optimization.py -f unsteady_naca0012_opt.cfg
     ```
     
-    at the command line, add `-n 16` in case you want to run the optimization in parallel (16 cores). Again, note that Python,  NumPy, and SciPy are all required to run the script.
-    It is recommendend to run this optimization with at least 16 cores. However, if you don't have a high number of cores available, you can reduce the time frame to optimize.
+    at the command line, add `-n 4` in case you want to run the optimization in parallel (4 cores). Again, note that Python,  NumPy, and SciPy are all required to run the script.
+    It is recommendend to run this optimization with at least 4 cores. However, if you don't have a high number of cores available, you can reduce the time frame to optimize.
     One could choose for example
     
     ```
@@ -213,7 +213,7 @@ With each design iteration, the direct and adjoint solutions are used to compute
 
 ### Results
 
-One can see in Fig. (1) the baseline geometry alonside optimized designs created with different windowing functions.
+One can see in Fig. (1) the baseline geometry alongside optimized designs created with different windowing functions.
 The following figures display the shape optimization process with different windowing functions. The shape optimization performed with higher order windows, i.e. all windows exept the `SQUARE`-window perform well, whereas the 
 optimization computied using the `SQUARE`-window struggles to fulfill its optimization constraint. 
 
