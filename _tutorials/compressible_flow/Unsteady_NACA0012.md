@@ -44,10 +44,10 @@ This problem will solve the flow about the airfoil with these conditions:
 - Reynolds number = 1E3
 - Reynolds length = 1.0 m
 
-These subsonic flow conditions cause a detached flow about the airfoil, that exhibts a vortex street and is therefore periodic.
+These subsonic flow conditions cause a detached flow on the upper side of the airfoil, which result in a vortex street and therefore periodic behavior.
 
 ### Mesh Description ###
-The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. We note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
+The computational domain consists of a grid of 14495 quadrilaterals, that sourrounds the NACA0012 airfoil. Note that this is a very coarse mesh, and should one wish to obtain more accurate solutions for comparison with results in the literature, finer grids should be used. 
 
 Two boundary conditions are employed: the Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
 
@@ -61,23 +61,23 @@ Figure (3): Close-up view of the airfoil surface and the aerodynamic coefficient
 ### Configuration File Options ###
 
 Configuration of the physical problem is similar to the ONERA M6 tutorial, that one can access [here](../Turbulent_ONERAM6). However, contrary to the ONERA M6 case, here a unsteady simulation is performed, hence, the Unsteady RANS (URANS) equations in 2D must be solved.
-Unsteady simulations in SU2 are computed employing a dual time-stepping scheme. To this end, one first performs a spatial discretization as explained in the [ONERA M6](../Turbulent_ONERAM6) tutoral. 
+Unsteady simulations in SU2 are computed by employing a dual time-stepping scheme. To this end, one first performs a spatial discretization as explained in the [ONERA M6](../Turbulent_ONERAM6) tutorial. 
 After that, a time discretization in physical time is performed, that results in a residual equation of the form
 
 $$ R(u^n) = 0 \qquad \forall n=1,\dots,N. $$
 
 Here, $$n$$ denotes the current physical time iteration, $$N$$ is the final (physical) time of the simulation, and $$R$$ is the residual, one has to solve. 
 In this tutorial, a second order BDF scheme is employed.
-The idea of dual time-stepping is, that the current solution $$u^n$$ of the residual equation is computed for each time step by solving an ordinary differential equation in fictional time $$\tau$$. The ODE for physical time-step $$n$$ reads
+The idea of dual time-stepping is, that the current solution $$u^n$$ of the residual equation is computed for each time step by solving an ordinary differential equation in pseudo time $$\tau$$. The ODE for physical time-step $$n$$ reads
 
 $$ \partial_\tau u^n + R(u^n) = 0. $$
 
 Now, a steady state solution for this ODE is computed using the steady state solver. Once a solution is aquired, the residual equation for the next physical time step $$n+1$$ is set up.
-As a result there are two time iterators. The inner (fictional time) iterator and  the outer (physical time) iterator. The number of iterations for the fictional time iterator is specified by `INNER_ITER` and the number of iterations
+As a result there are two time iterators. The inner (pseudo time) iterator and  the outer (physical time) iterator. The number of iterations for the pseudo time iterator is specified by `INNER_ITER` and the number of iterations
 for the physical time iterator by `TIME_ITER`. The option `TIME_DOMAIN=YES` activates the time dependent solver in SU2. 
 The option `TIME_MARCHING` specifies the numerical method to discretize the time domain in physical time and `TIME_STEP` 
 denotes the length of the physical time-step used.
-The numerical method to solve the inner (fictional time) ODE is given by the option `TIME_DISCRE_FLOW`.
+The numerical method to solve the inner (pseudo time) ODE is given by the option `TIME_DISCRE_FLOW`.
 
 ```
 % -------------UNSTEADY SIMULATION ----------------%
@@ -101,31 +101,31 @@ TIME_DISCRE_FLOW= EULER_IMPLICIT
 %
 ```
 
-This unsteady simulation results in a periodic flow, which can be seen by the vortex street in the flow visualization above. However, since the initial conditions are set to free-stream conditions, which have no physical meaning, a couple of iterations are needed to reach the periodic state.
+This unsteady simulation results in a periodic flow, which can be seen by the vortex street in the flow visualization above. However, since the initial conditions are set to free-stream conditions, a couple of iterations are needed to reach the periodic state.
 This time-span is called transient phase. 
 
 ![Periodic Drag](../../Unsteady_NACA0012/images/Time_Dep_Drag.png)
-Figure (4): Time dependent drag (black) and lift (red) coefficient. The transient time spans approximately 300 (physical) time-steps.
+Figure (4): Time-dependent drag (black) and lift (red) coefficient. The transient time spans approximately 300 (physical) time-steps.
 
-In a periodic flow, an insantaneous output value, e.g. $$C_D(t)$$ is not meaningful in some applications, e.g. aerodynamic shape optimization. Hence one often uses the average value of one period $$T$$.
+Usually in a periodic flow an instantaneous output value, e.g. $$C_D(t)$$, is not meaningful. Hence one often uses the average value of one period $$T$$:
 
 $$ \frac{1}{T}\int_0^T C_D(t) \mathcal{d}t$$
 
 However, the exact duration of a period is unknown or cannot be resolved due to a too coarse time discretization. Therefore, 
 one averages over a finite time-span $$M$$, which lasts 
-a couple of periods and hopes for convergence to the period-average. 
+a couple of periods and hopes for convergence to the period-average 
 
-$$ \frac{1}{M}\int_0^M C_D(t) \mathcal{d}t$$
+$$ \frac{1}{M}\int_0^M C_D(t) \mathcal{d}t.$$
 
-If one employs a weighting function $$w(t)$$ , called window-function, the time-average converges faster to the actual period-average.
+If one employs a weighting function $$w(t)$$, called window-function, the time-average converges faster to the actual period-average
 
-$$ \frac{1}{M}\int_0^M w(t/M)C_D(t) \mathcal{d}t$$
+$$ \frac{1}{M}\int_0^M w(t/M)C_D(t) \mathcal{d}t.$$
 
 A windowing function is a function, that is zero on its boundaries $$0$$ and $$M$$ and has integral $$1$$. The iteration 
-to start the windowed time-average is specified with `WINDOW_START_ITER`.  Note, that at this iteration, the transient phase of the flow must have passed. Otherwise a time average, that approximates a period average is not meaningful.
+to start the windowed time-average is specified with `WINDOW_START_ITER`.  Note, that at this iteration the transient phase of the flow must have passed. Otherwise a time average that approximates a period average is not meaningful.
 The windowing function can be specified with the option `WINDOW_FUNCTION`.
 Note, that windowing functionality also works for sensitivities of time dependent outputs. In this case, the order of convergence is reduced by 1. 
-The following options are implemented.
+The following options are implemented:
 
 | Window | Convergence Order | Convergence Order (sensitivity) |
 | --- | --- | --- |
@@ -137,9 +137,8 @@ The following options are implemented.
 ![Windowing functions](../../Unsteady_NACA0012/images/wndFcts.png)
 Figure (5): Different window-functions in the time span from 0 to 1.
 
-The `SQUARE`-window denotes the case of uniform weighting by 1, i.e. the case, where no special windowing-function is applied. It is not recommended to use `SQUARE`- windowing for senstivities, since no convergence is guarantied.
-For further information about the windowing approach, we refer to the work of Krakos et al. ([Sensitivity Analysis of Limit Cycle Oscillations](https://arc.aiaa.org/doi/abs/10.2514/6.2011-3553 "Sensitivity Analysis of Limit Cycle Oscillations")) and 
-the work of Schotthöfer et al. ([AIAA PAPER, TBA](TBA "AIAA PAPER")).
+The `SQUARE`-window denotes the case of uniform weighting by 1, i.e. the case, where no windowing-function is applied. It is not recommended to use `SQUARE`- windowing for sensitivities, since no convergence is guaranteed.
+For further information about the windowing approach, we refer to the work of Krakos et al. ([Sensitivity Analysis of Limit Cycle Oscillations](https://arc.aiaa.org/doi/abs/10.2514/6.2011-3553 "Sensitivity Analysis of Limit Cycle Oscillations")).
 The windowed time-averaged output-field can be accessed in `SCREEN_OUTPUT` by adding the prefix `TAVG_` to the chosen output-field. For 
 time-averaged sensitivities, one adds the prefix `D_TAVG_`. 
 
@@ -148,7 +147,7 @@ The Cauchy-criterion is applied to the windowed time-average from the iteration 
 The field  or the list of fields to be monitored can be specified by `CONV_WINDOW_FIELD`.  
 The solver will stop, if the average over a certain number of elements (set with `CONV_WINDOW_CAUCHY_ELEMS`) is smaller than the value set with `CONV_WINDOW_CAUCHY_EPS`.
 The windowed time-averaged Cauchy criterion can be activated by setting `WINDOW_CAUCHY_CRIT = YES` (default is `NO`). 
-If a list of multiple convergence fields is chosen, the sovlver terminates, if the Cauchy criterion is satisfied for all fields on the list.
+If a list of multiple convergence fields is chosen, the sovlver terminates, if the Cauchy criterion is satisfied for all fields in the list.
 ```
 % --- Coefficient-based Windowed Time Convergence Criteria ----%
 %
@@ -173,7 +172,7 @@ WINDOW_START_ITER = 500
 % Window-function to weight the time average. Options (SQUARE, HANN, HANN_SQUARE, BUMP), SQUARE is default.
 WINDOW_FUNCTION = HANN_SQUARE
 ```
-Note, that in application, it may happen that a test case is not purely periodic, but the period-mean has a slight shift upwards 
+Usually a case is not purely periodic, but the period-mean has a slight shift upwards 
 or downwards. Hence, the time-convergence epsilon value is typically not as small as in the time-steady case. 
 
 As one can see in Fig. (4), the transient phase of drag (and lift) is about 500 iterations, thus a suitable starting time for the windowed-average is `WINDOW_START_ITER=500`.
