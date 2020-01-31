@@ -142,7 +142,7 @@ A steady-state simulation is defined by using `TIME_DOMAIN=NO`, which is the def
 
 Despite setting the maximum number of iterations, it is possible to use a convergence criterion so that the solver will stop when it reaches a certain value of a residual or if variations of a coefficient are below a certain threshold. To enable a convergence criterion use the option `CONV_FIELD` to set an output field that should be monitored. The list of possible fields depends on the solver. Take a look at [Custom Output](/docs_v7/Custom-Output/) to learn more about output fields. Depending on the type of field (residual or coefficient) there are two types of methods:
 
-### Residual ###
+### Steady-state Residual ###
 If the field set with `CONV_FIELD` is a residual, the solver will stop if it is smaller than the value set with 
 `CONV_RESIDUAL_MINVAL` option. Example:
 
@@ -157,7 +157,7 @@ CONV_RESIDUAL_MINVAL= -8
 %
 ```
 
-### Coefficient ###
+### Steady-state Coefficient ###
 If the field set with `CONV_FIELD` is a coefficient, a Cauchy series approach is applied. A Cauchy element is defined as the relative difference of the coefficient between two consecutive iterations. The solver will stop if the average over a certain number of elements (set with `CONV_CAUCHY_ELEMS`) is smaller than the value set with `CONV_CAUCHY_EPS`. The current value of the Cauchy coefficient can be written to screen or history by adding the `CAUCHY` field to the `SCREEN_OUTPUT` or `HISTORY_OUTPUT` option (see [Custom Output](/docs_v7/Custom-Output/)). Example:
 
 ```
@@ -175,5 +175,40 @@ CONV_CAUCHY_EPS= 1E-10
 ```
 For both methods the option `CONV_STARTITER` defines when the solver should start monitoring the criterion.
 
-**Note:** The option `CONV_FIELD` also accepts a list of fields to monitor. The solver will stop if all fields reach their respective stopping criterion (i.e. the minimum value for residuals or the cauchy series threshold for coefficients as mentioned above).
+### Time-dependent Coefficient ###
+In a time-dependend simulation we have two iterators, `INNER_ITER` and `TIME_ITER`. The convergence criterion for the `INNER_ITER` loop is the same as in the steady-state case. 
+For the `TIME_ITER`, there are convergence options implemented for the case of a periodic flow. The convergence criterion uses the so-called windowing approach, (see [Custom Output](/docs_v7/Custom-Output/)). The convergence options are applicable  only for coefficients.
+To enable time convergence, set `WINDOW_CAUCHY_CRIT=YES` (default is `NO`). The option `CONV_WINDOW_FIELD` determines the output-fields to be monitored. 
+Typically, one is interested in monitoring time-averaged coefficients, e.g `TAVG_DRAG`.
+ Analogously to the steady state case, 
+the solver will stop, if the average over a certain number of elements (set with `CONV_WINDOW_CAUCHY_ELEMS`) is smaller than the value set with `CONV_WINDOW_CAUCHY_EPS`.
+The current value of the Cauchy coefficient can be written to screen or history using the flag `CAUCHY` (see [Custom Output](/docs_v7/Custom-Output/)).
+The option `CONV_WINDOW_STARTITER` determines the numer of iterations, the solver should wait to start moniotring, after `WINDOW_START_ITER` has passed. `WINDOW_START_ITER` determines the iteration, when the (time dependent) outputs are averaged, (see [Custom Output](/docs_v7/Custom-Output/)).
+The window-weight-function used is determined by the option `WINDOW_FUNCTION`
 
+```
+% ------------------ Coefficient-based Windowed Time Convergence Criteria -----------------------%
+%
+% Activate the windowed cauchy criterion
+WINDOW_CAUCHY_CRIT = YES
+%
+% Specify convergence field(s)
+CONV_WINDOW_FIELD= (TAVG_DRAG, TAVG_LIFT)
+%
+% Number of elements to apply the criteria
+CONV_WINDOW_CAUCHY_ELEMS= 100
+%
+% Epsilon to control the series convergence
+CONV_WINDOW_CAUCHY_EPS= 1E-3
+%
+% Number of iterations to wait after the iteration specified in  WINDOW_START_ITER.
+CONV_WINDOW_STARTITER = 10
+%
+% Iteration to start the windowed time average
+WINDOW_START_ITER = 500
+%
+% Window-function to weight the time average. Options (SQUARE, HANN, HANN_SQUARE, BUMP), SQUARE is default.
+WINDOW_FUNCTION = HANN_SQUARE
+```
+
+**Note:** The options `CONV_FIELD` and `CONV_WINDOW_FIELD` also accept a list of fields, e.g. `(DRAG, LIFT,...)`, to monitor. The solver will stop if all fields reach their respective stopping criterion (i.e. the minimum value for residuals or the cauchy series threshold for coefficients as mentioned above).
