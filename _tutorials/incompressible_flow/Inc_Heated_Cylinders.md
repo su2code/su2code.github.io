@@ -36,7 +36,7 @@ The correct interface temperature distribution has then to be found by the simul
 This problem will solve for the incompressible flow over three cylinders as well as for the heat equation in all cylinders that are coupled by energy conservation across the interfaces.  
 
 The following flow conditions that are set to match the Reynolds number of 40. For hollow cylinders with outer diameters of 1m:
-- Density (variable) = 0.00042 kg/m^3
+- Density (variable) = 0.000210322 kg/m^3
 - Farfield Velocity Magnitude = 3.40297 m/s
 - Farfield Flow Direction, unit vector (x,y,z) = (1.0, 0.0, 0.0) 
 - Farfield Temperature = 288.15 K
@@ -128,7 +128,7 @@ THERMAL_CONDUCTIVITY_SOLID= 0.1028
 
 ### Running SU2
 
-The CHT simulation for the provided mesh  will execute relatively, given that the coupled outer loop has to converge to a interface temperature solution as well. To run this test case, follow these steps at a terminal command line:
+The CHT simulation for the provided mesh will execute relatively quick, given that the coupled outer loop has to converge to a interface temperature solution as well. To run this test case, follow these steps at a terminal command line:
  1. Move to the directory containing the config files and the mesh files. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
