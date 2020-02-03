@@ -1,6 +1,15 @@
 ---
 title: Turbulent ONERA M6
 permalink: /tutorials/Turbulent_ONERAM6/
+written_by: economon
+for_version: 7.0.0
+revised_by: economon
+revision_date: Nov 25, 2019
+revised_version: 7.0.0
+solver: RANS
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Turb ONERA Pressure](../../Turbulent_ONERAM6/images/turb_onera_pressure.png)

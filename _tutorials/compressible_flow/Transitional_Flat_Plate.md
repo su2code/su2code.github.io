@@ -1,6 +1,15 @@
 ---
 title: Transitional Flat Plate
 permalink: /tutorials/Transitional_Flat_Plate/
+written_by: sametcaka
+for_version: 7.0.0
+revised_by: economon
+revision_date: Nov 25, 2019
+revised_version: 7.0.0
+solver: RANS
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![lam_to_turb](../../Transitional_Flat_Plate/images/lam_to_turb.png)

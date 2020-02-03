@@ -1,6 +1,15 @@
 ---
 title: Epistemic Uncertainty Quantification of RANS predictions of NACA 0012 airfoil
 permalink: /tutorials/UQ_NACA0012/
+written_by: jayantmukho
+for_version: 7.0.0
+revised_by: economon
+revision_date: Nov 25, 2019
+revised_version: 7.0.0
+solver: RANS
+requires: SU2_CFD, Python
+complexity: advanced
+follows: 
 ---
 
 ![C_L Distribution](../../UQ_NACA0012/images/225-65_liftCurve_bigger.png)
