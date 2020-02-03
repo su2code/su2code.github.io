@@ -38,6 +38,7 @@
   - Linear_Elasticity
   - Linear_Dynamics
   - Dynamics
+  - Nonlinear_Elasticity
 
 - title: Event Content
   tutorials:
