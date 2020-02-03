@@ -3,6 +3,8 @@ title: Unsteady Conjugate Heat Transfer
 permalink: /tutorials/Inc_Heated_Cylinders_Unsteady/
 ---
 
+[![Unsteady CHT simulation for heated cylinders in fluid flow](http://img.youtube.com/vi/MqN8GalSyzk/0.jpg)](http://www.youtube.com/watch?v=MqN8GalSyzk "Unsteady CHT")
+
 ## Goals
 
 This tutorial is a follow-up on the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/) where a steady CHT solution was computed for a problem involving multiple physical zones.
