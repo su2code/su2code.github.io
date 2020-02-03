@@ -1,6 +1,15 @@
 ---
 title: Laminar Buoyancy-driven Cavity
 permalink: /tutorials/Inc_Laminar_Cavity/
+written_by: economon 
+for_version: 7.0.0
+revised_by: economon 
+revision_date: Nov 25, 2019
+revised_version: 7.0.0
+solver: INC_NAVIER_STOKES
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Lam Plate Profile](../../Inc_Laminar_Cavity/images/buoyancy_temperature.png)
