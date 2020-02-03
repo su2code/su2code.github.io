@@ -33,7 +33,8 @@ layout: default
             </table>
           </div>
             <div id="markdown-content-container">
-              <h6 id="at-one-glance"><strong>At one glance</strong></h6>
+<!--              
+            <h6 id="at-one-glance"><strong>At one glance</strong></h6>
               <h6 id="solver-elasticity">Solver: <code style="text-transform: uppercase;" class="language-plaintext highlighter-rouge">{{ page.solver }}</code></h6>
               <h6 id="requires-su2_cfd">Uses: <code style="text-transform: uppercase;" class="language-plaintext highlighter-rouge">{{ page.requires }}</code></h6>
               <h6 id="follows-linear-elasticity">Prerequisites:
@@ -58,8 +59,45 @@ layout: default
                 {% elsif page.complexity == "advanced" %}
                 <span style="color: orange;"><strong>Advanced</strong></span>
                 {% endif %}
-              </h6>             
+              </h6>    -->
+              <table style="width:50%">
+                <tbody>
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Solver:</h6></td>
+                    <td> <h6><code style="text-transform: uppercase;" class="language-plaintext highlighter-rouge">{{ page.solver }}</code></h6></td>
+                  </tr>
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Uses:</h6></td>
+                    <td> <h6><code style="text-transform: uppercase;" class="language-plaintext highlighter-rouge">{{ page.requires }}</code></h6></td>
+                  </tr>
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Prerequisites:</h6></td>
+                    <td> <h6>                {% if page.follows %}
+                      {% for section in site.data.tutorials %}
+                      {% for item in section.tutorials %}
+                      {% if item == page.follows %}
+                      {% assign item_url = item | prepend:"/tutorials/" | append:"/" %}
+                      {% assign p = site.tutorials | where:"url", item_url | first %}
+                      <a href="{{p.permalink}}"><strong>{{p.title}}</strong></a>
+                      {% endif %}
+                      {% endfor %}
+                      {% endfor %}
+                      {% else %}
+                      <strong>None</strong>
+                      {% endif %} </h6> </td>
+                  </tr>
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Complexity:</h6></td>
+                    <td> <h6>{% if page.complexity == "basic" %}
+                      <span style="color: green;"><strong>Basic</strong></span>
+                     {% elsif page.complexity == "advanced" %}
+                     <span style="color: orange;"><strong>Advanced</strong></span>
+                     {% endif %}</h6></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+
             <div id="markdown-content-container">{{ content }}</div>
             <hr>
             {% unless page.disable_comments %}
