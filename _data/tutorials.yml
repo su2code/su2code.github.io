@@ -40,13 +40,6 @@
   - Inviscid_3D_Constrained_ONERAM6
   - Multi_Objective_Shape_Design
 
-- title: Structural Mechanics
-  tutorials:
-  - Linear_Elasticity
-  - Linear_Dynamics
-  - Dynamics
-  - Nonlinear_Elasticity
-
 - title: Event Content
   tutorials:
   - event_content

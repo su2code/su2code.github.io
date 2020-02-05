@@ -60,6 +60,7 @@ layout: default
                 <span style="color: orange;"><strong>Advanced</strong></span>
                 {% endif %}
               </h6>    -->
+              <strong>At one glance:</strong>
               <table style="width:50%">
                 <tbody>
                   <tr>
@@ -90,8 +91,10 @@ layout: default
                     <td> <h6 id="solver-elasticity">Complexity:</h6></td>
                     <td> <h6>{% if page.complexity == "basic" %}
                       <span style="color: green;"><strong>Basic</strong></span>
+                     {% elsif page.complexity == "intermediate" %}
+                     <span style="color: orange;"><strong>Intermediate</strong></span>                      
                      {% elsif page.complexity == "advanced" %}
-                     <span style="color: orange;"><strong>Advanced</strong></span>
+                     <span style="color: red;"><strong>Advanced</strong></span>
                      {% endif %}</h6></td>
                   </tr>
                 </tbody>
