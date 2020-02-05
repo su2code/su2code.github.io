@@ -1,5 +1,5 @@
 ---
-title: Non-linear Elasticity with Multiple Material Definition
+title: Non-linear Elasticity with Multiple Materials
 permalink: /tutorials/Multiple_Material/
 ---
 
@@ -147,3 +147,18 @@ The displacement field obtained in _nonlinear_multimaterial.vtk_ is shown below:
 ![Nonlinear Multimaterial Results](../structural_mechanics/images/multimat2.png)
 
 where it can be observed how the flexible regions undergo large deformations, while the regions R0 and R2 remain virtually unaltered due to their high stiffness. The highlighted elements correspond to the interfaces between R1, R2, R3 and R4.
+
+### References
+$$^1$$ Bonet, J. and Wood, R.D. (2008), Nonlinear Continuum Mechanics for Finite Element Analysis, _Cambridge University Press_
+
+### Attribution
+
+If you are using this content for your research, please kindly cite the following reference (reference $$^2$$ in the text above) in your derived works:
+
+Sanchez, R. _et al._ (2018), [Coupled Adjoint-Based Sensitivities in Large-Displacement Fluid-Structure Interaction using Algorithmic Differentiation](https://spiral.imperial.ac.uk/handle/10044/1/51023), _Int J Numer Meth Engng, Vol 111, Issue 7, pp 1081-1107_. DOI: [10.1002/nme.5700](https://doi.org/10.1002/nme.5700)
+
+<dl>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+</dl>

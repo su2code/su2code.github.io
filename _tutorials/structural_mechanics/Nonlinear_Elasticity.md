@@ -11,7 +11,7 @@ permalink: /tutorials/Nonlinear_Elasticity/
 
 ###### Solver: ```ELASTICITY```
 ###### Uses: ```SU2_CFD```
-###### Complexity: <span style="color: orange;">**Intermediate**</span> 
+###### Complexity: <span style="color: green;">**Basic**</span> 
 ###### Prerequisites: [**Linear Elasticity**](../Linear_Elasticity/)
 
 
@@ -213,3 +213,19 @@ Incremental load: increment 25
 The displacement field is now
 
 ![Nonlinear Incremental Results](../structural_mechanics/images/nlin2.png)
+
+### References
+$$^1$$ Bonet, J. and Wood, R.D. (2008), Nonlinear Continuum Mechanics for Finite Element Analysis, _Cambridge University Press_
+
+### Attribution
+
+If you are using this content for your research, please kindly cite the following reference (reference $$^2$$ in the text above) in your derived works:
+
+Sanchez, R. _et al._ (2018), [Coupled Adjoint-Based Sensitivities in Large-Displacement Fluid-Structure Interaction using Algorithmic Differentiation](https://spiral.imperial.ac.uk/handle/10044/1/51023), _Int J Numer Meth Engng, Vol 111, Issue 7, pp 1081-1107_. DOI: [10.1002/nme.5700](https://doi.org/10.1002/nme.5700)
+
+<dl>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+</dl>
+

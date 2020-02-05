@@ -22,7 +22,7 @@ permalink: /docs/Your_Folder_Name/Your_Tutorial/
 I'm contributing to SU2!
 ```
 
-**3.** Add the tutorial pagename to the `_data/docs.yml` file, in order to list it in the navigation panel:
+**3.** Add the tutorial pagename to the `_data/tutorials.yml` file, in order to list it in the navigation panel:
 
 ```
 - title: Your Subgroup of Tutorials 

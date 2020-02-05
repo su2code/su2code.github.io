@@ -144,10 +144,9 @@ $$^1$$ Newmark, N.M. (1959), A method of computation for structural dynamics, _J
 
 ### Attribution
 
-If you are using this content for your research, please kindly cite the following reference (reference$$^2$$ in the text above) in your derived works:
+If you are using this content for your research, please kindly cite the following reference (reference $$^2$$ in the text above) in your derived works:
 
 Sanchez, R. _et al._ (2016), [Towards a Fluid-Structure Interaction solver for problems with large deformations within the open-source SU2 suite](https://spiral.imperial.ac.uk/handle/10044/1/28633), 57th AIAA/ASCE/AHS/ASC Structures, Structural Dynamics, and Materials Conference, 4-8 January 2016, San Diego, California, USA. DOI: [10.2514/6.2016-0205](https://doi.org/10.2514/6.2016-0205)
-
 
 <dl>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
