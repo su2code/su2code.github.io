@@ -1,18 +1,16 @@
 ---
 title: Linear Elasticity 
 permalink: /tutorials/Linear_Elasticity/
+written_by: rsanfer
+for_version: 7.0.0
+revised_by: ransfer
+revision_date: Jan 27, 2020
+revised_version: 7.0.1
+solver: Elasticity
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
-
-| Written by | for Version | Revised by | Revision date | Revised version | 
-| --- | --- | --- | --- | --- |
-| [@rsanfer](https://github.com/rsanfer) | 7.0.1 | [@rsanfer](https://github.com/rsanfer) | Jan 27, 2020 | 7.0.1 |
-
-###### **At one glance** 
-
-###### Solver: ```ELASTICITY```
-###### Uses: ```SU2_CFD```
-###### Complexity: <span style="color: green;">**Basic**</span> 
-###### Prerequisites: None
 
 ### Goals
 

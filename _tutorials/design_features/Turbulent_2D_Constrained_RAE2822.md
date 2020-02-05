@@ -1,6 +1,15 @@
 ---
 title: Constrained shape design of a transonic turbulent airfoil at a cte. C<sub>L</sub> 
 permalink: /tutorials/Turbulent_2D_Constrained_RAE2822/
+written_by: economon
+for_version: 7.0.0
+revised_by: jayantmukho
+revision_date: Nov 27, 2019
+revised_version: 7.0.0
+solver: RANS
+requires: SU2_CFD, Python
+complexity: advanced
+follows: 
 ---
 
 ## Goals

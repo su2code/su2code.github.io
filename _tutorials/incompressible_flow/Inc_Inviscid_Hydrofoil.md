@@ -1,6 +1,15 @@
 ---
 title: Inviscid Hydrofoil
 permalink: /tutorials/Inc_Inviscid_Hydrofoil/
+written_by: economon 
+for_version: 7.0.0
+revised_by: economon 
+revision_date: Nov 25, 2019
+revised_version: 7.0.0
+solver: INC_EULER
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Channel Mach](../../Inc_Inviscid_Hydrofoil/images/hydrofoil_velocity.png)

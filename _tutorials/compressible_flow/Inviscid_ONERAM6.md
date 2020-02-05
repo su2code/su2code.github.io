@@ -1,6 +1,15 @@
 ---
 title: Inviscid ONERA M6
 permalink: /tutorials/Inviscid_ONERAM6/
+written_by: economon
+for_version: 7.0.0
+revised_by: economon
+revision_date: Nov 23, 2019
+revised_version: 7.0.0
+solver: Euler
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![ONERA M6 Cp](../../Inviscid_ONERAM6/images/oneram6_cp.png)
