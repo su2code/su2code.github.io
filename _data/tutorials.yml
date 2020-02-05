@@ -25,6 +25,13 @@
   - Inc_Laminar_Step
   - Inc_Laminar_Cavity
   - Inc_Heated_Cylinders
+  
+- title: Structural Mechanics
+  tutorials:
+  - Linear_Elasticity
+  - Linear_Dynamics
+  - Nonlinear_Elasticity
+  - Multiple_Material
 
 - title: Design Features
   tutorials:
