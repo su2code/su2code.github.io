@@ -1,18 +1,16 @@
 ---
 title: Non-linear Elasticity with Multiple Materials
 permalink: /tutorials/Multiple_Material/
+written_by: rsanfer
+for_version: 7.0.2
+revised_by: ransfer
+revision_date: 2020-01-30
+revised_version: 7.0.2
+solver: Elasticity
+requires: SU2_CFD
+complexity: intermediate
+follows: Nonlinear_Elasticity
 ---
-
-| Written by | for Version | Revised by | Revision date | Revised version | 
-| --- | --- | --- | --- | --- |
-| [@rsanfer](https://github.com/rsanfer) | 7.0.1 | [@rsanfer](https://github.com/rsanfer) | Jan 30, 2020 | 7.0.1 |
-
-###### **At one glance** 
-
-###### Solver: ```ELASTICITY```
-###### Uses: ```SU2_CFD```
-###### Complexity: <span style="color: orange;">**Intermediate**</span> 
-###### Prerequisites: [**Nonlinear Elasticity**](../Nonlinear_Elasticity/)
 
 
 ### Goals
@@ -25,7 +23,7 @@ In this tutorial, we use the same problem definition as for the nonlinear elasti
 
 ### Resources
 
-You can find the resources for this tutorial in the same [structural_mechanics/cantilever](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever) folder in the [Tutorials repository](https://github.com/rsanfer/Tutorials). You can reuse the mesh file [mesh_cantilever.su2](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)
+You can find the resources for this tutorial in the same [structural_mechanics/cantilever](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever) folder in the [Tutorials repository](https://github.com/su2code/Tutorials). You can reuse the mesh file [mesh_cantilever.su2](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)
 from the Non-linear Elasticity tutorial, but you will need a new config file, [config_nonlinear_multimaterial.cfg](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/config_nonlinear_multimaterial.cfg), and an element properties file, [element_properties.dat](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/element_properties.dat)
 
 ### Background
@@ -85,7 +83,7 @@ Finally, given the flexibility of the regions R1 and R3, an incremental approach
 
 ### Running SU2
 
-Follow the links provided to download the [config](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_nonlinear_multimaterial.cfg), [mesh](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2) and [element_properties](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/element_properties.dat) files. Execute the code with the standard command
+Follow the links provided to download the [config](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/config_nonlinear_multimaterial.cfg), [mesh](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2) and [element_properties](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/element_properties.dat) files. Execute the code with the standard command
 
 ```
 SU2_CFD config_nonlinear_multimaterial.cfg

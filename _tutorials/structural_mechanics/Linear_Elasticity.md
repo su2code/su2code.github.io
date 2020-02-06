@@ -2,10 +2,10 @@
 title: Linear Elasticity 
 permalink: /tutorials/Linear_Elasticity/
 written_by: rsanfer
-for_version: 7.0.0
+for_version: 7.0.2
 revised_by: ransfer
-revision_date: Jan 27, 2020
-revised_version: 7.0.1
+revision_date: 2020-01-27
+revised_version: 7.0.2
 solver: Elasticity
 requires: SU2_CFD
 complexity: basic
@@ -28,8 +28,8 @@ The problem that we will be solving consists of a vertical, slender cantilever, 
 
 First, please make sure you have followed the [installation guide](https://su2code.github.io/docs_v7/home/) and that you have SU2 up and running in your system. You will only need the `SU2_CFD` binary for this tutorial. If you are [building the code from source](https://su2code.github.io/docs_v7/Build-SU2-Linux-MacOS/), a single core version of the code is sufficient for this tutorial.
 
-You can find the resources for this tutorial in the folder [structural_mechanics/cantilever](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever) in the [Tutorials repository](https://github.com/rsanfer/Tutorials). You will need the mesh file [mesh_cantilever.su2](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)
-and the config file [config_linear.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.cfg).
+You can find the resources for this tutorial in the folder [structural_mechanics/cantilever](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever) in the [Tutorials repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_cantilever.su2](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)
+and the config file [config_linear.cfg](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.cfg).
 
 ### Background
 
@@ -74,7 +74,7 @@ POISSON_RATIO = 0.35
 FORMULATION_ELASTICITY_2D = PLANE_STRESS
 ```
 
-The configuration requires to input a mesh file. The mesh that we will be using in this problem is provided for download [here](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2), in SU2 format. The options to be added to the config file are
+The configuration requires to input a mesh file. The mesh that we will be using in this problem is provided for download [here](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2), in SU2 format. The options to be added to the config file are
 
 ```
 MESH_FORMAT = SU2
@@ -128,7 +128,7 @@ RESTART_FILENAME = restart_linear_elastic
 ### Running SU2
 
 This is a very small example that we will run in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([config_linear.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.cfg)) and the mesh file ([mesh_cantilever.su2](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([config_linear.cfg](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/config_linear.cfg)) and the mesh file ([mesh_cantilever.su2](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```

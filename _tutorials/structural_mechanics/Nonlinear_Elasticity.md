@@ -2,13 +2,13 @@
 title: Non-linear Elasticity
 permalink: /tutorials/Nonlinear_Elasticity/
 written_by: rsanfer
-for_version: 7.0.0
+for_version: 7.0.2
 revised_by: ransfer
-revision_date: Jan 28, 2020
-revised_version: 7.0.1
+revision_date: 2020-01-28
+revised_version: 7.0.2
 solver: Elasticity
 requires: SU2_CFD
-complexity: advanced
+complexity: intermediate
 follows: Linear_Elasticity
 ---
 

@@ -2,10 +2,10 @@
 title: Linear Dynamics
 permalink: /tutorials/Linear_Dynamics/
 written_by: rsanfer
-for_version: 7.0.0
+for_version: 7.0.2
 revised_by: ransfer
-revision_date: Jan 28, 2020
-revised_version: 7.0.1
+revision_date: 2020-01-28
+revised_version: 7.0.2
 solver: Elasticity
 requires: SU2_CFD
 complexity: basic
@@ -25,8 +25,8 @@ The problem that we will be solving consists of a vertical, slender cantilever, 
 
 ### Resources
 
-For this tutorial, it is assumed that you have first completed the guide on [Linear Elasticity](../Linear_Elasticity/) guide. You can find the resources for this tutorial in the same [structural_mechanics/cantilever](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever) folder in the [Tutorials repository](https://github.com/rsanfer/Tutorials). You can reuse the mesh file [mesh_cantilever.su2](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)
-but need a new config file, [config_dynamic.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_dynamic.cfg).
+For this tutorial, it is assumed that you have first completed the guide on [Linear Elasticity](../Linear_Elasticity/) guide. You can find the resources for this tutorial in the same [structural_mechanics/cantilever](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever) folder in the [Tutorials repository](https://github.com/su2code/Tutorials). You can reuse the mesh file [mesh_cantilever.su2](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)
+but need a new config file, [config_dynamic.cfg](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/config_dynamic.cfg).
 
 ### Background
 
@@ -93,7 +93,7 @@ where ```SINE_LOAD_COEFF=``` ($$A$$, $$f$$, $$\phi$$). We have set a phase angle
 ### Running SU2
 
 This is a very small example that we can run in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([config_dynamic.cfg](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_dynamic.cfg)) and the mesh file ([mesh_cantilever.su2](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([config_dynamic.cfg](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/config_dynamic.cfg)) and the mesh file ([mesh_cantilever.su2](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```
