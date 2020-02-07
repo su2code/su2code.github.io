@@ -3,7 +3,7 @@ title: Structural Dynamics
 permalink: /tutorials/Dynamics/
 written_by: rsanfer
 for_version: 7.0.0
-revised_by: ransfer
+revised_by: rsanfer
 revision_date: Jan 28, 2020
 revised_version: 7.0.1
 solver: Elasticity
