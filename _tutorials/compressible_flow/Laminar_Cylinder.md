@@ -4,7 +4,7 @@ permalink: /tutorials/Laminar_Cylinder/
 written_by: economon
 for_version: 7.0.0
 revised_by: economon
-revision_date: Nov 23, 2019
+revision_date: 2019-11-23
 revised_version: 7.0.0
 solver: Navier_Stokes
 requires: SU2_CFD

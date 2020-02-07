@@ -4,7 +4,7 @@ permalink: /tutorials/Inc_Heated_Cylinders/
 written_by: oleburghardt 
 for_version: 7.0.0
 revised_by: oleburghardt 
-revision_date: Aug 20, 2019
+revision_date: 2019-08-20
 revised_version: 7.0.0
 solver: MULTIPHYSICS
 requires: SU2_CFD

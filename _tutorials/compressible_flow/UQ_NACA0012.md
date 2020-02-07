@@ -4,7 +4,7 @@ permalink: /tutorials/UQ_NACA0012/
 written_by: jayantmukho
 for_version: 7.0.0
 revised_by: economon
-revision_date: Nov 25, 2019
+revision_date: 2019-11-25
 revised_version: 7.0.0
 solver: RANS
 requires: SU2_CFD, Python

@@ -4,7 +4,7 @@ permalink: /tutorials/Turbulent_2D_Constrained_RAE2822/
 written_by: economon
 for_version: 7.0.0
 revised_by: jayantmukho
-revision_date: Nov 27, 2019
+revision_date: 2019-11-27
 revised_version: 7.0.0
 solver: RANS
 requires: SU2_CFD, Python

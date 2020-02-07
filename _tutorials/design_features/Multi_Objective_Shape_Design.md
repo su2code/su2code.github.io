@@ -4,7 +4,7 @@ permalink: /tutorials/Multi_Objective_Shape_Design/
 written_by: hlkline
 for_version: 7.0.0
 revised_by: jayantmukho
-revision_date: Sep 23, 2019
+revision_date: 2019-09-23
 revised_version: 7.0.0
 solver: Euler
 requires: SU2_CFD, Python
