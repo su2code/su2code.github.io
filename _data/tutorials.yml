@@ -26,12 +26,16 @@
   - Inc_Laminar_Cavity
   - Inc_Heated_Cylinders
   
-- title: Structural Mechanics
-  tutorials:
-  - Linear_Elasticity
-  - Linear_Dynamics
-  - Nonlinear_Elasticity
-  - Multiple_Material
+#- title: Structural Mechanics
+#  tutorials:
+#  - Linear_Elasticity
+#  - Linear_Dynamics
+#  - Nonlinear_Elasticity
+#  - Multiple_Material
+  
+#- title: Multiphysics
+#  tutorials:
+#   - Static_FSI
 
 - title: Design Features
   tutorials:
