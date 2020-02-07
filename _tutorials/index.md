@@ -3,6 +3,12 @@ title: The SU2 Tutorial Collection
 permalink: /tutorials/home/
 redirect_from: /tutorials/index.html
 disable_comments: true
+disable_header: true
+written_by: economon
+for_version: 6.0.0
+revised_by: talbring
+revision_date: 2019-11-27
+revised_version: 7.0.0
 ---
 
 ## Getting started with SU2
