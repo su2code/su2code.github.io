@@ -1,6 +1,15 @@
 ---
 title: Constrained shape design of a transonic inviscid wing at a cte. C<sub>L</sub>
 permalink: /tutorials/Inviscid_3D_Constrained_ONERAM6/
+written_by: economon
+for_version: 7.0.0
+revised_by: jayantmukho
+revision_date: 2019-09-24
+revised_version: 7.0.0
+solver: Euler
+requires: SU2_CFD, Python
+complexity: advanced
+follows: 
 ---
 
 ![Opt. ONERA Orig](../../Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)

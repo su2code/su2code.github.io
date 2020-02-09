@@ -1,6 +1,15 @@
 ---
 title: Turbulent Flat Plate
 permalink: /tutorials/Inc_Turbulent_Flat_Plate/
+written_by: economon 
+for_version: 7.0.0
+revised_by: economon  
+revision_date: 2019-11-25
+revised_version: 7.0.0
+solver: INC_RANS
+requires: SU2_CFD
+complexity: basic
+follows:
 ---
 
 ![Turb Plate Uplus v Yplus](../../Inc_Turbulent_Flat_Plate/images/turb_plate_v_x1p9.png)

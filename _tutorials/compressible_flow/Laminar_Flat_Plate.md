@@ -1,6 +1,15 @@
 ---
 title: Laminar Flat Plate
 permalink: /tutorials/Laminar_Flat_Plate/
+written_by: economon
+for_version: 7.0.0
+revised_by: economon
+revision_date: 2019-11-23
+revised_version: 7.0.0
+solver: Euler
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Lam Plate Profile](../../Laminar_Flat_Plate/images/lam_plate_velocity_profile.png)

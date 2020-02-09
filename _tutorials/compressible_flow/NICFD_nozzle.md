@@ -1,6 +1,15 @@
 ---
 title: Non-ideal compressible flow in a supersonic nozzle
 permalink: /tutorials/NICFD_nozzle/
+written_by: AlbertoGuardone
+for_version: 7.0.0
+revised_by: economon
+revision_date: 2019-11-25
+revised_version: 7.0.0
+solver: RANS
+requires: SU2_CFD
+complexity: advanced
+follows: 
 ---
 
 ![NICFD nozzle Mach](../../NICFD_nozzle/images/mach_isolines.png)

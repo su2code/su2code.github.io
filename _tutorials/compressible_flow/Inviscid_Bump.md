@@ -1,6 +1,15 @@
 ---
 title: Inviscid Bump in a Channel
 permalink: /tutorials/Inviscid_Bump/
+written_by: economon
+for_version: 7.0.0
+revised_by: economon
+revision_date: 2019-11-23
+revised_version: 7.0.0
+solver: Euler
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Channel Mach](../../Inviscid_Bump/images/channel_mach.png)

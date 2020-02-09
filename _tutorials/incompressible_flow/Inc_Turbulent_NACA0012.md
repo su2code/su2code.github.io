@@ -1,6 +1,15 @@
 ---
 title: Turbulent NACA 0012
 permalink: /tutorials/Inc_Turbulent_NACA0012/
+written_by: economon 
+for_version: 7.0.0
+revised_by: economon  
+revision_date: 2019-11-25
+revised_version: 7.0.0
+solver: INC_RANS
+requires: SU2_CFD
+complexity: basic
+follows:
 ---
 
 ![Turb NACA 0012 Pressure](../../Inc_Turbulent_NACA0012/images/n0012_cp_AoA10deg.png)

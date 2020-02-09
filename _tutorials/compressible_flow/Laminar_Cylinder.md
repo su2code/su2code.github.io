@@ -1,6 +1,15 @@
 ---
 title: Laminar Cylinder
 permalink: /tutorials/Laminar_Cylinder/
+written_by: economon
+for_version: 7.0.0
+revised_by: economon
+revision_date: 2019-11-23
+revised_version: 7.0.0
+solver: Navier_Stokes
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Cylinder Mach](../../Laminar_Cylinder/images/cylinder_mach.png)

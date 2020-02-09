@@ -1,6 +1,15 @@
 ---
 title: Unconstrained shape design of a transonic inviscid airfoil at a cte. AoA
 permalink: /tutorials/Inviscid_2D_Unconstrained_NACA0012/
+written_by: economon
+for_version: 7.0.0
+revised_by: jayantmukho
+revision_date: 2019-09-24
+revised_version: 7.0.0
+solver: Euler
+requires: SU2_CFD, Python
+complexity: advanced
+follows: 
 ---
 
 ![Optimization Diagram](../../Inviscid_2D_Unconstrained_NACA0012/images/optimization_diagram.png)
