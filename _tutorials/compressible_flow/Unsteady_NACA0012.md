@@ -1,6 +1,15 @@
 ---
 title: Unsteady NACA0012
 permalink: /tutorials/Unsteady_NACA0012/
+written_by: ScSteffen
+for_version: 7.0.1
+revised_by: ScSteffen
+revision_date: 2020-01-27
+revised_version: 7.0.1
+solver: RANS
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Periodic Flow Field](../../Unsteady_NACA0012/images/flow1.png)

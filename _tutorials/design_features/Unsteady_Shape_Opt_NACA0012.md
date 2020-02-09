@@ -1,6 +1,15 @@
 ---
 title: Unsteady Shape Optimization NACA0012
 permalink: /tutorials/Unsteady_Shape_Opt_NACA0012/
+written_by: ScSteffen
+for_version: 7.0.1
+revised_by: ScSteffen
+revision_date: 2020-01-27
+revised_version: 7.0.1
+solver: RANS
+requires: SU2_CFD
+complexity: basic
+follows: Unsteady_NACA0012
 ---
 
 ![Periodic Flow Field](../../Unsteady_Shape_Opt_NACA0012/images/opt_shapes.png)
