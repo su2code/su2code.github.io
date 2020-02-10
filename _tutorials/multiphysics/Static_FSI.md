@@ -3,7 +3,7 @@ title: Static Fluid-Structure Interaction (FSI)
 permalink: /tutorials/Static_FSI/
 written_by: rsanfer
 for_version: 7.0.2
-revised_by: ransfer
+revised_by: rsanfer
 revision_date: 2020-02-05
 revised_version: 7.0.2
 solver: Multiphysics

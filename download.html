@@ -17,6 +17,7 @@ layout: default
       $(document).ready (function () {
           $.getJSON("https://api.github.com/repos/su2code/SU2/releases/latest").done(function (data) {
               $ ('#current_release').text ("Current Release: " + data.name); 
+              $ ('#html_url').attr("href", data.html_url)
               $ ('#zip_ball').attr("href", data.zipball_url)
               $ ('#tar_ball').attr("href", data.tarball_url)
               for (var key in data.assets) {
@@ -111,6 +112,7 @@ layout: default
 
   <br>
   <h3 id="current_release"></h3>
+  <h4>Release Notes can be found on the <a href="https://github.com/su2code/SU2/releases">releases page on Github</a></h4>
   <br>
   <table style='width:100%;font-size:100%;'>
     <tr>

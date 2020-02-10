@@ -3,7 +3,7 @@ title: Linear Dynamics
 permalink: /tutorials/Linear_Dynamics/
 written_by: rsanfer
 for_version: 7.0.2
-revised_by: ransfer
+revised_by: rsanfer
 revision_date: 2020-01-28
 revised_version: 7.0.2
 solver: Elasticity
