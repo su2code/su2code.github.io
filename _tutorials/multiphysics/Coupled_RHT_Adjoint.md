@@ -21,7 +21,7 @@ This tutorial follows up the coupled SU2's [incompressible CFD-RHT tutorial](../
 - Projecting the surface sensitivities into the FFD parameters
 
 
-In this tutorial, we define a problem similar to the [Laminar_Cylinder](../Laminar_Cylinder) tutorial, however using in this case the incompressible solver. A cylinder with ```D = 1.0 m``` is immersed in a laminar, external flow with a Reynolds number ```Re = 40```. 
+In this tutorial, we define a problem similar to the [Laminar_Cylinder](../Laminar_Cylinder), however using in this case the incompressible solver. A cylinder with ```D = 1.0 m``` is immersed in a laminar, external flow with a Reynolds number ```Re = 40```. 
 
 ![ProblemSetup1](../multiphysics/images/rhtadj1.png)
 
@@ -31,13 +31,13 @@ For this tutorial, please download the contents of the folder [multiphysics/adjo
 
 ### Background 
 
-SU2 adopts a P1 model for the simulation of Radiative Heat Transfer, for which further details have been provided for the [incompressible CFD-RHT tutorial](../Basic_RHT). In this case, we will incorporate the computation of the adjoint solution for the coupled problem, which will be the main focus of this tutorial. Overall, the discrete adjoint will be computed using the fixed-point expression
+SU2 adopts a P1 model for the simulation of Radiative Heat Transfer, for which further details have been provided for the [incompressible CFD-RHT tutorial](../Basic_RHT). In this case, we will incorporate the computation of the adjoint solution for the coupled problem, which will be the main focus of this tutorial. The discrete adjoint will be computed using the fixed-point expression
 
 $$
-\mathbf{\bar{z}}^{n+1} = \frac{\partial J}{\partial \mathbf{x}}^T + \frac{\partial\mathbf{G}}{\partial \mathbf{z}}^T \mathbf{\bar{z}}^n,
+\mathbf{\bar{z}}^{n+1} = \frac{\partial J}{\partial \mathbf{z}}^T + \frac{\partial\mathbf{G}}{\partial \mathbf{z}}^T \mathbf{\bar{z}}^n,
 $$
 
-where $$J$$ is the objective function, $$\mathbf{G}(\cdot)$$ the fixed point iterator on the coupled CFD-RHT problem, $$\mathbf{z} = (\mathbf{w},E)$$ the extended state vector including the flow variables $$\mathbf{w}$$ and the radiative energy $$E$$ and $$\mathbf{\bar{z}}$$ its adjoint. Further detail can be found in reference$$^1$$.
+where $$J$$ is the objective function, $$\mathbf{G}(\cdot)$$ the fixed point iterator on the coupled CFD-RHT problem, $$\mathbf{z} = (\mathbf{w},E)$$ the extended state vector including the flow variables $$\mathbf{w}$$ and the radiative energy $$E$$, and $$\mathbf{\bar{z}}$$ its adjoint. Further detail can be found in reference$$^1$$.
 
 #### Mesh Description
 
@@ -51,7 +51,7 @@ We start the tutorial by definining the problem as an incompressible, Navier Sto
 SOLVER = INC_NAVIER_STOKES
 ```
 
-and we set the properties for the flow to obtain a ```Re = 40``` based on the cylinder diameter. We use standard settings for the linear solver and a FDS scheme for the convective terms. The problem admits a relatively high ```CFL=1.0E4```. 
+and we set the properties for the flow to obtain a ```Re = 40``` based on the cylinder diameter. We use standard settings for the linear solver and a FDS scheme for the convective terms. The problem admits a relatively high ```CFL = 1.0E4```. 
 
 ```
 INC_DENSITY_MODEL = VARIABLE
@@ -101,14 +101,13 @@ REF_LENGTH = 1.0
 REF_AREA = 1.0
 ```
 
-Finally, we will be interested in the drag coefficient of the cylinder. Therefore, we will control the convergence of the problem by defining the $$C_D$$ as the main convergence parameter. We use a Cauchy criteria and determine that the problem will be considered as converged when the changes to $$C_D$$ are below 1.0E-9 for more than 50 iterations.
+Finally, we are interested in the drag coefficient of the cylinder. Therefore, we will control the convergence of the problem by defining the $$C_D$$ as the main convergence parameter. We use a Cauchy criteria and determine that the problem will be considered as converged when the changes to $$C_D$$ are below 1.0E-9 for more than 50 iterations.
 
 ```
 INNER_ITER = 5000
 
 CONV_CRITERIA = CAUCHY
 CONV_FIELD = DRAG
-CONV_RESIDUAL_MINVAL = -8
 
 CONV_CAUCHY_ELEMS = 50
 CONV_CAUCHY_EPS = 1E-9
@@ -192,7 +191,7 @@ TABULAR_FORMAT = CSV
 CONV_FILENAME= history
 ```
 
-Follow the links provided to download the [config](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/config_rht_primal.cfg) and [mesh](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/radiation/mesh_adjoint_rht.su2) files.
+Follow the links provided to download the [config](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/config_rht_primal.cfg) and [mesh](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/mesh_adjoint_rht.su2) files.
 
 Execute the code with the standard command
 
@@ -300,7 +299,7 @@ log10[E(rad)]: -5.64959
 -------------------------------------------------------------------------
 ```
 
-The solution fields have been reconstructed from the converged primal solution and read from ```solution_rht.dat```. One further primal iteration is run, which will be recorded using the AD tool [CoDiPack](https://www.scicomp.uni-kl.de/codi/), to compute the adjoint path. Therefore, the residuals printed above correspond to those of the direct iteration used for the recording. Further information on the recording process can be found on reference$$^2$$, exemplified for an FSI test case, and in reference$$^1$$.
+The solution fields have been reconstructed from the converged primal solution and read from ```solution_rht.dat```. One further primal iteration is run, which will be recorded using the AD tool [CoDiPack](https://www.scicomp.uni-kl.de/codi/), to compute the adjoint path. Therefore, the residuals printed above correspond to those of the direct iteration used for the recording. We observe that the order of magnitude of the residual agrees well with the last iterations in the primal run and the convergence trend. Further information on the recording process can be found on reference$$^2$$, exemplified for an FSI test case, and in reference$$^1$$.
 
 An iterative process is then started by running in reverse mode through the adjoint path. The convergence of the adjoint variables is printed to screen:
 
@@ -368,14 +367,14 @@ to indicate SU2 that there are 2 boundaries, ```body``` and ```farfield``` in ou
 DV_KIND = FFD_SETTING
 ```
 
-to determine that the objective of this config file is to set up an FFD box. The boundary for which the FFD box is ```body```, and we are interested in having 24 boxes in x direction and 1 box in y direction according to our definition above, that will move in direction (0,1)
+to determine that the objective of this config file is to set up an FFD box. The boundary for which the FFD box is ```body```, and we are interested in having 24 boxes in $$x$$ direction and 1 box in $$y$$ direction according to our definition above, that will move in direction (0,1)
 
 ```
 DV_MARKER = ( body )
 DV_PARAM = ( MAIN_BOX, 24, 1, 0.0, 1.0 )
 ```
 
-The FFD box will range in $$x \in [-0.55, 0.55]$$, and in $$y \in [-0.55, 0.55]$$. There is no dimension $z$ as we are solving a 2D problem.
+The FFD box will range in $$x \in [-0.55, 0.55]$$, and in $$y \in [-0.55, 0.55]$$. There is no dimension $$z$$ as we are solving a 2D problem.
 
 ```
 FFD_DEFINITION = (MAIN_BOX, -0.55, -0.55, 0.0, 0.55, -0.55, 0.0, 0.55, 0.55, 0.0, -0.55, 0.55, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
@@ -473,7 +472,7 @@ The FFD parameters are indicated in structures of the form
 
 ```(BOX NAME, X-INDEX, Y-INDEX, X-DISP, Y-DISP)```, 
 
-separated by semicolons. In this case, we have 25 positions in X direction, $$[0,24]$$$, and only 2 in Y direction, $$[0,1]$$$, and their range of movement is only allowed in Y direction ```X-DISP = 0.0```, ```Y-DISP = 1.0```
+separated by semicolons. In this case, we have 25 positions in X direction, $$[0,24]$$, and 2 in Y direction, $$[0,1]$$, and their range of movement is only allowed in Y direction ```X-DISP = 0.0```, ```Y-DISP = 1.0```
 
 ```
 DV_PARAM = ( MAIN_BOX, 0.0, 0.0, 0.0, 1.0) ; ( MAIN_BOX, 1.0, 0.0, 0.0, 1.0) ;  ...  ; ( MAIN_BOX, 23.0, 0.0, 0.0, 1.0) ; ( MAIN_BOX, 24.0, 0.0, 0.0, 1.0) ; ( MAIN_BOX, 0.0, 1.0, 0.0, 1.0) ; ( MAIN_BOX, 1.0, 1.0, 0.0, 1.0) ; ... ; ( MAIN_BOX, 23.0, 1.0, 0.0, 1.0) ; ( MAIN_BOX, 24.0, 1.0, 0.0, 1.0) 
