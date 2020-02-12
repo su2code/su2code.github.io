@@ -151,7 +151,7 @@ Follow the links provided to download the [config](https://github.com/su2code/Tu
 Execute the code with the standard command
 
 ```
-SU2_CFD config_radiation.cfg
+$ SU2_CFD config_radiation.cfg
 ```
 
 which will show the following convergence history:

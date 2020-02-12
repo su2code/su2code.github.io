@@ -86,7 +86,7 @@ Finally, given the flexibility of the regions R1 and R3, an incremental approach
 Follow the links provided to download the [config](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/config_nonlinear_multimaterial.cfg), [mesh](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2) and [element_properties](https://github.com/su2code/Tutorials/blob/master/structural_mechanics/cantilever/element_properties.dat) files. Execute the code with the standard command
 
 ```
-SU2_CFD config_nonlinear_multimaterial.cfg
+$ SU2_CFD config_nonlinear_multimaterial.cfg
 ```
 
 which will show the following convergence history:

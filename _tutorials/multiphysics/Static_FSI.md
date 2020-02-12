@@ -248,7 +248,7 @@ Also, you will need two files for the [channel mesh](https://github.com/su2code/
 Execute the code with the standard command and using the multi-zone config file
 
 ```
-SU2_CFD config_fsi_steady.cfg
+$ SU2_CFD config_fsi_steady.cfg
 ```
 
 which will show the following convergence history:

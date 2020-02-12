@@ -94,7 +94,7 @@ MARKER_PRESSURE = ( left, 1E3, upper, 0, right, 0)
 Follow the links provided to download the [config](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/config_nonlinear.cfg) and [mesh](https://github.com/rsanfer/Tutorials/blob/master/structural_mechanics/cantilever/mesh_cantilever.su2) files. Execute the code with the standard command
 
 ```
-SU2_CFD config_nonlinear.cfg
+$ SU2_CFD config_nonlinear.cfg
 ```
 
 which will show the following convergence history:
