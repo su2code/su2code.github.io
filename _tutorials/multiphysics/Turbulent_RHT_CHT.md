@@ -4,7 +4,7 @@ permalink: /tutorials/Turbulent_RHT_CHT/
 written_by: rsanfer
 for_version: 7.0.2
 revised_by: rsanfer
-revision_date: 2020-02-19
+revision_date: 2020-02-27
 revised_version: 7.0.2
 solver: INC_RANS
 requires: SU2_CFD, SU2_DEF, SU2_CFD_AD, SU2_DOT_AD
@@ -26,9 +26,11 @@ In this tutorial, we define a problem similar to the [Laminar Buoyancy-Driven Ca
 
 ![ProblemSetup1](../multiphysics/images/chtrht1.png)
 
+Where the inlet velocity is 3 m/s and its temperature is 450 K, while the outlet is a 0 pressure outlet. 
+
 ### Resources
 
-For this tutorial, please download the contents of the folder [multiphysics/turb_rht_cht](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/turb_rht_cht) of the [Tutorials repository](https://github.com/su2code/Tutorials). 
+For this tutorial, please download the contents of the folder [multiphysics/turb_rht_cht](https://github.com/su2code/Tutorials/blob/feature_radiation_multizone/multiphysics/turb_rht_cht) of the [Tutorials repository](https://github.com/su2code/Tutorials). 
 
 ### Background 
 
@@ -36,116 +38,133 @@ CHT simulations become important when we cannot assume an isomthermal wall bound
 
 #### Mesh Description
 
-The flow domain is discretized with a structured mesh with a total of 4800 elements. The solid domain is discretized using 960 elements. The interface between the domains is matching.
+The flow domain is discretized using a structured mesh with a total of 4800 elements. The solid domain is discretized using 960 elements. The interface between the domains is matching.
 
 #### FFD Box Generation
 
-First, we will define the FFD boxes to 
+First, we define the two FFD boxes to parametrize the upper and lower boundaries of the fluid domain, using 14 design variables per boundary. This is shown next
 
- to convert the solution of our adjoint problem into usable magnitudes for a shape optimization problem. In order to do so, we will define a Free-Form Deformation (FFD) box around the body such as
+![ProblemSetup2](../multiphysics/images/chtrht2.png)
 
-![Adjoint Convergence](../multiphysics/images/rhtadj5.png)
+In order to ensure that the solid domain remains fixed, the FFD boxes are defined so that they do not intersect the CHT boundary. This is shown in detail in the next image, where the red domain corresponds to the solid, and the blue to the FFD box
 
-where the design parameters $$x_1$$ to $$x_{50}$$ correspond to the vertical deformation of the FFD box for 50 nodes.
+![ProblemSetup2](../multiphysics/images/chtrht3.png)
 
-In order to build the FFD box, please download the [FFD config file](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/config_rht_ffd.cfg). First, we need to define the mesh file as the input, and we choose the name for the resulting mesh file that will include the FFD box information to be ```mesh_adjoint_rht_ffd.su2```:
-
-```
-MESH_FORMAT = SU2
-MESH_FILENAME = mesh_adjoint_rht.su2
-MESH_OUT_FILENAME = mesh_adjoint_rht_ffd.su2
-```
-
-The code requires all boundaries to be indicated in the config file, it is sufficient if we use 
-
-```
-MARKER_CUSTOM = ( body, farfield )
-```
-
-to indicate SU2 that there are 2 boundaries, ```body``` and ```farfield``` in our mesh file. Next, we set up the keyword
+We define the FFD boxes using the [FFD config file](https://github.com/su2code/Tutorials/blob/feature_radiation_multizone/multiphysics/turb_rht_cht/config_ffd.cfg). In this case, we define 2 boxes using
 
 ```
 DV_KIND = FFD_SETTING
+DV_MARKER = (( upper ), (lower))
+DV_PARAM = (( UPPER_BOX, 14, 1, 0.0, 1.0 ), ( LOWER_BOX, 14, 1, 0.0, 1.0 ))
 ```
 
-to determine that the objective of this config file is to set up an FFD box. The boundary for which the FFD box is ```body```, and we are interested in having 24 boxes in $$x$$ direction and 1 box in $$y$$ direction according to our definition above, that will move in direction (0,1)
-
-```
-DV_MARKER = ( body )
-DV_PARAM = ( MAIN_BOX, 24, 1, 0.0, 1.0 )
-```
-
-The FFD box will range in $$x \in [-0.55, 0.55]$$, and in $$y \in [-0.55, 0.55]$$. There is no dimension $$z$$ as we are solving a 2D problem.
-
-```
-FFD_DEFINITION = (MAIN_BOX, -0.55, -0.55, 0.0, 0.55, -0.55, 0.0, 0.55, 0.55, 0.0, -0.55, 0.55, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-```
-
-Finally, the parameters for the computation of the FFD box are set.
+where the parameters for each box (```UPPER_BOX``` and ```LOWER_BOX```) are set using
 
 ```
 FFD_TOLERANCE = 1E-8
 FFD_ITERATIONS = 500
-FFD_DEGREE = ( 24, 1, 0)
+FFD_DEFINITION = (UPPER_BOX, -0.02, 0.975, 0.0, 0.998, 0.975, 0.0, 0.998, 1.025, 0.0, -0.02, 1.025, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0); (LOWER_BOX, -0.02, -0.025, 0.0, 0.998, -0.025, 0.0, 0.998, 0.025, 0.0, -0.02, 0.025, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+FFD_DEGREE = ( 14, 1, 0); ( 14, 1, 0)
 FFD_CONTINUITY = 2ND_DERIVATIVE
 ```
 
 We run the following command
 
 ```
-$ SU2_DEF config_rht_ffd.cfg
+$ SU2_DEF config_ffd.cfg
 ```
 
 which returns
 
 ```
+--------------------- Surface grid deformation (ZONE 0) -----------------
+Performing the deformation of the surface grid.
+2 Free Form Deformation boxes.
+1 Free Form Deformation nested levels.
+FFD box tag: UPPER_BOX. FFD box level: 0. Degrees: 14, 1.
+FFD Blending using Bezier Curves.
+Number of parent boxes: 0. Number of child boxes: 0.
+FFD box tag: LOWER_BOX. FFD box level: 0. Degrees: 14, 1.
+FFD Blending using Bezier Curves.
+Number of parent boxes: 0. Number of child boxes: 0.
+
+----------------- FFD technique (cartesian -> parametric) ---------------
+Compute parametric coord      | FFD box: UPPER_BOX. Max Diff: 2.28878e-16.
+Compute parametric coord      | FFD box: LOWER_BOX. Max Diff: 2.22045e-16.
+Writing a Paraview file of the FFD boxes.
+No surface deformation (setting FFD).
+
 ----------------------- Write deformed grid files -----------------------
-|SU2 mesh                           |mesh_adjoint_rht_ffd.su2           |
+|SU2 mesh                           |mesh_flow_ffd.su2                  |
 Adding any FFD information to the SU2 file.
 ```
 
-In order to confirm that the FFD information has been added to the mesh file, we open ```mesh_adjoint_rht_ffd.su2``` and check that the FFD information is appended below
+In order to confirm that both FFD boxes information has been added to the mesh file, we open ```mesh_flow_ffd.su2``` and check that the FFD information has been appended to the file
 
 ```
-FFD_NBOX= 1
+FFD_NBOX= 2
 FFD_NLEVEL= 1
-FFD_TAG= MAIN_BOX
+FFD_TAG= UPPER_BOX
 FFD_LEVEL= 0
-FFD_DEGREE_I= 24
+FFD_DEGREE_I= 14
 FFD_DEGREE_J= 1
 FFD_BLENDING= BEZIER
 FFD_PARENTS= 0
 FFD_CHILDREN= 0
 FFD_CORNER_POINTS= 4
--0.55	-0.55
-0.55	-0.55
-0.55	0.55
--0.55	0.55
-FFD_CONTROL_POINTS= 100
-0	0	0	-0.55	-0.55	-0.5
-0	0	1	-0.55	-0.55	0.5
-0	1	0	-0.55	0.55	-0.5
-0	1	1	-0.55	0.55	0.5
+-0.02	0.975
+0.998	0.975
+0.998	1.025
+-0.02	1.025
+FFD_CONTROL_POINTS= 60
+0	0	0	-0.02	0.975	-0.5
+0	0	1	-0.02	0.975	0.5
+0	1	0	-0.02	1.025	-0.5
+0	1	1	-0.02	1.025	0.5
 ...
-24	0	0	0.55	-0.55	-0.5
-24	0	1	0.55	-0.55	0.5
-24	1	0	0.55	0.55	-0.5
-24	1	1	0.55	0.55	0.5
-FFD_SURFACE_POINTS= 396
-body	0	4.545454545454555e-02	5.000000000000000e-01	5.000000000000000e-01
-body	20	4.551176014851176e-02	5.072118017603070e-01	5.000000000000000e-01
-body	21	4.568338982691677e-02	5.144217879880573e-01	5.000000000000000e-01
-body	22	4.596939128289383e-02	5.216281436075275e-01	5.000000000000000e-01
+14	0	0	0.998	0.975	-0.5
+14	0	1	0.998	0.975	0.5
+14	1	0	0.998	1.025	-0.5
+14	1	1	0.998	1.025	0.5
+FFD_SURFACE_POINTS= 50
+upper	103	2.368368087162328e-02	4.999999999999987e-01	5.000000000000000e-01
+upper	5	1.964636542239686e-02	4.999999999999987e-01	5.000000000000000e-01
 ...
-body	409	4.596939127778600e-02	4.783718564996967e-01	5.000000000000000e-01
-body	410	4.568338982421771e-02	4.855782120969652e-01	5.000000000000000e-01
-body	411	4.551176014774048e-02	4.927881982883025e-01	5.000000000000000e-01
+upper	150	9.932979180545798e-01	5.000000000000000e-01	5.000000000000000e-01
+upper	151	9.979273210929932e-01	5.000000000000000e-01	5.000000000000000e-01
+FFD_TAG= LOWER_BOX
+FFD_LEVEL= 0
+FFD_DEGREE_I= 14
+FFD_DEGREE_J= 1
+FFD_BLENDING= BEZIER
+FFD_PARENTS= 0
+FFD_CHILDREN= 0
+FFD_CORNER_POINTS= 4
+-2.000000000000000e-02	-2.500000000000000e-02
+9.980000000000000e-01	-2.500000000000000e-02
+9.980000000000000e-01	2.500000000000000e-02
+-2.000000000000000e-02	2.500000000000000e-02
+FFD_CONTROL_POINTS= 60
+0	0	0	-2.000000000000000e-02	-2.500000000000000e-02	-5.000000000000000e-01
+0	0	1	-2.000000000000000e-02	-2.500000000000000e-02	5.000000000000000e-01
+0	1	0	-2.000000000000000e-02	2.500000000000000e-02	-5.000000000000000e-01
+0	1	1	-2.000000000000000e-02	2.500000000000000e-02	5.000000000000000e-01
+...
+14	0	0	9.980000000000000e-01	-2.500000000000000e-02	-5.000000000000000e-01
+14	0	1	9.980000000000000e-01	-2.500000000000000e-02	5.000000000000000e-01
+14	1	0	9.980000000000000e-01	2.500000000000000e-02	-5.000000000000000e-01
+14	1	1	9.980000000000000e-01	2.500000000000000e-02	5.000000000000000e-01
+FFD_SURFACE_POINTS= 50
+lower	243	9.979273210929928e-01	5.000000000000000e-01	5.000000000000000e-01
+lower	244	9.932979180545780e-01	5.000000000000000e-01	5.000000000000000e-01
+...
+lower	291	2.368368087164354e-02	5.000000000000000e-01	5.000000000000000e-01
+lower	0	1.964636542239686e-02	5.000000000000000e-01	5.000000000000000e-01
 ```
 
+### Multiphysics Configuration File
 
-#### Multiphysics Configuration File
-
-We start the tutorial by definining the problem as a multiphysics case,
+We start the tutorial by [definining the problem as a multiphysics case](https://github.com/su2code/Tutorials/blob/feature_radiation_multizone/multiphysics/turb_rht_cht/turbulent_rht_cht.cfg),
 
 ```
 SOLVER = MULTIPHYSICS
@@ -191,46 +210,46 @@ where the restart and paraview solution files are written every 1000 iterations,
 
 #### Applying simulation conditions to the individual domains: Flow domain
 
-The flow domain is defined in ```config_flow_rht.cfg```. An incompressible, Raynolds-Averaged Navier Stokes simulation with an SST turbulence model is set
+The flow domain is defined in ```config_flow_rht.cfg```. An incompressible, Renolds-Averaged Navier Stokes simulation with an SST turbulence model is set
 
 ```
-SOLVER= INC_RANS
-KIND_TURB_MODEL= SST
+SOLVER = INC_RANS
+KIND_TURB_MODEL = SST
 ```
 
 We set the properties for the flow according to the problem definition
 
 ```
-INC_DENSITY_MODEL= VARIABLE
+INC_DENSITY_MODEL = VARIABLE
 INC_ENERGY_EQUATION = YES
-INC_VELOCITY_INIT= ( 1.0, 0.0, 0.0 )
-INC_DENSITY_INIT= 0.006
-INC_TEMPERATURE_INIT= 450
+INC_VELOCITY_INIT = ( 1.0, 0.0, 0.0 )
+INC_DENSITY_INIT = 0.006
+INC_TEMPERATURE_INIT = 450
 
 INC_NONDIM = DIMENSIONAL
 
-VISCOSITY_MODEL= CONSTANT_VISCOSITY
-MU_CONSTANT= 1e-5
+VISCOSITY_MODEL = CONSTANT_VISCOSITY
+MU_CONSTANT = 1e-5
 
-CONDUCTIVITY_MODEL= CONSTANT_CONDUCTIVITY
-KT_CONSTANT= 0.01
+CONDUCTIVITY_MODEL = CONSTANT_CONDUCTIVITY
+KT_CONSTANT = 0.01
 
-FLUID_MODEL= INC_IDEAL_GAS
-SPECIFIC_HEAT_CP= 1000
-MOLECULAR_WEIGHT= 30
+FLUID_MODEL = INC_IDEAL_GAS
+SPECIFIC_HEAT_CP = 1000
+MOLECULAR_WEIGHT = 30
 
-BODY_FORCE= YES
-BODY_FORCE_VECTOR= ( 0.0, -9.81, 0.0 )
+BODY_FORCE = YES
+BODY_FORCE_VECTOR = ( 0.0, -9.81, 0.0 )
 ```
 
 And the radiation model is defined as
 
 ```
 RADIATION_MODEL = P1
-MARKER_EMISSIVITY= ( upper, 0.0, lower, 0.0, left, 1.0, right, 1.0, inlet, 1.0, outlet, 1.0 )
+MARKER_EMISSIVITY = ( upper, 0.0, lower, 0.0, left, 1.0, right, 1.0, inlet, 1.0, outlet, 1.0 )
 ABSORPTION_COEFF = 1.0
 CFL_NUMBER_RAD = 1E12
-TIME_DISCRE_RADIATION= EULER_IMPLICIT
+TIME_DISCRE_RADIATION = EULER_IMPLICIT
 ```
 
 We incorporate a volumetric heat source in the form of an ellipse with principal axes $$a = 0.2$$, $$b = 0.05$$, centered at $$(0.2,0.875,0)$$, to mimic the effect of a flame in the domain
@@ -246,37 +265,37 @@ HEAT_SOURCE_AXES = (0.2,0.05,0)
 Next, the flow boundary conditions are applied
 
 ```
-MARKER_ISOTHERMAL= ( left, 600.0 )
-MARKER_HEATFLUX= ( upper, 0.0, lower, 0.0 )
-MARKER_PLOTTING= ( right )
-MARKER_MONITORING= ( right )
+MARKER_ISOTHERMAL = ( left, 600.0 )
+MARKER_HEATFLUX = ( upper, 0.0, lower, 0.0 )
+MARKER_PLOTTING = ( right )
+MARKER_MONITORING = ( right )
 
-INC_INLET_TYPE= VELOCITY_INLET
-MARKER_INLET= ( inlet, 450.0, 3.0, 1.0, 0.0, 0.0)
+INC_INLET_TYPE = VELOCITY_INLET
+MARKER_INLET = ( inlet, 450.0, 3.0, 1.0, 0.0, 0.0)
 
 INC_OUTLET_TYPE = PRESSURE_OUTLET
-MARKER_OUTLET= ( outlet, 0.0 )
+MARKER_OUTLET = ( outlet, 0.0 )
 ```
 
 and the ```right``` boundary is defined as a CHT interface
 
 ```
-MARKER_CHT_INTERFACE= (right)
+MARKER_CHT_INTERFACE = (right)
 ```
 
 #### Applying simulation conditions to the individual domains: Solid domain
 
-The solid domain is defined in ```config_solid_cht.cfg```. Only heat transfer is considered in the FVM solver
+The solid domain is defined in ```config_solid_cht.cfg```. Only the heat equation is considered by the solver
 
 ```
-SOLVER= HEAT_EQUATION_FVM
+SOLVER = HEAT_EQUATION
 ```
 
 The properties of the solid domain are defined next
 
 ```
-SOLID_TEMPERATURE_INIT= 300.0
-SOLID_DENSITY= 2000
+SOLID_TEMPERATURE_INIT = 300.0
+SOLID_DENSITY = 2000
 
 SPECIFIC_HEAT_CP = 1000.0
 SOLID_THERMAL_CONDUCTIVITY = 1.0
@@ -287,336 +306,253 @@ INC_NONDIM = DIMENSIONAL
 And the boundary conditions are, for this case
 
 ```
-MARKER_ISOTHERMAL= ( rightSolid, 300.0,  upperSolid, 300.0,  lowerSolid, 300.0)
-MARKER_MONITORING= ( NONE )
+MARKER_ISOTHERMAL = ( rightSolid, 300.0,  upperSolid, 300.0,  lowerSolid, 300.0)
+MARKER_MONITORING = ( NONE )
 ```
 
 while the coupling conditions are defined using
 
 ```
-MARKER_CHT_INTERFACE= (leftSolid)
+MARKER_CHT_INTERFACE = (leftSolid)
 ```
 
+### Running the primal simulation
 
-
-
-And now run the simulation without radiation model enabled. We obtain
+We now run the simulation in parallel with 2 cores, using
 
 ```
-Simulation Run using the Single-zone Driver
-+---------------------------------------------------+
-|  Inner_Iter|      rms[P]|      rms[T]|          CD|
-+---------------------------------------------------+
-|           0|   -6.415080|   -0.935921|   34.561397|
-|           1|   -6.646410|   -1.167251|   12.154547|
-|           2|   -6.857411|   -1.378252|    5.701560|
-|           3|   -6.930843|   -1.451684|    4.159827|
-|           4|   -7.096321|   -1.617162|    3.264458|
-|           5|   -7.270927|   -1.791768|    2.613077|
-|           6|   -7.412334|   -1.933175|    2.212900|
-|           7|   -7.520525|   -2.041366|    1.950251|
-|           8|   -7.608128|   -2.128969|    1.788462|
-|           9|   -7.687862|   -2.208703|    1.687670|
-|          10|   -7.766279|   -2.287120|    1.623157|
+$ mpirun -n 2 SU2_CFD turbulent_rht_cht.cfg 
+```
+
+and we obtain
+
+```
++--------------------------------------+
+|           Multizone Summary          |
++--------------------------------------+
+|  Outer_Iter| avg[bgs][0]| avg[bgs][1]|
++--------------------------------------+
+|           0|    0.376042|   -0.201907|
+|           1|    0.308690|   -0.837103|
+|           2|    0.130097|   -1.039244|
+|           3|   -0.060423|   -1.232387|
+|           4|   -0.194779|   -1.419352|
+|           5|   -0.345477|   -1.592573|
+|           6|   -0.447955|   -1.744954|
+|           7|   -0.521272|   -1.874409|
+|           8|   -0.540495|   -1.980951|
+|           9|   -0.594882|   -2.067258|
+|          10|   -0.651959|   -2.138538|
 ...
-
-|          82|  -17.477938|  -11.998908|    1.509865|
-|          83|  -17.591619|  -12.112953|    1.509865|
-|          84|  -17.697791|  -12.218540|    1.509865|
-|          85|  -17.809936|  -12.330734|    1.509865|
-|          86|  -17.916902|  -12.437406|    1.509865|
-|          87|  -18.025352|  -12.546016|    1.509865|
-|          88|  -18.136105|  -12.655410|    1.509865|
-|          89|  -18.240080|  -12.761985|    1.509865|
-|          90|  -18.350192|  -12.872918|    1.509865|
-|          91|  -18.454120|  -12.975104|    1.509865|
-|          92|  -18.557342|  -13.082067|    1.509865|
-```
-
-We observe that the resulting drag coefficient is $$C_D = 1.509865$$, which agrees well with results 
-
-|  | $$C_D$$ |
-| [Park,  J.,  Kwon,  K.,  Choi,  H. (1998)](https://doi.org/10.1007/bf02942594)| 1.51  |
-| [Sen,  S.,  Mittal,  S.,  Biswas,  G., (2009)](https://doi.org/10.1017/S0022112008004904) | 1.5093 |
-| [Economon, T. (2018)](https://doi.org/10.2514/6.2018-3111) | 1.507 |
-
-#### Incorporating Radiation effects
-
-To incorporate radiation effects, we increase the temperature of the body boundary to 1500 K
-
-```
-MARKER_ISOTHERMAL = ( body, 1500.0 )
-```
-
-Now, we follow the same approach as for the [incompressible CFD-RHT tutorial](../Basic_RHT). We define the radiative model to P1, and the absorption coefficient of the problem. Both the body and the farfield are considered emissive. Finally, the CFL number for the P1 equation is set to 1.0E4.
-
-```
-RADIATION_MODEL = P1
-ABSORPTION_COEFF = 0.01
-MARKER_EMISSIVITY = ( body, 1.0, farfield, 1.0 )
-CFL_NUMBER_RAD = 1.0E4
-```
-
-It only remains to set the output of the problem using
-
-
-```
-SCREEN_OUTPUT = (INNER_ITER, RMS_PRESSURE, RMS_TEMPERATURE, RMS_RAD_ENERGY, DRAG)
-
-OUTPUT_FILES = (RESTART, PARAVIEW)
-SOLUTION_FILENAME = solution_rht
-RESTART_FILENAME = restart_rht
-VOLUME_FILENAME = volume_rht
-
-TABULAR_FORMAT = CSV
-CONV_FILENAME= history
-```
-
-Follow the links provided to download the [config](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/config_rht_primal.cfg) and [mesh](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/mesh_adjoint_rht.su2) files.
-
-Execute the code with the standard command
-
-```
-$ SU2_CFD config_rht_primal.cfg
-```
-
-which will show the following convergence history:
-
-```
-+----------------------------------------------------------------+
-|  Inner_Iter|      rms[P]|      rms[T]|  rms[E_Rad]|          CD|
-+----------------------------------------------------------------+
-|           0|   -6.415080|    1.372397|    2.891724|   66.901414|
-|           1|   -5.565021|    0.322939|    2.658304|    5.940759|
-|           2|   -5.984899|    0.770693|    2.514670|   -6.198429|
-|           3|   -6.294298|    1.163968|    2.470076|   -6.175578|
-|           4|   -5.963378|    1.169388|    2.439879|   -4.752942|
-|           5|   -6.001536|    1.157978|    2.410318|   -3.907486|
-|           6|   -6.141469|    1.150189|    2.381443|   -3.502636|
-|           7|   -6.218988|    1.125991|    2.352114|   -3.104089|
-|           8|   -6.255746|    1.103723|    2.323083|   -2.641888|
-|           9|   -6.313092|    1.077849|    2.293892|   -2.169670|
-|          10|   -6.395249|    1.052317|    2.264864|   -1.726404|
-
+|       14000|   -7.822037|   -5.978975|
+|       14001|   -7.822255|   -5.979198|
+|       14002|   -7.822479|   -5.979420|
+|       14003|   -7.822697|   -5.979642|
+|       14004|   -7.822920|   -5.979864|
+|       14005|   -7.823138|   -5.980086|
+|       14006|   -7.823362|   -5.980308|
+|       14007|   -7.823580|   -5.980530|
+|       14008|   -7.823803|   -5.980752|
+|       14009|   -7.824021|   -5.980975|
+|       14010|   -7.824245|   -5.981197|
 ...
-|         272|  -14.409785|   -6.525393|   -5.330613|    2.768221|
-|         273|  -14.437955|   -6.555088|   -5.359712|    2.768221|
-|         274|  -14.467762|   -6.583369|   -5.388589|    2.768221|
-|         275|  -14.495931|   -6.613064|   -5.417688|    2.768221|
-|         276|  -14.525739|   -6.641345|   -5.446565|    2.768221|
-|         277|  -14.553908|   -6.671040|   -5.475664|    2.768221|
-|         278|  -14.583715|   -6.699321|   -5.504541|    2.768221|
-|         279|  -14.611885|   -6.729016|   -5.533640|    2.768221|
-|         280|  -14.641693|   -6.757297|   -5.562517|    2.768221|
-|         281|  -14.669862|   -6.786992|   -5.591616|    2.768221|
-|         282|  -14.699669|   -6.815274|   -5.620493|    2.768221|
-
+|       23115|   -9.831339|   -7.997863|
+|       23116|   -9.831563|   -7.998084|
+|       23117|   -9.831779|   -7.998305|
+|       23118|   -9.832003|   -7.998526|
+|       23119|   -9.832220|   -7.998747|
+|       23120|   -9.832443|   -7.998968|
+|       23121|   -9.832661|   -7.999189|
+|       23122|   -9.832884|   -7.999410|
+|       23123|   -9.833101|   -7.999631|
+|       23124|   -9.833324|   -7.999852|
+|       23125|   -9.833541|   -8.000073|
 ```
 
-The code is stopped as soon as the cauchy criteria set for $$C_D$$ has been met 
+We need to converge the problem thoroughly in order to obtain a converged heatflux at the CHT boundary, as this will be our objective function for adjoint purposes. From the history file, we can observe that, although the residuals have been reduced by 5 and 7 orders of magnitude respectively after 14000 iterations, the heaflux is not yet fully converged, and it takes almost another 10000 iterations to converge
 
 ```
-All convergence criteria satisfied.
-+-----------------------------------------------------------------------+
-|      Convergence Field     |     Value    |   Criterion  |  Converged |
-+-----------------------------------------------------------------------+
-|                  Cauchy[CD]|   9.39203e-10|       < 1e-09|         Yes|
-+-----------------------------------------------------------------------+
+"Time_Iter","Outer_Iter","Inner_Iter",      "HF[0]"     ,    "maxHF[0]"    
+          0,           0,           0,       4781.631841,       8284.801073
+          0,           1,           0,        206.661296,       407.9247674
+          0,           2,           0,       157.8829329,        305.847306
+          0,           3,           0,       129.1211842,       247.3569023
+          0,           4,           0,       114.5644202,       217.9004096
+          0,           5,           0,       107.1377363,       202.2141012
+          0,           6,           0,       102.9648849,       193.3549536
+          0,           7,           0,       100.6066882,       188.5484424
+          0,           8,           0,       99.04567981,       185.4970227
+          0,           9,           0,       97.67690982,       182.8558711
+          0,          10,           0,       96.36114436,       180.2696727
+...
+          0,       14000,           0,       113.1030141,       200.7535431
+          0,       14001,           0,       113.1030134,       200.7535423
+          0,       14002,           0,       113.1030127,       200.7535414
+          0,       14003,           0,       113.1030119,       200.7535406
+          0,       14004,           0,       113.1030112,       200.7535398
+          0,       14005,           0,       113.1030105,       200.7535389
+          0,       14006,           0,       113.1030098,       200.7535381
+          0,       14007,           0,        113.103009,       200.7535373
+          0,       14008,           0,       113.1030083,       200.7535364
+          0,       14009,           0,       113.1030076,       200.7535356
+          0,       14010,           0,       113.1030069,       200.7535348
+...
+          0,       23116,           0,       113.1015985,       200.7519326
+          0,       23117,           0,       113.1015985,       200.7519326
+          0,       23118,           0,       113.1015985,       200.7519326
+          0,       23119,           0,       113.1015985,       200.7519326
+          0,       23120,           0,       113.1015985,       200.7519326
+          0,       23121,           0,       113.1015985,       200.7519325
+          0,       23122,           0,       113.1015985,       200.7519325
+          0,       23123,           0,       113.1015985,       200.7519325
+          0,       23124,           0,       113.1015985,       200.7519325
+          0,       23125,           0,       113.1015985,       200.7519325
 ```
 
-And we observe that the higher temperature has a significant impact in the drag coefficient. The problem presents a very uniform and fast convergence, as it is shown next
+The temperature and velocity fields for the primal settings are as follows
 
-![Primal Convergence](../multiphysics/images/rhtadj2.png)
+![Result](../multiphysics/images/chtrht4.png)
 
-The resulting velocity and temperature fields are
+### Running the adjoint simulation
 
-![Primal Results](../multiphysics/images/rhtadj3.png)
-
-#### Computing the drag adjoint
-
-Next, we will compute the adjoint of the drag coefficient. Go ahead and download the [adjoint config file](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/config_rht_adjoint.cfg), where you will observe there is very little change with respect to the primal case. Only the fact that we will be computing a discrete adjoint problem is specified using
+Only the following minor changes are required to the multiphysics adjoint file, [turbulent_rht_cht_adjoint.cfg](https://github.com/su2code/Tutorials/blob/feature_radiation_multizone/multiphysics/turb_rht_cht/turbulent_rht_cht_adjoint.cfg), to compute the adjoint of the integrated heatflux through the CHT boundary:
 
 ```
 MATH_PROBLEM = DISCRETE_ADJOINT
+OBJECTIVE_FUNCTION = TOTAL_HEATFLUX
 ```
 
-and the choice of function for which the adjoint will be computed is set by using
+Then, the restart files need to be renamed as solution files, ```restart_flow_rht_0.dat``` &rarr; ```solution_flow_rht_0.dat``` and ```restart_solid_cht_1.dat``` &rarr; ```solution_solid_cht_1.dat```. We run the adjoint in parallel using
 
 ```
-OBJECTIVE_FUNCTION = DRAG
+$ mpirun -n 2 SU2_CFD_AD turbulent_rht_cht_adjoint.cfg
 ```
 
-The adjoint simulation requires the solution of the primal problem as an input. We define
-
-```
-SOLUTION_FILENAME = solution_rht
-```
-
-where the name of the solution of the primal is ```solution_rht.dat```. Therefore, we need to rename the restart file that we have just obtained from the primal run as ```restart_rht.dat``` &rarr; ```solution_rht.dat```.
-
-Finally, the file names for the output of the adjoint simulation are set using
-
-```
-RESTART_ADJ_FILENAME = restart_rht_adj
-VOLUME_ADJ_FILENAME = volume_rht_adj
-CONV_FILENAME= history_adjoint
-```
-
-We run the discrete adjoint simulation with
-
-```
-$ SU2_CFD_AD config_rht_adjoint.cfg
-```
-
-The adjoint version of SU2 is executed, and the first output that we obtain for the solution method is as follows
+The simulation starts from the converged point
 
 ```
 -------------------------------------------------------------------------
-Direct iteration to store the primal computational graph.
-Compute residuals to check the convergence of the direct problem.
-log10[U(0)]: -14.7278, log10[U(1)]: -14.3765, log10[U(2)]: -14.5019.
-log10[U(3)]: -6.84497.
-log10[E(rad)]: -5.64959
+Storing computational graph wrt CONSERVATIVE VARIABLES.
+ Objective function                   : 113.102
+ Zone 0 (flow)       - log10[U(0)]    : -15.7308
+ Zone 0 (turbulence) - log10[Turb(0)] : -14.9704
+ Zone 0 (radiation)  - log10[Rad(0)]  : -7.60211
+ Zone 1 (heat)       - log10[Heat(0)] : -11.9829
 -------------------------------------------------------------------------
 ```
 
-The solution fields have been reconstructed from the converged primal solution and read from ```solution_rht.dat```. One further primal iteration is run, which will be recorded using the AD tool [CoDiPack](https://www.scicomp.uni-kl.de/codi/), to compute the adjoint path. Therefore, the residuals printed above correspond to those of the direct iteration used for the recording. We observe that the order of magnitude of the residual agrees well with the last iterations in the primal run and the convergence trend. Further information on the recording process can be found on reference$$^2$$, exemplified for an FSI test case, and in reference$$^1$$.
-
-An iterative process is then started by running in reverse mode through the adjoint path. The convergence of the adjoint variables is printed to screen:
+and the simulation converges quickly 
 
 ```
-+---------------------------------------------------+
-|  Inner_Iter|    rms[A_P]|    rms[A_T]|   rms[A_P1]|
-+---------------------------------------------------+
-|           0|    0.536827|   -5.533690|   -7.531835|
-|           1|    0.408385|   -5.610806|   -7.654074|
-|           2|    0.335350|   -5.589543|   -7.728060|
-|           3|    0.269327|   -5.721695|   -7.755364|
-|           4|    0.187740|   -5.874327|   -7.802688|
-|           5|    0.104252|   -6.001200|   -7.932024|
-|           6|    0.033401|   -6.154544|   -8.079773|
-|           7|   -0.027314|   -6.300318|   -8.234414|
-|           8|   -0.082738|   -6.400961|   -8.389625|
-|           9|   -0.134240|   -6.479417|   -8.539712|
-|          10|   -0.183190|   -6.556494|   -8.661314|
-
++--------------------------------------+
+|           Multizone Summary          |
++--------------------------------------+
+|  Outer_Iter| avg[bgs][0]| avg[bgs][1]|
++--------------------------------------+
+|           0|    0.000000|    0.000000|
+|           1|   -2.963087|   -2.536124|
+|           2|   -2.938999|   -2.493938|
+|           3|   -3.079946|   -2.573465|
+|           4|   -3.135020|   -2.624314|
+|           5|   -3.213446|   -2.669019|
+|           6|   -3.261026|   -2.710054|
+|           7|   -3.293646|   -2.746341|
+|           8|   -3.329728|   -2.776762|
+|           9|   -3.364945|   -2.801132|
+|          10|   -3.393157|   -2.820130|
 ...
-
-|         238|   -8.673651|  -15.009655|  -15.952779|
-|         239|   -8.707716|  -15.043698|  -15.984012|
-|         240|   -8.741777|  -15.077716|  -16.015307|
-|         241|   -8.775835|  -15.111755|  -16.046587|
-|         242|   -8.809889|  -15.145764|  -16.077962|
-|         243|   -8.843942|  -15.179796|  -16.109124|
-|         244|   -8.877993|  -15.213834|  -16.140440|
-|         245|   -8.912040|  -15.247850|  -16.171762|
-|         246|   -8.946085|  -15.281872|  -16.202980|
-|         247|   -8.980126|  -15.315881|  -16.234266|
-|         248|   -9.014163|  -15.349893|  -16.265597|
-
+|        8856|   -5.662248|   -4.997821|
+|        8857|   -5.662245|   -4.998039|
+|        8858|   -5.662248|   -4.998258|
+|        8859|   -5.662245|   -4.998477|
+|        8860|   -5.662248|   -4.998696|
+|        8861|   -5.662245|   -4.998914|
+|        8862|   -5.662248|   -4.999133|
+|        8863|   -5.662245|   -4.999351|
+|        8864|   -5.662248|   -4.999570|
+|        8865|   -5.662245|   -4.999788|
+|        8866|   -5.662248|   -5.000007|
 ```
 
-Some convergence properties of the primal problem are inherited in the adjoint run, as further explained by Albring _et al_$$^3$$. This can be observed in the convergence of the adjoint variables
+### Projecting the adjoint into the FFD box parameters
 
-![Adjoint Convergence](../multiphysics/images/rhtadj4.png)
+The same configuration file can be used with ```SU2_DOT_AD``` to project the sensitivities of the heatflux into the design parameters. We need to rename the adjoint solutions ```restart_adj_flow_rht_totheat_0.dat``` &rarr; ```solution_adj_flow_rht_totheat_0.dat ``` and ```restart_adj_solid_cht_totheat_1.dat``` &rarr; ```solution_adj_solid_cht_totheat_1.dat```
 
-#### FFD Box
-
-
-#### FFD Projection
-
-Finally, we project the solution we obtained from the adjoint simulation into the design parameters of the FFD box. Starting from the [adjoint config file](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/config_rht_adjoint.cfg), only minor modifications are required to run the projection, which have been included to the [projection config file](https://github.com/su2code/Tutorials/blob/feature_radiation/multiphysics/adjoint_rht/config_rht_project.cfg).
-
-First, it is necessary to use the mesh that includes the FFD information
+It is important to adequately define the projections settings ```config_flow_rht.cfg```. Only the leftmost 12 points of each FFD boxes will be used, as the other 3 are kept still by SU2 to ensure continuity on the 2nd derivative.
 
 ```
-MESH_FILENAME = mesh_adjoint_rht_ffd.su2
-MESH_FORMAT = SU2
+DV_KIND= FFD_CONTROL_POINT_2D, FFD_CONTROL_POINT_2D, ..., FFD_CONTROL_POINT_2D, FFD_CONTROL_POINT_2D,
+DV_MARKER = (( upper ), (lower))
+DV_PARAM = ( UPPER_BOX, 0, 1, 0.0, 1.0 ); ( UPPER_BOX, 1, 1, 0.0, 1.0 ); ( UPPER_BOX, 10, 1, 0.0, 1.0 ); ( UPPER_BOX, 11, 1, 0.0, 1.0 ); ( LOWER_BOX, 0, 0, 0.0, 1.0 ); ( LOWER_BOX, 1, 0, 0.0, 1.0 ); ( LOWER_BOX, 10, 0, 0.0, 1.0 ); ( LOWER_BOX, 11, 0, 0.0, 1.0 )
+DV_VALUE = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 ```
 
-The code will read the adjoint solution computed in the previous steps. The name of the solution file for the adjoint is set as
+We run the projection software
 
 ```
-SOLUTION_ADJ_FILENAME = solution_rht_adj
+$ SU2_DOT_AD turbulent_rht_cht_adjoint.cfg
 ```
 
-and we need to rename the restart file from the adjoint run as ```restart_rht_adj_cd.dat``` &rarr; ```solution_rht_adj_cd.dat```. Note that the objective function ```cd``` is appended to the filename.
+which yields the following projected gradients
 
-
-Next, the information on Design Variables (DV) is provided. We need to indicate that all 50 points correspond to an ```FFD_CONTROL_POINT_2D``` and refer to the marker ```body```. 
 
 ```
-DV_KIND = FFD_CONTROL_POINT_2D, FFD_CONTROL_POINT_2D, ..., FFD_CONTROL_POINT_2D, FFD_CONTROL_POINT_2D, 
-DV_MARKER = ( ( body ) )
-```
-
-The FFD parameters are indicated in structures of the form 
-
-```(BOX NAME, X-INDEX, Y-INDEX, X-DISP, Y-DISP)```, 
-
-separated by semicolons. In this case, we have 25 positions in X direction, $$[0,24]$$, and 2 in Y direction, $$[0,1]$$, and their range of movement is only allowed in Y direction ```X-DISP = 0.0```, ```Y-DISP = 1.0```
-
-```
-DV_PARAM = ( MAIN_BOX, 0.0, 0.0, 0.0, 1.0) ; ( MAIN_BOX, 1.0, 0.0, 0.0, 1.0) ;  ...  ; ( MAIN_BOX, 23.0, 0.0, 0.0, 1.0) ; ( MAIN_BOX, 24.0, 0.0, 0.0, 1.0) ; ( MAIN_BOX, 0.0, 1.0, 0.0, 1.0) ; ( MAIN_BOX, 1.0, 1.0, 0.0, 1.0) ; ... ; ( MAIN_BOX, 23.0, 1.0, 0.0, 1.0) ; ( MAIN_BOX, 24.0, 1.0, 0.0, 1.0) 
-```
-
-Finally, we need to provide a value to the 50 design points. Initially, we project the gradients for the undeformed FFD box
-
-```
-DV_VALUE = 0.0, 0.0, ..., 0.0, 0.0
-```
-
-Running the code with
-
-```
-$ SU2_DOT_AD config_rht_project.cfg
-```
-
-we obtain the following printout to screen
-
-```
------------------ FFD technique (parametric -> cartesian) ---------------
-Checking FFD box dimension.
-Checking FFD box intersections with the solid surfaces.
-SU2 is fixing the planes to maintain a continuous 2nd order derivative.
-Update cartesian coord        | FFD box: MAIN_BOX. Max Diff: 1.04738e-15.
-
 Design variable (FFD_CONTROL_POINT_2D) number 0.
-DRAG gradient : -0.000954173
+TOTAL_HEATFLUX gradient : 9.29141
 -------------------------------------------------------------------------
 
 Design variable (FFD_CONTROL_POINT_2D) number 1.
-DRAG gradient : -0.00432376
+TOTAL_HEATFLUX gradient : 5.70395
 -------------------------------------------------------------------------
 
 ...
 
+Design variable (FFD_CONTROL_POINT_2D) number 22.
+TOTAL_HEATFLUX gradient : -1.41853
 -------------------------------------------------------------------------
 
-Design variable (FFD_CONTROL_POINT_2D) number 48.
-DRAG gradient : 0.00391057
--------------------------------------------------------------------------
-
-Design variable (FFD_CONTROL_POINT_2D) number 49.
-DRAG gradient : 0.00131275
+Design variable (FFD_CONTROL_POINT_2D) number 23.
+TOTAL_HEATFLUX gradient : -1.36538
 -------------------------------------------------------------------------
 ```
 
-To finalize this tutorial, the sensitivities for the FFD points are written to the file ```of_grad.dat``` and are plotted next
+The sensitivities for the FFD points are written to the file ```of_grad.dat```.
 
-![Adjoint Convergence](../multiphysics/images/rhtadj6.png)
+### Deforming the domain for design purposes  
 
-### References
+An example on how to deform the mesh is provided in [sample_ffd_deform.cfg](https://github.com/su2code/Tutorials/blob/feature_radiation_multizone/multiphysics/turb_rht_cht/sample_ffd_deform.cfg). We define the input mesh as ```mesh_flow_ffd.su2``` and the output as ```mesh_flow_ffd_deform.su2```.
 
-$$^1$$ Sanchez, R. _et al._ (2020), Adjoint-based sensitivity analysis in high-temperaturefluid flows with participating media, _(Submitted to) Modeling, Simulation and Optimization in the Health- and Energy-Sector, SEMA SIMAI SPRINGER SERIES_
+```
+MESH_FORMAT = SU2
+MESH_FILENAME = mesh_flow_ffd.su2
+MESH_OUT_FILENAME = mesh_flow_ffd_deform.su2
+```
 
-$$^2$$ Sanchez, R. _et al._ (2018), [Coupled Adjoint-Based Sensitivities in Large-Displacement Fluid-Structure Interaction using Algorithmic Differentiation](https://spiral.imperial.ac.uk/handle/10044/1/51023), _Int J Numer Meth Engng, Vol 111, Issue 7, pp 1081-1107_. DOI: [10.1002/nme.5700](https://doi.org/10.1002/nme.5700)
+We define the design variables for this example as
 
-$$^3$$ Albring, T. _et al._ (2015): Development of a consistent discrete adjoint solver in an evolving aerodynamic design framework, _AIAA paper 2015-3240_ DOI: [10.2514/6.2015-3240](https://doi.org/10.2514/6.2015-3240)
+```
+DV_VALUE = 0.0, 0.05, 0.1, 0.14, 0.16, 0.17, 0.175, 0.17, 0.16, 0.14, 0.1, 0.05, 0.0, -0.05, -0.1, -0.14, -0.16, -0.17, -0.175, -0.17, -0.16, -0.14, -0.1, -0.05
+```
+
+and we run the ```SU2_DEF``` binary to deform the mesh
+
+```
+SU2_DEF sample_ffd_deform.cfg
+```
+
+By substituting the input mesh into the flow configuration file
+
+```
+MESH_FILENAME= mesh_flow_ffd_deform.su2
+```
+
+it is possible to run a deformed primal simulation. The temperature and velocity fields for this particular deformed configuration are as follows
+
+![ResultDef](../multiphysics/images/chtrht5.png)
 
 ### Attribution
 
-If you are using this content for your research, please kindly cite the following reference in your derived works (reference$$^1$$ in the text above):
+If you are using this content for your research, please kindly cite the following reference in your derived works:
 
 Sanchez, R. _et al._ (2020), Adjoint-based sensitivity analysis in high-temperaturefluid flows with participating media, _(Submitted to) Modeling, Simulation and Optimization in the Health- and Energy-Sector, SEMA SIMAI SPRINGER SERIES_
 
