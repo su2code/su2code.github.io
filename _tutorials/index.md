@@ -66,6 +66,20 @@ Simulation of internal, laminar, incompressible flow in a differentially-heated 
 * [Heated Cylinders with Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders/)     
 Simulation of a coupled CHT problem incorporating multiple physical zones.
 
+#### Structural Mechanics
+* [Linear Elasticity](/tutorials/Linear_Elasticity/)
+Simulation of an elasticity problem with small deformations
+* [Linear Dynamics](/tutorials/Linear_Dynamics/)
+Simulation of a dynamic structural problem with small deformations
+* [Non-linear Elasticity](/tutorials/Nonlinear-Elasticity/)
+Simulation of a non-linear structural problem with large deformations
+* [Multiple Materials](/tutorials/Multiple_Material/)
+Simulation of a non-linear problem with multiple material definitions
+
+#### Multiphysics
+* [Static Fluid-Structure Interation](/tutorials/Static_FSI/)
+Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
+
 #### Shape Design Features
 
 * [Unconstrained shape design of an transonic inviscid airfoil at a cte. AoA](/tutorials/Inviscid_2D_Unconstrained_NACA0012/)
