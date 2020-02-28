@@ -71,7 +71,7 @@ Simulation of a coupled CHT problem incorporating multiple physical zones.
 Simulation of an elasticity problem with small deformations
 * [Linear Dynamics](/tutorials/Linear_Dynamics/)  
 Simulation of a dynamic structural problem with small deformations
-* [Non-linear Elasticity](/tutorials/Nonlinear-Elasticity/)  
+* [Non-linear Elasticity](/tutorials/Nonlinear_Elasticity/)  
 Simulation of a non-linear structural problem with large deformations
 * [Multiple Materials](/tutorials/Multiple_Material/)  
 Simulation of a non-linear problem with multiple material definitions
