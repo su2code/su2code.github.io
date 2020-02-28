@@ -28,9 +28,9 @@ In this tutorial, we use the same problem definition as for most structural tuto
 
 ### Resources
 
-You can find the resources for this tutorial in the folder [fsi/steady_state](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state) of the [Tutorials repository](https://github.com/su2code/Tutorials). There is a [FSI config file](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_fsi_steady.cfg) and two sub-config files for the [flow](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_channel.cfg) and [structural](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_cantilever.cfg) subproblems.
+You can find the resources for this tutorial in the folder [fsi/steady_state](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_fsi) of the [Tutorials repository](https://github.com/su2code/Tutorials). There is a [FSI config file](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_fsi/config_fsi_steady.cfg) and two sub-config files for the [flow](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_fsi/config_channel.cfg) and [structural](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_fsi/config_cantilever.cfg) subproblems.
 
-Moreover, you will need two mesh files for the [flow domain](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/mesh_channel.su2) and the [cantilever](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/mesh_cantilever.su2).
+Moreover, you will need two mesh files for the [flow domain](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_fsi/mesh_channel.su2) and the [cantilever](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_fsi/mesh_cantilever.su2).
 
 ### Background 
 
