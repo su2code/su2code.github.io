@@ -123,6 +123,7 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-directdiff` | `false`     |  enable AD (forward) support |
 | `-Denable-pywrapper` | `false`      |    enable Python wrapper support|
 | `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`enabled`,`disabled`)  |
+| `-Dwith-omp`       | `false` |  enable MPI+Threads support (experimental) |
 | `-Denable-cgns`     | `true`    |       enable CGNS support           |        
 | `-Denable-tecio`    |  `true`       |    enable TECIO support         |
 | `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
@@ -164,11 +165,14 @@ The warning level can be set with `--warnlevel=level`, where  `level` correspond
 
 #### Linear algebra options ####
 
-Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function interpolation in fluid structure interaction problems.
-`-Denable-mkl` takes precedence over `-Denable-openblas`, by default the build system looks for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
-When OpenBLAS support is requested the build system uses [pkg-config](https://en.wikipedia.org/wiki/Pkg-config) to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
+Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function (RBF) interpolation in fluid structure interaction problems.
+To a lesser extent MKL 2019 is also used to accelerate (~5%) sparse linear algebra operations.
+`-Denable-mkl` takes precedence over `-Denable-openblas`, the system tries to find MKL via [pkg-config](https://en.wikipedia.org/wiki/Pkg-config), if that fails it will then look for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
+When OpenBLAS support is requested the build system uses pkg-config to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
 
 For large structural FEA problems on highly anisotropic grids iterative linear solvers might fail. Version 7 introduces experimental support for the direct sparse solver [PaStiX](https://gforge.inria.fr/projects/pastix/) (`-Denable-pastix`) see detailed instructions in `TestCases/pastix_support/readme.txt`.
+
+If the use of BLAS is restricted to RBF interpolation, parallel versions of OpenBLAS can be used, the number of threads will then have to be controlled via the appropriate environment variable (consult the OpenBLAS documentation). Otherwise sequential BLAS should be used.
 
 **Note:** The BLAS library needs to provide support for LAPACK functions.
 
