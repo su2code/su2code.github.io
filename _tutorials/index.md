@@ -77,7 +77,7 @@ Simulation of a non-linear structural problem with large deformations
 Simulation of a non-linear problem with multiple material definitions
 
 #### Multiphysics
-* [Static Fluid-Structure Interation](/tutorials/Static_FSI/)  
+* [Static Fluid-Structure Interaction](/tutorials/Static_FSI/)  
 Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
 
 #### Shape Design Features
