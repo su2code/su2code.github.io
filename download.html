@@ -66,7 +66,7 @@ layout: default
               }
 
           })
-          $.getJSON("https://api.github.com/repos/su2code/su2code.github.io/releases/latest").done(function (data) {
+          $.getJSON("https://api.github.com/repos/su2code/Tutorials/releases/latest").done(function (data) {
             $ ('#zip_ball_tut').attr("href", data.zipball_url)
             $ ('#tar_ball_tut').attr("href", data.tarball_url)
           })
@@ -217,8 +217,10 @@ layout: default
 <hr>
 
 <h2>Tutorials</h2>
-<p>As part of our documentation and training, we ship a set of tutorials that walk the user through setting up and executing a number of examples. These cases start from the basics and help the user learn SU2 quickly. Later tutorials cover advanced SU2 capabilities, such as optimal shape design.</p>
-
+<p>As part of our documentation and training, we ship a set of <a href="/tutorials/home/">tutorials</a> that walk the user through setting up and executing a number of examples. These cases start from the basics and help the user learn SU2 quickly. Later tutorials cover advanced SU2 capabilities, such as optimal shape design.</p>
+<p>
+You can get the most recent config and mesh files using the following links:
+</p>
 <center>
     <div class="row">
         <div class="col-sm-3 text-center">
@@ -230,9 +232,9 @@ layout: default
     </div>
 </center>
 <br>
-<p>The entire set of documentation and tutorials ships with the main project website repository. You can download all of the necessary files (including config files and grids) using the following:</p>
+<p>Or you can directly clone the repository:</p>
 
-<p><code>$ git clone https://github.com/su2code/su2code.github.io</code></p>
+<p><code>$ git clone https://github.com/su2code/Tutorials</code></p>
 
 <br>
 <hr>
