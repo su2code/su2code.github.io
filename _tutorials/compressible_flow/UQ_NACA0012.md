@@ -3,9 +3,9 @@ title: Epistemic Uncertainty Quantification of RANS predictions of NACA 0012 air
 permalink: /tutorials/UQ_NACA0012/
 written_by: jayantmukho
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-25
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: RANS
 requires: SU2_CFD, Python
 complexity: advanced
@@ -25,13 +25,13 @@ This tutorial covers the EQUiPS (Enabling Quantification of Uncertainty in Physi
 
 ## Resources
 
-The resources for this tutorial can be found in the [UQ_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/UQ_NACA0012) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([turb_NACA0012_uq.cfg](../../UQ_NACA0012/turb_NACA0012_uq.cfg)) and the mesh file ([mesh_n0012_225-65.su2](../../UQ_NACA0012/mesh_n0012_225-65.su2)). Note that this tutorial directory contains 5 other configuration files as well. These are for running the perturbations manually and details for that will be covered in the Running Individual Perturbations section.
+The resources for this tutorial can be found in the [UQ_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_NACA0012_uq.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/turb_NACA0012_uq.cfg)) and the mesh file ([mesh_n0012_225-65.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow//UQ_NACA0012/mesh_n0012_225-65.su2)). Note that this tutorial directory contains 5 other configuration files as well. These are for running the perturbations manually and details for that will be covered in the Running Individual Perturbations section.
 
 Details about the methodology and implementation in SU2 is available as a [pre-print](https://arxiv.org/pdf/1803.00725.pdf)
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when using the EQUiPS module for estimating uncertainties in CFD predictions arising due to assumptions made in turbulence models. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when using the EQUiPS module for estimating uncertainties in CFD predictions arising due to assumptions made in turbulence models. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 
 ### Background
@@ -109,9 +109,9 @@ Specific combinations of UQ_COMPONENT and UQ_PERMUTE are required to perform the
 
 Table (1): Combination of options required to perform each perturbation
 
-The correct combinations of these options are also included in the additional configuration files included in this tutorials directory: [UQ_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/UQ_NACA0012). These files are named turb_NACA0012_uq_PERTURBATION.cfg, where the keyword PERTURBATION is replaced with the names included in Table (1).
+The correct combinations of these options are also included in the additional configuration files included in this tutorials directory: [UQ_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012). These files are named turb_NACA0012_uq_PERTURBATION.cfg, where the keyword PERTURBATION is replaced with the names included in Table (1).
 
-For the sake of uniformity and clarity, it is suggested to perform perturbed simulations in subdirectories named according to the naming convention mentioned in the table. For example, the configurtaion file [turb_NACA0012_uq_1c.cfg](../../UQ_NACA0012/turb_NACA0012_uq.cfg) (which performs the 1c perturbation), and the mesh file should be moved to a sub-directory 1c/. The CFD simulation should be performed within this directory. This keeps with the convention used by the python script. 
+For the sake of uniformity and clarity, it is suggested to perform perturbed simulations in subdirectories named according to the naming convention mentioned in the table. For example, the configurtaion file [turb_NACA0012_uq_1c.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/turb_NACA0012_uq.cfg) (which performs the 1c perturbation), and the mesh file should be moved to a sub-directory 1c/. The CFD simulation should be performed within this directory. This keeps with the convention used by the python script. 
 
 
 ### Running SU2
@@ -121,7 +121,7 @@ For this test case, the baseline flow solution and restart files are provided. F
 #### Python Script
 
 To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([turb_NACA0012_uq.cfg](../../UQ_NACA0012/turb_NACA0012_uq.cfg)) and the mesh file ([mesh_n0012_225-65.su2](../../UQ_NACA0012/mesh_n0012_225-65.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path. 
+ 1. Move to the directory containing the config file ([turb_NACA0012_uq.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/turb_NACA0012_uq.cfg)) and the mesh file ([mesh_n0012_225-65.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/mesh_n0012_225-65.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path. 
  2. To run the executable in series, enter in the command line:
       
     ```
@@ -137,10 +137,10 @@ To run this test case, follow these steps at a terminal command line:
 
 #### Individual Perturbed Simulations
 
-To run each individual perturbed simulation seperately, configuration options for each simulation need to be defined. For the purposes of this tutorial, the configuration files for each of the perturbed simulations is provided in the [UQ_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/UQ_NACA0012) directory in the [project website repository](https://github.com/su2code/su2code.github.io). The following steps walk through the process of running one of these perturbations (1c). These steps need to be repeated for each of the perturbations to fully define the interval bounds predicted by the methodology. Follow these steps in the command line. 
- 1. Move to the directory containing the config file ([turb_NACA0012_uq_1c.cfg](../../UQ_NACA0012/turb_NACA0012_uq_1c.cfg)) and the mesh file ([mesh_n0012_225-65.su2](../../UQ_NACA0012/mesh_n0012_225-65.su2)). 
+To run each individual perturbed simulation seperately, configuration options for each simulation need to be defined. For the purposes of this tutorial, the configuration files for each of the perturbed simulations is provided in the [UQ_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012) directory in the [tutorials](https://github.com/su2code/Tutorials). The following steps walk through the process of running one of these perturbations (1c). These steps need to be repeated for each of the perturbations to fully define the interval bounds predicted by the methodology. Follow these steps in the command line. 
+ 1. Move to the directory containing the config file ([turb_NACA0012_uq_1c.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/turb_NACA0012_uq_1c.cfg)) and the mesh file ([mesh_n0012_225-65.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/mesh_n0012_225-65.su2)). 
  2. Create a sub-directory named `1c` (named after the 1st perturbation) and copy the configuration file and mesh file within this directory, and move to this sub-directory.
- 4. If running in series, make sure that the SU2 tools were compiled, installed, and that their install location was added to your path. Enter the following in the command line: 
+ 3. If running in series, make sure that the SU2 tools were compiled, installed, and that their install location was added to your path. Enter the following in the command line: 
 
  	```
     $ SU2_CFD turb_NACA0012_uq.cfg

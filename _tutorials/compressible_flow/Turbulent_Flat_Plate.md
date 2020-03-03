@@ -3,9 +3,9 @@ title: Turbulent Flat Plate
 permalink: /tutorials/Turbulent_Flat_Plate/
 written_by: economon
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-23
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: RANS
 requires: SU2_CFD
 complexity: basic
@@ -28,13 +28,13 @@ In this tutorial, we perform our first RANS simulation with the Spalart-Allmaras
 
 ## Resources
 
-The resources for this tutorial can be found in the [Turbulent_Flat_Plate](https://github.com/su2code/su2code.github.io/tree/master/Turbulent_Flat_Plate) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([turb_SA_flatplate.cfg](../../Turbulent_Flat_Plate/turb_SA_flatplate.cfg)) and either of the two available mesh files ([mesh_flatplate_turb_137x97.su2](../../Turbulent_Flat_Plate/mesh_flatplate_turb_137x97.su2) or [mesh_flatplate_turb_545x385.su2](../../Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). 
+The resources for this tutorial can be found in the [Turbulent_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate) directory in the [tutorial website repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_SA_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/turb_SA_flatplate.cfg)) and either of the two available mesh files ([mesh_flatplate_turb_137x97.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/mesh_flatplate_turb_137x97.su2) or [mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). 
 
 Additionally, skin friction and velocity profiles corresponding to this testcase (obtained from the Langley Research Center Turbulence Modeling Resource website shown below) are used for later comparison with SU2 results. These files can be found on the following website: http://turbmodels.larc.nasa.gov/flatplate.html.
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the turbulent flow over a flat plate using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the turbulent flow over a flat plate using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -94,7 +94,7 @@ TIME_DISCRE_TURB= EULER_IMPLICIT
 ### Running SU2
 
 To run this test case, follow these steps at a terminal command line:
- 1. Copy the config file ([turb_SA_flatplate.cfg](../../Turbulent_Flat_Plate/turb_SA_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_137x97.su2](../../Turbulent_Flat_Plate/mesh_flatplate_turb_137x97.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Copy the config file ([turb_SA_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/turb_SA_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_137x97.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/mesh_flatplate_turb_137x97.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
      ```
@@ -107,7 +107,7 @@ To run this test case, follow these steps at a terminal command line:
 
 ### Results
 
-The figures below show results obtained from SU2 and compared to several results from NASA codes. Note that the SU2 results for the skin friction correspond to the coarser mesh ([mesh_flatplate_turb_137x97.su2](../../Turbulent_Flat_Plate/mesh_flatplate_turb_137x97.su2)) while the NASA results are based on the finer mesh ([mesh_flatplate_turb_545x385.su2](../../Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). SU2 still matches very closely.
+The figures below show results obtained from SU2 and compared to several results from NASA codes. Note that the SU2 results for the skin friction correspond to the coarser mesh ([mesh_flatplate_turb_137x97.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/mesh_flatplate_turb_137x97.su2)) while the NASA results are based on the finer mesh ([mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). SU2 still matches very closely.
 
 ![Turb Plate Nu Tilde](../../Turbulent_Flat_Plate/images/turb_plate_nu_tilde.png)
 Figure (2): Contour of turbulence variable (nu-hat).

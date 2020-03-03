@@ -3,9 +3,9 @@ title: Unsteady NACA0012
 permalink: /tutorials/Unsteady_NACA0012/
 written_by: ScSteffen
 for_version: 7.0.1
-revised_by: ScSteffen
-revision_date: 2020-01-27
-revised_version: 7.0.1
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: RANS
 requires: SU2_CFD
 complexity: basic
@@ -32,13 +32,13 @@ We also introduce a new type of time-convergence criteria for periodic flows, wh
 
 ## Resources ##
 
-The resources for this tutorial can be found in the [Unsteady_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/Unsteady_NACA0012) directory in the [project website repository](https://github.com/su2code/su2code.github.io). 
-You will need the configuration file ([unsteady_naca0012.cfg](../../Unsteady_NACA0012/unsteady_naca0012.cfg)) and the mesh file ([unsteady_naca0012_mesh.su2](../../Unsteady_NACA0012/unsteady_naca0012_mesh.su2))
-as well as the restart files ([restart_flow_00497.dat](../../Unsteady_NACA0012/restart_flow_00497.dat), [restart_flow_00498.dat](../../Unsteady_NACA0012/restart_flow_00498.dat), [restart_flow_00499.dat](../../Unsteady_NACA0012/restart_flow_00499.dat)).
+The resources for this tutorial can be found in the [Unsteady_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012) directory in the [tutorials website repository](https://github.com/su2code/Tutorials). 
+You will need the configuration file ([unsteady_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012.cfg)) and the mesh file ([unsteady_naca0012_mesh.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012_mesh.su2))
+as well as the restart files ([restart_flow_00497.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/restart_flow_00497.dat), [restart_flow_00498.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/restart_flow_00498.dat), [restart_flow_00499.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/restart_flow_00499.dat)).
 
 ## Tutorial ##
 
-The following tutorial will walk you through the steps required when solving for the flow about the NACA0012 airfoil using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow about the NACA0012 airfoil using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background ###
 
@@ -215,7 +215,7 @@ The wing mesh should fit on a single-core machine. To run this test case in seri
 #### In Parallel
 
 If SU2 has been built with parallel support, the recommended method for running a parallel simulation is through the use of the parallel_computation.py Python script. This automatically handles the domain decomposition and execution with SU2_CFD, and the merging of the decomposed files using SU2_SOL. Follow these steps to run the ONERA M6 case in parallel:
- 1. Move to the directory containing the config file ([unsteady_NACA0012.cfg](../../Unsteady_NACA0012/unsteady_NACA0012.cfg)) and the mesh file ([unsteady_NACA0012_mesh.su2](../../Unsteady_NACA0012/unsteady_NACA0012_mesh.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([unsteady_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012.cfg)) and the mesh file ([unsteady_naca0012_mesh.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012_mesh.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
  2. Run the python script which will automatically call SU2_CFD and will perform the simulation using `NP` number of processors by entering in the command line:
 
     ```

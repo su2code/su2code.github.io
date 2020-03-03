@@ -3,9 +3,9 @@ title: Turbulent NACA 0012
 permalink: /tutorials/Inc_Turbulent_NACA0012/
 written_by: economon 
 for_version: 7.0.0
-revised_by: economon  
-revision_date: 2019-11-25
-revised_version: 7.0.0
+revised_by: talbring  
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: INC_RANS
 requires: SU2_CFD
 complexity: basic
@@ -28,14 +28,14 @@ This tutorial also provides an explanation of the non-dimensional scheme used fo
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Turbulent_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/Inc_Turbulent_NACA0012) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([turb_naca0012.cfg](../../Inc_Turbulent_NACA0012/turb_naca0012.cfg)) and the mesh file ([n0012_897-257.su2](../../Inc_Turbulent_NACA0012/n0012_897-257.su2)).
+The resources for this tutorial can be found in the [Inc_Turbulent_NACA0012](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/turb_naca0012.cfg)) and the mesh file ([n0012_897-257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/n0012_897-257.su2)).
 
  The 897x257 mesh is obtained from the Langley Research Center Turbulence Modeling Resource (TMR) website, Additionally, skin friction and pressure distribution data for the CFL3D code, along with experimental pressure data of Gregory (N. Gregory and C. L. O’Reilly. Low-speed aerodynamic characteristics of naca 0012 aerofoil sections, including the effects
 of upper-surface roughness simulation hoar frost. NASA R & M 3726, 1970.), from the TMR are used for later comparison with SU2 results. These files can be found on the following website: https://turbmodels.larc.nasa.gov/naca0012_val.html.
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the turbulent flow over the NACA 0012 using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the turbulent flow over the NACA 0012 using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -91,20 +91,20 @@ Instructions for running this test case are given here for both serial and paral
 #### In Serial
 
 To run this test case in serial, follow these steps at a terminal command line:
-1. Copy the config file ([turb_naca0012.cfg](../../Inc_Turbulent_NACA0012/turb_naca0012.cfg)) and the mesh file ([n0012_897-257.su2](../../Inc_Turbulent_NACA0012/n0012_897-257.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
- 2. Run the executable by entering in the command line:
+1. Copy the config file ([turb_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/turb_naca0012.cfg)) and the mesh file ([n0012_897-257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/n0012_897-257.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Run the executable by entering in the command line:
       
     ```
     $ SU2_CFD turb_naca0012.cfg
     ```
 
- 3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
- 4. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+ 2. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
+ 3. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
 
 #### In Parallel
 
 If SU2 has been built with parallel support, the recommended method for running a parallel simulation is through the use of the parallel_computation.py Python script. This automatically handles the domain decomposition and execution with SU2_CFD, and the merging of the decomposed files using SU2_SOL. Follow these steps to run the case in parallel:
- 1. Move to the directory containing the config file ([turb_naca0012.cfg](../../Inc_Turbulent_NACA0012/turb_naca0012.cfg)) and the mesh file ([n0012_897-257.su2](../../Inc_Turbulent_NACA0012/n0012_897-257.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([turb_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/turb_naca0012.cfg)) and the mesh file ([n0012_897-257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/n0012_897-257.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
  2. Run the python script which will automatically call SU2_CFD and will perform the simulation using `NP` number of processors by entering in the command line:
 
     ```

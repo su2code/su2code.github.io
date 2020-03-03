@@ -3,9 +3,9 @@ title: Unconstrained shape design of a transonic inviscid airfoil at a cte. AoA
 permalink: /tutorials/Inviscid_2D_Unconstrained_NACA0012/
 written_by: economon
 for_version: 7.0.0
-revised_by: jayantmukho
-revision_date: 2019-09-24
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: Euler
 requires: SU2_CFD, Python
 complexity: advanced
@@ -26,11 +26,11 @@ We will walk through the shape design process and highlight several options rela
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Inviscid_2D_Unconstrained_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/Inviscid_2D_Unconstrained_NACA0012) in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the mesh file [mesh_NACA0012_inv.su2](../../Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2) and the config file [inv_NACA0012_basic.cfg](../../Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg).
+You can find the resources for this tutorial in the folder [Inviscid_2D_Unconstrained_NACA0012](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012) in the [project website repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_NACA0012_inv.su2](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2) and the config file [inv_NACA0012_basic.cfg](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when performing shape design for the transonic airfoil using SU2. It is assumed that you have already obtained and compiled SU2_CFD, SU2_DOT, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages. It may also be helpful to review the [Quick Start](/docs/Quick-Start/) tutorial to refamiliarize yourself with this problem.
+The following tutorial will walk you through the steps required when performing shape design for the transonic airfoil using SU2. It is assumed that you have already obtained and compiled SU2_CFD, SU2_DOT, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages. It may also be helpful to review the [Quick Start](/docs/Quick-Start/) tutorial to refamiliarize yourself with this problem.
 
 ### Background
 
@@ -177,7 +177,7 @@ The continuous adjoint methodology for obtaining surface sensitivities is implem
 Figure (4): Adjoint density contours on the baseline NACA 0012 airfoil.
 
 To run this design case, follow these steps at a terminal command line:
-1. Move to the directory containing the config file ([inv_NACA0012_basic.cfg](../../Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg) and the mesh file ([mesh_NACA0012_inv.su2](../../Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2)). Assuming that SU2 tools were compiled, installed, and that their install location was added to your path, the shape_optimization.py script, SU2_CFD, SU2_DOT, SU2_GEO and SU2_DEF should all be available.
+1. Move to the directory containing the config file ([inv_NACA0012_basic.cfg](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg) and the mesh file ([mesh_NACA0012_inv.su2](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2)). Assuming that SU2 tools were compiled, installed, and that their install location was added to your path, the shape_optimization.py script, SU2_CFD, SU2_DOT, SU2_GEO and SU2_DEF should all be available.
 
 2. Execute the shape optimization script by entering 
 
@@ -191,7 +191,7 @@ To run this design case, follow these steps at a terminal command line:
 
 4. Solution files containing the flow and surface data will be written for each flow solution and adjoint solution and can be found in the DESIGNS directory that is created. The flow solutions are in the DESIGNS/DSN_*/DIRECT/ directories. The file named history_project.dat (or history_project.csv for ParaView) will contain the functional values of interest resulting from each evaluation during the optimization.
 
-5. To switch between discrete and continuous adjoint (only affect the gradient evaluation) you just need to change `CONTINUOUS_ADJOINT` by `DISCRETE_ADJOINT` when calling the `shape_optimization.py` script (assuming that the software has been compiled with the [adjoint mode capability](/docs/AD-Build/).**note that by typing python shape_optimization.py -h you will see all the options (including different optimizers)**
+5. To switch between discrete and continuous adjoint (only affect the gradient evaluation) you just need to change `CONTINUOUS_ADJOINT` by `DISCRETE_ADJOINT` when calling the `shape_optimization.py` script (assuming that the software has been compiled with the [adjoint mode capability](/docs_v7/Build-SU2-Linux-MacOS/#basic-configuration).**note that by typing python shape_optimization.py -h you will see all the options (including different optimizers)**
 
 ### Results for the optimal shape design problem:
 

@@ -3,9 +3,9 @@ title: Turbulent ONERA M6
 permalink: /tutorials/Turbulent_ONERAM6/
 written_by: economon
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-25
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: RANS
 requires: SU2_CFD
 complexity: basic
@@ -30,11 +30,11 @@ This tutorial also provides an explanation for properly setting up viscous, comp
 
 ## Resources
 
-The resources for this tutorial can be found in the [Turbulent_ONERAM6](https://github.com/su2code/su2code.github.io/tree/master/Turbulent_ONERAM6) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([turb_ONERAM6.cfg](../../Turbulent_ONERAM6/turb_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_turb_hexa_43008.su2](../../Turbulent_ONERAM6/mesh_ONERAM6_turb_hexa_43008.su2)). *It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, and for comparison with literature, finer meshes should be used.*
+The resources for this tutorial can be found in the [Turbulent_ONERAM6](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/turb_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_turb_hexa_43008.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/mesh_ONERAM6_turb_hexa_43008.su2)). *It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, and for comparison with literature, finer meshes should be used.*
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow around the ONERA M6 using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow around the ONERA M6 using SU2. The tutorial will also address procedures for both serial and parallel computations. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -191,7 +191,7 @@ The wing mesh should fit on a single-core machine. To run this test case in seri
 #### In Parallel
 
 If SU2 has been built with parallel support, the recommended method for running a parallel simulation is through the use of the parallel_computation.py Python script. This automatically handles the domain decomposition and execution with SU2_CFD, and the merging of the decomposed files using SU2_SOL. Follow these steps to run the ONERA M6 case in parallel:
- 1. Move to the directory containing the config file ([turb_ONERAM6.cfg](../../Turbulent_ONERAM6/turb_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_turb_hexa_43008.su2](../../Turbulent_ONERAM6/mesh_ONERAM6_turb_hexa_43008.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([turb_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/turb_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_turb_hexa_43008.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/mesh_ONERAM6_turb_hexa_43008.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
  2. Run the python script which will automatically call SU2_CFD and will perform the simulation using `NP` number of processors by entering in the command line:
 
     ```
