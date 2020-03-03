@@ -30,7 +30,7 @@ The intent of this tutorial is to introduce a simple, compressible flow problem 
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [NICFD_nozzle](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle) in the [tutorial repository](https://github.com/su2code/Tutorials).
+You can find the resources for this tutorial in the folder [compressible_flow/NICFD_nozzle](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle) in the [tutorial repository](https://github.com/su2code/Tutorials).
 You will need the mesh files [NICFD_nozzle.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle/NICFD_nozzle.su2) and the config file [NICFD_nozzle.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle/NICFD_nozzle.cfg).
 
 In the *Results* section of this tutorial, SU2 results are compared to the experimental data reported by Spinelli A., Cammi G., Gallarini S., Zocca M., Cozzi F., Gaetani P., Dossena V., Guardone A. *Experimental evidence of non ideal compressible effects in expanding flow of a high molecular complexity vapor*, Experiments in Fluids (2018) 59:126. You can find the experimental data for this test case in the tutorial directory, file [experimental_data.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle/experimental_data.dat), or access the full experimental database documented by Spinelli *et al.* at the [paper url](https://doi.org/10.1007/s00348-018-2578-0).

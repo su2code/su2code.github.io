@@ -26,7 +26,7 @@ The intent of this tutorial is to introduce the density-based incompressible flo
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Inc_Inviscid_Hydrofoil](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_NACA0012_5deg_6814.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)
+You can find the resources for this tutorial in the folder [incompressible_flow/Inc_Inviscid_Hydrofoil](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_NACA0012_5deg_6814.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)
 and the config file [inv_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil/inv_naca0012.cfg).
 
 ## Tutorial

@@ -32,7 +32,7 @@ We also introduce a new type of time-convergence criteria for periodic flows, wh
 
 ## Resources ##
 
-The resources for this tutorial can be found in the [Unsteady_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012) directory in the [tutorials website repository](https://github.com/su2code/Tutorials). 
+The resources for this tutorial can be found in the [compressible_flow/Unsteady_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012) directory in the [tutorials website repository](https://github.com/su2code/Tutorials). 
 You will need the configuration file ([unsteady_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012.cfg)) and the mesh file ([unsteady_naca0012_mesh.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012_mesh.su2))
 as well as the restart files ([restart_flow_00497.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/restart_flow_00497.dat), [restart_flow_00498.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/restart_flow_00498.dat), [restart_flow_00499.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/restart_flow_00499.dat)).
 

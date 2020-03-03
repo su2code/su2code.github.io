@@ -27,7 +27,7 @@ The intent of this tutorial is to introduce a simple, inviscid flow problem and 
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Inviscid_Bump](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_channel_256x128.su2](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/mesh_channel_256x128.su2)
+You can find the resources for this tutorial in the folder [compressible_flow/Inviscid_Bump](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_channel_256x128.su2](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/mesh_channel_256x128.su2)
 and the config file [inv_channel.cfg](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/inv_channel.cfg).
 
 ## Tutorial

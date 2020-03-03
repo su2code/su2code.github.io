@@ -27,7 +27,7 @@ In this tutorial, we perform our first incompressible RANS simulation with the S
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Turbulent_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and either of the two available mesh files ([mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). 
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Turbulent_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and either of the two available mesh files ([mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). 
 
  The 545x385 mesh is obtained from the Langley Research Center Turbulence Modeling Resource (TMR) website, Additionally, skin friction and velocity profiles corresponding to this testcase from the TMR are used for later comparison with SU2 results. These files can be found on the following website: http://turbmodels.larc.nasa.gov/flatplate.html.
 

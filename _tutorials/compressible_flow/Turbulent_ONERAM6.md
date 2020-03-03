@@ -30,7 +30,7 @@ This tutorial also provides an explanation for properly setting up viscous, comp
 
 ## Resources
 
-The resources for this tutorial can be found in the [Turbulent_ONERAM6](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/turb_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_turb_hexa_43008.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/mesh_ONERAM6_turb_hexa_43008.su2)). *It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, and for comparison with literature, finer meshes should be used.*
+The resources for this tutorial can be found in the [compressible_flow/Turbulent_ONERAM6](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/turb_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_turb_hexa_43008.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_ONERAM6/mesh_ONERAM6_turb_hexa_43008.su2)). *It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, and for comparison with literature, finer meshes should be used.*
 
 ## Tutorial
 

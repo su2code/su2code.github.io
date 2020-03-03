@@ -26,7 +26,7 @@ We will walk through the shape design process and highlight several options rela
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Inviscid_2D_Unconstrained_NACA0012](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012) in the [project website repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_NACA0012_inv.su2](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2) and the config file [inv_NACA0012_basic.cfg](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg).
+You can find the resources for this tutorial in the folder [design/Inviscid_2D_Unconstrained_NACA0012](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012) in the [project website repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_NACA0012_inv.su2](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/mesh_NACA0012_inv.su2) and the config file [inv_NACA0012_basic.cfg](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_2D_Unconstrained_NACA0012/inv_NACA0012_basic.cfg).
 
 ## Tutorial
 

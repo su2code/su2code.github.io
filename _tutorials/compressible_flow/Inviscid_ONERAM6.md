@@ -29,7 +29,7 @@ We will also discuss the details for setting up 3D flow conditions and some of t
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inviscid_ONERAM6](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([inv_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)).
+The resources for this tutorial can be found in the [compressible_flow/Inviscid_ONERAM6](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([inv_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)).
 
 ## Tutorial
 

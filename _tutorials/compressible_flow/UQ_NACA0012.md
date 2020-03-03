@@ -25,7 +25,7 @@ This tutorial covers the EQUiPS (Enabling Quantification of Uncertainty in Physi
 
 ## Resources
 
-The resources for this tutorial can be found in the [UQ_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_NACA0012_uq.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/turb_NACA0012_uq.cfg)) and the mesh file ([mesh_n0012_225-65.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow//UQ_NACA0012/mesh_n0012_225-65.su2)). Note that this tutorial directory contains 5 other configuration files as well. These are for running the perturbations manually and details for that will be covered in the Running Individual Perturbations section.
+The resources for this tutorial can be found in the [compressible_flow/UQ_NACA0012](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_NACA0012_uq.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/UQ_NACA0012/turb_NACA0012_uq.cfg)) and the mesh file ([mesh_n0012_225-65.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow//UQ_NACA0012/mesh_n0012_225-65.su2)). Note that this tutorial directory contains 5 other configuration files as well. These are for running the perturbations manually and details for that will be covered in the Running Individual Perturbations section.
 
 Details about the methodology and implementation in SU2 is available as a [pre-print](https://arxiv.org/pdf/1803.00725.pdf)
 

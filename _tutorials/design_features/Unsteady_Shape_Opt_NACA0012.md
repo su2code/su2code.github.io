@@ -36,7 +36,7 @@ This tutorial uses the windowing techniques explained in [here](../Unsteady_NACA
 ## Resources ##
 
 The resources for this tutorial can be found in the 
-[Unsteady_Shape_Opt_NACA0012](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012) directory 
+[design/Unsteady_Shape_Opt_NACA0012](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012) directory 
 in the [project website repository](https://github.com/su2code/Tutorials). 
 
 You will need the configuration file ([unsteady_naca0012_opt.cfg](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_opt.cfg)) and 

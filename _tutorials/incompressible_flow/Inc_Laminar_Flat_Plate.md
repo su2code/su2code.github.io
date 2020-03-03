@@ -28,7 +28,7 @@ The intent of this tutorial is to introduce a simple viscous case for the incomp
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Laminar_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Flat_Plate/lam_flatplate.cfg)) and the mesh file ([mesh_flatplate_65x65.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Flat_Plate/mesh_flatplate_65x65.su2)).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Laminar_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Flat_Plate/lam_flatplate.cfg)) and the mesh file ([mesh_flatplate_65x65.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Flat_Plate/mesh_flatplate_65x65.su2)).
 
 
 ## Tutorial

@@ -28,7 +28,7 @@ In this tutorial, we discuss some numerical method options, including how to act
 
 ## Resources
 
-The resources for this tutorial can be found in the [Laminar_Cylinder](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/lam_cylinder.cfg)) and the mesh file ([mesh_cylinder_lam.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/mesh_cylinder_lam.su2)).
+The resources for this tutorial can be found in the [compressible_flow/Laminar_Cylinder](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/lam_cylinder.cfg)) and the mesh file ([mesh_cylinder_lam.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/mesh_cylinder_lam.su2)).
 
 Experimental results for drag over a cylinder at low Reynolds numbers are reported in the following article:
 D. J. Tritton, "Experiments on the flow past a circular cylinder at low Reynolds numbers," Journal of Fluid Mechanics, Vol. 6, No. 4, pp. 547-567, 1959. Note that the mesh used for this tutorial is rather coarse, and for comparison of the results with literature, finer meshes should be used.

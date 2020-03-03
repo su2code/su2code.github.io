@@ -26,7 +26,7 @@ The intent of this tutorial is to introduce the capability for prescribing inlet
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Laminar_Step](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_backwardstep.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/lam_backwardstep.cfg)) and the mesh file ([mesh_backward_step_481x65.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/mesh_backward_step_481x65.su2)).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Laminar_Step](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_backwardstep.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/lam_backwardstep.cfg)) and the mesh file ([mesh_backward_step_481x65.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/mesh_backward_step_481x65.su2)).
 
 
 ## Tutorial

@@ -26,7 +26,7 @@ Upon completing this tutorial, the user will be familiar with performing an opti
 
 ## Resources
 
-The resources for this tutorial can be found in the directory [Inviscid_3D_Constrained_ONERAM6](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_3D_Constrained_ONERAM6) in the [tutorials repository](https://github.com/su2code/Tutorials/tree/master/). You will need the configuration file ([inv_ONERAM6_adv.cfg](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_3D_Constrained_ONERAM6/inv_ONERAM6_adv.cfg)) and the mesh file ([mesh_ONERAM6_inv_FFD.su2](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_3D_Constrained_ONERAM6/mesh_ONERAM6_inv_FFD.su2)).
+The resources for this tutorial can be found in the directory [design/Inviscid_3D_Constrained_ONERAM6](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_3D_Constrained_ONERAM6) in the [tutorials repository](https://github.com/su2code/Tutorials/tree/master/). You will need the configuration file ([inv_ONERAM6_adv.cfg](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_3D_Constrained_ONERAM6/inv_ONERAM6_adv.cfg)) and the mesh file ([mesh_ONERAM6_inv_FFD.su2](https://github.com/su2code/Tutorials/tree/master/design/Inviscid_3D_Constrained_ONERAM6/mesh_ONERAM6_inv_FFD.su2)).
 
 Note that the mesh file already contains information about the definition of the Free Form Deformation (FFD) used for the definition of 3D design variables, but we will discuss how this is created below.
 

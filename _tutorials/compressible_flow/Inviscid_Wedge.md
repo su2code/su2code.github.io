@@ -27,7 +27,7 @@ The intent of this tutorial is to introduce a simple, inviscid flow problem that
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inviscid_Wedge](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([inv_wedge_HLLC.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/inv_wedge_HLLC.cfg)) and the mesh file ([mesh_wedge_inv.cgns](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/mesh_wedge_inv.cgns)).
+The resources for this tutorial can be found in the [compressible_flow/Inviscid_Wedge](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([inv_wedge_HLLC.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/inv_wedge_HLLC.cfg)) and the mesh file ([mesh_wedge_inv.cgns](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/mesh_wedge_inv.cgns)).
 
 ## Tutorial
 
