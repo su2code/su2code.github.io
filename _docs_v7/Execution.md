@@ -56,7 +56,7 @@ Options:
 * `-h, --help` show help message and exit
 * `-f FILE, --file=FILE` read config from FILE
 * `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
-* `-c COMPUTE, --compute=COMPUTE COMPUTE` direct and adjoint problem
+* `-c COMPUTE, --compute=COMPUTE` Boolean option. If `COMPUTE == True`, compute direct and adjoint problem. Default is  `True`.
 
 ### Continuous Adjoint Gradient Calculation (continuous_adjoint.py)
 
@@ -68,7 +68,7 @@ Options:
 * `-h, --help` show help message and exit
 * `-f FILE, --file=FILE` read config from FILE
 * `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
-* `-c COMPUTE, --compute=COMPUTE COMPUTE` direct and adjoint problem
+* `-c COMPUTE, --compute=COMPUTE` Boolean option. If `COMPUTE == True`, compute direct and adjoint problem. Default is  `True`.
 * `-s STEP, --step=STEP DOT` finite difference STEP
 
 ### Discrete Adjoint Gradient Calculation (discrete_adjoint.py)
@@ -81,8 +81,8 @@ Options:
 * `-h, --help` show help message and exit
 * `-f FILE, --file=FILE` read config from FILE
 * `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
-* `-c COMPUTE, --compute=COMPUTE COMPUTE` direct and adjoint problem
-
+* `-c COMPUTE, --compute=COMPUTE` Boolean option. If `COMPUTE == True`, compute direct and adjoint problem. Default is  `True`.
+* `-a ONLY_ADJOINT, --onlyadjoint=ONLY_ADJOINT` Boolean option. If `ONLY_ADJOINT == True`, compute only the adjoint problem. Requires solution files of the direct computation. Default is  `False`.
 ### Finite Difference Gradient Calculation (finite_differences.py)
 
 The finite difference calculation script is used to calculate the gradient of an objective function with respect to specified design variables using a finite difference method. This script calls SU2_CFD repeatedly, perturbing the input design variables and mesh using SU2_DEF, stores the sensitivity values, and outputs the gradient upon exit.
