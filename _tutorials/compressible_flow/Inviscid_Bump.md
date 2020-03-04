@@ -3,9 +3,9 @@ title: Inviscid Bump in a Channel
 permalink: /tutorials/Inviscid_Bump/
 written_by: economon
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-23
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: Euler
 requires: SU2_CFD
 complexity: basic
@@ -27,12 +27,12 @@ The intent of this tutorial is to introduce a simple, inviscid flow problem and 
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Inviscid_Bump](https://github.com/su2code/su2code.github.io/tree/master/Inviscid_Bump) in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the mesh file [mesh_channel_256x128.su2](../../Inviscid_Bump/mesh_channel_256x128.su2)
-and the config file [inv_channel.cfg](../../Inviscid_Bump/inv_channel.cfg).
+You can find the resources for this tutorial in the folder [compressible_flow/Inviscid_Bump](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_channel_256x128.su2](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/mesh_channel_256x128.su2)
+and the config file [inv_channel.cfg](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/inv_channel.cfg).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow through the channel using SU2. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow through the channel using SU2. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ## Background
 
@@ -137,7 +137,7 @@ For example, the simulation for the inviscid channel will terminate once the den
 ### Running SU2
 
 The channel simulation for the 256x128 node mesh is relatively small, so this case will be run in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([inv_channel.cfg](../../Inviscid_Bump/inv_channel.cfg)) and the mesh file ([mesh_channel_256x128.su2](../../Inviscid_Bump/mesh_channel_256x128.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([inv_channel.cfg](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/inv_channel.cfg)) and the mesh file ([mesh_channel_256x128.su2](https://github.com/su2code/Tutorials/blob/master/compressible_flow/Inviscid_Bump/mesh_channel_256x128.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```

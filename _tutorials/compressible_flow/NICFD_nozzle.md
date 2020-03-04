@@ -3,9 +3,9 @@ title: Non-ideal compressible flow in a supersonic nozzle
 permalink: /tutorials/NICFD_nozzle/
 written_by: AlbertoGuardone
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-25
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: RANS
 requires: SU2_CFD
 complexity: advanced
@@ -30,16 +30,16 @@ The intent of this tutorial is to introduce a simple, compressible flow problem 
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [NICFD_nozzle](../../NICFD_nozzle) in the [project website repository](https://github.com/su2code/su2code.github.io).
-You will need the mesh files [NICFD_nozzle.su2](../../NICFD_nozzle/NICFD_nozzle.su2) and the config file [NICFD_nozzle.cfg](../../NICFD_nozzle/NICFD_nozzle.cfg).
+You can find the resources for this tutorial in the folder [compressible_flow/NICFD_nozzle](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle) in the [tutorial repository](https://github.com/su2code/Tutorials).
+You will need the mesh files [NICFD_nozzle.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle/NICFD_nozzle.su2) and the config file [NICFD_nozzle.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle/NICFD_nozzle.cfg).
 
-In the *Results* section of this tutorial, SU2 results are compared to the experimental data reported by Spinelli A., Cammi G., Gallarini S., Zocca M., Cozzi F., Gaetani P., Dossena V., Guardone A. *Experimental evidence of non ideal compressible effects in expanding flow of a high molecular complexity vapor*, Experiments in Fluids (2018) 59:126. You can find the experimental data for this test case in the tutorial directory, file [experimental_data.dat](../../NICFD_nozzle/experimental_data.dat), or access the full experimental database documented by Spinelli *et al.* at the [paper url](https://doi.org/10.1007/s00348-018-2578-0).
+In the *Results* section of this tutorial, SU2 results are compared to the experimental data reported by Spinelli A., Cammi G., Gallarini S., Zocca M., Cozzi F., Gaetani P., Dossena V., Guardone A. *Experimental evidence of non ideal compressible effects in expanding flow of a high molecular complexity vapor*, Experiments in Fluids (2018) 59:126. You can find the experimental data for this test case in the tutorial directory, file [experimental_data.dat](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle/experimental_data.dat), or access the full experimental database documented by Spinelli *et al.* at the [paper url](https://doi.org/10.1007/s00348-018-2578-0).
 
 *Note that the mesh used for this tutorial is rather coarse, and for comparison of the results with literature, finer meshes should be used.*
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the non-ideal compressible flow through the nozzle using SU2. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the non-ideal compressible flow through the nozzle using SU2. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 

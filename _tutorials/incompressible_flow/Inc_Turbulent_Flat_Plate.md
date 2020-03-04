@@ -4,8 +4,8 @@ permalink: /tutorials/Inc_Turbulent_Flat_Plate/
 written_by: economon 
 for_version: 7.0.0
 revised_by: economon  
-revision_date: 2019-11-25
-revised_version: 7.0.0
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: INC_RANS
 requires: SU2_CFD
 complexity: basic
@@ -27,13 +27,13 @@ In this tutorial, we perform our first incompressible RANS simulation with the S
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Turbulent_Flat_Plate](https://github.com/su2code/su2code.github.io/tree/master/Inc_Turbulent_Flat_Plate) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([turb_flatplate.cfg](../../Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and either of the two available mesh files ([mesh_flatplate_turb_545x385.su2](../../Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). 
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Turbulent_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and either of the two available mesh files ([mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). 
 
  The 545x385 mesh is obtained from the Langley Research Center Turbulence Modeling Resource (TMR) website, Additionally, skin friction and velocity profiles corresponding to this testcase from the TMR are used for later comparison with SU2 results. These files can be found on the following website: http://turbmodels.larc.nasa.gov/flatplate.html.
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the turbulent flow over a flat plate using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the turbulent flow over a flat plate using the incompresible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -87,19 +87,19 @@ To run this test case, follow these steps at a terminal command line:
  3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will finish upon reaching the specified convergence criteria.
  4. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
 
- #### In Parallel
+#### In Parallel
 
 If SU2 has been built with parallel support, the recommended method for running a parallel simulation is through the use of the parallel_computation.py python script. This automatically handles the execution of SU2_CFD and the writing of the solution vizualization files using SU2_SOL. Follow these steps to run the case in parallel:
-1. Copy the config file ([turb_flatplate.cfg](../../Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_545x385.su2](../../Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
- 2. Run the python script by entering 
+1. Copy the config file ([turb_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Run the python script by entering 
  
     ```
     $ parallel_computation.py -f turb_flatplate.cfg -n NP
     ```
      
     at the command line with `NP` being the number of processors to be used for the simulation.
- 3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
- 4. The python script will automatically call the `SU2_SOL` executable for generating visualization files from the native restart file written during runtime. The flow solution can then be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+ 2. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
+ 3. The python script will automatically call the `SU2_SOL` executable for generating visualization files from the native restart file written during runtime. The flow solution can then be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
 
 ### Results
 

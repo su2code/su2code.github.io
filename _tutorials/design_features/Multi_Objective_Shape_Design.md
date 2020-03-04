@@ -3,9 +3,9 @@ title: Shape Design With Multiple Objectives and Penalty Functions
 permalink: /tutorials/Multi_Objective_Shape_Design/
 written_by: hlkline
 for_version: 7.0.0
-revised_by: jayantmukho
-revision_date: 2019-09-23
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: Euler
 requires: SU2_CFD, Python
 complexity: advanced
@@ -26,11 +26,11 @@ The capabilities of combining multiple objectives and incorporating penalty func
 
 ## Resources
 
-The resources for this tutorial can be found in the [Multi_Objective_Shape_Design](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file [inv_wedge_ROE_multiobj_combo.cfg](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/inv_wedge_ROE_multiobj_combo.cfg), the mesh file [mesh_wedge_inv_FFD.su2](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/mesh_wedge_inv_FFD.su2), and solution files [solution_flow.dat](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/solution_flow.dat), [solution_adj_combo.dat](https://github.com/su2code/su2code.github.io/tree/master/Multi_Objective_Shape_Design/solution_adj_combo.dat).
+The resources for this tutorial can be found in the [design/Multi_Objective_Shape_Design](https://github.com/su2code/Tutorials/tree/master/design/Multi_Objective_Shape_Design) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file [inv_wedge_ROE_multiobj_combo.cfg](https://github.com/su2code/Tutorials/tree/master/design/Multi_Objective_Shape_Design/inv_wedge_ROE_multiobj_combo.cfg), the mesh file [mesh_wedge_inv_FFD.su2](https://github.com/su2code/Tutorials/tree/master/design/Multi_Objective_Shape_Design/mesh_wedge_inv_FFD.su2), and solution files [solution_flow.csv](https://github.com/su2code/Tutorials/tree/master/design/Multi_Objective_Shape_Design/solution_flow.csv), [solution_adj_combo.csv](https://github.com/su2code/Tutorials/tree/master/design/Multi_Objective_Shape_Design/solution_adj_combo.csv).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when running a multi-objective optimization problem with SU2. It is assumed you have already obtained or compiled the SU2 executables and python shape optimization scripts. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when running a multi-objective optimization problem with SU2. It is assumed you have already obtained or compiled the SU2 executables and python shape optimization scripts. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ## Background
 ### Flow Conditions and Mesh Description
@@ -151,7 +151,11 @@ We will now run the optimization problem, minimizing the total pressure at the o
 
 To run this test case, follow these steps at a terminal command line:
  1. Move to the directory containing the config file (inv_wedge_ROE_multiobj.cfg) and the mesh file (mesh_wedge_inv_FFD.su2). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
- 2. Start the optimization by entering "shape_optimization.py -f inv_wedge_multiobj.cfg" at the command line. This case will run on a single processor, however the user may want to specify multiple processors using '-n 2' appended to the run command for speed. 
+ 2. Start the optimization by entering  
+   
+    ```shape_optimization.py -f inv_wedge_multiobj.cfg```
+
+    at the command line. This case will run on a single processor, however the user may want to specify multiple processors using `-n 2` appended to the run command for speed. 
  3. SU2 will print the combined objective function value and norm of the gradient at each major iteration of the optimizer. While the optimization is running, the progress of each step can be tracked by backgrounding the job or opening another terminal and examining log files in DESIGNS/ subdirectories that are created during this process. 
  4. The optimization history file (history_project.dat) can be visualized in ParaView or Tecplot. 
 

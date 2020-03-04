@@ -3,9 +3,9 @@ title: Laminar Cylinder
 permalink: /tutorials/Laminar_Cylinder/
 written_by: economon
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-23
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: Navier_Stokes
 requires: SU2_CFD
 complexity: basic
@@ -28,14 +28,14 @@ In this tutorial, we discuss some numerical method options, including how to act
 
 ## Resources
 
-The resources for this tutorial can be found in the [Laminar_Cylinder](https://github.com/su2code/su2code.github.io/tree/master/Laminar_Cylinder) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([lam_cylinder.cfg](../../Laminar_Cylinder/lam_cylinder.cfg)) and the mesh file ([mesh_cylinder_lam.su2](../../Laminar_Cylinder/mesh_cylinder_lam.su2)).
+The resources for this tutorial can be found in the [compressible_flow/Laminar_Cylinder](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/lam_cylinder.cfg)) and the mesh file ([mesh_cylinder_lam.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/mesh_cylinder_lam.su2)).
 
 Experimental results for drag over a cylinder at low Reynolds numbers are reported in the following article:
 D. J. Tritton, "Experiments on the flow past a circular cylinder at low Reynolds numbers," Journal of Fluid Mechanics, Vol. 6, No. 4, pp. 547-567, 1959. Note that the mesh used for this tutorial is rather coarse, and for comparison of the results with literature, finer meshes should be used.
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the external flow around a cylinder using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the external flow around a cylinder using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -90,7 +90,7 @@ Lastly, it should be mentioned that the MUSCL reconstruction and slope limiting 
 ### Running SU2
 
 The cylinder simulation for the 13,336 node mesh is small and will execute relatively quickly on a single workstation or laptop in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the configuration file ([lam_cylinder.cfg](lam_cylinder.cfg)) and the mesh file ([mesh_cylinder_lam.su2](mesh_cylinder_lam.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the configuration file ([lam_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/lam_cylinder.cfg)) and the mesh file ([mesh_cylinder_lam.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Cylinder/mesh_cylinder_lam.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```

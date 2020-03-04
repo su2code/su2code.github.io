@@ -3,9 +3,9 @@ title: Constrained shape design of a transonic turbulent airfoil at a cte. C<sub
 permalink: /tutorials/Turbulent_2D_Constrained_RAE2822/
 written_by: economon
 for_version: 7.0.0
-revised_by: jayantmukho
-revision_date: 2019-11-27
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: RANS
 requires: SU2_CFD, Python
 complexity: advanced
@@ -26,11 +26,11 @@ We will walk through the shape design process and highlight several options rela
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Turbulent_Shape_Design](https://github.com/su2code/su2code.github.io/tree/master/Turbulent_2D_Constrained_RAE2822) in the [tutorial/website repository](https://github.com/su2code/su2code.github.io). You will need the mesh file [mesh_RAE2822_turb.su2](../../Turbulent_2D_Constrained_RAE2822/mesh_RAE2822_turb.su2), the config file [turb_SA_RAE2822.cfg](../../Turbulent_2D_Constrained_RAE2822/turb_SA_RAE2822.cfg) and initial solution files for the solver and adjoint [solution_flow.dat](../../Turbulent_2D_Constrained_RAE2822/solution_flow.dat), [solution_adj_cd.dat](../../Turbulent_2D_Constrained_RAE2822/solution_adj_cd.dat), and [solution_adj_cmz.dat](../../Turbulent_2D_Constrained_RAE2822/solution_adj_cmz.dat).
+You can find the resources for this tutorial in the folder [design/Turbulent_2D_Constrained_RAE2822](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_RAE2822_turb.su2](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/mesh_RAE2822_turb.su2), the config file [turb_SA_RAE2822.cfg](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/turb_SA_RAE2822.cfg) and initial solution files for the solver and adjoint [solution_flow.dat](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/solution_flow.dat), [solution_adj_cd.dat](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/solution_adj_cd.dat), and [solution_adj_cmz.dat](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/solution_adj_cmz.dat).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when performing shape design for the transonic turbulent airfoil using SU2 and the automatic differentiation tool. It is assumed that you have already obtained and compiled SU2_CFD, SU2_CFD_AD, SU2_DOT, SU2_DOT_AD, SU2_GEO, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages. And do not forget to install the AD design capability [AD Build](/docs/AD-Build/).
+The following tutorial will walk you through the steps required when performing shape design for the transonic turbulent airfoil using SU2 and the automatic differentiation tool. It is assumed that you have already obtained and compiled SU2_CFD, SU2_CFD_AD, SU2_DOT, SU2_DOT_AD, SU2_GEO, and SU2_DEF. The design loop is driven by the shape_optimization.py script, and thus Python along with the NumPy and SciPy Python modules are required for this tutorial. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages. And do not forget to compile with the [adjoint mode capability](/docs_v7/Build-SU2-Linux-MacOS/#basic-configuration).
 
 ### Background
 
@@ -162,7 +162,7 @@ The discrete adjoint methodology for obtaining surface sensitivities is implemen
 Figure (3): Adjoint density contours on the baseline RAE 2822 airfoil.
 
 To run this design case, follow these steps at a terminal command line:
-1. Move to the directory containing the config file ([turb_SA_RAE2822.cfg](../../ Turbulent_2D_Constrained_RAE2822/ turb_SA_RAE2822.cfg) the mesh file ([mesh_RAE2822_turb.su2](../../Turbulent_2D_Constrained_RAE2822/ mesh_RAE2822_turb.su2)) and the solution files ([solution_flow.dat](../../Turbulent_2D_Constrained_RAE2822/ solution_flow.dat)), ([solution_adj_cd.dat](../../Turbulent_2D_Constrained_RAE2822/ solution_adj_cd.dat)), and ([solution_adj_cmz.dat](../../Turbulent_2D_Constrained_RAE2822/ solution_adj_cmz.dat)). Assuming that SU2 tools were compiled, installed, and that their install location was added to your path, the shape_optimization.py script, SU2_CFD, SU2_CFD_AD, SU2_DOT, SU2_DOT_AD, SU2_GEO and SU2_DEF should all be available.
+1. Move to the directory containing the config file ([turb_SA_RAE2822.cfg](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/ turb_SA_RAE2822.cfg) the mesh file ([mesh_RAE2822_turb.su2](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/ mesh_RAE2822_turb.su2)) and the solution files ([solution_flow.dat](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/ solution_flow.dat)), ([solution_adj_cd.dat](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/ solution_adj_cd.dat)), and ([solution_adj_cmz.dat](https://github.com/su2code/Tutorials/tree/master/design/Turbulent_2D_Constrained_RAE2822/ solution_adj_cmz.dat)). Assuming that SU2 tools were compiled, installed, and that their install location was added to your path, the shape_optimization.py script, SU2_CFD, SU2_CFD_AD, SU2_DOT, SU2_DOT_AD, SU2_GEO and SU2_DEF should all be available.
 
 2. Execute the shape optimization script by entering
 

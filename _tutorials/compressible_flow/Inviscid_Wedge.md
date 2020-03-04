@@ -3,9 +3,9 @@ title: Inviscid Supersonic Wedge
 permalink: /tutorials/Inviscid_Wedge/
 written_by: economon
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-23
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: Euler
 requires: SU2_CFD
 complexity: basic
@@ -27,11 +27,11 @@ The intent of this tutorial is to introduce a simple, inviscid flow problem that
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inviscid_Wedge](https://github.com/su2code/su2code.github.io/tree/master/Inviscid_Wedge) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([inv_wedge_HLLC.cfg](../../Inviscid_Wedge/inv_wedge_HLLC.cfg)) and the mesh file ([mesh_wedge_inv.cgns](../../Inviscid_Wedge/mesh_wedge_inv.cgns)).
+The resources for this tutorial can be found in the [compressible_flow/Inviscid_Wedge](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([inv_wedge_HLLC.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/inv_wedge_HLLC.cfg)) and the mesh file ([mesh_wedge_inv.cgns](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/mesh_wedge_inv.cgns)).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the supersonic flow past the wedge using SU2. It is assumed you have already obtained and compiled SU2_CFD with CGNS support. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the supersonic flow past the wedge using SU2. It is assumed you have already obtained and compiled SU2_CFD with CGNS support. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -159,7 +159,7 @@ DV_VALUE= 10.0
 ### Running SU2
 
 The wedge simulation is small and will execute quickly on a single workstation or laptop, and this case will be run in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([inv_wedge_HLLC.cfg](../../Inviscid_Wedge/inv_wedge_HLLC.cfg)) and the mesh file ([mesh_wedge_inv.cgns](../../Inviscid_Wedge/mesh_wedge_inv.cgns)). Make sure that the SU2 tools were compiled with CGNS support, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([inv_wedge_HLLC.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/inv_wedge_HLLC.cfg)) and the mesh file ([mesh_wedge_inv.cgns](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_Wedge/mesh_wedge_inv.cgns)). Make sure that the SU2 tools were compiled with CGNS support, installed, and that their install location was added to your path.
  2. Run the executable by entering
  
      ```

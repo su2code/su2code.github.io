@@ -36,18 +36,18 @@ This tutorial uses the windowing techniques explained in [here](../Unsteady_NACA
 ## Resources ##
 
 The resources for this tutorial can be found in the 
-[Unsteady_Shape_Opt_NACA0012](https://github.com/su2code/su2code.github.io/tree/master/Unsteady_Shape_Opt_NACA0012) directory 
-in the [project website repository](https://github.com/su2code/su2code.github.io). 
+[design/Unsteady_Shape_Opt_NACA0012](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012) directory 
+in the [project website repository](https://github.com/su2code/Tutorials). 
 
-You will need the configuration file ([unsteady_naca0012_opt.cfg](../../Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_opt.cfg)) and 
-the mesh file ([unsteady_naca0012_FFD.su2](../../Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_FFD.su2)).
+You will need the configuration file ([unsteady_naca0012_opt.cfg](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_opt.cfg)) and 
+the mesh file ([unsteady_naca0012_FFD.su2](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_FFD.su2)).
 
 ## Tutorial ##
 
 The following tutorial will walk you through the steps required when performing a shape optimization of the  NACA0012 airfoil using SU2. 
 The tutorial will also address procedures for parallel computations.
 To this end, it is assumed you have already obtained and compiled SU2_CFD and its adjoint capabilities. 
-If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background ###
 

@@ -3,9 +3,9 @@ title: Laminar Backward-facing Step
 permalink: /tutorials/Inc_Laminar_Step/
 written_by: economon 
 for_version: 7.0.0
-revised_by: economon  
-revision_date: 2019-11-25
-revised_version: 7.0.0
+revised_by: talbring  
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: INC_NAVIER_STOKES
 requires: SU2_CFD
 complexity: basic
@@ -26,12 +26,12 @@ The intent of this tutorial is to introduce the capability for prescribing inlet
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Laminar_Step](https://github.com/su2code/su2code.github.io/tree/master/Inc_Laminar_Step) directory in the [tutorial repository](https://github.com/su2code/su2code.github.io/tree/master/). You will need the configuration file ([lam_backwardstep.cfg](../../Inc_Laminar_Step/lam_backwardstep.cfg)) and the mesh file ([mesh_backward_step_481x65.su2](../../Inc_Laminar_Step/mesh_backward_step_481x65.su2)).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Laminar_Step](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_backwardstep.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/lam_backwardstep.cfg)) and the mesh file ([mesh_backward_step_481x65.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/mesh_backward_step_481x65.su2)).
 
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow over a backward-facing step using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow over a backward-facing step using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -124,7 +124,7 @@ Lastly, to ease the process of generating the correct inlet profile format, SU2 
 ### Running SU2
 
 The backward-facing step simulation will execute relatively quickly on a single workstation or laptop in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([lam_backwardstep.cfg](../../Inc_Laminar_Step/lam_backwardstep.cfg)) and the mesh file ([mesh_backward_step_481x65.su2](../../Inc_Laminar_Step/mesh_backward_step_481x65.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([lam_backwardstep.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/lam_backwardstep.cfg)) and the mesh file ([mesh_backward_step_481x65.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Step/mesh_backward_step_481x65.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```

@@ -3,9 +3,9 @@ title: Inviscid ONERA M6
 permalink: /tutorials/Inviscid_ONERAM6/
 written_by: economon
 for_version: 7.0.0
-revised_by: economon
-revision_date: 2019-11-23
-revised_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
 solver: Euler
 requires: SU2_CFD
 complexity: basic
@@ -29,11 +29,11 @@ We will also discuss the details for setting up 3D flow conditions and some of t
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inviscid_ONERAM6](https://github.com/su2code/su2code.github.io/tree/master/Inviscid_ONERAM6) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([inv_ONERAM6.cfg](../../Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](../../Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)).
+The resources for this tutorial can be found in the [compressible_flow/Inviscid_ONERAM6](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([inv_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for external flow past the ONERA M6 using SU2. The tutorial will also address procedures for both serial and parallel computations. It is assumed that you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for external flow past the ONERA M6 using SU2. The tutorial will also address procedures for both serial and parallel computations. It is assumed that you have already obtained and compiled the SU2_CFD code for a serial computation or both the SU2_CFD and SU2_SOL codes for a parallel computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -161,7 +161,7 @@ Instructions for running this test case are given here for both serial and paral
 #### In Serial
 
 The wing simulation is relatively large for a single-core calculation, but is still reasonable due to the high convergence rate of this inviscid case. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([inv_ONERAM6.cfg](../../Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](../../Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([inv_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
      ```
@@ -174,7 +174,7 @@ The wing simulation is relatively large for a single-core calculation, but is st
 #### In Parallel
 
 If SU2 has been built with parallel support, the recommended method for running a parallel simulation is through the use of the parallel_computation.py python script. This automatically handles the execution of SU2_CFD and the writing of the solution vizualization files using SU2_SOL. Follow these steps to run the ONERA M6 case in parallel:
- 1. Move to the directory containing the config file ([inv_ONERAM6.cfg](../../Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](../../Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([inv_ONERAM6.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/inv_ONERAM6.cfg)) and the mesh file ([mesh_ONERAM6_inv_ffd.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Inviscid_ONERAM6/mesh_ONERAM6_inv_ffd.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the python script by entering 
  
     ```
