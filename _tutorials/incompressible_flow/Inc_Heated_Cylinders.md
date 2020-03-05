@@ -113,7 +113,7 @@ The config files for the solid zones are quite short and mostly identical. E.g. 
 % Physical governing equations (EULER, NAVIER_STOKES,
 %                               WAVE_EQUATION, HEAT_EQUATION, FEM_ELASTICITY,
 %                               POISSON_EQUATION)                           
-SOLVER= HEAT_EQUATION_FVM
+SOLVER= HEAT_EQUATION
 ```
 and then set in inner (core) diameter temperature to 350 K (as mentioned above), that is we set
 
