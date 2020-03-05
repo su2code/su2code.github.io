@@ -15,7 +15,7 @@ userguide: Build-SU2-Linux-MacOS
 ---
 
 This tutorial uses SU2's python wrapper and its native adjoint solvers for incompressible flow and solid mechanics to solve a steady-state, **adjoint** Fluid-Structure Interaction problem. This document will cover:
-- Operating with the ad version of the pysu2 library
+- Operating with the AD version of the pysu2 library
 - Extracting the adjoints of the flow loads and structural displacements from two different python instances of SU2
 - Exchanging adjoint information between the two instances
 
@@ -172,9 +172,9 @@ and the ```flow_filename``` variable previously defined. Next, identifyin the FS
 Now, the major differences with respect to the primal case are presented. First, we need to initialize the cross dependency that is applied as a source term into the flow domain to 0, using
 
 ```
-fea_sensitivities=[]
-for iVertex in range(nVertex_Marker_Flow):
-  fea_sensitivities.append([0.0, 0.0, 0.0])
+fea_sens=[]
+for j in range(nVertex_Marker_Flow):
+  fea_sens.append([0.0, 0.0, 0.0])
 ```
 
 We start the FSI loop and limit it to 15 iterations
@@ -186,73 +186,73 @@ for i in range(15):
 and the source term corresponding to the flow load adjoint is applied to the fluid domain. In the first iteration, this will be a zero-vector, but that will not be the case for subsequent iterations.
 
 ```
-    FlowDriver.SetFlowLoad_Adjoint(FlowMarkerID, 0, fea_sensitivities[1][0], fea_sensitivities[1][1], fea_sensitivities[1][2])
-    FlowDriver.SetFlowLoad_Adjoint(FlowMarkerID, 1, fea_sensitivities[0][0], fea_sensitivities[0][1], fea_sensitivities[0][2])     
-    for iVertex in range(2, nVertex_Marker_Flow):
-      FlowDriver.SetFlowLoad_Adjoint(FlowMarkerID,iVertex,fea_sensitivities[iVertex][0],fea_sensitivities[iVertex][1],fea_sensitivities[iVertex][2])
+  FlowDriver.SetFlowLoad_Adjoint(FlowMarkerID,0,fea_sens[1][0],fea_sens[1][1],0)
+  FlowDriver.SetFlowLoad_Adjoint(FlowMarkerID,1,fea_sens[0][0],fea_sens[0][1],0)     
+  for j in range(2, nVertex_Marker_Flow):
+    FlowDriver.SetFlowLoad_Adjoint(FlowMarkerID,j,fea_sens[j][0],fea_sens[j][1],0)
 ```
 
 The flow adjoint iteration is run now using
 
 ```
-    FlowDriver.ResetConvergence()
-    FlowDriver.Preprocess(0)
-    FlowDriver.Run()
-    FlowDriver.Postprocess() 
-    FlowDriver.Update()
-    stopCalc = FlowDriver.Monitor(0)
+  FlowDriver.ResetConvergence()
+  FlowDriver.Preprocess(0)
+  FlowDriver.Run()
+  FlowDriver.Postprocess() 
+  FlowDriver.Update()
+  stopCalc = FlowDriver.Monitor(0)
 ```
 
 We need to recover the flow loads and apply them to the structural simulation in order to run the primal iteration for the recording,
 
 ```
-    flow_loads=[]
-    for iVertex in range(nVertex_Marker_Flow):
-      vertexLoad = FlowDriver.GetFlowLoad(FlowMarkerID, iVertex)
-      flow_loads.append(vertexLoad)
+  flow_loads=[]
+  for j in range(nVertex_Marker_Flow):
+    vertexLoad = FlowDriver.GetFlowLoad(FlowMarkerID, j)
+    flow_loads.append(vertexLoad)
     
-    FEADriver.SetFEA_Loads(FEAMarkerID, 0, flow_loads[1][0], flow_loads[1][1], flow_loads[1][2])
-    FEADriver.SetFEA_Loads(FEAMarkerID, 1, flow_loads[0][0], flow_loads[0][1], flow_loads[0][2]) 
-    for iVertex in range(2, nVertex_Marker_FEA):
-      FEADriver.SetFEA_Loads(FEAMarkerID, iVertex, flow_loads[iVertex][0], flow_loads[iVertex][1], flow_loads[iVertex][2])
+  FEADriver.SetFEA_Loads(FEAMarkerID, 0, flow_loads[1][0], flow_loads[1][1], 0)
+  FEADriver.SetFEA_Loads(FEAMarkerID, 1, flow_loads[0][0], flow_loads[0][1], 0)
+  for j in range(2, nVertex_Marker_FEA):
+    FEADriver.SetFEA_Loads(FEAMarkerID, j, flow_loads[j][0], flow_loads[j][1], 0)
 ```
 
 and also, we need to extract the cross dependency on the mesh displacements
 
 ```
-    flow_sensitivities=[]
-    for iVertex in range(nVertex_Marker_Flow):
-      sensX, sensY, sensZ = FlowDriver.GetMeshDisp_Sensitivity(FlowMarkerID, iVertex)
-      flow_sensitivities.append([sensX, sensY, sensZ])
+  flow_sens=[]
+  for iVertex in range(nVertex_Marker_Flow):
+    sensX, sensY, sensZ = FlowDriver.GetMeshDisp_Sensitivity(FlowMarkerID, iVertex)
+    flow_sens.append([sensX, sensY, sensZ])
 ```
 
 that will be used as a source term into the structural domain
 
 ```
-    FEADriver.SetSourceTerm_DispAdjoint(FEAMarkerID,0,flow_sensitivities[1][0],flow_sensitivities[1][1],flow_sensitivities[1][2])        
-    FEADriver.SetSourceTerm_DispAdjoint(FEAMarkerID,1,flow_sensitivities[0][0],flow_sensitivities[0][1],flow_sensitivities[0][2])        
-    for iVertex in range(nVertex_Marker_FEA):
-      FEADriver.SetSourceTerm_DispAdjoint(FEAMarkerID,iVertex,flow_sensitivities[iVertex][0],flow_sensitivities[iVertex][1],flow_sensitivities[iVertex][2])    
+  FEADriver.SetSourceTerm_DispAdjoint(FEAMarkerID,0,flow_sens[1][0],flow_sens[1][1],0)
+  FEADriver.SetSourceTerm_DispAdjoint(FEAMarkerID,1,flow_sens[0][0],flow_sens[0][1],0)
+  for j in range(nVertex_Marker_FEA):
+    FEADriver.SetSourceTerm_DispAdjoint(FEAMarkerID,j,flow_sens[j][0],flow_sens[j][1],0)
 ```
       
 Next, the structural adjoint simulation is run with
 
 ```
-    FEADriver.ResetConvergence()
-    FEADriver.Preprocess(0)  
-    FEADriver.Run()
-    FEADriver.Postprocess() 
-    FEADriver.Update()
-    stopCalc = FEADriver.Monitor(0)
+  FEADriver.ResetConvergence()
+  FEADriver.Preprocess(0)  
+  FEADriver.Run()
+  FEADriver.Postprocess() 
+  FEADriver.Update()
+  stopCalc = FEADriver.Monitor(0)
 ```
 
 and the crossed sensitivities with respect to the flow load are retrieved using
 
 ```
-    fea_sensitivities=[] 
-    for iVertex in range(nVertex_Marker_FEA):
-      sensX, sensY, sensZ = FEADriver.GetFlowLoad_Sensitivity(FEAMarkerID, iVertex)
-      fea_sensitivities.append([sensX, sensY, sensZ])
+  fea_sens=[]
+  for j in range(nVertex_Marker_FEA):
+    sensX, sensY, sensZ = FEADriver.GetFlowLoad_Sensitivity(FEAMarkerID, j)
+    fea_sens.append([sensX, sensY, sensZ])
 ```
 
 Finally, these boundary displacements are imposed to the flow domain in the next iteration. Once the loop is completed, it only remains to write the solution of each domain to file using

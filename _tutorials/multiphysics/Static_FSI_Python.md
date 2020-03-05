@@ -162,29 +162,29 @@ for i in range(17):
 First, the flow solution is run
 
 ```
-    FlowDriver.ResetConvergence()
-    FlowDriver.Preprocess(0)
-    FlowDriver.Run()
-    FlowDriver.Postprocess() 
-    stopCalc = FlowDriver.Monitor(0)
+  FlowDriver.ResetConvergence()
+  FlowDriver.Preprocess(0)
+  FlowDriver.Run()
+  FlowDriver.Postprocess() 
+  stopCalc = FlowDriver.Monitor(0)
 ```
 
 and the flow loads are recovered using
 
 ```
-    flow_loads=[]
-    for iVertex in range(nVertex_Marker_Flow):
-      vertexLoad = FlowDriver.GetFlowLoad(FlowMarkerID, iVertex)
-      flow_loads.append(vertexLoad)
+  flow_loads=[]
+  for j in range(nVertex_Marker_Flow):
+    vertexLoad = FlowDriver.GetFlowLoad(FlowMarkerID, j)
+    flow_loads.append(vertexLoad)
 ```
 
 The ```flow_loads``` array now contains the loads in all the vertices of the flow FSI interface. Now, we need to set the flow loads to the FEA nodes. By construction for this case, the vertex IDs are matching for both meshes except for vertex 0 and 1, which are inverted. Therefore, we set the flow loads on the structural domain using
 
 ```
-    FEADriver.SetFEA_Loads(FEAMarkerID, 0, flow_loads[1][0], flow_loads[1][1], flow_loads[1][2])
-    FEADriver.SetFEA_Loads(FEAMarkerID, 1, flow_loads[0][0], flow_loads[0][1], flow_loads[0][2]) 
-    for iVertex in range(2, nVertex_Marker_FEA):
-      FEADriver.SetFEA_Loads(FEAMarkerID, iVertex, flow_loads[iVertex][0], flow_loads[iVertex][1], flow_loads[iVertex][2])
+  FEADriver.SetFEA_Loads(FEAMarkerID,0,flow_loads[1][0],flow_loads[1][1],0)
+  FEADriver.SetFEA_Loads(FEAMarkerID,1,flow_loads[0][0],flow_loads[0][1],0)
+  for j in range(2, nVertex_Marker_FEA):
+    FEADriver.SetFEA_Loads(FEAMarkerID,j,flow_loads[j][0],flow_loads[j][1],0)
 ```
 
 You can ensure the vertices are coincidental by the coordinates of the nodes using ```FlowDriver.GetVertexCoordX(FlowMarkerID, iVertex)``` and ```FlowDriver.GetVertexCoordY(FlowMarkerID, iVertex)``` for the flow domain, and ```FEADriver.GetVertexCoordX(FEAMarkerID, iVertex)``` and ```FEADriver.GetVertexCoordY(FEAMarkerID, iVertex)``` for the structural domain.
@@ -192,29 +192,29 @@ You can ensure the vertices are coincidental by the coordinates of the nodes usi
 Next, the structural simulation is run with
 
 ```
-    FEADriver.ResetConvergence()
-    FEADriver.Preprocess(0)  
-    FEADriver.Run()
-    FEADriver.Postprocess() 
-    stopCalc = FEADriver.Monitor(0)
+  FEADriver.ResetConvergence()
+  FEADriver.Preprocess(0)  
+  FEADriver.Run()
+  FEADriver.Postprocess() 
+  stopCalc = FEADriver.Monitor(0)
 ```
 
 and the structural displacements at the ```feabound``` interface are retrieved using
 
 ```
-    fea_disp=[]
-    for iVertex in range(nVertex_Marker_FEA):
-      vertexDisp = FEADriver.GetFEA_Displacements(FEAMarkerID, iVertex)
-      fea_disp.append(vertexDisp)
+  fea_disp=[]
+  for j in range(nVertex_Marker_FEA):
+    vertexDisp = FEADriver.GetFEA_Displacements(FEAMarkerID, j)
+    fea_disp.append(vertexDisp)
 ```
 
 Finally, these boundary displacements are imposed to the flow mesh
 
 ```
-    FlowDriver.SetMeshDisplacement(FlowMarkerID, 0, fea_disp[1][0], fea_disp[1][1], fea_disp[1][2])
-    FlowDriver.SetMeshDisplacement(FlowMarkerID, 1, fea_disp[0][0], fea_disp[0][1], fea_disp[0][2])    
-    for iVertex in range(2, nVertex_Marker_FEA):
-      FlowDriver.SetMeshDisplacement(FlowMarkerID, iVertex, fea_disp[iVertex][0], fea_disp[iVertex][1], fea_disp[iVertex][2])
+  FlowDriver.SetMeshDisplacement(FlowMarkerID,0,fea_disp[1][0],fea_disp[1][1],0)
+  FlowDriver.SetMeshDisplacement(FlowMarkerID,1,fea_disp[0][0],fea_disp[0][1],0)
+  for j in range(2, nVertex_Marker_FEA):
+    FlowDriver.SetMeshDisplacement(FlowMarkerID,j,fea_disp[j][0],fea_disp[j][1],0)
 ```
 
 Once the loop is completed, it only remains to write the solution of each domain to file using
