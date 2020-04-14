@@ -41,7 +41,7 @@ This is a quick guide to compile and install a *basic version* of SU2. For more 
 Short summary of the minimal requirements:
 
 - C/C++ compiler
-- Python 3
+- Python 3.7
 
 **Note:** all other necessary build tools and dependencies are shipped with the source code or are downloaded automatically.
 
@@ -80,12 +80,12 @@ If you want to use the python wrapper capabilities, also `swig` and `mpi4py` are
 
 On **Mac OS X**, you can use the [Homebrew](http://brew.sh/) package manager. Once it is installed on your system, you can install Swig by running:
 
-    $ sudo brew install swig
+    $ brew install swig
 
 Install mpi4py with Python pip using easy install:
 
-    $ sudo easy_install pip
-    $ sudo pip install mpi4py
+    $ easy_install pip
+    $ pip install mpi4py
     
 ---
 
