@@ -41,7 +41,7 @@ This is a quick guide to compile and install a *basic version* of SU2. For more 
 Short summary of the minimal requirements:
 
 - C/C++ compiler
-- Python 3.7
+- Python 3
 
 **Note:** all other necessary build tools and dependencies are shipped with the source code or are downloaded automatically.
 
@@ -198,4 +198,9 @@ Meson looks for an MPI installation using [pkg-config](https://en.wikipedia.org/
 ### mpi4py library is not found ###
 Meson imports the mpi4py module and searches for the include path. If it is installed in a custom location, make sure to add this path to the `PYTHONPATH` environment variable prior calling `meson.py`.
 
-
+### Ninja compiles but fails to install ###
+If building on a cluster that uses a NFS filesystem, ninja may finish the compilation but fail to install with an error such as:
+```
+OSError: [Errno 22] Invalid argument: 'SU2_CFD/src/SU2_CFD'
+```
+This is a known bug in earlier versions of Python 3. Try upgrading to Python >= 3.7 then rerun ninja.
