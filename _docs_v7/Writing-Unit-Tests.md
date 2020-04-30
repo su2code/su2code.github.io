@@ -1,6 +1,6 @@
 ---
 title: Writing Unit Tests
-permalink: /docs/Writing-Unit-Tests/
+permalink: /docs_v7/Writing-Unit-Tests/
 ---
 
 This document covers the question "How do I write unit tests for SU2?"

@@ -1,6 +1,6 @@
 ---
 title: Running Unit Tests
-permalink: /docs/Running-Unit-Tests/
+permalink: /docs_v7/Running-Unit-Tests/
 ---
 
 Unit tests are small tests of individual "units" of code.  They allow
