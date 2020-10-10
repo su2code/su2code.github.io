@@ -142,7 +142,7 @@ To set a installation directory for the binaries and python scripts, use the `--
 If you are not interested in setting custom compiler flags and other options you can now go directly to the [Compilation](#compilation) section, otherwise continue reading the next section.
 
 ### Advanced Configuration ###
-In general meson appends flags set with the environment variable `CXX_FLAGS`. It is however recommended to use 
+In general meson appends flags set with the environment variable `CXXFLAGS`. It is however recommended to use 
 mesons built-in options to set debug mode, warning levels and optimizations. All options can be found [here](https://mesonbuild.com/Builtin-options.html) or by using `./meson.py configure`. An already created configuration can be modified by using the `--reconfigure` flag, e.g.:
 ```
 ./meson.py build --reconfigure --buildtype=debug
@@ -155,7 +155,11 @@ The debug mode can be enabled by using the `--buildtype=debug` option. This adds
 
 #### Compiler optimizations ####
 
-The optimization level can be set with `--optimization=level`, where `level` corresponds to a number between 0 (no optimization) and 3 (highest level of optimizations). The default level is 3.
+The optimization level can be set with `--optimization=level`, where `level` corresponds to a number between 0 (no optimization) and 3 (highest level of optimizations) which is the default.
+However, that may not result in optimum performance, for example with the GNU compilers level 2 and the extra flag `-funroll-loops` results in better performance for most problems.
+
+Some numerical schemes support vectorization (see which ones in the Convective Schemes page), to make the most out of it the compiler needs to be informed of the target CPU architecture, so it knows what "kind of vectorization" it can generate (256 or 512bit, 128bit being the default).
+With gcc, clang, and icc this can be done via the `-march=??` and `-mtune=??` options, where `??` needs to be set appropriately e.g. `skylake`, `ryzen`, etc., these flags can be passed to the compiler by setting `CXXFLAGS` before first running meson (which will print some messages acknowledging the flags).
 
 #### Warning level ####
 
