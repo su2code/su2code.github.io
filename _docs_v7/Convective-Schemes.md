@@ -37,12 +37,16 @@ To achieve second order upwind schemes need to be used with MUSCL reconstruction
 ### Central Schemes ###
 
 - `JST` - Jameson-Schmidt-Turkel scheme with scalar dissipation defined by the second and fourth order dissipation coefficients in option `JST_SENSOR_COEFF = (2nd, 4th)` the default values are 0.5 and 0.02 respectively. This scheme offers a good compromise between accuracy and robustness but it will over predict viscous drag contributions in low-Re meshes.
-- `JST-KE` - Equivalent to `JST` with 0 fourth order coefficient (the computational effort is slightly reduced as solution Laplacians no longer need to be computed);
+- `JST_KE` - Equivalent to `JST` with 0 fourth order coefficient (the computational effort is slightly reduced as solution Laplacians no longer need to be computed);
+- `JST_MAT` - Jameson-Schmidt-Turkel scheme with matrix dissipation, the classical dissipation term is scaled by the flux Jacobian with the minimum Eigenvalue limited by `ENTROPY_FIX_COEFF` (0.05-0.2 is recommended, larger means more numerical dissipation). This scheme gives better viscous drag predictions on low-Re meshes than `JST`.
 - `LAX-FRIEDRICH` - The simplest of central schemes with a first order dissipation term specified via `LAX_SENSOR_COEFF` (the default is 0.15), this scheme is the most stable and least accurate due to its very dissipative nature.
 
 The option `CENTRAL_JACOBIAN_FIX_FACTOR` (default value 4.0) affects all central schemes.
 In implicit time marching it improves the numerical properties of the Jacobian matrix so that higher CFL values can be used.
 To maintain CFL at lower-than-default values of dissipation coefficients, a higher factor should be used.
+`JST_MAT` benefits from higher values (~8.0).
+
+All compressible central schemes support vectorization (`USE_VECTORIZATION= YES`) with no robustness downsides, see the build instructions for how to tune the compilation for maximum vectorization performance.
 
 **Note:** The Lax-Friedrich scheme is always used on coarse multigrid levels when any central scheme is selected.
 
@@ -70,12 +74,14 @@ Some of the schemes above have tunning parameters or accept extra options, the f
 | **`ROE_LOW_DISSIPATION`**         |   X   |         |               |                 |     X     |        |        |
 | **`USE_ACCURATE_FLUX_JACOBIANS`** |       |         |               |        X        |     X     |        |        |
 | **`MIN/MAX_ROE_TURKEL_PREC`**     |       |         |       X       |                 |           |        |        |
+| **`USE_VECTORIZATION`**           |   X   |         |               |                 |           |        |        |
 
 - `ROE_KAPPA`, default 0.5, constant that multiplies the left and right state sum;
 - `ENTROPY_FIX_COEFF`, default 0.001, puts a lower bound on dissipation by limiting the minimum convective Eigenvalue to a fraction of the speed of sound. Increasing it may help overcome convergence issues, at the expense of making the solution sensitive to this parameter.
 - `ROE_LOW_DISSIPATION`, default `NONE`, methods to reduce dissipation in regions where certain conditions are verified, `FD` (wall distance based), `NTS` (Travin and Shur), `FD_DUCROS` and `NTS_DUCROS` as before plus Ducros' shock sensor;
 - `USE_ACCURATE_FLUX_JACOBIANS`, default `NO`, if set to `YES` accurate flux Jacobians are used instead of Roe approximates, slower on a per iteration basis but in some cases allows much higher CFL values to be used and therefore faster overall convergence;
-- `MIN_ROE_TURKEL_PREC` and `MAX_ROE_TURKEL_PREC`, defaults 0.01 and 0.2 respectively, reference Mach numbers for Turkel preconditioning.
+- `MIN_ROE_TURKEL_PREC` and `MAX_ROE_TURKEL_PREC`, defaults 0.01 and 0.2 respectively, reference Mach numbers for Turkel preconditioning;
+- `USE_VECTORIZATION`, default `NO`, if `YES` use the vectorized (SSE, AVX, or AVX512) implementation which is faster but may be less robust against initial solution transients.
 
 **Note:** Some schemes are not compatible with all other features of SU2, the AUSM family and CUSP are not compatible with unsteady simulations of moving grids, non-ideal gases are only compatible with the standard Roe and HLLC schemes.
 
