@@ -1,6 +1,15 @@
 ---
 title: Heated Cylinders with Conjugate Heat Transfer
 permalink: /tutorials/Inc_Heated_Cylinders/
+written_by: oleburghardt 
+for_version: 7.0.0
+revised_by: talbring 
+revision_date: 2020-03-03
+revised_version: 7.0.2
+solver: MULTIPHYSICS
+requires: SU2_CFD
+complexity: advanced
+follows: 
 ---
 
 ![Coupled_CHT](../../Inc_Heated_Cylinders/images/coupled_cht.png)
@@ -19,12 +28,12 @@ The intent of this tutorial is to introduce a simple multiple physical zones cas
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Heated_Cylinders](https://github.com/su2code/su2code.github.io/tree/master/Inc_Heated_Cylinders) directory in the [tutorial repository](https://github.com/su2code/su2code.github.io/tree/master/). You will need the configuration files for all physical zones ([flow_cylinder.cfg](../../Inc_Heated_Cylinders/flow_cylinder.cfg), [solid_cylinder1.cfg](../../Inc_Heated_Cylinders/solid_cylinder1.cfg), [solid_cylinder2.cfg](../../Inc_Heated_Cylinders/solid_cylinder2.cfg), [solid_cylinder3.cfg](../../Inc_Heated_Cylinders/solid_cylinder3.cfg)), the cofiguration file to invoke a multiphysics simulation run ([cht_2d_3cylinders.cfg](../../Inc_Heated_Cylinders/cht_2d_3cylinders.cfg)) and the mesh file ([mesh_cht_3cyl.su2](../../Inc_Heated_Cylinders/mesh_cht_3cyl.su2)).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Heated_Cylinders](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration files for all physical zones ([flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/flow_cylinder.cfg), [solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solid_cylinder1.cfg), [solid_cylinder2.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solid_cylinder2.cfg), [solid_cylinder3.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solid_cylinder3.cfg)), the cofiguration file to invoke a multiphysics simulation run ([cht_2d_3cylinders.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/cht_2d_3cylinders.cfg)) and the mesh file ([mesh_cht_3cyl.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/mesh_cht_3cyl.su2)).
 
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for a coupled CHT solution incorporating multiple physical zones. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for a coupled CHT solution incorporating multiple physical zones. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -59,7 +68,7 @@ Uniform velocity boundary conditions are used for the farfield.
 
 ### Configuration File Options
 
-Several of the key configuration file options for this simulation are highlighted here. First we show how we start a multiphysics simulation run incorporating CHT by choosing the following options in a main config file [cht_2d_3cylinders.cfg](../../Inc_Heated_Cylinders/cht_2d_3cylinders.cfg) (see [https://su2code.github.io/docs/Multizone](https://su2code.github.io/docs/Multizone) how to setup a multiphysics simulation in general):
+Several of the key configuration file options for this simulation are highlighted here. First we show how we start a multiphysics simulation run incorporating CHT by choosing the following options in a main config file [cht_2d_3cylinders.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/cht_2d_3cylinders.cfg) (see [https://su2code.github.io/docs/Multizone](https://su2code.github.io/docs/Multizone) how to setup a multiphysics simulation in general):
 
 ```
 MARKER_ZONE_INTERFACE= (cylinder_outer1, cylinder_inner1, cylinder_outer2, cylinder_inner2, cylinder_outer3, cylinder_inner3)
@@ -70,7 +79,7 @@ MARKER_CHT_INTERFACE= (cylinder_outer1, cylinder_inner1, cylinder_outer2, cylind
 
 By setting `MARKER_CHT_INTERFACE` for the outer diameters, temperature and heat flux data will be exchanged between the solvers at these boundaries in each outer iteration.  
 
-As in the [laminar flat plate with heat transfer tutorial](/tutorials/Inc_Laminar_Flat_Plate/), we activate the energy equation in the flow domain config ([flow_cylinder.cfg](../../Inc_Heated_Cylinders/flow_cylinder.cfg)) but this time we allow for variable density as the heat input causes a non-neglectable influence on the density:
+As in the [laminar flat plate with heat transfer tutorial](/tutorials/Inc_Laminar_Flat_Plate/), we activate the energy equation in the flow domain config ([flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/flow_cylinder.cfg)) but this time we allow for variable density as the heat input causes a non-neglectable influence on the density:
 
 ```
 % ---------------- INCOMPRESSIBLE FLOW CONDITION DEFINITION -------------------%
@@ -98,13 +107,13 @@ FLUID_MODEL= INC_IDEAL_GAS
 SPECIFIC_HEAT_CP= 1004.703
 ```
 
-The config files for the solid zones are quite short and mostly identical. E.g. for the first cylinder in upstream direction ([solid_cylinder1.cfg](../../Inc_Heated_Cylinders/solid_cylinder1.cfg)), we have to invoke the heat equation solver by
+The config files for the solid zones are quite short and mostly identical. E.g. for the first cylinder in upstream direction ([solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solid_cylinder1.cfg)), we have to invoke the heat equation solver by
 
 ```
 % Physical governing equations (EULER, NAVIER_STOKES,
 %                               WAVE_EQUATION, HEAT_EQUATION, FEM_ELASTICITY,
 %                               POISSON_EQUATION)                           
-SOLVER= HEAT_EQUATION_FVM
+SOLVER= HEAT_EQUATION
 ```
 and then set in inner (core) diameter temperature to 350 K (as mentioned above), that is we set
 
@@ -163,17 +172,17 @@ OBJECTIVE_FUNCTION= TOTAL_HEATFLUX
 MARKER_MONITORING= (cylinder_outer1, cylinder_outer2, cylinder_outer3)
 ```
 
-in [flow_cylinder.cfg](../../Inc_Heated_Cylinders/flow_cylinder.cfg) and 
+in [flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/flow_cylinder.cfg) and 
 
 ```
 % Marker(s) of the surface where the functional (Cd, Cl, etc.) will be evaluated
 MARKER_MONITORING= ( NONE )
 ```
 
-in [solid_cylinder1.cfg](../../Inc_Heated_Cylinders/solid_cylinder1.cfg), [solid_cylinder2.cfg](../../Inc_Heated_Cylinders/solid_cylinder2.cfg) and  [solid_cylinder3.cfg](../../Inc_Heated_Cylinders/solid_cylinder3.cfg).  
+in [solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solid_cylinder1.cfg), [solid_cylinder2.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solid_cylinder2.cfg) and  [solid_cylinder3.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solid_cylinder3.cfg).  
 One could also set objective functions in all the solid config files seperately which would in the end give same results.
 
-Based on all four solution files from the different zones ([solution_flow_0.dat](../../Inc_Heated_Cylinders/solution_flow_0.dat), [solution_flow_1.dat](../../Inc_Heated_Cylinders/solution_flow_1.dat), [solution_flow_2.dat](../../Inc_Heated_Cylinders/solution_flow_2.dat), [solution_flow_3.dat](../../Inc_Heated_Cylinders/solution_flow_3.dat)) that can be found in the directory that contains the config files and the mesh, we start the discrete adjoint run by entering
+Based on all four solution files from the different zones ([solution_flow_0.dat](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solution_flow_0.dat), [solution_flow_1.dat]([../../](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/)Inc_Heated_Cylinders/solution_flow_1.dat), [solution_flow_2.dat](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solution_flow_2.dat), [solution_flow_3.dat](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Heated_Cylinders/solution_flow_3.dat)) that can be found in the directory that contains the config files and the mesh, we start the discrete adjoint run by entering
 
 ```
 $ SU2_CFD_AD cht_2d_3cylinders.cfg

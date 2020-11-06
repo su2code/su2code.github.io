@@ -1,6 +1,15 @@
 ---
 title: Laminar Buoyancy-driven Cavity
 permalink: /tutorials/Inc_Laminar_Cavity/
+written_by: economon 
+for_version: 7.0.0
+revised_by: talbring 
+revision_date: 2020-03-03
+revised_version: 7.0.2
+solver: INC_NAVIER_STOKES
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Lam Plate Profile](../../Inc_Laminar_Cavity/images/buoyancy_temperature.png)
@@ -19,12 +28,12 @@ The intent of this tutorial is to demonstrate the variable density capability of
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Laminar_Cavity](https://github.com/su2code/su2code.github.io/tree/master/Inc_Laminar_Cavity) directory in the [tutorial repository](https://github.com/su2code/su2code.github.io/tree/master/). You will need the configuration file ([lam_buoyancy_cavity.cfg](../../Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](../../Inc_Laminar_Cavity/mesh_cavity_257x257.su2)).
+The resources for this tutorial can be found in the [Inc_Laminar_Cavity](incompressible_flow/https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_buoyancy_cavity.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/mesh_cavity_257x257.su2)).
 
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow in the buoyancy-driven cavity using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow in the buoyancy-driven cavity using the incompressible solver in SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -121,20 +130,20 @@ However, this body force specification can also be applied for general purpose i
 #### In Serial
 
 To run this test case in serial, follow these steps at a terminal command line:
-1. Copy the config file ([lam_buoyancy_cavity.cfg](../../Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](../../Inc_Laminar_Cavity/mesh_cavity_257x257.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
- 2. Run the executable by entering in the command line:
+1. Copy the config file ([lam_buoyancy_cavity.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/mesh_cavity_257x257.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Run the executable by entering in the command line:
       
     ```
     $ SU2_CFD lam_buoyancy_cavity.cfg
     ```
 
- 3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
- 4. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+ 2. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
+ 3. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
 
 #### In Parallel
 
 If SU2 has been built with parallel support, the recommended method for running a parallel simulation is through the use of the parallel_computation.py Python script. This automatically handles the domain decomposition and execution with SU2_CFD, and the merging of the decomposed files using SU2_SOL. Follow these steps to run the case in parallel:
- 1. Move to the directory containing the config file ([lam_buoyancy_cavity.cfg](../../Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](../../Inc_Laminar_Cavity/mesh_cavity_257x257.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([lam_buoyancy_cavity.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/mesh_cavity_257x257.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
  2. Run the python script which will automatically call SU2_CFD and will perform the simulation using `NP` number of processors by entering in the command line:
 
     ```

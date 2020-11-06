@@ -1,6 +1,12 @@
 ---
 title: Meeting and Workshop Material
 permalink: /tutorials/event_content/
+disable_header: true
+written_by: economon
+for_version: 6.0.0
+revised_by: economon
+revision_date: 2018-09-22
+revised_version: 6.0.0
 ---
 
 Below, you will find an archive of materials from the various SU2 workshops, webinars, and meetings. The materials may be useful for learning about a particular capability or even just for an overview of the latest SU2 developments. Note that, where applicable, the SU2 version number for a particular event is specified, as older content was generated for previous versions of SU2.

@@ -80,12 +80,12 @@ If you want to use the python wrapper capabilities, also `swig` and `mpi4py` are
 
 On **Mac OS X**, you can use the [Homebrew](http://brew.sh/) package manager. Once it is installed on your system, you can install Swig by running:
 
-    $ sudo brew install swig
+    $ brew install swig
 
 Install mpi4py with Python pip using easy install:
 
-    $ sudo easy_install pip
-    $ sudo pip install mpi4py
+    $ easy_install pip
+    $ pip install mpi4py
     
 ---
 
@@ -122,7 +122,8 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-autodiff`  | `false`   |   enable AD (reverse) support (needed for discrete adjoint solver)  |
 | `-Denable-directdiff` | `false`     |  enable AD (forward) support |
 | `-Denable-pywrapper` | `false`      |    enable Python wrapper support|
-| `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`required`,`disabled`)  |
+| `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`enabled`,`disabled`)  |
+| `-Dwith-omp`       | `false` |  enable MPI+Threads support (experimental) |
 | `-Denable-cgns`     | `true`    |       enable CGNS support           |        
 | `-Denable-tecio`    |  `true`       |    enable TECIO support         |
 | `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
@@ -141,7 +142,7 @@ To set a installation directory for the binaries and python scripts, use the `--
 If you are not interested in setting custom compiler flags and other options you can now go directly to the [Compilation](#compilation) section, otherwise continue reading the next section.
 
 ### Advanced Configuration ###
-In general meson appends flags set with the environment variable `CXX_FLAGS`. It is however recommended to use 
+In general meson appends flags set with the environment variable `CXXFLAGS`. It is however recommended to use 
 mesons built-in options to set debug mode, warning levels and optimizations. All options can be found [here](https://mesonbuild.com/Builtin-options.html) or by using `./meson.py configure`. An already created configuration can be modified by using the `--reconfigure` flag, e.g.:
 ```
 ./meson.py build --reconfigure --buildtype=debug
@@ -154,7 +155,11 @@ The debug mode can be enabled by using the `--buildtype=debug` option. This adds
 
 #### Compiler optimizations ####
 
-The optimization level can be set with `--optimization=level`, where `level` corresponds to a number between 0 (no optimization) and 3 (highest level of optimizations). The default level is 3.
+The optimization level can be set with `--optimization=level`, where `level` corresponds to a number between 0 (no optimization) and 3 (highest level of optimizations) which is the default.
+However, that may not result in optimum performance, for example with the GNU compilers level 2 and the extra flag `-funroll-loops` results in better performance for most problems.
+
+Some numerical schemes support vectorization (see which ones in the Convective Schemes page), to make the most out of it the compiler needs to be informed of the target CPU architecture, so it knows what "kind of vectorization" it can generate (256 or 512bit, 128bit being the default).
+With gcc, clang, and icc this can be done via the `-march=??` and `-mtune=??` options, where `??` needs to be set appropriately e.g. `skylake`, `ryzen`, etc., these flags can be passed to the compiler by setting `CXXFLAGS` before first running meson (which will print some messages acknowledging the flags).
 
 #### Warning level ####
 
@@ -164,11 +169,14 @@ The warning level can be set with `--warnlevel=level`, where  `level` correspond
 
 #### Linear algebra options ####
 
-Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function interpolation in fluid structure interaction problems.
-`-Denable-mkl` takes precedence over `-Denable-openblas`, by default the build system looks for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
-When OpenBLAS support is requested the build system uses [pkg-config](https://en.wikipedia.org/wiki/Pkg-config) to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
+Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function (RBF) interpolation in fluid structure interaction problems.
+To a lesser extent MKL 2019 is also used to accelerate (~5%) sparse linear algebra operations.
+`-Denable-mkl` takes precedence over `-Denable-openblas`, the system tries to find MKL via [pkg-config](https://en.wikipedia.org/wiki/Pkg-config), if that fails it will then look for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
+When OpenBLAS support is requested the build system uses pkg-config to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
 
 For large structural FEA problems on highly anisotropic grids iterative linear solvers might fail. Version 7 introduces experimental support for the direct sparse solver [PaStiX](https://gforge.inria.fr/projects/pastix/) (`-Denable-pastix`) see detailed instructions in `TestCases/pastix_support/readme.txt`.
+
+If the use of BLAS is restricted to RBF interpolation, parallel versions of OpenBLAS can be used, the number of threads will then have to be controlled via the appropriate environment variable (consult the OpenBLAS documentation). Otherwise sequential BLAS should be used.
 
 **Note:** The BLAS library needs to provide support for LAPACK functions.
 
@@ -194,4 +202,9 @@ Meson looks for an MPI installation using [pkg-config](https://en.wikipedia.org/
 ### mpi4py library is not found ###
 Meson imports the mpi4py module and searches for the include path. If it is installed in a custom location, make sure to add this path to the `PYTHONPATH` environment variable prior calling `meson.py`.
 
-
+### Ninja compiles but fails to install ###
+If building on a cluster that uses a NFS filesystem, ninja may finish the compilation but fail to install with an error such as:
+```
+OSError: [Errno 22] Invalid argument: 'SU2_CFD/src/SU2_CFD'
+```
+This is a known bug in earlier versions of Python 3. Try upgrading to Python >= 3.7 then rerun ninja.

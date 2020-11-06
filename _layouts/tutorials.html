@@ -10,6 +10,102 @@ layout: default
 
         <div class="col-md-8">
             <h1>{{ page.title }}</h1>
+
+            <div id="markdown-content-container"><table>
+              <thead>
+                <tr>
+                  <th>Written by</th>
+                  <th>for Version</th>
+                  <th>Revised by</th>
+                  <th>Revision date</th>
+                  <th>Revised version</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="https://github.com/{{ page.written_by }}">@{{ page.written_by }}</a></td>
+                  <td>{{ page.for_version }}</td>
+                  <td><a href="https://github.com/{{ page.revised_by }}">@{{ page.revised_by }}</a></td>
+                  <td>{{ page.revision_date }}</td>
+                  <td>{{ page.revised_version }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% unless page.disable_header %}
+            <div id="markdown-content-container">
+              <strong>At one glance:</strong>
+              <table style="width:50%">
+                <tbody>
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Solver:</h6></td>
+                    <td> <h6><code style="text-transform: uppercase;" class="language-plaintext highlighter-rouge">{{ page.solver }}</code></h6></td>
+                  </tr>
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Uses:</h6></td>
+                    <td> <h6><code style="text-transform: uppercase;" class="language-plaintext highlighter-rouge">{{ page.requires }}</code></h6></td>
+                  </tr>
+                  {% if page.userguide %}
+                  <tr>
+                    <td> <h6 id="solver-userguide"> User Guide:</h6></td>
+                    <td> <h6>
+                      {% for section in site.data.docs_v7 %}
+                      {% for item in section.docs_v7 %}
+                      {% if item == page.userguide %}
+                      {% assign item_url = item | prepend:"/docs_v7/" | append:"/" %}
+                      {% assign p = site.docs_v7 | where:"url", item_url | first %}
+                      <a href="{{p.permalink}}"><strong>{{p.title}}</strong></a>
+                      {% endif %}
+                      {% endfor %}
+                      {% endfor %}
+                  </tr>
+                  {% endif %}
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Prerequisites:</h6></td>
+                    <td> <h6>                {% if page.follows %}
+                      {% for section in site.data.tutorials %}
+                      {% for item in section.tutorials %}
+                      {% if item == page.follows %}
+                      {% assign item_url = item | prepend:"/tutorials/" | append:"/" %}
+                      {% assign p = site.tutorials | where:"url", item_url | first %}
+                      <a href="{{p.permalink}}"><strong>{{p.title}}</strong></a>
+                      {% endif %}
+                      {% endfor %}
+                      {% endfor %}
+                      {% else %}
+                      <strong>None</strong>
+                      {% endif %} </h6> </td>
+                  </tr>
+                  {% if page.follows2 %}
+                  <tr>
+                    <td> <h6 id="solver-follows2"> </h6></td>
+                    <td> <h6>
+                      {% for section in site.data.tutorials %}
+                      {% for item in section.tutorials %}
+                      {% if item == page.follows2 %}
+                      {% assign item_url = item | prepend:"/tutorials/" | append:"/" %}
+                      {% assign p = site.tutorials | where:"url", item_url | first %}
+                      <a href="{{p.permalink}}"><strong>{{p.title}}</strong></a>
+                      {% endif %}
+                      {% endfor %}
+                      {% endfor %}
+                  </tr>
+                  {% endif %}
+                  <tr>
+                    <td> <h6 id="solver-elasticity">Complexity:</h6></td>
+                    <td> <h6>{% if page.complexity == "basic" %}
+                      <span style="color: green;"><strong>Basic</strong></span>
+                     {% elsif page.complexity == "intermediate" %}
+                     <span style="color: orange;"><strong>Intermediate</strong></span>
+                     {% elsif page.complexity == "advanced" %}
+                     <span style="color: red;"><strong>Advanced</strong></span>
+                     {% endif %}</h6></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {% endunless %}
+
             <div id="markdown-content-container">{{ content }}</div>
             <hr>
             {% unless page.disable_comments %}
@@ -23,7 +119,7 @@ layout: default
             this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
             this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
             };
-            */ 
+            */  
             (function() { // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
             s.src = 'https://su2code-github-io.disqus.com/embed.js';
@@ -50,3 +146,8 @@ layout: default
 
     </div>
 </div>
+
+<!-- Mathjax Support -->
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>

@@ -1,6 +1,15 @@
 ---
 title: Laminar Flat Plate
 permalink: /tutorials/Laminar_Flat_Plate/
+written_by: economon
+for_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
+solver: Navier Stokes
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Lam Plate Profile](../../Laminar_Flat_Plate/images/lam_plate_velocity_profile.png)
@@ -21,12 +30,12 @@ The intent of this tutorial is to introduce a common viscous test case which is 
 
 ## Resources
 
-The resources for this tutorial can be found in the [Laminar_Flat_Plate](https://github.com/su2code/su2code.github.io/tree/master/Laminar_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/su2code.github.io/tree/master/). You will need the configuration file ([lam_flatplate.cfg](../../Laminar_Flat_Plate/lam_flatplate.cfg)) and the mesh file ([mesh_flatplate_65x65.su2](../../Laminar_Flat_Plate/mesh_flatplate_65x65.su2)).
+The resources for this tutorial can be found in the [compressible_flow/Laminar_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Flat_Plate/lam_flatplate.cfg)) and the mesh file ([mesh_flatplate_65x65.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Flat_Plate/mesh_flatplate_65x65.su2)).
 
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow over a flat plate using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow over a flat plate using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -77,7 +86,7 @@ SOLVER= NAVIER_STOKES
 KIND_TURB_MODEL= NONE
 ```
 
-To compute viscous flows, the Navier-Stokes governing equations are selected. The option `NAVIER_STOKES` implies that we wish to solve a laminar Naviwe-Stokes problem, and therefore, we must also set `KIND_TURB_MODEL= NONE`. For turbulent flows, SU2 solves the Reynolds-averaged Navier-Stokes equations by setting `SOLVER= RANS`, and SU2 currently contains implementations of the Spalart-Allmaras model and several variants (`SA`, `SA_NEG`, etc.) and the Shear Stress Transport (`SST`) model of Menter. If this were an inviscid flow problem, the user would enter `SOLVER = EULER` for the problem type. SU2 supports other governing equations, as well, and the user is invited to review the governing equations documentation page for a description of the possible options.
+To compute viscous flows, the Navier-Stokes governing equations are selected. The option `NAVIER_STOKES` implies that we wish to solve a laminar Navier-Stokes problem, and therefore, we must also set `KIND_TURB_MODEL= NONE`. For turbulent flows, SU2 solves the Reynolds-averaged Navier-Stokes equations by setting `SOLVER= RANS`, and SU2 currently contains implementations of the Spalart-Allmaras model and several variants (`SA`, `SA_NEG`, etc.) and the Shear Stress Transport (`SST`) model of Menter. If this were an inviscid flow problem, the user would enter `SOLVER = EULER` for the problem type. SU2 supports other governing equations, as well, and the user is invited to review the governing equations documentation page for a description of the possible options.
 
 Defining a no-slip boundary condition for viscous walls can be accomplished in one of two ways:
 
@@ -107,7 +116,7 @@ For this problem, we are choosing a typical set of numerical methods. However, i
 ### Running SU2
 
 The flat plate simulation for the 65x65 node mesh is small and will execute relatively quickly on a single workstation or laptop in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([lam_flatplate.cfg](https://github.com/su2code/SU2/tree/master/TestCases/navierstokes/flatplate)) and the mesh file ([mesh_flatplate_65x65.su2](https://github.com/su2code/TestCases/tree/master/navierstokes/flatplate)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([lam_flatplate.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Flat_Plate/lam_flatplate.cfg)) and the mesh file ([mesh_flatplate_65x65.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Laminar_Flat_Plate/mesh_flat_plate_65x65.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```

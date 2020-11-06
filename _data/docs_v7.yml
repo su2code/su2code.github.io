@@ -24,6 +24,7 @@
   docs_v7:
   - Build-SU2-Linux-MacOS
   - Build-SU2-Windows
+  - Running-Unit-Tests
 
 - title: Theory
   docs_v7:
@@ -52,6 +53,8 @@
   - Code-Structure
   - Style-Guide
   - Advanced-AD-Techniques
+  - Container-Development
+  - Writing-Unit-Tests
 
 - title: FAQ
   docs_v7:

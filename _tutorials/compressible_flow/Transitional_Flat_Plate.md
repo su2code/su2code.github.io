@@ -1,6 +1,15 @@
 ---
 title: Transitional Flat Plate
 permalink: /tutorials/Transitional_Flat_Plate/
+written_by: sametcaka
+for_version: 7.0.0
+revised_by: talbring
+revision_date: 2020-03-03
+revised_version: 7.0.2
+solver: RANS
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![lam_to_turb](../../Transitional_Flat_Plate/images/lam_to_turb.png)
@@ -18,12 +27,12 @@ Upon completing this tutorial, the user will be familiar with performing an exte
 
 ## Resources
 
-The resources for this tutorial can be found in the [Transitional_Flat_Plate](https://github.com/su2code/su2code.github.io/tree/master/Transitional_Flat_Plate) directory in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the configuration file ([transitional_BC_model_ConfigFile.cfg](../../Transitional_Flat_Plate/transitional_BC_model_ConfigFile.cfg)) and the mesh file ([grid.su2](../../Transitional_Flat_Plate/grid.su2)).
+The resources for this tutorial can be found in the [compressible_flow/Transitional_Flat_Plate](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Transitional_Flat_Plate) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([transitional_BC_model_ConfigFile.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Transitional_Flat_Plate/transitional_BC_model_ConfigFile.cfg)) and the mesh file ([grid.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Transitional_Flat_Plate/grid.su2)).
 Additionally, experimental skin friction data corresponding to this test case is provided in the TestCases repository (All_ZeroPresGrad_FlatPlateExperiments.dat).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the transitional flow over a flat plate using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial or parallel computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the transitional flow over a flat plate using SU2. It is assumed you have already obtained and compiled the SU2_CFD code for a serial or parallel computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -87,7 +96,7 @@ The Reynolds number for the Schubauer & Klebanoff test case is 3.34e6 for 1 mete
 
 To run this test case, follow these steps at a terminal command line:
 
-1.	Copy the config file ([transitional_BC_model_ConfigFile.cfg](../../Transitional_Flat_Plate/transitional_BC_model_ConfigFile.cfg)) and the mesh file ([grid.su2](../../Transitional_Flat_Plate/grid.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+1.	Copy the config file ([transitional_BC_model_ConfigFile.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Transitional_Flat_Plate/transitional_BC_model_ConfigFile.cfg)) and the mesh file ([grid.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Transitional_Flat_Plate/grid.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
 
 2.	Run the executable by entering 
 

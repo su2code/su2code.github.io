@@ -1,6 +1,15 @@
 ---
 title: Inviscid Hydrofoil
 permalink: /tutorials/Inc_Inviscid_Hydrofoil/
+written_by: economon 
+for_version: 7.0.0
+revised_by: talbring 
+revision_date: 2020-03-03
+revised_version: 7.0.2
+solver: INC_EULER
+requires: SU2_CFD
+complexity: basic
+follows: 
 ---
 
 ![Channel Mach](../../Inc_Inviscid_Hydrofoil/images/hydrofoil_velocity.png)
@@ -17,12 +26,12 @@ The intent of this tutorial is to introduce the density-based incompressible flo
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [Inc_Inviscid_Hydrofoil](https://github.com/su2code/su2code.github.io/tree/master/Inc_Inviscid_Hydrofoil) in the [project website repository](https://github.com/su2code/su2code.github.io). You will need the mesh file [mesh_NACA0012_5deg_6814.su2](../../Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)
-and the config file [inv_naca0012.cfg](../../Inc_Inviscid_Hydrofoil/inv_naca0012.cfg).
+You can find the resources for this tutorial in the folder [incompressible_flow/Inc_Inviscid_Hydrofoil](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil) in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the mesh file [mesh_NACA0012_5deg_6814.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)
+and the config file [inv_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil/inv_naca0012.cfg).
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow past the hydrofoil. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for the flow past the hydrofoil. It is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ## Background
 
@@ -100,7 +109,7 @@ The pressure outlet condition is prescribed as a uniform static (gauge) pressure
 ### Running SU2
 
 The channel simulation uses a small mesh and a very aggressive CFL number, so this case will be run in serial. To run this test case, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file ([inv_naca0012.cfg](../../Inc_Inviscid_Hydrofoil/inv_naca0012.cfg)) and the mesh file ([mesh_NACA0012_5deg_6814.su2](../../Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Move to the directory containing the config file ([inv_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil/inv_naca0012.cfg)) and the mesh file ([mesh_NACA0012_5deg_6814.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Inviscid_Hydrofoil/mesh_NACA0012_5deg_6814.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```
