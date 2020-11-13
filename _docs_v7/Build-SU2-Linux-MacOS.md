@@ -69,7 +69,10 @@ Installing SU2 from source requires a C++ compiler. The GNU compilers (gcc/g++) 
 **Note**: SU2 uses some C++11 features, that means at least GCC >= v4.7, Clang >= v3.0 or Intel C++ >= v12.0 is necessary.
 
 ### MPI ###
-In order to build SU2 with parallel support, you need a suitable MPI installation on your machine. During the configuration the build tool does a check and enables MPI support. If no installation is found, a serial version of SU2 will be compiled.
+In order to build SU2 with parallel support, you need a suitable MPI installation on your machine. During the configuration the build tool does a check (using pkg-config) and enables MPI support. If no installation is found, a serial version of SU2 will be compiled.
+It is possible to force the MPI mode with the meson option `-Dcustom-mpi=true`, it is then assumed that the compilers and/or the environment variables have the right flags, include directories, and linker arguments.
+
+**Note**: Problems have been reported with MPICH where the build system does not detect the MPI installation, this can be solved using the meson options `-Dcustom-mpi=true -Dextra-deps=mpich`. If MPI was installed in a user directory, ensure also that the environment variable PKG_CONFIG_PATH is correctly setup.
 
 ### Python ###
 
@@ -129,6 +132,7 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
 | `-Denable-openblas` |  `false`      |    enable OpenBLAS support      |
 | `-Denable-pastix`   |  `false`      |    enable PaStiX support        |
+| `-Denable-mixedprec` | `false`      |    enable the use of single precision on linear solvers and preconditioners |
 
 For example to enable AD support pass the option to the `meson.py` script along with a value:
 ```
@@ -170,6 +174,7 @@ The warning level can be set with `--warnlevel=level`, where  `level` correspond
 #### Linear algebra options ####
 
 Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function (RBF) interpolation in fluid structure interaction problems.
+Linear solvers and preconditioners can be accelerated with option `-Denable-mixedprec=true`, which will switch those computations to single precision while all other aspects of SU2 remain in double precision, for fluid simulations this does not reduce accuracy since the solution is iterative. However, large structural FEA problems may be adversely affected.
 To a lesser extent MKL 2019 is also used to accelerate (~5%) sparse linear algebra operations.
 `-Denable-mkl` takes precedence over `-Denable-openblas`, the system tries to find MKL via [pkg-config](https://en.wikipedia.org/wiki/Pkg-config), if that fails it will then look for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
 When OpenBLAS support is requested the build system uses pkg-config to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
@@ -178,7 +183,7 @@ For large structural FEA problems on highly anisotropic grids iterative linear s
 
 If the use of BLAS is restricted to RBF interpolation, parallel versions of OpenBLAS can be used, the number of threads will then have to be controlled via the appropriate environment variable (consult the OpenBLAS documentation). Otherwise sequential BLAS should be used.
 
-**Note:** The BLAS library needs to provide support for LAPACK functions.
+**Note:** The BLAS library needs to provide support for LAPACK functions. If this is not the case, the linker will fail with "undefined reference" errors, this problem can be solved by installing LAPACK and specifying it as an extra dependency when running `meson.py` using `-Dextra-deps=lapack` (this uses pkg-config, use commas to separate the names of multiple extra dependencies).
 
 ### Compilation ###
 
