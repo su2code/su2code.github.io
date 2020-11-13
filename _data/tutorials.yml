@@ -36,7 +36,7 @@
   
 - title: Multiphysics
   tutorials:
-   - steady_fsi
+   - Static_FSI
 
 - title: Design Features
   tutorials:

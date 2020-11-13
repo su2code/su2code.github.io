@@ -1,6 +1,6 @@
 ---
 title: Static Fluid-Structure Interaction (FSI)
-permalink: /tutorials/steady_fsi/
+permalink: /tutorials/Static_FSI/
 written_by: rsanfer
 for_version: 7.0.2
 revised_by: rsanfer
