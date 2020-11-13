@@ -1,6 +1,6 @@
 ---
 title: Static Fluid-Structure Interaction (FSI)
-permalink: /tutorials/Static_FSI/
+permalink: /tutorials/steady_fsi/
 written_by: rsanfer
 for_version: 7.0.2
 revised_by: rsanfer
@@ -24,7 +24,7 @@ This tutorial combines SU2's fluid and structural capabilities to solver a stead
 
 In this tutorial, we use the same problem definition as for most structural tutorials, a vertical, slender cantilever, clamped in its base, but in this case it is immersed in a horizontal flow in a channel. This is shown next:
 
-![ProblemSetup](../multiphysics/images/fsi1.png)
+![ProblemSetup](../multiphysics/steady_fsi/images/fsi1.png)
 
 ### Resources
 
@@ -282,9 +282,9 @@ The code is stopped as soon as the values of ```avg[bgs][0]``` and ```avg[bgs][1
 
 The displacement field on the structural domain and the velocity field on the flow domain obtained in ```fsi_steady_1.vtu```_and ```fsi_steady_0.vtu``` respectively are shown below:
 
-![FSI Results1](../multiphysics/images/fsi2.png)
+![FSI Results1](../multiphysics/steady_fsi/images/fsi2.png)
 
-![FSI Results2](../multiphysics/images/fsi3.png)
+![FSI Results2](../multiphysics/steady_fsi/images/fsi3.png)
 
 #### Relaxing the computation
 

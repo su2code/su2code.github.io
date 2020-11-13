@@ -19,7 +19,7 @@ Once completed the tutorial on [Nonlinear Elasticity](../Nonlinear_Elasticity/),
 
 In this tutorial, we use the same problem definition as for the nonlinear elasticity tutorial: a vertical, slender cantilever, clamped in its base, and subject to a horizontal, follower load $$P$$ on its left boundary. However, in this section, we will discretize the cantilever into four regions, R0, R1, R2 and R3,
 
-![ProblemSetup](../structural_mechanics/images/multimat1.png)
+![ProblemSetup](../structural_mechanics/Multiple_Material/images/multimat1.png)
 
 ### Resources
 
@@ -142,7 +142,7 @@ The code is stopped as soon as the values of ```rms[U]```, ```rms[R]``` and ```r
 
 The displacement field obtained in _nonlinear_multimaterial.vtk_ is shown below:
 
-![Nonlinear Multimaterial Results](../structural_mechanics/images/multimat2.png)
+![Nonlinear Multimaterial Results](../structural_mechanics/Multiple_Material/images/multimat2.png)
 
 where it can be observed how the flexible regions undergo large deformations, while the regions R0 and R2 remain virtually unaltered due to their high stiffness. The highlighted elements correspond to the interfaces between R1, R2, R3 and R4.
 

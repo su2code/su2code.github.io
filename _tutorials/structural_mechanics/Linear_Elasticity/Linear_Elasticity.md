@@ -22,7 +22,7 @@ As a first approach to the structural solver in SU2, this tutorial will cover th
 
 The problem that we will be solving consists of a vertical, slender cantilever, clamped in its base, and subject to a horizontal, distributed load $$P$$ on its left boundary. This is shown in Fig. 1.
 
-![ProblemSetup](../structural_mechanics/images/lin1.png)
+![ProblemSetup](../structural_mechanics/Linear_Elasticity/images/lin1.png)
 
 ### Resources
 
@@ -49,7 +49,7 @@ This tutorial will be solved the for the cantilever with the following condition
 
 The cantilever is discretized using 1000 4-node quad elements with linear interpolation. The boundaries are defined as follows:
 
-![Mesh](../structural_mechanics/images/lin2.png)
+![Mesh](../structural_mechanics/Linear_Elasticity/images/lin2.png)
 
 #### Configuration File Options
 
@@ -155,7 +155,7 @@ where ```rms[DispX]``` and ```rms[DispY]``` correspond to the residual of the li
 
 The output file contains the displacement field, the nodal tensions $$\sigma_{xx}$$, $$\sigma_{yy}$$ and $$\sigma_{xy}$$ (as Sxx, Syy and Sxy), and the Von Misses stress. In order to visualize the deformation of the cantilever on Paraview, one can use the filter _Warp By Vector_ applied on the displacement field. The solution of the problem is shown next.
 
-![Linear Results](../structural_mechanics/images/lin3.png)
+![Linear Results](../structural_mechanics/Linear_Elasticity/images/lin3.png)
 
 ### Attribution
 
