@@ -11,7 +11,7 @@ requires: SU2_CFD
 complexity: basic
 follows: 
 ---
-[//]: # (Example of a currently working link to a picture)
+
 ![Channel Mach](../../tutorials_files/compressible_flow/Inviscid_Bump/images/channel_mach.png)
 
 ## Goals
