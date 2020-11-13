@@ -51,7 +51,7 @@ Remember that the free-stream pressure is computed from this values (assuming pe
 
 The mesh consists of a far-field boundary and a Navier-Stokes wall (non-slip) along the airfoil surface. The mesh can be seen in Figure (1).
 
-![RAE 2822 Mesh](../../Turbulent_2D_Constrained_RAE2822/images/rae_mesh.png)
+![RAE 2822 Mesh](../../tutorials_files/design_features/Turbulent_2D_Constrained_RAE2822/images/rae_mesh.png)
 Figure (1): Zoom view of the initial computational mesh.
 
 ### Configuration File Options
@@ -143,7 +143,7 @@ The first value in the parentheses is the variable type, which is 30 for a Hicks
 
 Note that there are many other types of design variables available in SU2 (including 2D FFD), and each has their own specific input format. 3D design variables based on the free-form deformation approach (FFD) will be discussed in another tutorial.
 
-![RAE 2822 Pressure](../../Turbulent_2D_Constrained_RAE2822/images/rae2822_pressure.png)
+![RAE 2822 Pressure](../../tutorials_files/design_features/Turbulent_2D_Constrained_RAE2822/images/rae2822_pressure.png)
 Figure (2): Pressure contours for the baseline RAE 2822 airfoil.
 
 ### Running SU2_GEO
@@ -158,7 +158,7 @@ The screen output of this software provides useful geometrical information (airf
 
 The discrete adjoint methodology for obtaining surface sensitivities is implemented for several equation sets within SU2. After solving the direct flow problem, the adjoint problem is also solved which offers an efficient approach for calculating the gradient of an objective function and constraints with respect to a large set of design variables. This leads directly to a gradient-based optimization framework. With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Two other SU2 tools are used to compute the gradient from the adjoint solution (SU2_DOT_AD) and deform the computational mesh (SU2_DEF) during the process. Note that if a geometrical constraint is added, its value and gradient will be computed by SU2_GEO
 
-![RAE 2822 Adjoint](../../Turbulent_2D_Constrained_RAE2822/images/rae2822_psi_density.png)
+![RAE 2822 Adjoint](../../tutorials_files/design_features/Turbulent_2D_Constrained_RAE2822/images/rae2822_psi_density.png)
 Figure (3): Adjoint density contours on the baseline RAE 2822 airfoil.
 
 To run this design case, follow these steps at a terminal command line:
@@ -183,11 +183,11 @@ where #cores is the number of cores. Depending of the installation, the keyword 
 
 ### Results for the optimal shape design problem:
 
-![RAE 2822 Final Cp](../../Turbulent_2D_Constrained_RAE2822/images/Optimization.png)
+![RAE 2822 Final Cp](../../tutorials_files/design_features/Turbulent_2D_Constrained_RAE2822/images/Optimization.png)
 Figure (4): Cp distribution comparison for the initial and final airfoil designs.
 
-![RAE 2822 Final History Objective Function](../../Turbulent_2D_Constrained_RAE2822/images/CD_CL.png)
+![RAE 2822 Final History Objective Function](../../tutorials_files/design_features/Turbulent_2D_Constrained_RAE2822/images/CD_CL.png)
 Figure (5): Objective function evaluation history during the optimization process.
 
-![RAE 2822 Final History Constraints](../../Turbulent_2D_Constrained_RAE2822/images/CM_THICK.png)
+![RAE 2822 Final History Constraints](../../tutorials_files/design_features/Turbulent_2D_Constrained_RAE2822/images/CM_THICK.png)
 Figure (6): Constraints evaluation history during the optimization process.

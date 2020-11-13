@@ -12,7 +12,7 @@ complexity: advanced
 follows: 
 ---
 
-![Coupled_CHT](../../Inc_Heated_Cylinders/images/coupled_cht.png)
+![Coupled_CHT](../../tutorials_files/incompressible_flow/Inc_Heated_Cylinders/images/coupled_cht.png)
 
 ## Goals
 
@@ -61,7 +61,7 @@ A constant temperature boundary condition of 350 K on the inner core drives the 
 The computational mesh for the fluid zone is composed 33700 elements (quad-dominant). The far-field boundary contains 80 line elements and the cylinders surfaces all have 400 line elemtents.  
 The meshes for all three cylinders are composed of 4534 elements (quad-dominant) each, their inner diamaters are composed of 40 line elements, at their outer diamaters the mesh matches the one of the fluid zone.
 
-![Lam Plate Mesh](../../Inc_Heated_Cylinders/images/heated_cylinders_mesh.png)
+![Lam Plate Mesh](../../tutorials_files/incompressible_flow/Inc_Heated_Cylinders/images/heated_cylinders_mesh.png)
 Figure (1): Figure of the computational mesh with all four physical zones.
 
 Uniform velocity boundary conditions are used for the farfield.
@@ -199,5 +199,5 @@ $ SU2_DOT_AD cht_2d_3cylinders.cfg
 
 and be checked against finite differences to find a perfect agreement.
 
-![Coupled_CHT_Sens](../../Inc_Heated_Cylinders/images/heated_cylinders_sens.png)
+![Coupled_CHT_Sens](../../tutorials_files/incompressible_flow/Inc_Heated_Cylinders/images/heated_cylinders_sens.png)
 Figure (2): Heat flux sensitivities obtained from the discrete adjoint flow solution (blue) and the discrete adjoint heat solutions (red), their sum giving the correct result. Note the sensitivity change in downstream direction in both directions and magnitude.

@@ -12,7 +12,7 @@ complexity: advanced
 follows: 
 ---
 
-![C_L Distribution](../../UQ_NACA0012/images/225-65_liftCurve_bigger.png)
+![C_L Distribution](../../tutorials_files/compressible_flow/UQ_NACA0012/images/225-65_liftCurve_bigger.png)
 
 ## Goals
 
@@ -58,7 +58,7 @@ Although this particular case simulates flow at 15deg, the same simulation can b
 
 The mesh used is a structured C-grid. The farfield boundary extends 500c away from the airfoil surface. The airfoil surface is treated as a Navier-Stokes wall (non-slip). This can be seen in Figure (1).
 
-![NACA0012 mesh](../../UQ_NACA0012/images/n0012_225-65_mesh.png)
+![NACA0012 mesh](../../tutorials_files/compressible_flow/UQ_NACA0012/images/n0012_225-65_mesh.png)
 Figure (1): Zoomed in view of mesh near airfoil.
 
 ### Running the Module
@@ -160,9 +160,9 @@ To run each individual perturbed simulation seperately, configuration options fo
 
 In order to obtain the interval bounds of a QOI, all 6 instantiations of the flow solution (1 baseline and 5 perturbed) must be analyzed. To illustrate how the bounds are formed, we use the example of the Cp distribution along the upper surface of the airfoil. In Figure (2a) the Cp distributions of each perturbed simulation is plotted along with the baseline simulation, experimental data, and the uncertainty bounds. In Figure(2b), only the individual perturbation data is hidden. 
 
-![C_P Distribution_15_with_perturbations](../../UQ_NACA0012/images/aoa15_cp_upper_withPert.png)
+![C_P Distribution_15_with_perturbations](../../tutorials_files/compressible_flow/UQ_NACA0012/images/aoa15_cp_upper_withPert.png)
 
-![C_P Distribution_15](../../UQ_NACA0012/images/aoa15_cp_upper.png)
+![C_P Distribution_15](../../tutorials_files/compressible_flow/UQ_NACA0012/images/aoa15_cp_upper.png)
 
 Figure (2): Cp distribution along upper surface for the NACA0012 airfoil at 15deg AOA (a) with individual perturbations included, (b) with only the resulting interval bounds. 
 
@@ -170,13 +170,13 @@ The uncertainty bounds are formed by a union of all the states the QOI predicted
 
 At an angle of attack of 10deg, the baseline RANS model is able to accurately predict the Cp distribution. If the UQ module is run at this angle, it is seen that the uncertainty bounds are much smaller. This case can be run simply using the steps as above, only changing the AOA option for the files. This is illustrated in Figure(3)
 
-![C_P Distribution_10](../../UQ_NACA0012/images/aoa10_cp_upper.png)
+![C_P Distribution_10](../../tutorials_files/compressible_flow/UQ_NACA0012/images/aoa10_cp_upper.png)
 
 Figure (3): Cp distribution along upper surface for the NACA0012 airfoil at 10deg AOA with predicted interval bounds
 
 Similarly, if the module is run for a number of angles of attack, the predicted lift curve can be plotted. This showcases the robustness of the model in different flow situations. Figure(4) illustrates the results from a angle of attack sweep from 0 to 20 degrees. 
 
-![C_P Distribution_10](../../UQ_NACA0012/images/225-65_liftCurve.png)
+![C_P Distribution_10](../../tutorials_files/compressible_flow/UQ_NACA0012/images/225-65_liftCurve.png)
 
 
 Figure (4): Lift Curve of the NACA0012 with interval bounds predicted by the EQUiPS module. 

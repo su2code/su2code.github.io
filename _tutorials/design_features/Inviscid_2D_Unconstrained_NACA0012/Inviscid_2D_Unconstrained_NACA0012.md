@@ -12,7 +12,7 @@ complexity: advanced
 follows: 
 ---
 
-![Optimization Diagram](../../Inviscid_2D_Unconstrained_NACA0012/images/optimization_diagram.png)
+![Optimization Diagram](../../tutorials_files/design_features/Inviscid_2D_Unconstrained_NACA0012/images/optimization_diagram.png)
 
 ## Goals
 
@@ -54,7 +54,7 @@ While more advanced design problems can be selected, such as those containing fl
 
 The mesh consists of a far-field boundary and an Euler wall (flow tangency) along the airfoil surface. The mesh can be seen in Figure (2).
 
-![NACA 0012 Mesh](../../Inviscid_2D_Unconstrained_NACA0012/images/rotating_mesh.png)
+![NACA 0012 Mesh](../../tutorials_files/design_features/Inviscid_2D_Unconstrained_NACA0012/images/rotating_mesh.png)
 Figure (2): Far-field and zoom view of the initial computational mesh.
 
 ### Configuration File Options
@@ -166,14 +166,14 @@ The first value in the parentheses is the variable type, which is 1 for a Hicks-
 
 Note that there are many other types of design variables available in SU2, and each has their own specific input format. 3D design variables based on the free-form deformation approach (FFD) will be discussed in the next tutorial.
 
-![NACA 0012 Pressure](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_pressure_opt.png)
+![NACA 0012 Pressure](../../tutorials_files/design_features/Inviscid_2D_Unconstrained_NACA0012/images/naca0012_pressure_opt.png)
 Figure (3): Pressure contours for the baseline NACA 0012 airfoil.
 
 ### Running SU2
 
 The continuous adjoint methodology for obtaining surface sensitivities is implemented for several equation sets within SU2. After solving the direct flow problem, the adjoint problem is also solved which offers an efficient approach for calculating the gradient of an objective function with respect to a large set of design variables. This leads directly to a gradient-based optimization framework. With each design iteration, the direct and adjoint solutions are used to compute the objective function and gradient, and the optimizer drives the shape changes with this information in order to minimize the objective. Two other SU2 tools are used to compute the gradient from the adjoint solution (SU2_DOT) and deform the computational mesh (SU2_DEF) during the process. Note that if a geometrical constrains is added, its value and gradient will be computed by SU2_GEO
 
-![NACA 0012 Adjoint](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_psi_density.png)
+![NACA 0012 Adjoint](../../tutorials_files/design_features/Inviscid_2D_Unconstrained_NACA0012/images/naca0012_psi_density.png)
 Figure (4): Adjoint density contours on the baseline NACA 0012 airfoil.
 
 To run this design case, follow these steps at a terminal command line:
@@ -195,11 +195,11 @@ To run this design case, follow these steps at a terminal command line:
 
 ### Results for the optimal shape design problem:
 
-![NACA 0012 Final Contour](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_contour.png)
+![NACA 0012 Final Contour](../../tutorials_files/design_features/Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_contour.png)
 Figure (5): Pressure contours around the final airfoil design. Note the nearly shock-free final design.
 
-![NACA 0012 Final Cp](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_cp.png)
+![NACA 0012 Final Cp](../../tutorials_files/design_features/Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_cp.png)
 Figure (6): Cp distribution and profile shape comparison for the initial and final airfoil designs.
 
-![NACA 0012 Final History](../../Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_history.png)
+![NACA 0012 Final History](../../tutorials_files/design_features/Inviscid_2D_Unconstrained_NACA0012/images/naca0012_final_history.png)
 Figure (7): Function evaluation history during the optimization process.

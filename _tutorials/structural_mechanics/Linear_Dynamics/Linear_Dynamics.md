@@ -21,7 +21,7 @@ Upon completion of the tutorial on [Linear Elasticity](../Linear_Elasticity/), t
 
 The problem that we will be solving consists of a vertical, slender cantilever, clamped in its base, and subject to a horizontal, time-dependent load $$P$$ on its left boundary. This is shown in Fig. 1.
 
-![ProblemSetup](../structural_mechanics/Linear_Dynamics/images/lin1.png)
+![ProblemSetup](../../tutorials_files/structural_mechanics/Linear_Dynamics/images/lin1.png)
 
 ### Resources
 
@@ -47,7 +47,7 @@ This tutorial will be solved the for the cantilever with the following condition
 
 The cantilever is discretized using 1000 4-node quad elements with linear interpolation. The boundaries are defined as follows:
 
-![Mesh](../structural_mechanics/Linear_Dynamics/images/lin2.png)
+![Mesh](../../tutorials_files/structural_mechanics/Linear_Dynamics/images/lin2.png)
 
 #### Configuration File Options
 
@@ -134,7 +134,7 @@ The output files append the time step as _linear_dynamic__*****.vtk_. They conta
 
 The solution of the problem is shown next, where the horizontal displacement at the tip is plotted on the right part of the figure, and the deformed configuration on the left.
 
-![Linear Results](../structural_mechanics/Linear_Dynamics/images/dynamic_linear.gif)
+![Linear Results](../../tutorials_files/structural_mechanics/Linear_Dynamics/images/dynamic_linear.gif)
 
 ### References
 $$^1$$ Newmark, N.M. (1959), A method of computation for structural dynamics, _J Eng Mech Div_, 85(3):67-94

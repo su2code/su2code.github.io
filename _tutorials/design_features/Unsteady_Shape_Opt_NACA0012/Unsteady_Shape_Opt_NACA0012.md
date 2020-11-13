@@ -12,7 +12,7 @@ complexity: basic
 follows: Unsteady_NACA0012
 ---
 
-![Periodic Flow Field](../../Unsteady_Shape_Opt_NACA0012/images/opt_shapes.png)
+![Periodic Flow Field](../../tutorials_files/design_features/Unsteady_Shape_Opt_NACA0012/images/opt_shapes.png)
 Figure (1): Baseline NACA0012 airfoil (left), optimized design using Square-windowing (middle) and optimized design using Hann-Square-windowing (right).
 
 ## Goals ##
@@ -100,7 +100,7 @@ Figure 2 shows the time dependent drag and its sensitivity. As one can see,  the
 linear. Roughly speaking, windowed time-average must converge faster than the amplitude of the oscillation grows to ensure convergence. 
 This is the reason why Square-windowing is not a viable option for many application cases. 
 
-![Drag and Drag sensitivity](../../Unsteady_Shape_Opt_NACA0012/images/Optimiztation_Horizon.png)
+![Drag and Drag sensitivity](../../tutorials_files/design_features/Unsteady_Shape_Opt_NACA0012/images/Optimiztation_Horizon.png)
 Figure (2): Instantaneous drag and drag sensitivity shown. The time frame to average the drag coefficient is in between iteration $$n_{tr} = 1500 $$ and $$N=2200$$.
 
 Using the midpoint rule for above integral, we arrive at the following constrained optimization problem
@@ -226,11 +226,11 @@ One can see in Fig. (1) the baseline geometry alongside optimized designs create
 The following figures display the shape optimization process with different windowing functions. The shape optimization performed with higher order windows, i.e. all windows exept the `SQUARE`-window perform well, whereas the 
 optimization computied using the `SQUARE`-window struggles to fulfill its optimization constraint. 
 
-![Square-window optimization](../../Unsteady_Shape_Opt_NACA0012/images/opt_sq.png)
+![Square-window optimization](../../tutorials_files/design_features/Unsteady_Shape_Opt_NACA0012/images/opt_sq.png)
 Figure (3): Shape optimization using Square-windowing.
-![Hann-window optimization](../../Unsteady_Shape_Opt_NACA0012/images/opt_hann.png)
+![Hann-window optimization](../../tutorials_files/design_features/Unsteady_Shape_Opt_NACA0012/images/opt_hann.png)
 Figure (4): Shape optimization using Hann-windowing.
-![Hann-Square-window optimization](../../Unsteady_Shape_Opt_NACA0012/images/opt_hannsq.png)
+![Hann-Square-window optimization](../../tutorials_files/design_features/Unsteady_Shape_Opt_NACA0012/images/opt_hannsq.png)
 Figure (5): Shape optimization using Hann-Square-windowing.
-![Bump-window optimization](../../Unsteady_Shape_Opt_NACA0012/images/opt_bmp.png)
+![Bump-window optimization](../../tutorials_files/design_features/Unsteady_Shape_Opt_NACA0012/images/opt_bmp.png)
 Figure (6): Shape optimization using Bump-windowing.

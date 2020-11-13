@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![Lam Plate Profile](../../Inc_Laminar_Cavity/images/buoyancy_temperature.png)
+![Lam Plate Profile](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_temperature.png)
 
 ## Goals
 
@@ -43,7 +43,7 @@ The buoyancy-driven cavity is a classic natural convection case for testing inco
 
 We use the problem set up of Sockol here for comparison purposes (Peter M. Sockol. Multigrid solution of the navier–stokes equations at low speeds with large temperature variations. Journal of Computational Physics, 192(2):570 – 592, 2003). The Rayleigh number is the key parameter controlling the flow, defined as
 
-![Buoyancy Rayleigh](../../Inc_Laminar_Cavity/images/buoyancy_rayleigh.png)
+![Buoyancy Rayleigh](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_rayleigh.png)
 
 where ∆T = 2(Th − Tc)/(Th + Tc), Th is the constant temperature of the hot left wall, Tc is the constant temperature of the cold right wall, g is the acceleration due to gravity, and L is the length of a side of the square cavity. Additionally, we impose that Th/Tc = 4 and that μ_dyn and κ are constants with κ = μ_dyn cp/Pr_d. The laminar Prandtl (Prd) and Froude (Fr) numbers are 0.7 and 1.2, respectively. A reference velocity can then be computed as V_ref = sqrt(F r g L).
 
@@ -157,26 +157,26 @@ If SU2 has been built with parallel support, the recommended method for running 
 
 Results are given here for the SU2 solution of incompressible laminar flow in the buoyancy-driven cavity. The results show excellent agreement with the numerical results of Sockol.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_temperature.png)
+![Lam Plate Nu_x](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_temperature.png)
 
 Figure (1): A plot of non-dim. temperature contours in the cavity.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_density.png)
+![Lam Plate Nu_x](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_density.png)
 
 Figure (2): A plot of non-dim. density contours in the cavity.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_velocity.png)
+![Lam Plate Nu_x](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_velocity.png)
 
 Figure (3): A plot of non-dim. velocity magnitude contours in the cavity.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_ra1e3.png)
+![Lam Plate Nu_x](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_ra1e3.png)
 
 Figure (4): X-velocity comparison at the centerline for Ra = 1e3.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_ra1e5.png)
+![Lam Plate Nu_x](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_ra1e5.png)
 
 Figure (5): X-velocity comparison at the centerline for Ra = 1e5.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Cavity/images/buoyancy_ra1e6.png)
+![Lam Plate Nu_x](../../tutorials_files/incompressible_flow/Inc_Laminar_Cavity/images/buoyancy_ra1e6.png)
 
 Figure (6): X-velocity comparison at the centerline for Ra = 1e6.

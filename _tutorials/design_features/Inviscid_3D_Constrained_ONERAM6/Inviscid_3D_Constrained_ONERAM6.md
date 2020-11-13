@@ -12,7 +12,7 @@ complexity: advanced
 follows: 
 ---
 
-![Opt. ONERA Orig](../../Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)
+![Opt. ONERA Orig](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)
 
 ## Goals
 
@@ -38,14 +38,14 @@ The following tutorial will walk you through the steps required when performing 
 
 The goal of this wing design problem is to minimize the coefficient of drag by changing the shape while imposing lift and wing section thickness constraints. As design variables, we will use a free-form deformation approach. In this approach, a lattice of control points making up a bounding box are placed around the geometry, and the movement of these control points smoothly deforms the surface shape of the geometry inside. We begin with a 3D fixed-wing geometry (initially the ONERA M6) at transonic speed in air (inviscid). The flow conditions are the same as for the previous ONERA M6 tutorial.
 
-![Opt. ONERA Grid](../../Inviscid_3D_Constrained_ONERAM6/images/onera_grid.png)
+![Opt. ONERA Grid](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_grid.png)
 Figure (1): View of the initial surface computational mesh.
 
 ### Mesh Description
 
 The mesh consists of a far-field boundary divided in three surfaces (XNORMAL_FACES, ZNORMAL_FACES, YNORMAL_FACES), an Euler wall (flow tangency) divided into three surfaces (UPPER_SIDE, LOWER_SIDE, TIP), and a symmetry plane (SYMMETRY_FACE). The baseline mesh is the same as for the previous ONERA M6 tutorial. The surface mesh can be seen in Figure (1).
 
-![Opt. ONERA FFD](../../Inviscid_3D_Constrained_ONERAM6/images/onera_ffd.png)
+![Opt. ONERA FFD](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_ffd.png)
 Figure (2): View of the initial FFD box around the ONERA M6 wing, including the control points (spheres).
 
 ### Setting a constant Cl mode
@@ -103,7 +103,7 @@ As the current implementation requires each FFD box to be a quadrilaterally-face
 
 In the example above, we are creating a box with control point dimensions 11, 9, and 2 in the x-, y-, and z-directions, respectively, for a total of 198 available control points. In the `FFD_DEFINITION` option, we give a name to the box ("WING"), and then list out the x, y, and z coordinates of each corner point. The order is important, and you can use the example above to match the convention. The degree is then specified in the `FFD_DEGREE` option. A view of the box with the control points numbered is in Figure (3). Note that the numbering in the figure is 1-based just for visualization, but within SU2, the control points have 0-based indexing. For example, the (1,1,1) control point in the figure is control point (0,0,0) within SU2. This is critical for specifying the design variables in the config file.
 
-![Opt. ONERA FFD](../../Inviscid_3D_Constrained_ONERAM6/images/onera_ffd_points.png)
+![Opt. ONERA FFD](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_ffd_points.png)
 Figure (3): View of the control point identifying indices, which increase in value along the positive coordinate directions. Note that the numbering here is 1-based just for visualization, but within SU2, the control points have 0-based indexing.
 
 Lastly, the FFD capabilities within SU2 also feature a nifty technique to automatically ensure that you do not obtain any jumps or kinks in your deformed geometry. You can control this by requesting continuity in the 1st or 2nd derivative of the surface with the `FFD_CONTINUITY` option. In short, the code will automatically detect when a face of the FFD box intersects the geometry, and it will hold fixed the control points on that face (`1ST_DERIVATIVE`) or the points on the face as well as one slice of adjacent control points (`2ND_DERIVATIVE`). **Note that these control points will be held fixed during design cycles even if you specify them in your design variable list**.
@@ -242,15 +242,15 @@ With each design iteration, the direct and adjoint solutions are used to compute
 
 The following are representative results for this transonic shape design example with the ONERA M6 geometry as a baseline. We successfully reduce the drag while satisfying the constraints.
 
-![Opt. ONERA Pressure](../../Inviscid_3D_Constrained_ONERAM6/images/onera_pressure_original.png)
+![Opt. ONERA Pressure](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_pressure_original.png)
 Figure (4): Pressure contours showing the typical "lambda" shock on the upper surface of the initial geometry.
 
-![Opt. ONERA Pressure](../../Inviscid_3D_Constrained_ONERAM6/images/onera_pressure_final.png)
+![Opt. ONERA Pressure](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_pressure_final.png)
 Figure (5): Pressure contours on the surface of the final wing design (reduced shocks).
 
-![Opt. ONERA Pressure](../../Inviscid_3D_Constrained_ONERAM6/images/onera_ffd_final.png)
+![Opt. ONERA Pressure](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_ffd_final.png)
 Figure (6): View of the initial (black) and final (blue) FFD control point positions.
 
-![Opt. ONERA History](../../Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)
+![Opt. ONERA History](../../tutorials_files/design_features/Inviscid_3D_Constrained_ONERAM6/images/onera_opt_history.png)
 Figure (7): Optimization history. The drag is reduced and the lift constraint is easily met.
 

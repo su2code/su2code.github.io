@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![Wedge Mach](../../Inviscid_Wedge/images/wedge_mach.png)
+![Wedge Mach](../../tutorials_files/compressible_flow/Inviscid_Wedge/images/wedge_mach.png)
 
 ## Goals
 
@@ -49,7 +49,7 @@ This problem will solve for the flow over the wedge with these conditions:
 
 The wedge mesh is a structured mesh (75x50) of rectangular elements with a total of 3,750 nodes. The upper and lower wall of the geometry are solid (`MARKER_EULER`), and the lower wall has a 10 degree wedge starting at x = 0.5. Figure (1) shows the mesh with the boundary markers and flow conditions highlighted.
 
-![Wedge Mach](../../Inviscid_Wedge/images/wedge_mesh_bcs.png)
+![Wedge Mach](../../tutorials_files/compressible_flow/Inviscid_Wedge/images/wedge_mesh_bcs.png)
 Figure (1): The computational mesh with boundary conditions highlighted.
 
 For this test case, the inlet marker will be set to a `MARKER_SUPERSONIC_INLET` boundary condition, while the outlet marker will be set to the `MARKER_OUTLET` condition. In supersonic flow, all characteristics are incoming to the domain at the entrance (inlet marker), and therefore, all flow quantities can be specified, i.e., no information travels upstream. 
@@ -174,8 +174,8 @@ The wedge simulation is small and will execute quickly on a single workstation o
 
 The following images show some SU2 results for the supersonic wedge problem.
 
-![Wedge Mach](../../Inviscid_Wedge/images/wedge_mach.png)
+![Wedge Mach](../../tutorials_files/compressible_flow/Inviscid_Wedge/images/wedge_mach.png)
 Figure (2): Mach contours showing the oblique shock for supersonic flow over a wedge.
 
-![Wedge Pressure](../../Inviscid_Wedge/images/wedge_pressure.png)
+![Wedge Pressure](../../tutorials_files/compressible_flow/Inviscid_Wedge/images/wedge_pressure.png)
 Figure (3): Pressure contours (N/m2) for supersonic flow over a wedge.

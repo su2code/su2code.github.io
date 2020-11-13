@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![ONERA M6 Cp](../../Inviscid_ONERAM6/images/oneram6_cp.png)
+![ONERA M6 Cp](../../tutorials_files/compressible_flow/Inviscid_ONERAM6/images/oneram6_cp.png)
 
 ## Goals
 
@@ -52,10 +52,10 @@ These transonic flow conditions will cause the typical "lambda" shock along the 
 
 The computational domain is a large parallelepiped with the wing half-span mounted on one boundary in the x-z plane. The mesh consists of 582,752 tetrahedral elements and 108,396 nodes. Three boundary conditions are employed: Euler wall on the wing surface, a far-field characteristic-based condition on the far-field markers, and a symmetry boundary condition for the marker where the wing half-span is attached. The symmetry condition acts to mirror the flow about the x-z plane, reducing the complexity of the mesh and the computational cost. Images of the entire domain and the triangular elements on the wing surface are shown below.
 
-![ONERA M6 Mesh](../../Inviscid_ONERAM6/images/oneram6_mesh_bcs.png)
+![ONERA M6 Mesh](../../tutorials_files/compressible_flow/Inviscid_ONERAM6/images/oneram6_mesh_bcs.png)
 Figure (1): Far-field view of the computational mesh with boundary conditions.
 
-![ONERA M6 Surface Mesh](../../Inviscid_ONERAM6/images/oneram6_wing_mesh.png)
+![ONERA M6 Surface Mesh](../../tutorials_files/compressible_flow/Inviscid_ONERAM6/images/oneram6_wing_mesh.png)
 Figure (2): Close-up view of the unstructured mesh on the top surface of the ONERA M6 wing.
 
 ### Configuration File Options
@@ -189,14 +189,14 @@ If SU2 has been built with parallel support, the recommended method for running 
 
 Results are here given for the SU2 solution of inviscid flow over the ONERA M6 wing.
 
-![ONERA M6 Cp](../../Inviscid_ONERAM6/images/oneram6_cp.png)
+![ONERA M6 Cp](../../tutorials_files/compressible_flow/Inviscid_ONERAM6/images/oneram6_cp.png)
 Figure (3): Cp contours on the upper surface of the ONERA M6.
 
-![ONERA M6 Mach](../../Inviscid_ONERAM6/images/oneram6_mach.png)
+![ONERA M6 Mach](../../tutorials_files/compressible_flow/Inviscid_ONERAM6/images/oneram6_mach.png)
 Figure (4): Mach number contours on the upper surface of the ONERA M6 wing. Notice the "lambda" shock pattern typically seen on the upper surface.
 
-![ONERA M6 Coefficients](../../Inviscid_ONERAM6/images/oneram6_coefficients.png)
+![ONERA M6 Coefficients](../../tutorials_files/compressible_flow/Inviscid_ONERAM6/images/oneram6_coefficients.png)
 Figure (5): Convergence of the non-dimensional coefficients.
 
-![ONERA M6 Convergence](../../Inviscid_ONERAM6/images/oneram6_convergence.png)
+![ONERA M6 Convergence](../../tutorials_files/compressible_flow/Inviscid_ONERAM6/images/oneram6_convergence.png)
 Figure (6): Convergence of the density residual (speed up x20, iteration based).

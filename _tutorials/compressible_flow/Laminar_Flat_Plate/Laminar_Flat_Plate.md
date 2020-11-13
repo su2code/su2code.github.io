@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![Lam Plate Profile](../../Laminar_Flat_Plate/images/lam_plate_velocity_profile.png)
+![Lam Plate Profile](../../tutorials_files/compressible_flow/Laminar_Flat_Plate/images/lam_plate_velocity_profile.png)
 
 ## Goals
 
@@ -41,11 +41,11 @@ The following tutorial will walk you through the steps required when solving for
 
 In his PhD dissertation in 1908, H. Blasius obtained what is now referred to as the Blasius equation for incompressible, laminar flow over a flat plate:
 
-![Blasius Equation](../../Laminar_Flat_Plate/images/blasius.png)
+![Blasius Equation](../../tutorials_files/compressible_flow/Laminar_Flat_Plate/images/blasius.png)
 
 The third-order, ordinary differential equation can be solved numerically using a shooting method resulting in the well-known laminar boundary layer profile. Using the numerical solution, an expression for the skin friction coefficient along the flat plate can also be derived:
 
-![Blasius Cf](../../Laminar_Flat_Plate/images/blasius_cf.png)
+![Blasius Cf](../../tutorials_files/compressible_flow/Laminar_Flat_Plate/images/blasius_cf.png)
 
 where Re_x is the Reynolds number along the plate. In this tutorial, we will perform a solution of nearly incompressible (low Mach number) laminar flow over a flat plate and compare our results against the analytical Blasius solutions for the profile shape and skin friction coefficient along the plate. This problem has become a classic test case for viscous flow solvers. More detail on the Blasius solution and the similarity variables can be found in Chapter 18 of Fundamentals of Aerodynamics (Fourth Edition) by John D. Anderson, Jr. and most other texts on aerodynamics.
 
@@ -63,7 +63,7 @@ This problem will solve the for the flow over the flat plate with these conditio
 
 The computational mesh for the flat plate is composed of quadrilaterals with 65 nodes in both the x- and y-directions. The flat plate is along the lower boundary of the domain (y = 0) starting at x = 0 m and is of length 0.3048 m (1 ft). In the figure of the mesh, this corresponds to the Navier-Stokes (no-slip) boundary condition highlighted in green. The domain extends a distance upstream of the flat plate, and a symmetry boundary condition is used to simulate a free-stream approaching the plate in this region (highlighted in purple). Axial stretching of the mesh is used to aid in resolving the region near the start of the plate where the no-slip boundary condition begins at x = 0 m, as shown in Figure (1).
 
-![Lam Plate Mesh](../../Laminar_Flat_Plate/images/lam_plate_mesh_bcs.png)
+![Lam Plate Mesh](../../tutorials_files/compressible_flow/Laminar_Flat_Plate/images/lam_plate_mesh_bcs.png)
 Figure (1): Figure of the computational mesh with boundary conditions.
 
 Because the flow is subsonic and disturbances caused by the presence of the plate can propagate both upstream and downstream, characteristic-based, subsonic inlet and outlet boundary conditions are used for the flow entrance plane (red) and the outflow regions along the upper region of the domain and the exit plane at x = 0.3048 m (blue). 
@@ -131,11 +131,11 @@ The flat plate simulation for the 65x65 node mesh is small and will execute rela
 
 Results are given here for the SU2 solution of laminar flow over the flat plate. The results show excellent agreement with the closed-form Blasius solution.
 
-![Lam Plate Mach](../../Laminar_Flat_Plate/images/lam_plate_mach.png)
+![Lam Plate Mach](../../tutorials_files/compressible_flow/Laminar_Flat_Plate/images/lam_plate_mach.png)
 Figure (2): Mach contours for the laminar flat plate.
 
-![Lam Plate Profile](../../Laminar_Flat_Plate/images/lam_plate_velocity_profile.png)
+![Lam Plate Profile](../../tutorials_files/compressible_flow/Laminar_Flat_Plate/images/lam_plate_velocity_profile.png)
 Figure (3):  Velocity data was extracted from the exit plane of the mesh (x = 0.3048 m) near the wall, and the boundary layer velocity profile was plotted compared to and using the similarity variables from the Blasius solution.
 
-![Lam Plate Cf](../../Laminar_Flat_Plate/images/lam_plate_skin_friction.png)
+![Lam Plate Cf](../../tutorials_files/compressible_flow/Laminar_Flat_Plate/images/lam_plate_skin_friction.png)
 Figure (4): A plot of the skin friction coefficient along the plate created using the values written in the surface_flow.csv file and compared to Blasius.

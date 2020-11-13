@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![Turb Plate Uplus v Yplus](../../Turbulent_Flat_Plate/images/turb_plate_uplus_vs_yplus.png)
+![Turb Plate Uplus v Yplus](../../tutorials_files/compressible_flow/Turbulent_Flat_Plate/images/turb_plate_uplus_vs_yplus.png)
 
 ## Goals
 
@@ -50,7 +50,7 @@ The length of the flat plate is 2 meters, and it is represented by an adiabatic 
 
 The mesh used for this tutorial, which consists of 13,056 quadrilateral elements (the 137x97 grid), is shown below. A finer 545x385 grid file is also available. Additional grids for the flat plate in this same family can be obtained from the NASA Turbulence Modeling resource page.
 
-![Turb Plate Mesh](../../Turbulent_Flat_Plate/images/turb_plate_mesh_bcs.png)
+![Turb Plate Mesh](../../tutorials_files/compressible_flow/Turbulent_Flat_Plate/images/turb_plate_mesh_bcs.png)
 Figure (1): Mesh with boundary conditions: inlet (red), outlet (blue), symmetry (purple), wall (green).
 
 ### Configuration File Options
@@ -109,11 +109,11 @@ To run this test case, follow these steps at a terminal command line:
 
 The figures below show results obtained from SU2 and compared to several results from NASA codes. Note that the SU2 results for the skin friction correspond to the coarser mesh ([mesh_flatplate_turb_137x97.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/mesh_flatplate_turb_137x97.su2)) while the NASA results are based on the finer mesh ([mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)). SU2 still matches very closely.
 
-![Turb Plate Nu Tilde](../../Turbulent_Flat_Plate/images/turb_plate_nu_tilde.png)
+![Turb Plate Nu Tilde](../../tutorials_files/compressible_flow/Turbulent_Flat_Plate/images/turb_plate_nu_tilde.png)
 Figure (2): Contour of turbulence variable (nu-hat).
 
-![Turb Plate Cf](../../Turbulent_Flat_Plate/images/turb_plate_skin_friction.png)
+![Turb Plate Cf](../../tutorials_files/compressible_flow/Turbulent_Flat_Plate/images/turb_plate_skin_friction.png)
 Figure (3): Profile for the skin friction coefficient. 
 
-![Turb Plate Uplus v Yplus](../../Turbulent_Flat_Plate/images/turb_plate_uplus_vs_yplus.png)
+![Turb Plate Uplus v Yplus](../../tutorials_files/compressible_flow/Turbulent_Flat_Plate/images/turb_plate_uplus_vs_yplus.png)
 Figure (4): Velocity profile comparison against law of the wall.

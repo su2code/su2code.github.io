@@ -22,7 +22,7 @@ Once completed the tutorial on [Linear Elasticity](../Linear_Elasticity/), we ca
 
 In this tutorial, we use the same problem definition as for the linear elastic case: a vertical, slender cantilever, clamped in its base, and subject to a horizontal, follower load $$P$$ on its left boundary. This is shown in Fig. 1.
 
-![ProblemSetup](../structural_mechanics/Nonlinear_Elasticity/images/lin1.png)
+![ProblemSetup](../../tutorials_files/structural_mechanics/Nonlinear_Elasticity/images/lin1.png)
 
 ### Resources
 
@@ -49,7 +49,7 @@ where the tangent matrix is $$\mathbf{K} = \partial \mathscr{S}(\mathbf{u})/\par
 
 The cantilever is discretized using 1000 4-node quad elements with linear interpolation. The boundaries are defined as follows:
 
-![Mesh](../structural_mechanics/Nonlinear_Elasticity/images/lin2.png)
+![Mesh](../../tutorials_files/structural_mechanics/Nonlinear_Elasticity/images/lin2.png)
 
 #### Configuration File Options
 
@@ -117,7 +117,7 @@ which will show the following convergence history:
 
 The code is stopped as soon as the values of ```rms[U]```, ```rms[R]``` and ```rms[E]``` are below the convergence criteria set in the config file. The displacement field obtained in _nonlinear.vtk_ is shown below:
 
-![Nonlinear Results](../structural_mechanics/Nonlinear_Elasticity/images/nlin1.png)
+![Nonlinear Results](../../tutorials_files/structural_mechanics/Nonlinear_Elasticity/images/nlin1.png)
 
 ### Increasing the load
 
@@ -209,7 +209,7 @@ Incremental load: increment 25
 
 The displacement field is now
 
-![Nonlinear Incremental Results](../structural_mechanics/Nonlinear_Elasticity/images/nlin2.png)
+![Nonlinear Incremental Results](../../tutorials_files/structural_mechanics/Nonlinear_Elasticity/images/nlin2.png)
 
 ### References
 $$^1$$ Bonet, J. and Wood, R.D. (2008), Nonlinear Continuum Mechanics for Finite Element Analysis, _Cambridge University Press_

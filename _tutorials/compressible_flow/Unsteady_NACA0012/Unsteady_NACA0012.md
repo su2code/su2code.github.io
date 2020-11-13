@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![Periodic Flow Field](../../Unsteady_NACA0012/images/flow1.png)
+![Periodic Flow Field](../../tutorials_files/compressible_flow/Unsteady_NACA0012/images/flow1.png)
 Figure (1): An unsteady, periodic flow field. The detached flow about the airfoil results in a vortex street that repeats itself after some time.
 
 ## Goals ##
@@ -60,10 +60,10 @@ The computational domain consists of a grid of 14495 quadrilaterals, that sourro
 
 Two boundary conditions are employed: the Navier-Stokes adiabatic wall condition on the wing surface and the far-field characteristic-based condition on the far-field marker.
 
-![Airfoil Farfield view](../../Unsteady_NACA0012/images/airfoil_big.png)
+![Airfoil Farfield view](../../tutorials_files/compressible_flow/Unsteady_NACA0012/images/airfoil_big.png)
 Figure (2): Far-field view of the computational domain.
 
-![Airfoil Close-up view](../../Unsteady_NACA0012/images/airfoil.png)
+![Airfoil Close-up view](../../tutorials_files/compressible_flow/Unsteady_NACA0012/images/airfoil.png)
 Figure (3): Close-up view of the airfoil surface and the aerodynamic coefficients.
 
 
@@ -113,7 +113,7 @@ TIME_DISCRE_FLOW= EULER_IMPLICIT
 This unsteady simulation results in a periodic flow, which can be seen by the vortex street in the flow visualization above. However, since the initial conditions are set to free-stream conditions, a couple of iterations are needed to reach the periodic state.
 This time-span is called transient phase. 
 
-![Periodic Drag](../../Unsteady_NACA0012/images/Time_Dep_Drag.png)
+![Periodic Drag](../../tutorials_files/compressible_flow/Unsteady_NACA0012/images/Time_Dep_Drag.png)
 Figure (4): Time-dependent drag (black) and lift (red) coefficient. The transient time spans approximately 300 (physical) time-steps.
 
 Usually in a periodic flow an instantaneous output value, e.g. $$C_D(t)$$, is not meaningful. Hence one often uses the average value of one period $$T$$:
@@ -143,7 +143,7 @@ The following options are implemented:
 | `HANN_SQUARE`| 5 | 4 |
 | `BUMP`| exponential | exponential |
 
-![Windowing functions](../../Unsteady_NACA0012/images/wndFcts.png)
+![Windowing functions](../../tutorials_files/compressible_flow/Unsteady_NACA0012/images/wndFcts.png)
 Figure (5): Different window-functions in the time span from 0 to 1.
 
 The `SQUARE`-window denotes the case of uniform weighting by 1, i.e. the case, where no windowing-function is applied. It is not recommended to use `SQUARE`- windowing for sensitivities, since no convergence is guaranteed.
@@ -235,7 +235,7 @@ The simulation terminates at iteration 532, since then, the Cauchy time-converge
 The second picture shows a simulation, where the convergence criterion is deactivated. Note, 
 that the Square-window oscillates much longer than the other windows, due to its low convergence order.
 
-![Windowed time-averages](../../Unsteady_NACA0012/images/wndAvgCDshortRe3.png)
-![Windowed time-averages, long-time beavior](../../Unsteady_NACA0012/images/wndAvgCDlongRe3.png)
+![Windowed time-averages](../../tutorials_files/compressible_flow/Unsteady_NACA0012/images/wndAvgCDshortRe3.png)
+![Windowed time-averages, long-time beavior](../../tutorials_files/compressible_flow/Unsteady_NACA0012/images/wndAvgCDlongRe3.png)
 
 Figure (6): Comparison of time-averages using different window-functions

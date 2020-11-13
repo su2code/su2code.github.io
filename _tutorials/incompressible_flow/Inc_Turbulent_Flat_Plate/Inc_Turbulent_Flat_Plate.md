@@ -12,7 +12,7 @@ complexity: basic
 follows:
 ---
 
-![Turb Plate Uplus v Yplus](../../Inc_Turbulent_Flat_Plate/images/turb_plate_v_x1p9.png)
+![Turb Plate Uplus v Yplus](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/images/turb_plate_v_x1p9.png)
 
 ## Goals
 
@@ -49,7 +49,7 @@ The length of the flat plate is 2 meters, and it is represented by an adiabatic 
 
 The mesh used for this tutorial consists of 208,896 quadrilaterals (545x385). A coarser grid (137x97) is shown below for easier viewing. Additional grids for the flat plate in this same family can be obtained from the NASA TMR page.
 
-![Turb Plate Mesh](../../Inc_Turbulent_Flat_Plate/images/turb_plate_mesh_bcs.png)
+![Turb Plate Mesh](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/images/turb_plate_mesh_bcs.png)
 Figure (1): Mesh with boundary conditions: inlet (red), outlet (blue), symmetry (purple), wall (green).
 
 ### Configuration File Options
@@ -76,7 +76,7 @@ Instructions for running this test case are given here for both serial and paral
 #### In Serial
 
 To run this test case, follow these steps at a terminal command line:
- 1. Copy the config file ([turb_flatplate.cfg](../../Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_545x385.su2](../../Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Copy the config file ([turb_flatplate.cfg](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_545x385.su2](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
      ```
@@ -105,14 +105,14 @@ If SU2 has been built with parallel support, the recommended method for running 
 
 The figures below show results obtained from SU2 and compared to several results from NASA codes. The agreement in all cases is very good. Small discrepancies are apparent in the Cf when compared to the compressible codes in Fig. 4, however, when comparing the incompressible SU2 results for Cf to other incompressible results in Fig. 5, the agreement is excellent. The results here are consistent with the findings of the NASA TMR concerning the effects of compressibility.
 
-![Turb Plate Nu Tilde](../../Inc_Turbulent_Flat_Plate/images/turb_plate_v_x0p97.png)
+![Turb Plate Nu Tilde](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/images/turb_plate_v_x0p97.png)
 Figure (2): Velocity profile comparison at x = 0.97008 m.
 
-![Turb Plate Nu Tilde](../../Inc_Turbulent_Flat_Plate/images/turb_plate_v_x1p9.png)
+![Turb Plate Nu Tilde](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/images/turb_plate_v_x1p9.png)
 Figure (3): Velocity profile comparison at x = 1.90334 m.
 
-![Turb Plate Cf](../../Inc_Turbulent_Flat_Plate/images/turb_plate_cf.png)
+![Turb Plate Cf](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/images/turb_plate_cf.png)
 Figure (4): Cf comparison along the length of the plate.
 
-![Turb Plate Uplus v Yplus](../../Inc_Turbulent_Flat_Plate/images/turb_plate_cf_gridconv.png)
+![Turb Plate Uplus v Yplus](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/images/turb_plate_cf_gridconv.png)
 Figure (5): Grid convergence comparison for the value of Cf at x = 0.97008 m for different incompressible codes. h is an effective grid spacing proportional to sqrt(1/N), where N is the number of cells in the grid.

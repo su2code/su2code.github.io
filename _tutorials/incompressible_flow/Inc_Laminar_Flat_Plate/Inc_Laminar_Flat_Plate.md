@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![Lam Plate Profile](../../Inc_Laminar_Flat_Plate/images/lam_plate_v.png)
+![Lam Plate Profile](../../tutorials_files/incompressible_flow/Inc_Laminar_Flat_Plate/images/lam_plate_v.png)
 
 ## Goals
 
@@ -39,7 +39,7 @@ The following tutorial will walk you through the steps required when solving for
 
 We will reuse the Blasius solution from the [compressible flat plate tutorial](/tutorials/Laminar_Flat_Plate/) as a verification of the incompressible solver. However, in addition to comparing the velocity profile and skin friction coefficient against the analytic solutions, we will also compare the local Nusselt number along the plate. Expressions for the skin friciton coefficient and local Nusslet number can be derived:
 
-![Blasius Cf](../../Inc_Laminar_Flat_Plate/images/blasius_eqn.png)
+![Blasius Cf](../../tutorials_files/incompressible_flow/Inc_Laminar_Flat_Plate/images/blasius_eqn.png)
 
 where Re_x is the Reynolds number along the plate and Pr_d is the dynamic Prandtl number. 
 
@@ -58,7 +58,7 @@ This problem will solve for the incompressible flow over the flat plate with the
 
 The computational mesh for the flat plate is composed of quadrilaterals with 65 nodes in both the x- and y-directions. The flat plate is along the lower boundary of the domain (y = 0) starting at x = 0 m and is of length 0.3048 m (1 ft). In the figure of the mesh, this corresponds to the Navier-Stokes (no-slip) boundary condition highlighted in green. The domain extends a distance upstream of the flat plate, and a symmetry boundary condition is used to simulate a free-stream approaching the plate in this region (highlighted in purple). Axial stretching of the mesh is used to aid in resolving the region near the start of the plate where the no-slip boundary condition begins at x = 0 m, as shown in Figure (1).
 
-![Lam Plate Mesh](../../Inc_Laminar_Flat_Plate/images/lam_plate_mesh_bcs.png)
+![Lam Plate Mesh](../../tutorials_files/incompressible_flow/Inc_Laminar_Flat_Plate/images/lam_plate_mesh_bcs.png)
 Figure (1): Figure of the computational mesh with boundary conditions.
 
 Uniform velocity inlet and uniform pressure outlet boundary conditions are used for the flow entrance plane (red) and the outflow regions along the upper region of the domain and the exit plane at x = 0.3048 m (blue). 
@@ -143,14 +143,14 @@ The flat plate simulation for the 65x65 node mesh is small and will execute rela
 
 Results are given here for the SU2 solution of incompressible laminar flow over the constant-temperature flat plate. The results show excellent agreement with the closed-form Blasius solution.
 
-![Lam Plate Profile](../../Inc_Laminar_Flat_Plate/images/lam_plate_v.png)
+![Lam Plate Profile](../../tutorials_files/incompressible_flow/Inc_Laminar_Flat_Plate/images/lam_plate_v.png)
 
 Figure (2):  Velocity data was extracted from the exit plane of the mesh (x = 0.3048 m) near the wall, and the boundary layer velocity profile was plotted compared to and using the similarity variables from the Blasius solution.
 
-![Lam Plate Cf](../../Inc_Laminar_Flat_Plate/images/lam_plate_cf.png)
+![Lam Plate Cf](../../tutorials_files/incompressible_flow/Inc_Laminar_Flat_Plate/images/lam_plate_cf.png)
 
 Figure (3): A plot of the skin friction coefficient along the plate created using the values written in the surface_flow.csv file and compared to Blasius.
 
-![Lam Plate Nu_x](../../Inc_Laminar_Flat_Plate/images/lam_plate_nu.png)
+![Lam Plate Nu_x](../../tutorials_files/incompressible_flow/Inc_Laminar_Flat_Plate/images/lam_plate_nu.png)
 
 Figure (4): A plot of the local Nusselt number along the plate created using the values written in the surface_flow.csv file and compared to Blasius.

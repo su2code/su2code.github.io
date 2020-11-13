@@ -12,7 +12,7 @@ complexity: basic
 follows:
 ---
 
-![Lam Step Streamlines](../../Inc_Laminar_Step/images/lam_step_streamlines.png)
+![Lam Step Streamlines](../../tutorials_files/incompressible_flow/Inc_Laminar_Step/images/lam_step_streamlines.png)
 
 ## Goals
 
@@ -139,10 +139,10 @@ The backward-facing step simulation will execute relatively quickly on a single 
 
 Results are given here for the SU2 solution of incompressible laminar flow over the backward-facing step. The velocity profiles show excellent agreement with the results from Gartling.
 
-![Lam Step Streamlines](../../Inc_Laminar_Step/images/lam_step_streamlines.png)
+![Lam Step Streamlines](../../tutorials_files/incompressible_flow/Inc_Laminar_Step/images/lam_step_streamlines.png)
 
 Figure (2): Streamlines for the Re = 800 backward-facing step case colored by non-dim. velocity magnitude.
 
-![Lam Step Streamlines](../../Inc_Laminar_Step/images/lam_step_profiles.png)
+![Lam Step Streamlines](../../tutorials_files/incompressible_flow/Inc_Laminar_Step/images/lam_step_profiles.png)
 
 Figure (3): Comparison of SU2 non-dim. x-velocity profiles at x = 7 m and x = 15 m with those of Gartling.

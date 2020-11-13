@@ -12,7 +12,7 @@ complexity: advanced
 follows: 
 ---
 
-![NICFD nozzle Mach](../../NICFD_nozzle/images/mach_isolines.png)
+![NICFD nozzle Mach](../../tutorials_files/compressible_flow/NICFD_nozzle/images/mach_isolines.png)
 
 ## Goals
 
@@ -60,7 +60,7 @@ In design conditions, the total to exhaust pressure ratio of the nozzle is 3.125
 
 The total length of the nozzle is 0.123 m, with an inlet height of 0.036 m and a throat height of 0.0084 m. The mesh is composed of quadrilateral elements, with 3,540 elements and 3,660 nodes. The figure shows the mesh topology and an indication of the boundary conditions. Characteristic-based Riemann boundary conditions are used on the INFLOW and OUTFLOW boundaries. The Navier-Stokes adiabatic wall condition is imposed on the WALL boundary. The symmetry boundary condition is used at the SYMMETRY boundary. The symmetry condition mirrors the flow about the x axis, thus allowing to reduce the size of the mesh and the computational cost.
 
-![NICFD nozzle mesh](../../NICFD_nozzle/images/mesh.png)
+![NICFD nozzle mesh](../../tutorials_files/compressible_flow/NICFD_nozzle/images/mesh.png)
 Figure (1): Computational mesh.
 
 ### Configuration File Options
@@ -217,8 +217,8 @@ The nozzle simulation is relatively small and will execute quickly on a single w
 Results are given here for the SU2 solution of supersonic non-ideal compressible flow in the converging-diverging nozzle. As part of this tutorial, a coarse mesh was provided, but for comparison, results obtained by using a refined mesh (80,223 elements and 80,840 points) as well as experimental results are shown.
 The figures below compare pressure and Mach number trends along the nozzle axis obtained from SU2 flow solutions and experimental data. Numerical results agree with the experimental data from the TROVA wind tunnel.
 
-![NICFD nozzle results A](../../NICFD_nozzle/images/nozzle_geometry_schlieren.png)
-![NICFD nozzle results B](../../NICFD_nozzle/images/Pressure_SU2_experiments.png)
-![NICFD nozzle results C](../../NICFD_nozzle/images/Mach_SU2_experiments.png)
+![NICFD nozzle results A](../../tutorials_files/compressible_flow/NICFD_nozzle/images/nozzle_geometry_schlieren.png)
+![NICFD nozzle results B](../../tutorials_files/compressible_flow/NICFD_nozzle/images/Pressure_SU2_experiments.png)
+![NICFD nozzle results C](../../tutorials_files/compressible_flow/NICFD_nozzle/images/Mach_SU2_experiments.png)
 
 Figure (2): (a) Geometry of the test section and schlieren image of the nozzle flow. (b, c) Comparison Pressure (b) and Mach number (c) profiles of the experimental results of Spinelli *et al* (black dots with error bars) against SU2 computational results for the test case mesh (red lines) and a reference fine mesh (blue lines).

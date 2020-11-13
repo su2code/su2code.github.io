@@ -12,7 +12,7 @@ complexity: basic
 follows: 
 ---
 
-![Channel Mach](../../Inc_Inviscid_Hydrofoil/images/hydrofoil_velocity.png)
+![Channel Mach](../../tutorials_files/incompressible_flow/Inc_Inviscid_Hydrofoil/images/hydrofoil_velocity.png)
 
 ## Goals
 
@@ -124,8 +124,8 @@ The channel simulation uses a small mesh and a very aggressive CFL number, so th
 
 The following images show some SU2 results for the inviscid hydrofoil problem.
 
-![Channel Mach](../../Inc_Inviscid_Hydrofoil/images/hydrofoil_velocity.png)
+![Channel Mach](../../tutorials_files/incompressible_flow/Inc_Inviscid_Hydrofoil/images/hydrofoil_velocity.png)
 Figure (2): Velocity contours around the hydrofoil.
 
-![Channel Pressure](../../Inc_Inviscid_Hydrofoil/images/hydrofoil_pressure.png)
+![Channel Pressure](../../tutorials_files/incompressible_flow/Inc_Inviscid_Hydrofoil/images/hydrofoil_pressure.png)
 Figure (3): Pressure contours around the hydrofoil.

@@ -11,8 +11,8 @@ requires: SU2_CFD
 complexity: basic
 follows: 
 ---
-
-![Channel Mach](../../Inviscid_Bump/images/channel_mach.png)
+[//]: # (Example of a currently working link to a picture)
+![Channel Mach](../../tutorials_files/compressible_flow/Inviscid_Bump/images/channel_mach.png)
 
 ## Goals
 
@@ -52,7 +52,7 @@ There is also a set of inlet/outlet conditions for transonic flow available in t
 
 The channel is of length 3L with a height L and a circular bump centered along the lower wall with height 0.1L. For the SU2 mesh, L = 1.0 was chosen, as seen in the figure of the mesh below. The mesh is composed of quadrilaterals with 256 nodes along the length of the channel and 128 nodes along the height. The following figure contains a view of the mesh topology (a coarser mesh is shown for clarity).
 
-![Channel Mesh](../../Inviscid_Bump/images/channel_mesh_bcs.png)
+![Channel Mesh](../../tutorials_files/compressible_flow/Inviscid_Bump/images/channel_mesh_bcs.png)
 Figure (1): The computational mesh with boundary conditions highlighted.
 
 The boundary conditions for the channel are also highlighted in the figure. Inlet, outlet, and Euler wall boundary conditions are used. The Euler wall boundary condition enforces flow tangency at the upper and lower walls. 
@@ -152,8 +152,8 @@ The channel simulation for the 256x128 node mesh is relatively small, so this ca
 
 The following images show some SU2 results for the inviscid channel problem.
 
-![Channel Mach](../../Inviscid_Bump/images/channel_mach.png)
+![Channel Mach](../../tutorials_files/compressible_flow/Inviscid_Bump/images/channel_mach.png)
 Figure (2): Mach number contours for the 2D channel.
 
-![Channel Pressure](../../Inviscid_Bump/images/channel_pressure.png)
+![Channel Pressure](../../tutorials_files/compressible_flow/Inviscid_Bump/images/channel_pressure.png)
 Figure (3): Pressure contours for the 2D channel.

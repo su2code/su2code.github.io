@@ -12,7 +12,7 @@ complexity: basic
 follows:
 ---
 
-![Turb NACA 0012 Pressure](../../Inc_Turbulent_NACA0012/images/n0012_cp_AoA10deg.png)
+![Turb NACA 0012 Pressure](../../tutorials_files/incompressible_flow/Inc_Turbulent_NACA0012/images/n0012_cp_AoA10deg.png)
 
 ## Goals
 
@@ -118,15 +118,15 @@ If SU2 has been built with parallel support, the recommended method for running 
 
 Results for the turbulent flow over the NACA 0012 are shown below. The computed SU2 solutions are in good agreement with the published data from Gregory. In addition, the computed values for Cp and Cf for both angle conditions are nearly indistinguishable from the CFL3D results.
      
-![Turb ONERA Cp A](../../Inc_Turbulent_NACA0012/images/n0012_cp_AoA0deg.png)
+![Turb ONERA Cp A](../../tutorials_files/incompressible_flow/Inc_Turbulent_NACA0012/images/n0012_cp_AoA0deg.png)
 Figure (1): Cp comparison for the NACA 0012 at 0 deg angle of attack.
 
-![Turb ONERA Cp B](../../Inc_Turbulent_NACA0012/images/n0012_cf_AoA0deg.png)
+![Turb ONERA Cp B](../../tutorials_files/incompressible_flow/Inc_Turbulent_NACA0012/images/n0012_cf_AoA0deg.png)
 Figure (2): Upper surface Cf comparison for the NACA 0012 at 0 deg angle of attack.
 
-![Turb ONERA Cp C](../../Inc_Turbulent_NACA0012/images/n0012_cp_AoA10deg.png)
+![Turb ONERA Cp C](../../tutorials_files/incompressible_flow/Inc_Turbulent_NACA0012/images/n0012_cp_AoA10deg.png)
 Figure (3): Cp comparison for the NACA 0012 at 10 deg angle of attack.
 
-![Turb ONERA Cp D](../../Inc_Turbulent_NACA0012/images/n0012_cf_AoA10deg.png)
+![Turb ONERA Cp D](../../tutorials_files/incompressible_flow/Inc_Turbulent_NACA0012/images/n0012_cf_AoA10deg.png)
 Figure (4): Upper Surface Cf comparison for the NACA 0012 at 10 deg angle of attack.
 
