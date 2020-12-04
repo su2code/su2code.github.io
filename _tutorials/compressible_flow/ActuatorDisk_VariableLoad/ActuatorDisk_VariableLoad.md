@@ -154,10 +154,10 @@ The `ADV_RATIO` option contains the advance ratio of the propeller defined as <i
 The `NROW` option isused to indicate the number of radial stations of the actuator disk in which we assign the load distribution.
 The next row is a dummy row, so it is skipped.
 Then there are 4 columns containing respectively:
-- The non dimensional radial station <img src="https://render.githubusercontent.com/render/math?math=J=\overline{r}=\frac{r}{R}">
-- The thrust coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=J=\frac{\mathrm{d}C_T}{\mathrm{d}\overline{r}}">
-- The power coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=J=\frac{\mathrm{d}C_P}{\mathrm{d}\overline{r}}">
-- The radial force coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=J=\frac{\mathrm{d}C_R}{\mathrm{d}\overline{r}}">
+- The non dimensional radial station <img src="https://render.githubusercontent.com/render/math?math=\overline{r}=\frac{r}{R}">
+- The thrust coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=\frac{\mathrm{d}C_T}{\mathrm{d}\overline{r}}">
+- The power coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=\frac{\mathrm{d}C_P}{\mathrm{d}\overline{r}}">
+- The radial force coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=\frac{\mathrm{d}C_R}{\mathrm{d}\overline{r}}">
 
 These coefficients are defined using the "Renard" definition: the reference force is <img src="https://render.githubusercontent.com/render/math?math=\rho n^2D^4">, while the reference power is reference force is <img src="https://render.githubusercontent.com/render/math?math=\rho n^3D^5">
 *It is possible to append other propellers data at the end of the input file. Note that the order and the format of the options should not be changed.*
