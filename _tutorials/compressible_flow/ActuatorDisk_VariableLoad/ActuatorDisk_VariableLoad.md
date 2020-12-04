@@ -18,11 +18,13 @@ follows:
 
 Upon completing this tutorial, the user will be able to simulate the presence of a propeller using an actuator disk boundary condition, including also the swirl effects. The specific geometry chosen for the tutorial is composed by an actuator disk and a semi-infinite spinner (grid file and propeller data courtesy of Mauro Minervino, Centro Italiano Ricerche Aerospaziali (CIRA)).
 
-This tutorial is referred only to the actuator disk model "*VARIABLE_LOAD*" implemented in the V7.0.7.
+This tutorial is referred only to the actuator disk model `VARIABLE_LOAD` implemented in the V7.0.7.
 
 ## Resources
 
-The resources for this tutorial can be found in the [TestCases/rans/actuatordisk_variable_load](https://github.com/su2code/SU2/tree/master/TestCases/rans/actuatordisk_variable_load) directory in the [SU2 repository](https://github.com/su2code/SU2). You will need the configuration file ([propeller_variable_load.cfg](https://github.com/su2code/SU2/tree/master/TestCases/rans/actuatordisk_variable_load/propeller_variable_load.cfg)), the mesh file ([propeller_variable_load.su2](https://github.com/su2code/TestCases/tree/master/rans/actuatordisk_variable_load/propeller_variable_load.su2)) and the propeller input data file ([ActuatorDisk.dat](https://github.com/su2code/SU2/tree/master/TestCases/rans/actuatordisk_variable_load/ActuatorDisk.dat)). *It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, finer meshes should be used.*
+The resources for this tutorial can be found in the [TestCases/rans/actuatordisk_variable_load](https://github.com/su2code/SU2/tree/master/TestCases/rans/actuatordisk_variable_load) directory in the [SU2 repository](https://github.com/su2code/SU2). You will need the configuration file ([propeller_variable_load.cfg](https://github.com/su2code/SU2/tree/master/TestCases/rans/actuatordisk_variable_load/propeller_variable_load.cfg)), the mesh file ([propeller_variable_load.su2](https://github.com/su2code/TestCases/tree/master/rans/actuatordisk_variable_load/propeller_variable_load.su2)) and the propeller input data file ([ActuatorDisk.dat](https://github.com/su2code/SU2/tree/master/TestCases/rans/actuatordisk_variable_load/ActuatorDisk.dat)).
+*It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, finer meshes should be used.*
+
 You will also need the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script which is an useful tool to generate the propeller input data file.
 
 ## Tutorial
