@@ -246,7 +246,7 @@ Figure (5): Pressure coefficient contour in the *x-z* plane.
 ![Momentum X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MomentumX.png)
 Figure (6): Momentum in normal direction along *x* for different stations.
 
-![Pressure Coefficient X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/PressureCoefficient.png)
+![Pressure Coefficient X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/PressureCoeff.png)
 Figure (7): Pressure coefficient along *x* for different stations.
 
 ![Tangential Velocity X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt_x.png)
