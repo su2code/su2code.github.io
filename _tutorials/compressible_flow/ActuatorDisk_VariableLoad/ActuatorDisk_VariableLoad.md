@@ -12,7 +12,7 @@ complexity:
 follows: 
 ---
 
-**Insert Image** ![Actuator Disk](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/nome.png)
+![Actuator Disk](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/SwirlAndCp.png)
 
 ## Goals
 
@@ -84,7 +84,14 @@ Three boundary conditions are employed:
 - Navier-Stokes adiabatic wall on the spinner.
 - Far-field condition on the outer domain surface.
 
-**Insert Image - Domain and Mesh**
+![Domain](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/Domain.png)
+Figure (1): Far-field view of the computational domain.
+
+![Grid XY](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/GridXY.png)
+Figure (2): Mesh of the domain in the *x-y* plane.
+
+![Grid Disk](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/GridDisk.png)
+Figure (3): Close-up view of the mesh of the actuator disk in the *y-z* plane.
 
 ### Configuration File Options
 
@@ -108,13 +115,13 @@ ACTDISK_FILENAME= ActuatorDisk.dat
 MARKER_ACTDISK = ( DISK, DISK_BACK, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 )
 ```
 
-The `ACTDISK_DOUBLE_SURFACE` option, in this case, is setted to `true` because the actuator disk surface has been splitted in two parts: upstream and sownstream surfaces.
+The `ACTDISK_DOUBLE_SURFACE` option, in this case, is set to `true` because the actuator disk surface has been splitted in two parts: upstream and sownstream surfaces.
 The `ACTDISK_TYPE` option, is used to chose the actuator disk boundary type. In this tutorial, we want to use a model that allows to consider a variable load distribution along the disk, and that also take the *swirl* term into consideration. The actuator disk type that meets these conditions is the `VARIABLE_LOAD`.
 The `ACTDISK_FILENAME` option is used to specify the name of the actuator disk data input file. Further we will see how to generate this file.
 The `MARKER_ACTDISK` option, requires the following arguments:
 - Marker of the upstream surface of the actuator disk.
 - Marker of the downstream surface of the actuator disk.
-- 6 zero arguments. These arguments have a different meaning using different `ACTDISK_TYPE`. In this case, they are all setted to `0.0` because they are not needed.
+- 6 zero arguments. These arguments have a different meaning using different `ACTDISK_TYPE`. In this case, they are all set to `0.0` because they are not needed.
 
 *If there are more actuator disks, it is possible to append them in the `MARKER_ACTDISK` option.*
 
@@ -184,6 +191,7 @@ Then there are 4 columns containing respectively:
 - The radial force coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=\frac{\mathrm{d}C_R}{\mathrm{d}\overline{r}}">
 
 These coefficients are defined using the "Renard" definition: the reference force is <img src="https://render.githubusercontent.com/render/math?math=\rho n^2D^4">, while the reference power is reference force is <img src="https://render.githubusercontent.com/render/math?math=\rho n^3D^5">
+
 *It is possible to append other propellers data at the end of the input file. Note that the order and the format of the options should not be changed.*
 
 ### Optimal Propeller Script
@@ -215,4 +223,17 @@ The load distribution obtined using the [OptimalPropeller.py](https://github.com
 
 Results of this simulation are here roprted...
 
-**Insert Image - Results**
+![Mach Number](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/MachNumber.png)
+Figure (4): Mach number contour in the *x-z* plane.
+![Pressure Coefficient](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/ContourCp.png)
+Figure (5): Pressure coefficient contour in the *x-z* plane.
+![Momentum X](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/MomentumX.png)
+Figure (6): Momentum in normal direction along *x* for different stations.
+![Pressure Coefficient X](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/PressureCoefficient.png)
+Figure (7): Pressure coefficient along *x* for different stations.
+![Tangential Velocity X](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/Vt_x.png)
+Figure (8): Tangential velocity component along *x* for different stations.
+![Pressure Jump](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/pJump.png)
+Figure (9): Pressure coefficient along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
+![Tangential Velocity Jump](../../tutorials_files/compressible_flow/ActuatodDisk_VariableLoad/images/Vt.png)
+Figure (9): Tangential velocity component along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
