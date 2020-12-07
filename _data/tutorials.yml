@@ -37,7 +37,7 @@
 - title: Multiphysics
   tutorials:
    - Static_FSI
-   - Unsteady_FSI_Python
+   - Dynamic_FSI_Python
 
 - title: Design Features
   tutorials:
