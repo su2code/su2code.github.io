@@ -43,10 +43,10 @@ Without going into details the mathematical model considered is the following:
 
 **State 1**:
 - 1 data imposed:
-   - static pressure <img src="https://render.githubusercontent.com/render/math?math=p_1=p_2+\Delta p">
+   - static pressure <img src="https://render.githubusercontent.com/render/math?math=p_1=p_2 + \Delta p">
 - 4 data extrapolated from upstream:
    - entropy <img src="https://render.githubusercontent.com/render/math?math=s_1">
-   - acoustic Riemann invariant <img src="https://render.githubusercontent.com/render/math?math=R_1^+">
+   - acoustic Riemann invariant <img src="https://render.githubusercontent.com/render/math?math=R_1^{+}">
    - tangential velocity <img src="https://render.githubusercontent.com/render/math?math=\underline{V}_{t1}">
 
 **State 2**
