@@ -12,7 +12,7 @@ complexity:
 follows: 
 ---
 
-![Actuator Disk](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/SwirlAndCp.png){:height="50%" width="50%"}
+![Actuator Disk](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/SwirlAndCp.png)
 
 ## Goals
 
