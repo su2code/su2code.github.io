@@ -37,6 +37,28 @@ This test case is for an actuator disk with a semi-infinite spinner. The actuato
 In aeronautics it is a crucial topic for the airframe integration. Nowadays, with the research on the Distributed Electric Propulsion (DEP), a good actuator disk model is getting importance in order to simulate the effects of the propellers on the airframe by fast CFD analysis.
 However, the disadvantage of using an actuator disk model is that the unsteady effects are neglected.
 
+The actuator disk model used in this tutorial has been implemented referring to a propeller, so the input data file is suitable for a propeller, but not for a wind turbine. However, the model itself, can also be suitable for any rotary wing device.
+
+Without going into details the mathematical model considered is the following:
+
+**State 1**:
+- 1 data imposed:
+   - static pressure <img src="https://render.githubusercontent.com/render/math?math=p_1=p_2+\Delta p">
+- 4 data extrapolated from upstream:
+   - entropy <img src="https://render.githubusercontent.com/render/math?math=s_1">
+   - acoustic Riemann invariant <img src="https://render.githubusercontent.com/render/math?math=R_1^+">
+   - tangential velocity <img src="https://render.githubusercontent.com/render/math?math=\underline{V}_{t1}">
+
+**State 2**
+- 4 data imposed:
+   - static pressure jump <img src="https://render.githubusercontent.com/render/math?math=\Delta p">
+   - continuity <img src="https://render.githubusercontent.com/render/math?math=\left(\rho V_n\right)_2=\left(\rho V_n\right)_1">
+   - *swirl* <img src="https://render.githubusercontent.com/render/math?math=\Delta\left(\rho V_t\right)">
+- 1 data extrapolated from downstream:
+   - acoustic Riemann invariant <img src="https://render.githubusercontent.com/render/math?math=R_2^-">
+
+Where **State 1** and **State 2** are respectively the upstream and downstream surfaces of the actuator disk.
+
 ### Problem Setup
 
 This problem will solve the flow with these conditions:
