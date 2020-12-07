@@ -6,7 +6,7 @@ for_version: 7.0.6
 revised_by:
 revision_date:
 revised_version:
-solver: Multiphysics
+solver: RANS
 requires: SU2_CFD, PYTHON WRAPPER
 complexity: intermediate
 follows: Static_FSI
@@ -33,9 +33,9 @@ A sketch of the problem at hand is presented below:
 
 ### Resources
 
-You can find the resources for this tutorial in [this folder] (https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python) of the [Tutorials repository](https://github.com/su2code/Tutorials). There is a [matlab file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/FlatPlateModel.m) that can be used to produce validation data with Theodorsen theory and the [mesh file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/airfoil.su2).
+You can find the resources for this tutorial in [this folder](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python) of the [Tutorials repository](https://github.com/su2code/Tutorials). There is a [matlab file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/FlatPlateModel.m) that can be used to produce validation data with Theodorsen theory and the [mesh file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/airfoil.su2).
 
-In the [main directory] (https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python), there are other 5 subdirectories containing the configuration files and structural models for the different Mach numbers. Please do not mix those files as the structural models and configurations are different at the different aerodynamic conditions.
+In the [main directory](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python), there are other 5 subdirectories containing the configuration files and structural models for the different Mach numbers. Please do not mix those files as the structural models and configurations are different at the different aerodynamic conditions.
 
 ### Background 
 
@@ -52,19 +52,19 @@ The strctural model is made by a single point, positioned at the rotation axis, 
 Inertia and mass of the airfoil are concentrated at the center of mass of the profile, at a certain distance from the rotation axis. The equations of motions are available
 analytically and reads:
 
-$m\ddot{h} + S\ddot{\alpha} + C_{h}\dot{h} + K_{h}h = -L$
-$S\ddot{h} + I\ddot{\alpha} + C_{\alpha}\dot{\alpha} + K_{\alpha}\alpha = M$
+$$m\ddot{h} + S\ddot{\alpha} + C_{h}\dot{h} + K_{h}h = -L$$
+$$S\ddot{h} + I\ddot{\alpha} + C_{\alpha}\dot{\alpha} + K_{\alpha}\alpha = M$$
 
-Where $m$ is the mass of the airfoil, $I$ the inertia around the center of mass, $S$ the static moment of inertia at the rotation axis, $C$ and $K$ the dampings and stiffnesses respectively. $L$ and $M$ are the lift and pitching up moment.
+Where $$m$$ is the mass of the airfoil, $$I$$ the inertia around the center of mass, $$S$$ the static moment of inertia at the rotation axis, $$C$$ and $$K$$ the dampings and stiffnesses respectively. $$L$$ and $$M$$ are the lift and pitching up moment.
 
 These equations are usually adimensionalised to obtain results independent from the free-stream density of the flow.
 Indeed, we can define the following parameters:
 
-$\Csi=\frac{S}{mb}$, $r_{\alpha}^2=\frac{I_f}{mb^2}$, $\bar{\omega}=\frac{\omega_h}{\omega_{\alpha}}$, $\mu=\frac{m}{\pi \rho_{\inf} b^2}$
+$$\Csi=\frac{S}{mb}$$, $$r_{\alpha}^2=\frac{I_f}{mb^2}$$, $$\bar{\omega}=\frac{\omega_h}{\omega_{\alpha}}$$, $$\mu=\frac{m}{\pi \rho_{\inf} b^2}$$
 
-Where $b$ is the semi chord of the airfoil, $\omega_h = \sqrt{\frac{K_h}{m}}$ $\omega_{\alpha} = \sqrt{\frac{K_{\alpha}}{I_f}}. If we fix them, the structure will behave always the same regardless of $\rho_{\inf}$.
+Where $$b$$ is the semi chord of the airfoil, $$\omega_h = \sqrt{\frac{K_h}{m}}$$ $$\omega_{\alpha} = \sqrt{\frac{K_{\alpha}}{I_f}}$$. If we fix them, the structure will behave always the same regardless of $$\rho_{\inf}$$.
 
-In this context $\Csi=0.25$, $r_{\alpha}^2=0.5$, $\bar{\omega}=0.3185$ and $\mu=100$.
+In this context $$\Csi=0.25$$, $$r_{\alpha}^2=0.5$$, $$\bar{\omega}=0.3185$$ and $$\mu=100$$.
 
 Note that, as we will vary the Mach number, the density will also change accordingly. Thus, with given nondimensional parameters, the inertias and stiffnesses must be
 varied accordingly.
@@ -106,7 +106,7 @@ In this particular case, it may look excessively complicated, but it allows to s
 #### Mesh Description
 
 The fluid domain is discretised with 133k nodes, with refining close to the airfoil surface, in order to correctly represent the turbulent boundary layer. The first cell
-is placed at a height of $y+\approx 1$. A close up view of the mesh is pictured below:
+is placed at a height of $$y+\approx 1$$. A close up view of the mesh is pictured below:
 
 ![ProblemSetup](../../tutorials_files/multiphysics/unsteady_fsi_python/images/CFDmesh.png)
 
@@ -317,7 +317,9 @@ TIME_MARCHING = YES
 ```
 ### Running SU2
 
-Follow the links provided to download the [main directory] (https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python).
+Follow the links provided to download the [main directory](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python).
+
+The preprocessing step in Nastran has already been performed, thus you will directly find the required structural model.
 
 Copy the mesh file in each subdirectory, then run the following command from inside each subdirectory:
 
