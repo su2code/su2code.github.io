@@ -1,5 +1,5 @@
 ---
-title: Dynamic Fluid-Structure Interaction (FSI) using the Python wrapper and an external structural solver
+title: Dynamic Fluid-Structure Interaction (FSI) using the Python wrapper and a Nastran structural model
 permalink: /tutorials/Dynamic_FSI_Python/
 written_by: Nicola-Fonzi
 for_version: 7.0.6
@@ -46,15 +46,60 @@ Here, the difference is due to the fact that the simulation is unsteady. Thus, t
 The aerodynamic model is based on the compressible Reynolds-averaged Navier-Stokes equations. A central JST scheme is used for the convective fluxes, and a weighted least square
 scheme is used for the gradients. The turbulence model is the SST and a CFL number of 20, for the psuedo time step, is used.
 
+Different Mach numbers will be considered, namely $M=[0.1, 0.2, 0.3, 0.357, 0.364]$. The Reynolds number is fixed at 4 millions, and the temperature is equal to 273K.
+
 The strctural model is made by a single point, positioned at the rotation axis, with two degrees of freedom, pitch and plunge. 
 Inertia and mass of the airfoil are concentrated at the center of mass of the profile, at a certain distance from the rotation axis. The equations of motions are available
 analytically and reads:
 
+$m\ddot{h} + S\ddot{\alpha} + C_{h}\dot{h} + K_{h}h = -L$
+$S\ddot{h} + I\ddot{\alpha} + C_{\alpha}\dot{\alpha} + K_{\alpha}\alpha = M$
 
+Where $m$ is the mass of the airfoil, $I$ the inertia around the center of mass, $S$ the static moment of inertia at the rotation axis, $C$ and $K$ the dampings and stiffnesses respectively. $L$ and $M$ are the lift and pitching up moment.
 
-The structural solver, instead of integrating
-the equations of motions for this point, which are available analytically, is intended to solve a general strctural problem. For this reason, a preprocessing step in Nastran
-will be performed, computing the mode shapes and modal frequencies of the model. Then, the structural solver will integrate a set of ODEs for the modes of the strcture.
+These equations are usually adimensionalised to obtain results independent from the free-stream density of the flow.
+Indeed, we can define the following parameters:
+
+$\Csi=\frac{S}{mb}$, $r_{\alpha}^2=\frac{I_f}{mb^2}$, $\bar{\omega}=\frac{\omega_h}{\omega_{\alpha}}$, $\mu=\frac{m}{\pi \rho_{\inf} b^2}$
+
+Where $b$ is the semi chord of the airfoil, $\omega_h = \sqrt{\frac{K_h}{m}}$ $\omega_{\alpha} = \sqrt{\frac{K_{\alpha}}{I_f}}. If we fix them, the structure will behave always the same regardless of $\rho_{\inf}$.
+
+In this context $\Csi=0.25$, $r_{\alpha}^2=0.5$, $\bar{\omega}=0.3185$ and $\mu=100$.
+
+Note that, as we will vary the Mach number, the density will also change accordingly. Thus, with given nondimensional parameters, the inertias and stiffnesses must be
+varied accordingly.
+
+No strunctural damping is included and a time step of 1ms is used.
+
+The structural solver, instead of integrating the equations of motions for this point, which are available analytically, is intended to solve a general strctural problem. 
+For this reason, a preprocessing step in Nastran will be performed, computing the mode shapes and modal frequencies of the model. Then, the structural solver will
+integrate a set of ODEs for the modes of the structure.
+
+To perform the preprocessing step, in the case control section of the Nastran model (i.e. at the very beginning of
+the file), the following lines must be added:
+
+ECHO = SORT
+DISPLACEMENT(PRINT,PUNCH)=ALL
+
+A real egeinvalue analysis will then be performed.
+This will produce, in the f06 file, an equivalent, ordered, model that will
+eventually be read by the python script to create the interface. Further, it will
+be created a punch file where all the mode shapes, together with their stiffness,
+are stored.
+
+IMPORTANT: The modes should be normalised to unit mass.
+
+Further, in the Nastran model, a SET1 card must be added that contains all the
+nodes to be interfaced with aerodynamics. Note that, as of now, only one SET1 card
+is allowed. However, this should be sufficiently general not to create issues.
+
+The input and output reference systems of the interface nodes can be defined as
+local, but these reference systems must be directly defined with respect to the
+global one. Thus, if node x is referring to reference system y, y must be defined
+with respect to the global one.
+
+In the structural input file the keyword NMODES must then be defined to select which,
+of all the modes in the punch file, to be used.
 
 In this particular case, it may look excessively complicated, but it allows to solve an arbitrary aeroelastic problem with the same scheme.
 
@@ -78,107 +123,169 @@ FEM mesh for Nastran as shown below:
 
 ![ProblemSetup](../../tutorials_files/multiphysics/unsteady_fsi_python/images/FEMmesh.png)
 
-#### Configuration File Options
+#### Configuration File for the fluid zone
 
-We start the tutorial by definining the problem as a multiphysics case,
+First of all, the users should know that three configuarions file are required for this case: one for the fluid zone, one for the solid zone and one for the interface.
+The configuration file for the fluid zone is very similar to a configuration file for a simple single zone simulation. Indeed, SU2 does not know about the external strctural
+solver, it will only see the points on the aerodynamic mesh changing positions.
 
-```
-SOLVER = MULTIPHYSICS
-```
-
-We set the config files for each sub-problem using the command ```CONFIG_LIST```, and state that each sub-problem will use a different mesh file:
+For this reason, the solver keyword is set as:
 
 ```
-CONFIG_LIST = (config_channel.cfg, config_cantilever.cfg)
-MULTIZONE_MESH = NO
+SOLVER = RANS
 ```
 
-Now, we define the outer iteration strategy to solve the FSI problem. We use a Block Gauss-Seidel iteration as defined in the background section with a maximum of 40 outer iterations
+A new marker is introduced, MARKER_MATCH_DEFORM_MESH. This marker is effectively
+a symmetry marker for the mesh deformation only. It may be useful in cases where
+symmetry in the mesh is required, but not in the fluid simulation. An example may
+be the simulation of a plane half-model, in wind tunnel, where the effect of boundary
+layer on the tunnel walls must be studied, but a pitch movement of the model is
+also allowed. Fluid symmetry cannot be used, but at the same time the mesh should
+move on the tunnel wall to match the deformation given by the pitch motion. However, in the context of this example, this marker is not required.
+
+The only difference from a common single zone configuration file is the addition of the following lines:
 
 ```
-MULTIZONE_SOLVER = BLOCK_GAUSS_SEIDEL
-OUTER_ITER = 40
-```
-
-Then, the convergence criteria is set to evaluate the averaged residual of the flow state vector (zone 0) (```AVG_BGS_RES[0]```) and the structural state vector (zone 1) (```AVG_BGS_RES[1]```) in two consecutive outer iterations, $$\mathbf{w}^{n+1}-\mathbf{w}^{n}$$ and $$\mathbf{u}^{n+1}-\mathbf{u}^{n}$$ respectively.
-
-```
-CONV_FIELD = AVG_BGS_RES[0], AVG_BGS_RES[1]
-CONV_RESIDUAL_MINVAL = -9
-```
-
-Finally, we define the coupling conditions. In this case, the interface between the marker ```flowbound``` in the flow field, and ```feabound``` in the structural field, is defined as
-
-```
-MARKER_ZONE_INTERFACE = (flowbound, feabound)
-```
-
-The last step is defining our desired output. In this tutorial, we will use the following configuration for the screen output
-
-```
-SCREEN_OUTPUT = (OUTER_ITER, AVG_BGS_RES[0], AVG_BGS_RES[1], DEFORM_MIN_VOLUME[0], DEFORM_ITER[0])
-WRT_ZONE_CONV = NO
-```
-
-where the convergence magnitudes are plotted alongside the minimum volume obtained in the deformed mesh, and the number of iterations required by the linear solver that updates the mesh deformation. For clarity, the command ```WRT_ZONE_CONV``` limits the output to the outer iterations, while the convergence of the flow and structural sub-problems is not written to screen.
-
-The convergence output will be set using
-
-```
-HISTORY_OUTPUT = ITER, BGS_RES[0], AERO_COEFF[0], BGS_RES[1]
-
-WRT_ZONE_HIST = NO
-CONV_FILENAME= history
-```
-
-where the individual components of the flow and structural outer-iteration residuals will be written, together with the convergence of the aerodynamic coefficients for the flow domain. In terms of result output, we use 
-
-```
-OUTPUT_FILES = (RESTART, PARAVIEW)
-RESTART_FILENAME = restart_fsi_steady
-VOLUME_FILENAME = fsi_steady
-```
-
-where the volume files ```fsi_steady_*.vtu``` and restart files ```restart_fsi_steady_*.vtu``` will be appended the zone number.
-
-#### Applying coupling conditions to the individual domains
-
-Minor modifications are required for the flow and structural config files to be used in Fluid-Structure Interaction, as compared to a single-zone problem. As it is understood that the user will have a basic knowledge of the flow and structural solvers of SU2 before attempting this tutorial, only the specific commands for FSI will be discussed here.
-
-On the fluid domain (zone 0), it is necessary to indicate SU2 what is the boundary for which the flow loads will need to be computed and later applied to the structural domain, in [config_channel.cfg](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_channel.cfg). This is done using
-
-```
-MARKER_FLUID_LOAD = ( flowbound )
-```
-
-Next, given that we are using an Arbitrary Lagrangian-Eulerian (ALE) formulation for the flow domain, the conditions for mesh deformation need to be set. We start by defining
-
-```
+%-------------- Coupling conditions -------------------------------------------%
 DEFORM_MESH = YES
-MARKER_DEFORM_MESH = ( flowbound )
-```
-
-where the deforming boundary is set to ```flowbound```. Next, the mesh problem defined in the background section is set. We define the stiffness of the flow mesh as a function of the distance to the deformable wall, where volumes that are farther away from the boundary will be more flexible (thus, more prone to deform largely)
-
-```
+MARKER_DEFORM_MESH = ( airfoil )
 DEFORM_STIFFNESS_TYPE = WALL_DISTANCE
+DEFORM_LINEAR_SOLVER_ITER= 200
+MARKER_FLUID_LOAD = ( airfoil )
 ```
 
-Next, we set the properties of the linear solver. This is a pseudo-linear-elastic problem and, therefore, the properties of the linear elastic solver will be similar as those used on the [Linear Elasticity Tutorial](../Linear_Elasticity/). As a result, for this case we use
-```
-DEFORM_LINEAR_SOLVER = CONJUGATE_GRADIENT
-DEFORM_LINEAR_SOLVER_PREC = ILU
-DEFORM_LINEAR_SOLVER_ERROR = 1E-8
-DEFORM_LINEAR_SOLVER_ITER = 1000
-DEFORM_CONSOLE_OUTPUT = NO
-```
+Where we selected the airfoil as our marker for coupling.
 
-As the structural side uses a Lagrangian formulation, and therefore no mesh deformation is carried out, only the wet boundary that receives the flow loads needs to be specified in [config_cantilever.cfg](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_cantilever.cfg)
+The simulation is unsteady with a physical time step of 1ms:
 
 ```
-MARKER_FLUID_LOAD = ( feabound )
+TIME_DOMAIN = YES
+TIME_STEP= 1e-3
 ```
 
+#### Configuration File for the solid zone
+
+This configuration file will be read by the structural python solver included in SU2, that will read the preprocessed Nastran model.
+
+The solver can work in two ways:
+
+1) It can impose the movement of a mode, with prescribed law, to provide forced
+response analysis
+
+2) It can integrate in time the modal equation of motions to study the linearised
+structural deformations when the body is surrounded by the flow
+
+Available keyword for the config file:
+
+NMODES (int): number of modes to use in the analysis -> if n modes are available in
+             the punch file, but only the first m<n are required, set this to m
+
+IMPOSED_MODE (int): mode with an imposed motion
+
+RESTART_ITER (int): if restart is used, this specifies the iteration to restart
+
+DELTA_T (float): physical time step size to be used in the simulation. Must match
+                the one in SU2
+
+MODAL_DAMPING (float): the code is able to add a damping matrix to the system, based
+                      on a critical damping. This keyword specifies the amount of damping
+                      that can be included: if x% of damping is required, set it
+                      to 0.0x
+
+RHO (float): rho parameter for the integrator
+
+TIME_MARCHING (string): YES or NO
+
+MESH_FILE (string): path to the f06 file
+
+PUNCH_FILE (string): path to the pch file
+
+RESTART_SOL (string): YES or NO
+
+IMPOSED_DISP (string): string containing the function for the displacement. Example
+                       is sine(2*pi*time)+10
+
+IMPOSED_VEL (string): analytical differentiation of above
+
+IMPOSED_ACC (string): analytical differentiation of above
+
+MOVING_MARKER (string): name for the interface marker
+
+INITIAL_MODES (list): list containing the initial amplitudes of the modes. Example
+                      is {0:0.1,1:0.0,3:5.0,...}
+
+We will call the Nastran model modal.bdf and, after the eigenvalue analysis, we will obtain the files modal.f06 and modal.pch.
+
+In the context of our problem, the configuration file will read:
+```
+NMODES = 2
+MESH_FILE = modal.f06
+PUNCH_FILE = modal.pch
+MOVING_MARKER = airfoil
+TIME_MARCHING = YES
+RESTART_SOL = NO
+MODAL_DAMPING = 0.0
+DELTA_T = 0.001
+RHO = 0.5
+% 5 degrees of pitch and no plunge
+INITIAL_MODES = {0:-0.1061,1:-0.1657}
+```
+
+The modes are coupled, thus appropriate initial conditions for both can be obtained from the mode amplitude at the master node.
+
+#### Configuration File for the interface
+
+The most important interface configuration keywords are:
+
+NDIM (int): 2 or 3 depending if the model is bidimensional or tridimensional
+RESTART_ITER (int): Restart iteration
+TIME_TRESHOLD (int): Time iteration after which fluid and structure are coupled
+                     in an unsteady simulation
+NB_FSI_ITER (int):   Number of max internal iterations to couple fluid and structure
+RBF_RADIUS (float):  Radius for the RBF interpolation. It is dimensional (i.e. in meters)
+                     and must be set so that at least 5 structural points are always
+                     inside a sphere with that radius and centered in any of the
+                     structural nodes. The more nodes are included, the better
+                     the interpolation. However, with larger radius, the interpolation
+                     matrix may become close to singular.
+AITKEN_PARAM (float): Under relaxation parameter, between 0 and 1
+UNST_TIMESTEP (float): Physical time step size in unsteady simulations, must match
+                       the one in the other cfg files.
+UNST_TIME (float): Physical simulation time for unsteady problems.
+FSI_TOLERANCE (float): Tolerance for inner loop convergence between fluid and structure
+CFD_CONFIG_FILE_NAME (string): Path of fluid cfg file
+CSD_SOLVER (string): Behaviour of the structural solver to be used. AEROELASTIC if
+                     the structural equation of motions must be solved, IMPOSED if
+                     a movement of the structure is imposed.
+CSD_CONFIG_FILE_NAME (string): Path to solid cfg file
+RESTART_SOL (string): YES or NO
+MATCHING_MESH (string): YES or NO, the fluid and structural mesh match at the interface
+MESH_INTERP_METHOD (string): Interpolation method in case of nonmatching meshes. TPS or RBF
+DISP_PRED (string): Displacement predictor order FIRST_ORDER or SECOND_ORDER. To
+                    be used in unsteady simulations.
+AITKEN_RELAX (string): DYNAMIC or STATIC. It can be automatically changed during
+                       the simulation.
+TIME_MARCHING (string): YES or NO
+
+```
+NDIM = 2
+NB_FSI_ITER = 20
+RBF_RADIUS = 0.5
+AITKEN_PARAM = 0.4
+UNST_TIMESTEP = 0.001
+UNST_TIME = 4.0
+TIME_TRESHOLD = 99
+FSI_TOLERANCE = 0.000001
+CFD_CONFIG_FILE_NAME = fluid.cfg
+CSD_SOLVER  = AEROELASTIC
+CSD_CONFIG_FILE_NAME = solid.cfg
+RESTART_SOL = NO
+MATCHING_MESH = NO
+MESH_INTERP_METHOD = RBF
+DISP_PRED = SECOND_ORDER
+AITKEN_RELAX = DYNAMIC
+TIME_MARCHING = YES
+```
 ### Running SU2
 
 Follow the links provided to download the [FSI config file](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_fsi_steady.cfg) and the [flow](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_channel.cfg) and [structural](https://github.com/su2code/Tutorials/blob/master/fsi/steady_state/config_cantilever.cfg) sub-config files.
