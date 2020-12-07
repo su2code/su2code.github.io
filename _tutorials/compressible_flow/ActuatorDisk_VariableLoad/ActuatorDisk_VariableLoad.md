@@ -205,7 +205,7 @@ The input is interactive, and requires the following data:
 4. r_hub: the hub radius expressed in meters.
 5. J: the advance ratio.
 6. Vinf: the free-stream velocity expressed in m/s.
-7. Here, the script asks if you want to use the tip loss Prandtl correction (yes is the default chose).
+7. Here, the script asks if you want to use the tip loss Prandtl correction (*yes* is the default choise).
 8. N: if you chose yes in the previous stage, it requires also the number of propeller blades.
 
 Once the input is given, the script provides 3 plots showing the tip loss Prandtl correction function, the axial and rotational interference factors and the thrust and power coefficients distributions along the non dimentional radius.
