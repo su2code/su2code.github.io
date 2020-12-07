@@ -46,7 +46,7 @@ Here, the difference is due to the fact that the simulation is unsteady. Thus, t
 The aerodynamic model is based on the compressible Reynolds-averaged Navier-Stokes equations. A central JST scheme is used for the convective fluxes, and a weighted least square
 scheme is used for the gradients. The turbulence model is the SST and a CFL number of 20, for the psuedo time step, is used.
 
-Different Mach numbers will be considered, namely $M=[0.1, 0.2, 0.3, 0.357, 0.364]$. The Reynolds number is fixed at 4 millions, and the temperature is equal to 273K.
+Different Mach numbers will be considered, namely $$M=[0.1, 0.2, 0.3, 0.357, 0.364]$$. The Reynolds number is fixed at 4 millions, and the temperature is equal to 273K.
 
 The strctural model is made by a single point, positioned at the rotation axis, with two degrees of freedom, pitch and plunge. 
 Inertia and mass of the airfoil are concentrated at the center of mass of the profile, at a certain distance from the rotation axis. The equations of motions are available
@@ -64,7 +64,7 @@ $$\Csi=\frac{S}{mb}$$, $$r_{\alpha}^2=\frac{I_f}{mb^2}$$, $$\bar{\omega}=\frac{\
 
 Where $$b$$ is the semi chord of the airfoil, $$\omega_h = \sqrt{\frac{K_h}{m}}$$ $$\omega_{\alpha} = \sqrt{\frac{K_{\alpha}}{I_f}}$$. If we fix them, the structure will behave always the same regardless of $$\rho_{\inf}$$.
 
-In this context $$\Csi=0.25$$, $$r_{\alpha}^2=0.5$$, $$\bar{\omega}=0.3185$$ and $$\mu=100$$.
+In this context $$\Csi=0.25$$, $$r_{\alpha}=0.5$$, $$\bar{\omega}=0.3185$$ and $$\mu=100$$.
 
 Note that, as we will vary the Mach number, the density will also change accordingly. Thus, with given nondimensional parameters, the inertias and stiffnesses must be
 varied accordingly.
@@ -135,7 +135,7 @@ For this reason, the solver keyword is set as:
 SOLVER = RANS
 ```
 
-A new marker is introduced, MARKER_MATCH_DEFORM_MESH. This marker is effectively
+A new marker is introduced, MARKER_DEFORM_MESH_SYM_PLANE. This marker is effectively
 a symmetry marker for the mesh deformation only. It may be useful in cases where
 symmetry in the mesh is required, but not in the fluid simulation. An example may
 be the simulation of a plane half-model, in wind tunnel, where the effect of boundary
