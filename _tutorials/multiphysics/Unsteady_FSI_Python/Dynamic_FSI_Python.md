@@ -13,7 +13,7 @@ follows: Static_FSI
 ---
 ### Goals
 
-This tutorial shows how to exploit the capabilities of the Python wrapper to couple SU2 with an external strutural solver. The problem at hand consist in a NACA 0012 airfoil,
+This tutorial shows how to exploit the capabilities of the Python wrapper to couple SU2 with an external structural solver. The problem at hand consists in a NACA 0012 airfoil,
 free to pitch and plunge, with given stiffnesses, immersed in a flow with varying Mach number. The two frequencies of the modes of the structure will vary as the speed is increased, reaching 
 a point when the aeroelastic system will be unstable. The classical pitch-plunge flutter will then be visible.
 
@@ -24,7 +24,7 @@ complexity can be analysed with the same workflow.
 
 Summarizing, this document will cover:
 - Preparing a FSI analysis to be used with the python wrapper
-- Using the strctural solver for Nastran models with SU2
+- Using the structural solver for Nastran models with SU2
 - Important keywords for the fsi and solid solver config files
 
 A sketch of the problem at hand is presented below:
@@ -48,7 +48,7 @@ scheme is used for the gradients. The turbulence model is the SST and a CFL numb
 
 Different Mach numbers will be considered, namely $$M=[0.1, 0.2, 0.3, 0.357, 0.364]$$. The Reynolds number is fixed at 4 millions, and the temperature is equal to 273K.
 
-The strctural model is made by a single point, positioned at the rotation axis, with two degrees of freedom, pitch and plunge. 
+The structural model is made by a single point, positioned at the rotation axis, with two degrees of freedom, pitch and plunge. 
 Inertia and mass of the airfoil are concentrated at the center of mass of the profile, at a certain distance from the rotation axis. The equations of motions are available
 analytically and read:
 
@@ -69,9 +69,9 @@ In this context $$\Csi=0.25$$, $$r_{\alpha}=0.5$$, $$\bar{\omega}=0.3185$$ and $
 Note that, as we will vary the Mach number, the density will also change accordingly. Thus, with given nondimensional parameters, the inertias and stiffnesses must be
 varied accordingly.
 
-No strunctural damping is included and a time step of 1ms is used.
+No structural damping is included and a time step of 1ms is used.
 
-The structural solver, instead of integrating the equations of motions for this point, which are available analytically, is intended to solve a general strctural problem. 
+The structural solver, instead of integrating the equations of motions for this point, which are available analytically, is intended to solve a general structural problem. 
 For this reason, a preprocessing step in Nastran will be performed, computing the mode shapes and modal frequencies of the model. Then, the structural solver will
 integrate a set of ODEs for the modes of the structure.
 
@@ -84,7 +84,7 @@ DISPLACEMENT(PRINT,PUNCH)=ALL
 A real egeinvalue analysis will then be performed.
 This will produce, in the f06 file, an equivalent, ordered, model that will
 eventually be read by the python script to create the interface. Further, it will
-be created a punch file where all the mode shapes, together with their stiffness,
+be created a punch file where all the mode shapes, together with modal stiffnesses,
 are stored.
 
 IMPORTANT: The modes should be normalised to unit mass.
@@ -110,25 +110,25 @@ is placed at a height of $$y+\approx 1$$. A close up view of the mesh is picture
 
 ![CFD_Mesh](../../tutorials_files/multiphysics/unsteady_fsi_python/images/CFD_Mesh.png)
 
-As far as the strctural mesh is concerned, this is a finite element mesh prepared for the commercial code Nastram. In the context of this example, as only a 2D problem, with
-only two degrees of freedom, is considered, the mesh is extremely simple; a set of rigid elements that connect all the nodes to the master node, positioned on the rotation axis.
+As far as the structural mesh is concerned, this is a finite element mesh prepared for the commercial code Nastran. In the context of this example, as only a 2D problem, with
+only two degrees of freedom, is considered, the mesh is extremely simple; a set of rigid elements that connect several slave nodes to the only master node, positioned on the rotation axis.
 The master node only has two degrees of freedom: pitch and plunge.
 
-Another slave node is added, in the position of the center of mass, that will house the mass and inertia of the airfoil.
+One of the slave nodes, at the position of the center of mass, houses the mass and inertia of the airfoil.
 
 It should always be recalled that, if interpolation is needed
-between the strctural and fluid meshes, RBF will be used. The limitation of this linear interpolation is due to the fact that, if a 2D problem is concerned, the strctural points
+between the structural and fluid meshes, RBF will be used. The limitation of this linear interpolation is due to the fact that, if a 2D problem is concerned, the structural points
 cannot all lie on the same line. Equivalently, if a 3D problem is tackled, the points cannot lie all in the same plane. For this reason, the thickness is represented in the
 FEM mesh for Nastran as shown below:
 
 ![FEM_Mesh](../../tutorials_files/multiphysics/unsteady_fsi_python/images/nastran_model.png)
 
-As you can see, then exact profile is not required. The interpolation will take care of displacing correctly the fluid mesh. However, thickness must somehow be represented.
+As you can see, the exact profile is not required. The interpolation will take care of displacing correctly the fluid mesh. However, thickness must somehow be represented.
 
 #### Configuration File for the fluid zone
 
-First of all, the users should know that three configuarions file are required for this case: one for the fluid zone, one for the solid zone and one for the interface.
-The configuration file for the fluid zone is very similar to a configuration file for a simple single zone simulation. Indeed, SU2 does not know about the external strctural
+First of all, the users should know that three configuration files are required for this case: one for the fluid zone, one for the solid zone and one for the interface.
+The configuration file for the fluid zone is very similar to a configuration file for a simple single zone simulation. Indeed, SU2 does not know about the external structural
 solver, it will only see the points on the aerodynamic mesh changing positions.
 
 For this reason, the solver keyword is set as:
@@ -165,10 +165,10 @@ TIME_DOMAIN = YES
 TIME_STEP= 1e-3
 ```
 
-It is important to set an appropriate convergence criteria for the fluid zone. Indeed, while the structural part is linear and requires no interations, it is important that
-the fluid zone correcly converges for accurate results.
+It is important to set an appropriate convergence criteria for the fluid zone. Indeed, while the structural part is linear and requires no iterations, it is important that
+the fluid zone correctly converges for accurate results.
 
-The relative residual cannot be used as this is reset at each inner iteration. Thus, aver the first inner loop, it would be difficult to obtain convergence as the absolute
+The relative residual cannot be used as this is reset at each inner iteration. Thus, after the first inner loop, it would be difficult to obtain convergence as the absolute
 residuals are already quite low. For this reason we will use:
 
 ```
@@ -186,7 +186,7 @@ The solver can work in two ways:
 1) It can impose the movement of a mode, with prescribed law, to provide forced
 response analysis
 
-2) It can integrate in time the modal equation of motions to study the linearised
+2) It can integrate in time the modal equations of motion to study the linearised
 structural deformations when the body is surrounded by the flow
 
 Available keyword for the config file:
@@ -194,7 +194,7 @@ Available keyword for the config file:
 NMODES (int): number of modes to use in the analysis. If n modes are available in
              the punch file, but only the first m<n are required, set this to m
 
-IMPOSED_MODE (int): mode with an imposed motion
+IMPOSED_MODE (int): mode with an imposed motion. The first index, consistent with Python syntax, is 0
 
 RESTART_ITER (int): if restart is used, this specifies the iteration to restart
 
@@ -217,7 +217,7 @@ PUNCH_FILE (string): path to the pch file
 RESTART_SOL (string): YES or NO
 
 IMPOSED_DISP (string): string containing the function for the displacement. Example
-                       is sine(2*pi*time)+10
+                       is "sine(2*pi*time)+10"
 
 IMPOSED_VEL (string): analytical differentiation of above
 
@@ -245,7 +245,7 @@ RHO = 0.5
 INITIAL_MODES = {0:-0.1061,1:-0.1657}
 ```
 
-The modes are coupled, thus appropriate initial conditions for both can be obtained from the mode amplitude at the master node.
+The modes are coupled. Thus, appropriate initial conditions, to obtain 5 degrees of pitch and no plunge, must be obtained from the mode amplitudes at the master node.
 
 #### Configuration File for the interface
 
@@ -277,13 +277,13 @@ UNST_TIME (float): Physical simulation time for unsteady problems
 FSI_TOLERANCE (float): Tolerance for inner loop convergence between fluid and structure. This is the maximum average structural displacements, between two inner iterations,
                        that can be accepted
 
-CFD_CONFIG_FILE_NAME (string): Path of fluid cfg file
+CFD_CONFIG_FILE_NAME (string): Path to the fluid cfg file
 
 CSD_SOLVER (string): Behaviour of the structural solver to be used. AEROELASTIC if
                      the structural equation of motions must be solved, IMPOSED if
                      a movement of the structure is imposed
                      
-CSD_CONFIG_FILE_NAME (string): Path to solid cfg file
+CSD_CONFIG_FILE_NAME (string): Path to the solid cfg file
 
 RESTART_SOL (string): YES or NO
 
@@ -337,7 +337,7 @@ $ mpirun -np X python3 /your/path/to/fsi_computation.py --parallel -f fsi.cfg
 
 Substituting X with the appropriate number of cores.
 
-You will see, after the ussual preprocessing steps, the following output:
+You will see, after the usual preprocessing steps, the following output:
 
 ```
 **********************************
@@ -356,7 +356,7 @@ FSI initial conditions are set
 Beginning time integration
 ```
 
-In these steps, an initial deformation is imposed, if required, and the mesh is deformed accordingly. Afterwords, the computation can start:
+In these steps, an initial deformation is imposed, if required, and the mesh is deformed accordingly. Afterwards, the computation can start:
 
 ```
 >>>> Time iteration 0 / FSI iteration 0 <<<<
@@ -382,11 +382,11 @@ Launching fluid solver for one single dual-time iteration...
 |           0|           7|    1.732970|   -3.321408|   -3.551232|   -0.778728|
 ```
 
-This is the typical output that you will see. There was no initial deformation imposed and for this reason you can see that the mesh deformation system was solved by the initial guess. FSI iteration is the inner iteration index, and it will keep inccreasing untile the inner convergence if found. Then, this index will be set to zero and the time iteration will be increased.
+This is the typical output that you will see. There was no initial deformation imposed and for this reason you can see that the mesh deformation system was solved by the initial guess. FSI iteration is the inner iteration index, and it will keep increasing until the inner convergence is found. Then, this index will be set to zero and the time iteration will be increased.
 
 Please do not confuse Inner_Iter with FSI iteration. The former is the iteration, in the fluid zone only, using the pseudo time; the latter is the iteration index between fluid and structure.
 
-After all the computations are completed (i.e. for all the Mach numbers), in each case folder yuo will see a file called StructHistoryModal.dat. The first rows of this file, for Mach number 0.1, are reported below.
+After all the computations are completed (i.e. for all the Mach numbers), in each case folder you will see a file called StructHistoryModal.dat. The first rows of this file, for Mach number 0.1, are reported below.
 
 ```
 Time	Time Iteration  FSI Iteration       q1          qdot1   qddot1  q2      qdot2  qddot2	
@@ -398,7 +398,7 @@ Time	Time Iteration  FSI Iteration       q1          qdot1   qddot1  q2      qdo
 0.104	104	            1	            -0.1493	0.2931  56.9690	-0.2265	3.0535 592.1878	
 0.105	105	            1	            -0.1490	0.3493  55.3371	-0.2232	3.6407 582.3177	
 ```
-The first column contains the physical time (please note that we started the fluid-structure coupling after 99 time iterations), the second one contains the time iteration, the third one the number of FSI iterations required for convergence, then we have the time histories of the modes.
+The first column contains the physical time (please note that we started the fluid-structure coupling after 99 time iterations), the second one contains the time iteration, the third one the number of FSI iterations required for convergence, then we have the time histories of the modes and their derivatives.
 
 For many applications this may be already the desired output. However, in this case, we actually want the physical rotation and displacement of the point at the rotation axis. A post processing step must be performed to multiply the mode shapes for their amplitude. This can be done with the provided matlab file. You only need to run the Main_compare.m file and it will take care of all the required operations.
 
@@ -410,7 +410,7 @@ At the end of the matlab run, you will see outputs as the ones reported below.
 ![H_Ma01](../../tutorials_files/multiphysics/unsteady_fsi_python/images/h_Ma=0.1.png)
 ![Alpha_Ma01](../../tutorials_files/multiphysics/unsteady_fsi_python/images/alpha_Ma=0.1.png)
 
-You can see how the frquency merging is nicely captured; after the flutter point the two frequencies are coincident and nonlinear effects are presents. Thus, comparing the Theodorsen theory and SU2 is not fully meaningful. 
+You can see how the frequency merging is well captured; after the flutter point the two frequencies are coincident and nonlinear effects are present. Thus, comparing the Theodorsen theory and SU2 is not fully meaningful. 
 The time histories also match nicely.
 
 ### References
