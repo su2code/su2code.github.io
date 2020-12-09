@@ -19,7 +19,7 @@ a point when the aeroelastic system will be unstable. The classical pitch-plunge
 
 The considered case has been presented in $$^1$$, the reader is encouraged to refer to that reference for further details on the problem.
 
-The structual solver used in this example loosely couples SU2 with the commercial code Nastran, keeping the results of general interest. Indeed, linear strctures of arbitrary
+The structual solver used in this example couples SU2 with the commercial code Nastran, keeping the results of general interest. Indeed, linear strctures of arbitrary
 complexity can be analysed with the same workflow.
 
 Summarizing, this document will cover:
@@ -29,11 +29,11 @@ Summarizing, this document will cover:
 
 A sketch of the problem at hand is presented below:
 
-![ProblemSetup](../../tutorials_files/multiphysics/unsteady_fsi_python/images/Setup.png)
+![Problem_Setup](../../tutorials_files/multiphysics/unsteady_fsi_python/images/Setup.png)
 
 ### Resources
 
-You can find the resources for this tutorial in [this folder](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python) of the [Tutorials repository](https://github.com/su2code/Tutorials). There is a [matlab file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/FlatPlateModel.m) that can be used to produce validation data with Theodorsen theory and the [mesh file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/airfoil.su2).
+You can find the resources for this tutorial in [this folder](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python) of the [Tutorials repository](https://github.com/su2code/Tutorials). There is a [matlab file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/Main_Compare.m) that can be used to produce validation data with Theodorsen theory and the [mesh file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/airfoil.su2).
 
 In the [main directory](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python), there are other 5 subdirectories containing the configuration files and structural models for the different Mach numbers. Please do not mix those files as the structural models and configurations are different at the different aerodynamic conditions.
 
@@ -50,7 +50,7 @@ Different Mach numbers will be considered, namely $$M=[0.1, 0.2, 0.3, 0.357, 0.3
 
 The strctural model is made by a single point, positioned at the rotation axis, with two degrees of freedom, pitch and plunge. 
 Inertia and mass of the airfoil are concentrated at the center of mass of the profile, at a certain distance from the rotation axis. The equations of motions are available
-analytically and reads:
+analytically and read:
 
 $$m\ddot{h} + S\ddot{\alpha} + C_{h}\dot{h} + K_{h}h = -L$$
 $$S\ddot{h} + I\ddot{\alpha} + C_{\alpha}\dot{\alpha} + K_{\alpha}\alpha = M$$
@@ -108,7 +108,7 @@ In this particular case, it may look excessively complicated, but it allows to s
 The fluid domain is discretised with 133k nodes, with refining close to the airfoil surface, in order to correctly represent the turbulent boundary layer. The first cell
 is placed at a height of $$y+\approx 1$$. A close up view of the mesh is pictured below:
 
-![ProblemSetup](../../tutorials_files/multiphysics/unsteady_fsi_python/images/CFDmesh.png)
+![CFD_Mesh](../../tutorials_files/multiphysics/unsteady_fsi_python/images/CFD_Mesh.png)
 
 As far as the strctural mesh is concerned, this is a finite element mesh prepared for the commercial code Nastram. In the context of this example, as only a 2D problem, with
 only two degrees of freedom, is considered, the mesh is extremely simple; a set of rigid elements that connect all the nodes to the master node, positioned on the rotation axis.
@@ -121,7 +121,9 @@ between the strctural and fluid meshes, RBF will be used. The limitation of this
 cannot all lie on the same line. Equivalently, if a 3D problem is tackled, the points cannot lie all in the same plane. For this reason, the thickness is represented in the
 FEM mesh for Nastran as shown below:
 
-![ProblemSetup](../../tutorials_files/multiphysics/unsteady_fsi_python/images/FEMmesh.png)
+![FEM_Mesh](../../tutorials_files/multiphysics/unsteady_fsi_python/images/nastran_model.png)
+
+As you can see, then exact profile is not required. The interpolation will take care of displacing correctly the fluid mesh. However, thickness must somehow be represented.
 
 #### Configuration File for the fluid zone
 
@@ -335,8 +337,81 @@ $ mpirun -np X python3 /your/path/to/fsi_computation.py --parallel -f fsi.cfg
 
 Substituting X with the appropriate number of cores.
 
-Generate validation data running the matlab script. This will produce the required database containing the time history of angle of attack and vertical displacement.
+You will see, after the ussual preprocessing steps, the following output:
 
+```
+**********************************
+* Begin unsteady FSI computation *
+**********************************
+
+Setting FSI initial conditions
+Checking f/s interface conservation...
+Solid side (Wx, Wy, Wz) = (0.0, 0.0, 0.0)
+Fluid side (Wx, Wy, Wz) = (0.0, 0.0, 0.0)
+
+Performing static mesh deformation (ALE) of initial mesh...
+
+
+FSI initial conditions are set
+Beginning time integration
+```
+
+In these steps, an initial deformation is imposed, if required, and the mesh is deformed accordingly. Afterwords, the computation can start:
+
+```
+>>>> Time iteration 0 / FSI iteration 0 <<<<
+Checking f/s interface conservation...
+Solid side (Wx, Wy, Wz) = (0.0, 0.0, 0.0)
+Fluid side (Wx, Wy, Wz) = (0.0, 0.0, 0.0)
+
+Performing dynamic mesh deformation (ALE)...
+
+CSysSolve::FGMRES(): system solved by initial guess.
+
+Launching fluid solver for one single dual-time iteration...
++-----------------------------------------------------------------------------+
+|   Time_Iter|  Inner_Iter|          CD|          CL|    rms[Rho]| relrms[Rho]|
++-----------------------------------------------------------------------------+
+|           0|           0|    2.925114|   -5.650014|   -2.772504|    0.000000|
+|           0|           1|    2.419387|   -4.707503|   -3.257713|   -0.485209|
+|           0|           2|    2.039722|   -3.799496|   -3.346967|   -0.574463|
+|           0|           3|    1.887042|   -3.439476|   -3.470247|   -0.697743|
+|           0|           4|    1.831439|   -3.346855|   -3.558842|   -0.786338|
+|           0|           5|    1.800010|   -3.330105|   -3.595711|   -0.823207|
+|           0|           6|    1.769099|   -3.325896|   -3.588726|   -0.816222|
+|           0|           7|    1.732970|   -3.321408|   -3.551232|   -0.778728|
+```
+
+This is the typical output that you will see. There was no initial deformation imposed and for this reason you can see that the mesh deformation system was solved by the initial guess. FSI iteration is the inner iteration index, and it will keep inccreasing untile the inner convergence if found. Then, this index will be set to zero and the time iteration will be increased.
+
+Please do not confuse Inner_Iter with FSI iteration. The former is the iteration, in the fluid zone only, using the pseudo time; the latter is the iteration index between fluid and structure.
+
+After all the computations are completed (i.e. for all the Mach numbers), in each case folder yuo will see a file called StructHistoryModal.dat. The first rows of this file, for Mach number 0.1, are reported below.
+
+```
+Time	Time Iteration	FSI Iteration	q1	    qdot1	  qddot1	q2	    qdot2	 qddot2	
+0.099	99	            1	            -0.1501	0.0000	30.0116	-0.2343	0.0	   649.9362	
+0.100	100	            2	            -0.1500	0.0505	66.9711	-0.2339	0.6319 617.5777	
+0.101	101	            1	            -0.1499	0.1133	63.2111	-0.2330	1.2470 609.8225	
+0.102	102	            1             -0.1498 0.1754	60.8115	-0.2314	1.8549 605.5686	
+0.103	103	            1	            -0.1496	0.2352	58.7621	-0.2293	2.4576 599.9707	
+0.104	104	            1	            -0.1493	0.2931	56.9690	-0.2265	3.0535 592.1878	
+0.105	105	            1	            -0.1490	0.3493	55.3371	-0.2232	3.6407 582.3177	
+```
+The first column contains the physical time (please note that we started the fluid-structure coupling after 99 time iterations), the second one contains the time iteration, the third one the number of FSI iterations required for convergence, then we have the time histories of the modes.
+
+For many applications this may be already the desired output. However, in this case, we actually want the physical rotation and displacement of the point at the rotation axis. A post processing step must be performed to multiply the mode shapes for their amplitude. This can be done with the provided matlab file. You only need to run the Main_compare.m file and it will take care of all the required operations.
+
+Please note that those files are absolutely general. Thus, feel free to reuse them for other models.
+
+At the end of the matlab run, you will see outputs as the ones reported below.
+
+![Freq](../../tutorials_files/multiphysics/unsteady_fsi_python/images/Freq.png)
+![H_Ma01](../../tutorials_files/multiphysics/unsteady_fsi_python/images/h_Ma=0.1.png)
+![Alpha_Ma01](../../tutorials_files/multiphysics/unsteady_fsi_python/images/alpha_Ma=0.1.png)
+
+You can see how the frquency merging is nicely captured; after the flutter point the two frequencies are coincident and nonlinear effects are presents. Thus, comparing the Theodorsen theory and SU2 is not fully meaningful. 
+The time histories also match nicely.
 
 ### References
 $$^1$$ Sanchez, R. (2018), A coupled adjoint method for optimal design in fluid-structure interaction problems with large displacements, _PhD thesis, Imperial College London_, DOI: [10.25560/58882](https://doi.org/10.25560/58882)
