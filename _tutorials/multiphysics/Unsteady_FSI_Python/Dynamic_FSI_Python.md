@@ -389,14 +389,14 @@ Please do not confuse Inner_Iter with FSI iteration. The former is the iteration
 After all the computations are completed (i.e. for all the Mach numbers), in each case folder yuo will see a file called StructHistoryModal.dat. The first rows of this file, for Mach number 0.1, are reported below.
 
 ```
-Time	Time Iteration	FSI Iteration	q1	    qdot1	  qddot1	q2	    qdot2	 qddot2	
-0.099	99	            1	            -0.1501	0.0000	30.0116	-0.2343	0.0	   649.9362	
-0.100	100	            2	            -0.1500	0.0505	66.9711	-0.2339	0.6319 617.5777	
-0.101	101	            1	            -0.1499	0.1133	63.2111	-0.2330	1.2470 609.8225	
-0.102	102	            1             -0.1498 0.1754	60.8115	-0.2314	1.8549 605.5686	
-0.103	103	            1	            -0.1496	0.2352	58.7621	-0.2293	2.4576 599.9707	
-0.104	104	            1	            -0.1493	0.2931	56.9690	-0.2265	3.0535 592.1878	
-0.105	105	            1	            -0.1490	0.3493	55.3371	-0.2232	3.6407 582.3177	
+Time	Time Iteration  FSI Iteration       q1          qdot1   qddot1  q2      qdot2  qddot2	
+0.099	99	            1	            -0.1501	0.0000  30.0116	-0.2343	0.0000 649.9362	
+0.100	100	            2	            -0.1500	0.0505  66.9711	-0.2339	0.6319 617.5777	
+0.101	101	            1	            -0.1499	0.1133  63.2111	-0.2330	1.2470 609.8225	
+0.102	102                 1               -0.1498     0.1754  60.8115	-0.2314	1.8549 605.5686	
+0.103	103	            1	            -0.1496	0.2352  58.7621	-0.2293	2.4576 599.9707	
+0.104	104	            1	            -0.1493	0.2931  56.9690	-0.2265	3.0535 592.1878	
+0.105	105	            1	            -0.1490	0.3493  55.3371	-0.2232	3.6407 582.3177	
 ```
 The first column contains the physical time (please note that we started the fluid-structure coupling after 99 time iterations), the second one contains the time iteration, the third one the number of FSI iterations required for convergence, then we have the time histories of the modes.
 
