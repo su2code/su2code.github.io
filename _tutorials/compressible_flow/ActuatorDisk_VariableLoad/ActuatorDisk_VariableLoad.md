@@ -1,14 +1,14 @@
 ---
 title: Actuator Disk With Variable Load
 permalink: /tutorials/ActuatorDisk_VariableLoad/
-written_by: Ettore Saetta
+written_by: Ettore Saetta, Renato Tognaccini
 for_version: 7.0.8
 revised_by:
 revision_date:
 revised_version:
 solver: RANS
 requires: SU2_CFD
-complexity:
+complexity: Basic
 follows: 
 ---
 
