@@ -183,50 +183,41 @@ This configuration file will be read by the structural python solver included in
 
 The solver can work in two ways:
 
-1) It can impose the movement of a mode, with prescribed law, to provide forced
-response analysis
+1. It can impose the movement of a mode, with prescribed law, to provide forced response analysis
 
-2) It can integrate in time the modal equations of motion to study the linearised
-structural deformations when the body is surrounded by the flow
+2. It can integrate in time the modal equations of motion to study the linearised structural deformations when the body is surrounded by the flow
 
 Available keyword for the config file:
 
-NMODES (int): number of modes to use in the analysis. If n modes are available in
-             the punch file, but only the first m<n are required, set this to m
+* __NMODES__ (int): number of modes to use in the analysis. If n modes are available in the punch file, but only the first m<n are required, set this to m
 
-IMPOSED_MODE (int): mode with an imposed motion. The first index, consistent with Python syntax, is 0
+* __IMPOSED_MODE__ (int): mode with an imposed motion. The first index, consistent with Python syntax, is 0
 
-RESTART_ITER (int): if restart is used, this specifies the iteration to restart
+* __RESTART_ITER__ (int): if restart is used, this specifies the iteration to restart
 
-DELTA_T (float): physical time step size to be used in the simulation. Must match
-                the one in SU2
+* __DELTA_T__ (float): physical time step size to be used in the simulation. Must match the one in SU2
 
-MODAL_DAMPING (float): the code is able to add a damping matrix to the system, based
-                      on a critical damping. This keyword specifies the amount of damping
-                      that can be included: if x% of damping is required, set it
-                      to 0.0x
+* __MODAL_DAMPING__ (float): the code is able to add a damping matrix to the system, based on a critical damping. This keyword specifies the amount of damping that can be included: if x% of damping is required, set it to 0.0x
 
-RHO (float): rho parameter for the integrator
+* __RHO__ (float): rho parameter for the integrator
 
-TIME_MARCHING (string): YES or NO
+* __TIME_MARCHING__ (string): YES or NO
 
-MESH_FILE (string): path to the f06 file
+* __MESH_FILE__ (string): path to the f06 file
 
-PUNCH_FILE (string): path to the pch file
+* __PUNCH_FILE__ (string): path to the pch file
 
-RESTART_SOL (string): YES or NO
+* __RESTART_SOL__ (string): YES or NO
 
-IMPOSED_DISP (string): string containing the function for the displacement. Example
-                       is "sine(2*pi*time)+10"
+* __IMPOSED_DISP__ (string): string containing the function for the displacement. Example is "sine(2*pi*time)+10"
 
-IMPOSED_VEL (string): analytical differentiation of above
+* __IMPOSED_VEL__ (string): analytical differentiation of above
 
-IMPOSED_ACC (string): analytical differentiation of above
+* __IMPOSED_ACC__ (string): analytical differentiation of above
 
-MOVING_MARKER (string): name for the interface marker
+* __MOVING_MARKER__ (string): name for the interface marker
 
-INITIAL_MODES (list): list containing the initial amplitudes of the modes. Example
-                      is {0:0.1,1:0.0,3:5.0,...}
+* __INITIAL_MODES__ (list): list containing the initial amplitudes of the modes. Example is {0:0.1,1:0.0,3:5.0,...}
 
 We will call the Nastran model modal.bdf and, after the eigenvalue analysis, we will obtain the files modal.f06 and modal.pch.
 
@@ -251,52 +242,42 @@ The modes are coupled. Thus, appropriate initial conditions, to obtain 5 degrees
 
 The most important interface configuration keywords are:
 
-NDIM (int): 2 or 3 depending if the model is bidimensional or tridimensional
+* __NDIM__ (int): 2 or 3 depending if the model is bidimensional or tridimensional
 
-RESTART_ITER (int): Restart iteration
+* __RESTART_ITER__ (int): Restart iteration
 
-TIME_TRESHOLD (int): Time iteration after which fluid and structure are coupled
-                     in an unsteady simulation
+* __TIME_TRESHOLD__ (int): Time iteration after which fluid and structure are coupled in an unsteady simulation
                      
-NB_FSI_ITER (int):   Number of max internal iterations to couple fluid and structure
+* __NB_FSI_ITER__ (int):   Number of max internal iterations to couple fluid and structure
 
-RBF_RADIUS (float):  Radius for the RBF interpolation. It is dimensional (i.e. in meters)
-                     and must be set so that at least 5 structural points are always
-                     inside a sphere with that radius and centered in any of the
-                     structural nodes. The more nodes are included, the better
-                     the interpolation. However, with larger radius, the interpolation
-                     matrix may become close to singular
+* __RBF_RADIUS__ (float):  Radius for the RBF interpolation. It is dimensional (i.e. in meters) and must be set so that at least 5 structural points are always inside a sphere with that radius and centered in any of the structural nodes. The more nodes are included, the better the interpolation. However, with larger radius, the interpolation matrix may become close to singular
                      
-AITKEN_PARAM (float): Under relaxation parameter, between 0 and 1
+* __AITKEN_PARAM__ (float): Under relaxation parameter, between 0 and 1
 
-UNST_TIMESTEP (float): Physical time step size in unsteady simulations, must match
+* __UNST_TIMESTEP__ (float): Physical time step size in unsteady simulations, must match
                        the one in the other cfg files
                        
-UNST_TIME (float): Physical simulation time for unsteady problems
+* __UNST_TIME__ (float): Physical simulation time for unsteady problems
 
-FSI_TOLERANCE (float): Tolerance for inner loop convergence between fluid and structure. This is the maximum average structural displacements, between two inner iterations,
-                       that can be accepted
+* __FSI_TOLERANCE__ (float): Tolerance for inner loop convergence between fluid and structure. This is the maximum average structural displacements, between two inner iterations, that can be accepted
 
-CFD_CONFIG_FILE_NAME (string): Path to the fluid cfg file
+* __CFD_CONFIG_FILE_NAME__ (string): Path to the fluid cfg file
 
-CSD_SOLVER (string): Behaviour of the structural solver to be used. AEROELASTIC if
-                     the structural equation of motions must be solved, IMPOSED if
-                     a movement of the structure is imposed
+* __CSD_SOLVER__ (string): Behaviour of the structural solver to be used. AEROELASTIC if the structural equation of motions must be solved, IMPOSED if a movement of the structure is imposed
                      
-CSD_CONFIG_FILE_NAME (string): Path to the solid cfg file
+* __CSD_CONFIG_FILE_NAME__ (string): Path to the solid cfg file
 
-RESTART_SOL (string): YES or NO
+* __RESTART_SOL__ (string): YES or NO
 
-MATCHING_MESH (string): YES or NO, the fluid and structural mesh match at the interface
+* __MATCHING_MESH__ (string): YES or NO, the fluid and structural mesh match at the interface
 
-MESH_INTERP_METHOD (string): Interpolation method in case of nonmatching meshes. TPS or RBF
+* __MESH_INTERP_METHOD__ (string): Interpolation method in case of nonmatching meshes. TPS or RBF
 
-DISP_PRED (string): Displacement predictor order FIRST_ORDER or SECOND_ORDER. To
-                    be used in unsteady simulations
+* __DISP_PRED__ (string): Displacement predictor order FIRST_ORDER or SECOND_ORDER. To be used in unsteady simulations
                     
-AITKEN_RELAX (string): DYNAMIC or STATIC
+* __AITKEN_RELAX__ (string): DYNAMIC or STATIC
                        
-TIME_MARCHING (string): YES or NO
+* __TIME_MARCHING__ (string): YES or NO
 
 ```
 NDIM = 2
