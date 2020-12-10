@@ -236,17 +236,20 @@ Figure (7): Mach number contour in the *x-z* plane.
 ![Pressure Coefficient](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/ContourCp.png)
 Figure (8): Pressure coefficient contour in the *x-z* plane.
 
+![Swirl Vectors](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Swirl_Vectors.png)
+Figure (9): Tangential velocity vectors just downstream the actuator disk. Swirl effect visualization.
+
 ![Momentum X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MomentumX.png)
-Figure (9): Momentum in normal direction along *x* for different stations.
+Figure (10): Momentum in normal direction along *x* for different stations.
 
 ![Pressure Coefficient X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/PressureCoeff.png)
-Figure (9): Pressure coefficient along *x* for different stations.
+Figure (11): Pressure coefficient along *x* for different stations.
 
 ![Tangential Velocity X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt_x.png)
-Figure (10): Tangential velocity component along *x* for different stations.
+Figure (12): Tangential velocity component along *x* for different stations.
 
 ![Pressure Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/pJump.png)
-Figure (11): Pressure coefficient along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
+Figure (13): Pressure coefficient along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
 
 ![Tangential Velocity Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt.png)
-Figure (12): Tangential velocity component along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
+Figure (14): Tangential velocity component along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
