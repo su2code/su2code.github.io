@@ -16,7 +16,7 @@ follows:
 
 ## Goals
 
-Upon completing this tutorial, the user will be able to simulate the presence of a propeller using an actuator disk boundary condition, including also the swirl effects. The specific geometry chosen for the tutorial is composed by an actuator disk and a semi-infinite spinner (grid file and propeller data courtesy of Mauro Minervino, Centro Italiano Ricerche Aerospaziali (CIRA)).
+Upon completing this tutorial, the user will be able to simulate the presence of a propeller using an actuator disk boundary condition, considering a variable load distribution and including also the swirl effects. The specific geometry chosen for the tutorial is composed by an actuator disk and a semi-infinite spinner (grid file and propeller data courtesy of Mauro Minervino, Centro Italiano Ricerche Aerospaziali (CIRA)).
 
 This tutorial is referred only to the actuator disk model `VARIABLE_LOAD` implemented in the V7.0.7.
 
@@ -34,30 +34,12 @@ The following tutorial will walk you through the steps required when solving for
 ### Background
 
 This test case is for an actuator disk with a semi-infinite spinner. The actuator disk is a boundary condition used to simulate the effects of rotary wings in a simple way.
-In aeronautics it is a crucial topic for the airframe integration. Nowadays, with the research on the Distributed Electric Propulsion (DEP), a good actuator disk model is getting importance in order to simulate the effects of the propellers on the airframe by fast CFD analysis.
+In aeronautics it is a crucial topic for the airframe integration. Nowadays, a good actuator disk model is getting importance in order to simulate the effects of the propellers on the airframe by fast CFD analysis.
 However, the disadvantage of using an actuator disk model is that the unsteady effects are neglected.
 
-The actuator disk model used in this tutorial has been implemented referring to a propeller, so the input data file is suitable for a propeller, but not for a wind turbine. However, the model itself, can also be suitable for any rotary wing device.
+The actuator disk model used in this tutorial has been implemented referring to a propeller, so the input data file is suitable for a propeller, but not for a wind turbine. However, the model itself, can also be suitable for any rotary wing device. Note that the model has been tested only for propellers.
 
-Without going into details the mathematical model considered is the following:
-
-**State 1**:
-- 1 data imposed:
-   - static pressure <img src="https://render.githubusercontent.com/render/math?math=p_1=p_2%2B\Delta p">
-- 4 data extrapolated from upstream:
-   - entropy <img src="https://render.githubusercontent.com/render/math?math=s_1">
-   - acoustic Riemann invariant <img src="https://render.githubusercontent.com/render/math?math=R_1^{%2B}">
-   - tangential velocity <img src="https://render.githubusercontent.com/render/math?math=\underline{V}_{t1}">
-
-**State 2**
-- 4 data imposed:
-   - static pressure jump <img src="https://render.githubusercontent.com/render/math?math=\Delta p">
-   - continuity <img src="https://render.githubusercontent.com/render/math?math=\left(\rho V_n\right)_2=\left(\rho V_n\right)_1">
-   - *swirl* <img src="https://render.githubusercontent.com/render/math?math=\Delta\left(\rho V_t\right)">
-- 1 data extrapolated from downstream:
-   - acoustic Riemann invariant <img src="https://render.githubusercontent.com/render/math?math=R_2^-">
-
-Where **State 1** and **State 2** are respectively the upstream and downstream surfaces of the actuator disk.
+The hypothesis that we will consider are: compressible and axial flow (the angle of attack of the actuator disk axis is small).
 
 ### Problem Setup
 
@@ -91,14 +73,17 @@ Figure (1): Far-field view of the computational domain.
 Figure (2): Mesh of the domain in the *x-y* plane.
 
 ![Grid Disk](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridDisk.png)
-Figure (3): Close-up view of the mesh of the actuator disk in the *y-z* plane.
+Figure (3): Close-up view of the mesh of the actuator disk in the *y-z* plane at *x=0*.
+
+![Grid Disk](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridSpinner.png)
+Figure (4): Close-up view of the mesh of the spinner in the *y-x* plane.
 
 ### Configuration File Options
 
 Only the actuator disk boundary condition options are highlighted here:
 
 ```
-% -------------------- BOUNDARY CONDITION DEFINITION --------------------------%
+% -------------------- ACTUATOR DISK BOUNDARY CONDITION --------------------------%
 %
 ACTDISK_DOUBLE_SURFACE = YES
 %
@@ -194,6 +179,14 @@ These coefficients are defined using the "Renard" definition: the reference forc
 
 *It is possible to append other propellers data at the end of the input file. Note that the order and the format of the options should not be changed.*
 
+The visualization of the tabular input for this case is shown in the following figure:
+
+![dct input](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/dct_input.png)
+Figure (5): Thrust coefficient distribution along the non-dimensional radius.
+
+![dcp input](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/dcp_input.png)
+Figure (6): Power coefficient distribution along the non-dimensional radius.
+
 ### Optimal Propeller Script
 
 As already anticipated, the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script can be used to automatically generate the propeller input data file.
@@ -238,22 +231,22 @@ The actuator disk with variable load test case is small and will execute relativ
 Some results for this test case are shown below.
 
 ![Mach Number](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MachNumber.png)
-Figure (4): Mach number contour in the *x-z* plane.
+Figure (7): Mach number contour in the *x-z* plane.
 
 ![Pressure Coefficient](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/ContourCp.png)
-Figure (5): Pressure coefficient contour in the *x-z* plane.
+Figure (8): Pressure coefficient contour in the *x-z* plane.
 
 ![Momentum X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MomentumX.png)
-Figure (6): Momentum in normal direction along *x* for different stations.
+Figure (9): Momentum in normal direction along *x* for different stations.
 
 ![Pressure Coefficient X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/PressureCoeff.png)
-Figure (7): Pressure coefficient along *x* for different stations.
+Figure (9): Pressure coefficient along *x* for different stations.
 
 ![Tangential Velocity X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt_x.png)
-Figure (8): Tangential velocity component along *x* for different stations.
+Figure (10): Tangential velocity component along *x* for different stations.
 
 ![Pressure Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/pJump.png)
-Figure (9): Pressure coefficient along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
+Figure (11): Pressure coefficient along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
 
 ![Tangential Velocity Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt.png)
-Figure (9): Tangential velocity component along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
+Figure (12): Tangential velocity component along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
