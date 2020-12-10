@@ -248,8 +248,8 @@ Figure (11): Pressure coefficient along *x* for different stations.
 ![Tangential Velocity X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt_x.png)
 Figure (12): Tangential velocity component along *x* for different stations.
 
-![Pressure Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/pJump.png)
-Figure (13): Pressure coefficient along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
+![Pressure Coefficient Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/DeltaCp.png)
+Figure (13): Pressure coefficient jump along the non-dimensional radius.
 
 ![Tangential Velocity Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt.png)
 Figure (14): Tangential velocity component along *z* just upstream (State 1) and downstream (State 2) the actuator disk.
