@@ -46,25 +46,31 @@ Here, the difference is due to the fact that the simulation is unsteady. Thus, t
 The aerodynamic model is based on the compressible Reynolds-averaged Navier-Stokes equations. A central JST scheme is used for the convective fluxes, and a weighted least square
 scheme is used for the gradients. The turbulence model is the SST and a CFL number of 20, for the psuedo time step, is used.
 
-Different Mach numbers will be considered, namely $$M=[0.1, 0.2, 0.3, 0.357, 0.364]$$. The Reynolds number is fixed at 4 millions, and the temperature is equal to 273K.
+Different Mach numbers will be considered, namely $$Ma=[0.1, 0.2, 0.3, 0.357, 0.364]$$. The Reynolds number is fixed at 4 millions, and the temperature is equal to 273K.
 
 The structural model is made by a single point, positioned at the rotation axis, with two degrees of freedom, pitch and plunge. 
 Inertia and mass of the airfoil are concentrated at the center of mass of the profile, at a certain distance from the rotation axis. The equations of motions are available
 analytically and read:
 
-$$m\ddot{h} + S\ddot{\alpha} + C_{h}\dot{h} + K_{h}h = -L$$
-$$S\ddot{h} + I\ddot{\alpha} + C_{\alpha}\dot{\alpha} + K_{\alpha}\alpha = M$$
+$$
+\begin{cases}
+  \begin{array}{ll}
+    m\ddot{h} + S\ddot{\alpha} + C_{h}\dot{h} + K_{h}h = -L \\
+    S\ddot{h} + I\ddot{\alpha} + C_{\alpha}\dot{\alpha} + K_{\alpha}\alpha = M \\
+  \end{array}
+\end{cases}
+$$
 
 Where $$m$$ is the mass of the airfoil, $$I$$ the inertia around the center of mass, $$S$$ the static moment of inertia at the rotation axis, $$C$$ and $$K$$ the dampings and stiffnesses respectively. $$L$$ and $$M$$ are the lift and pitching up moment.
 
 These equations are usually adimensionalised to obtain results independent from the free-stream density of the flow.
 Indeed, we can define the following parameters:
 
-$$\Csi=\frac{S}{mb}$$, $$r_{\alpha}^2=\frac{I_f}{mb^2}$$, $$\bar{\omega}=\frac{\omega_h}{\omega_{\alpha}}$$, $$\mu=\frac{m}{\pi \rho_{\inf} b^2}$$
+$$\chi=\frac{S}{mb}$$, $$r_{\alpha}^2=\frac{I_f}{mb^2}$$, $$\bar{\omega}=\frac{\omega_h}{\omega_{\alpha}}$$, $$\mu=\frac{m}{\pi \rho_{\infty} b^2}$$
 
-Where $$b$$ is the semi chord of the airfoil, $$\omega_h = \sqrt{\frac{K_h}{m}}$$ $$\omega_{\alpha} = \sqrt{\frac{K_{\alpha}}{I_f}}$$. If we fix them, the structure will behave always the same regardless of $$\rho_{\inf}$$.
+Where $$b$$ is the semi chord of the airfoil, $$\omega_h = \sqrt{\frac{K_h}{m}}$$ $$\omega_{\alpha} = \sqrt{\frac{K_{\alpha}}{I_f}}$$. If we fix them, the structure will behave always the same regardless of $$\rho_{\infty}$$.
 
-In this context $$\Csi=0.25$$, $$r_{\alpha}=0.5$$, $$\omega_{\alpha} = 45 rad/s$$ ,$$\bar{\omega}=0.3185$$ and $$\mu=100$$.
+In this context $$\chi=0.25$$, $$r_{\alpha}=0.5$$, $$\omega_{\alpha} = 45 rad/s$$, $$\bar{\omega}=0.3185$$ and $$\mu=100$$.
 
 Note that, as we will vary the Mach number, the density will also change accordingly. Thus, with given nondimensional parameters, the inertias and stiffnesses must be
 varied accordingly.
@@ -78,8 +84,8 @@ integrate a set of ODEs for the modes of the structure.
 To perform the preprocessing step, in the case control section of the Nastran model (i.e. at the very beginning of
 the file), the following lines must be added:
 
-ECHO = SORT
-DISPLACEMENT(PRINT,PUNCH)=ALL
+* __ECHO = SORT__
+* __DISPLACEMENT(PRINT,PUNCH)=ALL__
 
 A real egeinvalue analysis will then be performed.
 This will produce, in the f06 file, an equivalent, ordered, model that will
@@ -187,7 +193,7 @@ The solver can work in two ways:
 
 2. It can integrate in time the modal equations of motion to study the linearised structural deformations when the body is surrounded by the flow
 
-Available keyword for the config file:
+Available keywords for the config file:
 
 * __NMODES__ (int): number of modes to use in the analysis. If n modes are available in the punch file, but only the first m<n are required, set this to m
 
