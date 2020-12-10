@@ -64,7 +64,7 @@ $$\Csi=\frac{S}{mb}$$, $$r_{\alpha}^2=\frac{I_f}{mb^2}$$, $$\bar{\omega}=\frac{\
 
 Where $$b$$ is the semi chord of the airfoil, $$\omega_h = \sqrt{\frac{K_h}{m}}$$ $$\omega_{\alpha} = \sqrt{\frac{K_{\alpha}}{I_f}}$$. If we fix them, the structure will behave always the same regardless of $$\rho_{\inf}$$.
 
-In this context $$\Csi=0.25$$, $$r_{\alpha}=0.5$$, $$\bar{\omega}=0.3185$$ and $$\mu=100$$.
+In this context $$\Csi=0.25$$, $$r_{\alpha}=0.5$$, $$\omega_{\alpha} = 45 rad/s$$ ,$$\bar{\omega}=0.3185$$ and $$\mu=100$$.
 
 Note that, as we will vary the Mach number, the density will also change accordingly. Thus, with given nondimensional parameters, the inertias and stiffnesses must be
 varied accordingly.
