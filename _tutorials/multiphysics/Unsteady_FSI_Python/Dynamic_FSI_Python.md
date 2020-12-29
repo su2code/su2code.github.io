@@ -2,7 +2,7 @@
 title: Dynamic Fluid-Structure Interaction (FSI) using the Python wrapper and a Nastran structural model
 permalink: /tutorials/Dynamic_FSI_Python/
 written_by: Nicola-Fonzi
-for_version: 7.0.6
+for_version: 7.0.8
 revised_by:
 revision_date:
 revised_version:
@@ -36,6 +36,8 @@ A sketch of the problem at hand is presented below:
 You can find the resources for this tutorial in [this folder](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python) of the [Tutorials repository](https://github.com/su2code/Tutorials). There is a [matlab file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/Main_Compare.m) that can be used to produce validation data with Theodorsen theory and the [mesh file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python/airfoil.su2).
 
 In the [main directory](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python), there are other 5 subdirectories containing the configuration files and structural models for the different Mach numbers. Please do not mix those files as the structural models and configurations are different at the different aerodynamic conditions.
+
+Before starting this tutorial, please be sure to have compiled SU2 with the python wrapper enabled. Further, two packages are required that can be downloaded from your package manager: libspatialindex and petsc, with their python counterparts rtree and petsc4py.
 
 ### Background 
 
@@ -256,7 +258,7 @@ The most important interface configuration keywords are:
                      
 * __NB_FSI_ITER__ (int):   Number of max internal iterations to couple fluid and structure
 
-* __RBF_RADIUS__ (float):  Radius for the RBF interpolation. It is dimensional (i.e. in meters) and must be set so that at least 5 structural points are always inside a sphere with that radius and centered in any of the structural nodes. The more nodes are included, the better the interpolation. However, with larger radius, the interpolation matrix may become close to singular
+* __RBF_RADIUS__ (float):  Radius for the RBF interpolation. It is dimensional (i.e. in meters) and must be set so that at least 5 structural points are always inside a sphere with that radius and centered in any of the structural nodes. The more nodes are included, the better the interpolation. However, with a larger radius, the interpolation matrix becames less sparse and the solution more computationally expensive
                      
 * __AITKEN_PARAM__ (float): Under relaxation parameter, between 0 and 1
 
