@@ -217,9 +217,9 @@ Available keywords for the config file:
 
 * __MOVING_MARKER__ (string): name for the interface marker
 
-* __IMPOSED_MODES__ (list): In case of imposed motion this list contains the modes with imposed motion and the type of motion. Example: IMPOSED_MODES={0:"SINUSOIDAL",3:"BLENDED_STEP",4:"SINUSOIDAL"}.
+* __IMPOSED_MODES__ (list): In case of imposed motion this list contains the modes with imposed motion and the type of motion. Example: ```IMPOSED_MODES={0:"SINUSOIDAL",3:"BLENDED_STEP",4:"SINUSOIDAL"}```.
 
-* __IMPOSED_PARAMETERS__ (list): Depending on what was selected above, different parameters are required to complete the definition of motion. For example, in case of a sinusoidal motion, it is required to know if there is a bias, the frequency and the amplitude. For more information about these parameters please look at the module ```pysu2_nastran.py```
+* __IMPOSED_PARAMETERS__ (list): Depending on what was selected above, different parameters are required to complete the definition of motion. For example, in case of a sinusoidal motion, it is required to know if there is a bias, the frequency and the amplitude. If we want to specify a sine with no bias, 20 of amplitude and 10 Hz of frequency for mode 7, we would write: ```IMPOSED_PARAMETERS={6:[0,20.0,10.0]}```. For more information about these parameters please look at the module ```pysu2_nastran.py```
 
 * __INITIAL_MODES__ (list): list containing the initial amplitudes of the modes. Example is {0:0.1,1:0.0,3:5.0,...}
 
