@@ -199,8 +199,6 @@ Available keywords for the config file:
 
 * __NMODES__ (int): number of modes to use in the analysis. If n modes are available in the punch file, but only the first m<n are required, set this to m
 
-* __IMPOSED_MODE__ (int): mode with an imposed motion. The first index, consistent with Python syntax, is 0
-
 * __RESTART_ITER__ (int): if restart is used, this specifies the iteration to restart
 
 * __DELTA_T__ (float): physical time step size to be used in the simulation. Must match the one in SU2
@@ -217,13 +215,11 @@ Available keywords for the config file:
 
 * __RESTART_SOL__ (string): YES or NO
 
-* __IMPOSED_DISP__ (string): string containing the function for the displacement. Example is "sine(2*pi*time)+10"
-
-* __IMPOSED_VEL__ (string): analytical differentiation of above
-
-* __IMPOSED_ACC__ (string): analytical differentiation of above
-
 * __MOVING_MARKER__ (string): name for the interface marker
+
+* __IMPOSED_MODES__ (list): In case of imposed motion this list contains the modes with imposed motion and the type of motion. Example: IMPOSED_MODES={0:"SINUSOIDAL",3:"BLENDED_STEP",4:"SINUSOIDAL"}.
+
+* __IMPOSED_PARAMETERS__ (list): Depending on what was selected above, different parameters are required to complete the definition of motion. For example, in case of a sinusoidal motion, it is required to know if there is a bias, the frequency and the amplitude. For more information about these parameters please look at the module ```pysu2_nastran.py```
 
 * __INITIAL_MODES__ (list): list containing the initial amplitudes of the modes. Example is {0:0.1,1:0.0,3:5.0,...}
 
