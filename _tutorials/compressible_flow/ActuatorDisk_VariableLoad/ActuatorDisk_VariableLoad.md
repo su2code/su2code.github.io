@@ -102,8 +102,8 @@ MARKER_ACTDISK = ( DISK, DISK_BACK, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 )
 ```
 
 The `ACTDISK_DOUBLE_SURFACE` option, in this case, is set to `true` because the actuator disk surface has been splitted in two parts: upstream and sownstream surfaces.
-The `ACTDISK_TYPE` option, is used to chose the actuator disk boundary type. In this tutorial, we want to use a model that allows to consider a variable load distribution along the disk, and that also take the *swirl* term into consideration. The actuator disk type that meets these conditions is the `VARIABLE_LOAD`.
-The `ACTDISK_FILENAME` option is used to specify the name of the actuator disk data input file. Further we will see how to generate this file.
+The `ACTDISK_TYPE` option, is used to choose the actuator disk boundary type. In this tutorial, we consider a variable load distribution along the disk, and that also take the *swirl* term into consideration. The actuator disk type that meets these conditions is the `VARIABLE_LOAD`.
+The `ACTDISK_FILENAME` option is used to specify the name of the actuator disk data input file. Further we will see how to generate this file if only total thrust is known and not the details on the load distribution.
 The `MARKER_ACTDISK` option, requires the following arguments:
 - Marker of the upstream surface of the actuator disk.
 - Marker of the downstream surface of the actuator disk.
@@ -190,10 +190,11 @@ Figure (6): Power coefficient distribution along the non-dimensional radius.
 
 ### Optimal Propeller Script
 
-As already anticipated, the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script can be used to automatically generate the propeller input data file.
-This script allows the user to use the `VARIABLE_LOAD` actuator disk type also in case the propeller details are not available (in particular when the overall parameters ar known, but not the exact load distribution).
+As already anticipated, the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script can be used to automatically generate the propeller input data file when the details on the variable load are not known.
+This script allows the user to use the `VARIABLE_LOAD` actuator disk type also when only total thrust is known. The variable load distribution is obtained by the inviscid theory of the optimal propeller [1].
+
 The input is interactive, and requires the following data:
-1. Number of radial stations.
+1. Number of radial stations (where local data should be generated).
 2. CT: the total thrust coefficient defined using the "Renard" definition.
 3. R: The propeller radius expressed in meters.
 4. r_hub: the hub radius expressed in meters.
@@ -207,11 +208,12 @@ The script also provides 2 files:
 - ActuatorDisk.cfg: containing the actuator disk boundary condition options needed in the configuration file.
 - ActuatorDisk.dat: containing the propeller input data file.
 
-*Note that the two generated files have some empty spaces that need to be filled.*
+*Note that the two generated files have some empty fields that need to be filled.*
 
-The load distribution obtined using the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script is the optimal load distribution using the inviscid theory of the optimal propeller.
 
-*For reference: Glauert H., Airplane Propellers, in Aerodynamic Theory, Ed. Durand W. F., Vol. IV, pp. 169 - 360, Springer, 1935.*
+### References
+
+[1] *Glauert H., Airplane Propellers, in Aerodynamic Theory, Ed. Durand W. F., Vol. IV, pp. 169 - 360, Springer, 1935.*
 
 ### Running SU2
 
