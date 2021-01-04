@@ -16,7 +16,7 @@ follows:
 
 ## Goals
 
-Upon completing this tutorial, the user will be able to simulate the presence of a propeller using an actuator disk boundary condition, considering a variable load distribution and including also the swirl effects. The specific geometry chosen for the tutorial is composed by an actuator disk and a semi-infinite spinner (grid file and propeller data courtesy of Mauro Minervino, Centro Italiano Ricerche Aerospaziali (CIRA)).
+Upon completing this tutorial, the user will be able to simulate the presence of a propeller by a general actuator disk boundary condition. The model enables the simulation of propellers with variable load distribution and including swirl. The specific geometry chosen for the tutorial is composed by an actuator disk and a semi-infinite spinner (grid file and propeller data courtesy of Mauro Minervino, Centro Italiano Ricerche Aerospaziali (CIRA)).
 
 This tutorial is referred only to the actuator disk model `VARIABLE_LOAD` implemented in the V7.0.7.
 
@@ -25,28 +25,29 @@ This tutorial is referred only to the actuator disk model `VARIABLE_LOAD` implem
 The resources for this tutorial can be found in the [compressible_flow/ActuatorDisk_VariableLoad](https://github.com/su2code/Tutorials/tree/feature_tutorial_ActuatorDisk/compressible_flow/ActuatorDisk_VariableLoad) directory in the [Tutorials repository](https://github.com/su2code/Tutorials). You will need the configuration file ([propeller_variable_load.cfg](https://github.com/su2code/Tutorials/blob/feature_tutorial_ActuatorDisk/compressible_flow/ActuatorDisk_VariableLoad/propeller_variable_load.cfg)), the mesh file ([propeller_variable_load.su2](https://github.com/su2code/Tutorials/blob/feature_tutorial_ActuatorDisk/compressible_flow/ActuatorDisk_VariableLoad/propeller_variable_load.su2)) and the propeller input data file ([ActuatorDisk.dat](https://github.com/su2code/Tutorials/blob/feature_tutorial_ActuatorDisk/compressible_flow/ActuatorDisk_VariableLoad/ActuatorDisk.dat)).
 *It is important to note that the grid used in this tutorial is very coarse to keep computational effort low, finer meshes should be used.*
 
-You will also need the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script which is an useful tool to generate the propeller input data file.
+It is also presented the use of [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script, very useful tool to generate a propeller input data file with variable load when only total thrust is known.
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for the flow in presence of a propeller using SU2. The tutorial will also shows ho to generate the propeller input data file witht the help of the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
+The following tutorial will walk you through the steps required when solving a flow in presence of a propeller using SU2. The tutorial will also shows how to generate the propeller input data file witht the help of the [OptimalPropeller.py](https://github.com/su2code/SU2/tree/master/SU2_PY/OptimalPropeller.py) script when only total thrust is known. To this end, it is assumed you have already obtained and compiled SU2_CFD. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
-This test case is for an actuator disk with a semi-infinite spinner. The actuator disk is a boundary condition used to simulate the effects of rotary wings in a simple way.
-In aeronautics it is a crucial topic for the airframe integration. Nowadays, a good actuator disk model is getting importance in order to simulate the effects of the propellers on the airframe by fast CFD analysis.
+This test case is for an actuator disk with a semi-infinite spinner. The actuator disk is a model used to simulate the effects on the aiframe of rotary wings by a simple momentum theory [1].
+In aeronautics it is a crucial topic for the airframe integration. Nowadays, a good actuator disk model is getting importance in order to simulate the effects of the propellers 
+of given performance on the airframe by fast CFD analysis.
 However, the disadvantage of using an actuator disk model is that the unsteady effects are neglected.
 
 The actuator disk model used in this tutorial has been implemented referring to a propeller, so the input data file is suitable for a propeller, but not for a wind turbine. However, the model itself, can also be suitable for any rotary wing device. Note that the model has been tested only for propellers.
 
-The hypothesis that we will consider are: compressible and axial flow (the angle of attack of the actuator disk axis is small).
+The hypothesis that we will consider are: compressible and axial flow (the angle between propeller axis and freestream is small).
 
 ### Problem Setup
 
 This problem will solve the flow with these conditions:
 - Freestream Mach number = 0.55996
 - Angle of attack (AOA) = 0.0 deg
-- Reynolds number = 3.65E7
+- Reynolds number = 3.65E7 (based on propeller diameter)
 - Reynolds length = 5.0292 m
 
 The global propeller data are:
