@@ -25,7 +25,6 @@
   - Inc_Turbulent_NACA0012
   - Inc_Laminar_Step
   - Inc_Laminar_Cavity
-  - Inc_Heated_Cylinders
   
 - title: Structural Mechanics
   tutorials:
@@ -37,6 +36,7 @@
 - title: Multiphysics
   tutorials:
    - Static_FSI
+   - Static_CHT
 
 - title: Design Features
   tutorials:

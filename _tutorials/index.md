@@ -63,8 +63,6 @@ Simulation of external, viscous, incompressible flow around the NACA 0012 using 
 Simulation of internal, laminar, incompressible flow over a backward-facing step with an inlet velocity profile input from file.
 * [Laminar Buoyancy-driven Cavity](/tutorials/Inc_Laminar_Cavity/)    
 Simulation of internal, laminar, incompressible flow in a differentially-heated cavity under the influence of gravity (classical natural convection case).
-* [Heated Cylinders with Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders/)     
-Simulation of a coupled CHT problem incorporating multiple physical zones.
 
 #### Structural Mechanics
 * [Linear Elasticity](/tutorials/Linear_Elasticity/)  
@@ -79,6 +77,8 @@ Simulation of a non-linear problem with multiple material definitions
 #### Multiphysics
 * [Static Fluid-Structure Interaction](/tutorials/Static_FSI/)  
 Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
+* [Static Conjugate Heat Transfer](/tutorials/Static_CHT/)
+Simulation of multiple heated cylinders in incompressible fluid flow.
 
 #### Shape Design Features
 
