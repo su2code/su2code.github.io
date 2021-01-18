@@ -7,7 +7,7 @@ revised_by: oleburghardt
 revision_date: 2021-01-18
 revised_version: 7.0.8
 solver: MULTIPHYSICS
-requires: SU2_CFD
+requires: SU2_CFD, SU2_CFD_AD, SU2_DOT_AD, SU2_DEF
 complexity: advanced
 follows: Inc_Laminar_Flat_Plate
 userguide: Multizone
@@ -226,7 +226,7 @@ DV_PARAM= ( MAIN_BOX, 12, 1, 0.0, 1.0 )
 
 as in the main config file. The derivative of the integrated heat flux with respect to this design veriable was thus alsp automatically computed and written to `of_grad_0.dat` and `of_grad_1.dat`; the other to cylinders are giving no direct contribution as their shape is not affected).
 
-We will check the derivative (0.152507 + 0.234148 + 0.0 + 0.0 = 0,386655) against finite differences at magnitudes 1.0e-5 and 1.0e-6. To this end, we have to deform the multizone mesh by setting
+We will check the derivative (0.152507 + 0.234148 + 0.0 + 0.0 = 0,386655) against finite differences at magnitudes from 1.0e-2 to 1.0e-6. To this end, we have to deform the multizone mesh by setting
 
 ```
 DV_VALUE= 0.00001
@@ -238,9 +238,12 @@ and running
 $ SU2_DEF cht_2d_3cylinders.cfg
 ```
 
-which will produce the deformed multizone mesh `mesh_cht_3cyl_out.su2`, on which the integrated heatflux can be recomputed (analogously for 1.0e-6). Relative errors to the value generated from discrete adjoints are given below.
+which will produce the deformed multizone mesh `mesh_cht_3cyl_out.su2`, on which the integrated heatflux can be recomputed (analogously for other magnitudes). Relative errors to the value generated from discrete adjoints are given below.
 
-magnitude | heatflux value | finite difference derivative | rel. error (%)
+magnitude | heatflux value | FD derivative | rel. error (%)
 --- | --- | --- | ---
-1.0e-5 | -31,89720748792119 | 0,38665835 | 0,0008672
-1.0e-6 | -31,89721096784924 | 0,38665548 | 0,0001241
+1.0e-2 | -31.89331058028049 | 0,390077422 | 0,8861153
+1.0e-3 | -31.89682435269217 | 0.387001813 | 0.0906675
+1.0e-4 | -31.89717268560501 | 0.386688997 | 0.0097636
+1.0e-5 | -31.89720748792119 | 0.38665835  | 0.0018381
+1.0e-6 | -31.89721096784924 | 0.38665548  | 0.001095
