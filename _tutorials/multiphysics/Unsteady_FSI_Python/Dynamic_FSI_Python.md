@@ -2,7 +2,7 @@
 title: Dynamic Fluid-Structure Interaction (FSI) using the Python wrapper and a Nastran structural model
 permalink: /tutorials/Dynamic_FSI_Python/
 written_by: Nicola-Fonzi
-for_version: 7.0.8
+for_version: 7.1.0
 revised_by:
 revision_date:
 revised_version:
