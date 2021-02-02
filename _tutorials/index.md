@@ -77,6 +77,8 @@ Simulation of a non-linear problem with multiple material definitions
 #### Multiphysics
 * [Static Fluid-Structure Interaction](/tutorials/Static_FSI/)  
 Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
+* [Dynamic Fluid-Structure Interaction with the Python wrapper](/tutorials/Dynamic_FSI_Python/)
+Linear Nastran-like model coupled with compressible unsteady RANS equations using the Python wrapper
 * [Static Conjugate Heat Transfer](/tutorials/Static_CHT/)
 Simulation of multiple heated cylinders in incompressible fluid flow.
 
