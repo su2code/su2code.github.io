@@ -63,7 +63,7 @@ $$
 \end{cases}
 $$
 
-Where $$m$$ is the mass of the airfoil, $$I$$ the inertia around the center of mass, $$S$$ the static moment of inertia at the rotation axis, $$C$$ and $$K$$ the dampings and stiffnesses respectively. $$L$$ and $$M$$ are the lift and pitching up moment.
+Where $$m$$ is the mass of the airfoil, $$I$$ the inertia around the rotation axis, $$S$$ the static moment of inertia at the rotation axis, $$C$$ and $$K$$ the dampings and stiffnesses respectively. $$L$$ and $$M$$ are the lift and pitching up moment.
 
 These equations are usually adimensionalised to obtain results independent from the free-stream density of the flow.
 Indeed, we can define the following parameters:

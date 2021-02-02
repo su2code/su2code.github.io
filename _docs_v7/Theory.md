@@ -68,7 +68,7 @@ Within the `NAVIER_STOKES` and `RANS` solvers, we discretize the equations in sp
 | --- | --- |
 | `EULER`, `FEM_EULER` | 7.0.0 |
 
-SU2 solves the compressible Euler equations, which can be obtained as a simplification of the compressible Navier-Stokes equations in the absence of viscosty and thermal conductivity. They can be expressed in differential form as
+SU2 solves the compressible Euler equations, which can be obtained as a simplification of the compressible Navier-Stokes equations in the absence of viscosity and thermal conductivity. They can be expressed in differential form as
 
  $$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - S = 0 $$
 

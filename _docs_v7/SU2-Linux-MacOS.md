@@ -15,7 +15,7 @@ permalink: /docs_v7/SU2-Linux-MacOS/
 ## Installation 
 
 ### Download and unpack the archive
-[Download](/download/) the .zip for your operating system and unzip it where you want it to be installed. 
+[Download](/download.html) the .zip for your operating system and unzip it where you want it to be installed. 
 
 ### Setting Environment variables
 
