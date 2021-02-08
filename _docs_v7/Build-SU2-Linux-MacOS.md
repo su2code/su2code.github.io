@@ -132,6 +132,7 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
 | `-Denable-openblas` |  `false`      |    enable OpenBLAS support      |
 | `-Denable-pastix`   |  `false`      |    enable PaStiX support        |
+| `-Denable-mpp`   |  `false`      |    enable Mutation++ support        |
 | `-Denable-mixedprec` | `false`      |    enable the use of single precision on linear solvers and preconditioners |
 
 For example to enable AD support pass the option to the `meson.py` script along with a value:
