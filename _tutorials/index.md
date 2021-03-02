@@ -63,6 +63,8 @@ Simulation of external, viscous, incompressible flow around the NACA 0012 using 
 Simulation of internal, laminar, incompressible flow over a backward-facing step with an inlet velocity profile input from file.
 * [Laminar Buoyancy-driven Cavity](/tutorials/Inc_Laminar_Cavity/)    
 Simulation of internal, laminar, incompressible flow in a differentially-heated cavity under the influence of gravity (classical natural convection case).
+* [Streamwise Periodicity](/tutorials/Inc_Streamwise_Periodic/)
+Simulation of internal, turbulent, incompressible flow in a unit cell of a 2D pin-fin heat exchanger.
 
 #### Structural Mechanics
 * [Linear Elasticity](/tutorials/Linear_Elasticity/)  
