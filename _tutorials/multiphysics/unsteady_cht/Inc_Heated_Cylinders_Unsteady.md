@@ -1,6 +1,16 @@
 ---
 title: Unsteady Conjugate Heat Transfer
 permalink: /tutorials/Inc_Heated_Cylinders_Unsteady/
+written_by: oleburghardt
+for_version: 7.1.0
+revised_by: TobiKattmann
+revision_date: 2021-03-04
+revised_version: 7.1.1
+solver: INC_NAVIER_STOKES, HEAT_EQUATION
+requires: SU2_CFD
+complexity: advanced
+follows: Static_CHT
+userguide: Multizone
 ---
 
 <br>
@@ -19,7 +29,7 @@ The intent of this tutorial is to demonstrate how a steady CHT simulation can be
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Heated_Cylinders_Unsteady](https://github.com/su2code/su2code.github.io/blob/unsteady_cht_tutorial/Inc_Heated_Cylinders_Unsteady) directory in the [tutorial repository](https://github.com/su2code/su2code.github.io/blob/unsteady_cht_tutorial/). You will need the configuration files for all physical zones ([flow_cylinder.cfg](../../Inc_Heated_Cylinders_Unsteady/flow_cylinder.cfg), [solid_cylinder1.cfg](../../Inc_Heated_Cylinders_Unsteady/solid_cylinder1.cfg), [solid_cylinder2.cfg](../../Inc_Heated_Cylinders_Unsteady/solid_cylinder2.cfg), [solid_cylinder3.cfg](../../Inc_Heated_Cylinders_Unsteady/solid_cylinder3.cfg)), the cofiguration file to invoke a multiphysics simulation run ([cht_2d_3cylinders.cfg](../../Inc_Heated_Cylinders_Unsteady/cht_2d_3cylinders.cfg)) and the mesh file ([mesh_cht_3cyl.su2](../../Inc_Heated_Cylinders_Unsteady/mesh_cht_3cyl.su2)).
+The resources for this tutorial can be found in the [Inc_Heated_Cylinders_Unsteady](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration files for all physical zones ([flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/flow_cylinder.cfg), [solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder1.cfg), [solid_cylinder2.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder2.cfg), [solid_cylinder3.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder3.cfg)), the cofiguration file to invoke a multiphysics simulation run ([cht_2d_3cylinders.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/cht_2d_3cylinders.cfg)) and the mesh file ([mesh_cht_3cyl.su2](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/mesh_cht_3cyl.su2)).
 
 ## Tutorial
 
@@ -35,22 +45,22 @@ The problem setup is the same as in the [heated cylinders with conjugate heat tr
 ```
 INC_DENSITY_INIT= 0.0210322
 ```
-in [flow_cylinder.cfg](../../Inc_Heated_Cylinders_Unsteady/flow_cylinder.cfg) and
+in [flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/flow_cylinder.cfg) and
 
 ```
 SOLID_DENSITY= 0.0210322
 ```
-in [solid_cylinder1.cfg](../../Inc_Heated_Cylinders_Unsteady/solid_cylinder1.cfg), [solid_cylinder2.cfg](../../Inc_Heated_Cylinders_Unsteady/solid_cylinder2.cfg) and [solid_cylinder3.cfg](../../Inc_Heated_Cylinders_Unsteady/solid_cylinder3.cfg)
+in [solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder1.cfg), [solid_cylinder2.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder2.cfg) and [solid_cylinder3.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder3.cfg)
 
 For simplicity we leave all other parameters unchanged.
 
 ### Mesh Description
 
-The [mesh](../../Inc_Heated_Cylinders_Unsteady/mesh_cht_3cyl.su2) is the same as in the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/).
+The [mesh](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/mesh_cht_3cyl.su2) is the same as in the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/).
 
 ### Configuration File Options
 
-An unsteady simulation is set up by enabling the time domain and choosing a time marching algorithm in the [master config file](../../Inc_Heated_Cylinders_Unsteady/cht_2d_3cylinders.cfg):
+An unsteady simulation is set up by enabling the time domain and choosing a time marching algorithm in the [master config file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/cht_2d_3cylinders.cfg):
 
 ```
 TIME_DOMAIN = YES
@@ -59,13 +69,13 @@ TIME_DOMAIN = YES
 TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER
 ```
 
-The time marching parameters have to match the flow physics that should be resolved. For a given inlet velocity of 3.40297 m/s at Re = 4000, the Strouhal number estimation for the most upstream cylinder is Sr = 0.21. This gives a frequency of f = Sr*v = 0.71Hz for the vortex shedding so that a time step of 0.05s is chosen in the [master config file](../../Inc_Heated_Cylinders_Unsteady/cht_2d_3cylinders.cfg):
+The time marching parameters have to match the flow physics that should be resolved. For a given inlet velocity of 3.40297 m/s at Re = 4000, the Strouhal number estimation for the most upstream cylinder is Sr = 0.21. This gives a frequency of f = Sr*v = 0.71Hz for the vortex shedding so that a time step of 0.05s is chosen in the [master config file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/cht_2d_3cylinders.cfg):
 
 ```
 TIME_STEP= 0.05
 ```
 
-In order to sufficiently resolve the coupling in each time step, we set the number of outer iterations to 200 in the [master config file](../../Inc_Heated_Cylinders_Unsteady/cht_2d_3cylinders.cfg):
+In order to sufficiently resolve the coupling in each time step, we set the number of outer iterations to 200 in the [master config file](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/cht_2d_3cylinders.cfg):
 
 ```
 OUTER_ITER = 200

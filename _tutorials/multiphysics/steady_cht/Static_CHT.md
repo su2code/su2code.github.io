@@ -1,6 +1,6 @@
 ---
 title: Static Conjugate Heat Transfer (CHT)
-permalink: /tutorials/Static_CHT
+permalink: /tutorials/Static_CHT/
 written_by: oleburghardt 
 for_version: 7.0.0
 revised_by: oleburghardt

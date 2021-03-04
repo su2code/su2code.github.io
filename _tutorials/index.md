@@ -63,7 +63,7 @@ Simulation of external, viscous, incompressible flow around the NACA 0012 using 
 Simulation of internal, laminar, incompressible flow over a backward-facing step with an inlet velocity profile input from file.
 * [Laminar Buoyancy-driven Cavity](/tutorials/Inc_Laminar_Cavity/)    
 Simulation of internal, laminar, incompressible flow in a differentially-heated cavity under the influence of gravity (classical natural convection case).
-* [Streamwise Periodicity](/tutorials/Inc_Streamwise_Periodic/)
+* [Streamwise Periodicity](/tutorials/Inc_Streamwise_Periodic/)    
 Simulation of internal, turbulent, incompressible flow in a unit cell of a 2D pin-fin heat exchanger.
 
 #### Structural Mechanics
@@ -81,16 +81,16 @@ Simulation of a non-linear problem with multiple material definitions
 
 * [Static Fluid-Structure Interaction](/tutorials/Static_FSI/)  
 Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
-* [Dynamic Fluid-Structure Interaction with the Python wrapper](/tutorials/Dynamic_FSI_Python/)
+* [Dynamic Fluid-Structure Interaction with the Python wrapper](/tutorials/Dynamic_FSI_Python/)    
 Linear Nastran-like model coupled with compressible unsteady RANS equations using the Python wrapper
-* [Static Conjugate Heat Transfer](/tutorials/Static_CHT/)
+* [Static Conjugate Heat Transfer](/tutorials/Static_CHT/)    
 Simulation of multiple heated cylinders in incompressible fluid flow.
-* [Unsteady Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders_Unsteady/)     
+* [Unsteady Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders_Unsteady/)    
 Simulation of an unsteady coupled CHT problem incorporating multiple physical zones.
 
 #### Shape Design Features
 
-* [Unconstrained shape design of an transonic inviscid airfoil at a cte. AoA](/tutorials/Inviscid_2D_Unconstrained_NACA0012/)
+* [Unconstrained shape design of an transonic inviscid airfoil at a cte. AoA](/tutorials/Inviscid_2D_Unconstrained_NACA0012/)    
 Get a basic introduction to the SU2 design capabilities by performing an optimal shape design of a 2D geometry (isolated airfoil) without constraints.
 * [Constrained shape design of a transonic turbulent airfoil at a cte. C<sub>L</sub>](/tutorials/Turbulent_2D_Constrained_RAE2822/)    
 Perform an optimal shape design of a 2D geometry (isolated airfoil at turbulent regime) with flow and geometrical constraints.
