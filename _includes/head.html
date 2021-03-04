@@ -14,12 +14,12 @@ _iub.csConfiguration = {"enableRemoteConsent":true,"lang":"en","siteId":1608752,
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
-
     <link rel="stylesheet" href="{{ "/css/main.css" | relative_url}}">
-    <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | relative_url }}">
-
     <link rel="shortcut icon" href="{{ "/favicon.ico?1" | relative_url }}">
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | relative_url }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | relative_url }}" />
+    
+    <!-- Place your kit's code here -->
+    <script src="https://kit.fontawesome.com/f17953d81d.js" crossorigin="anonymous"></script>
 </head>

@@ -39,7 +39,7 @@ Everything else can stay on their default values. On the next page set a destina
 ## Configuration and Compilation
 
 In the file browser go to the mingw installation directory and execute the file `mingw-w64`. This should open the command prompt. Navigate to the SU2 source code directory (in the command prompt you can change directories using `cd` and list directories using `dir`).
-Now you can follow the steps in the [Linux/MacOS Configuration and Compilation section](/docs_v7/Build-SU2-From-Source/#configuration-and-compilation). But make sure to use `python meson.py` and `ninja.exe` instead of `./meson.py` and `./ninja`, respectively.
+Now you can follow the steps in the [Linux/MacOS Configuration and Compilation section](/docs_v7/Build-SU2-Linux-MacOS/#configuration-and-compilation). But make sure to use `python meson.py` and `ninja.exe` instead of `./meson.py` and `./ninja`, respectively.
 
 
 ## Running the executables

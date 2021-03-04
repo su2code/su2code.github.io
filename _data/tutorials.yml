@@ -13,6 +13,7 @@
   - Turbulent_Flat_Plate
   - Transitional_Flat_Plate
   - Turbulent_ONERAM6
+  - Unsteady_NACA0012
   - UQ_NACA0012
   - NICFD_nozzle
 
@@ -24,8 +25,21 @@
   - Inc_Turbulent_NACA0012
   - Inc_Laminar_Step
   - Inc_Laminar_Cavity
-  - Inc_Heated_Cylinders
-  - Inc_Heated_Cylinders_Unsteady
+  - Inc_Streamwise_Periodic
+
+- title: Structural Mechanics
+  tutorials:
+  - Linear_Elasticity
+  - Linear_Dynamics
+  - Nonlinear_Elasticity
+  - Multiple_Material
+  
+- title: Multiphysics
+  tutorials:
+   - Static_FSI
+   - Dynamic_FSI_Python
+   - Static_CHT
+   - Inc_Heated_Cylinders_Unsteady
 
 - title: Design Features
   tutorials:
@@ -33,6 +47,7 @@
   - Turbulent_2D_Constrained_RAE2822
   - Inviscid_3D_Constrained_ONERAM6
   - Multi_Objective_Shape_Design
+  - Unsteady_Shape_Opt_NACA0012
 
 - title: Event Content
   tutorials:

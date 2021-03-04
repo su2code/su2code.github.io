@@ -1,0 +1,9 @@
+# generated website data
+# https://jekyllrb.com/docs/structure/
+/_site
+
+# bundler snapshot of all gems and versions that it installed
+# https://bundler.io/rationale.html
+Gemfile.lock
+
+.jekyll-metadata

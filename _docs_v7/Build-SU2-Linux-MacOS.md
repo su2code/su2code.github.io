@@ -4,7 +4,7 @@ permalink: /docs_v7/Build-SU2-Linux-MacOS/
 redirect_from: /docs/Build-SU2-From-Source/
 ---
 
-For information on how to build older versions of SU2, have a look [here](/docs_v7/Build-from-Source/).
+For information on how to build older versions of SU2, have a look [here](/docs/Build-from-Source/).
 
 Note that the following guide works only on Linux/MacOS and on Windows using Cygwin or the [Linux Subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
@@ -69,7 +69,10 @@ Installing SU2 from source requires a C++ compiler. The GNU compilers (gcc/g++) 
 **Note**: SU2 uses some C++11 features, that means at least GCC >= v4.7, Clang >= v3.0 or Intel C++ >= v12.0 is necessary.
 
 ### MPI ###
-In order to build SU2 with parallel support, you need a suitable MPI installation on your machine. During the configuration the build tool does a check and enables MPI support. If no installation is found, a serial version of SU2 will be compiled.
+In order to build SU2 with parallel support, you need a suitable MPI installation on your machine. During the configuration the build tool does a check (using pkg-config) and enables MPI support. If no installation is found, a serial version of SU2 will be compiled.
+It is possible to force the MPI mode with the meson option `-Dcustom-mpi=true`, it is then assumed that the compilers and/or the environment variables have the right flags, include directories, and linker arguments.
+
+**Note**: Problems have been reported with MPICH where the build system does not detect the MPI installation, this can be solved using the meson options `-Dcustom-mpi=true -Dextra-deps=mpich`. If MPI was installed in a user directory, ensure also that the environment variable PKG_CONFIG_PATH is correctly setup.
 
 ### Python ###
 
@@ -80,12 +83,12 @@ If you want to use the python wrapper capabilities, also `swig` and `mpi4py` are
 
 On **Mac OS X**, you can use the [Homebrew](http://brew.sh/) package manager. Once it is installed on your system, you can install Swig by running:
 
-    $ sudo brew install swig
+    $ brew install swig
 
 Install mpi4py with Python pip using easy install:
 
-    $ sudo easy_install pip
-    $ sudo pip install mpi4py
+    $ easy_install pip
+    $ pip install mpi4py
     
 ---
 
@@ -122,12 +125,15 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-autodiff`  | `false`   |   enable AD (reverse) support (needed for discrete adjoint solver)  |
 | `-Denable-directdiff` | `false`     |  enable AD (forward) support |
 | `-Denable-pywrapper` | `false`      |    enable Python wrapper support|
-| `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`required`,`disabled`)  |
+| `-Dwith-mpi`       | `auto` |   Set dependency mode for MPI (`auto`,`enabled`,`disabled`)  |
+| `-Dwith-omp`       | `false` |  enable MPI+Threads support (experimental) |
 | `-Denable-cgns`     | `true`    |       enable CGNS support           |        
 | `-Denable-tecio`    |  `true`       |    enable TECIO support         |
 | `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
 | `-Denable-openblas` |  `false`      |    enable OpenBLAS support      |
 | `-Denable-pastix`   |  `false`      |    enable PaStiX support        |
+| `-Denable-mpp`   |  `false`      |    enable Mutation++ support        |
+| `-Denable-mixedprec` | `false`      |    enable the use of single precision on linear solvers and preconditioners |
 
 For example to enable AD support pass the option to the `meson.py` script along with a value:
 ```
@@ -141,7 +147,7 @@ To set a installation directory for the binaries and python scripts, use the `--
 If you are not interested in setting custom compiler flags and other options you can now go directly to the [Compilation](#compilation) section, otherwise continue reading the next section.
 
 ### Advanced Configuration ###
-In general meson appends flags set with the environment variable `CXX_FLAGS`. It is however recommended to use 
+In general meson appends flags set with the environment variable `CXXFLAGS`. It is however recommended to use 
 mesons built-in options to set debug mode, warning levels and optimizations. All options can be found [here](https://mesonbuild.com/Builtin-options.html) or by using `./meson.py configure`. An already created configuration can be modified by using the `--reconfigure` flag, e.g.:
 ```
 ./meson.py build --reconfigure --buildtype=debug
@@ -154,7 +160,11 @@ The debug mode can be enabled by using the `--buildtype=debug` option. This adds
 
 #### Compiler optimizations ####
 
-The optimization level can be set with `--optimization=level`, where `level` corresponds to a number between 0 (no optimization) and 3 (highest level of optimizations). The default level is 3.
+The optimization level can be set with `--optimization=level`, where `level` corresponds to a number between 0 (no optimization) and 3 (highest level of optimizations) which is the default.
+However, that may not result in optimum performance, for example with the GNU compilers level 2 and the extra flag `-funroll-loops` results in better performance for most problems.
+
+Some numerical schemes support vectorization (see which ones in the Convective Schemes page), to make the most out of it the compiler needs to be informed of the target CPU architecture, so it knows what "kind of vectorization" it can generate (256 or 512bit, 128bit being the default).
+With gcc, clang, and icc this can be done via the `-march=??` and `-mtune=??` options, where `??` needs to be set appropriately e.g. `skylake`, `ryzen`, etc., these flags can be passed to the compiler by setting `CXXFLAGS` before first running meson (which will print some messages acknowledging the flags).
 
 #### Warning level ####
 
@@ -164,13 +174,17 @@ The warning level can be set with `--warnlevel=level`, where  `level` correspond
 
 #### Linear algebra options ####
 
-Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function interpolation in fluid structure interaction problems.
-`-Denable-mkl` takes precedence over `-Denable-openblas`, by default the build system looks for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
-When OpenBLAS support is requested the build system uses [pkg-config](https://en.wikipedia.org/wiki/Pkg-config) to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
+Compiling with support for a BLAS library (`-Denable-mkl` or `-Denable-openblas`) is highly recommended if you use the high order finite element solver, or radial basis function (RBF) interpolation in fluid structure interaction problems.
+Linear solvers and preconditioners can be accelerated with option `-Denable-mixedprec=true`, which will switch those computations to single precision while all other aspects of SU2 remain in double precision, for fluid simulations this does not reduce accuracy since the solution is iterative. However, large structural FEA problems may be adversely affected.
+To a lesser extent MKL 2019 is also used to accelerate (~5%) sparse linear algebra operations.
+`-Denable-mkl` takes precedence over `-Denable-openblas`, the system tries to find MKL via [pkg-config](https://en.wikipedia.org/wiki/Pkg-config), if that fails it will then look for MKL in `/opt/intel/mkl`, this can be changed via option `-Dmkl_root`.
+When OpenBLAS support is requested the build system uses pkg-config to search the system for package `openblas`, option `-Dblas-name`, if the library was built from source it may be necessary to set the environment variable PKG_CONFIG_PATH.
 
 For large structural FEA problems on highly anisotropic grids iterative linear solvers might fail. Version 7 introduces experimental support for the direct sparse solver [PaStiX](https://gforge.inria.fr/projects/pastix/) (`-Denable-pastix`) see detailed instructions in `TestCases/pastix_support/readme.txt`.
 
-**Note:** The BLAS library needs to provide support for LAPACK functions.
+If the use of BLAS is restricted to RBF interpolation, parallel versions of OpenBLAS can be used, the number of threads will then have to be controlled via the appropriate environment variable (consult the OpenBLAS documentation). Otherwise sequential BLAS should be used.
+
+**Note:** The BLAS library needs to provide support for LAPACK functions. If this is not the case, the linker will fail with "undefined reference" errors, this problem can be solved by installing LAPACK and specifying it as an extra dependency when running `meson.py` using `-Dextra-deps=lapack` (this uses pkg-config, use commas to separate the names of multiple extra dependencies).
 
 ### Compilation ###
 
@@ -194,4 +208,9 @@ Meson looks for an MPI installation using [pkg-config](https://en.wikipedia.org/
 ### mpi4py library is not found ###
 Meson imports the mpi4py module and searches for the include path. If it is installed in a custom location, make sure to add this path to the `PYTHONPATH` environment variable prior calling `meson.py`.
 
-
+### Ninja compiles but fails to install ###
+If building on a cluster that uses a NFS filesystem, ninja may finish the compilation but fail to install with an error such as:
+```
+OSError: [Errno 22] Invalid argument: 'SU2_CFD/src/SU2_CFD'
+```
+This is a known bug in earlier versions of Python 3. Try upgrading to Python >= 3.7 then rerun ninja.

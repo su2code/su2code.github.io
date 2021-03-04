@@ -3,6 +3,12 @@ title: The SU2 Tutorial Collection
 permalink: /tutorials/home/
 redirect_from: /tutorials/index.html
 disable_comments: true
+disable_header: true
+written_by: economon
+for_version: 6.0.0
+revised_by: talbring
+revision_date: 2019-11-27
+revised_version: 7.0.0
 ---
 
 ## Getting started with SU2
@@ -11,9 +17,9 @@ Rather than writing a long manual on all available (and constantly evolving) con
 
 The tutorials are numbered roughly in order of their complexity and how experienced with the code the user may need to be, noting that the more advanced tutorials may assume the user has already worked through the earlier ones. Each tutorial attempts to present new features of SU2 and contains explanations for the key configuration file options. More information on the exact learning goals of a tutorial can be seen at the beginning of each.
 
-You can get all the mesh and config files either by cloning or downloading the [project website repository](https://github.com/su2code/su2code.github.io) or by downloading them separately using the provided links on each tutorial page.
+You can get all the mesh and config files either by cloning or downloading the [tutorial repository](https://github.com/su2code/Tutorials) or by downloading them separately using the provided links on each tutorial page.
 
-**Note:** Before beginning with the tutorials, please make sure to check out the information on how to [download](/docs/Download/) and [install](/docs/Installation/).
+**Note:** Before beginning with the tutorials, please make sure to check out the information on how to [download](/docs_v7/Download/) and [install](/docs_v7/Installation/).
 
 ## Summary of tutorials
 ------
@@ -36,6 +42,8 @@ Simulation of external, turbulent flow over a flat plate (classical RANS validat
 Simulation of external, transitional flow over a flat plate (transitional latminar-turbulent case).
 * [Turbulent ONERAM6](/tutorials/Turbulent_ONERAM6/)     
 Simulation of external, viscous flow around a 3D geometry (isolated wing) using a turbulence model.
+* [Unsteady NACA0012](/tutorials/Unsteady_NACA0012/)     
+Simulation of unsteady, external, viscous flow around an airfoil.
 * [Epistemic Uncertainty Quantification of RANS predictions of NACA 0012 airfoil](/tutorials/UQ_NACA0012/)    
 Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models.
 * [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
@@ -55,8 +63,28 @@ Simulation of external, viscous, incompressible flow around the NACA 0012 using 
 Simulation of internal, laminar, incompressible flow over a backward-facing step with an inlet velocity profile input from file.
 * [Laminar Buoyancy-driven Cavity](/tutorials/Inc_Laminar_Cavity/)    
 Simulation of internal, laminar, incompressible flow in a differentially-heated cavity under the influence of gravity (classical natural convection case).
-* [Heated Cylinders with Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders/)     
-Simulation of a coupled CHT problem incorporating multiple physical zones.
+* [Streamwise Periodicity](/tutorials/Inc_Streamwise_Periodic/)
+Simulation of internal, turbulent, incompressible flow in a unit cell of a 2D pin-fin heat exchanger.
+
+#### Structural Mechanics
+
+* [Linear Elasticity](/tutorials/Linear_Elasticity/)  
+Simulation of an elasticity problem with small deformations
+* [Linear Dynamics](/tutorials/Linear_Dynamics/)  
+Simulation of a dynamic structural problem with small deformations
+* [Non-linear Elasticity](/tutorials/Nonlinear_Elasticity/)  
+Simulation of a non-linear structural problem with large deformations
+* [Multiple Materials](/tutorials/Multiple_Material/)  
+Simulation of a non-linear problem with multiple material definitions
+
+#### Multiphysics
+
+* [Static Fluid-Structure Interaction](/tutorials/Static_FSI/)  
+Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
+* [Dynamic Fluid-Structure Interaction with the Python wrapper](/tutorials/Dynamic_FSI_Python/)
+Linear Nastran-like model coupled with compressible unsteady RANS equations using the Python wrapper
+* [Static Conjugate Heat Transfer](/tutorials/Static_CHT/)
+Simulation of multiple heated cylinders in incompressible fluid flow.
 * [Unsteady Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders_Unsteady/)     
 Simulation of an unsteady coupled CHT problem incorporating multiple physical zones.
 
@@ -70,3 +98,5 @@ Perform an optimal shape design of a 2D geometry (isolated airfoil at turbulent 
 Learn the basis of 3D design by performing an optimal shape design of an isolated wing with geometrical constraints.
 * [Multi-Objective Shape Design of an Inviscid Supersonic Ramp](/tutorials/Multi_Objective_Shape_Design/)    
  Perform an optimal shape design with multiple objectives and a penalty function
+* [Unsteady Shape Optimization](/tutorials/Unsteady_Shape_Opt_NACA0012/)  
+ Shape optimization of an 2D airfoil in unsteady flow conditions.

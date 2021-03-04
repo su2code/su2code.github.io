@@ -17,6 +17,7 @@ layout: default
       $(document).ready (function () {
           $.getJSON("https://api.github.com/repos/su2code/SU2/releases/latest").done(function (data) {
               $ ('#current_release').text ("Current Release: " + data.name); 
+              $ ('#html_url').attr("href", data.html_url)
               $ ('#zip_ball').attr("href", data.zipball_url)
               $ ('#tar_ball').attr("href", data.tarball_url)
               for (var key in data.assets) {
@@ -30,21 +31,21 @@ layout: default
                 if (data.assets[key].name.includes("linux64-mpi.zip")) {
                   $('#asset_linux_mpi').attr("href",data.assets[key].browser_download_url)
                   $('#asset_linux_mpi').text("SU2 MPI " + data.tag_name + " for Linux")
-                  $('#asset_linux_mpi_time').text(data.assets[key].created_at)
+                  $('#asset_linux_mpi_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_linux_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                   $('#asset_linux_mpi_count').text(data.assets[key].download_count)
                 }
-                if (data.assets[key].name.includes("mac64.zip")) {
+                if (data.assets[key].name.includes("macos64.zip")) {
                   $('#asset_mac').attr("href",data.assets[key].browser_download_url)
                   $('#asset_mac').text("SU2 " + data.tag_name + " for macOS")
                   $('#asset_mac_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_mac_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                   $('#asset_mac_count').text(data.assets[key].download_count)
                 }
-                if (data.assets[key].name.includes("mac64-mpi.zip")) {
+                if (data.assets[key].name.includes("macos64-mpi.zip")) {
                   $('#asset_mac_mpi').attr("href",data.assets[key].browser_download_url)
                   $('#asset_mac_mpi').text("SU2 MPI " + data.tag_name + " for macOS")
-                  $('#asset_mac_mpi_time').text(data.assets[key].created_at)
+                  $('#asset_mac_mpi_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_mac_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB') 
                   $('#asset_mac_mpi_count').text(data.assets[key].download_count)               
                 }
@@ -65,7 +66,7 @@ layout: default
               }
 
           })
-          $.getJSON("https://api.github.com/repos/su2code/su2code.github.io/releases/latest").done(function (data) {
+          $.getJSON("https://api.github.com/repos/su2code/Tutorials/releases/latest").done(function (data) {
             $ ('#zip_ball_tut').attr("href", data.zipball_url)
             $ ('#tar_ball_tut').attr("href", data.tarball_url)
           })
@@ -103,12 +104,15 @@ layout: default
     <h2>Binary Executables</h2>
     <p>This option is for users who wish to use SU2 without the need to compile the program from source. We provide serial and parallel (using MPI) versions. </p>
     <b>Disclaimer:</b> For best performance and compatibility you should always consider building SU2 from source. Also note that the Discrete Adjoint functionality is not available when using the binary executables.
-
+    <br>
+    <br>
+    After downloading the appropriate files for your OS, make sure to check out the installation guides (<a href = "/docs_v7/SU2-Linux-MacOS/">Linux/MacOS</a>, <a href="/docs_v7/SU2-Windows/">Windows</a>) and the <a href="/docs_v7/Quick-Start">QuickStart</a> case.
   </div>
 </div>
 
   <br>
   <h3 id="current_release"></h3>
+  <h4>Release Notes can be found on the <a href="https://github.com/su2code/SU2/releases">releases page on Github</a></h4>
   <br>
   <table style='width:100%;font-size:100%;'>
     <tr>
@@ -201,7 +205,7 @@ layout: default
 
 <br>
 
-<p>Once you have obtained a copy of the code, follow the <a href="/docs/Installation">installation instructions</a> to compile and install from source.</p>
+<p>Once you have obtained a copy of the code, follow the installation instructions for <a href="/docs_v7/Build-SU2-Linux-MacOS/">Linux/MacOS</a> or for <a href="/docs_v7/Build-SU2-Linux-MacOS/">Windows</a> to compile and install from source.</p>
 
 
 <br>
@@ -213,8 +217,10 @@ layout: default
 <hr>
 
 <h2>Tutorials</h2>
-<p>As part of our documentation and training, we ship a set of tutorials that walk the user through setting up and executing a number of examples. These cases start from the basics and help the user learn SU2 quickly. Later tutorials cover advanced SU2 capabilities, such as optimal shape design.</p>
-
+<p>As part of our documentation and training, we ship a set of <a href="/tutorials/home/">tutorials</a> that walk the user through setting up and executing a number of examples. These cases start from the basics and help the user learn SU2 quickly. Later tutorials cover advanced SU2 capabilities, such as optimal shape design.</p>
+<p>
+You can get the most recent config and mesh files using the following links:
+</p>
 <center>
     <div class="row">
         <div class="col-sm-3 text-center">
@@ -226,9 +232,9 @@ layout: default
     </div>
 </center>
 <br>
-<p>The entire set of documentation and tutorials ships with the main project website repository. You can download all of the necessary files (including config files and grids) using the following:</p>
+<p>Or you can directly clone the repository:</p>
 
-<p><code>$ git clone https://github.com/su2code/su2code.github.io</code></p>
+<p><code>$ git clone https://github.com/su2code/Tutorials</code></p>
 
 <br>
 <hr>
@@ -253,7 +259,7 @@ The latest release of the test cases will also be tagged and available on the Gi
 
 <p>Note that, while many of the cases are used for regression testing, this test case suite is provided <b>without any guarantees on performance or expected results</b>. Keep in mind that small changes to the configuration options can often result in large changes to the output. We encourage the community to experiment with these test cases, or even try (and share!) other interesting validation cases with SU2!</p>
 
-<p> Please see the documentation on <a href="/docs/Test-Cases/">how to use the test cases</a>.</p>
+<p> Please see the documentation on <a href="/docs_v7/Test-Cases/">how to use the test cases</a>.</p>
 
 </div>
 </div>
