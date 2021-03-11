@@ -48,7 +48,7 @@ INC_DENSITY_INIT= 0.0210322
 in [flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/flow_cylinder.cfg) and
 
 ```
-SOLID_DENSITY= 0.0210322
+MATERIAL_DENSITY= 0.0210322
 ```
 in [solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder1.cfg), [solid_cylinder2.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder2.cfg) and [solid_cylinder3.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/solid_cylinder3.cfg)
 

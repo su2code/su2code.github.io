@@ -127,13 +127,13 @@ MARKER_ISOTHERMAL= ( core1, 350.0 )
 The solid's material properties are chosen as follows.
 ```
 % Solid density (kg/m^3)
-SOLID_DENSITY= 0.00021
+MATERIAL_DENSITY= 0.00021
 %
 % Solid specific heat (J/kg*K)
-SPECIFIC_HEAT_CP_SOLID = 1004.703
+SPECIFIC_HEAT_CP = 1004.703
 %
 % Solid thermal conductivity (W/m*K)
-THERMAL_CONDUCTIVITY_SOLID= 0.1028
+KT_CONSTANT= 0.1028
 ```
 
 ### Running SU2
