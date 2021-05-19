@@ -4,7 +4,7 @@ permalink: /docs_v7/Build-SU2-Linux-MacOS/
 redirect_from: /docs/Build-SU2-From-Source/
 ---
 
-For information on how to build older versions of SU2, have a look [here](/docs_v7/Build-from-Source/).
+For information on how to build older versions of SU2, have a look [here](/docs/Build-from-Source/).
 
 Note that the following guide works only on Linux/MacOS and on Windows using Cygwin or the [Linux Subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
@@ -132,6 +132,7 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-mkl`      |  `false`      |    enable Intel MKL support     |
 | `-Denable-openblas` |  `false`      |    enable OpenBLAS support      |
 | `-Denable-pastix`   |  `false`      |    enable PaStiX support        |
+| `-Denable-mpp`   |  `false`      |    enable Mutation++ support        |
 | `-Denable-mixedprec` | `false`      |    enable the use of single precision on linear solvers and preconditioners |
 
 For example to enable AD support pass the option to the `meson.py` script along with a value:
