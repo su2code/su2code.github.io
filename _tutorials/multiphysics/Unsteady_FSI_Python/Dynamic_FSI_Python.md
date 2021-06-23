@@ -215,7 +215,7 @@ Available keywords for the config file:
 
 * __RESTART_SOL__ (string): YES or NO
 
-* __MOVING_MARKER__ (string): name for the interface marker
+* __MOVING_MARKER__ (string): numerical ID of the SET1 card indentifying the group of nodes to be used as interface
 
 * __IMPOSED_MODES__ (dictionary): In case of imposed motion this list contains the modes with imposed motion and the type of motion. Example: ```IMPOSED_MODES={0:["SINUSOIDAL"],3:["BLENDED_STEP"],4:["SINUSOIDAL"]}```. If more imposed motions have to be superposed on the same mode, we can write: ```IMPOSED_MODES={0:["SINUSOIDAL","BLENDED_STEP"]}```
 
