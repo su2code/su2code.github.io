@@ -317,10 +317,10 @@ $ python3 /your/path/to/fsi_computation.py -f fsi.cfg
 If you built you version of SU2 in parallel, run instead:
 
 ```
-$ mpirun -np X python3 /your/path/to/fsi_computation.py --parallel -f fsi.cfg
+$ mpirun -np X python3 -m mpi4py /your/path/to/fsi_computation.py --parallel -f fsi.cfg
 ```
 
-Substituting X with the appropriate number of cores.
+Substituting X with the appropriate number of cores. The ```-m``` flag set to ```mpi4py``` will instruct python to call ```MPI_Abort()``` in case of unhandled exceptions. In this way, you will avoid reaching deadlocks during execution.
 
 You will see, after the usual preprocessing steps, the following output:
 
