@@ -1,6 +1,6 @@
 ---
 title: Static Conjugate Heat Transfer (CHT)
-permalink: /tutorials/Static_CHT
+permalink: /tutorials/Static_CHT/
 written_by: oleburghardt 
 for_version: 7.0.0
 revised_by: oleburghardt
@@ -46,7 +46,7 @@ The correct interface temperature distribution has then to be found by the simul
 This problem will solve for the incompressible flow over three cylinders as well as for the heat equation in all cylinders that are coupled by energy conservation across the interfaces.  
 
 The following flow conditions that are set to match the Reynolds number of 40. For hollow cylinders with outer diameters of 1m:
-- Density (variable) = 0.00042 kg/m^3
+- Density (variable) = 0.000210322 kg/m^3
 - Farfield Velocity Magnitude = 3.40297 m/s
 - Farfield Flow Direction, unit vector (x,y,z) = (1.0, 0.0, 0.0) 
 - Farfield Temperature = 288.15 K
@@ -127,13 +127,13 @@ MARKER_ISOTHERMAL= ( core1, 350.0 )
 The solid's material properties are chosen as follows.
 ```
 % Solid density (kg/m^3)
-SOLID_DENSITY= 0.00021
+MATERIAL_DENSITY= 0.00021
 %
 % Solid specific heat (J/kg*K)
-SPECIFIC_HEAT_CP_SOLID = 1004.703
+SPECIFIC_HEAT_CP = 1004.703
 %
 % Solid thermal conductivity (W/m*K)
-THERMAL_CONDUCTIVITY_SOLID= 0.1028
+KT_CONSTANT= 0.1028
 ```
 
 ### Running SU2
