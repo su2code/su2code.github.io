@@ -10,6 +10,7 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 - [Euler (Slip) Wall](#euler-slip-wall)
 - [Symmetry Wall](#symmetry-wall)
 - [Constant Heatflux (no-slip) Wall](#constant-heatflux-no-slip-wall)
+- [Heat Transfer / Convection (no-slip) Wall](#heattransfer-no-slip-wall)
 - [Isothermal (no-slip) Wall](#isothermal-no-slip-wall)
 - [Farfield Boundary Condition](#farfield-boundary-condition)
 - [Inlet Boundary Condition](#inlet-boundary-condition)
@@ -73,6 +74,20 @@ MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
 
 **Note**: Typically Navier-Stokes and RANS simulations are setup with adiabatic walls (heatflux = 0).
+
+## Heat Transfer / Convection (no-slip) Wall ##
+
+| Solver | Version | 
+| --- | --- |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+
+
+A wall with a prescribed locally variable heatflux via a heat transfer coefficient and and a Temperature at infinity (or reservoir Temperature) is defined with the `MARKER_HEATTRANSFER` option. The heatflux `q` computes to `q = h(T_inf - T_wall)`. The option format is the marker name followed by the value of the heat-transfer coefficient (in Watts per square meter and Kelvin `[W/(m^2*K)],[J/(s*m^2*K)]`) and the value of the Temperature at infinity (in Kelvin `[K]`), e.g.
+```
+MARKER_HEATTRANSFER = (Wall1, 10.0, 350.0, Wall2, 5.0, 330.0, ...)
+```
+
+**Note**: The Heat Transfer Wall degenerates to an adiabatic wall when the heat transfer coefficient is zero. On the other extreme (a very high heat transfer coefficient) the Heat Transfer Wall degenerates to an isothermal wall with Temperature at infinity being the wall temperature.
 
 ## Isothermal (no-slip) Wall ##
 
