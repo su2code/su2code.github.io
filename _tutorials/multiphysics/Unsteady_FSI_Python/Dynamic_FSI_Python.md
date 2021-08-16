@@ -2,7 +2,7 @@
 title: Dynamic Fluid-Structure Interaction (FSI) using the Python wrapper and a Nastran structural model
 permalink: /tutorials/Dynamic_FSI_Python/
 written_by: Nicola-Fonzi
-for_version: 7.0.6
+for_version: 7.1.0
 revised_by:
 revision_date:
 revised_version:
@@ -37,6 +37,8 @@ You can find the resources for this tutorial in [this folder](https://github.com
 
 In the [main directory](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_fsi_python), there are other 5 subdirectories containing the configuration files and structural models for the different Mach numbers. Please do not mix those files as the structural models and configurations are different at the different aerodynamic conditions.
 
+Before starting this tutorial, please be sure to have compiled SU2 with the python wrapper enabled. Further, two packages are required that can be downloaded from your package manager: libspatialindex and petsc, with their python counterparts rtree and petsc4py.
+
 ### Background 
 
 The solution process will follow a very similar flow as the one explained in [this](https://su2code.github.io/tutorials/Static_FSI/) tutorial,
@@ -61,7 +63,7 @@ $$
 \end{cases}
 $$
 
-Where $$m$$ is the mass of the airfoil, $$I$$ the inertia around the center of mass, $$S$$ the static moment of inertia at the rotation axis, $$C$$ and $$K$$ the dampings and stiffnesses respectively. $$L$$ and $$M$$ are the lift and pitching up moment.
+Where $$m$$ is the mass of the airfoil, $$I$$ the inertia around the rotation axis, $$S$$ the static moment of inertia at the rotation axis, $$C$$ and $$K$$ the dampings and stiffnesses respectively. $$L$$ and $$M$$ are the lift and pitching up moment.
 
 These equations are usually adimensionalised to obtain results independent from the free-stream density of the flow.
 Indeed, we can define the following parameters:
@@ -197,8 +199,6 @@ Available keywords for the config file:
 
 * __NMODES__ (int): number of modes to use in the analysis. If n modes are available in the punch file, but only the first m<n are required, set this to m
 
-* __IMPOSED_MODE__ (int): mode with an imposed motion. The first index, consistent with Python syntax, is 0
-
 * __RESTART_ITER__ (int): if restart is used, this specifies the iteration to restart
 
 * __DELTA_T__ (float): physical time step size to be used in the simulation. Must match the one in SU2
@@ -215,15 +215,13 @@ Available keywords for the config file:
 
 * __RESTART_SOL__ (string): YES or NO
 
-* __IMPOSED_DISP__ (string): string containing the function for the displacement. Example is "sine(2*pi*time)+10"
+* __MOVING_MARKER__ (string): numerical ID of the SET1 card indentifying the group of nodes to be used as interface
 
-* __IMPOSED_VEL__ (string): analytical differentiation of above
+* __IMPOSED_MODES__ (dictionary): In case of imposed motion this list contains the modes with imposed motion and the type of motion. Example: ```IMPOSED_MODES={0:["SINUSOIDAL"],3:["BLENDED_STEP"],4:["SINUSOIDAL"]}```. If more imposed motions have to be superposed on the same mode, we can write: ```IMPOSED_MODES={0:["SINUSOIDAL","BLENDED_STEP"]}```
 
-* __IMPOSED_ACC__ (string): analytical differentiation of above
+* __IMPOSED_PARAMETERS__ (dictionary): Depending on what was selected above, different parameters are required to complete the definition of motion. For example, in case of a sinusoidal motion, it is required to know if there is a bias, the initial time, the frequency and the amplitude. If we want to specify a sine with no bias, initial time of 5s, 20 of amplitude and 10 Hz of frequency for mode 7, we would write: ```IMPOSED_PARAMETERS={6:[{"BIAS":0.0, "AMPLITUDE":20.0, "FREQUENCY":10.0, "TIME_0":5.0}]}```. Please note that more imposed motions can be superposed on the same mode simply adding more entries for the same mode: ```IMPOSED_PARAMETERS={6:[{...},{...}]}```. For more information about these parameters please look at the module ```pysu2_nastran.py```. Note that the order of the parameter dictionaries must be coincident with the order defined in IMPOSED_MODES dictionary.
 
-* __MOVING_MARKER__ (string): name for the interface marker
-
-* __INITIAL_MODES__ (list): list containing the initial amplitudes of the modes. Example is {0:0.1,1:0.0,3:5.0,...}
+* __INITIAL_MODES__ (dictionary): list containing the initial amplitudes of the modes. Example is {0:0.1,1:0.0,3:5.0,...}
 
 We will call the Nastran model modal.bdf and, after the eigenvalue analysis, we will obtain the files modal.f06 and modal.pch.
 
@@ -256,7 +254,7 @@ The most important interface configuration keywords are:
                      
 * __NB_FSI_ITER__ (int):   Number of max internal iterations to couple fluid and structure
 
-* __RBF_RADIUS__ (float):  Radius for the RBF interpolation. It is dimensional (i.e. in meters) and must be set so that at least 5 structural points are always inside a sphere with that radius and centered in any of the structural nodes. The more nodes are included, the better the interpolation. However, with larger radius, the interpolation matrix may become close to singular
+* __RBF_RADIUS__ (float):  Radius for the RBF interpolation. It is dimensional (i.e. in meters) and must be set so that at least 5 structural points are always inside a sphere with that radius and centered in any of the structural nodes. The more nodes are included, the better the interpolation. However, with a larger radius, the interpolation matrix becames less sparse and the solution more computationally expensive
                      
 * __AITKEN_PARAM__ (float): Under relaxation parameter, between 0 and 1
 
@@ -319,10 +317,10 @@ $ python3 /your/path/to/fsi_computation.py -f fsi.cfg
 If you built you version of SU2 in parallel, run instead:
 
 ```
-$ mpirun -np X python3 /your/path/to/fsi_computation.py --parallel -f fsi.cfg
+$ mpirun -np X python3 -m mpi4py /your/path/to/fsi_computation.py --parallel -f fsi.cfg
 ```
 
-Substituting X with the appropriate number of cores.
+Substituting X with the appropriate number of cores. The ```-m``` flag set to ```mpi4py``` will instruct python to call ```MPI_Abort()``` in case of unhandled exceptions. In this way, you will avoid reaching deadlocks during execution.
 
 You will see, after the usual preprocessing steps, the following output:
 

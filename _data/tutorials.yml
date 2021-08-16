@@ -25,8 +25,8 @@
   - Inc_Turbulent_NACA0012
   - Inc_Laminar_Step
   - Inc_Laminar_Cavity
-  - Inc_Heated_Cylinders
-  
+  - Inc_Streamwise_Periodic
+
 - title: Structural Mechanics
   tutorials:
   - Linear_Elasticity
@@ -38,6 +38,8 @@
   tutorials:
    - Static_FSI
    - Dynamic_FSI_Python
+   - Static_CHT
+   - Inc_Heated_Cylinders_Unsteady
 
 - title: Design Features
   tutorials:
