@@ -271,7 +271,7 @@ The most important interface configuration keywords are:
      
 * __IMPOSED_MOTION__ (string): YES or NO. Specifies wether the structural solver will integrate the structural equations or just impose a specific movement. In the latter case, forces are not mapped onto the structure, as it would not be required.
 
-* __MAPPING_MODES__ (string): Special feature that can only be used with the native solver. Used to extract the mapped modes onto the aerodynamic mesh.
+* __MAPPING_MODES__ (string): YES or NO. Special feature that can only be used with the native solver. Used to extract the mapped modes onto the aerodynamic mesh.
  
 * __CSD_CONFIG_FILE_NAME__ (string): Path to the solid cfg file
 
