@@ -57,11 +57,11 @@ A symmetry wall is defined with using the `MARKER_SYM` option. Only the marker n
 
 For all Finite Volume (FVM) solvers, i.e. not the `FEM_*` solvers, its implementation is identical to `MARKER_SYM` solvers and both options can be used interchangeably.
 
-For the Negative Spalart-Allmaras variable Neumann boundary conditions are implemented.
-
 ```
 MARKER_SYM = (Symmetry_Wall1, Symmetry_Wall2, ...)
 ```
+
+The negative Sapalart-Allmaras model implements the same boundary conditions as for the standard/standalone version.
 
 ## Constant Heatflux (no-slip) Wall ##
 
@@ -70,7 +70,7 @@ MARKER_SYM = (Symmetry_Wall1, Symmetry_Wall2, ...)
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
 
 
-A solid viscous wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watts per square meter `[W/m^2],[J/(s*m^2)]`), e.g.
+A viscous wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watts per square meter `[W/m^2],[J/(s*m^2)]`), e.g.
 ```
 MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
@@ -113,13 +113,6 @@ A marker can be defined as a Farfield boundary by addings its name to the `MARKE
 ```
 MARKER_FAR= (farfield)
 ```
-## Periodic boundary conditions ##
-For two given periodic surfaces `periodic marker` and `donor marker` SU2 defines periodicity by 
-```
-MARKER_PERIODIC= ( periodic marker, donor marker, rotation_center_x, rotation_center_y, rotation_center_z, rotation_angle_x-axis, rotation_angle_y-axis, rotation_angle_z-axis, translation_x, translation_y, translation_z, ... )
-```
-
-The same number of points on both surfaces is assumed. Their orientation is specified by the additional set of parameters. Whereby `rotation_center_` specifies the coordinates of the center of rotation for the specified axis, `rotation_angle_` defines the rotation angle [in radians] between `periodic marker` and `donor marker` about the specified axis and `translation_` specifies the translation in space between `periodic marker` and `donor marker` about the specified axis.
 
 ## Inlet Boundary Condition ##
 Inlet boundary conditions are set using the option `MARKER_INLET`.
@@ -230,6 +223,12 @@ MARKER_OUTLET = (outlet, 1e1)
 | Solver | Version | 
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+For two given periodic surfaces `periodic marker` and `donor marker` SU2 defines periodicity by 
+```
+MARKER_PERIODIC= ( periodic marker, donor marker, rotation_center_x, rotation_center_y, rotation_center_z, rotation_angle_x-axis, rotation_angle_y-axis, rotation_angle_z-axis, translation_x, translation_y, translation_z, ... )
+```
+The same number of points on both surfaces is assumed. Their orientation is specified by the additional set of parameters. Whereby `rotation_center_` specifies the coordinates of the center of rotation for the specified axis, `rotation_angle_` defines the rotation angle [in radians] between `periodic marker` and `donor marker` about the specified axis and `translation_` specifies the translation in space between `periodic marker` and `donor marker` about the specified axis.
 
 ## Structural Boundary Conditions ##
 

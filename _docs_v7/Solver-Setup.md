@@ -6,9 +6,9 @@ permalink: /docs_v7/Solver-Setup/
 This is a basic introduction on how to set up a simulation using SU2. We distinguish between single-zone computations and multi-zone computations. The following considers a single zone only. For an explanation on multi-zone problems, continue with [Basics of Multi-Zone Computations](/docs_v7/Multizone).
 
 Three different types of mathematical problems can be solved in SU2. The type of problem to be solved is specified on the config file by the `MATH_PROBLEM` field. The three options are:
-`DIRECT`:
-`DISCRETE_ADJOINT`:
-`CONTINUOUS_ADJOINT`:
+`DIRECT`: also refered to as primal, flow solver.?
+`DISCRETE_ADJOINT`: a discrete adjoint methodology based on Automatic Differentiation.
+`CONTINUOUS_ADJOINT`: a continuous adjoint methodology based on Automatic Differentiation.
 
 See the [Software Components](/docs_v7/Software-Components/) documentation to determine which software module is required for each problem.
 
@@ -31,7 +31,7 @@ See the [Software Components](/docs_v7/Software-Components/) documentation to de
 | --- | --- |
 | `ALL`| 7.0.0 |
 
-## Direct or Primal ##
+## Direct ##
 
 SU2 is capable of dealing with different kinds of physical problems. The kind of problem is defined by choosing a solver using the `SOLVER` option. The list of possible values and a description can be found in the following table:
 
@@ -66,9 +66,6 @@ TURB_MODEL_CORRECTIONS= SA-EDW, SA-NEG
 ```
 
 #### Spalart-Allamaras ####
-
-<!--In https://su2code.github.io/docs_v7/Solver-Setup/-> Turbulence Modeling documentation about the model corrections or variants that are implemented, explicitely list them!-->
-
 The single transported Spalart-Allmaras variable $\tilde{\nu}$ is initialized with the value at the farfield or inlet boundary. As suggested in the literature, the value there is computed as $\tilde{\nu}/\nu = \mathrm{turb2lam}$. In SU2 the free-stream Spalart-Allmaras variable to kinematic laminar viscosity ratio, $\mathrm{turb2lam}$, is controlled by the `FREESTREAM_NU_FACTOR` option. The default value is $\tilde{\nu}/\nu = 3.0$ avoiding laminar solutions.
 
 In the following the implemented model versions in SU2 are listed:
@@ -112,12 +109,10 @@ Further, by the model definition in the farfield region there is no production o
 To determine those grid points where the correction should be applied, we compare the dot product of the normalized freestream velocity vector and the grid point coordinates. For those points which dot product result is lower than the specified `TURB_FIXED_VALUES_DOMAIN` value, the turbulence quantities are just set to the farfield values there. Note that although the Spalart-Allmaras turbulence model does not suffer from a decaying turbulence variable, the floor values limitation can also be employed. <!--The implementation is analogous to the strong boundary conditions, setting the turbulent residual equal zero at those locations.-->
 
 #### Wall functions ####
+Should be written here.
 
 ### Foward mode of AD ###
-A further capability of the 
-
-This module? computes the forward derivatives (see [Advanced AD Techniques](/docs_v7/Advanced-AD-Techniques)) of an specified function with respect to a registered variable. The function to be differentiated can be any of the variables specified as `COEFFICIENT` in the `SetHistoryOutputFields` functions of the flow output classes. In the config file one just needs to write D_< string group name > in the `HISTORY_OUTPUT`. In the config file, the field `DIRECT_DIFF` specifies the variable to be registered as an input.
-In SU2 it is possible to register almost any variable as an input. Currently SU2 has implemented the following variables:
+The forward mode of AD capability allows to compute the forward derivatives (see [Advanced AD Techniques](/docs_v7/Advanced-AD-Techniques)) of an specified function with respect to a registered variable. The function to be differentiated can be any of the variables specified as `COEFFICIENT` in the `SetHistoryOutputFields` functions of the flow output classes. To get the derivative, one just needs to write D_< string group name > in the `HISTORY_OUTPUT` field from the config file. Addioiniallty, the field `DIRECT_DIFF` specifies the variable to be registered as an input. In SU2 it is possible to register almost any variable as an input. Currently SU2 has implemented the following variables:
 
 `D_MACH` Mach number
 `D_AOA` angle of attack
@@ -135,15 +130,21 @@ In SU2 it is possible to register almost any variable as an input. Currently SU2
 `D_RHO_DL` density for dead loads
 `D_EFIELD` electric field
 
-The execution of this capability is done by the module `SU2_CFD_DIRECTDIFF`. See the [Software Components](/docs_v7/Software-Components/) for further.
-
-Every solver has its specific options and we refer to the tutorial cases for more information. However, the basic controls detailed in the remainder of this page are the same for all problems.
+The execution of this capability is done by the module `SU2_CFD_DIRECTDIFF`. See the [Software Components](/docs_v7/Software-Components/) for further details.
 
 ## Discrete adjoint ##
 
+SU2 can compute the variation of an objective function with respect to design surface shape deformations. To get the list of objective functions available in SU2 we address to https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp ENUM_OBJECTIVE and Objective_Map to see the proper nomenclature for the config file.
 
+The objective function can be scaled by a weighting factor. This can be specified with the `OBJECTIVE_WEIGHT` field in the config file.
 
-## Restarting the simulation ##
+## Continuous adjoint ##
+
+Same as the discrete adjoint but using the continuous adjoint approach :)
+
+Every solver has its specific options and we refer to the tutorial cases for more information. However, the basic controls detailed in the remainder of this page are the same for all solvers and mathematical problems.
+
+# Restarting the simulation #
 
 | Solver | Version | 
 | --- | --- |
@@ -204,7 +205,7 @@ The option `CFL_ADAPT_PARAM` controls the adaptative CFL number, which parameter
 
 The local CFL number increases by factor-up until CFL max value if the solution rate of change is not limited, and acceptable linear convergence is achieved. It is reduced by factor-down if rate is limited, there is not enough linear convergence, or the nonlinear residuals are stagnant and oscillatory. It is reset back to CFL min value when linear solvers diverge, or if nonlinear residuals increase too much.
 
-No idea about the acceptable linear solver convergence parameter!!!!!
+No idea about the acceptable linear solver convergence parameter?
 
 ## Time-dependent Simulation ##
 
