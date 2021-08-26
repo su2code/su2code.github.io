@@ -129,13 +129,15 @@ The forward mode of AD capability allows to compute the forward derivatives (see
 
 The execution of this capability is done by the module `SU2_CFD_DIRECTDIFF`. See the [Software Components](/docs_v7/Software-Components/) for further details.
 
-## Discrete adjoint ##
+## Adjoint Formulations ##
 
-SU2 can compute the variation of an objective function with respect to the design surface shape control points. To get the list of objective functions available in SU2 we address to https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp ENUM_OBJECTIVE and Objective_Map to see the proper nomenclature for the config file. DON'T KNOW HOW TO ADDRESS PROPERLY?
+### Discrete adjoint ###
+
+SU2 can compute the sensitivities of an objective function with respect to the control points defining the shape of the design surface. To get the list of objective functions available in SU2 we address to https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp ENUM_OBJECTIVE and Objective_Map to see the proper nomenclature for the config file. DON'T KNOW HOW TO ADDRESS PROPERLY?
 
 The objective function value can be scaled by a weighting factor. This value can be specified in the `OBJECTIVE_WEIGHT` field on the config file.
 
-## Continuous adjoint ##
+### Continuous adjoint ###
 
 Same as the discrete adjoint but using the continuous adjoint approach :)
 

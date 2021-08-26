@@ -228,7 +228,7 @@ For two given periodic surfaces `periodic marker` and `donor marker` SU2 defines
 ```
 MARKER_PERIODIC= ( periodic marker, donor marker, rotation_center_x, rotation_center_y, rotation_center_z, rotation_angle_x-axis, rotation_angle_y-axis, rotation_angle_z-axis, translation_x, translation_y, translation_z, ... )
 ```
-The same number of points on both surfaces is assumed. Their orientation is specified by the additional set of parameters. Whereby `rotation_center_` specifies the coordinates of the center of rotation for the specified axis, `rotation_angle_` defines the rotation angle [in radians] between `periodic marker` and `donor marker` about the specified axis and `translation_` specifies the translation in space between `periodic marker` and `donor marker` about the specified axis.
+The same number of points on both surfaces is assumed. Their orientation is specified by the additional set of arguments. For rotational periodicity the parameter `rotation_center_` specifies the coordinates of the center of rotation for the specified axis and `rotation_angle_` defines the rotation angle [in radians] between `periodic marker` and `donor marker` about the specified axis. For translational periodicty the parameter `translation_` specifies the translation between `periodic marker` and `donor marker` in each space direction.
 
 ## Structural Boundary Conditions ##
 
