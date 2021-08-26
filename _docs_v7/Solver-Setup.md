@@ -29,7 +29,7 @@ See the [Software Components](/docs_v7/Software-Components/) documentation to de
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.2.0 |
 
 ## Direct ##
 
@@ -145,7 +145,7 @@ Every solver has its specific options and we refer to the tutorial cases for mor
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.2.0 |
 
 A simulation can be restarted from a previous computation by setting `RESTART_SOL=YES`. If it is a time-dependent problem, additionally `RESTART_ITER` must be set to the time iteration index you want to restart from:
 
@@ -185,7 +185,7 @@ The option `MATH_PROBLEM` defines whether the direct problem (`DIRECT`, default)
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.2.0 |
 
 A simulation is controlled by setting the number of iterations the solver should run (or by setting a convergence critera). The picture below depicts the two types of iterations we consider.
 
@@ -208,7 +208,7 @@ No idea about the acceptable <linear solver convergence> parameter?
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.2.0 |
 
 To enable a time-dependent simulation set the option `TIME_DOMAIN` to `YES` (default is `NO`). There are different methods available for certain solvers which can be set using the `TIME_MARCHING` option. For example for any of the FVM-type solvers a first or second-order dual-time stepping (`DUAL_TIME_STEPPING-1ST_ORDER`/`DUAL_TIME_STEPPING-2ND_ORDER`) method or a conventional time-stepping method (`TIME_STEPPING`) can be used.
 
@@ -237,7 +237,7 @@ The solver will stop either when it reaches the maximum time (`MAX_TIME`) or the
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.2.0 |
 
 A steady-state simulation is defined by using `TIME_DOMAIN=NO`, which is the default value if the option is not present. In this case the number of iterations is controlled by the option `ITER`.
 
@@ -247,7 +247,7 @@ A steady-state simulation is defined by using `TIME_DOMAIN=NO`, which is the def
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.2.0 |
 
 Despite setting the maximum number of iterations, it is possible to use a convergence criterion so that the solver will stop when it reaches a certain value of a residual or if variations of a coefficient are below a certain threshold. To enable a convergence criterion use the option `CONV_FIELD` to set an output field that should be monitored. The list of possible fields depends on the solver. Take a look at [Custom Output](/docs_v7/Custom-Output/) to learn more about output fields. Depending on the type of field (residual or coefficient) there are two types of methods:
 
