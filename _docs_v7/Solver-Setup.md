@@ -8,7 +8,7 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
 Three different types of mathematical problems can be solved in SU2. The type of problem to be solved is specified on the config file by the `MATH_PROBLEM` field. The three options are:
 `DIRECT`: Also referred to as primal, this is the default when SU2_CFD or SU2_DEF are used.
 `DISCRETE_ADJOINT`: A discrete adjoint methodology based on Automatic Differentiation, available for most solvers.
-`CONTINUOUS_ADJOINT`: a continuous adjoint methodology based on Automatic Differentiation.
+`CONTINUOUS_ADJOINT`: A hand-derived continuous adjoint methodology available only for compressible flows.
 
 See the [Software Components](/docs_v7/Software-Components/) documentation to determine which software module is required for each problem.
 
