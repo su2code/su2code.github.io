@@ -51,7 +51,7 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 
 ### Turbulence modeling ###
 
-The turbulence model to be used is specified in the config file by the `KIND_TURB_MODEL` option. The current options are `SA` for the Spalart-Allmaras and `SST` for the Mentor Shear Stress Transport.
+The turbulence model to be used for RANS and INC_RANS is specified in the config file by the `KIND_TURB_MODEL` option. The current options are `SA` for the Spalart-Allmaras and `SST` for the Mentor Shear Stress Transport.
 
 Different corrections or variations are implemented for each turbulence model which can be simultaneously used. These are specified in the `TURB_MODEL_CORRECTIONS` option. The default is `NONE` standing for the standalone version.
 
@@ -91,7 +91,7 @@ The freestream turbulence kinetic energy value is set by the `FREESTREAM_TURBULE
 The freestream dissipation is set by the `FREESTREAM_TURB2LAMVISCRATIO` field. The same definition as for  `FREESTREAM_TURBULENCEINTENSITY` applies.
 
 ##### Limitations of k and omega #####
-To increase robustness and prevent negative values, a hard-coded upper and lower limit is set for each turbulent variable:
+To increase robustness and prevent negative values, a hard-coded upper and lower limit are set for each turbulent variable:
 ```
 // turbulence kinetic energy
 lowerlimit = 1.0e-10;
@@ -101,20 +101,17 @@ upperlimit = 1.0e10;
 lowerlimit = 1.0e-4;
 upperlimit = 1.0e15;
 ```
-Further, by the model definition in the farfield region there is no production of $k$ nor $\omega$ while destruction still takes place. Consequently the turbulence quantities typically decay on their way from the farfield boundary to the airfoil. In order to prevent the non-physical decay of the turbulence variables in SU2 there are implemented to two approaches:
+Further, by the model definition in the farfield region there is no production of $k$ nor $\omega$ while destruction still takes place. Consequently the turbulence quantities typically decay on their way from the farfield boundary to the airfoil. In order to prevent the non-physical decay <!--of the turbulence variables--> in SU2 there are implemented to two approaches:
 - Sustaining terms: it consists on the introduction of additional source terms in the turbulence model equations compensating the destruction terms in the farfield flow. This approach is activated by using the modified version of the SST moodel, `SST-sust`.
 - Floor values: this approach is equivalent to setting the lowerlimit to the farfield values in the upstream region of an airfoil. The floor values are implemented in the form of fixed values. This correction can be activated with the following parameters in the config file:
 `TURB_FIXED_VALUES= YES`
 `TURB_FIXED_VALUES_DOMAIN= -1.0`
 To determine those grid points where the correction should be applied, we compare the dot product of the normalized freestream velocity vector and the grid point coordinates. For those points which dot product result is lower than the specified `TURB_FIXED_VALUES_DOMAIN` value, the turbulence quantities are just set to the farfield values there. Note that although the Spalart-Allmaras turbulence model does not suffer from a decaying turbulence variable, the floor values limitation can also be employed. <!--The implementation is analogous to the strong boundary conditions, setting the turbulent residual equal zero at those locations.-->
 
-#### Wall functions ####
-Should be written here.
-
 ### Foward mode of AD ###
-The forward mode of AD capability allows to compute the forward derivatives (see [Advanced AD Techniques](/docs_v7/Advanced-AD-Techniques)) of an specified function with respect to a registered variable. The function to be differentiated can be any of the variables specified as `COEFFICIENT` in the `SetHistoryOutputFields` functions of the flow output classes. To get the derivative, one just needs to write D_< string group name > in the `HISTORY_OUTPUT` field from the config file. Addioiniallty, the field `DIRECT_DIFF` specifies the variable to be registered as an input. In SU2 it is possible to register almost any variable as an input. Currently SU2 has implemented the following variables:
+The forward mode of AD capability allows to compute the forward derivatives (see [Advanced AD Techniques](/docs_v7/Advanced-AD-Techniques)) of an specified function with respect to a registered variable/s. If multiple design variables are registered as input, the output will consist on the accumulation. The function to be differentiated can be any of the variables specified as `COEFFICIENT` in the `SetHistoryOutputFields` functions of the flow output classes. To get the derivative, one just needs to write D_< string group name > in the `HISTORY_OUTPUT` field from the config file. Addioiniallty, the field `DIRECT_DIFF` specifies the variable to be registered as an input. In SU2 it is possible to register almost any variable. Currently SU2 has implemented the following variables:
 
-`D_MACH` Mach number
+`D_MACH` Freestream Mach number
 `D_AOA` angle of attack
 `D_PRESSURE`  freestream pressure
 `D_TEMPERATURE` freestream temperature
@@ -122,7 +119,7 @@ The forward mode of AD capability allows to compute the forward derivatives (see
 `D_TURB2LAM` freestream ratio of turbulent to laminar viscosity
 `D_SIDESLIP` sideslip angle
 `D_VISCOSITY` freestream laminar viscosity
-`D_REYNOLDS` reynolds number
+`D_REYNOLDS` freestream Reynolds number
 `D_DESIGN` design??
 `D_YOUNG` Young's modulus
 `D_POISSON` Poisson's ratio
@@ -134,9 +131,9 @@ The execution of this capability is done by the module `SU2_CFD_DIRECTDIFF`. See
 
 ## Discrete adjoint ##
 
-SU2 can compute the variation of an objective function with respect to design surface shape deformations. To get the list of objective functions available in SU2 we address to https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp ENUM_OBJECTIVE and Objective_Map to see the proper nomenclature for the config file.
+SU2 can compute the variation of an objective function with respect to the design surface shape control points. To get the list of objective functions available in SU2 we address to https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp ENUM_OBJECTIVE and Objective_Map to see the proper nomenclature for the config file. DON'T KNOW HOW TO ADDRESS PROPERLY?
 
-The objective function can be scaled by a weighting factor. This can be specified with the `OBJECTIVE_WEIGHT` field in the config file.
+The objective function value can be scaled by a weighting factor. This value can be specified in the `OBJECTIVE_WEIGHT` field on the config file.
 
 ## Continuous adjoint ##
 
@@ -203,9 +200,9 @@ The Courant-Friedrichs-Lewy number is specified by the `CFL_NUMBER` parameter. I
 
 The option `CFL_ADAPT_PARAM` controls the adaptative CFL number, which parameters are: factor-down, factor-up, CFL min value, CFL max value and acceptable linear solver convergence.
 
-The local CFL number increases by factor-up until CFL max value if the solution rate of change is not limited, and acceptable linear convergence is achieved. It is reduced by factor-down if rate is limited, there is not enough linear convergence, or the nonlinear residuals are stagnant and oscillatory. It is reset back to CFL min value when linear solvers diverge, or if nonlinear residuals increase too much.
+If an adaptative CFL number is used, the initial CFL number for the finest grid is set to <CFL min value>. The local CFL number increases by <factor-up> until <CFL max value> if the solution rate of change is not limited, and acceptable linear convergence is achieved. It is reduced by <factor-down> if rate is limited, there is not enough linear convergence, or the nonlinear residuals are stagnant and oscillatory. It is reset back to <CFL min value> when linear solvers diverge, or if nonlinear residuals increase too much.
 
-No idea about the acceptable linear solver convergence parameter?
+No idea about the acceptable <linear solver convergence> parameter?
 
 ## Time-dependent Simulation ##
 

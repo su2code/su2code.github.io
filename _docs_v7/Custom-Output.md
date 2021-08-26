@@ -93,8 +93,6 @@ For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non
 | `VORTICITY` | Vorticity | `VORTEX_IDENTIFICATION` |
 | `Q_Criterion` | Q-Criterion | `VORTEX_IDENTIFICATION` |
 
-Agree to include each output or point to...?
-
 
 ## Customizing the Screen and History Output ##
 
