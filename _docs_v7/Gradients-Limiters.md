@@ -16,7 +16,7 @@ The numerical method for the computation of the spatial gradients used for visco
 `WEIGHTED_LEAST_SQUARES`: Compute the gradient of a field using inverse-distance-weighted approximation.
 The default option is set to `WEIGHTED_LEAST_SQUARES`.
 
-The spatial gradients method used only for upwind reconstruction is specified by the `NUM_METHOD_GRAD_RECON` field. An additional method is available; `LEAST_SQUARES`: Compute the gradient of a field using unweighted Least- Squares approximation. If this field is left empty or set to `NONE` it defaults to `NUM_METHOD_GRAD`.
+The spatial gradients method used only for upwind reconstruction is specified by the `NUM_METHOD_GRAD_RECON` field. An additional method is available; `LEAST_SQUARES`: Compute the gradient of a field using unweighted Least- Squares approximation. If the `NUM_METHOD_GRAD_RECON` field is left empty or set to `NONE` it defaults to `NUM_METHOD_GRAD`.
 
 Thin Shear Layer gradient reconstruction is always used for the construction of the Jacobian.
 
