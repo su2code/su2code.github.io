@@ -11,8 +11,8 @@ This page lists the gradient computation methods and the limiter functions in SU
 ---
 
 ## Gradient Computation ##
-The numerical method for the spatial gradients computation is specified by the `NUM_METHOD_GRAD` field. The list of availabel options is given below.
-`GREEN_GAUSS`: classic gradient reconstruction based on the Green-Gauss theorem.
+The numerical method for the computation of the spatial gradients used for viscous fluxes and source terms is specified by the `NUM_METHOD_GRAD` field. The list of available options is given below.
+`GREEN_GAUSS`: Classic gradient reconstruction based on the Green-Gauss theorem.
 `LEAST_SQUARES`: Compute the gradient of a field using unweighted Least- Squares approximation.
 `WEIGHTED_LEAST_SQUARES`: Compute the gradient of a field using inverse-distance-weighted approximation.
 The default option is set to `WEIGHTED_LEAST_SQUARES`.

@@ -61,7 +61,7 @@ For all Finite Volume (FVM) solvers, i.e. not the `FEM_*` solvers, its implement
 MARKER_SYM = (Symmetry_Wall1, Symmetry_Wall2, ...)
 ```
 
-The negative Sapalart-Allmaras model implements the same boundary conditions as for the standard/standalone version.
+The negative Spalart-Allmaras model implements the same boundary conditions as for the standard/standalone version.
 
 ## Constant Heatflux (no-slip) Wall ##
 
