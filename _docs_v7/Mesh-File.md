@@ -153,7 +153,4 @@ We are continuously working to integrate SU2 with industry-standard tools. The l
 The following image illustrates the primary and dual grid components nomenclature used inside the SU2 code.
 
 ![SU2 geometry definition](../../docs_files/SU2_geometry_nomenclature.png)
-
-with the dual grid in red and the primary grid in black.
-
-MAKE IT PRETTIER!
+*Primary and dual grid nomenclature. Primary grid in black and dual grid in red.*
