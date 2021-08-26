@@ -32,7 +32,7 @@ While they are not C++ modules, two other similar directories included in the so
 
 SU2 includes integrated support for Algorithmic Differentiation (AD) based on Operator Overloading to compute arbitrary derivatives. One application of this feature is the discrete adjoint solver that is implemented in SU2. In contrast to the continuous adjoint method, special versions of the modules SU2_CFD and SU2_DOT are required to use this solver.
 
-- **SU2_CFD_AD**: Solves the discrete adjoint equations using a consistent linearization of the flow solver with the help of AD. Although it has additionally the same features as SU2_CFD, using it for other solvers will result in a slight slow-down due to the AD overhead.
+- **SU2_CFD_AD**: Solves the discrete adjoint equations using a consistent linearization of the flow solver with the help of AD. It has the same features as SU2_CFD, but using it for direct problems will result in a slow-down due to the AD overhead.
 - **SU2_CFD_DIRECTDIFF**: Computes the gradients of an objective function by forward mode of AD. It has the same features as SU2_CFD, but using it for direct problems will result in a slow-down due to the AD overhead.
 - **SU2_DOT_AD**: The discrete adjoint formulation does not include the influence of the mesh deformation, therefore this module will compute the required partial derivative of the functional with respect to variations in the computational mesh. Instead of SU2_DOT, SU2_DOT_AD uses the volume sensitivities to evaluate the derivative. Finally, the resulting sensitivities on the aerodynamic surface are projected on to the particular design parameterization.
 
