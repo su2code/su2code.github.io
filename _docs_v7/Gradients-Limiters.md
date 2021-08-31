@@ -24,15 +24,13 @@ Thin Shear Layer gradient reconstruction is always used for the construction of 
 SU2 implements limiter functions to prevent the generation of oscillations when using upwind spatial discretisations. These are specified by the config field `SLOPE_LIMITER_FLOW`. The available options are:
 - `NONE`                 - No limiter
 - `VENKATAKRISHNAN`      - Slope limiter using Venkatakrisnan method.
-- `VENKATAKRISHNAN_WANG` - Slope limiter using Venkatakrisnan method, eps based on solution. EPS is...?
+- `VENKATAKRISHNAN_WANG` - Slope limiter using Venkatakrisnan method, with the small non-vanishing bias to prevent divisions by zero based on the min-to-max range of the solution.
 - `BARTH_JESPERSEN`      - Slope limiter using Barth-Jespersen method.
 - `VAN_ALBADA_EDGE`      - Slope limiter using Van Albada method.
 - `SHARP_EDGES`          - Slope limiter using sharp edges.
 - `WALL_DISTANCE`        - Slope limiter using wall distance.
-The default option is set to `VENKATAKRISHNAN`.
+With the default option set to `VENKATAKRISHNAN`.
 
-   *  \n DESCRIPTION: Coefficient for the limiter. DEFAULT value 0.5. Larger values decrease the extent of limiting, values approaching zero cause lower-order approximation to the solution. \ingroup Config */
-  addDoubleOption("VENKAT_LIMITER_COEFF", Venkat_LimiterCoeff, 0.05);
-  
+The `VENKAT_LIMITER_COEFF` field is used to compute the small non-vanishing bias to prevent divisions by zero, $\epsilon$. Depending on the limiter to be used this field has different interpretations. For the `VENKATAKRISHNAN` limiter it represents the constant $K$ in $\epsilon^2=\left(K\Delta x\right)^3$. We refer to [Venkatakrishnan](https://doi.org/10.1006/jcph.1995.1084) for further details. For the `VENKATAKRISHNAN_WANG` limiter it represents the constant $\epsilon^{\prime}$ in $\epsilon = \epsilon^{\prime}(q^{\text{\max}}-q^{\text{\min}})$. We refer to [Wang](https://doi.org/10.2514/6.1996-2091) for further details. For both limiters larger values of `VENKAT_LIMITER_COEFF` decrease the extent of limiting, while values approaching zero cause lower-order approximation to the solution. The dafault value is 0.05.
   
 The option `LIMITER_ITER` specifies the number of iterations afterFreeze the value of the limiter after a number of iterations. DEFAULT value $999999$.
