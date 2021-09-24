@@ -3,7 +3,7 @@ title: Gradients and Limiters
 permalink: /docs_v7/Gradients-Limiters/
 ---
 
-This page lists the gradient computation methods and the limiter functions in SU2 as well as their associated options, it is not meant as a detailed theory guide but some application guidance is given nonetheless. The options listed here do not apply to the high order DG solver.?
+This page lists the gradient computation methods and the limiter functions in SU2 as well as their associated options, it is not meant as a detailed theory guide but some application guidance is given nonetheless. The options listed here do not apply to the high order DG solver.
 
 ---
 
