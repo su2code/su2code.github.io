@@ -19,7 +19,7 @@ Upon completing this tutorial, the user will be familiar with setting up and run
 - Constraints as penalty functions
 - Combining objectives in the adjoint evaluation of the gradient to reduce computational cost.
 
-The intent of this tutorial is to introduce multi-objective, single-point optimization and explain how this can be implemented using SU2. This tutorial uses the same geometry and flow conditions as described in the inviscid supersonc wedge tutorial.
+The intent of this tutorial is to introduce multi-objective, single-point optimization and explain how this can be implemented using SU2. This tutorial uses the same geometry and flow conditions as described in the inviscid supersonic wedge tutorial.
 
 
 The capabilities of combining multiple objectives and incorporating penalty functions into the adjoint formulation in SU2 are discussed further in section 3.4 of [this work](https://purl.stanford.edu/mm280hp6972). 
