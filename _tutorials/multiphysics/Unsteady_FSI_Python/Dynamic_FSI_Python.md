@@ -267,8 +267,12 @@ The most important interface configuration keywords are:
 
 * __CFD_CONFIG_FILE_NAME__ (string): Path to the fluid cfg file
 
-* __CSD_SOLVER__ (string): Behaviour of the structural solver to be used. AEROELASTIC if the structural equation of motions must be solved, IMPOSED if a movement of the structure is imposed
-                     
+* __CSD_SOLVER__ (string): Structural solver to be used. As of now, only the native modal solver is used, activated with the keyword NATIVE. However, other solvers can easily be added
+     
+* __IMPOSED_MOTION__ (string): YES or NO. Specifies wether the structural solver will integrate the structural equations or just impose a specific movement. In the latter case, forces are not mapped onto the structure, as it would not be required.
+
+* __MAPPING_MODES__ (string): YES or NO. Special feature that can only be used with the native solver. Used to extract the mapped modes onto the aerodynamic mesh.
+ 
 * __CSD_CONFIG_FILE_NAME__ (string): Path to the solid cfg file
 
 * __RESTART_SOL__ (string): YES or NO
@@ -403,7 +407,7 @@ $$^1$$ Sanchez, R. (2018), A coupled adjoint method for optimal design in fluid-
 
 ### Attribution
 
-Coming soon...
+Fonzi, N., Cavalieri, V., De Gaspari, A., & Ricci, S. (2021). Advances of the Python-based Fluid-Structure Interaction capabilities included in SU2. arXiv preprint arXiv:2109.12332.
 
 <dl>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
