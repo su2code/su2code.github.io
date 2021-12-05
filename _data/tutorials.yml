@@ -26,6 +26,7 @@
   - Inc_Laminar_Step
   - Inc_Laminar_Cavity
   - Inc_Streamwise_Periodic
+  - Inc_Species_Transport
 
 - title: Structural Mechanics
   tutorials:
@@ -48,6 +49,7 @@
   - Inviscid_3D_Constrained_ONERAM6
   - Multi_Objective_Shape_Design
   - Unsteady_Shape_Opt_NACA0012
+  - Species_Transport
 
 - title: Event Content
   tutorials:
