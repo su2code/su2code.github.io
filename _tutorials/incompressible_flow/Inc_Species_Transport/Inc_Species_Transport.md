@@ -65,7 +65,7 @@ For `CONV_NUM_METHOD_SPECIES= SCALAR_UPWIND` a second order MUSCL reconstruction
 
 The `TIME_DISCRE_SPECIES` can be either an implicit or explicit euler and a CFL reduction coefficient `CFL_REDUCTION_SPECIES` compared to the regular `CFL_NUMBER` is available.
 
-The iniital species mass fractions are given by the list `SPECIES_INIT= 1.0, ...`.
+The inital species mass fractions are given by the list `SPECIES_INIT= 1.0, ...`.
 
 `SPECIES_CLIPPING= YES` with the respective lists for min and max enforces a strict lower and upper limit for the mass fraction solution used by the solver.
 
@@ -149,11 +149,17 @@ $ mpirun -n <#cores> SU2_CFD species3_primitiveVenturi.cfg
 
 ## Results
 
+The case converges nicely as expected on such a simple case and mesh.
+
 ![Residual plot](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/residuals_specMix.png)
 Figure (2): Residual plot (Incompressible mean flow, SST turbulence model, species transport).
 
+Note that there is still some unphysical mass fraction fluctuation for Species_0 at the junction corner. This becomes much less apparent by using `MUSCL_SPECIES = YES` but does not fully disappear.
+
 ![Species Mass Fractions](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/speciesMassFractions.jpg)
 Figure (3): Volume mass fractions for both species. Species_1 is mirrored for better comparison.
+
+Velocity magnitude field along which the species are transported. For a much less homogenous mixture at the outlet one could decrease the `DIFFUSIVITY_CONSTANT` which makes for a more interesting optimization problem.
 
 ![Velocity Magnitude](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/VelocityMag.jpg)
 Figure (4): Velocity Magnitude in the domain.
