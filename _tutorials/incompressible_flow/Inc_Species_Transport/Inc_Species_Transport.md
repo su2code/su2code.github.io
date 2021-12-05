@@ -32,7 +32,7 @@ Figure (1): Computational mesh with color indication of the used boundary condit
 
 The following tutorial assumes you already compiled `SU2_CFD` in serial or parallel, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) if that is not done yet. Additionally it is advised to perform an entry level incompressible tutorial first, as this tutorial only goes over species transport
 
-### Background
+## Background
 
 The geometry with two separate inlets, a junction where the two feeders meet and a nozzle leading to an outlet, resembles loosely a venturi mixer. The geometry massively simplifies these design principles. The material properties and provided mass fractions at the inlet are for demonstration purposes.
 
@@ -163,3 +163,7 @@ Velocity magnitude field along which the species are transported. For a much les
 
 ![Velocity Magnitude](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/VelocityMag.jpg)
 Figure (4): Velocity Magnitude in the domain.
+
+## Additional remarks
+
+An in depth optimization of this case with addition of the FFD-box, gradient validation and some more steps can found [here](/tutorials/Species_Transport/).
