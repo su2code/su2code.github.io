@@ -58,7 +58,7 @@ $ bash restart_validation.sh
 
 ## 2. FFD-Box Setup
 
-The setup is fairly simple when following some simple rules. The additional block of code necessary to write the FFD box is given below. Essentially, there are only 2 options (`FFD_DEFINITION` and `FFD_DEGREE`) where user input is necessary. `DV_KIND= FFD_SETTING` and `DV_PARAM= ( 1.0 )` are fixed and not to be changed.
+The setup is fairly simple when following some simple rules. The additional block of code necessary to write the FFD box is given below. Essentially, there are only 3 options (`FFD_DEFINITION`, `FFD_DEGREE` and `DV_MARKER`) where user input is necessary. `DV_KIND= FFD_SETTING` and `DV_PARAM= ( 1.0 )` are fixed and not to be changed.
 
 ```
 % -------------------- FREE-FORM DEFORMATION PARAMETERS -----------------------%
@@ -99,14 +99,181 @@ Now assuming FFD-sides align with cartesian axes. The first point in `FFD_DEFINI
 
 `FFD_DEGREE`: Determines the number of FFD-Box points per i-j-k-index. The degree plus 1 gives the number of points used. Note: for ease of manual use it is highly recommended to start with a low amount here. Using more once the process is dialed in, is no problem.  
 
+`DV_MARKER`: Boundary markers that are going to be deformed by the FFD-Box. Note that the Mesh deformation in SU2 is a 2-stage process:
+1. The FFD-Box deforms only the boundary mesh nodes that are inside of the initial FFD-Box. These nodes are stored at the bottom of the `.su2` mesh that contain the FFD-Box.
+2. The deformed boundary from the previous step is now boundary condition for a Linear Elasticity style volume mesh morpher.
+
+This FFD box is written to `MESH_OUT_FILENAME` by calling:
+```
+$ SU2_DEF <config-file>.cfg
+```
+
+![FFD-Box](../../tutorials_files/design/Species_Transport/images/FFD-Box.png)
+Figure (1): FFD-Box with fixed points (red) and allowed deformation direction indicated by arrows.
 
 ## 3. Mesh deformation test
 
-a
+Before attempting a gradient validation or optimization it is good practice to check whether the mesh deformation process creates valid and good quality meshes. It is also possible to already check reasonable preliminary bounds for FFD values, that can be set in an optimization. This can be done in a manual process which is rather simple.
+
+First, some general FFD-Box deformation parameters. Additions are `FFD_TOLERANCE`, `FFD_ITERATIONS` and `FFD_CONTINUITY` which was set to `USER_INPUT` in order to not fix any points at all. With that option one can manually fix FFD-Box points using `FFD_FIX_I`/`J`/`K` options but this process can also be done without that options as will be shown below.
+
+```
+% -------------------- FREE-FORM DEFORMATION PARAMETERS -----------------------%
+%
+% Tolerance of the Free-Form Deformation point inversion
+FFD_TOLERANCE= 1E-10
+%
+% Maximum number of iterations in the Free-Form Deformation point inversion
+FFD_ITERATIONS= 500
+%
+% FFD box definition: 3D case (FFD_BoxTag, X1, Y1, Z1, X2, Y2, Z2, X3, Y3, Z3, X4, Y4, Z4,
+%                              X5, Y5, Z5, X6, Y6, Z6, X7, Y7, Z7, X8, Y8, Z8)
+%                     2D case (FFD_BoxTag, X1, Y1, 0.0, X2, Y2, 0.0, X3, Y3, 0.0, X4, Y4, 0.0,
+%                              0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+% Start at the lowest leftest corner and turn counter-clockwise
+FFD_DEFINITION= (BOX, \
+0.065, 0.01, 0.0, \
+0.15, 0.01, 0.0 \
+0.15, 0.02, 0.0, \
+0.065, 0.02, 0.0, \
+0.0, 0.0 ,0.0, \
+0.0 ,0.0, 0.0, \
+0.0, 0.0, 0.0, \
+0.0, 0.0, 0.0 )
+%
+% FFD box degree: 3D case (i_degree, j_degree, k_degree)
+%                 2D case (i_degree, j_degree, 0)
+FFD_DEGREE= (6, 1, 0)
+%
+% Surface grid continuity at the intersection with the faces of the FFD boxes.
+% To keep a particular level of surface continuity, SU2 automatically freezes the right
+% number of control point planes (NO_DERIVATIVE, 1ST_DERIVATIVE, 2ND_DERIVATIVE, USER_INPUT)
+FFD_CONTINUITY= USER_INPUT
+%
+% Definition of the FFD planes to be frozen in the FFD (x,y,z).
+% Value from 0 FFD degree in that direction. Pick a value larger than degree if you don't want to fix any plane.
+%FFD_FIX_I= (0,2,3)
+%FFD_FIX_J= (0,2,3)
+%FFD_FIX_K= (0,2,3)
+```
+
+The next set of option changes `DV_KIND`, `DV_PARAM` and `DV_VALUE` have to be specified for each Design Variable. So each of those options must have the same number of entries.
+
+For `DV_KIND` the tag `FFD_CONTROL_POINT` is simply repeated 10 times.
+
+The `DV_PARAM` option lists, which of the FFD-Box points is going to be deformed and also the direction of deformation. So `(BOX, 2, 0, 0, 0.0, 1.0, 0.0 )` refers to a point in the FFD-Box names `BOX` with the i-j-k-indices `2, 0, 0` and will be deformed along the vector `0.0, 1.0, 0.0` i.e. in y-direction.
+The `DV_PARAM` list can either be created by hand or by editing the output of a helping script that ships with SU2 (same directory as `SU2_CFD` binary etc.):
+```
+$ python set_ffd_design_var.py -i 6 -j 1 -k 0 -b BOX -m 'wall'
+```
+which creates these list for the `FFD_CONTROL_POINT`'s in x-y-z direction, but we are only interested in the y-direction.
+```
+% FFD_CONTROL_POINT (Y)
+DEFINITION_DV= ( 11, 1.0 | wall | BOX, 0, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 1, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 2, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 3, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 4, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 5, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 6, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 0, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 1, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 2, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 3, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 4, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 5, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 6, 1, 0, 0.0, 1.0, 0.0 )                         
+```
+Now in order to get the `DV_PARAM` list simply the first part of each entry, namely `11, 1.0 | wall |` has to be deleted.
+Here the user can also fix certain Design variables by simply not using them in the lists. Note how in the given `DV_PARAM` the first point is `(BOX, 2, 0, 0, 0.0, 1.0, 0.0 )` instead of `(BOX, 0, 0, 0, 0.0, 1.0, 0.0 )`. Like so. The first two points with the lowest i-index are fixed.
+
+`DV_Value` simply gives the Deformation of the respective Design Variable. If in `DV_PARAM` only unit vectors are given as deformation direction (which is the case as we only use `0.0, 1.0, 0.0`) then `DV_VALUE` is the deflection in [m] and therefore some intuition can be used when choosing testing values.
+
+```
+% ----------------------- DESIGN VARIABLE PARAMETERS --------------------------%
+%
+DV_KIND= FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT, FFD_CONTROL_POINT
+%
+% Marker of the surface in which we are going apply the shape deformation
+% NOTE: for deformation the outlet should be a MARKER_SYM to hinder the mesh being ripped apart.
+DV_MARKER= ( wall )
+%
+% Parameters of the shape deformation
+% - FFD_SETTING ( 1.0 )
+% - FFD_CONTROL_POINT ( FFD_BoxTag, i_Ind, j_Ind, k_Ind, x_Disp, y_Disp, z_Disp )
+DV_PARAM= (BOX, 2, 0, 0, 0.0, 1.0, 0.0 ); (BOX, 3, 0, 0, 0.0, 1.0, 0.0 ); (BOX, 4, 0, 0, 0.0, 1.0, 0.0 ); (BOX, 5, 0, 0, 0.0, 1.0, 0.0 ); (BOX, 6, 0, 0, 0.0, 1.0, 0.0 );  (BOX, 2, 1, 0, 0.0, 1.0, 0.0 ); (BOX, 3, 1, 0, 0.0, 1.0, 0.0 ); (BOX, 4, 1, 0, 0.0, 1.0, 0.0 ); (BOX, 5, 1, 0, 0.0, 1.0, 0.0 ); (BOX, 6, 1, 0, 0.0,
+% Excluded FFD points that are fixed to keep a nice geometry and mesh
+%DV_PARAM= (BOX, 0, 0, 0, 0.0, 1.0, 0.0 ); (BOX, 1, 0, 0, 0.0, 1.0, 0.0 ); (BOX, 0, 1, 0, 0.0, 1.0, 0.0 ); (BOX, 1, 1, 0, 0.0, 1.0, 0.0 );
+%
+% Value of the shape deformation
+% first row:  lower row y-direction
+% second row: upper row y-direction
+DV_VALUE= 0.003, 0.003, 0.004, 0.005, 0.005, \
+          0.003, 0.003, 0.004, 0.005, 0.005
+```
+
+The most important options for the volume mesh algorithm are listed below. This tutorial does not go in depth on these options.
+
+```
+% ------------------------ GRID DEFORMATION PARAMETERS ------------------------%
+%
+% Linear solver or smoother for implicit formulations (FGMRES, RESTARTED_FGMRES, BCGSTAB)
+DEFORM_LINEAR_SOLVER= FGMRES
+%
+% Preconditioner of the Krylov linear solver (ILU, LU_SGS, JACOBI)
+DEFORM_LINEAR_SOLVER_PREC= ILU
+%
+% Number of smoothing iterations for mesh deformation
+DEFORM_LINEAR_SOLVER_ITER= 1000
+%
+% Number of nonlinear deformation iterations (surface deformation increments)
+DEFORM_NONLINEAR_ITER= 1
+%
+% Minimum residual criteria for the linear solver convergence of grid deformation
+DEFORM_LINEAR_SOLVER_ERROR= 1E-14
+%
+% Print the residuals during mesh deformation to the console (YES, NO)
+DEFORM_CONSOLE_OUTPUT= YES
+%
+% Deformation coefficient (linear elasticity limits from -1.0 to 0.5, a larger
+% value is also possible)
+DEFORM_COEFF = 0.0
+%
+% Type of element stiffness imposed for FEA mesh deformation (INVERSE_VOLUME,
+%                                           WALL_DISTANCE, CONSTANT_STIFFNESS)
+DEFORM_STIFFNESS_TYPE= WALL_DISTANCE
+%
+% Deform the grid only close to the surface. It is possible to specify how much
+% of the volumetric grid is going to be deformed in meters or inches (1E6 by default)
+DEFORM_LIMIT = 1E6
+```
+
+This mesh deformation is executed via:
+```
+$ SU2_DEF <config-file>.cfg
+```
+
+In this special case the deformed produces a bad mesh at the outlet, as the mesh is 'ripped apart' there. This happens because the FFD-Box only deforms what is prescribed in `DV_MARKER` and the remaining boundaries are considered 'clamped' in the volume mesh algorithm. All boundaries? No! The boundaries in `MARKER_SYM` are allowed to move along their symmetry plane in the volume mesher.This obviously requires the boundary to form a single plane which is the case for the present outlet. So, if the outlet is prescribed as a `MARKER_SYM` for the Volume deformation step the mesh deformation will yield a reasonable mesh.
+
+![Bad mesh deformation](../../tutorials_files/design/Species_Transport/images/bad-mesh-deform.png)
+Figure (2): Mesh breaks at the `outlet`, as `outlet` nodes are clamped.
+
+![Good mesh deformation](../../tutorials_files/design/Species_Transport/images/good-mesh-deform.png)
+Figure (3): Defining the `outlet` as `MARKER_SYM` results in a satisfactory deformed mesh .
 
 ## 4. Gradient Validation
 
-a
+The gradient validation script is executed via:
+
+```
+$ python gradient_validation.py
+```
+
+And to print the gradient comparison:
+```
+
+$ python postprocess.py
+```
+
+**RESULTS screen output**
+
 ## 5. Optimization
 
-a
+The shape optimization script is executed via:
+
+```
+$ python optimization.py
+```
+
+**OF history**
+
+**initial vs final desing and FFD box**
+
+**gradient norm**
