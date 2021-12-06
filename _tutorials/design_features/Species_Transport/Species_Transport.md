@@ -108,7 +108,7 @@ This FFD box is written to `MESH_OUT_FILENAME` by calling:
 $ SU2_DEF <config-file>.cfg
 ```
 
-![FFD-Box](../../tutorials_files/design/Species_Transport/images/FFD-Box.png)
+![FFD-Box](../../tutorials_files/design_features/Species_Transport/images/FFD-Box-indicators.jpg)
 Figure (1): FFD-Box with fixed points (red) and allowed deformation direction indicated by arrows.
 
 ## 3. Mesh deformation test
@@ -242,38 +242,66 @@ $ SU2_DEF <config-file>.cfg
 
 In this special case the deformed produces a bad mesh at the outlet, as the mesh is 'ripped apart' there. This happens because the FFD-Box only deforms what is prescribed in `DV_MARKER` and the remaining boundaries are considered 'clamped' in the volume mesh algorithm. All boundaries? No! The boundaries in `MARKER_SYM` are allowed to move along their symmetry plane in the volume mesher.This obviously requires the boundary to form a single plane which is the case for the present outlet. So, if the outlet is prescribed as a `MARKER_SYM` for the Volume deformation step the mesh deformation will yield a reasonable mesh.
 
-![Bad mesh deformation](../../tutorials_files/design/Species_Transport/images/bad-mesh-deform.png)
+![Bad mesh deformation](../../tutorials_files/design_features/Species_Transport/images/bad-mesh-deform.jpg)
 Figure (2): Mesh breaks at the `outlet`, as `outlet` nodes are clamped.
 
-![Good mesh deformation](../../tutorials_files/design/Species_Transport/images/good-mesh-deform.png)
-Figure (3): Defining the `outlet` as `MARKER_SYM` results in a satisfactory deformed mesh .
+![Good mesh deformation](../../tutorials_files/design_features/Species_Transport/images/good-mesh-deform.jpg)
+Figure (3): Defining the `outlet` as `MARKER_SYM` results in a satisfactory deformed mesh.
 
 ## 4. Gradient Validation
 
-The gradient validation script is executed via:
+In the gradient validation the Discrete Adjoint gradient is compared against a Finite Difference gradient. The script `gradient_validation.py` is using FADO, so please make yourself familiar with the tutorials in that respective repository. But with the comments in the file and observing the output it is possible to reverse engineer many aspects.
 
+Notable here is that, first, all deformed primal computations are done and the baseline at the very end. This is done as the discrete adjoint requires the solution of the baseline mesh, so that is done right before computing the discrete adjoint gradient.
+The `MARKER_SYM`-trick that was introduced in the mesh-deformation section is also applied here and also in the `SU2_DOT_AD` step. This is required to stay consistent between the mesh deformation execution and the gradient projection.
+
+The Objective Function used is `SURFACE_SPECIES_VARIANCE` and, as the name suggests, sums the local differences in the species mass fraction against the mean, and can therefore be used as a measure for uniform mixing. A Variance of zero would indicate perfect mixing.
+
+The gradient validation script is executed via:
 ```
 $ python gradient_validation.py
 ```
 
-And to print the gradient comparison:
+In order to postprocess the results a python script is added which compares both gradients and prints to screen and file:
 ```
-
 $ python postprocess.py
 ```
 
-**RESULTS screen output**
+At a maximum of ~0.06% relative difference between the discrete adjoint and finite difference gradient,the agreement is excellent.
+```
++---+-------------------+-------------------+-------------------+-------------------+
+| # |       DA gradient |       FD gradient |     absolute diff | relative diff [%] |
++---+-------------------+-------------------+-------------------+-------------------+
+| 0 |     -0.0015564281 |     -0.0015568653 |      0.0000004371 |      0.0280852588 |
+| 1 |     -0.0002703336 |     -0.0002704940 |      0.0000001604 |      0.0593316909 |
+| 2 |      0.0005547379 |      0.0005546735 |      0.0000000645 |      0.0116235088 |
+| 3 |      0.0008743978 |      0.0008743497 |      0.0000000481 |      0.0055009922 |
+| 4 |      0.0008628380 |      0.0008627899 |      0.0000000481 |      0.0055767097 |
+| 5 |     -0.0015564281 |     -0.0015568653 |      0.0000004371 |      0.0280851247 |
+| 6 |     -0.0002703336 |     -0.0002704940 |      0.0000001604 |      0.0593325030 |
+| 7 |      0.0005547379 |      0.0005546735 |      0.0000000645 |      0.0116236896 |
+| 8 |      0.0008743978 |      0.0008743497 |      0.0000000481 |      0.0054995042 |
+| 9 |      0.0008628380 |      0.0008627899 |      0.0000000481 |      0.0055765589 |
++---+-------------------+-------------------+-------------------+-------------------+
+```
 
 ## 5. Optimization
 
-The shape optimization script is executed via:
+The setup of a shape optimization with FADO is rather straight forward once a working gradient validation script is available. It is usually a good idea to add lower and upper bounds to the design variables. In the case of FFD-Box points these values translate directly into the cartesian space and a first estimation can be made intuitively.
 
+The second notable extension to the gradient validation is of course the optimization setup itself. Please follow the tutorials FADO provides to learn more about the capabilities and options. But, in the provided script some additional explanations are given and more details to certain function can be printed to screen by adding e.g. `printDocumentation(driver.setFailureMode)` to the script if more information for that option are required.
+
+The used optimization method is [SLSQP](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html) from the [SciPy](https://docs.scipy.org/doc/scipy/index.html) library.
+
+The unconstrained optimization with the objective function of `SURFACE_SPECIES_VARIANCE` (as in the gradient validation introduced) is started with the following command:
 ```
 $ python optimization.py
 ```
 
-**OF history**
+In order to compute the gradient norms of each iteration a `gradient_norm.py` script was added.
 
-**initial vs final desing and FFD box**
+![OF and Gradient Norm](../../tutorials_files/design_features/Species_Transport/images/OF_GradNorm.png)
+Figure (4): Objective Function value and Gradient Norm over optimizer iterations. Capped after 12 iterations.
 
-**gradient norm**
+![Optimized Mesh](../../tutorials_files/design_features/Species_Transport/images/Optimized-Geometry.jpg)
+Figure (5): Baseline and Optimized Mesh with the respective FFD-Boxes.
