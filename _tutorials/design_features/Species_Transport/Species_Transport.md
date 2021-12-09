@@ -21,7 +21,7 @@ Instead of the python tools for finite differences or shape optimization that ar
 ## Goals
 
 This tutorial is a rather extensive guide covering the following steps, assuming a converging primal case is present:
-1. Validation of perfect restarts as a basis for the Discrete Adjoint solver. This is done using a separate bash-script
+1. Validation of perfect restarts as a basis for the Discrete Adjoint solver (this is done using a separate bash-script). This section focuses on code development aspects, and may be skipped by general users.
 2. Setting up an FFD-box and writing it to the mesh
 3. Manual testing of the mesh deformation
 4. Gradient validation using FADO
@@ -47,7 +47,7 @@ When using the recommended `HISTORY_OUTPUT= RMS_RES` the output should provide t
 -5.010542647 -4.537626591 -4.207538398 0.4686163065 -6.594021422 0.4978738082 -5.253262361 -5.467591972
 -5.010542647 -4.537626591 -4.207538398 0.4686163065 -6.594021422 0.4978738082 -5.253262361 -5.467591972
 ```
-Where in each row the residual of each equation is listed (P, vx, vy, T, k, w, Species_0, Species_0). The primal restart (2nd row) and the adjoint primal restart (3rd row) provide identical results compared to the 'full' primal simulation (1st row). Small deviations in the last digits are not an issue, especially when higher iteration counts are used (here only 10). But if the adjoint restart provides a clearly different result then this should be debugged before attempting a gradient validation or even optimization.
+Where in each row the residual of each equation is listed (P, vx, vy, T, k, w, Species_0, Species_1). The primal restart (2nd row) and the adjoint primal restart (3rd row) provide identical results compared to the 'full' primal simulation (1st row). Small deviations in the last digits are not an issue, especially when higher iteration counts are used (here only 10). But if the adjoint restart provides a clearly different result then this should be debugged before attempting a gradient validation or even optimization.
 
 The config option `OUTPUT_PRECISION= 16` can be set to compare more digits if necessary.
 
@@ -95,7 +95,7 @@ DV_PARAM= ( 1.0 )
 ```
 
 `FFD_DEFINITION`: The first input to this option is the FFD-Box name. Here simply `BOX` was chosen. Following are the 4 (or 8 in 3D) corner points of the FFD box. The order of how the points are written is crucial. The FFD-box points are addressed via i-j-k indices and for keeping the minimum leftover sanity it of course is highly desirable to have these i-j-k indices align with the x-y-z cartesian axes. Or, in case the FFD box sides do not coincide with the cartesian axes, you know how the i-j-k indices work.
-Now assuming FFD-sides align with cartesian axes. The first point in `FFD_DEFINITION` has to be the corner point with the lowest x,y,z-value. The second point is the point following the x-axes only (i.e. keeping y and z constant). Like that the i-index coincides with the x-axes. The third point is found following the y-axes (keeping x and z constant). The fourth point is the remaining on that z-constant plane. In 3D follow the first point in z-direction and repeat the process on the higher z-plane. In 2D the process can be explained simplified by: Start with the point with smallest x,y-value and turn counter-clockwise.
+Now assuming FFD-sides align with cartesian axes. The first point in `FFD_DEFINITION` has to be the corner point with the lowest x,y,z-value. The second point is the point following the x-axes only (i.e. keeping y and z constant). Like that the i-index coincides with the x-axes. The third point is found following the y-axes starting from the previous 2nd point (keeping x and z constant). The fourth point is the remaining on that z-constant plane. In 3D follow the first point in z-direction and repeat the process on the higher z-plane. In 2D the process can be explained simplified by: Start with the point with smallest x,y-value and turn counter-clockwise.
 
 `FFD_DEGREE`: Determines the number of FFD-Box points per i-j-k-index. The degree plus 1 gives the number of points used. Note: for ease of manual use it is highly recommended to start with a low amount here. Using more once the process is dialed in, is no problem.  
 
@@ -159,17 +159,17 @@ FFD_CONTINUITY= USER_INPUT
 
 The next set of option changes `DV_KIND`, `DV_PARAM` and `DV_VALUE` have to be specified for each Design Variable. So each of those options must have the same number of entries.
 
-For `DV_KIND` the tag `FFD_CONTROL_POINT` is simply repeated 10 times.
+For `DV_KIND` the tag `FFD_CONTROL_POINT_2D` is simply repeated 10 times.
 
-The `DV_PARAM` option lists, which of the FFD-Box points is going to be deformed and also the direction of deformation. So `(BOX, 2, 0, 0, 0.0, 1.0, 0.0 )` refers to a point in the FFD-Box names `BOX` with the i-j-k-indices `2, 0, 0` and will be deformed along the vector `0.0, 1.0, 0.0` i.e. in y-direction.
+The `DV_PARAM` option lists, which of the FFD-Box points is going to be deformed and also the direction of deformation. So `(BOX, 2, 0, 0.0, 1.0)` refers to a point in the FFD-Box names `BOX` with the i-j-indices `2, 0` and will be deformed along the vector `0.0, 1.0` i.e. in y-direction. In 3D, this is of course extended by k-indices and the z-axis.
 The `DV_PARAM` list can either be created by hand or by editing the output of a helping script that ships with SU2 (same directory as `SU2_CFD` binary etc.):
 ```
 $ python set_ffd_design_var.py -i 6 -j 1 -k 0 -b BOX -m 'wall' --dimension 2
 ```
-which creates these list for the `FFD_CONTROL_POINT`'s in x-y-z direction, but we are only interested in the y-direction.
+which creates these list for the `FFD_CONTROL_POINT_2D`'s in x-y-z direction, but we are only interested in the y-direction.
 ```
-% FFD_CONTROL_POINT (Y)
-DEFINITION_DV= ( 11, 1.0 | wall | BOX, 0, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 1, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 2, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 3, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 4, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 5, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 6, 0, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 0, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 1, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 2, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 3, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 4, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 5, 1, 0, 0.0, 1.0, 0.0 ); ( 11, 1.0 | wall | BOX, 6, 1, 0, 0.0, 1.0, 0.0 )                         
+% FFD_CONTROL_POINT_2D (Y)
+DEFINITION_DV= ( 19, 1.0 | wall | BOX, 0, 0, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 1, 0, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 2, 0, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 3, 0, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 4, 0, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 5, 0, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 6, 0, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 0, 1, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 1, 1, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 2, 1, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 3, 1, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 4, 1, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 5, 1, 0.0, 1.0 ); ( 19, 1.0 | wall | BOX, 6, 1, 0.0, 1.0 )                   
 ```
 Now in order to get the `DV_PARAM` list simply the first part of each entry, namely `11, 1.0 | wall |` has to be deleted.
 Here the user can also fix certain Design variables by simply not using them in the lists. Note how in the given `DV_PARAM` the first point is `(BOX, 2, 0, 0, 0.0, 1.0, 0.0 )` instead of `(BOX, 0, 0, 0, 0.0, 1.0, 0.0 )`. Like so. The first two points with the lowest i-index are fixed.
@@ -272,16 +272,16 @@ At a maximum of ~0.06% relative difference between the discrete adjoint and fini
 +---+-------------------+-------------------+-------------------+-------------------+
 | # |       DA gradient |       FD gradient |     absolute diff | relative diff [%] |
 +---+-------------------+-------------------+-------------------+-------------------+
-| 0 |     -0.0015564281 |     -0.0015568653 |      0.0000004371 |      0.0280852588 |
-| 1 |     -0.0002703336 |     -0.0002704940 |      0.0000001604 |      0.0593316909 |
-| 2 |      0.0005547379 |      0.0005546735 |      0.0000000645 |      0.0116235088 |
-| 3 |      0.0008743978 |      0.0008743497 |      0.0000000481 |      0.0055009922 |
-| 4 |      0.0008628380 |      0.0008627899 |      0.0000000481 |      0.0055767097 |
-| 5 |     -0.0015564281 |     -0.0015568653 |      0.0000004371 |      0.0280851247 |
-| 6 |     -0.0002703336 |     -0.0002704940 |      0.0000001604 |      0.0593325030 |
-| 7 |      0.0005547379 |      0.0005546735 |      0.0000000645 |      0.0116236896 |
-| 8 |      0.0008743978 |      0.0008743497 |      0.0000000481 |      0.0054995042 |
-| 9 |      0.0008628380 |      0.0008627899 |      0.0000000481 |      0.0055765589 |
+| 0 |     -0.0031128563 |     -0.0031137331 |      0.0000008768 |      0.0281680151 |
+| 1 |     -0.0005406673 |     -0.0005409528 |      0.0000002856 |      0.0528178961 |
+| 2 |      0.0011094759 |      0.0011093871 |      0.0000000888 |      0.0080034781 |
+| 3 |      0.0017487956 |      0.0017487712 |      0.0000000245 |      0.0014009004 |
+| 4 |      0.0017256761 |      0.0017256695 |      0.0000000066 |      0.0003839967 |
+| 5 |     -0.0031128563 |     -0.0031137331 |      0.0000008769 |      0.0281689729 |
+| 6 |     -0.0005406673 |     -0.0005409528 |      0.0000002855 |      0.0528118802 |
+| 7 |      0.0011094759 |      0.0011093871 |      0.0000000888 |      0.0080064097 |
+| 8 |      0.0017487956 |      0.0017487711 |      0.0000000246 |      0.0014043103 |
+| 9 |      0.0017256761 |      0.0017256695 |      0.0000000066 |      0.0003847820 |
 +---+-------------------+-------------------+-------------------+-------------------+
 ```
 
@@ -291,7 +291,7 @@ The setup of a shape optimization with FADO is rather straight forward once a wo
 
 The second notable extension to the gradient validation is of course the optimization setup itself. Please follow the tutorials FADO provides to learn more about the capabilities and options. But, in the provided script some additional explanations are given and more details to certain function can be printed to screen by adding e.g. `printDocumentation(driver.setFailureMode)` to the script if more information for that option are required.
 
-The used optimization method is [SLSQP](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html) from the [SciPy](https://docs.scipy.org/doc/scipy/index.html) library.
+The optimization method used is [SLSQP](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html) from the [SciPy](https://docs.scipy.org/doc/scipy/index.html) library.
 
 The unconstrained optimization with the objective function of `SURFACE_SPECIES_VARIANCE` (as in the gradient validation introduced) is started with the following command:
 ```
