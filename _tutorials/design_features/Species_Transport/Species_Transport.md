@@ -164,7 +164,7 @@ For `DV_KIND` the tag `FFD_CONTROL_POINT` is simply repeated 10 times.
 The `DV_PARAM` option lists, which of the FFD-Box points is going to be deformed and also the direction of deformation. So `(BOX, 2, 0, 0, 0.0, 1.0, 0.0 )` refers to a point in the FFD-Box names `BOX` with the i-j-k-indices `2, 0, 0` and will be deformed along the vector `0.0, 1.0, 0.0` i.e. in y-direction.
 The `DV_PARAM` list can either be created by hand or by editing the output of a helping script that ships with SU2 (same directory as `SU2_CFD` binary etc.):
 ```
-$ python set_ffd_design_var.py -i 6 -j 1 -k 0 -b BOX -m 'wall'
+$ python set_ffd_design_var.py -i 6 -j 1 -k 0 -b BOX -m 'wall' --dimension 2
 ```
 which creates these list for the `FFD_CONTROL_POINT`'s in x-y-z direction, but we are only interested in the y-direction.
 ```
