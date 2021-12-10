@@ -242,6 +242,8 @@ $ SU2_DEF <config-file>.cfg
 
 In this special case the deformed produces a bad mesh at the outlet, as the mesh is 'ripped apart' there. This happens because the FFD-Box only deforms what is prescribed in `DV_MARKER` and the remaining boundaries are considered 'clamped' in the volume mesh algorithm. All boundaries? No! The boundaries in `MARKER_SYM` are allowed to move along their symmetry plane in the volume mesher.This obviously requires the boundary to form a single plane which is the case for the present outlet. So, if the outlet is prescribed as a `MARKER_SYM` for the Volume deformation step the mesh deformation will yield a reasonable mesh.
 
+After the mesh deformation it is advisable to also run a primal simulation on that deformed mesh, as the simulation settings (e.g. `CFL_NUMBER`) might not lead to a converging simulation anymore. For a later optimization run this testing can help keeping a converging primal through all deformations.
+
 ![Bad mesh deformation](../../tutorials_files/design_features/Species_Transport/images/bad-mesh-deform.jpg)
 Figure (2): Mesh breaks at the `outlet`, as `outlet` nodes are clamped.
 
@@ -267,7 +269,7 @@ In order to postprocess the results a python script is added which compares both
 $ python postprocess.py
 ```
 
-At a maximum of ~0.06% relative difference between the discrete adjoint and finite difference gradient,the agreement is excellent.
+At a maximum of ~0.05% relative difference between the discrete adjoint and finite difference gradient,the agreement is excellent.
 ```
 +---+-------------------+-------------------+-------------------+-------------------+
 | # |       DA gradient |       FD gradient |     absolute diff | relative diff [%] |
@@ -298,10 +300,16 @@ The unconstrained optimization with the objective function of `SURFACE_SPECIES_V
 $ python optimization.py
 ```
 
-In order to compute the gradient norms of each iteration a `gradient_norm.py` script was added.
+In order to compute the gradient norms of each Design iteration a `gradient_norm.py` script was added. The script will write a `gradient_norm.csv` into the folder root which.
+
+A helpful visualization after an optimization run is having the series of deformed meshes with their primal solution and FFD-Boxes. These solution are in their respective folders and one could tediously load every single one of them.
+The script `create_Visu_symlinks.py` sweeps through the `DSN_*` folders and collects symbolic links of the primal solution and FFD-Boxes into a `visu_files` folder. The symbolic links also renames each file and appends an iteration number to the end of the filename (e.g. `ffd_004.vtk -> ../DSN_004/DEFORM/ffd_boxes_def_0.vtk`). Like so, this data can be loaded in [Paraview](https://www.paraview.org/), or probably any other post-processor, as a time series which allows for easy cycling through the designs. 
 
 ![OF and Gradient Norm](../../tutorials_files/design_features/Species_Transport/images/OF_GradNorm.png)
 Figure (4): Objective Function value and Gradient Norm over optimizer iterations. Capped after 12 iterations.
 
 ![Optimized Mesh](../../tutorials_files/design_features/Species_Transport/images/Optimized-Geometry.jpg)
 Figure (5): Baseline and Optimized Mesh with the respective FFD-Boxes.
+
+![Optimization Cycle](../../tutorials_files/design_features/Species_Transport/images/opt_cycle.gif)
+Figure (6): Optimization series from baseline to final mesh with FFD-Boxes.
