@@ -14,7 +14,7 @@ follows: Inc_Species_Transport
 
 ## Disclaimer
 
-This Tutorial builds directly on the case given as Prerequisite on the top of the site [link](tutorials/Inc_Species_Transport/). Therefore details to the problem setup, mesh, etc. are not repeated here. However the process outlined in this tutorial is directly applicable to many other cases using SU2.
+This Tutorial builds directly on the case given as Prerequisite on the top of the site [link](/tutorials/Inc_Species_Transport/). Therefore details to the problem setup, mesh, etc. are not repeated here. However the process outlined in this tutorial is directly applicable to many other cases using SU2.
 
 Instead of the python tools for finite differences or shape optimization that are part of SU2 directly, the standalone python tool [FADO](https://github.com/su2code/FADO) is used. Please follow the information on the given github repo in order to use FADO.
 
