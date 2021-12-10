@@ -42,6 +42,8 @@ in the [project website repository](https://github.com/su2code/Tutorials).
 You will need the configuration file ([unsteady_naca0012_opt.cfg](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_opt.cfg)) and 
 the mesh file ([unsteady_naca0012_FFD.su2](https://github.com/su2code/Tutorials/tree/master/design/Unsteady_Shape_Opt_NACA0012/unsteady_naca0012_FFD.su2)).
 
+The used mesh already contains an FFD-Box. For more information on how to set up an FFD-Box on your own, please follow [this tutorial](/tutorials/Species_Transport/).
+
 ## Tutorial ##
 
 The following tutorial will walk you through the steps required when performing a shape optimization of the  NACA0012 airfoil using SU2. 
@@ -51,7 +53,7 @@ If you have yet to complete these requirements, please see the [Download](/docs_
 
 ### Background ###
 
-This test case is for the NACA0012 airfoil in viscous unsteady flow. The NACA airfoils are two dimensional shapes for aircraft wings developed by the National Advisory Committee for Aeronautics (NACA, 1915-1958, predeccessor of NASA). The NACA-4-Digit series is a set of 78 airfoil configurations which were created for wind-tunnel tests to explore the effect of different airfoil shapes on aerdynamic coefficients as drag or lift. 
+This test case is for the NACA0012 airfoil in viscous unsteady flow. The NACA airfoils are two dimensional shapes for aircraft wings developed by the National Advisory Committee for Aeronautics (NACA, 1915-1958, predecessor of NASA). The NACA-4-Digit series is a set of 78 airfoil configurations which were created for wind-tunnel tests to explore the effect of different airfoil shapes on aerodynamic coefficients as drag or lift.
 
 ### Mesh Description ###
 
