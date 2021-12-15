@@ -136,11 +136,11 @@ For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non
 |  `DRAG` | Total Drag coefficient. |  `AERO_COEFF`  |
 |  `LIFT` | Total Lift coefficient |  `AERO_COEFF`  |
 |  `SIDEFORCE` | Total Sideforce coefficient.  |  `AERO_COEFF`  |
-|  `MOMENT-X` | Total Moment around the x-axis.  |  `AERO_COEFF`  |
-|  `MOMENT-Y` | Total Moment around the y-axis.  |  `AERO_COEFF`  |
-|  `MOMENT-Z` | Total Moment around the z-axis. |  `AERO_COEFF`  |
-|  `FORCE-X` | Total Force in x direction. |  `AERO_COEFF`  |
-|  `FORCE-Y` | Total Force in y direction. |  `AERO_COEFF`  |
-|  `FORCE-Z` | Total Force in z direction.|  `AERO_COEFF`  |
+|  `MOMENT_X` | Total Moment around the x-axis.  |  `AERO_COEFF`  |
+|  `MOMENT_Y` | Total Moment around the y-axis.  |  `AERO_COEFF`  |
+|  `MOMENT_Z` | Total Moment around the z-axis. |  `AERO_COEFF`  |
+|  `FORCE_X` | Total Force in x direction. |  `AERO_COEFF`  |
+|  `FORCE_Y` | Total Force in y direction. |  `AERO_COEFF`  |
+|  `FORCE_Z` | Total Force in z direction.|  `AERO_COEFF`  |
 |  `EFFICIENCY` | Total Lift-to-drag ratio. |  `AERO_COEFF`  |
 
