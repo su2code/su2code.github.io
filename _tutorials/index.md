@@ -56,7 +56,7 @@ A simulation of internal, inviscid, incompressible flow around a NACA 0012 hydro
 * [Laminar Flat Plate with Heat Transfer](/tutorials/Inc_Laminar_Flat_Plate/)    
 Simulation of external, laminar, incompressible flow over a flat plate (classical Navier-Stokes case).
 * [Turbulent Flat Plate](/tutorials/Inc_Turbulent_Flat_Plate/)    
-Simulation of external, turbulentm incompressible flow over a flat plate (classical RANS case).
+Simulation of external, turbulent incompressible flow over a flat plate (classical RANS case).
 * [Turbulent NACA 0012](/tutorials/Inc_Turbulent_NACA0012/)    
 Simulation of external, viscous, incompressible flow around the NACA 0012 using a turbulence model.
 * [Laminar Backward-facing Step](/tutorials/Inc_Laminar_Step/)    
@@ -65,6 +65,8 @@ Simulation of internal, laminar, incompressible flow over a backward-facing step
 Simulation of internal, laminar, incompressible flow in a differentially-heated cavity under the influence of gravity (classical natural convection case).
 * [Streamwise Periodicity](/tutorials/Inc_Streamwise_Periodic/)    
 Simulation of internal, turbulent, incompressible flow in a unit cell of a 2D pin-fin heat exchanger.
+* [Species Transport](/tutorials/Inc_Species_Transport/)    
+Simulation of internal, turbulent, incompressible flow through a mixing channel.
 
 #### Structural Mechanics
 
@@ -97,6 +99,8 @@ Perform an optimal shape design of a 2D geometry (isolated airfoil at turbulent 
 * [Constrained shape design of a transonic inviscid wing at a cte. C<sub>L</sub>](/tutorials/Inviscid_3D_Constrained_ONERAM6/)    
 Learn the basis of 3D design by performing an optimal shape design of an isolated wing with geometrical constraints.
 * [Multi-Objective Shape Design of an Inviscid Supersonic Ramp](/tutorials/Multi_Objective_Shape_Design/)    
- Perform an optimal shape design with multiple objectives and a penalty function
+Perform an optimal shape design with multiple objectives and a penalty function
 * [Unsteady Shape Optimization](/tutorials/Unsteady_Shape_Opt_NACA0012/)  
- Shape optimization of an 2D airfoil in unsteady flow conditions.
+Shape optimization of an 2D airfoil in unsteady flow conditions.
+* [Species Transport](/tutorials/Species_Transport/)    
+Optimization of internal, turbulent, incompressible flow through a mixing channel.

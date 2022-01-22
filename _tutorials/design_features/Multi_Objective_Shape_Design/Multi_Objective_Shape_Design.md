@@ -71,7 +71,7 @@ OBJECTIVE_WEIGHT= -1.0E-7,1.0
 ```
 These options define a weighted sum: -1.0E-7 x (SURFACE_TOTAL_PRESSURE at the outlet) + (DRAG on the lower surface). The OBJECTIVE_FUNCTION and OBJECTIVE_WEIGHT options are set automatically during the optimization process, and are used for the calculation of the gradient. If we were starting this problem from scratch, at this point we would run the gradient method desired, in order to confirm that the gradients are being calculated as expected. In this tutorial, the discrete adjoint is used by default. When multiple objectives are specified as shown, a single adjoint solution for a 'combo' objective will be calculated, representing the gradient for the weighted sum. The upside of this is that it reduces the number of adjoint solutions required, with the downside that the contributions of different functionals to the gradient value will not be known.
 
-Next the FFD box is defined in order to provide the design variables. The mesh is provided with the FFD box information already included, however when starting from scratch a preprocessing step using SU2_MSH is required. For further detail on FFD, see the [Constrainted Optimal Shape Design Tutorial](/tutorials/Inviscid_3D_Constrained_ONERAM6/).
+Next the FFD box is defined in order to provide the design variables. The mesh is provided with the FFD box information already included, however when starting from scratch a preprocessing step using SU2_MSH is required. For further detail on FFD, see this [Unconstrained species transport tutorial](/tutorials/Species_Transport/) or [Constrainted Optimal Shape Design Tutorial](/tutorials/Inviscid_3D_Constrained_ONERAM6/).
 ```
 % -------------------- FREE-FORM DEFORMATION PARAMETERS -----------------------%
 %

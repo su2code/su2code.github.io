@@ -12,6 +12,7 @@ This page contains a very brief summary of the different governing equation sets
 - [Incompressible Navier-Stokes](#incompressible-navier-stokes)
 - [Incompressible Euler](#incompressible-euler)
 - [Turbulence Modeling](#turbulence-modeling)
+- [Species Transport](#species-transport)
 - [Elasticity](#elasticity)
 - [Heat Conduction](#heat-conduction)
   
@@ -166,6 +167,34 @@ Within the `INC_EULER` solver, we discretize the equations in space using a fini
 The Shear Stress Transport (SST) model of Menter and the Spalart-Allmaras (S-A) model are two of the most common and widely used turbulence models. The S-A and SST standard models, along with several variants, are implemented in SU2. The reader is referred to the [NASA Turbulence Modeling Resource](https://turbmodels.larc.nasa.gov/index.html) (TMR) for the details of each specific model, as the versions in SU2 are implemented according to the well-described formulations found there.
 
 Within the turbulence solvers, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge.
+
+---
+
+# Species Transport #
+
+Compatible with `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`
+
+$$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - \nabla \cdot \bar{F}^{v}(U,\nabla U)  - S = 0 $$
+
+where the conservative variables (which are also the working variables) are given by 
+
+$$U=\left\lbrace \rho Y_1, ..., \rho Y_{N-1} \right\rbrace ^\mathsf{T}$$
+
+with $$Y_i$$ $$[-]$$ being the species mass fraction. And 
+
+$$\sum_{i=0}^N Y_i = 1 \Rightarrow Y_N = 1 - \sum_{i=0}^{N-1} Y_i$$
+  
+$$S$$ is a generic source term, and the convective and viscous fluxes are
+
+$$\bar{F}^{c}(V) = \left\{\begin{array}{c} \rho Y_1 \bar{v} \\ ... \\\rho Y_{N-1} \, \bar{v} \end{array} \right\}$$
+
+$$\bar{F}^{v}(V,\nabla V) = \left\{\begin{array}{c} D \nabla Y_{1} \\ ... \\  D \nabla Y_{N-1} \end{array} \right\} $$
+
+with $$D$$ $$[m^2/s]$$ being the mass diffusion. 
+
+$$D = D_{lam} + \frac{\mu_T}{Sc_{T}}$$
+
+where $$\mu_T$$ is the eddy viscosity and $$Sc_{T}$$ $$[-]$$ the turbulent Schmidt number.
 
 ---
 
