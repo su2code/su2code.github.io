@@ -17,7 +17,7 @@ A restart file with the name given by the keyword `RESTART_FILENAME` is then sav
 `RESTART_FILENAME= restart_flow` \
 `OUTPUT_WRT_FREQ= 100`
 
-will write the the file restart_flow.dat every 100 iterations when then the total number of iterations is larger than 100, or only once at the end of the simulation when the total number of iterations is smaller than 100. Note that the file extension (the suffix) is automatic and can be left out.
+will write the file restart_flow.dat every 100 iterations when then the total number of iterations is larger than 100, or only once at the end of the simulation when the total number of iterations is smaller than 100. Note that the file extension (the suffix) is automatic and can be left out.
 If you would like to keep copies of previously saved restart files, this is possible by setting
 
 `WRT_RESTART_OVERWRITE= NO`
