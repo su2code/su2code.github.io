@@ -73,7 +73,7 @@ A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX`
 MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
 
-Instead of a constant heatflux in the unit `[W/m^2]`, a constant rate of heat flow in the unit `[W]` can be prescribed by additionally adding the option `INTEGRATED_HEATFLUX= YES`. For the above `MARKER_HEATFLUX` lets consider that `Wall1` has a Surface area of 0.3 `[W/m^2]` then one could equivalently prescribe
+Instead of a constant heatflux (in `[W/m^2]`), a constant rate of heat flow (in `[W]`) can be prescribed by additionally adding the option `INTEGRATED_HEATFLUX= YES`. For the above `MARKER_HEATFLUX`, lets consider that `Wall1` has a surface area of 0.3 `[m^2]` then one could equivalently prescribe
 ```
 MARKER_HEATFLUX = (Wall1, 0.3e05, Wall2, 0.0)
 ```
