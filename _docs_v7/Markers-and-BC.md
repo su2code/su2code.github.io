@@ -73,7 +73,16 @@ A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX`
 MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
 
-**Note**: Typically Navier-Stokes and RANS simulations are setup with adiabatic walls (heatflux = 0).
+Instead of a constant heatflux (in `[W/m^2]`), a constant rate of heat flow (in `[W]`) can be prescribed by additionally adding the option `INTEGRATED_HEATFLUX= YES`. For the above `MARKER_HEATFLUX`, lets consider that `Wall1` has a surface area of 0.3 `[m^2]` then one could equivalently prescribe
+```
+MARKER_HEATFLUX = (Wall1, 0.3e05, Wall2, 0.0)
+```
+
+when additionally using the `INTEGRATED_HEATFLUX= YES` option. In the case of a DOE or an optimization this prescription of a rate of heat flow might be the more natural boundary condition.
+
+**Notes**:
+1. Typically Navier-Stokes and RANS simulations are setup with adiabatic walls (heatflux = 0).
+2. `INTEGRATED_HEATFLUX` is not available for `FEM_NAVIER_STOKES`.
 
 ## Heat Transfer or Convection (no-slip) Wall ##
 
