@@ -5,6 +5,8 @@ permalink: /docs_v7/Code-Structure/
 
 Full details on the class hierarchy and internal structure of the code can be found in the Doxygen documentation for SU2. A brief description for the major C++ classes is given on this page.
 
+**Note:** The images below can be out of sync with the current version of the code.
+
 The objective of this section is to introduce the C++ class structure of SU2 at a high level. The class descriptions below focus on the structure within SU2_CFD (the main component of SU2), but many of the classes are also used in the other modules. Maximizing the flexibility of the code was a fundamental driver for the design of the class architecture, and an overview of the collaboration diagram of all classes within SU2_CFD is shown below. 
 
 ![Class Structure General](../../docs_files/class_c_driver__coll__graph.png)
