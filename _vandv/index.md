@@ -26,4 +26,4 @@ Code-to-code comparisons of drag and skin friction on a turbulent flat plate is 
 * [2D Bump-in-Channel RANS Verification Case](/vandv/Bump_Channel/)
 Code-to-code comparisons for a bump in a channel, which results in pressure gradients, is presented using data from the NASA Turbulence Modeling Resource.
 * [Three-Element High-Lift Subsonic Airfoil](/vandv/30p30n/)
-Results for the 30p30n airfoil, mesh independence study at low angle-of-attach, and determination of maximum lift, both comparing different numerical schemes.
+Results for the 30p30n airfoil, mesh independence study at low angle-of-attack, and determination of maximum lift, both comparing different numerical schemes.
