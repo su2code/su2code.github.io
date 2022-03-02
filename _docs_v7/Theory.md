@@ -22,7 +22,7 @@ This page contains a very brief summary of the different governing equation sets
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 
 SU2 solves the compressible Navier-Stokes equations expressed in differential form as
@@ -67,7 +67,7 @@ Within the `NAVIER_STOKES` and `RANS` solvers, we discretize the equations in sp
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `FEM_EULER` | 7.0.0 |
+| `EULER`, `FEM_EULER` | 7.2.0 |
 
 SU2 solves the compressible Euler equations, which can be obtained as a simplification of the compressible Navier-Stokes equations in the absence of viscosity and thermal conductivity. They can be expressed in differential form as
 
@@ -91,7 +91,7 @@ Within the `EULER` solvers, we discretize the equations in space using a finite 
 
 | Solver | Version | 
 | --- | --- |
-| `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+| `INC_NAVIER_STOKES`, `INC_RANS` | 7.2.0 |
 
 
 SU2 solves the incompressible Navier-Stokes equations in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). The equations can be expressed in differential form as
@@ -138,7 +138,7 @@ Within the `INC_NAVIER_STOKES` and `INC_RANS` solvers, we discretize the equatio
 
 | Solver | Version | 
 | --- | --- |
-| `INC_EULER` | 7.0.0 |
+| `INC_EULER` | 7.2.0 |
 
 SU2 solves the incompressible Euler equations as a simplification of the low-Mach formulation above in the absence of viscosity and thermal conductivity (no energy equation is required). The equations can be expressed in differential form as
 
@@ -202,7 +202,7 @@ where $$\mu_T$$ is the eddy viscosity and $$Sc_{T}$$ $$[-]$$ the turbulent Schmi
 
 | Solver | Version | 
 | --- | --- |
-| `ELASTICITY` | 7.0.0 |
+| `ELASTICITY` | 7.2.0 |
 
 For structural analysis of solids in SU2, we solve the elasticity equations in a form allowing for geometric non-linearities expressed as
 
@@ -218,7 +218,7 @@ In the `ELASTICITY` solver, we discretize the equations in space with a nodal fi
 
 | Solver | Version | 
 | --- | --- |
-| `HEAT_EQUATION_FVM` | 7.0.0 |
+| `HEAT_EQUATION_FVM` | 7.2.0 |
 
 The governing equation for heat conduction through a solid material can be expressed in differential form as the following:
 

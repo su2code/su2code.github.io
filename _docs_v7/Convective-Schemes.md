@@ -24,7 +24,7 @@ The options listed here do not apply to the high order DG solver.
 Convective schemes are used in the FVM discretization of convective fluxes through the faces of the dual-grid control volumes.
 They are selected via option `CONV_NUM_METHOD_FLOW` and fall under the two broad categories of central and upwind.
 Central schemes tend to be more robust whereas second order upwind schemes can be more accurate (i.e. less dissipative).
-To achieve second order upwind schemes need to be used with MUSCL reconstruction (`MUSCL_FLOW = YES`), see the "gradients and limiters" page for the MUSCL-related options.
+To achieve second order upwind schemes need to be used with MUSCL reconstruction (`MUSCL_FLOW = YES`), see the [Gradients and Limiters](/docs_v7/Gradients-Limiters) page for the MUSCL-related options.
 
 **Note:** MUSCL options have no effect on central schemes or on coarse multigrid levels in general.
 
@@ -32,7 +32,7 @@ To achieve second order upwind schemes need to be used with MUSCL reconstruction
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS` | 7.2.0 |
 
 ### Central Schemes ###
 
@@ -89,7 +89,7 @@ Some of the schemes above have tunning parameters or accept extra options, the f
 
 | Solver | Version | 
 | --- | --- |
-| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.2.0 |
 
 ### Central Schemes ###
 
@@ -103,7 +103,7 @@ Some of the schemes above have tunning parameters or accept extra options, the f
 
 | Solver | Version | 
 | --- | --- |
-| `RANS`, `INC_RANS` | 7.0.0 |
+| `RANS`, `INC_RANS` | 7.2.0 |
 
 Only one method is currently available: `SCALAR_UPWIND` which must be selected via option `CONV_NUM_METHOD_TURB`.
 This method does not have any special parameters.

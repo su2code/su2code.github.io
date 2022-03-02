@@ -25,7 +25,7 @@ SU2 offers different ways of setting and computing this definition. This documen
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 The following table depicts the reference values used by most of the solvers in SU2. The highlighted variables vary depending on the actual solver and the user input.
 
@@ -49,7 +49,7 @@ The following table depicts the reference values used by most of the solvers in 
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 The physical definition for the compressible solvers in SU2 based around the definition of the free-stream. The free-stream values are not only used as boundary conditions for the `MARKER_FAR` option, but also for initialization and non-dimensionalization. That means even if you don't have any farfield BCs in your problem, it might be important to prescribe physically meaningful values for the options.
 
@@ -81,7 +81,7 @@ For all schemes, as reference values for the density and temperature the free-st
 
 | Solver | Version | 
 | --- | --- |
-| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.2.0 |
 
 The physical definition of the incompressible solvers is accomplished by setting an appropriate flow condition for initialization and non-dimensionalization. SU2 solves the [incompressible Navier-Stokes equations](/docs_v7/Theory/#incompressible-navier-stokes) in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). 
 

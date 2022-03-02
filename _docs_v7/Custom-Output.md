@@ -44,12 +44,15 @@ SU2 can output the solution in several file formats. You can specify what files 
 | `RESTART` | Native SU2 binary restart format |
 | `RESTART_ASCII` | ASCII CSV restart format |
 | `CSV` | ASCII CSV restart format (identical to `RESTART_ASCII`) |
-| `PARAVIEW` | Binary Paraview .vtk format |
+| `PARAVIEW` | Binary Paraview XML .vtu format |
+| `PARAVIEW_LEGACY` | Binary Paraview .vtk format |
+| `PARAVIEW_MULTIBLOCK` | Paraview XML Multiblock .vtm format |
 | `PARAVIEW_ASCII` | ASCII Paraview .vtk format |
 | `TECPLOT` | Binary Tecplot .szplt format |
 | `TECPLOT_ASCII` | ASCII Tecplot .dat format |
 | `SURFACE_CSV` | Surface values in CSV format (includes all markers set with `MARKER_PLOTTING`) |
-| `SURFACE_PARAVIEW` | Surface values in binary Paraview .vtk format (includes all markers set with `MARKER_PLOTTING`)|
+| `SURFACE_PARAVIEW` | Surface values in binary Paraview .vtu format (includes all markers set with `MARKER_PLOTTING`)|
+| `SURFACE_PARAVIEW_LEGACY` | Surface values in binary Paraview .vtk format (includes all markers set with `MARKER_PLOTTING`)|
 | `SURFACE_PARAVIEW_ASCII` | Surface values in ASCII Paraview .vtk format (includes all markers set with `MARKER_PLOTTING`)|
 | `SURFACE_TECPLOT` | Surface values in binary Tecplot .szplt format (includes all markers set with `MARKER_PLOTTING`)|
 | `SURFACE_TECPLOT_ASCII` | Surface values in ASCII Tecplot .dat format (includes all markers set with `MARKER_PLOTTING`)|
@@ -75,17 +78,20 @@ For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non
 |  `MOMENTUM-X` | Momentum x-component | `SOLUTION`   |
 |  `MOMENTUM-Y` | Momentum y-component  | `SOLUTION`   |
 |  `MOMENTUM-Z` | Momentum z-component |  `SOLUTION`  |
-|  `ENERGY` | Energy  |  `SOLUTION`  |
+|  `ENERGY` | Density times the specific total energy  |  `SOLUTION`  |
+|  `RMS_` | Root-mean square residual of the solution  |  `RMS_RES`  |
 |  `PRESSURE` | Pressure|  `PRIMITIVE`  |
 |  `TEMPERATURE` | Temperature |  `PRIMITIVE`  |
 |  `MACH` | Mach Number |  `PRIMITIVE`  |
 |  `PRESSURE_COEFF` | Pressure Coefficient  |  `PRIMITIVE`  |
 |  `LAMINAR_VISCOSITY` | Laminar viscosity  |  `PRIMITIVE`  |
-|  `SKIN_FRICTION-X` | Skin friction coefficient x-component |  `PRIMITIVE`  |
-|  `SKIN_FRICTION-Y` | Skin friction coefficient y-component  |  `PRIMITIVE`  |
-|  `SKIN_FRICTION-Z` | Skin friction coefficient z-component |  `PRIMITIVE`  |
+|  `SKIN_FRICTION-X` | Skin friction coefficient x-component in local coordinates |  `PRIMITIVE`  |
+|  `SKIN_FRICTION-Y` | Skin friction coefficient y-component in local coordinates |  `PRIMITIVE`  |
+|  `SKIN_FRICTION-Z` | Skin friction coefficient z-component in local coordinates |  `PRIMITIVE`  |
 |  `HEAT_FLUX` | Heat flux |  `PRIMITIVE`  |
 |  `Y_PLUS` | Y-Plus |  `PRIMITIVE`  |
+| `VORTICITY` | Vorticity | `VORTEX_IDENTIFICATION` |
+| `Q_Criterion` | Q-Criterion | `VORTEX_IDENTIFICATION` |
 
 
 ## Customizing the Screen and History Output ##

@@ -35,7 +35,7 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 An Euler wall for inviscid flow is defined with the `MARKER_EULER` option. It can also be used as a slip wall in viscous flow. Only the marker name has to be given for this option.
 
@@ -51,7 +51,7 @@ MARKER_EULER = (Euler_Wall1, Euler_Wall2, ...)
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 A symmetry wall is defined with using the `MARKER_SYM` option. Only the marker name has to be given for this option.
 
@@ -61,14 +61,16 @@ For all Finite Volume (FVM) solvers, i.e. not the `FEM_*` solvers, its implement
 MARKER_SYM = (Symmetry_Wall1, Symmetry_Wall2, ...)
 ```
 
+The negative Spalart-Allmaras model implements the same boundary conditions as for the standard/standalone version.
+
 ## Constant Heatflux (no-slip) Wall ##
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.2.0 |
 
 
-A wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watts per square meter `[W/m^2],[J/(s*m^2)]`), e.g.
+A viscous wall with a prescribed constant heatflux is defined with the `MARKER_HEATFLUX` option. The option format is the marker name followed by the value of the heatflux (in Watts per square meter `[W/m^2],[J/(s*m^2)]`), e.g.
 ```
 MARKER_HEATFLUX = (Wall1, 1e05, Wall2, 0.0)
 ```
@@ -88,7 +90,7 @@ when additionally using the `INTEGRATED_HEATFLUX= YES` option. In the case of a 
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.2.0 |
 
 
 A wall with a prescribed locally variable heatflux via a heat transfer coefficient and and a Temperature at infinity (or reservoir Temperature) is defined with the `MARKER_HEATTRANSFER` option. The heatflux `q` computes to `q = h(T_inf - T_wall)`, where `T_wall` is the local wall temperature and therefore no user input. The option format is the marker name followed by the value of the heat-transfer coefficient (in Watts per square meter and Kelvin `[W/(m^2*K)],[J/(s*m^2*K)]`) and the value of the Temperature at infinity (in Kelvin `[K]`), e.g.
@@ -102,7 +104,7 @@ MARKER_HEATTRANSFER = (Wall1, 10.0, 350.0, Wall2, 5.0, 330.0, ...)
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES`, `HEAT_EQUATION_FVM` | 7.2.0 |
 
 A wall with a constant temperature is defined with the `MARKER_ISOTHERMAL` option. The option format is the marker name followed by the value of the temperature (in Kelvin `[K]`), e.g.
 ```
@@ -113,9 +115,9 @@ MARKER_ISOTHERMAL = (Wall1, 300.0, Wall2, 250.0)
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
-A marker can be defined as a Farfield boundary by addings its name to the `MARKER_FAR` option. No other values are necesseary for that option. The actual values which will be prescribed depend on the solver and other user input settings. More details can be found in the [Physical Definition](/docs_v7/Physical-Definition/) section.
+A marker can be defined as a Farfield boundary by addings its name to the `MARKER_FAR` option. No other values are necesseary for that option. The actual values which will be prescribed depend on the solver and other user input settings. The implementation is based on the Riemann invariants of the Euler system calculated from the user input config file. More details can be found in the [Physical Definition](/docs_v7/Physical-Definition/) section.
 
 ```
 MARKER_FAR= (farfield)
@@ -128,7 +130,7 @@ Inlet boundary conditions are set using the option `MARKER_INLET`.
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 To describe the **Total Conditions** at the inlet, set the option `INLET_TYPE= TOTAL_CONDITIONS` (which is the default). The format for `MARKER_INLET` then is the marker name, followed by the Total Temperature (in Kelvin `[K]`), the total Pressure (in Pascal `[Pa]`) and the flow direction unity vector (in meter per second `[m/s]`). For example:
 ```
@@ -140,7 +142,7 @@ MARKER_INLET = (inlet1, 300, 1e6, 1.0, 0.0, 0.0, inlet2, 400, 1e6, 0.0, 1.0, 0.0
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 To describe the **Mass Flow** at the inlet, set the option `INLET_TYPE= MASS_FLOW`. The format for `MARKER_INLET` then is the marker name, followed by the Density (in `[kg/m^3`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). For example:
 ```
@@ -153,7 +155,7 @@ MARKER_INLET = (inlet1, 1.13 , 20, 1.0, 0.0, 0.0, inlet2, 1.15, 10, 0.0, 1.0, 0.
 
 | Solver | Version | 
 | --- | --- |
-| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.2.0 |
 
 To describe the **Velocity** at the inlet, set the option `INC_INLET_TYPE= VELOCITY_INLET`. The format for `MARKER_INLET` then is the marker name, followed by the Temperature (in Kelvin `[K`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). 
 
@@ -166,7 +168,7 @@ MARKER_INLET = (inlet1, 300 , 20, 1.0, 0.0, 0.0, inlet2, 200, 10, 0.0, 1.0, 0.0)
 
 | Solver | Version | 
 | --- | --- |
-| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.2.0 |
 
 To describe the **Total Pressure** at the inlet, set the option `INC_INLET_TYPE= PRESSURE_INLET`. The format for `MARKER_INLET` then is the marker name, followed by the Temperature (in Kelvin `[K]`), the Total Pressure (in Pascal `[Pa]`) and the flow direction unity vector (in meter per second `[m/s]`). 
 
@@ -181,13 +183,13 @@ MARKER_INLET = (inlet1, 300 , 1e6, 1.0, 0.0, 0.0, inlet2, 200, 1e6, 0.0, 1.0, 0.
 
 ## Outlet Boundary Condition ##
 
-Outlet boundary conditions are set using the `MARKER_OUTLET` option.
+Outlet boundary conditions are set using the `MARKER_OUTLET` option. These are prescribed by computing the Riemann invariants.
 
 ### Pressure Outlet (Compressible) ###
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.2.0 |
 
 To describe the static thermodynamic pressure at an outlet, the format for `MARKER_OUTLET` is the marker name, followed by the value of the static pressure (in Pascal `[Pa]`).
 
@@ -199,7 +201,7 @@ MARKER_OUTLET = (outlet, 1e5)
 
 | Solver | Version | 
 | --- | --- |
-| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.0.0 |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.2.0 |
 
 To describe the pressure at an outlet, set the option `INC_OUTLET_TYPE= PRESSURE_OUTLET`. The format for `MARKER_OUTLET` is the marker name, followed by the value of the gauge pressure (in Pascal `[Pa]`).
 
@@ -214,7 +216,7 @@ MARKER_OUTLET = (outlet, 1e1)
 
 | Solver | Version | 
 | --- | --- |
-| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.0.0 |
+| `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`| 7.2.0 |
 
 To describe the mass flow at an outlet, set the option `INC_OUTLET_TYPE= MASS_FLOW_OUTLET`. The format for `MARKER_OUTLET` is the marker name, followed by the value of the target mass flow (in kilogramm per second `[kg/s]`).
 
@@ -229,7 +231,13 @@ MARKER_OUTLET = (outlet, 1e1)
 
 | Solver | Version | 
 | --- | --- |
-| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
+| `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.2.0 |
+
+For two given periodic surfaces `periodic marker` and `donor marker` SU2 defines periodicity by 
+```
+MARKER_PERIODIC= ( periodic marker, donor marker, rotation_center_x, rotation_center_y, rotation_center_z, rotation_angle_x-axis, rotation_angle_y-axis, rotation_angle_z-axis, translation_x, translation_y, translation_z, ... )
+```
+The same number of points on both surfaces is assumed. Their orientation is specified by the additional set of arguments. For rotational periodicity the parameter `rotation_center_` specifies the coordinates of the center of rotation for the specified axis and `rotation_angle_` defines the rotation angle [in radians] between `periodic marker` and `donor marker` about the specified axis. For translational periodicty the parameter `translation_` specifies the translation between `periodic marker` and `donor marker` in each space direction.
 
 ## Structural Boundary Conditions ##
 
@@ -237,7 +245,7 @@ MARKER_OUTLET = (outlet, 1e1)
 
 | Solver | Version | 
 | --- | --- |
-| `ELASTICITY` | 7.0.0 |
+| `ELASTICITY` | 7.2.0 |
 
 The format for this boundary condition consists of a list of all clamped surfaces (markers). Structural displacements are set to 0 for the nodes on those surfaces.
 
@@ -251,7 +259,7 @@ MARKER_CLAMPED = (surface_1,...,surface_N)
 
 | Solver | Version | 
 | --- | --- |
-| `ELASTICITY` | 7.0.0 |
+| `ELASTICITY` | 7.2.0 |
 
 The displacements of the nodes on `surface` are enforced, the displacement vector is specified by magnitude and direction (the x/y/z components), internally the solver makes the direction unitary, the multiplier (should usually be set to 1) can be used to increase/decrease the magnitude for example after scaling an existing mesh.
 ```
@@ -264,7 +272,7 @@ MARKER_DISPLACEMENT = (surface, multiplier, magnitude `[m]`, x component, y comp
 
 | Solver | Version | 
 | --- | --- |
-| `ELASTICITY` | 7.0.0 |
+| `ELASTICITY` | 7.2.0 |
 
 A force-like boundary condition but specified in terms of pressure (units of Pa) which is integrated to obtain nodal forces. The syntax is identical to `MARKER_DISPLACEMENT`.
 ```
@@ -277,7 +285,7 @@ MARKER_LOAD = (surface, multiplier, magnitude `[Pa]`, x component, y component, 
 
 | Solver | Version | 
 | --- | --- |
-| `ELASTICITY` | 7.0.0 |
+| `ELASTICITY` | 7.2.0 |
 
 Normal pressure boundary condition (positive means into the surface). This is a following force both magnitude and direction depend of the deformation of the structure.
 ```

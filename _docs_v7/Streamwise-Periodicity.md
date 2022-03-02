@@ -5,7 +5,7 @@ permalink: /docs_v7/Streamwise-Periodicity/
 
 | Solver | Version | 
 | --- | --- |
-| `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
+| `INC_NAVIER_STOKES`, `INC_RANS` | 7.2.0 |
 
 
 This page contains an overview of the theory behind streamwise periodic flow and builds upon [Incompressible Navier-Stokes](/docs_v7/Theory/#incompressible-navier-stokes). A tutorial for [Streamwise Periodic Flow](/tutorials/Inc_Streamwise_Periodic/) is available.

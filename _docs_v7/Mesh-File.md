@@ -147,3 +147,10 @@ It is important to note that SU2 will not use any specific boundary conditions t
 ## Third-Party Mesh Software
 
 We are continuously working to integrate SU2 with industry-standard tools. The latest releases of the Pointwise meshing software can both export and import meshes in the native ASCII SU2 format. In addition, a number of other packages support direct output to the SU2 format, such as GMSH and CENTAUR. CGNS files created by a number of other meshing packages have been successfully tested and used, such as those from ICEM CFD, for instance.
+
+## Geometry Nomneclature Inside SU2
+
+The following image illustrates the primary and dual grid components nomenclature used inside the SU2 code.
+
+![SU2 geometry definition](../../docs_files/SU2_geometry_nomenclature.png)
+*Primary and dual grid nomenclature. Primary grid in black and dual grid in red.*
