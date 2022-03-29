@@ -146,11 +146,11 @@ MARKER_INLET = (inlet1, 1.13 , 20, 1.0, 0.0, 0.0, inlet2, 1.15, 10, 0.0, 1.0, 0.
 | --- | --- |
 | `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
 
-To describe the **Velocity** at the inlet, set the option `INC_INLET_TYPE= VELOCITY_INLET`. The format for `MARKER_INLET` then is the marker name, followed by the Temperature (in Kelvin `[K`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction unity vector (in meter per second `[m/s]`). 
+To describe the **Velocity** as well as the **Temperature** at the inlet, set the option `INC_INLET_TYPE= VELOCITY_INLET`. The format for `MARKER_INLET` then is the marker name, followed by the Temperature (in Kelvin `[K`]), the Velocity magnitude (in meter per second `[m/s]`) and the flow direction vector (the direction vector does not need to be normalized). Note that the temperature has to be provided even when `INC_ENERGY_EQUATION= NO`, but it will be ignored in the calculations.
 
 ```
 INC_INLET_TYPE= VELOCITY_INLET, VELOCITY_INLET
-MARKER_INLET = (inlet1, 300 , 20, 1.0, 0.0, 0.0, inlet2, 200, 10, 0.0, 1.0, 0.0)
+MARKER_INLET = (inlet1, 300, 20, 1.0, 0.0, 0.0, inlet2, 200, 10, 0.0, 1.0, 0.0)
 ```
 
 ### Pressure Inlet ###
