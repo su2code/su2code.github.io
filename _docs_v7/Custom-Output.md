@@ -77,7 +77,7 @@ Groups and fields can be combined, e.g.:
 
 `VOLUME_OUTPUT= SOLUTION, PRESSURE, DENSITY `
 
-will save all field that are in the `SOLUTION` group. Pressure is in the `PRIMITIVE` group for the compressible solver and in the `SOLUTION` group for the incompressible solver. Density on the other hand is in the `SOLUTION group for the compressible solver and in the `PRIMITIVE` group for the incompressible solver. They can be added individually as in the example above, or by simply adding the entire `PRIMITIVE` group to the list if file size is no issue. Note that keywords that are not valid for the current setup will simply be ignored. 
+will save all field that are in the `SOLUTION` group. Pressure is in the `PRIMITIVE` group for the compressible solver and in the `SOLUTION` group for the incompressible solver. Density on the other hand is in the `SOLUTION` group for the compressible solver and in the `PRIMITIVE` group for the incompressible solver. They can be added individually as in the example above, or by simply adding the entire `PRIMITIVE` group to the list if file size is no issue. Note that keywords that are not valid for the current setup will simply be ignored. 
 
 For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
 
