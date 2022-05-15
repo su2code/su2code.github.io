@@ -18,12 +18,15 @@ SU2 offers different ways of setting and computing this definition. This documen
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
   - [Initial State and Non-Dimensionalization](#initial-state-and-non-dimensionalization)
+- [Turbulence Models](#turbulence-models)
+  - [Spalart-Allmaras (SA)](#spalart-allmaras-model)
+  - [Shear Stress Transport (SST)](#shear-stress-transport)
 
 ---
 
 ## Reference Values ##
 
-| Solver | Version | 
+| Solver | Version |
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
@@ -47,7 +50,7 @@ The following table depicts the reference values used by most of the solvers in 
 
 ## Free-Stream Definition (Compressible) ##
 
-| Solver | Version | 
+| Solver | Version |
 | --- | --- |
 | `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
@@ -79,7 +82,7 @@ For all schemes, as reference values for the density and temperature the free-st
 
 ## Flow Condition (Incompressible) ##
 
-| Solver | Version | 
+| Solver | Version |
 | --- | --- |
 | `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
 
@@ -97,3 +100,43 @@ The reference values $$\rho_{ref}, T_{ref}, v_{ref}$$ equal the initial state va
 
 **Note:** The initial state is also used as boundary conditions for `MARKER_FAR`.
 
+## Turbulence Models ##
+
+| Solver | Version |
+| --- | --- |
+| `*_RANS` | 7.4.0 |
+
+This section describes how to setup turbulence models for RANS simulations. In general turbulence models are selected via the option `KIND_TURB_MODEL`, corrections/versions and parameters of the models are specified via the options listed below.
+The turbulent Pradtl number can be modified with option `PRANDTL_TURB` (the default is 0.9).
+
+### Spalart-Allmaras (SA) ###
+
+SU2 implements the following SA versions:
+**WIP**
+
+### Shear Stress Transport (SST) ###
+
+SU2 implements the "Standard" (1994) and 2003 versions of the SST model along with several modifications.
+
+**Note:** Currently all versions are "modified" i.e. the turbulence kinetic energy (tke) is not included in the viscous stress tensor.
+
+The model is selected using `KIND_TURB_MODEL= SST` and the modifications via the `SST_OPTIONS` list.
+The freestream and inlet conditions are specified via the options
+`FREESTREAM_TURBULENCEINTENSITY= 0.05` (5%)
+`FREESTREAM_TURB2LAMVISCRATIO= 10` (ratio of turbulent to laminar viscosity)
+
+**Note:** The default values for these options are suitable for internal flows but may be too high for external aerodynamics problems.
+
+The following modifications are allowed:
+- Versions:
+  - `V1994m` - SSTm **WARNING:** Our implementation has a small [inconsistency with the literature](https://github.com/su2code/SU2/issues/1551), which will be resolved in the next major SU2 update (i.e. version 8).
+  - `V2003m` - SST-2003m, no known inconsistencies.
+- Production modifications:
+  - `VORTICITY` - Uses vorticity to compute the source term instead of strain-rate magnitude.
+  - `KATO_LAUNDER` - Uses the Kato-Launder modification (vorticity times strain-rate).
+  - `UQ` - Production is computed using a modified stress tensor for [uncertainty quantification](https://su2code.github.io/tutorials/UQ_NACA0012/). **Note** with this modification tke is always included in the stress tensor.
+- Corrections:
+  - `SUSTAINING` - SST with controlled decay.
+  - Curvature corrections are currently not implemented.
+
+Modifications from each of these three groups can be combined, for example `SST_OPTIONS= V2003m, VORTICITY, SUSTAINING`
