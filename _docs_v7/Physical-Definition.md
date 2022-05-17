@@ -111,30 +111,45 @@ The turbulent Pradtl number can be modified with option `PRANDTL_TURB` (the defa
 
 ### Spalart-Allmaras (SA) ###
 
-SU2 implements the following SA versions:
-**WIP**
+SU2 implements several versions and corrections of the SA model.
+The model is selected using `KIND_TURB_MODEL= SA` and the modifications via the `SA_OPTIONS` list, if this list is empty SU2 defaults to `SA-noft2`.
+The freestream and inlet conditions are specified via the option `FREESTREAM_NU_FACTOR= 3` (ratio of SA variable to freestream kinematic viscosity).
+
+The following modifications are allowed (refer to [NASA's TMR](https://turbmodels.larc.nasa.gov/spalart.html) for further info):
+- Versions:
+  - `NEGATIVE` - Negative SA model.
+  - `EDWARDS` - Edwards modification.
+  - `BCM` - BCM transitional model.
+  - `FT2` - SA model **with** ft2 term, note that by default we omit this term.
+- Corrections:
+  - `QCR2000` - Quadratic contitutive relation used in the stress tensor.
+  - `COMPRESSIBILITY` - Mixing layer compressibility correction.
+  - `ROTATION` - Dacles-Mariani et al. rotation correction.
+
+All the modifications can be combined with each other expect `NEGATIVE`, `EDWARDS`, and `BCM`. However some combinations are not considered standard, e.g. `SA-neg-noft2`, see TMR for details.
+For example, to specify `SA-neg-R-comp-QCR2000` use `SA_OPTIONS= NEGATIVE, FT2, ROTATION, COMPRESSIBILITY, QCR2000`.
+
+The rough wall correction is implicitly turned on by specifying roughness values for wall markers via the `WALL_ROUGHNESS` option.
 
 ### Shear Stress Transport (SST) ###
 
 SU2 implements the "Standard" (1994) and 2003 versions of the SST model along with several modifications.
 
-**Note:** Currently all versions are "modified" i.e. the turbulence kinetic energy (tke) is not included in the viscous stress tensor.
+**Note:** Currently all versions are "modified" i.e. the turbulence kinetic energy (TKE) is not included in the viscous stress tensor.
 
-The model is selected using `KIND_TURB_MODEL= SST` and the modifications via the `SST_OPTIONS` list.
-The freestream and inlet conditions are specified via the options
-`FREESTREAM_TURBULENCEINTENSITY= 0.05` (5%)
-`FREESTREAM_TURB2LAMVISCRATIO= 10` (ratio of turbulent to laminar viscosity)
+The model is selected using `KIND_TURB_MODEL= SST` and the modifications via the `SST_OPTIONS` list, if this list is empty SU2 defaults to `SSTm` (see warning below).
+The freestream and inlet conditions are specified via the options `FREESTREAM_TURBULENCEINTENSITY= 0.05` (5%) and `FREESTREAM_TURB2LAMVISCRATIO= 10` (ratio of turbulent to laminar viscosity).
 
 **Note:** The default values for these options are suitable for internal flows but may be too high for external aerodynamics problems.
 
 The following modifications are allowed:
 - Versions:
   - `V1994m` - SSTm **WARNING:** Our implementation has a small [inconsistency with the literature](https://github.com/su2code/SU2/issues/1551), which will be resolved in the next major SU2 update (i.e. version 8).
-  - `V2003m` - SST-2003m, no known inconsistencies.
+  - `V2003m` - SST-2003m (no known inconsistencies).
 - Production modifications:
   - `VORTICITY` - Uses vorticity to compute the source term instead of strain-rate magnitude.
   - `KATO_LAUNDER` - Uses the Kato-Launder modification (vorticity times strain-rate).
-  - `UQ` - Production is computed using a modified stress tensor for [uncertainty quantification](https://su2code.github.io/tutorials/UQ_NACA0012/). **Note** with this modification tke is always included in the stress tensor.
+  - `UQ` - Production is computed using a modified stress tensor for [uncertainty quantification](https://su2code.github.io/tutorials/UQ_NACA0012/). **Note** with this modification TKE is always included in the stress tensor.
 - Corrections:
   - `SUSTAINING` - SST with controlled decay.
   - Curvature corrections are currently not implemented.
