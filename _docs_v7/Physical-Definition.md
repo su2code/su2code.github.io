@@ -106,13 +106,15 @@ The reference values $$\rho_{ref}, T_{ref}, v_{ref}$$ equal the initial state va
 | --- | --- |
 | `*_RANS` | 7.4.0 |
 
-This section describes how to setup turbulence models for RANS simulations. In general turbulence models are selected via the option `KIND_TURB_MODEL`, corrections/versions and parameters of the models are specified via the options listed below.
-The turbulent Pradtl number can be modified with option `PRANDTL_TURB` (the default is 0.9).
+This section describes how to setup turbulence models for RANS simulations. The turbulence model is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS`
+A turbulence model can then be selected via the option `KIND_TURB_MODEL`
+Different submodels and parameters are specified via the different options listed below.
+The turbulent Prandtl number can be modified with the option `PRANDTL_TURB` (the default is 0.9).
 
 ### Spalart-Allmaras (SA) ###
 
 SU2 implements several versions and corrections of the SA model.
-The model is selected using `KIND_TURB_MODEL= SA` and the modifications via the `SA_OPTIONS` list, if this list is empty SU2 defaults to `SA-noft2`.
+The model is selected using `KIND_TURB_MODEL= SA` and the modifications via the `SA_OPTIONS` list. If this list is empty, then SU2 defaults to `SA-noft2`.
 The freestream and inlet conditions are specified via the option `FREESTREAM_NU_FACTOR= 3` (ratio of SA variable to freestream kinematic viscosity).
 
 The following modifications are allowed (refer to [NASA's TMR](https://turbmodels.larc.nasa.gov/spalart.html) for further info):
@@ -137,7 +139,7 @@ SU2 implements the "Standard" (1994) and 2003 versions of the SST model along wi
 
 **Note:** Currently all versions are "modified" i.e. the turbulence kinetic energy (TKE) is not included in the viscous stress tensor.
 
-The model is selected using `KIND_TURB_MODEL= SST` and the modifications via the `SST_OPTIONS` list, if this list is empty SU2 defaults to `SSTm` (see warning below).
+The main model is selected using `KIND_TURB_MODEL= SST` and the version and modifications via the `SST_OPTIONS` list. If this list is empty SU2 defaults to the baseline 1994 model, `V1994m` (see warning below). The options allow for a version and a set of modifiers to the version. 
 The freestream and inlet conditions are specified via the options `FREESTREAM_TURBULENCEINTENSITY= 0.05` (5%) and `FREESTREAM_TURB2LAMVISCRATIO= 10` (ratio of turbulent to laminar viscosity).
 
 **Note:** The default values for these options are suitable for internal flows but may be too high for external aerodynamics problems.
