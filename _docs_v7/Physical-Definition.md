@@ -128,8 +128,9 @@ The following modifications are allowed (refer to [NASA's TMR](https://turbmodel
   - `COMPRESSIBILITY` - Mixing layer compressibility correction.
   - `ROTATION` - Dacles-Mariani et al. rotation correction.
 
-All the modifications can be combined with each other expect `NEGATIVE`, `EDWARDS`, and `BCM`. However some combinations are not considered standard, e.g. `SA-neg-noft2`, see TMR for details.
+All the modifications can be combined with each other expect `NEGATIVE`, `EDWARDS`, and `BCM`.
 For example, to specify `SA-neg-R-comp-QCR2000` use `SA_OPTIONS= NEGATIVE, FT2, ROTATION, COMPRESSIBILITY, QCR2000`.
+**However, some combinations are not considered standard**, e.g. `SA-neg` should have the ft2 term, whereas `SA-noft2-Edwards` and `SA-noft2-BCM` should not have the ft2 term, and they are usually not combined with other corrections. See TMR for more details.
 
 The rough wall correction is implicitly turned on by specifying roughness values for wall markers via the `WALL_ROUGHNESS` option.
 
