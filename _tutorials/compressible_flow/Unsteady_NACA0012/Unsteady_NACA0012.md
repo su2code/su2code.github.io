@@ -24,7 +24,6 @@ Furthermore, the user is introduced in the so-called windowing approach, a regul
 - Dual time-stepping for unsteady flows
 - Windowing
 - Time-convergence
-- Code parallelism (optional)
 
 This tutorial also provides an explanation for properly setting up viscous, compressible, unsteady 2D flow conditions in SU2.
 We also introduce a new type of time-convergence criteria for periodic flows, which monitors the change of the time-average of a specific objective, such as lift or drag, in order to assess convergence.
@@ -69,8 +68,8 @@ Figure (3): Close-up view of the airfoil surface and the aerodynamic coefficient
 
 ### Configuration File Options ###
 
-Configuration of the physical problem is similar to the ONERA M6 tutorial, that one can access [here](../Turbulent_ONERAM6). However, contrary to the ONERA M6 case, here a unsteady simulation is performed, hence, the Unsteady RANS (URANS) equations in 2D must be solved.
-Unsteady simulations in SU2 are computed by employing a dual time-stepping scheme. To this end, one first performs a spatial discretization as explained in the [ONERA M6](../Turbulent_ONERAM6) tutorial. 
+Configuration of the physical problem is similar to the ONERA M6 tutorial, that one can access [here](../Turbulent_ONERAM6). However, contrary to the ONERA M6 case, here an unsteady simulation is performed, hence, the Unsteady RANS (URANS) equations in 2D must be solved.
+Unsteady RANS simulations in SU2 are typically computed via the dual time-stepping approach. To this end, one first performs a spatial discretization as explained in the [ONERA M6](../Turbulent_ONERAM6) tutorial. 
 After that, a time discretization in physical time is performed, that results in a residual equation of the form
 
 $$ R(u^n) = 0 \qquad \forall n=1,\dots,N. $$
@@ -97,13 +96,13 @@ TIME_DOMAIN = YES
 TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER
 %
 % Time Step for dual time stepping simulations (s)
-TIME_STEP= 5e-3
+TIME_STEP= 5e-4
 %
 % Maximum Number of physical time steps.
-TIME_ITER= 2200
+TIME_ITER= 2000
 %
 % Number of internal iterations (dual time method)
-INNER_ITER= 50
+INNER_ITER= 10
 %
 % Time discretization for inner iteration.
 TIME_DISCRE_FLOW= EULER_IMPLICIT
@@ -167,10 +166,10 @@ WINDOW_CAUCHY_CRIT = YES
 CONV_WINDOW_FIELD= (TAVG_DRAG, TAVG_LIFT)
 %
 % Number of elements to apply the criteria
-CONV_WINDOW_CAUCHY_ELEMS= 100
+CONV_WINDOW_CAUCHY_ELEMS= 10
 %
 % Epsilon to control the series convergence
-CONV_WINDOW_CAUCHY_EPS= 1E-2
+CONV_WINDOW_CAUCHY_EPS= 1E-4
 %
 % Number of iterations to wait after the iteration specified in  WINDOW_START_ITER.
 CONV_WINDOW_STARTITER = 10
@@ -197,37 +196,25 @@ RESTART_ITER = 499
 
 ### Running SU2
 
-Instructions for running this test case are given here for both serial and parallel computations.
-
-#### In Serial
-
-The wing mesh should fit on a single-core machine. To run this test case in serial, follow these steps at a terminal command line:
- 1. Move to the directory containing the config file (unsteady_NACA0012.cfg) and the mesh file (unsteady_NACA0012_mesh.su2). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
- 2. Run the executable by entering in the command line:
-      
+The airfoil mesh should fit on a single-core machine. To run this test case follow these steps at a terminal command line:
+ 1. Move to the directory containing the config file ([unsteady_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012.cfg)) and the mesh file ([unsteady_naca0012_mesh.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012_mesh.su2)). Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 2. For serial execution run the command:
     ```
     $ SU2_CFD unsteady_NACA0012.cfg
     ```
 
  3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
- 4. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+ 4. Files containing the results will be written on every time step.
 
-#### In Parallel
-
-If SU2 has been built with parallel support, the recommended method for running a parallel simulation is through the use of the parallel_computation.py Python script. This automatically handles the domain decomposition and execution with SU2_CFD, and the merging of the decomposed files using SU2_SOL. Follow these steps to run the ONERA M6 case in parallel:
- 1. Move to the directory containing the config file ([unsteady_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012.cfg)) and the mesh file ([unsteady_naca0012_mesh.su2](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Unsteady_NACA0012/unsteady_naca0012_mesh.su2)). Make sure that the SU2 tools were compiled with parallel support, installed, and that their install location was added to your path.
- 2. Run the python script which will automatically call SU2_CFD and will perform the simulation using `NP` number of processors by entering in the command line:
-
-    ```
-    $ parallel_computation.py -n NP -f unsteady_NACA0012.cfg
-    ```
-
- 3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
- 4. The python script will automatically call the `SU2_SOL` executable for generating visualization files from the native restart file written during runtime. The flow solution can then be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+To run the case in parallel (using MPI) simply do:
+```
+$ mpirun -n NP SU2_CFD unsteady_NACA0012.cfg
+```
+Where NP is the number of processors, note that different MPI distributions may need slightly different syntax (e.g. mpiexec).
 
 ### Results
 
-Results for the turbulent flow about the NACA0012 airfoil are shown below. The first picture shows the time dependent 
+Results for the flow about the NACA0012 airfoil are shown below. The first picture shows the time dependent 
 drag (black) as well as the windowed average from iteration 500 up to the current iteration computed with different 
 windowing-functions.
 The Hann-Square-windowed time-average set up in this tutorial is displayed by the red line. 
