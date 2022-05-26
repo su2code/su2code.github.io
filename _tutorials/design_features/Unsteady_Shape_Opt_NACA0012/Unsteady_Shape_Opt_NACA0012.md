@@ -27,7 +27,6 @@ Consequently, the following capabilities of SU2 will be showcased in this tutori
 - Windowed sensitivity calculation
 - Unsteady adjoints
 - Unsteady Optimization
-- Code parallelism 
 
 This tutorial uses the windowing techniques explained in [here](../Unsteady_NACA0012), to compute meaningful optimization objectives.
  Hence it is recommended to read that tutorial first. 
@@ -131,7 +130,7 @@ TIME_DOMAIN = YES
 TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER
 %
 % Time Step for dual time stepping simulations (s)
-TIME_STEP= 5e-3
+TIME_STEP= 5e-4
 %
 % Maximum Number of physical time steps.
 TIME_ITER= 2200

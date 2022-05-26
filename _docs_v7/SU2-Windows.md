@@ -19,7 +19,7 @@ SU2 supports Windows platforms from Windows 7 and Windows 10 for x86 (64-bit). Y
 ## Installation 
 
 ### Download and unpack the archive
-[Download](/download/) the .zip for your operating system and unzip it where you want it to be installed. 
+[Download](/docs_v7/Download/) the .zip for your operating system and unzip it where you want it to be installed. 
 
 ### Add SU2 environment variables
 This is done through the Environment Variables control panel.  You can access these by typing "environ" in the search/run box of the start menu.  Start a New System variable.  Assign the Variable Name `SU2_RUN`, and assign the Variable Value to be the path to your SU2 Executables (the folder that contains `SU2_CFD.exe` for example). This variable will allow you to quickly navigate to the SU2 directory using `cd %SU2_RUN%`, and run the executables using `%SU2_RUN%\<executable>`.
