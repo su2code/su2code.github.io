@@ -106,7 +106,7 @@ The reference values $$\rho_{ref}, T_{ref}, v_{ref}$$ equal the initial state va
 | --- | --- |
 | `*_RANS` | 7.4.0 |
 
-This section describes how to setup turbulence models for RANS simulations. The turbulence model is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS`
+This section describes how to setup turbulence models for RANS simulations. Turbulence is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS`
 A turbulence model can then be selected via the option `KIND_TURB_MODEL`
 Different submodels and parameters are specified via the different options listed below.
 The turbulent Prandtl number can be modified with the option `PRANDTL_TURB` (the default is 0.9).
