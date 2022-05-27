@@ -62,17 +62,17 @@ Several of the key configuration file options for this simulation are highlighte
 %                               LINEAR_ELASTICITY, POISSON_EQUATION)
 SOLVER= INC_RANS
 %
-% Specify turbulent model (NONE, SA, SA_NEG, SST)
+% Specify turbulent model (NONE, SA, SST)
 KIND_TURB_MODEL= SA
 %
-% Specify transition model (NONE, BC)
-KIND_TRANS_MODEL= BC
+% Specify transition model
+SA_OPTIONS= BCM
 %
 % Specify Turbulence Intensity (%)
 FREESTREAM_TURBULENCEINTENSITY = 0.18
 ```
 
-The governing equations are RANS with the Spalart-Allmaras (`SA`) turbulence model. By entering `KIND_TRANS_MODEL= BC`, the Bas-Cakmakcioglu Algebraic Transition Model is activated. This model requires freestream turbulence intensity that is to be used in the transition correlation, thus the `FREESTREAM_TURBULENCEINTENSITY` option is also used. The BC model achieves its purpose by modifying the production term of the 1-equation SA turbulence model. The production term of the SA model is damped until a considerable amount of turbulent viscosity is generated, and after that point, the damping effect on the transition model is disabled. Thus, a transition from laminar to turbulent flow is obtained.
+The governing equations are RANS with the Spalart-Allmaras (`SA`) turbulence model. By entering `SA_OPTIONS= BCM`, the Bas-Cakmakcioglu Algebraic Transition Model is activated. This model requires freestream turbulence intensity that is to be used in the transition correlation, thus the `FREESTREAM_TURBULENCEINTENSITY` option is also used. The BC model achieves its purpose by modifying the production term of the 1-equation SA turbulence model. The production term of the SA model is damped until a considerable amount of turbulent viscosity is generated, and after that point, the damping effect on the transition model is disabled. Thus, a transition from laminar to turbulent flow is obtained.
 
 The incompressible freestream properties are specified as follows. (Please see "Notes" for freestream properties of other transitional flat plate test cases).
 

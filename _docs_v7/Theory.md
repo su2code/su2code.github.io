@@ -164,9 +164,10 @@ Within the `INC_EULER` solver, we discretize the equations in space using a fini
 
 # Turbulence Modeling #
 
-The Shear Stress Transport (SST) model of Menter and the Spalart-Allmaras (S-A) model are two of the most common and widely used turbulence models. The S-A and SST standard models, along with several variants, are implemented in SU2. The reader is referred to the [NASA Turbulence Modeling Resource](https://turbmodels.larc.nasa.gov/index.html) (TMR) for the details of each specific model, as the versions in SU2 are implemented according to the well-described formulations found there.
+SU2 implements several variants of the SST and SA turbulence models, for specifics of the models please see the [NASA Turbulence Modeling Resource](https://turbmodels.larc.nasa.gov/index.html) (TMR).
+For information on how to use turbulence models in SU2 see the [users guide](https://su2code.github.io/docs_v7/Physical-Definition/).
 
-Within the turbulence solvers, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge.
+The edge-based finite volume discretization of flow solvers is also used in turbulence solvers. Convective fluxes are evaluated using a scalar upwind scheme (1st or 2nd order).
 
 ---
 
