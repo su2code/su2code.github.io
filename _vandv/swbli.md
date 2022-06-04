@@ -48,6 +48,16 @@ Figure 2 compares the skin friction coefficient for the two turbulence models an
 **Figure 2** - Comparison of skin friction coefficient.
 
 The results do not change significantly between meshes L2 and L3, they were also not sensitive to other perturbations such as refining the mesh around the main shock, or global refinement (i.e. what would be an L4 mesh). The results for these other tests are omitted for simplicity.
-Both turbulence models predict that separation takes place (negative skin friction) the start of the separation region is better predicted with SST and it is close to the experiment. However, both models underestimate the re-attachment location.
-These results with SU2 are further from the experiment than the numerical results presented in the [main reference](https://www.grc.nasa.gov/www/wind/valid/m5swbli/m5swbli.html).
-This is likely due to compressibility effects not being included in SA and SST-2003m. This V&V case will be re-run with SST-2003 once it is implemented.
+
+Both turbulence models predict that separation takes place (negative skin friction). The start of the separation region is better predicted with SST and it is close to the experiment. However, both models underestimate the re-attachment location.
+
+These results with SU2 are further from the experiment than the numerical results presented in the [main reference](https://www.grc.nasa.gov/www/wind/valid/m5swbli/m5swbli.html), which is likely due to compressibility effects not being included in the SA and SST-2003m models.
+This hypothesis was tested by including the SA mixing-layer compressibility correction, i.e. using SA-neg-comp (by adding `COMPRESSIBILITY` to `SA_OPTIONS`).
+Figure 3 compares the results obtained with this model on meshes L2 and L3 with the experimental results, the SA-neg results on the L3 mesh are also shown for reference.
+With compressibility effects the size of the separation region is closer to the experiment.
+This V&V case will be updated with results from the SST-2003 (not modified) model once it is implemented.
+
+<p align="center">
+<img src="/vandv_files/swbli/cf_comp.png" alt="Skin friction coefficient with SA compressibility correction." />
+</p>
+**Figure 3** - Skin friction coefficient with SA compressibility correction.
