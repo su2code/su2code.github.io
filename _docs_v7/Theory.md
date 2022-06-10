@@ -3,7 +3,7 @@ title: Governing Equations in SU2
 permalink: /docs_v7/Theory/
 ---
 
-This page contains a very brief summary of the different governing equation sets that are treated in each of the solvers within SU2. The reader will be referred to other references for the full detail of the numerical implementations, but we will also describe the approaches at a high level here.
+This page contains a very brief summary of the different governing equation sets that are treated in each of the solvers within SU2. The reader will be referred to other references in some instances for the full detail of the numerical implementations, but the approaches are also described at a high level here.
 
 ---
 
@@ -94,7 +94,9 @@ Within the `EULER` solvers, we discretize the equations in space using a finite 
 | `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
 
 
-SU2 solves the incompressible Navier-Stokes equations in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). The equations can be expressed in differential form as
+SU2 solves the incompressible Navier-Stokes equations in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation).
+The reader is referred to [this paper](https://arc.aiaa.org/doi/10.2514/1.J058222) for extended details on the incompressible Navier-Stokes and Euler solvers in SU2.
+The equations can be expressed in differential form as
 
 $$ \mathcal{R}(V) = \frac{\partial V}{\partial t} + \nabla \cdot \bar{F}^{c}(V) - \nabla \cdot \bar{F}^{v}(V,\nabla V)  - S = 0 $$
 
@@ -164,6 +166,8 @@ Within the `INC_EULER` solver, we discretize the equations in space using a fini
 
 # Turbulence Modeling #
 
+Available for `RANS`, `INC_RANS`.
+
 The Shear Stress Transport (SST) model of Menter and the Spalart-Allmaras (S-A) model are two of the most common and widely used turbulence models. The S-A and SST standard models, along with several variants, are implemented in SU2. The reader is referred to the [NASA Turbulence Modeling Resource](https://turbmodels.larc.nasa.gov/index.html) (TMR) for the details of each specific model, as the versions in SU2 are implemented according to the well-described formulations found there.
 
 Within the turbulence solvers, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge.
@@ -172,7 +176,7 @@ Within the turbulence solvers, we discretize the equations in space using a fini
 
 # Species Transport #
 
-Compatible with `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`
+Compatible with `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`.
 
 $$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - \nabla \cdot \bar{F}^{v}(U,\nabla U)  - S = 0 $$
 
