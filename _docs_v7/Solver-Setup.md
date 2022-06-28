@@ -77,7 +77,7 @@ Different corrections and variations are implemented for each turbulence model. 
   - `EXPERIMENTAL`:?
 
 #### Spalart-Allamaras ####
-The single transported Spalart-Allmaras variable $\tilde{\nu}$~is initialized with the value at the farfield or inlet boundary. As suggested in the literature, the value there is computed as $\tilde{\nu}/\nu=\text{turb2lam}$. In SU2 the free-stream Spalart-Allmaras variable to kinematic laminar viscosity ratio, $\text{turb2lam}$, is controlled by the `FREESTREAM_NU_FACTOR` option. The default value is $\tilde{\nu}/\nu = 3.0$ avoiding laminar solutions.
+The single transported Spalart-Allmaras variable $\tilde{\nu}$~is initialized with the value at the farfield or inlet boundary. As suggested in the literature, the value there is computed as $\tilde{\nu}/\nu=\mathrm{turb2lam}$. In SU2 the free-stream Spalart-Allmaras variable to kinematic laminar viscosity ratio, $\text{turb2lam}$, is controlled by the `FREESTREAM_NU_FACTOR` option. The default value is $\tilde{\nu}/\nu = 3.0$ avoiding laminar solutions.
 
 An extension of SU2 includes an hybrid turbulence model: the Spalart-Allmaras original model with Detached-Eddy Simulation (DES) modification. Refer to Eduardo Moina's thesis?. The use of the hybrid RANS/LES model is specified in the cofig file with the field `HYBRID_RANSLES`. Four different techniques are currently implemented:
 
