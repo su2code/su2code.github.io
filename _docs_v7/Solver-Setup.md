@@ -29,7 +29,7 @@ See the [Software Components](/docs_v7/Software-Components/) documentation to de
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.3.1 |
 
 ## Direct ##
 
@@ -55,17 +55,18 @@ This section describes how to define the turbulence model in SU2 to be coupled t
  - `NONE`: No turbulence model.
  - `SST`: Mentor Shear Stress Transport.
  - `SA`: Spalart-Allmaras.
-Different corrections and variations are implemented for each turbulence model. These are specified accordingly either in `SST_OPTIONS` or in `SA_OPTIONS`. The following corrections/variations can be specified:
+ 
+Different corrections and variations are implemented for each turbulence model. These are specified accordingly either in `SST_OPTIONS` or in `SA_OPTIONS`. The folowing options are available:
 - `SST_OPTIONS`:
-  - `NONE`: standalone version (default).
-  - `V2003m`:
-  - `V1994m`
-  - `VORTICITY`
-  - `KATO_LAUNDER`
-  - `UQ`
-  - `SUSTAINING`
+  - `NONE`: No SST turbulence model (default).
+  - `V1994m`: refers to the "Standard" Menter SST model from 1994 with the modified constant $\sigma_{k1}$ and the redefinition of the turbulent eddy viscosity.
+  - `V2003m`: refers to the Menter SST model from 2003 ignoring the $\tau_{ij}$ in the momentum and energy equations and the production term is approximated by $P = \mu_t S^2$.
+  - `VORTICITY`: refers to the vorticity source term correction.
+  - `KATO_LAUNDER`: refers to the Kato-Launder correction.
+  - `UQ`: refers to the V1994m version with uncertainty quantification modifications.??
+  - `SUSTAINING`: refers to the controlled decay correction.
 
-- 'SA_OPTIONS`:
+- `SA_OPTIONS`:
   - `NONE`: refers to the modification where the $f_{t2}$ term is set to zero, i.e., $c_{t3} = 0$ (default).
   - `NEGATIVE`: refers to the negative Spalart-Allmaras modification.
   - `EDWARDS`: refers to the so-called Edwards modification.
@@ -74,10 +75,12 @@ Different corrections and variations are implemented for each turbulence model. 
   - `COMPRESSIBILITY`: refers to the Mixing Layer Compressibility modification.
   - `ROTATION`: refers to the rotation and curvature effects correction.
   - `BCM`: refers to the SA-BCM transitional turbulence model.
-  - `EXPERIMENTAL`:?
+  - `EXPERIMENTAL`: Allow experimental combinations of options (according to [NASA TMR](https://turbmodels.larc.nasa.gov/)).
+
+We refer for example to [NASA TMR](https://turbmodels.larc.nasa.gov/) for a detailed explanation and definition of each correction and variation.
 
 #### Spalart-Allamaras ####
-The single transported Spalart-Allmaras variable $\tilde{\nu}$~is initialized with the value at the farfield or inlet boundary. As suggested in the literature, the value there is computed as $\tilde{\nu}/\nu=\mathrm{turb2lam}$. In SU2 the free-stream Spalart-Allmaras variable to kinematic laminar viscosity ratio, $\text{turb2lam}$, is controlled by the `FREESTREAM_NU_FACTOR` option. The default value is $\tilde{\nu}/\nu = 3.0$ avoiding laminar solutions.
+The single transported Spalart-Allmaras variable $\tilde{\nu}$ is initialized with the value at the farfield or inlet boundary. As suggested in the literature, the value there is computed as $\tilde{\nu}/\nu=\text{turb2lam}$. In SU2 the free-stream Spalart-Allmaras variable to kinematic laminar viscosity ratio, $\text{turb2lam}$, is defined by the `FREESTREAM_NU_FACTOR` config file field. The default value is $\tilde{\nu}/\nu = 3.0$ avoiding laminar solutions.
 
 An extension of SU2 includes an hybrid turbulence model: the Spalart-Allmaras original model with Detached-Eddy Simulation (DES) modification. Refer to Eduardo Moina's thesis?. The use of the hybrid RANS/LES model is specified in the cofig file with the field `HYBRID_RANSLES`. Four different techniques are currently implemented:
 
@@ -89,10 +92,7 @@ An extension of SU2 includes an hybrid turbulence model: the Spalart-Allmaras or
 The DES constant can be controlledd by the field `DES_CONST`, with 0.65 as default.
 
 #### Menter’s k-omega SST Model ####
-As initial conditions, the values of are initialized at all grid point with the farfield values. The farfield conditions for $k$ and $omega$ are
-The freestream turbulence kinetic energy value is set by the `FREESTREAM_TURBULENCEINTENSITY` field. The default value 0.05 which corresponds to a 5%.
-
-The freestream dissipation is set by the `FREESTREAM_TURB2LAMVISCRATIO` field. The same definition as for  `FREESTREAM_TURBULENCEINTENSITY` applies.
+As initial conditions, the values of are initialized at all grid point with the farfield values. The farfield conditions for the turbulent kinetic energy $k$ is computed as: $k = \frac{3}{2}(UI)$, whereby $U$ is the freestream velocity magnitude and $I$ is the turbulence intensity. This latter value can be specified in the config file by the `FREESTREAM_TURBULENCEINTENSITY` field, with defaul value to 0.05 which corresponds to a $5\%$. The freestream value of the turbulent frequency $\omega$ is computed as: $\omega = \frac{\rho k}{\mu}(\frac{\mu_t}{\mu})^{-1}$, where $\rho$ and $\mu$ are the freestream density and laminar viscosity respectively and $\frac{\mu_t}{\mu}$ is the turbulent viscosity ratio, also known as freestream dissipation. Its value can be specified in the `FREESTREAM_TURB2LAMVISCRATIO` field, defaulting to $10$.
 
 ##### Limitations of k and omega #####
 To increase robustness and prevent negative values, a hard-coded upper and lower limit are set for each turbulent variable:
@@ -137,7 +137,7 @@ The execution of this capability is done by the module `SU2_CFD_DIRECTDIFF`. See
 
 ### Discrete adjoint ###
 
-SU2 can compute the sensitivities of an objective function with respect to the control points defining the shape of the design surface. To get the list of objective functions available in SU2 we address to [ENUM_OBJECTIVE](https://github.com/su2code/SU2/blob/master/Common/include/option_structure.hpp) and Objective_Map to see the proper nomenclature for the config file.
+SU2 can compute the sensitivities of an objective function with respect to the control points defining the shape of the design surface. For the detailed list of available objective functions in SU2 we address to the enumeration declaration ['ENUM_OBJECTIVE'](https://github.com/su2code/SU2/blob/42d157143f6d11fc7393c17fd4b6bb8ade30ce6b/Common/include/option_structure.hpp#L1536). The associated nomenclature for the configuration file is specified in ['Objective_Map'](https://github.com/su2code/SU2/blob/42d157143f6d11fc7393c17fd4b6bb8ade30ce6b/Common/include/option_structure.hpp#L1581)
 
 The objective function value can be scaled by a weighting factor. This value can be specified in the `OBJECTIVE_WEIGHT` field on the config file.
 
@@ -151,9 +151,9 @@ Every solver has its specific options and we refer to the tutorial cases for mor
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.3.1 |
 
-A simulation can be restarted from a previous computation by setting `RESTART_SOL=YES`. If it is a time-dependent problem, additionally `RESTART_ITER` must be set to the time iteration index you want to restart from:
+A simulation can be restarted from a previous computation by setting `RESTART_SOL=YES`. The field data is imported from the restart file `SOLUTION_FILENAME` and must be located in the same directory. The solution file can be either a `.csv` or `.dat` file. The number of points must be the same as that for the simulation. If it is a time-dependent problem, additionally `RESTART_ITER` must be set to the time iteration index you want to restart from. For example, the following code will restart an unsteady problem from iteration number 2:
 
 ```
 % ------------------------- Solver definition -------------------------------%
@@ -162,12 +162,14 @@ A simulation can be restarted from a previous computation by setting `RESTART_SO
 SOLVER= EULER
 %
 % Restart solution (NO, YES)
-RESTART_SOL= NO
+RESTART_SOL= YES
 %
 % Iteration number to begin unsteady restarts (used if RESTART_SOL= YES)
-RESTART_ITER= 0
+RESTART_ITER= 2
 %
 ```
+
+Additionally the solution files solution_flow_00000 and solution_flow_00001, corresponding to steps or iteration 0 and 1 respectively, will be used for restarting the simulation.
 
 <!-- ## Direct and Adjoint ##
 The option `MATH_PROBLEM` defines whether the direct problem (`DIRECT`, default) or the adjoint problem should be solved. For the latter you have the choice between the continuous adjoint solver (`CONTINUOUS_ADJOINT`) or the discrete adjoint solver (`DISCRETE_ADJOINT`). Note that the discrete adjoint solver requires the `*_AD` binaries (i.e. SU2 must be [compiled](/docs_v7/Build-SU2-From-Source) with the `-Denable-autodiff=true` flag). Not all problems have a corresponding adjoint solver (yet). See below for a compatibility list:
@@ -191,7 +193,7 @@ The option `MATH_PROBLEM` defines whether the direct problem (`DIRECT`, default)
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.3.1 |
 
 A simulation is controlled by setting the number of iterations the solver should run (or by setting a convergence critera). The picture below depicts the two types of iterations we consider.
 
@@ -214,7 +216,7 @@ No idea about the acceptable <linear solver convergence> parameter?
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.3.1 |
 
 To enable a time-dependent simulation set the option `TIME_DOMAIN` to `YES` (default is `NO`). There are different methods available for certain solvers which can be set using the `TIME_MARCHING` option. For example for any of the FVM-type solvers a first or second-order dual-time stepping (`DUAL_TIME_STEPPING-1ST_ORDER`/`DUAL_TIME_STEPPING-2ND_ORDER`) method or a conventional time-stepping method (`TIME_STEPPING`) can be used.
 
@@ -243,7 +245,7 @@ The solver will stop either when it reaches the maximum time (`MAX_TIME`) or the
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.3.1 |
 
 A steady-state simulation is defined by using `TIME_DOMAIN=NO`, which is the default value if the option is not present. In this case the number of iterations is controlled by the option `ITER`.
 
@@ -253,7 +255,7 @@ A steady-state simulation is defined by using `TIME_DOMAIN=NO`, which is the def
 
 | Solver | Version | 
 | --- | --- |
-| `ALL`| 7.0.0 |
+| `ALL`| 7.3.1 |
 
 Despite setting the maximum number of iterations, it is possible to use a convergence criterion so that the solver will stop when it reaches a certain value of a residual or if variations of a coefficient are below a certain threshold. To enable a convergence criterion use the option `CONV_FIELD` to set an output field that should be monitored. The list of possible fields depends on the solver. Take a look at [Custom Output](/docs_v7/Custom-Output/) to learn more about output fields. Depending on the type of field (residual or coefficient) there are two types of methods:
 
