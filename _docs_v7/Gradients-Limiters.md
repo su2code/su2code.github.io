@@ -24,7 +24,7 @@ If the `NUM_METHOD_GRAD_RECON` field is left empty or set to `NONE` it defaults 
 Thin Shear Layer gradient reconstruction is always used for the construction of the Jacobian.
 
 ## Limiters ##
-SU2 implements limiter functions to prevent the generation of oscillations when using upwind spatial discretisations. These are specified by the config field `SLOPE_LIMITER_FLOW`. The available options are:
+SU2 implements limiter functions to prevent the generation of oscillations when using second order upwind spatial discretisations. These are specified by the config field `SLOPE_LIMITER_FLOW`. The available options are:
 - `NONE`                 : No limiter
 - `VENKATAKRISHNAN`      : Slope limiter using Venkatakrisnan method.
 - `VENKATAKRISHNAN_WANG` : Slope limiter using Venkatakrisnan method, with the small non-vanishing bias to prevent divisions by zero based on the min-to-max range of the solution.
