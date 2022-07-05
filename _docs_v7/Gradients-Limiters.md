@@ -26,8 +26,8 @@ Thin Shear Layer gradient reconstruction is always used for the construction of 
 ## Limiters ##
 SU2 implements limiter functions to prevent the generation of oscillations when using second order upwind spatial discretisations. These are specified by the config field `SLOPE_LIMITER_FLOW`. The available options are:
 - `NONE`                 : No limiter
-- `VENKATAKRISHNAN`      : Slope limiter using Venkatakrisnan method.
-- `VENKATAKRISHNAN_WANG` : Slope limiter using Venkatakrisnan method, with the small non-vanishing bias to prevent divisions by zero based on the min-to-max range of the solution.
+- `VENKATAKRISHNAN`      : Slope limiter using Venkatakrisnan method, with reference length of 1.
+- `VENKATAKRISHNAN_WANG` : Slope limiter using Venkatakrisnan method, with a small non-vanishing bias proportional to the min-to-max range of the solution, to avoid limiting in small regions.
 - `BARTH_JESPERSEN`      : Slope limiter using Barth-Jespersen method.
 - `VAN_ALBADA_EDGE`      : Slope limiter using Van Albada method.
 - `SHARP_EDGES`          : Slope limiter based on the distance to the nearest sharp edge.
