@@ -32,7 +32,7 @@ SU2 implements limiter functions to prevent the generation of oscillations when 
 - `VAN_ALBADA_EDGE`      : Slope limiter using Van Albada method.
 - `SHARP_EDGES`          : Slope limiter based on the distance to the nearest sharp edge.
 - `WALL_DISTANCE`        : Slope limiter based on wall distance.
-With the `VENKATAKRISHNAN` being the default option.
+With `VENKATAKRISHNAN` being the default option.
 
 The `VENKAT_LIMITER_COEFF` tunable field is used to compute the small non-vanishing bias to prevent divisions by zero, $\epsilon$. Depending on the limiter to be used this field has different interpretations. For the `VENKATAKRISHNAN` limiter it represents the constant $K$ in $\epsilon^2=\left(K\Delta x\right)^3$. We refer to [Venkatakrishnan](https://doi.org/10.1006/jcph.1995.1084) for further details. For the `VENKATAKRISHNAN_WANG` limiter it represents the constant $\epsilon^{\prime}$ in $\epsilon = \epsilon^{\prime}(q^{\text{\max}}-q^{\text{\min}})$. We refer to [Wang](https://doi.org/10.2514/6.1996-2091) for further details. For both limiters larger values of `VENKAT_LIMITER_COEFF` decrease the extent of limiting, while values approaching zero cause lower-order approximation to the solution. Larger values of `VENKAT_LIMITER_COEFF` will reduce the high frequency oscillations of the sulition making it more stable and attaining better convergence properties. On expense, the accuracy of the solution will be typycally affected. The dafault value is 0.05.
 
