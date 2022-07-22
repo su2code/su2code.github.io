@@ -42,7 +42,7 @@ For verification, we will be comparing SU2 results against the results of natura
 
 ### Problem Setup
 
-The length of the flat plate is 1.5 meters, and it is represented by an adiabatic no-slip wall boundary condition. There is a symmetry plane located before the leading edge of the flat plate. Inlet boundary condition is used on the left boundary of the domain, and outlet boundary condition is applied to the top and right boundaries of the domain. The freestream velocity, density, viscosity and turbulence intensity (%) is specified as 50.1 m/s, 1.2 kg/m^3, 1.8e-05 and 0.18%, respectively. Since the Mach number is about 0.15, compressibility effects are negligible; therefore, the incompressible flow solver can be employed.
+The length of the flat plate is 1.5 meters, and it is represented by an adiabatic no-slip wall boundary condition. There is a symmetry plane located before the leading edge of the flat plate. Inlet boundary condition is used on the left boundary of the domain, and outlet boundary condition is applied to the top and right boundaries of the domain. The freestream velocity, density, viscosity and turbulence intensity (%) is specified as 50.1 m/s, 1.2 kg/m^3, 1.8e-05 and 0.18% (u'/U=0.0018), respectively. Since the Mach number is about 0.15, compressibility effects are negligible; therefore, the incompressible flow solver can be employed.
 
 ### Mesh Description
 
@@ -68,8 +68,8 @@ KIND_TURB_MODEL= SA
 % Specify transition model
 SA_OPTIONS= BCM
 %
-% Specify Turbulence Intensity (%)
-FREESTREAM_TURBULENCEINTENSITY = 0.18
+% Specify Turbulence Intensity (u'/U)
+FREESTREAM_TURBULENCEINTENSITY = 0.0018
 ```
 
 The governing equations are RANS with the Spalart-Allmaras (`SA`) turbulence model. By entering `SA_OPTIONS= BCM`, the Bas-Cakmakcioglu Algebraic Transition Model is activated. This model requires freestream turbulence intensity that is to be used in the transition correlation, thus the `FREESTREAM_TURBULENCEINTENSITY` option is also used. The BC model achieves its purpose by modifying the production term of the 1-equation SA turbulence model. The production term of the SA model is damped until a considerable amount of turbulent viscosity is generated, and after that point, the damping effect on the transition model is disabled. Thus, a transition from laminar to turbulent flow is obtained.
