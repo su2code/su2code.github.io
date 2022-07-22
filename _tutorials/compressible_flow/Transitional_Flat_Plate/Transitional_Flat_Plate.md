@@ -68,8 +68,8 @@ KIND_TURB_MODEL= SA
 % Specify transition model (NONE, BC)
 KIND_TRANS_MODEL= BC
 %
-% Specify Turbulence Intensity (%)
-FREESTREAM_TURBULENCEINTENSITY = 0.18
+% Specify Turbulence Intensity (I=u'/U)
+FREESTREAM_TURBULENCEINTENSITY = 0.0018
 ```
 
 The governing equations are RANS with the Spalart-Allmaras (`SA`) turbulence model. By entering `KIND_TRANS_MODEL= BC`, the Bas-Cakmakcioglu Algebraic Transition Model is activated. This model requires freestream turbulence intensity that is to be used in the transition correlation, thus the `FREESTREAM_TURBULENCEINTENSITY` option is also used. The BC model achieves its purpose by modifying the production term of the 1-equation SA turbulence model. The production term of the SA model is damped until a considerable amount of turbulent viscosity is generated, and after that point, the damping effect on the transition model is disabled. Thus, a transition from laminar to turbulent flow is obtained.
