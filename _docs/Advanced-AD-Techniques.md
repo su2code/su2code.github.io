@@ -35,7 +35,7 @@ as an argument.
 ### AD Tool Wrapper 
 
 The CoDi library provides a special datatype and is automatically included
-during the compilation if AD support is requested by the user (see [[AD Build]]) . For developers of SU2 there is no need to deal
+during the compilation if AD support is requested by the user (see the build instructions for further information). For developers of SU2 there is no need to deal
 with this library explicitly which is why there are simple wrapper routines for the most important features
 available. These are for example the following:
 
