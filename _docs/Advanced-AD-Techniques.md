@@ -25,7 +25,7 @@ we can build an internal representation of each expression to directly compute a
 The picture below shows the computational graph for the expression `φ=cos(v1)v2` and the compile-time representation as object with `su2double` being the general datatype used throughout SU2. 
 ![Expression Templates](http://www.scicomp.uni-kl.de/wordpress/wp-content/uploads/2016/05/Screenshot-from-2016-05-20-15-49-59.png)
 
-This object can be traversed to compute and store the partial derivatives `∂φ/∂v1=cos(v1)` and `∂φ/∂v2=-sin(v1)v2` based on the derivatives of each involved unary or binary operation. If recording is enabled the traversal of the computational graph of each
+This object can be traversed to compute and store the partial derivatives `∂φ/∂v1=-sin(v1)v2` and `∂φ/∂v2=cos(v1)` based on the derivatives of each involved unary or binary operation. If recording is enabled the traversal of the computational graph of each
 expression is started as soon as it occurs on the right-hand side in a statement. Note that the partial derivatives are only stored if the corresponding argument has some dependency on the input variables set by the user. This kind of dependency or
 activity tracking is relatively easy to accomplish since every variable stores an index along with its value. A
 zero index represents passive variables while a non-zero index identifies active variables. This index will be
@@ -35,7 +35,7 @@ as an argument.
 ### AD Tool Wrapper 
 
 The CoDi library provides a special datatype and is automatically included
-during the compilation if AD support is requested by the user (see [[AD Build]]) . For developers of SU2 there is no need to deal
+during the compilation if AD support is requested by the user (see the build instructions for further information). For developers of SU2 there is no need to deal
 with this library explicitly which is why there are simple wrapper routines for the most important features
 available. These are for example the following:
 
