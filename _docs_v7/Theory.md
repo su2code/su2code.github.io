@@ -3,7 +3,7 @@ title: Governing Equations in SU2
 permalink: /docs_v7/Theory/
 ---
 
-This page contains a very brief summary of the different governing equation sets that are treated in each of the solvers within SU2. The reader will be referred to other references for the full detail of the numerical implementations, but we will also describe the approaches at a high level here.
+This page contains a very brief summary of the different governing equation sets that are treated in each of the solvers within SU2. The reader will be referred to other references in some instances for the full detail of the numerical implementations, but the approaches are also described at a high level here.
 
 ---
 
@@ -94,7 +94,9 @@ Within the `EULER` solvers, we discretize the equations in space using a finite 
 | `INC_NAVIER_STOKES`, `INC_RANS` | 7.0.0 |
 
 
-SU2 solves the incompressible Navier-Stokes equations in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation). The equations can be expressed in differential form as
+SU2 solves the incompressible Navier-Stokes equations in a general form allowing for variable density due to heat transfer through the low-Mach approximation (or incompressible ideal gas formulation).
+The reader is referred to [this paper](https://arc.aiaa.org/doi/10.2514/1.J058222) for extended details on the incompressible Navier-Stokes and Euler solvers in SU2.
+The equations can be expressed in differential form as
 
 $$ \mathcal{R}(V) = \frac{\partial V}{\partial t} + \nabla \cdot \bar{F}^{c}(V) - \nabla \cdot \bar{F}^{v}(V,\nabla V)  - S = 0 $$
 
@@ -164,6 +166,8 @@ Within the `INC_EULER` solver, we discretize the equations in space using a fini
 
 # Turbulence Modeling #
 
+Available for `RANS`, `INC_RANS`.
+
 SU2 implements several variants of the SST and SA turbulence models, for specifics of the models please see the [NASA Turbulence Modeling Resource](https://turbmodels.larc.nasa.gov/index.html) (TMR).
 For information on how to use turbulence models in SU2 see the [users guide](https://su2code.github.io/docs_v7/Physical-Definition/).
 
@@ -173,7 +177,7 @@ The edge-based finite volume discretization of flow solvers is also used in turb
 
 # Species Transport #
 
-Compatible with `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`
+Compatible with `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`.
 
 $$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - \nabla \cdot \bar{F}^{v}(U,\nabla U)  - S = 0 $$
 
