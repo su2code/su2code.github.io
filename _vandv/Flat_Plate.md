@@ -7,10 +7,6 @@ permalink: /vandv/Flat_Plate/
 | --- | --- |
 |  `RANS` | 7.0.0 |
 
-<p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" />
-</p>
-
 The details of the Zero Pressure Gradient Flat Plate case are taken from the [NASA TMR website](https://turbmodels.larc.nasa.gov/flatplate.html).
 
 By comparing the SU2 results of the flat plate case against CFL3D and FUN3D on a sequence of refined grids and seeing agreement of key quantities, we can build a high degree of confidence that the SA and SST models are implemented correctly. Therefore, the goal of this case is to verify the implementations of the SA and SST models in SU2.
@@ -50,20 +46,27 @@ We will compare the convergence of the drag coefficient on the flat plate with g
 
 Both the SA and SST models exhibit excellent agreement in the figures below. With grid refinement, we see that both drag and skin friction values asymptote very close to those of FUN3D and CFL3D (and additional codes not shown here but displayed on the NASA TMR), which builds high confidence in the implementations of these two turbulence models in SU2.
 
+---
+
 ### SA Model
 
 <p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cd_gridconv_sa.png" alt="Drag Grid Convergence SA" />
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" />
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_profile_sa.png" alt="Skin Friction Profile SA" />
-<img src="/vandv_files/Flat_Plate/images/flatplate_residual_convergence_sa.png" alt="Residual Convergence SA" />
+<img src="/vandv_files/Flat_Plate/images/sa/flatplate_cd_gridconv_sa.png" alt="Drag Grid Convergence SA" />
+<img src="/vandv_files/Flat_Plate/images/sa/flatplate_cf_0p97_gridconv_sa.png" alt="Skin Friction Grid Convergence SA" />
+<img src="/vandv_files/Flat_Plate/images/sa/flatplate_cf_profile_sa.png" alt="Skin Friction Profile SA" />
+<img src="/vandv_files/Flat_Plate/images/sa/flatplate_residual_convergence_sa.png" alt="Residual Convergence SA" />
 </p>
+
+---
 
 ### SST Model
 
+The two main SST models, 1994m and 2003m, are compared against FUN3D and CFL3D. Note that for FUN3D and CFL3D, for this case only the 1994m results are available. 
+
 <p align="center">
-<img src="/vandv_files/Flat_Plate/images/flatplate_cd_gridconv_sst.png" alt="Drag Grid Convergence SST" />
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_0p97_gridconv_sst.png" alt="Skin Friction Grid Convergence SST" />
-<img src="/vandv_files/Flat_Plate/images/flatplate_cf_profile_sst.png" alt="Skin Friction Profile SST" />
-<img src="/vandv_files/Flat_Plate/images/flatplate_residual_convergence_sst.png" alt="Residual Convergence SST" />
+<img src="/vandv_files/Flat_Plate/images/sst/flatplate_cd_gridconv_sst.png" alt="Drag Grid Convergence SST" />
+<img src="/vandv_files/Flat_Plate/images/sst/flatplate_cf_0p97_gridconv_sst.png" alt="Skin Friction Grid Convergence SST" />
+<img src="/vandv_files/Flat_Plate/images/sst/flatplate_cf_profile_sst.png" alt="Skin Friction Profile SST" />
+<img src="/vandv_files/Flat_Plate/images/sst/flatplate_cf_profile_sst_zoom.png" alt="Skin Friction Profile SST (zoomed)" />
+<img src="/vandv_files/Flat_Plate/images/sst/flatplate_residual_convergence_sst.png" alt="Residual Convergence SST" />
 </p>
