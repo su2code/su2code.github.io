@@ -16,6 +16,7 @@ It is now possible to individually define what you want to have in your output.
   - [Screen Output](#screen-output)
   - [History Output](#history-output)
   - [Example](#example-1)
+  - [User Defined Functions ](#user-defined-functions)
   
 ---
 
@@ -29,7 +30,7 @@ Let's define some terminology first.
 - **Output group**: A collection of output fields.
 
 
-**Note**: You can print all available output fields and groups available for the current solver (set with the `SOLVER` option) by calling `SU2_CFD` with the `-d` flag, i.e.
+**Note**: You can print all available output fields and groups available for the current solver (set with the `SOLVER` option) by calling `SU2_CFD` with the `-d` flag (dry-run mode), i.e.
 ```
 SU2_CFD -d <your_config_file.cfg>
 ```
@@ -165,7 +166,6 @@ Fields available depend on the solver you are using. Fields available for **all 
 - `WALL_TIME`:  Current average wall-clock time for one iteration
 
 
-
 If you run a multizone problem, the convergence history of the individual zones (i.e. the convergence of the inner iteration) is disabled by default and only the convergence of the outer iteration is shown. That means `SCREEN_OUTPUT` in the sub-config files is ignored. You can still print fields from individual zones by using the field name and the zone index. For example in an Fluid-Structure interaction problem the drag in zone 0 and the von-Mises stress in zone 1 can be used as fields by adding `DRAG[0]` and/or `VMS[1]` to the screen output in the main config file. It is possible to force the output of the full inner convergence history per zone by setting `WRT_ZONE_CONV` to `YES`. 
 
 You can also customize the frequency when the convergence history should be written to screen by using `SCREEN_WRT_FREQ_INNER`, `SCREEN_WRT_FREQ_OUTER` and `SCREEN_WRT_FREQ_TIME`.
@@ -183,7 +183,7 @@ You can also customize the frequency when the convergence history should be writ
 
 For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non-exhaustive list** of possible fields/groups is the following:
 
-| Field Name (for screen output)  | Description  | Group Name (for history output)  |  
+| Field Name  | Description  | Group Name  |  
 |---|---|---|
 | `TIME_ITER` | Time iteration index | `ITER`   |
 | `OUTER_ITER` | Outer (coupling) iteration index. | `ITER`   |
@@ -206,4 +206,35 @@ For the compressible Navier-Stokes solver (i.e. `SOLVER=NAVIER_STOKES`), a **non
 | `FORCE_Y` | Total Force in y direction. |  `AERO_COEFF`  |
 | `FORCE_Z` | Total Force in z direction.|  `AERO_COEFF`  |
 | `EFFICIENCY` | Total Lift-to-drag ratio. |  `AERO_COEFF`  |
+
+### User Defined Functions ###
+
+From version 7.4.0 it is possible for users to create custom outputs via math expressions of solver variables and built-in outputs.
+All custom outputs are specified via the config option `CUSTOM_OUTPUTS`, in general the syntax to define a custom output is `name : type{expression}[markers];` (note the use of ; to separate different outputs).
+Where 'name' is the identifier that can be used to request output to screen or history file, and also to reference the output in other custom outputs (he group name for all custom outputs is `CUSTOM`).
+
+The available types are:
+- `Macro`: Introduces a new field that can only be used in other expressions, it is not an output by itself (note the "$" symbol to reference macros in the example below).
+- `Function`: Introduces a new scalar output that is a function of other scalar outputs, it cannot reference fields (e.g. velocity).
+- `AreaAvg` and `AreaInt`: Computes an area average or integral of a field (the expression) over the list of markers.
+- `MassFlowAvg` and `MassFlowInt`: Computes a mass flow average or integral.
+
+**Note:** Each custom output can only use one type, e.g. it is not possible to write `p_drop : AreaAvg{PRESSURE}[inlet] - AreaAvg{PRESSURE}[outlet]`. This would need to be separated into two `AreaAvg` outputs and one `Function` to compute their difference.
+
+**Example:**
+```
+CUSTOM_OUTPUTS= 'velocity : Macro{sqrt(pow(VELOCITY_X, 2) + pow(VELOCITY_Y, 2) + pow(VELOCITY_Z, 2))};\
+                 avg_vel : AreaAvg{$velocity}[z_minus, z_plus];\
+                 var_vel : AreaAvg{pow($velocity - avg_vel, 2)}[z_minus, z_plus];\
+                 dev_vel : Function{sqrt(var_vel) / avg_vel}'
+```
+
+To obtain the list of solver variables that can be used, write an invalid expression (e.g. 'x : AreaAvg{INVALID}[]') and run SU2.
+
+To use a custom output as the objective function of the discrete adjoint solver, use `OBJECTIVE_FUNCTION= CUSTOM_OBJFUNC` and set `CUSTOM_OBJFUNC` appropriately, for example:
+```
+CUSTOM_OBJFUNC= 'LIFT + dev_vel'
+```
+
+For more details see the [example test case](https://github.com/su2code/SU2/blob/master/TestCases/user_defined_functions/lam_flatplate.cfg).
 
