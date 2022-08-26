@@ -173,6 +173,12 @@ For information on how to use turbulence models in SU2 see the [users guide](htt
 
 The edge-based finite volume discretization of flow solvers is also used in turbulence solvers. Convective fluxes are evaluated using a scalar upwind scheme (1st or 2nd order).
 
+## Wall functions
+
+Available for `RANS`, `INC_RANS`.
+
+The wall function model of Nichols and Nelson (2004) has been implemented in the compressible and the incompressible solver, for the SA as well as the SST models. For the compressible solver, the wall function model takes into account the frictional heating of the wall according to the Crocco-Busemann relation when the wall boundary conditions is not isothermal. When the wall model is active, the value of the dimensional distance of the first node from the wall can be $$ y^+ > 5$$. When the wall model is not active, $$y^+ < 5 $$ and in addition a fine mesh is necessary close to the wall to resolve the near wall boundary layer.
+
 ---
 
 # Species Transport #
