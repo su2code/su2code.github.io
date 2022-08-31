@@ -127,7 +127,7 @@ MARKER_FAR= (farfield)
 
 | Solver | Version | 
 | --- | --- |
-| `RANS`, `INC_RANS`, | 7.0.0 |
+| `RANS`, `INC_RANS`, | 7.3.0 |
 
 The turbulence boundary conditions do not have a `MARKER_` keyword but can instead be set for inlet and freestream boundaries using the keywords: 
 
