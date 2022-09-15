@@ -42,14 +42,14 @@ If you would like to run the above cases for yourself, you can use only the fine
 | Gradient | Least Squares Cell Based | WEIGHTED_LEAST_SQUARES |
 | Spatial Discretization Flow | Third-order MUSCL | MUSCL_FLOW |
 | Spatial Discretization Turbulence | Third-order MUSCL | MUSCL_YES |
-| --- | --- | --- |
 
 ## Results
 
 Present results of all grid resolutions and then plot the results of the fine-level grid separately. If you want to see other results of the gird level, you can see them at "vandv_files/LMmodel".
 
 ### T3A 
-The experiment data from [here](http://web.tecnico.ulisboa.pt/ist12278/Workshop_AVT_313_2D_cases/html_files/Flat_Plate.htm)
+The experiment data from [here](http://cfd.mace.manchester.ac.uk/ercoftac/)
+
 C : Coarse
 
 M : Medium
@@ -65,7 +65,7 @@ X : Extra fine
 <img src="/vandv_files/LM_model/T3A/Fine_Cf.png" alt="Fine level result comparsion of Cf distribution on T3A" />
 
 ### T3B
-The experiment data from [here](http://web.tecnico.ulisboa.pt/ist12278/Workshop_AVT_313_2D_cases/html_files/Flat_Plate.htm)
+The experiment data from [here](http://cfd.mace.manchester.ac.uk/ercoftac/)
 
 C : Coarse
 
@@ -82,7 +82,7 @@ X : Extra fine
 
 
 ### T3Am
-The experiment data from [here](http://web.tecnico.ulisboa.pt/ist12278/Workshop_AVT_313_2D_cases/html_files/Flat_Plate.htm)
+The experiment data from [here](http://cfd.mace.manchester.ac.uk/ercoftac/)
 
 Mesh_1 : Tiny
 
@@ -102,4 +102,13 @@ Mesh_6 : Ultra Fine
 
 
 ### NLF0416
+
+C : Coarse
+
+M : Medium
+
+F : Fine
+
+X : Extra fine
+
 
