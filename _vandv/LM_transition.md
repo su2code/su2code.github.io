@@ -36,16 +36,27 @@ If you would like to run the above cases for yourself, you can use only the fine
 
 ## Numerical Scheme 
 
-|  | Fluent | SU2 |
+| Flat plate | Fluent | SU2 |
 | --- | --- | --- |
 | Flux | Roe-FDS | L2ROE |
 | Gradient | Least Squares Cell Based | WEIGHTED_LEAST_SQUARES |
 | Spatial Discretization Flow | Third-order MUSCL | MUSCL_FLOW |
 | Spatial Discretization Turbulence | Third-order MUSCL | MUSCL_YES |
 
+
+| NLF0416 | Fluent | SU2 |
+| --- | --- | --- |
+| Flux | Roe-FDS | L2ROE |
+| Gradient | Least Squares Cell Based | WEIGHTED_LEAST_SQUARES |
+| Spatial Discretization Flow | second-order Upwind | MUSCL_FLOW |
+| Spatial Discretization Turbulence | second-order Upwind | MUSCL_YES |
+
 ## Results
 
 Present results of all grid resolutions and then plot the results of the fine-level grid separately. If you want to see other results of the gird level, you can see them at "vandv_files/LMmodel".
+All of the flat plate results(= attached flow) are in good agreement with the Fluent results. But, the Airfoil results have the oscillation near the separation region both Fluent and SU2. 
+
+
 
 ### T3A 
 The experiment data from [here](http://cfd.mace.manchester.ac.uk/ercoftac/)
@@ -102,6 +113,7 @@ Mesh_6 : Ultra Fine
 
 
 ### NLF0416
+Fluent and SU2, the NLF-0416 airfoil results oscillate near the separation region. So, Here are shown only the fine-level grid results of every 1000 iterations and the instantaneous.
 
 C : Coarse
 
@@ -109,6 +121,17 @@ M : Medium
 
 F : Fine
 
-X : Extra fine
+Every 1000 iteration results : 
+
+<p align="center">
+<img src="/vandv_files/LM_model/NLF/Delta_1000_Fine_Cp.png" alt="Fine level result comparsion of Cp distribution on NLF-0416" />
+<img src="/vandv_files/LM_model/NLF/Delta_1000_Fine_Cf.png" alt="Fine level result comparsion of Cf distribution on NLF-0416" />
 
 
+Instantaneous result is :
+
+<p align="center">
+<img src="/vandv_files/LM_model/NLF/Inst_All_Cp.png" alt="Fine level result comparsion of Cp distribution on NLF-0416" />
+<img src="/vandv_files/LM_model/NLF/Inst_All_Cf.png" alt="Fine level result comparsion of Cf distribution on NLF-0416" />
+<img src="/vandv_files/LM_model/NLF/Inst_Fine_Cp.png" alt="Fine level result comparsion of Cp distribution on NLF-0416" />
+<img src="/vandv_files/LM_model/NLF/Inst_Fine_Cf.png" alt="Fine level result comparsion of Cf distribution on NLF-0416" />
