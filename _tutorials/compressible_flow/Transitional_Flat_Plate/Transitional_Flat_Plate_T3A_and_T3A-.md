@@ -12,8 +12,6 @@ complexity: basic
 follows: 
 ---
 
-![lam_to_turb](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/lam_to_turb.png)
-
 ## Goals
 
 Upon completing this tutorial, the user will be familiar with performing an external, transitional flow over a flat plate. The flow over the flat plate will be laminar until it reaches a point where a transition correlation depending on local flow variables is activated. The results can be compared to the zero pressure gradient natural transition experiment of T3A & T3A-[ERCOFTAC](http://cfd.mace.manchester.ac.uk/ercoftac/doku.php). The following capabilities of SU2 will be showcased in this tutorial:
@@ -91,7 +89,7 @@ To run this test case, follow these steps at a terminal command line:
 2.	Run the executable by entering 
 
     ```
-    $ SU2_CFD transitional_BC_model_ConfigFile.cfg
+    $ SU2_CFD transitional_LM_model_ConfigFile.cfg
     ``` 
 
     at the command line.
@@ -104,7 +102,7 @@ To run this test case, follow these steps at a terminal command line:
 
 The figure below compares the skin friction results obtained by the LM transition model to the result of another solver(=Fluent 19.0) and experimental data. 
 
-![T3A_Cf_Rex](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A.png)
+![T3A_Cf_Rex](../../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A.png)
 Figure (2): Comparison of the skin friction coefficients for the T3A case.
 ![T3A-_Cf_Rex](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A-.png)
 Figure (3): Comparison of the skin friction coefficients for the T3A- case.
