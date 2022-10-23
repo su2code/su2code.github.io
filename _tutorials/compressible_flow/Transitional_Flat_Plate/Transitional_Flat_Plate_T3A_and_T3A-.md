@@ -17,7 +17,7 @@ follows:
 Upon completing this tutorial, the user will be familiar with performing an external, transitional flow over a flat plate. The flow over the flat plate will be laminar until it reaches a point where a transition correlation depending on local flow variables is activated. The results can be compared to the zero pressure gradient natural transition experiment of T3A & T3A-[ERCOFTAC](http://cfd.mace.manchester.ac.uk/ercoftac/doku.php). The following capabilities of SU2 will be showcased in this tutorial:
 
 - Steady, 2D, incompressible RANS equations
-- k-w SST turbulence model with Langtry and Menter (LM) transition model
+- k-w SST-2003m turbulence model with Langtry and Menter 2009 ([LM2009](https://turbmodels.larc.nasa.gov/langtrymenter_4eqn.html)) transition model
 - L2Roe convective scheme in space (2nd-order, upwind)
 - Corrected average-of-gradients viscous scheme
 - Euler implicit time integration
@@ -47,7 +47,7 @@ The mesh used for T3A tutorial, which provided by [AIAA Transition modeling work
 The mesh used for T3A- tutorial, which consists of 122,880 quadrilaterals.
 Both T3A and T3A- boundary conditions are shown below.
 
-![Flat Plate](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Boundary_conditions.png)
+![Flat Plate](../../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Boundary_conditions.png)
 
 Figure (1): Mesh with boundary conditions (red: far, blue:out, orange:symmetry, green:wall)
 
@@ -104,7 +104,7 @@ The figure below compares the skin friction results obtained by the LM transitio
 
 ![T3A_Cf_Rex](../../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A.png)
 Figure (2): Comparison of the skin friction coefficients for the T3A case.
-![T3A-_Cf_Rex](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A-.png)
+![T3A-_Cf_Rex](../../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A-.png)
 Figure (3): Comparison of the skin friction coefficients for the T3A- case.
 
 
