@@ -110,4 +110,4 @@ Figure (3): Comparison of the skin friction coefficients for the T3A- case.
 
 ## Notes
 
-The [LM model](https://turbmodels.larc.nasa.gov/langtrymenter_4eqn.html) is designed using general subsonic flow experiment results(T-S wave, bypass transition, and separation-induced transition). So, This LM model can't provide appropriate simulation results for crossflow,  supersonic, and hypersonic flow(= crossflow instability, 1st mode, Mack 2nd mode).
+The [LM model](https://turbmodels.larc.nasa.gov/langtrymenter_4eqn.html) is designed using general subsonic transition experiment results(T-S wave, bypass transition, and separation-induced transition). So, This LM model can't provide appropriate simulation results for crossflow, supersonic, and hypersonic flow transition(= crossflow instability, 1st mode, Mack 2nd mode).
