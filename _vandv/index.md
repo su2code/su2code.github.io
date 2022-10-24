@@ -19,13 +19,15 @@ We will continue to add cases over time to demonstrate V&V of additional physica
 
 #### Compressible Flow
 
-* [Method of Manufactured Solutions for Compressible Navier-Stokes](/vandv/MMS_FVM_Navier_Stokes/)
+* [Method of Manufactured Solutions for Compressible Navier-Stokes](/_vandv/MMS_FVM_Navier_Stokes/)
 Formal order of accuracy of the finite volume solver in SU2 for the laminar Navier-Stokes equations is assessed.
-* [2D Zero Pressure Gradient Flat Plate RANS Verification Case](/vandv/Flat_Plate/)
+* [2D Zero Pressure Gradient Flat Plate RANS Verification Case](/_vandv/Flat_Plate/)
 Code-to-code comparisons of drag and skin friction on a turbulent flat plate is presented using data from the NASA Turbulence Modeling Resource.
-* [2D Bump-in-Channel RANS Verification Case](/vandv/Bump_Channel/)
+* [2D Bump-in-Channel RANS Verification Case](/_vandv/Bump_Channel/)
 Code-to-code comparisons for a bump in a channel, which results in pressure gradients, is presented using data from the NASA Turbulence Modeling Resource.
-* [Three-Element High-Lift Subsonic Airfoil](/vandv/30p30n/)
+* [Three-Element High-Lift Subsonic Airfoil](/_vandv/30p30n/)
 Results for the 30p30n airfoil, mesh independence study at low angle-of-attack, and determination of maximum lift, both comparing different numerical schemes.
-* [Shock-Wave Boundary-Layer Interaction](/vandv/swbli/)
+* [Shock-Wave Boundary-Layer Interaction](/_vandv/swbli/)
 Comparison of grid-converged results with experimental data. SA and SST turbulence models.
+* [2D Transition Flat Plate (T3A & T3A-) for Langtry and Menter transition model](/_vandv/LM_transition/)
+Comparison of grid-converged results with results of another solver and experimental data.

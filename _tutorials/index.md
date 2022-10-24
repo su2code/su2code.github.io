@@ -36,9 +36,9 @@ Simulation of external, inviscid flow around a 3D geometry (isolated wing).
 Simulation of external, laminar flow over a flat plate (classical Navier-Stokes validation).
 * [Laminar Cylinder](/tutorials/Laminar_Cylinder/)    
 Simulation of external, laminar flow around a 2D cylinder.
-* [Turbulent Flat Plate](/tutorials/Turbulent_Flat_Plate/)    
+* [Turbulent Flat Plate for BC transition model](/tutorials/Turbulent_Flat_Plate/)    
 Simulation of external, turbulent flow over a flat plate (classical RANS validation).
-* [Transitional Flat Plate](/tutorials/Transitional_Flat_Plate/)    
+* [Transitional Flat Plate for Langtry and Menter transition model](/compressible_flow/Transitional_Flat_Plate/)    
 Simulation of external, transitional flow over a flat plate (transitional latminar-turbulent case).
 * [Turbulent ONERAM6](/tutorials/Turbulent_ONERAM6/)     
 Simulation of external, viscous flow around a 3D geometry (isolated wing) using a turbulence model.
