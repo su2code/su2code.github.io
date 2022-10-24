@@ -31,7 +31,7 @@ Flow conditions are the reference from : https://doi.org/10.2514/6.2022-3679 and
 ## Mesh Description
 
 The grids of T3A, T3B, and NLF cases are provided by [TMW](https://transitionmodeling.larc.nasa.gov/workshop_i/)(Transition Model Workshop). And, The grid of T3Am was made with reference to https://doi.org/10.2514/6.2022-3679.
-If you would like to run the above cases for yourself, you can use only the fine level grid files available in the [SU2 V&V repository](https://github.com/su2code/VandV/tree/master/rans/flatplate).
+If you want to run the above cases, you can use only the fine-level grid files available in the [SU2 V&V repository](https://github.com/su2code/Tutorials/tree/master/compressible_flow/Transitional_Flat_Plate/).
 
 
 ## Numerical Scheme 
