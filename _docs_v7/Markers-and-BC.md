@@ -13,6 +13,8 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
 - [Heat Transfer or Convection (no-slip) Wall](#heat-transfer-or-convection-no-slip-wall)
 - [Isothermal (no-slip) Wall](#isothermal-no-slip-wall)
 - [Farfield Boundary Condition](#farfield-boundary-condition)
+- [Turbulence Boundary Condition](#turbulence-boundary-condition)
+  - [Wall functions](#wall-functions) 
 - [Inlet Boundary Condition](#inlet-boundary-condition)
   - [Total Conditions](#total-conditions)
   - [Mass Flow Inlet](#mass-flow-inlet)
@@ -120,6 +122,40 @@ A marker can be defined as a Farfield boundary by addings its name to the `MARKE
 ```
 MARKER_FAR= (farfield)
 ```
+
+## Turbulence Boundary Condition ##
+
+| Solver | Version | 
+| --- | --- |
+| `RANS`, `INC_RANS`, | 7.3.0 |
+
+The turbulence boundary conditions do not have a `MARKER_` keyword but can instead be set for inlet and freestream boundaries using the keywords: 
+
+For the SA turbulence model:
+```
+FREESTREAM_NU_FACTOR= 3
+```
+
+For the SST turbulence model:
+```
+FREESTREAM_TURBULENCEINTENSITY= 0.05
+FREESTREAM_TURB2LAMVISCRATIO= 10
+```
+
+### Wall functions ###
+Accurately resolving the turbulence close to walls requires very fine meshes and can be quite expensive. When the vertices of the first cell neighboring the wall have on average a normalized distance $$y^+ >1$$, wall functions can be used. For example to activate wall functions on the markers `wall1` and `wall2`, we write:
+```
+MARKER_WALL_FUNCTIONS=(wall1,STANDARD_WALL_FUNCTION,wall2,STANDARD_WALL_FUNCTION)
+```
+The wall functions will now be used automatically. all functions have 5 additional expert parameters:
+```
+WALLMODEL_KAPPA= 0.41
+WALLMODEL_B= 5.5
+WALLMODEL_MINYPLUS= 5.0
+WALLMODEL_MAXITER= 200
+WALLMODEL_RELFAC= 0.5
+```
+The constant `WALLMODEL_KAPPA` is the von Karman constant, and `WALLMODEL_B` is an additional constant describing the universal 'law of the wall'. The constants are supposed to be universal, and do not change. The setting `WALLMODEL_MINYPLUS= 5` will activate the wall model only when the local value of $$y^+$$ is higher than the value given (default: 5). Note that in principle, this implementation is valid for any $$y^+ < 100-500$$ and will also work correctly for very small values of $$y^+$$. the upper limit that can be used depends on (and increases with) the Reynolds number. The universal law of the wall is an implicit function and a Newton iterator is used to determine $$u^+(y^+)$$. The maximum number of iterations can be set by `WALLMODEL_MAXITER` and the relaxation factor can be set with `WALLMODEL_RELFAC`. When the Newton solver does not converge within the maximum number of iterations given, a warning message will appear during the computation. When these warning messages do not disappear, you might consider increasing `WALLMODEL_MAXITER` or decreasing `WALLMODEL_RELFAC`.  
 
 ## Inlet Boundary Condition ##
 Inlet boundary conditions are set using the option `MARKER_INLET`.

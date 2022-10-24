@@ -55,7 +55,7 @@ The material properties specific to the species transport equations are:
 
 All available options concerning species transport are listed below as they occur in the [config_template.cfg](https://github.com/su2code/SU2/blob/master/config_template.cfg).
 
-The options as of now are fairly limited. Species transport is switched on by setting `KIND_SCALAR_MODEL= PASSIVE_SCALAR`. The `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY` is currently the only available therefore the only additional choice the value of `DIFFUSIVITY_CONSTANT`. For the `SCHMIDT_NUMBER_TURBULENT` please consult [the respective theory](/docs_v7/Theory/#species-transport).
+The options as of now are fairly limited. Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. The `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY` is currently the only available therefore the only additional choice the value of `DIFFUSIVITY_CONSTANT`. For the `SCHMIDT_NUMBER_TURBULENT` please consult [the respective theory](/docs_v7/Theory/#species-transport).
 
 The number of species transport equations is not set individually but deduced from the number of values given in the respective lists for species options. SU2 checks whether the same amount of values is given in each option and solves the appropriate amount of equations. `MARKER_INLET_SPECIES` is one of these options and has to be used alongside a usual `MARKER_INLET`. For outlets, symmetries or walls this is not necessary. 
 
@@ -72,8 +72,8 @@ The inital species mass fractions are given by the list `SPECIES_INIT= 1.0, ...`
 ```
 % --------------------- SPECIES TRANSPORT SIMULATION --------------------------%
 %
-% Specify scalar transport model (NONE, PASSIVE_SCALAR)
-KIND_SCALAR_MODEL= NONE
+% Specify scalar transport model (NONE, SPECIES_TRANSPORT)
+KIND_SCALAR_MODEL= SPECIES_TRANSPORT
 %
 % Mass diffusivity model (CONSTANT_DIFFUSIVITY)
 DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY
