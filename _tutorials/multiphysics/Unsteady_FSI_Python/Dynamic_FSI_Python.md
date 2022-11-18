@@ -407,7 +407,7 @@ $$^1$$ Sanchez, R. (2018), A coupled adjoint method for optimal design in fluid-
 
 ### Attribution
 
-Fonzi, N., Cavalieri, V., De Gaspari, A., & Ricci, S. (2021). Advances of the Python-based Fluid-Structure Interaction capabilities included in SU2. arXiv preprint arXiv:2109.12332.
+Fonzi, N., Cavalieri, V., De Gaspari, A., & Ricci, S. (2022). Extended computational capabilities for high-fidelity fluid-structure simulations, Journal of Computational Science, Vol. 62, July 2022, 101698. 10.1016/j.jocs.2022.101698
 
 <dl>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
