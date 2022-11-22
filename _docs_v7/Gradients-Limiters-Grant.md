@@ -11,7 +11,11 @@ Generally, the documenation is written with one sentence per line.
 
 ---
 ## Grant version
-? working on sections d,e,f
+Grant will work on:
+* "Basics of describing what options are available ..." 
+* "Mathematically describe limiters available in SU2"
+* helping with any python scripts for postprocessing of empirical study
+* general documenation logistics: building, markdown / html specifics, github pull requests
 
 ## Basics of describing what options are available and providing some references for them
 Do this before diving into the comparisons (which can be a lot more work)
