@@ -26,6 +26,10 @@ We may want to link to another place in the docs where they mention that limiter
 ## Why are slope limiters used in a Finite Volume Method? 
 For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities are a common occurrence. The use of high-order numerical schemes are desired to resolve these regions as they provide high accuracy. However, linear high-resolution schemes often result in numerical oscillations near the shock due to high-frequency content associated with the shock. These oscillations can result on non-physical values (e.g. negative density) that greatly degrade the accuracy of your solution and pollute the domain. An example of this phenomena is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
 
+<!-- high order == high accuracy, maybe change wording -->
+<!-- oscillations can result **in** non-physical values -->
+<!-- second order to second-order ? -->
+
 <img src="../../docs_files/LW_example.png" width="500">
 
 Figure (1): A one period advection (red) of an initial value discontinuity (black) using the Lax-Wendroff method. 
@@ -58,6 +62,8 @@ The question of "How accurate can a TVD scheme be?" is still unanswered. For thi
 1. A linear scheme is monotone if and only if it is total variation diminishing. 
 2. Linear total variation diminishing schemes are at most first-order accurate. 
 
+<!-- Maybe source? -->
+
 The first statement is simple, stating that for linear schemes, the characteristic of being monotone and TVD is equivalent. The second statement is more interesting. It states that if we want to construct a linear TVD (monotone) scheme, the best we can be possibly hope for is first-order accuracy. 
 
 Recall that the original motivation for a slope limiter was to prevent the formation of oscillations in the solution. In the section above, we noted that TVD schemes are monotonicity preserving (a favorable property in resolving a shock). However, through Godunov's theorem, we note that if we also want high-order accuracy, **our TVD discretization MUST be nonlinear**
@@ -83,3 +89,5 @@ From the above example we note:
 * The **Barth-Jespersen** limiter performs well for most of the waveforms. However, the Barth-Jespersen limtier is known to be compressive and will turn smooth waves into square waves. This is best seen with the value discontinuity on the very left. 
 * The **Van-Albada** limiter also performs well. It is slightly more diffusive than Barth-Jespersen but has robust convergence properties. 
 * The **Venkatakrishnan** limiter is similar to the Barth-Jespersen and has significantly improved convergence properties. However, it is more diffusive and does require a user-specified parameter $$k$$ that is flow dependent. 
+
+<!-- Maybe we should add a small conclusion too? -->

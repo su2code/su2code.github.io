@@ -28,6 +28,13 @@ We may want to link to another place in the docs where they mention that limiter
 * Monotonic
 * 2nd order accuracy
 
+
+![Caption. Wow, such an elaborate caption](../../docs_files/LW_example.png){#fig:description}
+
+<!-- [image]: ../../docs_files/LW_example.png "Image Title" 
+![Alt text][image] 
+A reference to the [image](#image).s -->
+
 ### subsection example
 a subsection would go here
 
