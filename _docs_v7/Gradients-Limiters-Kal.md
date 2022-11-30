@@ -24,11 +24,11 @@ Also we assume that the user will know the theory, and that they are just lookin
 We may want to link to another place in the docs where they mention that limiters can be activated after a specific number of iterations.
 
 ## Why are slope limiters used in a Finite Volume Method? 
-For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities are a common occurrence. The use of high-order numerical schemes are desired to resolve these regions as they provide high accuracy. However, linear high-resolution schemes often result in numerical oscillations near the shock due to high-frequency content associated with the shock. These oscillations can result on non-physical values (e.g. negative density) that greatly degrade the accuracy of your solution and pollute the domain. An example of this phenomena is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
+For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities are a common occurrence. The use of high-order numerical schemes are desired to resolve these regions as the strength of the shock largely governs the behavior of the downstream flowfield. However, linear high-resolution schemes often result in numerical oscillations near the shock due to high-frequency content associated with the shock. These oscillations can result in non-physical values (e.g. negative density) that greatly degrade the accuracy of your solution and pollute the domain. An example of this phenomena is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second-order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
 
-<!-- high order == high accuracy, maybe change wording -->
-<!-- oscillations can result **in** non-physical values -->
-<!-- second order to second-order ? -->
+<!-- high order == high accuracy, maybe change wording KM: changed wording --> 
+<!-- oscillations can result **in** non-physical values KM: fixed grammer-->
+<!-- second order to second-order ? KM: fixed to add hyphen -->
 
 <img src="../../docs_files/LW_example.png" width="500">
 
@@ -56,13 +56,13 @@ where for every successive timestep $$n$$, the total variation of the solution d
 A favorable property of TVD schemes is that they are **monotonicity preserving**. This means they do not introduce new extrema into the solution and local minimum (maximum) are non-decreasing (increasing) in time. These are both desirable qualities for correctly resolving a shock and ensuring the solution is physical. 
 
 ### Godunov's Theorem
-The question of "How accurate can a TVD scheme be?" is still unanswered. For this, we turn to Godunov's Theorem.
+The question of "How accurate can a TVD scheme be?" is still unanswered. For this, we turn to [Godunov's Theorem](https://en.wikipedia.org/wiki/Godunov%27s_theorem).
 
 **Godunov's Theorem**: 
 1. A linear scheme is monotone if and only if it is total variation diminishing. 
 2. Linear total variation diminishing schemes are at most first-order accurate. 
 
-<!-- Maybe source? -->
+<!-- Maybe source? KM: sourced wiki link lol-->
 
 The first statement is simple, stating that for linear schemes, the characteristic of being monotone and TVD is equivalent. The second statement is more interesting. It states that if we want to construct a linear TVD (monotone) scheme, the best we can be possibly hope for is first-order accuracy. 
 
@@ -90,4 +90,4 @@ From the above example we note:
 * The **Van-Albada** limiter also performs well. It is slightly more diffusive than Barth-Jespersen but has robust convergence properties. 
 * The **Venkatakrishnan** limiter is similar to the Barth-Jespersen and has significantly improved convergence properties. However, it is more diffusive and does require a user-specified parameter $$k$$ that is flow dependent. 
 
-<!-- Maybe we should add a small conclusion too? -->
+<!-- Maybe we should add a small conclusion too? KM: agreed. Talk on Thursday. -->
