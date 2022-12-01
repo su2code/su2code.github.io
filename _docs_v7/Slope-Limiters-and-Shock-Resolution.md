@@ -1,13 +1,13 @@
 ---
-title: Gradients and Limiters
-permalink: /docs_v7/Gradients-Limiters/
+title: Slope Limiters and Shock Resolution
+permalink: /docs_v7/Slope-Limiters-and-Shock-Resolution/
 ---
 
 This page lists the limiters available in SU2 and their associated options, it is not meant as a detailed theory guide but a brief review of the governing mathematics is presented. 
 The options listed here do not apply to the high order DG solver.
 
 ---
-<!-- TODO: add/update a table of contents -->
+
 - [Theory: An introduction to slope limiters](#theory-an-introduction-to-slope-limiters)
   - [Total Variation and Total Variation Diminishing](#total-variation-and-total-variation-diminishing)
   - [Godunov's Theorem](#godunovs-theorem)
@@ -18,29 +18,11 @@ The options listed here do not apply to the high order DG solver.
 - [Empirical comparison of limiters on a periodic advective domain](#empirical-comparison-of-limiters-on-a-periodic-advective-domain)
 
 ---
-<!-- 
-Grant will work on:
-* "Basics of describing what options are available ..." 
-* "Mathematically describe limiters available in SU2"
-* helping with any python scripts for postprocessing of empirical study
-* general documenation logistics: building, markdown / html specifics, github pull requests
 
-Kal will work on:
-* "Why Slope Limiters are used in FVM" 
-* "Empirical comparison of the available limiters on a test problem"
-* Help setting up and running any necessary SU2 simulations 
-* general documentation logistics, formatting, CURC navigation -->
 
 
 ## Theory: An introduction to slope limiters
 For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities are a common occurrence. The use of high-order numerical schemes are desired to resolve these regions as the strength of the shock largely governs the behavior of the downstream flowfield. However, linear high-resolution schemes often result in numerical oscillations near the shock due to high-frequency content associated with the shock. These oscillations can result in non-physical values (e.g. negative density) that greatly degrade the accuracy of your solution and pollute the domain. An example of this phenomena is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second-order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
-
-<!-- high order == high accuracy, maybe change wording KM: changed wording --> 
-<!-- oscillations can result **in** non-physical values KM: fixed grammer-->
-<!-- second order to second-order ? KM: fixed to add hyphen -->
-<!-- ??? "second order" may actually be correct when "order" is used as a noun.
-definitely "second-order" when used as an adjective, but not sure if "second-order" when used as
--->
 
 <img src="../../docs_files/LW_example.png" width="500">
 
@@ -74,8 +56,6 @@ The question of "How accurate can a TVD scheme be?" is still unanswered. For thi
 1. A linear scheme is monotone if and only if it is total variation diminishing. 
 2. Linear total variation diminishing schemes are at most first-order accurate. 
 
-<!-- Maybe source? KM: sourced wiki link-->
-
 The first statement is simple, stating that for linear schemes, the characteristic of being monotone and TVD is equivalent. The second statement is more interesting. It states that if we want to construct a linear TVD (monotone) scheme, the best we can be possibly hope for is first-order accuracy. 
 
 Recall that the original motivation for a slope limiter was to prevent the formation of oscillations in the solution. In the section above, we noted that TVD schemes are monotonicity preserving (a favorable property in resolving a shock). However, through Godunov's theorem, we note that if we also want high-order accuracy, **our TVD discretization MUST be nonlinear**
@@ -84,20 +64,11 @@ The inclusion of a slope limiter into a TVD scheme accomplishes this idea.
 
 
 
-<!-- ## Mathematically describe limiters available to user in SU2 -->
-<!-- ??? do we need to include this section??? -->
+<!-- ??? do we need to include def of venkat function??? -->
 <!-- It would make more sense to include the limiters in the section above -->
-
-<!-- TODO: Reorganize? -->
-<!-- Maybe change transition above if we remove this section. -->
-
-
-<!-- TODO: Kal and Grant need to resolve notation, ex: k vs. K -->
 
 
 ## Available Limiter Options
-<!-- Also we assume that the user will know the theory, and that they are just looking for the limiters that are available in SU2 first. -->
-
 
 The field `SLOPE_LIMITER_FLOW` in the `.cfg` file specifies which limiter to use. Note that this option is only used if `MUSCL_FLOW = YES` (which specifies to use a second-order method).
 The [Laminar Cylinder](https://su2code.github.io/tutorials/Laminar_Cylinder/) shows an example of this.
@@ -125,9 +96,9 @@ computeGradientsGreenGauss.hpp (and the least squares one)
  -->
 
 The `SLOPE_LIMITER_` options above may each be changed to use different limiters, which are listed and explained below.
-<!-- Add a note about the DG solver -->
+
 **Note:** the Discontinuous-Galerkin methods (DG) / Higher-order methods (HOM) do not use limiters.
-<!-- Maybe should point to somewhere that explains why not / what is done instead -->
+
 
 
 ### Available Limiters
@@ -140,9 +111,8 @@ The `SLOPE_LIMITER_` options above may each be changed to use different limiters
 | `VENKATAKRISHNAN_WANG`  | Venkatakrishnan-Wang                            |  |
 | `SHARP_EDGES`           | Venkatakrishnan with sharp-edge modification    | This limiter should not be used for flow solvers |
 | `WALL_DISTANCE`         | Venkatakrishnan with wall distance modification | This limiter should not be used for flow solvers |
-| `VAN_ALBADA_EDGE`       | Van Albada (edge formulation)                   | This limiter may or may not be implemented for certain solvers, and it may also suffer from other issues, such as not outputing limiter values |
+| `VAN_ALBADA_EDGE`       | Van Albada (edge formulation)                   | This limiter has been observed to not output limiter values when called using VOLUME_OUTPUT |
 
-<!-- TODO: Kal, maybe clarify / add some details to the above? For van albada -->
 <!-- ??? Van Albada. It's possible that we actually have this backward and Van Albada is the only limiter that works for other solvers??? -->
 <!-- We're currently investigating if Barth-Jespersen is Venkat with K=0 -->
 
@@ -185,7 +155,7 @@ In the `SHARP_EDGES` limiter, the qualification of what makes an edge "sharp" is
 Other than the addition of this geometric factor, these limiters are the same as the `VENKATAKRISHNAN` limiter and should also use `VENKAT_LIMITER_COEFF` (given by $$K$$ below).
 
 Specifically, given the distance to the feature, $$d_{\text{feature}}$$, an intermediate measure of the distance, $$d$$, is calculated. The parameter $$c$$ is set by `ADJ_SHARP_LIMITER_COEFF`.
-<!-- ??? Might need to change notation here. Couldn't find any resources to match their notation, so I chose my own.??? -->
+<!-- ??? Might need to change notation here. Couldn't find any resources, so I chose my own notation.??? -->
 
 $$ d(d_{\text{feature}}; c, K) = \frac{d_{\text{feature}}} { (c \cdot K \bar{\Delta}) } - 1$$
 
@@ -196,9 +166,6 @@ $$ \gamma (d) = \frac{1}{2} (1+d+\sin(\pi \cdot d)/ \pi) $$
 Note that the geometric factor is nonnegative and nondecreasing in $d_{feature}$.
 
 
-<!-- Maybe missing some subsection / transitions here. -->
-
-<!-- Maybe a better way to word this. -->
 After the number of iterations given by `LIMITER_ITER` (default $$999999$$), the value of the limiter will be frozen.
 
 
@@ -236,6 +203,3 @@ From the above example we note:
 * The **Barth-Jespersen** limiter performs well for most of the waveforms. However, the Barth-Jespersen limtier is known to be compressive and will turn smooth waves into square waves. This is best seen with the value discontinuity on the very left. 
 * The **Van-Albada** limiter also performs well. It is slightly more diffusive than Barth-Jespersen but has robust convergence properties. 
 * The **Venkatakrishnan** limiter is similar to the Barth-Jespersen and has significantly improved convergence properties. However, it is more diffusive and does require a user-specified parameter $$K$$ that is flow dependent. 
-
-<!-- Maybe we should add a small conclusion too? KM: agreed. Talk on Thursday. 
-     KM: Other user guide sections seem to not include a conclusion. We can submit and see what the feedback is? -->
