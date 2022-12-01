@@ -7,7 +7,8 @@ Write a brief summary once we are done with most of this.
 Generally, the documenation is written with one sentence per line.
 
 ---
-
+<!-- TODO: add/update a table of contents -->
+- [Available Limiter Options](#available-limiter-options)
 
 ---
 <!-- 
@@ -24,7 +25,7 @@ Kal will work on:
 * general documentation logistics, formatting, CURC navigation -->
 
 
-## Basics of describing what options are available and providing some references for them
+## Available Limiter Options
 <!-- Also we assume that the user will know the theory, and that they are just looking for the limiters that are available in SU2 first. -->
 
 
@@ -33,8 +34,8 @@ The [Laminar Cylinder](https://su2code.github.io/tutorials/Laminar_Cylinder/) sh
 The [Turbulent Flat Plate example](https://su2code.github.io/tutorials/Turbulent_Flat_Plate/) sets `SLOPE_LIMITER_TURB`, which is used for the turbulence equations, rather than for the flow equations.
 More possible applications of limiters are listed below.
 
-<!-- Do I need this as a title? -->
-Slope Limiter Fields
+
+### Slope Limiter Fields
 
 | Configuration Field | Description | Notes |
 | --- | --- | --- |
@@ -49,61 +50,72 @@ Slope Limiter Fields
 CLimiterDetails.hpp:
 computeLimiters.hpp uses computeLimiters_impl.hpp and really just sets the limiter
 computeLimiters_impl.hpp passes computation of field values (cell averages), gradients, and  to the limiter
-
 also check out
-computeGradientsGreenGauss.hpp
-
+computeGradientsGreenGauss.hpp (and the least squares one)
  -->
 
 The `SLOPE_LIMITER_` options above may each be changed to use different limiters, which are listed and explained below.
+<!-- Add a note about the DG solver -->
+**Note:** the Discontinuous-Galerkin methods (DG) / Higher-order methods (HOM) do not use limiters.
+<!-- Maybe should point to somewhere that explains why not / what is done instead -->
 
 
-Available Limiters
+### Available Limiters
 
-| Type | Description | Note |
+| Type | Description | Notes |
 | --- | --- | --- |
 | `NONE`                  | No limiter                                      |  |
 | `BARTH_JESPERSEN`       | Barth-Jespersen                                 |  |
 | `VENKATAKRISHNAN`       | Venkatakrishnan                                 |  |
 | `VENKATAKRISHNAN_WANG`  | Venkatakrishnan-Wang                            |  |
-| `SHARP_EDGES`           | Venkatakrishnan with sharp-edge modification    |  |
-| `WALL_DISTANCE`         | Venkatakrishnan with wall distance modification |  |
-| `VAN_ALBADA_EDGE`       | Van Albada (edge formulation)                   | This limiter may or may not be implemented for certain solvers [^1] |
+| `SHARP_EDGES`           | Venkatakrishnan with sharp-edge modification    | This limiter should not be used for flow solvers |
+| `WALL_DISTANCE`         | Venkatakrishnan with wall distance modification | This limiter should not be used for flow solvers |
+| `VAN_ALBADA_EDGE`       | Van Albada (edge formulation)                   | This limiter may or may not be implemented for certain solvers, and it may also suffer from other issues, such as not outputing limiter values |
 
-[^1]: It may also suffer from problems of not outputing limiter values.
-<!-- TODO: Kal, maybe clarify / add some details to the above? -->
+<!-- TODO: Kal, maybe clarify / add some details to the above? For van albada -->
+<!-- ??? Van Albada. It's possible that we actually have this backward and Van Albada is the only limiter that works for other solvers??? -->
+<!-- We're currently investigating if Barth-Jespersen is Venkat with K=0 -->
 
+The default limiter is `VENKATAKRISHNAN`.
+
+### Limiter Parameters and Further Details
 
 The `VENKAT_LIMITER_COEFF` parameter is generally a small constant, defaulting to $$0.05$$, but its specific definition depends on the limiter being used.
-This is different than the small constant used to prevent division by zero, which is used for all limiters.
+This is different than the small constant used to prevent division by zero, which is used in all these limiters.
+<!-- ^ I'm refering to: `static Type epsilon() {return std::numeric_limits<passivedouble>::epsilon();}` in CLimiterDetails.hpp -->
 
 For the `VENKATAKRISHNAN`, `SHARP_EDGES`, and `WALL_DISTANCE` limiters, the `VENKAT_LIMITER_COEFF` parameter refers to $$K$$ in $$\epsilon^2=\left(K\bar{\Delta} \right)^3$$, where $$\bar{\Delta}$$ is an average grid size.
 The $$K$$ parameter defines a threshold, below which oscillations are not damped by the limiter, as described by [Venkatakrishnan](https://doi.org/10.1006/jcph.1995.1084).
-Thus, a large value will approach the case of using no limiter, while too small of a value will slow the convergence.
-This value depends on both the mesh and the flow variable.
+Thus, a large value will approach the case of using no limiter with undamped oscillations, while too small of a value will slow the convergence and add extra diffusion.
+This value depends on both the mesh and the flow variable and thus should be reduced if the mesh is refined.
 <!-- maybe change wording from flow variable to "field variable being limited" -->
 
-<!-- ??? should this section be included ??? -->
+<!-- ??? should we include the definition of the venkat limiter (Delta -, Delta +, eps function) from the paper ??? -->
+<!-- ^^^ then we would also need to define Delta - and Delta +, which gets tricky. -->
+
+<!-- ??? should this section on Ref_Elem_Length be included ??? -->
 <!-- so, \bar{\Delta} is actually config.GetRefElemLength(), which refers to RefElemLength -->
 Similarly, the parameter `REF_ELEM_LENGTH` controls $$\bar{\Delta}$$, but the behavior of the limiter should be controlled through `VENKAT_LIMITER_COEFF`.
-This parameter is also used in the geometric factor of the `SHARP_EDGES` and `WALL_DISTANCE` limiters.
+The `REF_ELEM_LENGTH` parameter is also used in the geometric factor of the `SHARP_EDGES` and `WALL_DISTANCE` limiters.
 
 When using the `VENKATAKRISHNAN_WANG` limiter, `VENKAT_LIMITER_COEFF` is instead $$\varepsilon '$$ in $$\varepsilon = \varepsilon ' (q_{max} - q_{min})$$, where $$q_{min}$$ and $$q_{max}$$ are the respective *global* minimum and maximum of the field variable being limited.
 Note that this global operation may incur extra time costs due to communication between MPI threads.
-Based on the original work by [Wang](https://doi.org/10.2514/6.1996-2091) introducing this limiter suggests using `VENKAT_LIMITER_COEFF` in the range of $$[0.01, 0.20]$$, where again larger values approach the case of using no limiter.
+The original work by [Wang](https://doi.org/10.2514/6.1996-2091) suggests using `VENKAT_LIMITER_COEFF` in the range of $$[0.01, 0.20]$$, where again larger values approach the case of using no limiter.
 
 The `NONE`, `BARTH_JESPERSEN`, `VENKATAKRISHNAN`, and `VENKATAKRISHNAN_WANG` limiter options all have no **geometric modifier**.
 A geometric modifier increases limiting near walls or sharp edges. This is done by multiplying the limiter value by a **geometric factor**. 
 
 For both the `SHARP_EDGES` and `WALL_DISTANCE` limiters, the influence of the geometric modifier is controlled with `ADJ_SHARP_LIMITER_COEFF` which defaults to 3.0.
+**Note:** these limiters should not be used for flow solvers.
+<!-- ??? If they're not used for flow solvers, when are they used? Just for adjoints, or also for Turbulent equations or species ???-->
+<!-- Based on the answer above, we need to change things to add more info.  -->
 Increasing this parameter will decrease the value of the limiter and thus make the field more diffusive and less oscillatory near the feature (sharp edge or wall).
 
 In the `SHARP_EDGES` limiter, the qualification of what makes an edge "sharp" is described by the parameter `REF_SHARP_EDGES` (defaults to 3.0). Increasing this will make more edges qualify as "sharp".
 Other than the addition of this geometric factor, these limiters are the same as the `VENKATAKRISHNAN` limiter and should also use `VENKAT_LIMITER_COEFF` (given by $$K$$ below).
 
-<!-- ??? Are these limiters  only for adjoints???!!! -->
-
 Specifically, given the distance to the feature, $$d_{\text{feature}}$$, an intermediate measure of the distance, $$d$$, is calculated. The parameter $$c$$ is set by `ADJ_SHARP_LIMITER_COEFF`.
+<!-- ??? Might need to change notation here. Couldn't find any resources to match their notation, so I chose my own.??? -->
 
 $$ d(d_{\text{feature}}; c, K) = \frac{d_{\text{feature}}} { (c \cdot K \bar{\Delta}) } - 1$$
 
@@ -126,7 +138,7 @@ The option `FROZEN_LIMITER_DISC` tells whether the slope limiter is to be frozen
 <!-- We can specify which limiters are applied through the fields
 constexpr size_t MAXNVAR = 32; -->
 <!-- 
-Should I mention some possible errors
+???Should I mention some possible errors???
 
 SU2_MPI::Error("Too many dimensions to compute limiters.", CURRENT_FUNCTION);
 SU2_MPI::Error("Unknown limiter type.", CURRENT_FUNCTION);
@@ -138,7 +150,7 @@ SU2_MPI::Error("Unknown limiter type.", CURRENT_FUNCTION);
 
  -->
 
-## Why are slope limiters used in a Finite Volume Method? 
+## Theory: Purpose of Slope Limiters
 For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities are a common occurrence. The use of high-order numerical schemes are desired to resolve these regions as the strength of the shock largely governs the behavior of the downstream flowfield. However, linear high-resolution schemes often result in numerical oscillations near the shock due to high-frequency content associated with the shock. These oscillations can result in non-physical values (e.g. negative density) that greatly degrade the accuracy of your solution and pollute the domain. An example of this phenomena is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second-order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
 
 <!-- high order == high accuracy, maybe change wording KM: changed wording --> 
@@ -190,11 +202,12 @@ The inclusion of a slope limiter into a TVD scheme accomplishes this idea.
 
 
 
+<!-- ## Mathematically describe limiters available to user in SU2 -->
+<!-- ??? do we need to include this section??? -->
+<!-- It would make more sense to include the limiters in the section above -->
 
-## Mathematically describe limiters available to user in SU2
-Also discuss their properties.
-
-<!-- TODO: Reorganize -->
+<!-- TODO: Reorganize? -->
+<!-- Maybe change transition above if we remove this section. -->
 
 
 <!-- TODO: Kal and Grant need to resolve notation, ex: k vs. K -->
@@ -214,6 +227,6 @@ From the above example we note:
 * The **Lax-Wendroff** scheme produces oscillations near sudden gradients due to dispersion errors. From Godunov's theorem this is expected as the scheme is second-order accurate and does not utilize a limiter. 
 * The **Barth-Jespersen** limiter performs well for most of the waveforms. However, the Barth-Jespersen limtier is known to be compressive and will turn smooth waves into square waves. This is best seen with the value discontinuity on the very left. 
 * The **Van-Albada** limiter also performs well. It is slightly more diffusive than Barth-Jespersen but has robust convergence properties. 
-* The **Venkatakrishnan** limiter is similar to the Barth-Jespersen and has significantly improved convergence properties. However, it is more diffusive and does require a user-specified parameter $$k$$ that is flow dependent. 
+* The **Venkatakrishnan** limiter is similar to the Barth-Jespersen and has significantly improved convergence properties. However, it is more diffusive and does require a user-specified parameter $$K$$ that is flow dependent. 
 
 <!-- Maybe we should add a small conclusion too? KM: agreed. Talk on Thursday. -->
