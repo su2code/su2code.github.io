@@ -17,6 +17,7 @@ Grant will work on:
 * helping with any python scripts for postprocessing of empirical study
 * general documenation logistics: building, markdown / html specifics, github pull requests
 
+
 ## Basics of describing what options are available and providing some references for them
 <!-- Also we assume that the user will know the theory, and that they are just looking for the limiters that are available in SU2 first. -->
 
@@ -63,6 +64,7 @@ Available Limiters
 | `WALL_DISTANCE`         | Venkatakrishnan with wall distance modification |
 | `VAN_ALBADA_EDGE`       |  [^1] Van Albada (edge formulation)             |
 
+<!-- Everything is sus. 3rd column -->
 
 [^1]: This limiter may or may not be implemented for certain solvers. It may also suffer from problems of not outputing limiter values.
 <!-- TODO: Kal, maybe clarify / add some details to the above? -->
@@ -146,9 +148,9 @@ Also discuss their properties.
 
 <!-- We need to first figure out what is going on with:
 1) venkatFunction, missing '2'
-2) Barth-Jespersen using venkatFunction and not non-smooth min/max
-3) Van Albada... just... what?
+2) Van Albada... just... what?
  -->
+
 
 <!-- TODO: Kal and Grant need to resolve notation, ex: k vs. K -->
 
