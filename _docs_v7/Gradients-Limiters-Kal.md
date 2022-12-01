@@ -29,6 +29,8 @@ For many studying compressible flow or high-speed aerodynamics, the formation of
 <!-- high order == high accuracy, maybe change wording KM: changed wording --> 
 <!-- oscillations can result **in** non-physical values KM: fixed grammer-->
 <!-- second order to second-order ? KM: fixed to add hyphen -->
+<!-- ??? "second order" may actually be correct when "order" is used as a noun.
+Definitely "second-order" when used as an adjective, but not sure if "second-order" when used as a noun. -->
 
 <img src="../../docs_files/LW_example.png" width="500">
 
