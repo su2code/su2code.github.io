@@ -163,7 +163,7 @@ Then, the geometric factor is given by
 
 $$ \gamma (d) = \frac{1}{2} (1+d+\sin(\pi \cdot d)/ \pi) $$
 
-Note that the geometric factor is nonnegative and nondecreasing in $d_{feature}$.
+Note that the geometric factor is nonnegative and nondecreasing in $$d_{feature}$$.
 
 
 After the number of iterations given by `LIMITER_ITER` (default $$999999$$), the value of the limiter will be frozen.
