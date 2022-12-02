@@ -3,12 +3,19 @@ title: Gradients and Limiters
 permalink: /docs_v7/Gradients-Limiters/
 ---
 
-Write a brief summary once we are done with most of this.
-Generally, the documenation is written with one sentence per line.
+This page lists the limiters available in SU2 and their associated options, it is not meant as a detailed theory guide but a brief review of the governing mathematics is presented. 
+The options listed here do not apply to the high order DG solver.
 
 ---
 <!-- TODO: add/update a table of contents -->
+- [Theory: An introduction to slope limiters](#theory-an-introduction-to-slope-limiters)
+  - [Total Variation and Total Variation Diminishing](#total-variation-and-total-variation-diminishing)
+  - [Godunov's Theorem](#godunovs-theorem)
 - [Available Limiter Options](#available-limiter-options)
+  - [Slope Limiter Fields](#slope-limiter-fields)
+  - [Available Limiters](#available-limiters)
+  - [Limiter Parameters and Further Details](#limiter-parameters-and-further-details)
+- [Empirical comparison of limiters on a periodic advective domain](#empirical-comparison-of-limiters-on-a-periodic-advective-domain)
 
 ---
 <!-- 
@@ -23,6 +30,69 @@ Kal will work on:
 * "Empirical comparison of the available limiters on a test problem"
 * Help setting up and running any necessary SU2 simulations 
 * general documentation logistics, formatting, CURC navigation -->
+
+
+## Theory: An introduction to slope limiters
+For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities are a common occurrence. The use of high-order numerical schemes are desired to resolve these regions as the strength of the shock largely governs the behavior of the downstream flowfield. However, linear high-resolution schemes often result in numerical oscillations near the shock due to high-frequency content associated with the shock. These oscillations can result in non-physical values (e.g. negative density) that greatly degrade the accuracy of your solution and pollute the domain. An example of this phenomena is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second-order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
+
+<!-- high order == high accuracy, maybe change wording KM: changed wording --> 
+<!-- oscillations can result **in** non-physical values KM: fixed grammer-->
+<!-- second order to second-order ? KM: fixed to add hyphen -->
+<!-- ??? "second order" may actually be correct when "order" is used as a noun.
+definitely "second-order" when used as an adjective, but not sure if "second-order" when used as
+-->
+
+<img src="../../docs_files/LW_example.png" width="500">
+
+Figure (1): A one period advection (red) of an initial value discontinuity (black) using the Lax-Wendroff method. 
+
+SU2 uses **slope limiters** to avoid these oscillations by switching to a low-resolution scheme near the shock, while switching back to a high-resolution scheme where the solution is smooth. This preserves solution accuracy in regions with smooth gradients and ensures numerical stability in regions close to the shock. 
+
+Before mathematically describing the form of the limiters implemented in SU2, it is useful to briefly understand two concepts. These include **Total Variation** and **Godunov's Theorem**. 
+
+### Total Variation and Total Variation Diminishing
+We can first introduce the concept of **total variation** (TV) which is a measure of how oscillatory a solution is. In a discrete one dimensional setting, TV can be calculated as the following:  
+
+$$ TV(u^n) = \sum_j |u^n_{j+1} - u^n_j| $$
+
+<img src="../../docs_files/TV_example.png" width="500">
+
+Figure (2): A numerical scheme resulting in both high and low TV.  
+
+A scheme can be said to be **total variation diminishing** (TVD) if 
+
+$$ TV(u^{n+1}) \leq TV(u^n) $$
+
+where for every successive timestep $$n$$, the total variation of the solution does not increase. 
+
+A favorable property of TVD schemes is that they are **monotonicity preserving**. This means they do not introduce new extrema into the solution and local minimum (maximum) are non-decreasing (increasing) in time. These are both desirable qualities for correctly resolving a shock and ensuring the solution is physical. 
+
+### Godunov's Theorem
+The question of "How accurate can a TVD scheme be?" is still unanswered. For this, we turn to [Godunov's Theorem](https://en.wikipedia.org/wiki/Godunov%27s_theorem).
+
+**Godunov's Theorem**: 
+1. A linear scheme is monotone if and only if it is total variation diminishing. 
+2. Linear total variation diminishing schemes are at most first-order accurate. 
+
+<!-- Maybe source? KM: sourced wiki link-->
+
+The first statement is simple, stating that for linear schemes, the characteristic of being monotone and TVD is equivalent. The second statement is more interesting. It states that if we want to construct a linear TVD (monotone) scheme, the best we can be possibly hope for is first-order accuracy. 
+
+Recall that the original motivation for a slope limiter was to prevent the formation of oscillations in the solution. In the section above, we noted that TVD schemes are monotonicity preserving (a favorable property in resolving a shock). However, through Godunov's theorem, we note that if we also want high-order accuracy, **our TVD discretization MUST be nonlinear**
+
+The inclusion of a slope limiter into a TVD scheme accomplishes this idea. 
+
+
+
+<!-- ## Mathematically describe limiters available to user in SU2 -->
+<!-- ??? do we need to include this section??? -->
+<!-- It would make more sense to include the limiters in the section above -->
+
+<!-- TODO: Reorganize? -->
+<!-- Maybe change transition above if we remove this section. -->
+
+
+<!-- TODO: Kal and Grant need to resolve notation, ex: k vs. K -->
 
 
 ## Available Limiter Options
@@ -150,70 +220,8 @@ SU2_MPI::Error("Unknown limiter type.", CURRENT_FUNCTION);
 
  -->
 
-## Theory: Purpose of Slope Limiters
-For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities are a common occurrence. The use of high-order numerical schemes are desired to resolve these regions as the strength of the shock largely governs the behavior of the downstream flowfield. However, linear high-resolution schemes often result in numerical oscillations near the shock due to high-frequency content associated with the shock. These oscillations can result in non-physical values (e.g. negative density) that greatly degrade the accuracy of your solution and pollute the domain. An example of this phenomena is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second-order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
-
-<!-- high order == high accuracy, maybe change wording KM: changed wording --> 
-<!-- oscillations can result **in** non-physical values KM: fixed grammer-->
-<!-- second order to second-order ? KM: fixed to add hyphen -->
-<!-- ??? "second order" may actually be correct when "order" is used as a noun.
-definitely "second-order" when used as an adjective, but not sure if "second-order" when used as
--->
-
-<img src="../../docs_files/LW_example.png" width="500">
-
-Figure (1): A one period advection (red) of an initial value discontinuity (black) using the Lax-Wendroff method. 
-
-SU2 uses **slope limiters** to avoid these oscillations by switching to a low-resolution scheme near the shock, while switching back to a high-resolution scheme where the solution is smooth. This preserves solution accuracy in regions with smooth gradients and ensures numerical stability in regions close to the shock. 
-
-Before mathematically describing the form of the limiters implemented in SU2, it is useful to briefly understand two concepts. These include **Total Variation** and **Godunov's Theorem**. 
-
-### Total Variation and Total Variation Diminishing
-We can first introduce the concept of **total variation** (TV) which is a measure of how oscillatory a solution is. In a discrete one dimensional setting, TV can be calculated as the following:  
-
-$$ TV(u^n) = \sum_j |u^n_{j+1} - u^n_j| $$
-
-<img src="../../docs_files/TV_example.png" width="500">
-
-Figure (2): A numerical scheme resulting in both high and low TV.  
-
-A scheme can be said to be **total variation diminishing** (TVD) if 
-
-$$ TV(u^{n+1}) \leq TV(u^n) $$
-
-where for every successive timestep $$n$$, the total variation of the solution does not increase. 
-
-A favorable property of TVD schemes is that they are **monotonicity preserving**. This means they do not introduce new extrema into the solution and local minimum (maximum) are non-decreasing (increasing) in time. These are both desirable qualities for correctly resolving a shock and ensuring the solution is physical. 
-
-### Godunov's Theorem
-The question of "How accurate can a TVD scheme be?" is still unanswered. For this, we turn to [Godunov's Theorem](https://en.wikipedia.org/wiki/Godunov%27s_theorem).
-
-**Godunov's Theorem**: 
-1. A linear scheme is monotone if and only if it is total variation diminishing. 
-2. Linear total variation diminishing schemes are at most first-order accurate. 
-
-<!-- Maybe source? KM: sourced wiki link lol-->
-
-The first statement is simple, stating that for linear schemes, the characteristic of being monotone and TVD is equivalent. The second statement is more interesting. It states that if we want to construct a linear TVD (monotone) scheme, the best we can be possibly hope for is first-order accuracy. 
-
-Recall that the original motivation for a slope limiter was to prevent the formation of oscillations in the solution. In the section above, we noted that TVD schemes are monotonicity preserving (a favorable property in resolving a shock). However, through Godunov's theorem, we note that if we also want high-order accuracy, **our TVD discretization MUST be nonlinear**
-
-The inclusion of a slope limiter into a TVD scheme accomplishes this idea. 
-
-
-
-<!-- ## Mathematically describe limiters available to user in SU2 -->
-<!-- ??? do we need to include this section??? -->
-<!-- It would make more sense to include the limiters in the section above -->
-
-<!-- TODO: Reorganize? -->
-<!-- Maybe change transition above if we remove this section. -->
-
-
-<!-- TODO: Kal and Grant need to resolve notation, ex: k vs. K -->
-
 ## Empirical comparison of limiters on a periodic advective domain
-An example problem of the linear advection problem against four unique wave-forms was simulated to illustrate differences between the limiters in SU2. The wave forms contain both smooth and discontinuous initial conditions and are advected for a single period with a CFL of $$\sigma = 0.8$$. The domain is discretized with $$N = 200$$ cells. The Lax-Wendroff scheme was used as a comparative case: 
+An example problem of the linear advection problem against four unique wave-forms was simulated to illustrate differences between the primary limiters in SU2. The wave forms contain both smooth and discontinuous initial conditions and are advected for a single period with a CFL of $$\sigma = 0.8$$. The domain is discretized with $$N = 200$$ cells. The Lax-Wendroff scheme was used as a comparative case: 
 
 $$ u_j^{n+1} = u_j^{n} - \sigma (u_j^{n} - u_{j-1}^{n}) - \frac{1}{2}\sigma(1-\sigma) \left[ \phi_{j+\frac{1}{2}}(u_{j+1}^{n} - u_j^{n}) - \phi_{j-\frac{1}{2}}(u_{j}^{n} - u_{j-1}^{n})  \right] $$
 
@@ -229,4 +237,5 @@ From the above example we note:
 * The **Van-Albada** limiter also performs well. It is slightly more diffusive than Barth-Jespersen but has robust convergence properties. 
 * The **Venkatakrishnan** limiter is similar to the Barth-Jespersen and has significantly improved convergence properties. However, it is more diffusive and does require a user-specified parameter $$K$$ that is flow dependent. 
 
-<!-- Maybe we should add a small conclusion too? KM: agreed. Talk on Thursday. -->
+<!-- Maybe we should add a small conclusion too? KM: agreed. Talk on Thursday. 
+     KM: Other user guide sections seem to not include a conclusion. We can submit and see what the feedback is? -->
