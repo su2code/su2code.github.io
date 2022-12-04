@@ -24,7 +24,7 @@ The options listed here do not apply to the high order DG solver.
 Convective schemes are used in the FVM discretization of convective fluxes through the faces of the dual-grid control volumes.
 They are selected via option `CONV_NUM_METHOD_FLOW` and fall under the two broad categories of central and upwind.
 Central schemes tend to be more robust whereas second order upwind schemes can be more accurate (i.e. less dissipative).
-To achieve second order upwind schemes need to be used with MUSCL reconstruction (`MUSCL_FLOW = YES`), see the [Slope Limiters and Shock Resolution](/docs_v7/Slope-Limiters-and-Shock-Resolution) page for the MUSCL-related options.
+To achieve second-order in space, upwind schemes need to be used with MUSCL reconstruction (`MUSCL_FLOW = YES`), see the [Slope Limiters and Shock Resolution](/docs_v7/Slope-Limiters-and-Shock-Resolution) page for the MUSCL-related options.
 
 **Note:** MUSCL options have no effect on central schemes or on coarse multigrid levels in general.
 
