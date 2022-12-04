@@ -125,7 +125,7 @@ The `VENKAT_LIMITER_COEFF` parameter is generally a small constant, defaulting t
 For the `VENKATAKRISHNAN`, `SHARP_EDGES`, and `WALL_DISTANCE` limiters, the `VENKAT_LIMITER_COEFF` parameter refers to $$K$$ in $$\epsilon^2=\left(K\bar{\Delta} \right)^3$$, where $$\bar{\Delta}$$ is an average grid size.
 The $$K$$ parameter defines a threshold, below which oscillations are not damped by the limiter, as described by [Venkatakrishnan](https://doi.org/10.1006/jcph.1995.1084).
 Thus, a large value will approach the case of using no limiter with undamped oscillations, while too small of a value will slow the convergence and add extra diffusion.
-This value depends on both the mesh and the flow variable and thus should be reduced if the mesh is refined.
+**Note:** This value depends on both the mesh and the flow variable and thus should be reduced if the mesh is refined.
 <!-- maybe change wording from flow variable to "field variable being limited" -->
 
 <!-- ??? should we include the definition of the venkat limiter (Delta -, Delta +, eps function) from the paper ??? -->
