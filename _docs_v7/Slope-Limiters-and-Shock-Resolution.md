@@ -121,8 +121,6 @@ The default limiter is `VENKATAKRISHNAN`.
 ### Limiter Parameters and Further Details
 
 The `VENKAT_LIMITER_COEFF` parameter is generally a small constant, defaulting to $$0.05$$, but its specific definition depends on the limiter being used.
-This is different than the small constant used to prevent division by zero, which is used in all these limiters.
-<!-- ^ I'm refering to: `static Type epsilon() {return std::numeric_limits<passivedouble>::epsilon();}` in CLimiterDetails.hpp -->
 
 For the `VENKATAKRISHNAN`, `SHARP_EDGES`, and `WALL_DISTANCE` limiters, the `VENKAT_LIMITER_COEFF` parameter refers to $$K$$ in $$\epsilon^2=\left(K\bar{\Delta} \right)^3$$, where $$\bar{\Delta}$$ is an average grid size.
 The $$K$$ parameter defines a threshold, below which oscillations are not damped by the limiter, as described by [Venkatakrishnan](https://doi.org/10.1006/jcph.1995.1084).
