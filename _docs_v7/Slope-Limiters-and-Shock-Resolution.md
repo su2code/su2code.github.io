@@ -22,11 +22,11 @@ The options listed here do not apply to the high order DG solver.
 
 
 ## Theory: An introduction to slope limiters
-For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities is a common occurrence. The use of high-order numerical schemes is desired to resolve these regions as the strength of the shock largely governs the behavior of the downstream flow field. However, high-resolution linear schemes often result in numerical oscillations near the shock due to the high-frequency content associated with the shock. These oscillations can result in non-physical values (e.g. negative density) that significantly degrade the accuracy of your solution and pollute the domain. An example of this phenomenon is shown below with the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second-order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
+For many studying compressible flow or high-speed aerodynamics, the formation of shock discontinuities is a common occurrence. The use of high-order numerical schemes is desired to resolve these regions as the strength of the shock largely governs the behavior of the downstream flow field. However, high-resolution linear schemes often result in numerical oscillations near the shock due to the high-frequency content associated with the shock. These oscillations can result in non-physical values (e.g. negative density) that significantly degrade the accuracy of your solution and pollute the domain. An example of this phenomenon is shown below with a MATLAB implementation of the Lax-Wendroff scheme for scalar advection. Although the Lax-Wendroff method is second-order, note that it introduces numerical oscillations that result in the state value of $$u$$ becoming negative. 
 
 <img src="../../docs_files/LW_example.png" width="500">
 
-Figure (1): A one period advection (red) of an initial value discontinuity (black) using the Lax-Wendroff method. 
+Figure (1): A MATLAB simulation of a one period advection (red) of an initial value discontinuity (black) using the Lax-Wendroff method. 
 
 SU2 uses **slope limiters** to avoid these oscillations by damping second-order terms near shocks and other regions with sharp gradients. The second-order reconstruction is kept where the solution is smooth. This preserves solution accuracy in regions with smooth gradients and helps obtain physical results and numerical stability in regions close to the shock. 
 
@@ -176,7 +176,7 @@ SU2_MPI::Error("Unknown limiter type.", CURRENT_FUNCTION);
  -->
 
 ## Empirical comparison of limiters on a periodic advective domain
-An example problem of the linear advection problem against four unique wave-forms was simulated to illustrate differences between the primary limiters in SU2. The wave forms contain both smooth and discontinuous initial conditions and are advected for a single period with a CFL of $$\sigma = 0.8$$. The domain is discretized with $$N = 200$$ cells. The Lax-Wendroff scheme was used as a comparative case: 
+An example problem of the linear advection problem against four unique wave-forms was simulated in MATLAB to illustrate differences between the primary limiters in SU2. The wave forms contain both smooth and discontinuous initial conditions and are advected for a single period with a CFL of $$\sigma = 0.8$$. The domain is discretized with $$N = 200$$ cells. The Lax-Wendroff scheme was used as a comparative case: 
 
 $$ u_j^{n+1} = u_j^{n} - \sigma (u_j^{n} - u_{j-1}^{n}) - \frac{1}{2}\sigma(1-\sigma) \left[ \phi_{j+\frac{1}{2}}(u_{j+1}^{n} - u_j^{n}) - \phi_{j-\frac{1}{2}}(u_{j}^{n} - u_{j-1}^{n})  \right] $$
 
@@ -184,7 +184,7 @@ where $$\phi_{j+\frac{1}{2}}$$ is the scalar value of the limiter at the interfa
 
 <img src="../../docs_files/advection_example.png" width="600">
 
-Figure (3): A one period advection (red) of an initial condition (black) using various schemes, with and without limiters. 
+Figure (3): A MATLAB simulation of one period advection (red) of an initial condition (black) using various schemes, with and without limiters. 
 
 From the above example we note: 
 * The **Lax-Wendroff** scheme produces oscillations near sudden gradients due to dispersion errors. From Godunov's theorem this is expected as the scheme is second-order accurate and does not utilize a limiter. 
