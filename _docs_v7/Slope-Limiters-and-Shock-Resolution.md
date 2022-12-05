@@ -28,7 +28,7 @@ For many studying compressible flow or high-speed aerodynamics, the formation of
 
 Figure (1): A one period advection (red) of an initial value discontinuity (black) using the Lax-Wendroff method. 
 
-SU2 uses **slope limiters** to avoid these oscillations by switching to a low-resolution scheme near the shock, while switching back to a high-resolution scheme where the solution is smooth. This preserves solution accuracy in regions with smooth gradients and ensures numerical stability in regions close to the shock. 
+SU2 uses **slope limiters** to avoid these oscillations by damping second-order terms near shocks and other regions with sharp gradients. The second-order reconstruction is kept where the solution is smooth. This preserves solution accuracy in regions with smooth gradients and helps obtain physical results and numerical stability in regions close to the shock. 
 
 Before mathematically describing the form of the limiters implemented in SU2, it is useful to briefly understand two concepts. These include **Total Variation** and **Godunov's Theorem**. 
 
