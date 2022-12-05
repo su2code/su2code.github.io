@@ -63,16 +63,11 @@ Recall that the original motivation for a slope limiter was to prevent the forma
 The inclusion of a slope limiter into a TVD scheme accomplishes this idea. 
 
 
-
-<!-- ??? do we need to include def of venkat function??? -->
-<!-- It would make more sense to include the limiters in the section above -->
-
-
 ## Available Limiter Options
 
 The field `SLOPE_LIMITER_FLOW` in the `.cfg` file specifies which limiter to use. Note that this option is only used if `MUSCL_FLOW = YES` (which specifies to use a second-order method).
 The [Laminar Cylinder](https://su2code.github.io/tutorials/Laminar_Cylinder/) shows an example of this.
-The [Turbulent Flat Plate example](https://su2code.github.io/tutorials/Turbulent_Flat_Plate/) sets `SLOPE_LIMITER_TURB`, which is used for the turbulence equations, rather than for the flow equations.
+The [Turbulent Flat Plate example](https://su2code.github.io/tutorials/Turbulent_Flat_Plate/) sets `SLOPE_LIMITER_TURB`, which is used for the turbulence equations (if `MUSCL_TURB = YES`), rather than for the flow equations.
 More possible applications of limiters are listed below.
 
 
@@ -86,14 +81,6 @@ More possible applications of limiters are listed below.
 | `SLOPE_LIMITER_ADJFLOW` | Adjoint flow equations | Need `MUSCL_ADJFLOW = YES` |
 | `SLOPE_LIMITER_ADJTURB` | Adjoint turbulence equations | Need `MUSCL_ADJTURB = YES` |
 
-
-<!-- 
-CLimiterDetails.hpp:
-computeLimiters.hpp uses computeLimiters_impl.hpp and really just sets the limiter
-computeLimiters_impl.hpp passes computation of field values (cell averages), gradients, and  to the limiter
-also check out
-computeGradientsGreenGauss.hpp (and the least squares one)
- -->
 
 The `SLOPE_LIMITER_` options above may each be changed to use different limiters, which are listed and explained below.
 
@@ -119,14 +106,14 @@ The default limiter is `VENKATAKRISHNAN`.
 
 The `VENKAT_LIMITER_COEFF` parameter is generally a small constant, defaulting to $$0.05$$, but its specific definition depends on the limiter being used.
 
-For the `VENKATAKRISHNAN`, `SHARP_EDGES`, and `WALL_DISTANCE` limiters, the `VENKAT_LIMITER_COEFF` parameter refers to $$K$$ in $$\epsilon^2=\left(K\bar{\Delta} \right)^3$$, where $$\bar{\Delta}$$ is an average grid size.
+For the `VENKATAKRISHNAN`, `SHARP_EDGES`, and `WALL_DISTANCE` limiters, the `VENKAT_LIMITER_COEFF` parameter refers to $$K$$ in $$\epsilon^2=\left(K\bar{\Delta} \right)^3$$, where $$\bar{\Delta}$$ is an average grid size (this is hardcoded as 1m and thus all tuning is via $$K$$).
 The $$K$$ parameter defines a threshold, below which oscillations are not damped by the limiter, as described by [Venkatakrishnan](https://doi.org/10.1006/jcph.1995.1084).
 Thus, a large value will approach the case of using no limiter with undamped oscillations, while too small of a value will slow the convergence and add extra diffusion.
 The SU2 implementation of the `BARTH_JESPERSEN` limiter actually uses `VENKATAKRISHNAN` with $$K=0$$.
 **Note:** the value of `VENKAT_LIMITER_COEFF` depends on both the mesh and the flow variable and thus should be reduced if the mesh is refined.
 
 When using the `VENKATAKRISHNAN_WANG` limiter, `VENKAT_LIMITER_COEFF` is instead $$\varepsilon '$$ in $$\varepsilon = \varepsilon ' (q_{max} - q_{min})$$, where $$q_{min}$$ and $$q_{max}$$ are the respective *global* minimum and maximum of the field variable being limited.
-Note that this global operation may incur extra time costs due to communication between MPI threads.
+This global operation incurs extra time costs due to communication between MPI ranks.
 The original work by [Wang](https://doi.org/10.2514/6.1996-2091) suggests using `VENKAT_LIMITER_COEFF` in the range of $$[0.01, 0.20]$$, where again larger values approach the case of using no limiter.
 **Note:** unlike the aforementioned `VENKATAKRISHNAN` limiter, the `VENKATAKRISHNAN_WANG` limiter does not depend directly on the mesh size and can thus be used without non-dimensionalization. If the `VENKATAKRISHNAN` limiter is used outside of non-dimensional mode, the fields with larger values (pressure and temperature) will generally be limited more aggressively than velocity.
 
@@ -160,21 +147,6 @@ After the number of iterations given by `LIMITER_ITER` (default $$999999$$), the
 The option `FROZEN_LIMITER_DISC` tells whether the slope limiter is to be frozen in the discrete adjoint formulation (default is `NO`).
 
  
-<!-- We can specify which limiters are applied through the fields
-constexpr size_t MAXNVAR = 32; -->
-<!-- 
-???Should I mention some possible errors???
-
-SU2_MPI::Error("Too many dimensions to compute limiters.", CURRENT_FUNCTION);
-SU2_MPI::Error("Unknown limiter type.", CURRENT_FUNCTION);
-
-  constexpr size_t MAXNVAR = 32;
-
-  if (varEnd > MAXNVAR)
-    SU2_MPI::Error("Number of variables is too large, increase MAXNVAR.", CURRENT_FUNCTION);
-
- -->
-
 ## Empirical comparison of limiters on a periodic advective domain
 An example problem of the linear advection problem against four unique wave-forms was simulated in MATLAB to illustrate differences between the primary limiters in SU2. The wave forms contain both smooth and discontinuous initial conditions and are advected for a single period with a CFL of $$\sigma = 0.8$$. The domain is discretized with $$N = 200$$ cells. The Lax-Wendroff scheme was used as a comparative case: 
 
