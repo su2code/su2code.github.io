@@ -165,14 +165,14 @@ Modifications from each of these three groups can be combined, for example `SST_
 | --- | --- |
 | `*_RANS` | 7.5.0 |
 
-This section describes how to setup transition models for RANS simulations. Transition is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS`.
-A transition model can then be selected via the option `KIND_TRANS_MODEL`.
-Different submodels and correlations are specified via the different options listed below.
+This section describes how to setup transition models for RANS simulations. Transition is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS` together with a choice of `KIND_TRANS_MODEL` (different from `NONE`).
+Currently, the only valid option for `KIND_TRANS_MODEL` is `LM`, for Langtry-Menter transition models.
+Different submodels and correlations are then specified via `LM_OPTIONS` (for example `LM_OPTIONS= LM2015, MENTER_LANGTRY`).
 
 The following modifications are allowed:
 - Versions:
   - `LM2015` - Correction to include stationary crossflow instabilities. It has to be used only in 3D problems. The RMS of roughness used in this model has to be set through the separate option `HROUGHNESS`.
-- Correlations:
+- Correlations (only one can be specified):
   - `MALAN` - This is the default correlation when the LM model is coupled with the `SA` turbulence model.
   - `SULUKSNA` - This should be used only if the `SST` model is used. It requires a formulation of
   - `KRAUSE` - This correlation should be used for hypersonic flows. Its implementation at the moment is unclear and inconsistent with literature.
@@ -180,5 +180,3 @@ The following modifications are allowed:
   - `MEDIDA` - Designed for `SA` turbulence model. Has problems when dealing with separation induced transition.
   - `MEDIDA_BAEDER` - Designed for `SA` turbulence model. Has problems when dealing with separation induced transition.
   - `MENTER_LANGTRY` - This is the default correlation when the LM model is coupled with the `SST` turbulence model.
-
-  Modifications from each of these three groups can be combined, for example `LM_OPTIONS= LM2015, MENTER_LANGTRY`. Although, at most one correlation should be chosen.
