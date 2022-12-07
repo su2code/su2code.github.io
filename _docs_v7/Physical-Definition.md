@@ -163,7 +163,7 @@ Modifications from each of these three groups can be combined, for example `SST_
 
 | Solver | Version |
 | --- | --- |
-| `*_RANS` | 7.4.0 |
+| `*_RANS` | 7.5.0 |
 
 This section describes how to setup transition models for RANS simulations. Transition is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS`.
 A transition model can then be selected via the option `KIND_TRANS_MODEL`.
