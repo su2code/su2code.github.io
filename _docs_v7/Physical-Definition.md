@@ -175,8 +175,8 @@ The following modifications are allowed:
 - Correlations (only one can be specified):
   - `MALAN` - This is the default correlation when the LM model is coupled with the `SA` turbulence model.
   - `SULUKSNA` - This should be used only if the `SST` model is used. It requires a formulation of
-  - `KRAUSE` - This correlation should be used for hypersonic flows. Its implementation at the moment is unclear and inconsistent with literature.
-  - `KRAUSE_HYPER` - This correlation should be used for hypersonic flows. Its implementation at the moment is unclear.
+  - `KRAUSE` - This correlation should be used for hypersonic flows. Its implementation at the moment is unclear due to inconsistencies in the literature.
+  - `KRAUSE_HYPER` - This correlation should be used for hypersonic flows. Its implementation at the moment is unclear due to inconsistencies in the literature.
   - `MEDIDA` - Designed for `SA` turbulence model. Has problems when dealing with separation induced transition.
   - `MEDIDA_BAEDER` - Designed for `SA` turbulence model. Has problems when dealing with separation induced transition.
   - `MENTER_LANGTRY` - This is the default correlation when the LM model is coupled with the `SST` turbulence model.
