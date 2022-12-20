@@ -69,8 +69,7 @@ Uniform velocity boundary conditions are used for the farfield.
 
 ### Configuration File Options
 
-Several of the key configuration file options for this simulation are highlighted here. First we show how we start a multiphysics simulation run incorporating CHT by choosing the following options in a main config file [cht_2d_3cylinders.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/cht_2d_3cylinders.cfg) (see [https://su2code.github.io/docs/Multizone](https://su2code.github.io/docs/Multizone) how to setup a multiphysics simulation in general):
-
+Several of the key configuration file options for this simulation are highlighted here. First we show how we start a multiphysics simulation run incorporating CHT by choosing the following options in a main config file [cht_2d_3cylinders.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/cht_2d_3cylinders.cfg) (see [https://su2code.github.io/docs_v7/Multizone](https://su2code.github.io/docs_v7/Multizone) how to setup a multiphysics simulation in general):
 ```
 MARKER_ZONE_INTERFACE= (cylinder_outer1, cylinder_inner1, cylinder_outer2, cylinder_inner2, cylinder_outer3, cylinder_inner3)
 %

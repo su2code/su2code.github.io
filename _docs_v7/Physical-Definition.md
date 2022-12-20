@@ -21,6 +21,7 @@ SU2 offers different ways of setting and computing this definition. This documen
 - [Turbulence Models](#turbulence-models)
   - [Spalart-Allmaras (SA)](#spalart-allmaras-model)
   - [Shear Stress Transport (SST)](#shear-stress-transport)
+- [Transition Models](#transition-models)
 
 ---
 
