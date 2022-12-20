@@ -1,8 +1,8 @@
 ---
 title: Transitional Flat Plate for T3A and T3A-
-permalink: /tutorials/Transitional_Flat_Plate/
+permalink: /tutorials/Transitional_Flat_Plate/Transitional_Flat_Plate_T3A_and_T3A-
 written_by: Sunoh Kang
-for_version: 7.4.0
+for_version: 7.5.0
 revised_by: -
 revision_date: -
 revised_version: -
