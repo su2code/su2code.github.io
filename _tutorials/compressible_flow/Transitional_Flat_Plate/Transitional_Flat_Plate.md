@@ -1,6 +1,6 @@
 ---
 title: Transitional Flat Plate
-permalink: /tutorials/Transitional_Flat_Plate/
+permalink: /tutorials/Transitional_Flat_Plate/Transitional_Flat_Plate
 written_by: sametcaka
 for_version: 7.0.0
 revised_by: talbring

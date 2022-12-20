@@ -40,6 +40,7 @@
   - Physical-Definition
   - Markers-and-BC
   - Convective-Schemes
+  - Slope-Limiters-and-Shock-Resolution
   - Custom-Output
   - Linear-Solvers-and-Preconditioners
   - Multizone

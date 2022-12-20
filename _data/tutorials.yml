@@ -12,6 +12,7 @@
   - Laminar_Cylinder
   - Turbulent_Flat_Plate
   - Transitional_Flat_Plate
+  - Transitional_Flat_Plate_T3A_and_T3A-
   - Turbulent_ONERAM6
   - Unsteady_NACA0012
   - UQ_NACA0012
