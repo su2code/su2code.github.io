@@ -49,21 +49,21 @@ The SST turbulence model is used with the default settings of freestream turbule
 The thermochemical properties for each gas are given below:
 * Methane:
     - Molecular Weight = 16.043 [g / mol]
-    - Viscosity: 1.1102E-05 [kg /(m $\cdot $ s)]
-    - Heat capacity at constant pressure: 2224.43 [J/(kg $\cdot $ K)]
-    - Thermal Conductivity: 0.0357 [W /(m $\cdot $ K)]
+    - Viscosity: 1.1102E-05 [kg /(m s)]
+    - Heat capacity at constant pressure: 2224.43 [J/(kg K)]
+    - Thermal Conductivity: 0.0357 [W /(m K)]
 * Air: 
     - Molecular Weight = 28.960 [g / mol]
-    - Viscosity: 1.8551E-05 [kg /(m $\cdot $ s)]
-    - Heat capacity at constant pressure: 1009.39 [J/(kg $\cdot $ K)]
-    - Thermal Conductivity: 0.0258 [W /(m $\cdot $ K)]
+    - Viscosity: 1.8551E-05 [kg /(m s)]
+    - Heat capacity at constant pressure: 1009.39 [J/(kg K)]
+    - Thermal Conductivity: 0.0258 [W /(m K)]
 
 The species mass fractions at each inlet are given below:
 
 - Inlet_1: mass fractions methane, Y_CH4 = 1.0 (pure methane, Y_air=0.0)
 - Inlet_2: mass fractions methane, Y_CH4 = 0.0 (pure air, Y_air=1.0)
 
-It must be noticed that inside SU2, for a mixture of N species, N-1 species transport equations are being solved and the last species is computed as $1-\sum_{i=1}^{N-1}Y_{i}$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
+It must be noticed that inside SU2, for a mixture of N species, N-1 species transport equations are being solved and the last species is computed as $1-\sum_{i=1}^{N-1} Y_i$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
 
 ## Configuration File Options
 
@@ -71,9 +71,9 @@ All available options concerning species transport are listed in the [config_tem
 
 For activating the composition-dependent model, the fluid model must be chosen as `FLUID_MODEL= FLUID_MIXTURE`. It must be noted that this model is only compatible with `INC_DENSITY_MODEL= VARIABLE`. Otherwise, an error will be shown at run-time.
 For incompressible flows, a low-mach Number approximation allow to decompose the pressure into dynamics and thermodynamics (operating) pressure (see [Theory]/docs_v7/Theory/). The operating pressure is used for computing the mixture density using the Ideal gas law. The thermodynamic pressure might strongly affects the density at the inlets causing unphysical results. Therefore, the thermodynamic pressure must be provided for the user for the `FLUID_MIXTURE` model and it is not longer computed from the free-stream conditions as it is donde in the other fluid models. As in mixing and combustion processes, the operating pressure is often assumed as 101325 pa, then this is the default value considered inside SU2 if the thermodynamics pressure is not given in the .cfg file. The thermodynamics pressure is given in the .cfg file as follow: `THERMODYNAMIC_PRESSURE= 101325.0`.
-Subsequently, The molecular weights and Heat capacities at constant pressure must be provided as a list as follow: `MOLECULAR_WEIGHT= W_1, W_2,...., W_N` ,  `SPECIFIC_HEAT_CP = Cp_1, Cp_2,..., Cp_N`. The length of the list must match the number of the N species in the mixture. Moreover, the mean molecular weight is computed as a mole fraction average and the mixture heat capacity is computes as a mass fraction average. For more information, please see $$^{1},^{3}$$. 
+Subsequently, The molecular weights and Heat capacities at constant pressure must be provided as a list as follow: `MOLECULAR_WEIGHT= W_1, W_2,...., W_N` ,  `SPECIFIC_HEAT_CP = Cp_1, Cp_2,..., Cp_N`. The length of the list must match the number of the N species in the mixture. Moreover, the mean molecular weight is computed as a mole fraction average and the mixture heat capacity is computes as a mass fraction average. For more information, please see $^{1},^{3}$. 
 For the conductivity model, the following options are available: `CONDUCTIVITY_MODEL= CONSTANT_CONDUCTIVITY, CONSTANT_PRANDTL, POLYNOMIAL_CONDUCTIVITY `. In this tutorial, the option `CONSTANT_CONDUCTIVITY` is used. For this option, a constant conductivity for each species must be provided as follow: `THERMAL_CONDUCTIVITY_CONSTANT= k_1, k_2,...., k_N`. 
-Currently, the only mixing law available in SU2 for computing the mixture thermal conductivity is based on the Wilke mixing law. Therefore, this is the default option and it is hardcoded for the `FLUID_MIXTURE` option. For more information regarding this mixing model, please see $$^{1},^{2}$$.
+Currently, the only mixing law available in SU2 for computing the mixture thermal conductivity is based on the Wilke mixing law. Therefore, this is the default option and it is hardcoded for the `FLUID_MIXTURE` option. For more information regarding this mixing model, please see $^{1},^{2}$.
 
 Similar treatment is done for the Laminar Prandtl numbers: `PRANDTL_LAM= Pr_1, Pr_2,....,Pr_N`. Finally, for turbulence simulations, the option of turbulent Prandlt number can be enabled as `TURBULENT_CONDUCTIVITY_MODEL= CONSTANT_PRANDTL_TURB`. If this option is enabled, the turbulent Prandtl numbers must follow the same structure as the Laminar Prandtl numbers: `PRANDTL_TURB= Pr_Turb_1, Pr_Turb_2, ..., Pr_Turb_N`. For more information about laminar and turbulent Prandlt Number, please see [Theory](/docs_v7/Theory/).
 For the present tutorial, the options are given below:
@@ -112,7 +112,7 @@ MU_T_REF= 273, 273
 SUTHERLAND_CONSTANT= 97, 111
 ```
 
-For this tutorial, as the energy equation is not being solved, we use `CONSTANT_VISCOSITY` as the viscosity model. Finally, for computing the mixture viscosity, two models are available in SU2 which are Wilke and Davidson Model. They can be enabled using the following option: `MIXING_VISCOSITY_MODEL = WILKE, DAVIDSON`. For further details about these models, please see $$^{2},^{4}$$.
+For this tutorial, as the energy equation is not being solved, we use `CONSTANT_VISCOSITY` as the viscosity model. Finally, for computing the mixture viscosity, two models are available in SU2 which are Wilke and Davidson Model. They can be enabled using the following option: `MIXING_VISCOSITY_MODEL = WILKE, DAVIDSON`. For further details about these models, please see $^{2},^{4}$.
 The options used in this tutorial are shown below:
 
 ```
@@ -125,7 +125,7 @@ MU_CONSTANT= 1.1102E-05, 1.8551E-05
 MIXING_VISCOSITY_MODEL = WILKE
 ```
 
-The Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. For the mass diffusivity, the following models are available `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY, CONSTANT_SCHMIDT, UNITY_LEWIS, CONSTANT_LEWIS` , where `CONSTANT_DIFFUSIVITY` is the default model. For the two first, a constant value for all species must be given in the .cfg file, as it is done in the species transport tutorial [Inc_Species_Transport](/tutorials/Inc_Species_Transport/). For the UNITY_LEWIS, no values must be provided because the diffusivity is computed using the mixture thermal conductivity, density and heat capacity at constant pressure, for more information please see $$^{3}$$. For highly diffusive gases, such as hydrogen, the `CONSTANT_LEWIS` option could be used. For this option, the Lewis numbers of the N-1 species which a transport equation is being solved must be provided as a list using the following option `CONSTANT_LEWIS_NUMBER= Le_1, Le_2, ..., Le_N_1`. Finally, for turbulent simulations, the turbulent diffusivity is computed based on the `SCHMIDT_NUMBER_TURBULENT`. For reference, please consult [the respective theory](/docs_v7/Theory/#species-transport).
+The Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. For the mass diffusivity, the following models are available `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY, CONSTANT_SCHMIDT, UNITY_LEWIS, CONSTANT_LEWIS` , where `CONSTANT_DIFFUSIVITY` is the default model. For the two first, a constant value for all species must be given in the .cfg file, as it is done in the species transport tutorial [Inc_Species_Transport](/tutorials/Inc_Species_Transport/). For the UNITY_LEWIS, no values must be provided because the diffusivity is computed using the mixture thermal conductivity, density and heat capacity at constant pressure, for more information please see $^{3}$. For highly diffusive gases, such as hydrogen, the `CONSTANT_LEWIS` option could be used. For this option, the Lewis numbers of the N-1 species which a transport equation is being solved must be provided as a list using the following option `CONSTANT_LEWIS_NUMBER= Le_1, Le_2, ..., Le_N_1`. Finally, for turbulent simulations, the turbulent diffusivity is computed based on the `SCHMIDT_NUMBER_TURBULENT`. For reference, please consult [the respective theory](/docs_v7/Theory/#species-transport).
 
 Finally, for the SST model, it is possible to provide the intensity and turbulent-to-laminar viscosity ratios per inlet. For this option, we use the following structure `ARKER_INLET_TURBULENT= (inlet_1, TurbIntensity_1, TurbLamViscRatio_1, inlet_2, TurbIntensity_2, TurbLamViscRatio_2, ...)`. The other species transport options can be found in the species transpor 
 
@@ -235,10 +235,10 @@ Figure (4): Velocity Magnitude in the domain.
 
 
 ### References
-$$^{1}$$ B. Poling, J. Prausnitz, J. O’Connell, The Properties of Gases and Liquids, 5th Edition, McGraw-Hill Education,2000.(URL https://books.google.nl/books?id=9tGclC3ZRX0C)
-$$^{2}$$ C. R. Wilke, A viscosity equation for gas mixtures, The Journal of Chemical Physics 18 (4) (1950),517–519.(https:doi:10.1063/1.1747673).
-$$^{3}$$ T. Poinsot, D. Veynante, Theoretical and Numerical Combustion, Ch. 1, 2012.
-$$^{4}$$ T. A. Davidson, A simple and accurate method for calculating viscosity of gaseous mixtures. (URL https://www.osti.gov/biblio/6129940)
+$^{1}$ B. Poling, J. Prausnitz, J. O’Connell, The Properties of Gases and Liquids, 5th Edition, McGraw-Hill Education,2000.(URL https://books.google.nl/books?id=9tGclC3ZRX0C)
+$^{2}$ C. R. Wilke, A viscosity equation for gas mixtures, The Journal of Chemical Physics 18 (4) (1950),517–519.(https:doi:10.1063/1.1747673).
+$^{3}$ T. Poinsot, D. Veynante, Theoretical and Numerical Combustion, Ch. 1, 2012.
+$^{4}$ T. A. Davidson, A simple and accurate method for calculating viscosity of gaseous mixtures. (URL https://www.osti.gov/biblio/6129940)
 
 
 ## Additional remarks
