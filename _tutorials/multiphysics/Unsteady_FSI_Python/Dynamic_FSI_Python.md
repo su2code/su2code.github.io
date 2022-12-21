@@ -161,7 +161,6 @@ DEFORM_MESH = YES
 MARKER_DEFORM_MESH = ( airfoil )
 DEFORM_STIFFNESS_TYPE = WALL_DISTANCE
 DEFORM_LINEAR_SOLVER_ITER= 200
-MARKER_FLUID_LOAD = ( airfoil )
 ```
 
 Where we selected the airfoil as our marker for coupling.
