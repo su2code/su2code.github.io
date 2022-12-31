@@ -113,7 +113,7 @@ First, the number of boundaries, or markers, is specified using the "NMARK=" str
 
 ## CGNS Format
 
-To make creating your own meshes easier and more accessible, support for the open CGNS data standard has been included within SU2. The main advantage gained is that complex meshes created in a third-party software package (one that supports unstructured, single-zone CGNS file export) can be used directly within SU2 without the need for conversion to the native format. Moreover, as CGNS is a binary format, the size of the mesh files can be significantly reduced.  If needed, a converter from CGNS to the SU2 format has been built into SU2 (See the [inviscid wedge tutorial](../tutorials/Inviscid_Wedge)). 
+To make creating your own meshes easier and more accessible, support for the open CGNS data standard has been included within SU2. The main advantage gained is that complex meshes created in a third-party software package (one that supports unstructured, single-zone CGNS file export) can be used directly within SU2 without the need for conversion to the native format. Moreover, as CGNS is a binary format, the size of the mesh files can be significantly reduced.  If needed, a converter from CGNS to the SU2 format has been built into SU2 (See the [inviscid wedge tutorial](../../tutorials/Inviscid_Wedge)). 
 
 ### Compiling with CGNS Support
 
