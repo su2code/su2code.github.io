@@ -9,6 +9,7 @@ This page contains a very brief summary of the different governing equation sets
 
 - [Compressible Navier-Stokes](#compressible-navier-stokes)
 - [Compressible Euler](#compressible-euler)
+- [Reacting, Compressible Navier-Stokes](#reacting-compressible-navier-stokes)
 - [Incompressible Navier-Stokes](#incompressible-navier-stokes)
 - [Incompressible Euler](#incompressible-euler)
 - [Turbulence Modeling](#turbulence-modeling)
@@ -84,6 +85,51 @@ $$\bar{F}^{c}   = \left \{ \begin{array}{c} \rho \bar{v}  \\ \rho \bar{v} \otime
 where $$\rho$$ is the fluid density, $$\bar{v}=\left\lbrace u, v, w \right\rbrace^\mathsf{T}$$ $$\in$$ $$\mathbb{R}^3$$ is the flow speed in Cartesian system of reference, $$E$$ is the total energy per unit mass, $$p$$ is the static pressure, and $$T$$ is the temperature. Assuming a perfect gas with a ratio of specific heats $$\gamma$$ and gas constant $$R$$, one can close the system by determining pressure from $$p = (\gamma-1) \rho \left [ E - 0.5(\bar{v} \cdot \bar{v} ) \right ]$$ and temperature from the ideal gas equation of state $$T = p/(\rho R)$$.
 
 Within the `EULER` solvers, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge. In the `FEM_EULER` solver, we discretize the equations in space with a nodal Discontinuous Galerkin (DG) finite element method (FEM) with high-order (> 2nd-order) capability.
+
+---
+
+# Reacting, Compressible Navier-Stokes #
+
+| Solver | Version | 
+| --- | --- |
+| `NEMO_NAVIER_STOKES`, `NEMO_RANS` | 7.0.0 |
+
+
+In order to simulate continuum hypersonic flows in thermochemical nonequilibrium, SU2-NEMO solves the Navier-Stokes equation for reacting flows, expressed in differential form as
+
+$$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - \nabla \cdot \bar{F}^{v}(U,\nabla U)  - S = 0 $$
+
+where the conservative variables are the working variables and given by 
+
+$$U = \left \{  \rho_{1}, ..., \rho_{n_s}, \rho \bar{v},  \rho E \right \}^\mathsf{T}$$ 
+
+$$S$$ is a generic source term, and the convective and viscous fluxes are
+
+$$\bar{F}^{c}   = \left \{ \begin{array}{c} \rho \bar{v}  \\ \rho \bar{v} \otimes  \bar{v} + \bar{\bar{I}} p \\ \rho E \bar{v} + p \bar{v}   \end{array} \right \}$$
+
+and 
+
+$$\bar{F}^{v} = \left \{ \begin{array}{c} \cdot \\ \bar{\bar{\tau}} \\ \bar{\bar{\tau}} \cdot \bar{v} + \kappa \nabla T  \end{array} \right  \}$$
+
+where $$\rho$$ is the fluid density, $$\bar{v}=\left\lbrace u, v, w \right\rbrace^\mathsf{T}$$ $$\in$$ $$\mathbb{R}^3$$ is the flow speed in Cartesian system of reference, $$E$$ is the total energy per unit mass, $$p$$ is the static pressure, $$\bar{\bar{\tau}}$$ is the viscous stress tensor, $$T$$ is the temperature, $$\kappa$$ is the thermal conductivity, and $$\mu$$ is the viscosity. The viscous stress tensor can be expressed in vector notation as
+
+$$\bar{\bar{\tau}}= \mu \left ( \nabla \bar{v} + \nabla \bar{v}^{T} \right ) - \mu \frac{2}{3} \bar{\bar I} \left ( \nabla \cdot \bar{v} \right )$$
+
+Assuming a perfect gas with a ratio of specific heats $$\gamma$$ and specific gas constant $$R$$, one can close the system by determining pressure from $$p = (\gamma-1) \rho \left [ E - 0.5(\bar{v} \cdot \bar{v} ) \right ]$$ and temperature from the ideal gas equation of state $$T = p/(\rho R)$$. Conductivity can be a constant, or we assume a constant Prandtl number $$Pr$$ such that the conductivity varies with viscosity as $$\kappa = \mu c_p / Pr$$. 
+
+It is also possible to model non-ideal fluids within SU2 using more advanced fluid models that are available, but this is not discussed here. Please see the tutorial on the topic.
+
+For laminar flows, $$\mu$$ is simply the dynamic viscosity $$\mu_{d}$$, which can be constant or assumed to satisfy Sutherland's law as a function of temperature alone, and $$Pr$$ is the dynamic Prandtl number $$Pr_d$$. For turbulent flows, we solve the Reynolds-averaged Navier-Stokes (RANS) equations. In accord with the standard approach to turbulence modeling based upon the Boussinesq hypothesis, which states that the effect of turbulence can be represented as an increased viscosity, the viscosity is divided into dynamic and turbulent components, or  $$\mu_{d}$$ and $$\mu_{t}$$, respectively. Therefore, the effective viscosity in becomes
+
+$$\mu =\mu_{d}+\mu_{t}$$
+
+Similarly, the thermal conductivity in the energy equation becomes an effective thermal conductivity written as
+
+$$\kappa =\frac{\mu_{d} \, c_p}{Pr_{d}}+\frac{\mu_{t} \, c_p}{Pr_{t}}$$
+
+where we have introduced a turbulent Prandtl number $$Pr_t$$. The turbulent viscosity $$\mu_{t}$$ is obtained from a suitable turbulence model involving the mean flow state $$U$$ and a set of new variables for the turbulence. 
+
+Within the `NAVIER_STOKES` and `RANS` solvers, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge. In the `FEM_NAVIER_STOKES` solver, we discretize the equations in space with a nodal Discontinuous Galerkin (DG) finite element method (FEM) with high-order (> 2nd-order) capability.
 
 ---
 
