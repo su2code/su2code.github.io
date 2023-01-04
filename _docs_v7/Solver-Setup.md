@@ -31,6 +31,8 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 |`EULER` | **Euler's equation** |Finite-Volume method |
 |`NAVIER_STOKES` | **Navier-Stokes' equation** | Finite-Volume method |
 |`RANS` | **Reynolds-averaged Navier-Stokes' equation** | Finite-Volume method|
+|`NEMO_EULER` | **Thermochemical Nonequilibrium Euler's equation** |Finite-Volume method |
+|`NEMO_NAVIER_STOKES` | **Thermochemical Nonequilibrium Navier-Stokes' equation** | Finite-Volume method |
 |`INC_EULER` | **Incompressible Euler's equation** | Finite-Volume method |
 |`INC_NAVIER_STOKES` | **Incompressible Navier-Stokes' equation** | Finite-Volume method|
 |`INC_RANS` | **Incompressible Reynolds-averaged Navier-Stokes' equation** | Finite-Volume method|
