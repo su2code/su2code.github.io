@@ -15,6 +15,12 @@ SU2 offers different ways of setting and computing this definition. This documen
   - [Mach Number and Velocity](#mach-number-and-velocity)
   - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
+- [Free-Stream Definition (Thermochemical Nonequilibrium)](#free-stream-thermochemical-nonequilibrium)
+  - [Chemical Composition and Mass Fractions](#chemical-composition-and-mass-fractions)
+  - [Thermodynamic State](#thermodynamic-state)
+  - [Mach Number and Velocity](#mach-number-and-velocity)
+  - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
+  - [Non-Dimensionalization](#non-dimensionalization)
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
   - [Initial State and Non-Dimensionalization](#initial-state-and-non-dimensionalization)
@@ -50,6 +56,38 @@ The following table depicts the reference values used by most of the solvers in 
 
 
 ## Free-Stream Definition (Compressible) ##
+
+| Solver | Version |
+| --- | --- |
+| `EULER`, `NAVIER_STOKES`, `RANS`,`FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+The physical definition for the compressible solvers in SU2 based around the definition of the free-stream. The free-stream values are not only used as boundary conditions for the `MARKER_FAR` option, but also for initialization and non-dimensionalization. That means even if you don't have any farfield BCs in your problem, it might be important to prescribe physically meaningful values for the options.
+
+### Thermodynamic State ###
+
+The thermodynamic state of the free-stream is defined by the pressure $$p_{\infty}$$, the density $$\rho_{\infty}$$ and the temperature $$T_{\infty}$$. Since these quantities are not independent, only two of these values have to be described and the third one can be computed by an equation of state, depending on the fluid model used. There are two possible ways implemented that can be set using `FREESTREAM_OPTION`:
+
+- `TEMPERATURE_FS` (default): Density $$\rho_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and temperature $$T_{\infty}$$ (`FREESTREAM_TEMPERATURE`).
+- `DENSITY_FS`: Temperature $$T_{\infty}$$ is computed using the specified pressure $$p_{\infty}$$ (`FREESTREAM_PRESSURE`) and density $$\rho_{\infty}$$ (`FREESTREAM_DENSITY`). 
+
+### Mach Number and Velocity ###
+
+The free-stream velocity $$v_{\infty}$$ is always computed from the specified Mach number $$Ma_{\infty}$$ (`MACH_NUMBER`) and the computed thermodynamic state. The flow direction is based on the angle of attack (`AOA`) and the side-slip angle (`SIDESLIP_ANGLE`, for 3D).
+
+### Reynolds Number and Viscosity ###
+
+If it is a viscous computation, by default the pressure $$p_{\infty}$$ will be recomputed from a density $$\rho_{\infty}$$ that is found from the specified Reynolds number $$Re$$ (`REYNOLDS_NUMBER`). Note that for an ideal gas this does not change the Mach number $$Ma_{\infty}$$ as it is only a function of the temperature $$T_{\infty}$$. If you still want to use the thermodynamic state for the free-stream definition, set the option `INIT_OPTION` to `TD_CONDITIONS` (default: `REYNOLDS`). In both cases, the viscosity is computed from the dimensional version of Sutherland's law or the constant viscosity (`FREESTREAM_VISCOSITY`), depending on the `VISCOSITY_MODEL` option.
+
+### Non-Dimensionalization ###
+
+For all schemes, as reference values for the density and temperature the free-stream values are used, i.e. $$ \rho_{ref} = \rho_{\infty}, T_{ref} = T_{\infty}$$. The reference velocity is based on the speed of sound defined by the reference state: $$v_{ref} = \sqrt{\frac{p_{ref}}{\rho_{ref}}}$$. The dimensionalization scheme can be set using the option `REF_DIMENSIONALIZATION` and defines how the reference pressure $$p_{ref}$$ is computed:
+
+- `DIMENSIONAL`: All reference values are set to `1.0`, i.e. the computation is dimensional.
+- `FREESTREAM_PRESS_EQ_ONE`: Reference pressure equals free-stream pressure, $$p_{ref} = p_{\infty}$$.
+- `FREESTREAM_VEL_EQ_MACH`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals the Mach number: $$p_{ref} = \gamma p_{\infty}$$.
+- `FREESTREAM_VEL_EQ_ONE`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals `1.0`: $$p_{ref} = Ma^2_{\infty} \gamma p_{\infty}$$.
+
+## Free-Stream Definition (Thermochemical Nonequilibrium) ##
 
 | Solver | Version |
 | --- | --- |
