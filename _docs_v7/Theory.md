@@ -9,6 +9,8 @@ This page contains a very brief summary of the different governing equation sets
 
 - [Compressible Navier-Stokes](#compressible-navier-stokes)
 - [Compressible Euler](#compressible-euler)
+- [Thermochemical Nonequilibrium Navier-Stokes](#thermochemical-nonequilibrium-navier-stokes)
+- [Thermochemical Nonequilibrium Euler](#thermochemical-nonequilibrium-euler)
 - [Incompressible Navier-Stokes](#incompressible-navier-stokes)
 - [Incompressible Euler](#incompressible-euler)
 - [Turbulence Modeling](#turbulence-modeling)
@@ -86,6 +88,68 @@ where $$\rho$$ is the fluid density, $$\bar{v}=\left\lbrace u, v, w \right\rbrac
 Within the `EULER` solvers, we discretize the equations in space using a finite volume method (FVM) with a standard edge-based data structure on a dual grid with vertex-based schemes. The convective and viscous fluxes are evaluated at the midpoint of an edge. In the `FEM_EULER` solver, we discretize the equations in space with a nodal Discontinuous Galerkin (DG) finite element method (FEM) with high-order (> 2nd-order) capability.
 
 ---
+
+# Thermochemical Nonequilibrium Navier-Stokes #
+
+| Solver | Version | 
+| --- | --- |
+| `NEMO_NAVIER_STOKES` | 7.0.0 |
+
+
+To simulate hypersonic flows in thermochemical nonequilibrium, SU2-NEMO solves the Navier-Stokes equations for reacting flows, expressed in differential form as
+
+$$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - \nabla \cdot \bar{F}^{v}(U,\nabla U)  - S = 0 $$
+
+where the conservative variables are the working variables and given by 
+
+$$U = \left \{  \rho_{1}, \dots, \rho_{n_s}, \rho \bar{v},  \rho E, \rho E_{ve} \right \}^\mathsf{T}$$ 
+
+$$S$$ is a source term composed of
+
+$$S = \left \{  \dot{w}_{1}, \dots, \dot{w}_{n_s}, \mathbf{0},  0, \dot{\theta}_{tr:ve} + \sum_s \dot{w}_s E_{ve,s} \right \}^\mathsf{T}$$  
+
+and the convective and viscous fluxes are
+
+$$\bar{F}^{c}   = \left \{ \begin{array}{c} \rho_{1} \bar{v} \\ \vdots \\ \rho_{n_s} \bar{v}  \\ \rho \bar{v} \otimes  \bar{v} + \bar{\bar{I}} p \\ \rho E \bar{v} + p \bar{v} \\  \rho E_{ve} \bar{v}  \end{array} \right \}$$
+
+and 
+
+$$\bar{F}^{v} = \left \{ \begin{array}{c} \\- \bar{J}_1 \\ \vdots \\ - \bar{J}_{n_s}  \\ \bar{\bar{\tau}} \\ \bar{\bar{\tau}} \cdot \bar{v} + \sum_k \kappa_k \nabla T_k - \sum_s \bar{J}_s h_s \\ \kappa_{ve} \nabla T_{ve} - \sum_s \bar{J}_s E_{ve}  \end{array} \right  \}$$
+
+In the equations above, the notation is is largely the same as for the compressible Navier-Stokes equations. An individual mass conservation equation is introduced for each chemical species, indexed by $$s \in \{1,\dots,n_s\}$$. Each conservation equation has an associated source term, $$\dot{w}_{s}$$ associated with the volumetric production rate of species $$s$$ due to chemical reactions occuring within the flow.
+
+Chemical production rates are given by $$ \dot{w}_s = M_s \sum_r (\beta_{s,r} - \alpha_{s,r})(R_{r}^{f} - R_{r}^{b})  $$
+
+where the forward and backward reaction rates are computed using an Arrhenius formulation.
+
+A two-temperature thermodynamic model is employed to model nonequilibrium between the translational-rotational and vibrational-electronic energy modes. As such, a separate energy equation is used to model vibrational-electronic energy transport. A source term associated with the relaxation of vibrational-electronic energy modes is modeled using a Landau-Teller formulation $$ \dot{\theta}_{tr:ve} = \sum _s \rho_s \frac{dE_{ve,s}}{dt} = \sum _s \rho_s \frac{E_{ve*,s} - E_{ve,s}}{\tau_s}. $$
+
+Transport properties for the multi-component mixture are evaluated using a Wilkes-Blottner-Eucken formulation.
+
+---
+
+# Thermochemical Nonequilibrium Euler #
+
+| Solver | Version | 
+| --- | --- |
+| `NEMO_EULER` | 7.0.0 |
+
+
+To simulate inviscid hypersonic flows in thermochemical nonequilibrium, SU2-NEMO solves the Euler equations for reacting flows which can be obtained as a simplification of the thermochemical nonequilibrium Navier-Stokes equations in the absence of viscous effects. They can be expressed in differential form as
+
+$$ \mathcal{R}(U) = \frac{\partial U}{\partial t} + \nabla \cdot \bar{F}^{c}(U) - S = 0 $$
+
+where the conservative variables are the working variables and given by 
+
+$$U = \left \{  \rho_{1}, \dots, \rho_{n_s}, \rho \bar{v},  \rho E, \rho E_{ve} \right \}^\mathsf{T}$$ 
+
+$$S$$ is a source term composed of
+
+$$S = \left \{  \dot{w}_{1}, \dots, \dot{w}_{n_s}, \mathbf{0},  0, \dot{\theta}_{tr:ve} + \sum_s \dot{w}_s E_{ve,s} \right \}^\mathsf{T}$$  
+
+and the convective and viscous fluxes are
+
+$$\bar{F}^{c}   = \left \{ \begin{array}{c} \rho_{1} \bar{v} \\ \vdots \\ \rho_{n_s} \bar{v}  \\ \rho \bar{v} \otimes  \bar{v} + \bar{\bar{I}} p \\ \rho E \bar{v} + p \bar{v} \\  \rho E_{ve} \bar{v}  \end{array} \right \}$$
 
 # Incompressible Navier-Stokes #
 
