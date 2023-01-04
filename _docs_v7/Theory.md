@@ -93,7 +93,7 @@ Within the `EULER` solvers, we discretize the equations in space using a finite 
 
 | Solver | Version | 
 | --- | --- |
-| `NEMO_NAVIER_STOKES`, `NEMO_RANS` | 7.0.0 |
+| `NEMO_NAVIER_STOKES` | 7.0.0 |
 
 
 To simulate hypersonic flows in thermochemical nonequilibrium, SU2-NEMO solves the Navier-Stokes equations for reacting flows, expressed in differential form as
@@ -122,7 +122,7 @@ Chemical production rates are given by $$ \dot{w}_s = M_s \sum_r (\beta_{s,r} - 
 
 where the forward and backward reaction rates are computed using an Arrhenius formulation.
 
-A two-temperature thermodynamic model is employed to model nonequilibrium between the translational-rotational and vibrational-electronic energy modes. As such, a separate energy equation is used to model vibrational-electronic energy transport. A source term associated with the relaxation of vibrational-electronic energy modes is modeled using a Landau-Teller formulation $$ \dot{\theta}_{tr:ve} = \sum _s \rho_s \frac{de^{ve}_{s}}{dt} = \sum _s \rho_s \frac{e^{ve*}_{s} - e^{ve}_{s}}{\tau_s}. $$
+A two-temperature thermodynamic model is employed to model nonequilibrium between the translational-rotational and vibrational-electronic energy modes. As such, a separate energy equation is used to model vibrational-electronic energy transport. A source term associated with the relaxation of vibrational-electronic energy modes is modeled using a Landau-Teller formulation $$ \dot{\theta}_{tr:ve} = \sum _s \rho_s \frac{dE_{ve,s}}{dt} = \sum _s \rho_s \frac{E_{ve*,s} - E_{ve,s}}{\tau_s}. $$
 
 Transport properties for the multi-component mixture are evaluated using a Wilkes-Blottner-Eucken formulation.
 
