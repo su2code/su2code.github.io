@@ -164,7 +164,7 @@ The optimization level can be set with `--optimization=level`, where `level` cor
 However, that may not result in optimum performance, for example with the GNU compilers level 2 and the extra flag `-funroll-loops` results in better performance for most problems.
 
 Some numerical schemes support vectorization (see which ones in the Convective Schemes page), to make the most out of it the compiler needs to be informed of the target CPU architecture, so it knows what "kind of vectorization" it can generate (256 or 512bit, 128bit being the default).
-With gcc, clang, and icc this can be done via the `-march=??` and `-mtune=??` options, where `??` needs to be set appropriately e.g. `skylake`, `ryzen`, etc., these flags can be passed to the compiler by setting `CXXFLAGS` before first running meson (which will print some messages acknowledging the flags).
+With gcc, clang, and icc this can be done via the `-march=??` and `-mtune=??` options, where `??` needs to be set appropriately e.g. `skylake`, `znver3`, etc., these flags can be passed to the compiler by setting `CXXFLAGS` before first running meson (which will print some messages acknowledging the flags).
 
 #### Warning level ####
 
