@@ -8,6 +8,7 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
 ---
 
 - [Defining the Problem](#defining-the-problem)
+  - [Fluid Model](#fluid-model)
   - [Restarting the simulation](#restarting-the-simulation)
 - [Controlling the simulation](#controlling-the-simulation)
   - [Time-dependent Simulation](#time-dependent-simulation)
@@ -43,6 +44,24 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 |`MULTIPHYSICS` | Multi-zone problem with different solvers in each zone | - |
 
 Every solver has its specific options and we refer to the tutorial cases for more information. However, the basic controls detailed in the remainder of this page are the same for all problems.
+
+## Fluid Model ##
+
+For fluid simulations, a model defining the equation of state and thermodynamic properties of the fluid or mixture is required. This is selected using the `FLUID_MODEL` option in the config. Available fluid models in SU2 include:
+
+| Option Value | Description | 
+|---|---|
+|`STANDARD_AIR` | Air model with ideal gas EOS |
+|`IDEAL_GAS` | Arbitrary fluid with ideal gas EOS |
+|`VW_GAS` | Arbitrary fluid with Vander-Waals EOS |
+|`PR_GAS` | Arbitrary fluid with Peng-Robinson EOS |
+|`CONSTANT_DENSITY` | Constant density |
+|`INC_IDEAL_GAS` | Incompressible ideal gas |
+|`INC_IDEAL_GAS_POLY` | Incompressible ideal gas |
+|`SU2_NONEQ` | SU2 nonequilibrium thermochemical library |
+|`MUTATIONPP` | Mutation++ nonequilibrium thermochemical library |
+
+Some fluid models require the specification of additional parameters, with the full set of required options available in the configuration file template. 
 
 ## Restarting the simulation ##
 
