@@ -51,6 +51,11 @@ Perform uncertainty quantification of errors arising due to assumptions inherent
 * [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
 Simulation of compressible flow in a nozzle using non-ideal thermodynamic models.
 
+#### Nonequilibrium Flow
+
+* [Inviscid Bump in a Channel](/tutorials/Heat_Bath/)   
+A simulation of unsteady relaxation proceses in an adiabatic heat bath.
+
 #### Incompressible Flow
 
 * [Inviscid Hydrofoil](/tutorials/Inc_Inviscid_Hydrofoil/)   
