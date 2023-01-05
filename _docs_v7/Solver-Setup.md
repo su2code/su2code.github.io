@@ -51,15 +51,15 @@ For fluid simulations, a model defining the equation of state and thermodynamic 
 
 | Option Value | Description | 
 |---|---|
-|`STANDARD_AIR` | Air model with ideal gas EOS |
-|`IDEAL_GAS` | Arbitrary fluid with ideal gas EOS |
-|`VW_GAS` | Arbitrary fluid with Vander-Waals EOS |
-|`PR_GAS` | Arbitrary fluid with Peng-Robinson EOS |
-|`CONSTANT_DENSITY` | Constant density |
-|`INC_IDEAL_GAS` | Incompressible ideal gas |
-|`INC_IDEAL_GAS_POLY` | Incompressible ideal gas |
-|`SU2_NONEQ` | SU2 nonequilibrium thermochemical library |
-|`MUTATIONPP` | Mutation++ nonequilibrium thermochemical library |
+|`STANDARD_AIR` | **Air model with ideal gas EOS** |
+|`IDEAL_GAS` | **Arbitrary fluid with ideal gas EOS** |
+|`VW_GAS` | **Arbitrary fluid with Vander-Waals EOS** |
+|`PR_GAS` | **Arbitrary fluid with Peng-Robinson EOS** |
+|`CONSTANT_DENSITY` | **Constant density** |
+|`INC_IDEAL_GAS` | **Incompressible ideal gas** |
+|`INC_IDEAL_GAS_POLY` | **Incompressible ideal gas** |
+|`SU2_NONEQ` | **SU2 nonequilibrium thermochemical library** |
+|`MUTATIONPP` | **Mutation++ nonequilibrium thermochemical library** |
 
 Some fluid models require the specification of additional parameters, with the full set of required options available in the configuration file template. 
 
