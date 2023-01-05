@@ -16,6 +16,7 @@ SU2 offers different ways of setting and computing this definition. This documen
   - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
 - [Free-Stream Definition (Thermochemical Nonequilibrium)](#free-stream-definition-thermochemical-nonequilibrium)
+  - [Free-Stream Temperatures](#free-stream-temperatures)
   - [Chemical Composition and Mass Fractions](#chemical-composition-and-mass-fractions)
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
@@ -90,6 +91,10 @@ For all schemes, as reference values for the density and temperature the free-st
 | `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
 
 The physical definition for the thermochemical nonequilibrium (NEMO) solvers is similar to the compressible solvers, but with additional parameters to specify. The free-stream values are not only used as boundary conditions for the `MARKER_FAR` option, but also for initialization and non-dimensionalization. That means even if you don't have any farfield BCs in your problem, it might be important to prescribe physically meaningful values for the options.
+
+### Free-Stream Temperatures ###
+
+Thermodynamic state is specified using the same options as the compressible solver, with the addition of the free-stream electronic temperature. This can be specified using the `FREESTREAM_TEMPERATURE_VE` option in the config file. For a free-stream in equilibrium, this is typically the same value as specified in the `FREESTREAM_TEMPERATURE` option.
 
 ### Chemical Composition and Mass Fractions ###
 
