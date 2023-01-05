@@ -97,7 +97,7 @@ Some of the schemes above have tunning parameters or accept extra options, the f
 
 ### Upwind Schemes ###
 
-`FDS` - Flux Difference Splitting with low speed preconditioning, this scheme does not have tunning parameters.
+`FDS` - Flux Difference Splitting with low speed preconditioning, this scheme does not have tuning parameters.
 
 ## Turbulence Equations ##
 
