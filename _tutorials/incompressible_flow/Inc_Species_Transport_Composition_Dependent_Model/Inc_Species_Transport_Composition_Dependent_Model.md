@@ -37,14 +37,16 @@ The geometry consists on a Static Kenics mixer with three blades, each blade sta
 
 ## Problem Setup
 
-In this problem, we study the flow and mixing properties along the static kenic mixer. Then, we have the following boundary conditions at the inlets and outlet:
+In this problem, we study the flow and mixing along the static kenic mixer. Then, we have the following boundary conditions at the inlets and outlet:
 
 - Equal Inlet Velocities (constant) = 5 m/s in normal direction (z-direction)
 - Outlet Pressure (constant) = 0 Pa
 - Inlet Temperature (both inlets) = 300 K
 - Adiabatic walls.
 
-The SST turbulence model is used with the default settings of freestream turbulence intensity of 5% and a turbulent-to-laminar viscosity ratio of 10. However, in order to highlight the new option available in SU2 of having different turbulence intensities and turbulent-to-laminar viscosity ratios, these will be given as marker inlet turbulent that will be explained in the following section.
+In this case the energy equation is switched `OFF` as we consider two streams with the same temperature and adiabatic walls.
+
+The SST turbulence model is used with the default settings of freestream turbulence intensity of 5% and turbulent-to-laminar viscosity ratio of 10. However, in order to highlight the new option available in SU2 of having different turbulence intensities and turbulent-to-laminar viscosity ratios, these will be given as marker inlets for turbulence that will be explained in the following section.
 
 The thermochemical properties for each gas are given below:
 * Methane:
@@ -63,7 +65,7 @@ The species mass fractions at each inlet are the following:
 - Inlet_1: mass fractions methane, Y_CH4 = 1.0 (pure methane, Y_air=0.0)
 - Inlet_2: mass fractions methane, Y_CH4 = 0.0 (pure air, Y_air=1.0)
 
-It must be noticed that inside SU2, for a mixture of N species, N-1 species transport equations are being solved and the last species is computed as $1-\sum_{i=1}^{N-1} Y_i$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
+It must be noticed that inside SU2, for a mixture of N species, N-1 species transport equations are being solved and the last species is computed as $1-\sum Y_i$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
 
 ## Configuration File Options
 
@@ -71,7 +73,7 @@ All available options concerning species transport are listed in the [config_tem
 
 For activating the composition-dependent model, the fluid model must be chosen as `FLUID_MODEL= FLUID_MIXTURE`. It must be noted that this model is only compatible with `INC_DENSITY_MODEL= VARIABLE`. Otherwise, an error will be shown at run-time.
 
-For incompressible flows, a low-mach Number approximation allows to decompose the pressure into dynamics and thermodynamics (operating) pressure (see [Theory]/docs_v7/Theory/). The operating pressure is used for computing the mixture density using the Ideal gas law. The thermodynamic pressure might strongly affects the density at the inlets causing unphysical results. Therefore, the thermodynamic pressure must be provided for the user for the `FLUID_MIXTURE` model and it is not longer computed from the free-stream conditions as it is done in the other fluid models. As in mixing and combustion processes, the operating pressure is often assumed as 101325 pa, then this is the default value considered inside SU2 if the thermodynamics pressure is not given in the .cfg file. The thermodynamics pressure is given in the .cfg file as follow: `THERMODYNAMIC_PRESSURE= 101325.0`.
+For incompressible flows, a low-mach Number approximation allows to decompose the pressure into dynamics and thermodynamics (operating) pressure (see [Theory]/docs_v7/Theory/). The operating pressure is used for computing the mixture density using the Ideal gas law. The thermodynamic pressure might strongly affect the density at the inlets causing unphysical results. Therefore, the thermodynamic pressure must be provided for the user for the `FLUID_MIXTURE` model and, it is not longer computed from the free-stream conditions as it is done in the other fluid models. As in mixing and combustion processes, the operating pressure is often assumed as 101325 pa, then this is the default value considered inside SU2 if the thermodynamics pressure is not given in the .cfg file. The thermodynamics pressure is given in the .cfg file as follow: `THERMODYNAMIC_PRESSURE= 101325.0`.
 
 Subsequently, The molecular weights and Heat capacities at constant pressure must be provided as a list as follow: `MOLECULAR_WEIGHT= W_1, W_2,...., W_N` ,  `SPECIFIC_HEAT_CP = Cp_1, Cp_2,..., Cp_N`. The length of the list must match the number of the N species in the mixture. Moreover, the mean molecular weight is computed as a mole fraction average and the mixture heat capacity is computed as a mass fraction average. For more information, please see $^{1},^{3}$.
 
@@ -131,21 +133,32 @@ MIXING_VISCOSITY_MODEL = WILKE
 
 The Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. For the mass diffusivity, the following models are available `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY, CONSTANT_SCHMIDT, UNITY_LEWIS, CONSTANT_LEWIS` , where `CONSTANT_DIFFUSIVITY` is the default model. For the two first, a constant value for all species must be given in the .cfg file, as it is done in the species transport tutorial [Inc_Species_Transport](/tutorials/Inc_Species_Transport/). For the UNITY_LEWIS, no values must be provided because the diffusivity is computed using the mixture thermal conductivity, density and heat capacity at constant pressure, for more information please see $^{3}$. For highly diffusive gases, such as hydrogen, the `CONSTANT_LEWIS` option could be used. For this option, the Lewis numbers of the N-1 species which a transport equation is being solved must be provided as a list using the following option `CONSTANT_LEWIS_NUMBER= Le_1, Le_2, ..., Le_N_1`. Finally, for turbulent simulations, the turbulent diffusivity is computed based on the `SCHMIDT_NUMBER_TURBULENT`. For reference, please consult [the respective theory](/docs_v7/Theory/#species-transport).
 
-Finally, for the SST model, it is possible to provide the intensity and turbulent-to-laminar viscosity ratios per inlet. For this option, we use the following structure `MARKER_INLET_TURBULENT= (inlet_1, TurbIntensity_1, TurbLamViscRatio_1, inlet_2, TurbIntensity_2, TurbLamViscRatio_2, ...)`. The other species transport options can be found in the species transport. 
+Finally, for the SST model, it is possible to provide the intensity and turbulent-to-laminar viscosity ratios per inlet. For this option, we use the following structure `MARKER_INLET_TURBULENT= (inlet_1, TurbIntensity_1, TurbLamViscRatio_1, inlet_2, TurbIntensity_2, TurbLamViscRatio_2, ...)`.  
 
-The number of species transport equations is not set individually but deduced from the number of values given in the respective lists for species options. SU2 checks whether the same amount of values is given in each option and solves the appropriate amount of equations. `MARKER_INLET_SPECIES` is one of these options and has to be used alongside a usual `MARKER_INLET`. For outlets, symmetries or walls this is not necessary. 
+As final remarks, the option `SPECIES_USE_STRONG_BC` is advised to be set to `NO` when the convective scheme for species and turbulent are `CONV_NUM_METHOD_SPECIES= BOUNDED_SCALAR` and  `CONV_NUM_METHOD_TURB= BOUNDED_SCALAR`, respectively. When `SCALAR_UPWIND` is used in both cases, the `SPECIES_USE_STRONG_BC`  is advised to be switched to `YES` to enforced boundary conditions and improve convergence for this convective scheme. The convective scheme `BOUNDED_SCALAR` will be further explained in the section [Convective-Schemes](/docs_v7/Convective-Schemes/).
 
-The option `SPECIES_USE_STRONG_BC` should be left to `NO` and is an experimental option where a switch to strongly enforced boundary conditions can be made.
+Likewise, `SPECIES_CLIPPING= NO` is only adviced when the option 'SCALAR_UPWIND' is used, the option 'BOUNDED_SCALAR' performs well without using the clipping option.
 
-For `CONV_NUM_METHOD_SPECIES= SCALAR_UPWIND` a second order MUSCL reconstruction and multiple limiters are available.
+The other species transport options can be found in the species transport ([Inc_Species_Transport](/tutorials/Inc_Species_Transport/)).
 
-The `TIME_DISCRE_SPECIES` can be either an implicit or explicit euler and a CFL reduction coefficient `CFL_REDUCTION_SPECIES` compared to the regular `CFL_NUMBER` is available.
-
-The inital species mass fractions are given by the list `SPECIES_INIT= 1.0, ...`.
-
-`SPECIES_CLIPPING= YES` with the respective lists for min and max enforces a strict lower and upper limit for the mass fraction solution used by the solver.
+For completeness, the options aforementioned are shown below:
 
 ```
+% -------------------- BOUNDARY CONDITION DEFINITION --------------------------%
+%
+MARKER_HEATFLUX= ( inner_wall, 0.0,blade_1, 0.0, blade_2, 0.0, blade_3, 0.0, outer_wall,0.0)
+%
+SPECIFIED_INLET_PROFILE= NO
+%
+INC_INLET_TYPE=  VELOCITY_INLET VELOCITY_INLET
+MARKER_INLET= ( inlet_gas, 300, 5.0, 0.0,  0.0, 1.0, inlet_air, 300, 5.0, 0.0, 0.0, 1.0 )
+SPECIES_USE_STRONG_BC= NO
+MARKER_INLET_SPECIES= (inlet_gas, 1.0, inlet_air, 0.0 )
+%
+MARKER_INLET_TURBULENT= (inlet_gas, 0.05, 10, inlet_air, 0.05, 10)
+INC_OUTLET_TYPE= PRESSURE_OUTLET
+MARKER_OUTLET= ( outlet, 0.0 )
+%
 % --------------------- SPECIES TRANSPORT SIMULATION --------------------------%
 %
 % Specify scalar transport model (NONE, SPECIES_TRANSPORT)
@@ -156,13 +169,6 @@ DIFFUSIVITY_MODEL= UNITY_LEWIS
 %
 % Turbulent Schmidt number of mass diffusion
 SCHMIDT_NUMBER_TURBULENT= 0.7
-%
-% Inlet Species boundary marker(s) with the following format:
-% (inlet_marker, Species1, Species2, ..., SpeciesN-1, inlet_marker2, Species1, Species2, ...)
-MARKER_INLET_SPECIES= (inlet_1,1.0, inlet_2, 0.0)
-%
-% Use strong inlet and outlet BC in the species solver
-SPECIES_USE_STRONG_BC= NO
 %
 % Convective numerical method for species transport (SCALAR_UPWIND, BOUNDED_SCALAR)
 CONV_NUM_METHOD_SPECIES= BOUNDED_SCALAR
@@ -177,20 +183,11 @@ SLOPE_LIMITER_SPECIES = NONE
 % Time discretization for species equations (EULER_IMPLICIT, EULER_EXPLICIT)
 TIME_DISCRE_SPECIES= EULER_IMPLICIT
 %
-% Reduction factor of the CFL coefficient in the species problem
-CFL_REDUCTION_SPECIES= 0.5
-%
 % Initial values for scalar transport
 SPECIES_INIT= 1.0
 %
 % Activate clipping for scalar transport equations
 SPECIES_CLIPPING= NO
-%
-% Maximum values for scalar clipping
-SPECIES_CLIPPING_MAX= 1.0, ...
-%
-% Minimum values for scalar clipping
-SPECIES_CLIPPING_MIN= 0.0, ...
 ```
 
 For the screen, history and volume output multiple straight forward options were included. Whenever a number is used at the end of the keyword, one for each species (starting at zero) can be added.
@@ -204,38 +201,33 @@ For `HISTORY_OUTPUT` the residuals are included in `RMS_RES` and the linear solv
 
 For `VOLUME_OUTPUT` no extra output field has the be set. The mass fractions are included in `SOLUTION` and the volume residuals in `RESIDUAL`.
 
-All available output can be printed to screen using the `dry-run` feature of SU2:
-```
-$ SU2_CFD -d <config-filename>.cfg
-```
-
 ## Running SU2
 
 The simulation can be run in serial using the following command:
 ```
-$ SU2_CFD species3_primitiveVenturi.cfg
+$ SU2_CFD kenics_mixer_tutorial.cfg
 ```
-or in parallel with your preferred number of cores (for this small case not more than 4 cores should be used):
+or in parallel with your preferred number of cores (for this case, it is adviced to use 4 cores in order to speed up the simulation):
 ```
-$ mpirun -n <#cores> SU2_CFD species3_primitiveVenturi.cfg
+$ mpirun -n <#cores> SU2_CFD kenics_mixer_tutorial.cfg
 ```
 
 ## Results
 
-The case converges nicely as expected on such a simple case and mesh.
+This case shows a smoothly convergence and it is not observed the flat residuals observed  in the [Inc_Species_Transport](/tutorials/Inc_Species_Transport/).
 
-![Residual plot](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/residuals_specMix.png)
+![Residual plot](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/residuals.png)
 Figure (2): Residual plot (Incompressible mean flow, SST turbulence model, species transport).
 
-Note that there is still some unphysical mass fraction fluctuation for Species_0 at the junction corner. This becomes much less apparent by using `MUSCL_SPECIES = YES` but does not fully disappear.
+We observe that using the option `CONV_NUM_METHOD_SPECIES= BOUNDED_SCALAR` addressed the unphysical mass fraction fluctuations observed in the tutorial ([Inc_Species_Transport](/tutorials/Inc_Species_Transport/)). Similarly, it can be noted how the mixing process is enhanced through the mixer units.
 
-![Species Mass Fractions](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/speciesMassFractions.jpg)
-Figure (3): Volume mass fractions for both species. Species_1 is mirrored for better comparison.
+![Species Mass Fraction](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/species_profiles.jpg)
+Figure (3): Mass fractions of Methane at the different locations along the kenics static mixer.
 
-Velocity magnitude field along which the species are transported. For a much less homogenous mixture at the outlet one could decrease the `DIFFUSIVITY_CONSTANT` which makes for a more interesting optimization problem.
+Velocity magnitude field along the kenics static mixers.
 
-![Velocity Magnitude](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/VelocityMag.jpg)
-Figure (4): Velocity Magnitude in the domain.
+![Velocity Magnitude](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/velocity_profiles.jpg)
+Figure (4): Velocity Magnitude at different locations along the kenics static mixer.
 
 
 ### References
