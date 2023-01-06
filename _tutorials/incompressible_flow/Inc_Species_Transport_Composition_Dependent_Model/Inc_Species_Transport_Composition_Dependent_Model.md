@@ -21,7 +21,7 @@ In this tutorial, the user will be familiarized with the composition-dependent m
 
 The resources for this tutorial can be found in the [incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model) directory in the [tutorial repository](https://github.com/su2code/Tutorials). In order to complete this tutorial, you will need the configuration file ([kenics_mixer_tutorial.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.cfg)) and the mesh file ([kenics.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics.su2)).
 
-The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [kenics_mixer_tutorial.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.geo). The mesh is fully structured (i.e. only contains Quadrilateral elements) with 3364 elements and 3510 points.
+The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [kenics_mixer_tutorial.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.geo). The mesh is fully structured (i.e. only contains Quadrilateral elements) with 128790 volume elements and 138324 points.
 
 ![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/mesh.jpg)
 Figure (1): Computational mesh with color indication of the used boundary conditions.
@@ -62,8 +62,8 @@ The thermochemical properties for each gas are given below:
 
 The species mass fractions at each inlet are the following:
 
-- Inlet_1: mass fractions methane, Y_CH4 = 1.0 (pure methane, Y_air=0.0)
-- Inlet_2: mass fractions methane, Y_CH4 = 0.0 (pure air, Y_air=1.0)
+- Inlet_gas: mass fractions methane, Y_CH4 = 1.0 (pure methane, Y_air=0.0)
+- Inlet_air: mass fractions methane, Y_CH4 = 0.0 (pure air, Y_air=1.0)
 
 It must be noticed that inside SU2, for a mixture of N species, N-1 species transport equations are being solved and the last species is computed as $1-\sum Y_i$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
 
@@ -190,17 +190,6 @@ SPECIES_INIT= 1.0
 SPECIES_CLIPPING= NO
 ```
 
-For the screen, history and volume output multiple straight forward options were included. Whenever a number is used at the end of the keyword, one for each species (starting at zero) can be added.
-```
-SCREEN_OUTPUT= RMS_SPECIES_0, ..., MAX_SPECIES_0, ..., BGS_SPECIES_0, ..., \
-               LINSOL_ITER_SPECIES, LINSOL_RESIDUAL_SPECIES, \
-               SURFACE_SPECIES_0, ..., SURFACE_SPECIES_VARIANCE
-```
-
-For `HISTORY_OUTPUT` the residuals are included in `RMS_RES` and the linear solver quantities in `LINSOL`. The surface outputs can be included with `SPECIES_COEFF` or `SPECIES_COEFF_SURF` for each surface individually.
-
-For `VOLUME_OUTPUT` no extra output field has the be set. The mass fractions are included in `SOLUTION` and the volume residuals in `RESIDUAL`.
-
 ## Running SU2
 
 The simulation can be run in serial using the following command:
@@ -229,6 +218,7 @@ Velocity magnitude field along the kenics static mixers.
 ![Velocity Magnitude](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/velocity_profiles.jpg)
 Figure (4): Velocity Magnitude at different locations along the kenics static mixer.
 
+The plots are cross sections of the mixing device at the following locations: 0.04, 0.09, 0.1067, 0.1133, 0.1267, 0.1333, 0.18 and 0.24 m.
 
 ### References
 $^{1}$ B. Poling, J. Prausnitz, J. O’Connell, The Properties of Gases and Liquids, 5th Edition, McGraw-Hill Education,2000.(URL https://books.google.nl/books?id=9tGclC3ZRX0C)
