@@ -241,5 +241,3 @@ $^{4}$ T. A. Davidson, A simple and accurate method for calculating viscosity of
 
 
 ## Additional remarks
-
-An in depth optimization of this case with addition of the FFD-box, gradient validation and some more steps can found [here](/tutorials/Species_Transport/).
