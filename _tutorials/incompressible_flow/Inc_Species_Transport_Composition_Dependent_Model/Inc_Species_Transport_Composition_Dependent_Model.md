@@ -137,7 +137,8 @@ Finally, for the SST model, it is possible to provide the intensity and turbulen
 
 As final remarks, the option `SPECIES_USE_STRONG_BC` is advised to be set to `NO` when the convective scheme for species and turbulent are `CONV_NUM_METHOD_SPECIES= BOUNDED_SCALAR` and  `CONV_NUM_METHOD_TURB= BOUNDED_SCALAR`, respectively. When `SCALAR_UPWIND` is used in both cases, the `SPECIES_USE_STRONG_BC`  is advised to be switched to `YES` to enforced boundary conditions and improve convergence for this convective scheme. The convective scheme `BOUNDED_SCALAR` will be further explained in the section [Convective-Schemes](/docs_v7/Convective-Schemes/).
 
-Likewise, `SPECIES_CLIPPING= NO` is only adviced when the option 'SCALAR_UPWIND' is used, the option 'BOUNDED_SCALAR' performs well without using the clipping option.
+Likewise, `SPECIES_CLIPPING= NO` is only adviced when the option '
+`SCALAR_UPWIND` is used, the option `BOUNDED_SCALAR` performs well without using the clipping option.
 
 The other species transport options can be found in the species transport ([Inc_Species_Transport](/tutorials/Inc_Species_Transport/)).
 
