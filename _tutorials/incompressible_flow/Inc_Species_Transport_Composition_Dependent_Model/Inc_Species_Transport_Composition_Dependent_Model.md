@@ -21,10 +21,10 @@ In this tutorial, the user will be familiarized with the composition-dependent m
 
 The resources for this tutorial can be found in the [incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model) directory in the [tutorial repository](https://github.com/su2code/Tutorials). In order to complete this tutorial, you will need the configuration file ([kenics_mixer_tutorial.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.cfg)) and the mesh file ([kenics.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics.su2)).
 
-The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [kenics_mixer_tutorial.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.geo). The mesh is fully structured (i.e. only contains Quadrilateral elements) with 128790 volume elements and 138324 points.
+The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [kenics_mixer_tutorial.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.geo). The mesh consists on 128790 volume elements and 138324 points.
 
-![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/mesh.jpg)
-Figure (1): Computational mesh with color indication of the used boundary conditions.
+![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/mesh_tutorial.png)
+Figure (1): Computational mesh(top figure) and 2D cross-section view with color markers showing the boundary conditions and geometry (bottom figure).
 
 ## Prerequisites
 
@@ -32,12 +32,12 @@ The following tutorial assumes you have already compiled `SU2_CFD` in serial or 
 
 ## Background
 
-The geometry consists on a Static Kenics mixer with three blades, each blade starts at 90 degrees perpendicular to the previous blades and they are being twisted 180 degrees along the z-axis in order to enhance the mixing. Furthermore, two inlets are considered where pure air and pure methane are injected at each inlet. Finally, one oulet is considered at the end of the mixer device in order to study the pressure drop and the variance of the mass fraction, which is a measure of the mixing performance of the mixing device.
+The geometry consists on a Static Kenics mixer with three blades, each blade starts at 90 degrees perpendicular to the previous blades and they are being twisted 180 degrees along the z-axis in order to enhance the mixing. Furthermore, two inlets are considered where pure air and pure methane are injected at each inlet. Finally, one oulet is considered at the end of the mixer device.
 
 
 ## Problem Setup
 
-In this problem, we study the flow and mixing along the static kenic mixer. Then, we have the following boundary conditions at the inlets and outlet:
+In this problem, we study the flow and mixing along the kenic static mixer. Thus, we have the following boundary conditions at the inlets and outlet:
 
 - Equal Inlet Velocities (constant) = 5 m/s in normal direction (z-direction)
 - Outlet Pressure (constant) = 0 Pa
@@ -210,12 +210,12 @@ Figure (2): Residual plot (Incompressible mean flow, SST turbulence model, speci
 
 We observe that using the option `CONV_NUM_METHOD_SPECIES= BOUNDED_SCALAR` addressed the unphysical mass fraction fluctuations observed in the tutorial ([Inc_Species_Transport](/tutorials/Inc_Species_Transport/)). Similarly, it can be noted how the mixing process is enhanced through the mixer units.
 
-![Species Mass Fraction](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/species_profiles.jpg)
+![Species Mass Fraction](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/species_profiles.png)
 Figure (3): Mass fractions of Methane at the different locations along the kenics static mixer.
 
 Velocity magnitude field along the kenics static mixers.
 
-![Velocity Magnitude](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/velocity_profiles.jpg)
+![Velocity Magnitude](../../tutorials_files/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/images/velocity_profiles.png)
 Figure (4): Velocity Magnitude at different locations along the kenics static mixer.
 
 The plots are cross sections of the mixing device at the following locations: 0.04, 0.09, 0.1067, 0.1133, 0.1267, 0.1333, 0.18 and 0.24 m.
