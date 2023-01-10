@@ -9,6 +9,7 @@ SU2 offers different ways of setting and computing this definition. This documen
 
 ---
 
+- [Fluid Model](#fluid-model)
 - [Reference Values](#reference-values)
 - [Free-Stream Definition (Compressible)](#free-stream-definition-compressible)
   - [Thermodynamic State](#thermodynamic-state)
@@ -27,6 +28,28 @@ SU2 offers different ways of setting and computing this definition. This documen
 - [Transition Models](#transition-models)
 
 ---
+
+## Fluid Model ##
+
+| Solver | Version |
+| --- | --- |
+| `EULER`, `NAVIER_STOKES`, `RANS`, `NEMO_EULER`, `NEMO_NAVIER_STOKES`, `INC_EULER`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_EULER`, `FEM_NAVIER_STOKES` | 7.0.0 |
+
+For fluid simulations, a model defining the equation of state and thermodynamic properties of the fluid or mixture is required. This is selected using the `FLUID_MODEL` option in the config. Available fluid models in SU2 include:
+
+| Option Value | Description | 
+|---|---|
+|`STANDARD_AIR` | **Air model with ideal gas EOS** |
+|`IDEAL_GAS` | **Arbitrary fluid with ideal gas EOS** |
+|`VW_GAS` | **Arbitrary fluid with Vander-Waals EOS** |
+|`PR_GAS` | **Arbitrary fluid with Peng-Robinson EOS** |
+|`CONSTANT_DENSITY` | **Constant density** |
+|`INC_IDEAL_GAS` | **Incompressible fluid constant specific heat** |
+|`INC_IDEAL_GAS_POLY` | **Incompressible fluid polynomial specific heat** |
+|`SU2_NONEQ` | **SU2 nonequilibrium thermochemical library** |
+|`MUTATIONPP` | **Mutation++ nonequilibrium thermochemical library** |
+
+Some fluid models require the specification of additional parameters, with the full set of required options available in the configuration file template. 
 
 ## Reference Values ##
 
