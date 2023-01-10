@@ -69,6 +69,8 @@ Simulation of internal, laminar, incompressible flow in a differentially-heated 
 Simulation of internal, turbulent, incompressible flow in a unit cell of a 2D pin-fin heat exchanger.
 * [Species Transport](/tutorials/Inc_Species_Transport/)    
 Simulation of internal, turbulent, incompressible flow through a mixing channel.
+* [Turbulent Bend](/tutorials/Inc_Turbulent_Bend/)    
+Simulation of turbulent flow in a 90 degree pipe bend using wall functions.
 
 #### Structural Mechanics
 
