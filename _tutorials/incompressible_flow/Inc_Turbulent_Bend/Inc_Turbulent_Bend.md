@@ -126,9 +126,9 @@ $ pvpython paraview_extract_slice_data.py
 
 With python, matlab or a simple *awk* command it is easy to put the data in the correct format for the SU2 inlet profile. The awk command below reads the file *inlet.csv*, it assumes that the comma acts as a separator, it skips the first line (the header), and then prints the necessary columns and outputs it in the file inlet_test. We want symmetric data in the y-axis, so we check if the y-coordinate in column 2 is positive, and then we write this data for positive and negative y-coordinates. We write the data into the file *inlet_test*.
 
-
-
-``` awk -F ',' '(NR>1) {if ($2>0.0) {printf ("%8f \t %8f \t %8f \t %6f \t %6f \t %6f \t %f \t %6f \t %6f \t %6f\n ", -$2,$3,-0.52,300.0, $9, 0.0, 0.0, 1.0, $6, $1);printf ("%8f \t %8f \t %8f \t %6f \t %6f \t %6f \t %f \t %6f \t %6f \t %6f\n ", $2,$3,-0.52,300.0, $9, 0.0, 0.0, 1.0, $6, $1)}}' inlet.csv > inlet_test ```
+```
+awk -F ',' '(NR>1) {if ($2>0.0) {printf ("%8f \t %8f \t %8f \t %6f \t %6f \t %6f \t %f \t %6f \t %6f \t %6f\n ", -$2,$3,-0.52,300.0, $9, 0.0, 0.0, 1.0, $6, $1);printf ("%8f \t %8f \t %8f \t %6f \t %6f \t %6f \t %f \t %6f \t %6f \t %6f\n ", $2,$3,-0.52,300.0, $9, 0.0, 0.0, 1.0, $6, $1)}}' inlet.csv > inlet_test
+```
 
 
 
