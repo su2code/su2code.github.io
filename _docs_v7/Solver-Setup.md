@@ -8,7 +8,6 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
 ---
 
 - [Defining the Problem](#defining-the-problem)
-  - [Specifying a Fluid Model](#specifying-a-fluid-model)
   - [Restarting the simulation](#restarting-the-simulation)
 - [Controlling the simulation](#controlling-the-simulation)
   - [Time-dependent Simulation](#time-dependent-simulation)
