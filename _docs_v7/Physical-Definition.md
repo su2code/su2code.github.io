@@ -46,6 +46,7 @@ For fluid simulations, a model defining the equation of state and thermodynamic 
 |`CONSTANT_DENSITY` | **Constant density** |
 |`INC_IDEAL_GAS` | **Incompressible fluid constant specific heat** |
 |`INC_IDEAL_GAS_POLY` | **Incompressible fluid polynomial specific heat** |
+|`FLUID_MIXTURE` | **Incompressible ideal gas mixing laws for multicomponent flow** |
 |`SU2_NONEQ` | **SU2 nonequilibrium thermochemical library** |
 |`MUTATIONPP` | **Mutation++ nonequilibrium thermochemical library** |
 
