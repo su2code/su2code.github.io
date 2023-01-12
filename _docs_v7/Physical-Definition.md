@@ -15,6 +15,9 @@ SU2 offers different ways of setting and computing this definition. This documen
   - [Mach Number and Velocity](#mach-number-and-velocity)
   - [Reynolds Number and Viscosity](#reynolds-number-and-viscosity)
   - [Non-Dimensionalization](#non-dimensionalization)
+- [Free-Stream Definition (Thermochemical Nonequilibrium)](#free-stream-definition-thermochemical-nonequilibrium)
+  - [Free-Stream Temperatures](#free-stream-temperatures)
+  - [Chemical Composition and Mass Fractions](#chemical-composition-and-mass-fractions)
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
   - [Initial State and Non-Dimensionalization](#initial-state-and-non-dimensionalization)
@@ -80,6 +83,26 @@ For all schemes, as reference values for the density and temperature the free-st
 - `FREESTREAM_PRESS_EQ_ONE`: Reference pressure equals free-stream pressure, $$p_{ref} = p_{\infty}$$.
 - `FREESTREAM_VEL_EQ_MACH`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals the Mach number: $$p_{ref} = \gamma p_{\infty}$$.
 - `FREESTREAM_VEL_EQ_ONE`: Reference pressure is chosen such that the non-dimensional free-stream velocity equals `1.0`: $$p_{ref} = Ma^2_{\infty} \gamma p_{\infty}$$.
+
+## Free-Stream Definition (Thermochemical Nonequilibrium) ##
+
+| Solver | Version |
+| --- | --- |
+| `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
+
+The physical definition for the thermochemical nonequilibrium (NEMO) solvers is similar to the compressible solvers, but with additional parameters to specify. The free-stream values are not only used as boundary conditions for the `MARKER_FAR` option, but also for initialization and non-dimensionalization. That means even if you don't have any farfield BCs in your problem, it might be important to prescribe physically meaningful values for the options.
+
+### Free-Stream Temperatures ###
+
+Thermodynamic state is specified using the same options as the compressible solver, with the addition of the free-stream electronic temperature. This can be specified using the `FREESTREAM_TEMPERATURE_VE` option in the config file. For a free-stream in equilibrium, this is typically the same value as specified in the `FREESTREAM_TEMPERATURE` option.
+
+### Chemical Composition and Mass Fractions ###
+
+The NEMO solvers require a specification of thermochemical nonequilibrium library using the `FLUID_MODEL` option, either `SU2_NONEQ` if using the SU2 built-in thermochemical library, or `MUTATIONPP` if using the Mutation++ thermochemical library.
+
+A chemistry model, consisting of a set of flow species, thermochemical properties, and chemical reactions, is specified using `GAS_MODEL`. The names of these models are specific to the thermochemical library. If using the `SU2_NONEQ` option the choices are `ARGON`, `N2`, `AIR-5`, and `AIR-7`. 
+
+Free-stream mass fractions must also be specified in list using the option `GAS_COMPOSITION`. The mass fractions are specified as decimal values in the order of the species in the gas model. For example, an AIR-5 mixture of 77% oxygen and 23% nitrogen would be expressed as (0.77, 0.23, 0.00, 0.00, 0.00).
 
 ## Flow Condition (Incompressible) ##
 
