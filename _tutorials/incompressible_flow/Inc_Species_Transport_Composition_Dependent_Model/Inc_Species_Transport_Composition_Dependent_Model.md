@@ -19,7 +19,7 @@ In this tutorial, the user will be familiar with the composition-dependent model
 
 ## Resources
 
-The resources for this tutorial can be found in the [incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model) directory in the [tutorial repository](https://github.com/su2code/Tutorials). In order to complete this tutorial, you will need the configuration file ([kenics_mixer_tutorial.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.cfg)) and the mesh file ([kenics.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics.su2)).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model) directory in the [tutorial repository](https://github.com/su2code/Tutorials). To complete this tutorial, you will need the configuration file ([kenics_mixer_tutorial.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.cfg)) and the mesh file ([kenics.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics.su2)).
 
 The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [kenics_mixer_tutorial.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport_Composition_Dependent_Model/kenics_mixer_tutorial.geo). The mesh consists of 128790 volume elements and 138324 points.
 
@@ -28,20 +28,20 @@ Figure (1): Computational mesh (top figure) and 2D cross-section view with color
 
 ## Prerequisites
 
-The following tutorial assumes you have already compiled `SU2_CFD` in serial or parallel, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/). Likewise, it is advised to perform the tutorial regarding species transport in a venturi mixer([Inc_Species_Transport](/tutorials/Inc_Species_Transport/)) where the species transport options are explained, as this tutorial is mainly focused on the composition-dependent options.
+The following tutorial assumes you have already compiled `SU2_CFD` in serial or parallel, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/). Likewise, it is advised to perform the tutorial regarding species transport in a venturi mixer([Inc_Species_Transport](/tutorials/Inc_Species_Transport/)) where the species transport options are explained, as this tutorial mainly focuses on the composition-dependent options.
 
 ## Background
 
-The geometry consists of a Static Kenics mixer with three blades, each blade starts at 90 degrees perpendicular to the previous blades, and they are twisted 180 degrees along the z-axis in order to enhance the mixing. Furthermore, two inlets are considered, where pure air and pure methane are injected at each inlet. Finally, one outlet is considered at the end of the mixer device.
+The geometry consists of a Static Kenics mixer with three blades, all the blades are perpendicular to each other, and are twisted 180 degrees along the z-axis in order to enhance the mixing. Furthermore, two inlets are considered, where pure air and pure methane are injected at each inlet. Finally, one outlet is considered at the end of the mixer device.
 
 
 ## Problem Setup
 
 In this problem, we investigate the flow and mixing along the kenic static mixer. Thus, we have the following boundary conditions at the inlets and outlet:
 
-- Inlet Velocities (constant) = 5 m/s in normal direction (z-direction)
+- Equal Inlet Velocities (constant) = 5 m/s in normal direction (z-direction)
 - Outlet Pressure (constant) = 0 Pa
-- Temperature at both inlets) = 300 K
+- Inlet Temperature (both inlets) = 300 K
 - Adiabatic walls.
 
 In this case, the energy equation is switched `OFF` as we consider two streams with the same temperature and adiabatic walls.
@@ -62,8 +62,8 @@ The thermochemical properties for each gas are given below:
 
 The species mass fractions at each inlet are the following:
 
-- Inlet_gas: mass fractions methane, Y_CH4 = 1.0 (pure methane, Y_air=0.0)
-- Inlet_air: mass fractions methane, Y_CH4 = 0.0 (pure air, Y_air=1.0)
+- Inlet_gas: mass fraction methane, Y_CH4 = 1.0 (pure methane, Y_air=0.0)
+- Inlet_air: mass fraction methane, Y_CH4 = 0.0 (pure air, Y_air=1.0)
 
 It should be noted that within SU2, for a mixture of N species, N-1 species transport equations are  solved and, the last species is computed as $1-\sum Y_i$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
 
@@ -73,7 +73,7 @@ All available options concerning species transport are listed in the [config_tem
 
 For activating the composition-dependent model, the fluid model must be chosen as `FLUID_MODEL= FLUID_MIXTURE`. It must be noted that this model is only compatible with `INC_DENSITY_MODEL= VARIABLE`. Otherwise, an error message will be displayed during runtime.
 
-A low-mach number approximation for incompressible flows allows the pressure to be decomposed into dynamic and thermodynamic (operating) pressure (see [Theory]/docs_v7/Theory/). The operating pressure is used for computing the mixture density using the Ideal gas law. The thermodynamic pressure might strongly affect the density at the inlets, causing unphysical results. Therefore, the thermodynamic pressure must be provided by the user for the `FLUID_MIXTURE` model and, it is no longer computed from the free-stream conditions as it is done in the other fluid models. As in mixing and combustion processes, the operating pressure is often assumed to be 101325 pa, then this is the default value considered inside SU2 if the thermodynamic pressure is not given in the .cfg file.  In the.cfg file, the thermodynamic pressure is specified as `THERMODYNAMIC_PRESSURE= 101325.0`.
+A low-mach number approximation for incompressible flows allows the pressure to be decomposed into dynamic and thermodynamic (operating) pressure (see [Theory]/docs_v7/Theory/). The operating pressure is used for computing the mixture density using the Ideal gas law. The thermodynamic pressure might strongly affect the density at the inlets, causing unphysical results. Therefore, the thermodynamic pressure must be provided by the user for the `FLUID_MIXTURE` model and, it is no longer computed from the free-stream conditions as it is done in the other fluid models. As in mixing and combustion processes, the operating pressure is often assumed as 101325 pa, then this is the default value considered inside SU2 if the thermodynamic pressure is not given in the .cfg file.  In the.cfg file, the thermodynamic pressure is specified as `THERMODYNAMIC_PRESSURE= 101325.0`.
 
 Subsequently, the molecular weights and heat capacities at constant pressure must be provided as a list as follows: `MOLECULAR_WEIGHT= W_1, W_2,...., W_N` ,  `SPECIFIC_HEAT_CP = Cp_1, Cp_2,..., Cp_N`. The length of the list must match the number of the N species in the mixture. Moreover, the mean molecular weight is computed as a mole fraction average, and the mixture heat capacity is computed as a mass fraction average. For more information, please see $^{1},^{3}$.
 
@@ -104,7 +104,7 @@ TURBULENT_CONDUCTIVITY_MODEL= CONSTANT_PRANDTL_TURB
 PRANDTL_TURB= 0.90, 0.90
 ```
 
-Regarding the viscosity model, the following options are available `VISCOSITY_MODEL= SUTHERLAND, CONSTANT_VISCOSITY, POLYNOMIAL_VISCOSITY`. In the case of `CONSTANT_VISCOSITY`, the viscosities must be provided as a list as follows: `MU_CONSTANT= mu_1, mu_2, ..., mu_N`. Similarly, if `SUTHERLAND` model is chosen, the Sutherland parameters must be given as a list for each species in the mixture. For completeness, an example for SUTHERLAND option is given below for a mixture of two species:
+Regarding the viscosity model, the following options are available `VISCOSITY_MODEL= SUTHERLAND, CONSTANT_VISCOSITY, POLYNOMIAL_VISCOSITY`. In the case of `CONSTANT_VISCOSITY`, the viscosities must be provided as a list as follows: `MU_CONSTANT= mu_1, mu_2, ..., mu_N`. Similarly, if `SUTHERLAND` model is chosen, the Sutherland parameters must be given as a list for each species in the mixture. For completeness, an example for SUTHERLAND option is shown below for a mixture of two species:
 
 ```
 % --------------------------- VISCOSITY MODEL ---------------------------------%
@@ -131,7 +131,7 @@ MU_CONSTANT= 1.1102E-05, 1.8551E-05
 MIXING_VISCOSITY_MODEL = WILKE
 ```
 
-The Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. For the mass diffusivity, the following models are available `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY, CONSTANT_SCHMIDT, UNITY_LEWIS, CONSTANT_LEWIS` , where `CONSTANT_DIFFUSIVITY` is the default model. For the first two, a constant value must be specified in the.cfg file for all species, as shown in the species transport tutorial [Inc_Species_Transport](/tutorials/Inc_Species_Transport/). For the UNITY_LEWIS, no values must be provided because the diffusivity is computed using the mixture thermal conductivity, density and heat capacity at constant pressure; for more information, please see $^{3}$. For highly diffusive gases, such as hydrogen, the `CONSTANT_LEWIS` option could be used. For this option, the Lewis numbers of the N-1 species for which a transport equation is being solved must be provided as a list using the option `CONSTANT_LEWIS_NUMBER= Le_1, Le_2, ..., Le_N_1`. Finally, for turbulent simulations, the turbulent diffusivity is computed based on the `SCHMIDT_NUMBER_TURBULENT`. For reference, please consult [the respective theory](/docs_v7/Theory/#species-transport).
+The Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. For the mass diffusivity, the following models are available `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY, CONSTANT_SCHMIDT, UNITY_LEWIS, CONSTANT_LEWIS` , where `CONSTANT_DIFFUSIVITY` is the default model. For the first two, a constant value must be specified in the.cfg file for all species, as it is done in the species transport tutorial [Inc_Species_Transport](/tutorials/Inc_Species_Transport/). For the UNITY_LEWIS, no values must be provided because the diffusivity is computed using the mixture thermal conductivity, density and heat capacity at constant pressure; for more information, please see $^{3}$. For highly diffusive gases, such as hydrogen, the `CONSTANT_LEWIS` option could be used. For this option, the Lewis numbers of the N-1 species for which a transport equation is being solved must be provided as a list using the option `CONSTANT_LEWIS_NUMBER= Le_1, Le_2, ..., Le_N_1`. Finally, for turbulent simulations, the turbulent diffusivity is computed based on the `SCHMIDT_NUMBER_TURBULENT`. For reference, please consult [the respective theory](/docs_v7/Theory/#species-transport).
 
 Finally, for the SST model, it is possible to provide the intensity and turbulent-to-laminar viscosity ratios per inlet. For this option, we use the following structure: `MARKER_INLET_TURBULENT= (inlet_1, TurbIntensity_1, TurbLamViscRatio_1, inlet_2, TurbIntensity_2, TurbLamViscRatio_2, ...)`.  
 
