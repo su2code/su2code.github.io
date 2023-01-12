@@ -20,6 +20,8 @@ The term *Marker* refers to a named entity in your mesh file. Boundary condition
   - [Mass Flow Inlet](#mass-flow-inlet)
   - [Velocity Inlet](#velocity-inlet)
   - [Pressure Inlet](#pressure-inlet)
+- [Supersonic Inlet Boundary Condition](#supersonic-inlet-boundary-condition)
+  - [Thermochemical Nonequilibrium Supersonic Inlet](#thermochemical-nonequilibrium-supersonic-inlet)
 - [Outlet Boundary Condition](#outlet-boundary-condition)
   - [Pressure Outlet (Compressible)](#pressure-outlet-compressible)
   - [Pressure Outlet (Incompressible)](#pressure-outlet-incompressible)
@@ -214,6 +216,28 @@ MARKER_INLET = (inlet1, 300 , 1e6, 1.0, 0.0, 0.0, inlet2, 200, 1e6, 0.0, 1.0, 0.
 **Note 1**: It is possible to combine Velocity Inlet BCs and Pressure Inlet BCs.
 
 **Note 2**: Updates to the velocity based on the prescribed pressure are damped in order to help with stability/convergence. The damping coefficient can be changed using the `INC_INLET_DAMPING` option (default is `0.1`).
+
+## Supersonic Inlet Boundary Condition ##
+Supersonic inlet boundary conditions are set using the option `MARKER_SUPERSONIC_INLET`.
+
+### Thermochemical Nonequilibrium Supersonic Inlet
+
+| Solver | Version | 
+| --- | --- |
+| `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
+
+The format for `MARKER_SUPERSONIC_INLET` for the NEMO solvers is the marker name, followed by the static translational-rotational Temperature (in Kelvin `[K]`), the static Pressure (in Pascal `[Pa]`) and the flow velocity vector (in meter per second `[m/s]`). For example:
+
+```
+MARKER_SUPERSONIC_INLET = (inlet1, 300, 1e6, 1000.0, 0.0, 0.0, inlet2, 400, 1e6, 0.0, 1000.0, 0.0)
+```
+
+For the NEMO solvers, a gas composition at the inlet must also be specified using the `INLET_GAS_COMPOSITION` option, as well as the vibrational-electronic Temperature at the inlet, using the `INLET_TEMPERATURE_VE` option. If no vibrational-electronic Temperature is specified, the given translational-rotational Temperature set for the inlet is used by default. For example:
+
+```
+INLET_GAS_COMPOSITION = (0.77, 0.23, 0.0, 0.0, 0.0)
+INLET_TEMPERATURE_VE = 288.15
+```
 
 ## Outlet Boundary Condition ##
 
