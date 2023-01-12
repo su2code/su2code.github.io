@@ -135,7 +135,7 @@ The turbulence boundary conditions do not have a `MARKER_` keyword for the SA Tu
 FREESTREAM_NU_FACTOR= 3
 ```
 
-Conversely, For the SST turbulence model, it is possible to provide a 'MARKER_INLET' where turbulence intensity and turbulent-to-laminar ratio can be provided at each inlet as follow:
+Conversely, for the SST turbulence model, it is possible to provide a 'MARKER_INLET' where turbulence intensity and turbulent-to-laminar ratio can be provided at each inlet as follows:
 
 ```
 MARKER_INLET_TURBULENT= (inlet_1, TURBULENCEINTENSITY_1, TURB2LAMVISCRATIO_1 , inlet_2, TURBULENCEINTENSITY_1, TURB2LAMVISCRATIO_1 ,..)
