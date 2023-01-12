@@ -221,13 +221,13 @@ Figure (4): Velocity magnitude at different locations along the Kenics static mi
 The plots are cross sections of the mixing device at the following locations: 0.04, 0.09, 0.1067, 0.1133, 0.1267, 0.1333, 0.18 and 0.24 m.
 
 ### References
-$^{1}$ B. Poling, J. Prausnitz, J. O’Connell, The Properties of Gases and Liquids, 5th Edition, McGraw-Hill Education,2000.(URL https://books.google.nl/books?id=9tGclC3ZRX0C)
+$$^{1}$$ B. Poling, J. Prausnitz, J. O’Connell, The Properties of Gases and Liquids, 5th Edition, McGraw-Hill Education,2000.(URL https://books.google.nl/books?id=9tGclC3ZRX0C)
 
-$^{2}$ C. R. Wilke, A viscosity equation for gas mixtures, The Journal of Chemical Physics 18 (4) (1950),517–519.(https:doi:10.1063/1.1747673).
+$$^{2}$$ C. R. Wilke, A viscosity equation for gas mixtures, The Journal of Chemical Physics 18 (4) (1950),517–519.(https:doi:10.1063/1.1747673).
 
-$^{3}$ T. Poinsot, D. Veynante, Theoretical and Numerical Combustion, Ch. 1, 2012.
+$$^{3}$$ T. Poinsot, D. Veynante, Theoretical and Numerical Combustion, Ch. 1, 2012.
 
-$^{4}$ T. A. Davidson, A simple and accurate method for calculating viscosity of gaseous mixtures. (URL https://www.osti.gov/biblio/6129940)
+$$^{4}$$ T. A. Davidson, A simple and accurate method for calculating viscosity of gaseous mixtures. (URL https://www.osti.gov/biblio/6129940)
 
 
 ## Additional remarks
