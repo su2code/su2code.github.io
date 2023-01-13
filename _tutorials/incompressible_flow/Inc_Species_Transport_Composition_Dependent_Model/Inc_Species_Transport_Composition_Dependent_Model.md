@@ -65,7 +65,7 @@ The species mass fractions at each inlet are the following:
 - Inlet_gas: mass fraction methane, Y_CH4 = 1.0 (pure methane, Y_air=0.0)
 - Inlet_air: mass fraction methane, Y_CH4 = 0.0 (pure air, Y_air=1.0)
 
-It should be noted that within SU2, for a mixture of N species, N-1 species transport equations are  solved and, the last species is computed as $1-\sum Y_i$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
+It should be noted that within SU2, for a mixture of N species, N-1 species transport equations are  solved and, the last species is computed as $$1-\sum Y_i$$. Thus, in this tutorial, a transport equation for methane is being solved. For more information, please see [Theory](/docs_v7/Theory/).
 
 ## Configuration File Options
 
@@ -73,12 +73,12 @@ All available options concerning species transport are listed in the [config_tem
 
 For activating the composition-dependent model, the fluid model must be chosen as `FLUID_MODEL= FLUID_MIXTURE`. It must be noted that this model is only compatible with `INC_DENSITY_MODEL= VARIABLE`. Otherwise, an error message will be displayed during runtime.
 
-A low-mach number approximation for incompressible flows allows the pressure to be decomposed into dynamic and thermodynamic (operating) pressure (see [Theory]/docs_v7/Theory/). The operating pressure is used for computing the mixture density using the Ideal gas law. The thermodynamic pressure might strongly affect the density at the inlets, causing unphysical results. Therefore, the thermodynamic pressure must be provided by the user for the `FLUID_MIXTURE` model and, it is no longer computed from the free-stream conditions as it is done in the other fluid models. As in mixing and combustion processes, the operating pressure is often assumed as 101325 pa, then this is the default value considered inside SU2 if the thermodynamic pressure is not given in the .cfg file.  In the.cfg file, the thermodynamic pressure is specified as `THERMODYNAMIC_PRESSURE= 101325.0`.
+A low-mach number approximation for incompressible flows allows the pressure to be decomposed into dynamic and thermodynamic (operating) pressure (see [Theory](/docs_v7/Theory/). The operating pressure is used for computing the mixture density using the Ideal gas law. The thermodynamic pressure might strongly affect the density at the inlets, causing unphysical results. Therefore, the thermodynamic pressure must be provided by the user for the `FLUID_MIXTURE` model and, it is no longer computed from the free-stream conditions as it is done in the other fluid models. As in mixing and combustion processes, the operating pressure is often assumed as 101325 pa, then this is the default value considered inside SU2 if the thermodynamic pressure is not given in the .cfg file.  In the.cfg file, the thermodynamic pressure is specified as `THERMODYNAMIC_PRESSURE= 101325.0`.
 
-Subsequently, the molecular weights and heat capacities at constant pressure must be provided as a list as follows: `MOLECULAR_WEIGHT= W_1, W_2,...., W_N` ,  `SPECIFIC_HEAT_CP = Cp_1, Cp_2,..., Cp_N`. The length of the list must match the number of the N species in the mixture. Moreover, the mean molecular weight is computed as a mole fraction average, and the mixture heat capacity is computed as a mass fraction average. For more information, please see $^{1},^{3}$.
+Subsequently, the molecular weights and heat capacities at constant pressure must be provided as a list as follows: `MOLECULAR_WEIGHT= W_1, W_2,...., W_N` ,  `SPECIFIC_HEAT_CP = Cp_1, Cp_2,..., Cp_N`. The length of the list must match the number of the N species in the mixture. Moreover, the mean molecular weight is computed as a mole fraction average, and the mixture heat capacity is computed as a mass fraction average. For more information, please see $$^{1},^{3}$$.
 
 For the conductivity model, the following options are available: `CONDUCTIVITY_MODEL= CONSTANT_CONDUCTIVITY, CONSTANT_PRANDTL, POLYNOMIAL_CONDUCTIVITY `. In this tutorial, the option `CONSTANT_CONDUCTIVITY` is used. For this option, a constant conductivity for each species must be provided as follows: `THERMAL_CONDUCTIVITY_CONSTANT= k_1, k_2,...., k_N`. 
-Currently, the only mixing law available in SU2 for computing the mixture thermal conductivity is based on the Wilke mixing law. Therefore, this is the default option, and it is hardcoded for the `FLUID_MIXTURE` option. For more information regarding this mixing model, please see $^{1},^{2}$.
+Currently, the only mixing law available in SU2 for computing the mixture thermal conductivity is based on the Wilke mixing law. Therefore, this is the default option, and it is hardcoded for the `FLUID_MIXTURE` option. For more information regarding this mixing model, please see $$^{1},^{2}$$.
 
 Similar treatment is done for the laminar Prandtl numbers: `PRANDTL_LAM= Pr_1, Pr_2,....,Pr_N`. Finally, for turbulence simulations, the option of turbulent Prandlt number can be enabled as `TURBULENT_CONDUCTIVITY_MODEL= CONSTANT_PRANDTL_TURB`. If this option is enabled, the turbulent Prandtl numbers must have the same structure as the Laminar Prandtl numbers: `PRANDTL_TURB= Pr_Turb_1, Pr_Turb_2, ..., Pr_Turb_N`. For more information about laminar and turbulent Prandlt numbers, please see [Theory](/docs_v7/Theory/).
 
@@ -118,7 +118,7 @@ MU_T_REF= 273, 273
 SUTHERLAND_CONSTANT= 97, 111
 ```
 
-For this tutorial, as the energy equation is not being solved, we use `CONSTANT_VISCOSITY` as the viscosity model. Finally, for computing the mixture viscosity, two models are available in SU2: Wilke and Davidson Models. They can be enabled using the following option: `MIXING_VISCOSITY_MODEL = WILKE, DAVIDSON`. Please see $^{2},^{4}$ for more information on these models..
+For this tutorial, as the energy equation is not being solved, we use `CONSTANT_VISCOSITY` as the viscosity model. Finally, for computing the mixture viscosity, two models are available in SU2: Wilke and Davidson Models. They can be enabled using the following option: `MIXING_VISCOSITY_MODEL = WILKE, DAVIDSON`. Please see $$^{2},^{4}$$ for more information on these models..
 The options used in this tutorial are shown below:
 
 ```
