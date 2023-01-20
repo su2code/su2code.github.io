@@ -209,16 +209,32 @@ $$
 where the binary diffusion coefficients are computed as
 
 $$
-\rho D_{ij} = 1.1613 \times 10^{-25} \frac{M \sqrt{T \left( \frac{1}{M_i} + \frac{1}{M_j} \right) }}{\Omega_{ij}^{(1,1)}},
+\rho D_{ij} = 1.1613 \times 10^{-25} \frac{M \sqrt{T \left( \frac{1}{M_i} + \frac{1}{M_j} \right) }}{\Omega_{ij}^{(1,1)}}.
 $$
 
-and the collision integral for the mass diffusion coefficient is computed as
+Collision integrals are computed using a four parameter curve fit for neutral-neutral, neutral-ion, and electron-ion collisions
 
 $$
-\pi \Omega_{ij}^{(1,1)} = D T^{A(\log(T))^2 + B \log(T) + C},
+\pi \Omega_{ij}^{(n,n)} = D T^{A(\log(T))^2 + B \log(T) + C},
 $$
 
-where A-D are constants.
+where A-D are constants. Ion-ion, electron-ion, and electron-electron collisions modeled using a shielded Coulomb potential as
+
+$$
+\pi \Omega_{ij}^{(n,n)} = 5.0 \times 10^{15} \pi (\lambda_D / T)^2 \log \{D_n T^{*} \left[ 1 - C_n \exp\left( -c_n T^{*} \right) \right] + 1 \}
+$$
+
+where
+
+$$
+T^{*} = \frac{\lambda_D}{e^2_{CGS} / (k_{B,CGS} T) }
+$$
+
+and the Debye length $\lambda_D$ is defined as
+
+$$
+\lambda_D = \sqrt{\frac{k_{B,CGS} T}{4 \pi n_{e,CGS} e^2_{CGS}}}.
+$$
 
 The Wilkes-Blottner-Eucken model is generally efective up to temperatures of 10,000 K. Above these temperatures it is recommended to use the Gupta-Yos model.
 
@@ -234,8 +250,11 @@ $$
 
 and 
 $$
-\Delta_{s,r}^{(2)}(T) = \frac{16}{5} \left[ \frac{2M_s M_r}{\pi R T (M_s + M_r)}  \right]^{1/2} \pi {\Omega_{s,r}^{(2,2)}}.
+\Delta_{s,r}^{(2)}(T) = \frac{16}{5} \left[ \frac{2M_s M_r}{\pi R T (M_s + M_r)}  \right]^{1/2} \pi {\Omega_{s,r}^{(2,2)}},
 $$
+
+where the collision cross-sections are computed as described in the Wilkes-Blottner-Eucken section.
+
 The mixutre viscoisty is computed as
 
 $$
