@@ -347,3 +347,33 @@ The coefficients $\sigma$ and $\alpha$ are referred to as the Tangential Momentu
 
 
 ---
+
+# Gas-surface Interaction #
+
+| Solver | Version | 
+| --- | --- |
+| `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
+
+Mechanisms of gas-surface interaction are implemented as specific boundary conditions within the SU2-NEMO computational suite. The net result of recombination reactions occurring on the surface is a production of chemical species due to catalytic reactions, $\dot{\omega}_s^{cat}$, that must be balanced by the normal diffusive and convective flux at the wall. For steady flow and a no-slip boundary, this can be expressed as
+
+$$
+    \mathbf{J}_s  \cdot \mathbf{n}  = \dot{\omega}_s^{cat}.
+$$
+
+In SU2-NEMO, the chemical production of species due to catalytic processes is included in the computation of the viscous component of the residual, as an additional diffusive flux equivalent to the chemical source term computed due to catalytic reactions. Gradients of species density are then computed directly as part of the SU2-NEMO computational routine, which are used to compute gradients of species mass fraction at wall vertices. 
+
+Options in SU2-NEMO include a super-catalytic wall in which species concentrations are set to specify full recombination to a specified equilibrium concentration (typically the free-stream conditions)
+
+$$
+Y_{w,s} = Y_{eq,s},
+$$
+
+as well as a partiall catalytic wall using a specified reaction efficiency model 
+
+$$
+    \dot{\omega}_s^{cat} = \gamma_s Y_s \rho_w \sqrt{\frac{R_s T_w}{2\pi}},
+$$
+
+where $\gamma_{s}$ is the species catalytic efficiency, and represents the proportion of incident mass flux of monatomic species $s$ which recombines into its heteronuclear diatomic molecule at the wall.
+
+---
