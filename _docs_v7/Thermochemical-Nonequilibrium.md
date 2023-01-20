@@ -13,6 +13,9 @@ This page contains a summary of the physical models implemented in the NEMO solv
 - [Viscous Phenomena and Transport Coefficients](#viscous-phenomena-and-transport-coefficients)
     - [Wilkes-Blottner-Eucken](#wilkes-blottner-eucken)
     - [Gupta-Yos](#gupta-yos)
+    - [Sutherland Viscosity Model](#sutherland-viscosity-model)
+- [Gas Surface Interaction](#gas-surface-interaction)
+- [Slip Flow](#slip-flow)
   
 ---
 
@@ -301,5 +304,9 @@ and for electrons,
 $$
 D_{e,r} = \frac{k_{B} T_{ve}}{p \Delta_{e,r}^{(1)}(T_{ve})}.
 $$
+
+## Sutherland Viscosity Model ##
+
+In addition to the 
 
 ---
