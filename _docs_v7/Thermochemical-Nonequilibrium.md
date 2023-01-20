@@ -200,7 +200,7 @@ $$
 The effective species diffusion coefficeint is copmuted as a weighted sum of the species binary diffusion coefficients
 
 $$
-\frac{(1 - X_i)}{D_i} = \sum_{i\neqj} \frac{X_j}{D_{ij}},
+\frac{(1 - X_i)}{D_i} = \sum_{i \neq j} \frac{X_j}{D_{ij}},
 $$
 
 where the binary diffusion coefficients are computed as
@@ -223,8 +223,16 @@ The Wilkes-Blottner-Eucken model is generally efective up to temperatures of 10,
 
 Aother model develped by Gupta focuses on the transport properties of weakly ionized flows, and is generally more  accurate than the Wilkes-Blottner-Eucken model at temperatures above 10,000 K.
 
+The forumalae for the transport coefficients are dependent on the collision terms
 
+$$
+\Delta_{s,r}^{(1)}(T) = \frac{8}{3} \left[ \frac{2M_s M_r}{\pi R T (M_s + M_r)}  \right]^{1/2} \pi {\Omega_{s,r}^{(1,1)}}
+$$
 
+and 
+$$
+\Delta_{s,r}^{(2)}(T) = \frac{16}{5} \left[ \frac{2M_s M_r}{\pi R T (M_s + M_r)}  \right]^{1/2} \pi {\Omega_{s,r}^{(2,2)}}.
+$$
 The mixutre viscoisty is computed as
 
 $$
@@ -234,6 +242,64 @@ $$
 where 
 
 $$
-\gamma_s = \frac{\rho_s}{\rho M_s}
+\gamma_s = \frac{\rho_s}{\rho M_s}.
 $$
 
+Thermal conductivity is computed in terms of different energy modes. The contribution due to translation  modes is expressed as
+
+$$
+\kappa_t = \frac{15}{4} k_{B} \sum_{s \neq e} 
+\frac{\gamma_s}{\sum_{r \neq e} a_{s,r} \gamma_r \Delta_{s,r}^{(2)}(T_{tr}) + 3.54 \gamma_e \Delta_{s,e}^{(2)}(T_{ve})},
+$$
+
+where
+
+$$
+a_{s,r} = 1 + \frac{\left[1 - (m_s/m_r) \right] \left[ 0.45 - 2.54(m_s/m_r)  \right]  }{\left[1 + (m_s/m_r) \right]^2}
+$$
+
+and where
+
+$$
+m_s = \frac{M_s}{N_{av}}
+$$
+
+with $N_{av}$ being Avogadro's Number. The thermal conductivity for the rotational modes is expressed as
+
+$$
+\kappa_r = k_{B} \sum_{s \neq e} 
+\frac{\gamma_s}{\sum_{r \neq e} \gamma_r \Delta_{s,r}^{(1)}(T_{tr}) + \gamma_e \Delta_{s,e}^{(1)}(T_{ve})}.
+$$
+
+The mixture translational/rotational thermal conductivity can then be expressed as
+
+$$
+\kappa_{tr} = \kappa_t + \kappa_r.
+$$
+
+The vibrational/electronic mode thermal conductivity is 
+
+$$
+\kappa_{ve} = k_{B} \frac{C_{ve}}{R} \sum_{s \in molecules} \frac{\gamma_s}
+{\sum_{r \neq e} \gamma_r \Delta_{s,r}^{(1)}(T_{tr}) + \gamma_e \Delta_{s,r}^{(1)}(T_{ve}) }
+$$
+
+and the thermal conductivity for electrons is given by
+
+$$
+\kappa_e = \frac{15}{4} k_{B} \frac{\gamma_e}{\sum_r 1.45 \gamma_r \Delta_{e,r}^{(2)}(T_{ve})}.
+$$
+
+Finally, the binary diffusion coefficient for heavy particles is given by
+
+$$
+D_{s,r} = \frac{k_{B} T_{tr}}{p \Delta_{s,r}^{(1)}(T_{tr})},
+$$
+
+and for electrons,
+
+$$
+D_{e,r} = \frac{k_{B} T_{ve}}{p \Delta_{e,r}^{(1)}(T_{ve})}.
+$$
+
+---
