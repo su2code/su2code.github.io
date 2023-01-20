@@ -10,7 +10,7 @@ This page contains a summary of the physical models implemented in the NEMO solv
 - [Thermodynamic Model](#thermodynamic-model)
 - [Finite Rate Chemistry](#finite-rate-chemistry)
 - [Vibrational Relaxation](#vibrational-relaxation)
-- [Viscous Phenomena and  Transport Coefficients](#viscous-phenomena-and-transport-coefficients)
+- [Viscous Phenomena and Transport Coefficients](#viscous-phenomena-and-transport-coefficients)
     - [Wilkes-Blottner-Eucken](#wilkes-blottner-eucken)
     - [Gupta-Yos](#gupta-yos)
   
@@ -98,10 +98,10 @@ $$
 The value of he equilibrium constant $K_{eq}$ is expressed as 
 
 $$
-    K_{eq} = \exp( A_0 T_m + A_1 + A_2 \log(1/T_m) + A_3 (1/T_m) + A_4 (1/T_m)^2  ),
+    K_{eq} = \exp( A_0 \left(\frac{T^c}{10,000}\right) + A_1 + A_2 \log \left( \frac{10,000}{T^c} \right) + A_3 \left( \frac{10,000}{T^c} \right) + A_4 \left( \frac{10,000}{T^c} \right)^2  ),
 $$
 
-where $T_m$ is a modified temperature and $A_1 - A_4$ are constants dependent on the reaction. These reaction constants, the rate constrolling temperature and Arrhenius parameters are stored within the fluid model class in SU2 NEMO.
+where $T^c$ is a controlling temperature and $A_0 - A_4$ are constants dependent on the reaction. These reaction constants, the rate constrolling temperature and Arrhenius parameters are stored within the fluid model class in SU2 NEMO.
 
 ---
 
@@ -145,7 +145,7 @@ where $\sigma_s$ is the effective collision~cross-section.
 
 Mass, momentum, and  energy transport in fluids are all governed by molecular collisions, and  expressions for these transport properties can be derived from the kinetic theory. The  mass diffusion fluxes, $\mathbf{J}_s$, are computed using Fick's Law of Diffusion:
 $$
-    \mathbf{J}_s = \rho D_s \nabla(c_s),
+    \mathbf{J}_s = - \rho D_s \nabla(Y_s) + Y_s \sum_k \rho D_k \nabla(Y_k)
 $$
 
 where $c_s$ is the species mass fraction and $D_s$ is the species multi-component diffusion coefficient. The  values of $D_s$ are computed as a weighted sum of binary diffusion coefficients between all species in the mixture. These are obtained by solving the Stefan--Maxwell equations under the Ramshaw approximations. The  viscous stress tensor is written as
@@ -197,7 +197,30 @@ $$
 \phi_s = \sum_r X_r \left[ 1 + \sqrt{\frac{\mu_r}{\mu_s}}\left( \frac{M_r}{M_s} \right)^{1/4} \right]^{2} \left[ \sqrt{8 \left(1 + \frac{M_s}{M_r} \right)} \right]^{-1}.
 $$
 
+The effective species diffusion coefficeint is copmuted as a weighted sum of the species binary diffusion coefficients
+
+$$
+\frac{(1 - X_i)}{D_i} = \sum_{i\neqj} \frac{X_j}{D_{ij}},
+$$
+
+where the binary diffusion coefficients are computed as
+
+$$
+\rho D_{ij} = 1.1613 \times 10^{-25} \frac{M \sqrt{T \left( \frac{1}{M_i} + \frac{1}{M_j} \right) }}{\Omega_{ij}^{(1,1)}},
+$$
+
+and the collision integral for the mass diffusion coefficient is computed as
+
+$$
+\pi \Omega_{ij}^{(1,1)} = D T^{A(\log(T))^2 + B \log(T) + C},
+$$
+
+where A-D are constants.
+
+The Wilkes-Blottner-Eucken model is generally efective up to temperatures of 10,000 K. Above these temperatures it is recommended to use the Gupta-Yos model.
 
 ## Gupta-Yos ##
+
+
 
 
