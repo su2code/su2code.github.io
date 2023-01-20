@@ -10,9 +10,9 @@ This page contains a summary of the physical models implemented in the NEMO solv
 - [Thermodynamic Model](#thermodynamic-model)
 - [Finite Rate Chemistry](#finite-rate-chemistry)
 - [Vibrational Relaxation](#vibrational-relaxation)
-- [Transport Coefficients](#transport-coefficients)
-    -[Wilkes-Blottner-Eucken](#wilkes-blottner-eucken)
-    -[Gupta-Yos](#gupta-yos)
+- [Viscous Phenomena and  Transport Coefficients](#viscous-phenomena-and-transport-coefficients)
+    - [Wilkes-Blottner-Eucken](#wilkes-blottner-eucken)
+    - [Gupta-Yos](#gupta-yos)
   
 ---
 
@@ -136,7 +136,7 @@ where $\sigma_s$ is the effective collision~cross-section.
 
 ---
 
-# Transport Coefficients #
+# Viscous Phenomena and Transport Coefficients #
 
 | Solver | Version | 
 | --- | --- |
@@ -164,6 +164,38 @@ $D_s$, $\mu$, and $\kappa$ can be evaluated using either a Wilkes-Blottner-Eucke
 
 ## Wilkes-Blottner-Eucken ##
 
+The mixture dynamic viscosity and thermal conductivity are computed using Wilke's semi-empirical mixing rule as 
+
+$$
+\mu = \sum_s \frac{X_s \mu_s}{\phi_s},
+$$
+
+and 
+
+$$
+\kappa = \sum_s \frac{X_s \kappa_s}{\phi_s},
+$$
+
+where $X_s$ is the mole fraction of species $s$. The species dynamic viscosity is computed using Blottner's three paramter curve fit for high temperature air,
+
+$$
+\mu_s = 0.1 \exp [(A_s\log(T) + B_s)\log(T) + C_s].
+$$
+ 
+The species thermal conductivities are computed according to Eucken's formula as
+
+$$
+\kappa^{tr}_s = \mu_s \left( \frac{5}{2} C_{v_s}^{trans} + C_{v_s}^{rot} \right),
+$$
+
+$$
+\kappa^{ve}_s = \mu_s C^{ve}_{v_s}.
+$$
+
+And the term $\phi_s$ is given by
+$$
+\phi_s = \sum_r X_r \left[ 1 + \sqrt{\frac{\mu_r}{\mu_s}}\left( \frac{M_r}{M_s} \right)^{1/4} \right]^{2} \left[ \sqrt{8 \left(1 + \frac{M_s}{M_r} \right)} \right]^{-1}.
+$$
 
 
 ## Gupta-Yos ##
