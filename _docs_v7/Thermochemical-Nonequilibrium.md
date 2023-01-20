@@ -221,6 +221,19 @@ The Wilkes-Blottner-Eucken model is generally efective up to temperatures of 10,
 
 ## Gupta-Yos ##
 
+Aother model develped by Gupta focuses on the transport properties of weakly ionized flows, and is generally more  accurate than the Wilkes-Blottner-Eucken model at temperatures above 10,000 K.
 
 
+
+The mixutre viscoisty is computed as
+
+$$
+\mu = \sum_{s \neq e} \frac{m_s \gamma_s}{\sum_{r \neq e} \gamma_r \Delta_{s,r}^{(2)}(T_{tr}) + \gamma_r \Delta_{e,r}^{(2)}(T_{ve})} + \frac{m_e \gamma_e}{\sum_r \gamma_r \Delta_{e,r}^{(2)}(T_{ve}) }
+$$
+
+where 
+
+$$
+\gamma_s = \frac{\rho_s}{\rho M_s}
+$$
 
