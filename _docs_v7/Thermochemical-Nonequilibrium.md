@@ -14,8 +14,8 @@ This page contains a summary of the physical models implemented in the NEMO solv
     - [Wilkes-Blottner-Eucken](#wilkes-blottner-eucken)
     - [Gupta-Yos](#gupta-yos)
     - [Sutherland Viscosity Model](#sutherland-viscosity-model)
-- [Gas Surface Interaction](#gas-surface-interaction)
 - [Slip Flow](#slip-flow)
+- [Gas-surface Interaction](#gas-surface-interaction)
   
 ---
 
@@ -162,7 +162,7 @@ $$
 
 where $\kappa^{k}$ is the thermal conductivity associated with energy mode $k$.
 
-$D_s$, $\mu$, and $\kappa$ can be evaluated using either a Wilkes-Blottner-Eucken or Gupta-Yos transport models, with the implemntation details and reocmmendations on use given in the sections below.
+$D_s$, $\mu$, and $\kappa$ can be evaluated using the models discussed below by selecting the appropriate options in the configuration file.
 
 
 ## Wilkes-Blottner-Eucken ##
@@ -307,6 +307,43 @@ $$
 
 ## Sutherland Viscosity Model ##
 
-In addition to the 
+In addition to the two models discussed above, there is the option to use a Sutherland model to calculate the flow viscosity. The Sutherland model is not applicable at high temperatures.
+
+In this case the viscosity is computed as
+
+$$
+\mu = \mu_{0} \left( \frac{T}{T_{0}} \right)^{3/2} \frac{T_0 + S_{\mu}}{T + S_{\mu}},
+$$
+
+where $T_0$ is a reference temperature (273.15 K), $\mu_0$ is a reference viscosity, and $S_{\mu}$ is the Sutherland constant.
+
+If the Sutherland model is selected with a NEMO solver, species diffusion coefficients and thermal conductivity are computed using the models described in the Wilkes-Blottner-Eucken section.
+
+---
+
+# Slip Flow #
+
+| Solver | Version | 
+| --- | --- |
+| `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
+
+SU2-NEMO uses the Maxwell velocity and Smoluchowski temperature jump  equations to compute the velocity and temperature of the gas in contact with the surface. The equations are given as
+$$
+v_s =  \frac{2 - \sigma}{\sigma} \lambda \frac{\partial v}{\partial n } + \\
+\frac{3}{4} \frac{\mu}{\rho T} \frac{\partial T}{\partial x},
+$$
+
+and
+$$
+T - T_w =  \frac{2 - \alpha}{\alpha} \lambda \frac{2\gamma}{(\gamma + 1 )Pr} \frac{\partial T}{\partial n}, 
+$$
+
+respectively, where $\mu$ is the flow viscosity, $\rho$ is the mixture density, $Pr$ is the Prandtl number, $\gamma$ is the specific heat ratio, $T$ is the temperature of the gas, $T_w$ is the temperature of the surface, and~= $\lambda$ is the mean free path, calculated as
+$$
+    \lambda = \frac{\mu}{\rho} \frac{\pi}{\sqrt{2RT}}.
+$$
+
+The coefficients $\sigma$ and $\alpha$ are referred to as the Tangential Momentum Accommodation Coefficient (TMAC) and the Thermal Accommodation Coefficient (TAC), respectively. The values of the accommodation coefficients depend on the physical characteristics of the surface, and are usually determined empirically.
+
 
 ---
