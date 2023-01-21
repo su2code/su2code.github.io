@@ -346,7 +346,7 @@ If the Sutherland model is selected with a NEMO solver, species diffusion coeffi
 | --- | --- |
 | `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
 
-SU2-NEMO uses the Maxwell velocity and Smoluchowski temperature jump  equations to compute the velocity and temperature of the gas in contact with the surface. The equations are given as
+SU2-NEMO uses the Maxwell velocity and Smoluchowski temperature jump equations to compute the velocity and temperature of the gas in contact with the surface. The equations are given as
 $$
 v_s =  \frac{2 - \sigma}{\sigma} \lambda \frac{\partial v}{\partial n } + \\
 \frac{3}{4} \frac{\mu}{\rho T} \frac{\partial T}{\partial x},
