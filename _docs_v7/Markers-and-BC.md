@@ -129,14 +129,19 @@ MARKER_FAR= (farfield)
 | --- | --- |
 | `RANS`, `INC_RANS`, | 7.3.0 |
 
-The turbulence boundary conditions do not have a `MARKER_` keyword but can instead be set for inlet and freestream boundaries using the keywords: 
+The turbulence boundary conditions do not have a `MARKER_` keyword for the SA Turbulence model but can instead be set for inlet and freestream boundaries using the keyword: 
 
-For the SA turbulence model:
 ```
 FREESTREAM_NU_FACTOR= 3
 ```
 
-For the SST turbulence model:
+Conversely, for the SST turbulence model, it is possible to provide a 'MARKER_INLET' where turbulence intensity and turbulent-to-laminar ratio can be provided at each inlet as follows:
+
+```
+MARKER_INLET_TURBULENT= (inlet_1, TURBULENCEINTENSITY_1, TURB2LAMVISCRATIO_1 , inlet_2, TURBULENCEINTENSITY_1, TURB2LAMVISCRATIO_1 ,..)
+```
+If 'MARKER_INLET_TURBULENT' are not provided in the .cfg file, SU2 will filled up the markers with the freestream options:
+
 ```
 FREESTREAM_TURBULENCEINTENSITY= 0.05
 FREESTREAM_TURB2LAMVISCRATIO= 10
