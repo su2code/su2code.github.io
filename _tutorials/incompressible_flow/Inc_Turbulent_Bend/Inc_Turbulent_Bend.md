@@ -32,11 +32,11 @@ The resources for this tutorial can be found in the [incompressible_flow/Inc_Tur
 
 ## Tutorial
 
-The following tutorial will briefly introduce the mesh generation with the meshing software gmsh, which is a great tool especially for structured mesh generation. The test case will then be set up, using wall functions to avoid the use of very fine meshes. The postprocessing with paraview will be briefly introduced, where we do a quick check to see if the solution looks right, and then perform some data extraction for comparison with measurements.  
+The following tutorial will briefly introduce the mesh generation with the meshing software [gmsh](https://gmsh.info/), which is a great tool especially for structured mesh generation. The test case will then be set up, using wall functions to avoid the use of very fine meshes. The postprocessing with paraview will be briefly introduced, where we do a quick check to see if the solution looks right, and then perform some data extraction for comparison with measurements.  
 
 ### Background
 
-The turbulent flow though the 90 degree circular pipe bend is characterized by 3 flow phenomena that we will try to capture. First of all, the turbulent flow separates in the bend. The exact location depends on the Reynolds number and the radius of curvature of the bend. Secondly, the flow re-attaches after the bend and finally, two counter-rotating vortices are formed after the bend, called Dean vortices. This particular geometry was studied experimentally by Sudo, Sumida and Hibara (*Experiments in Fluids* 25, 1998) and simulation results can be found in Dutta, Saha, Nandi and Pal (*Eng. Science Technol.* 19(2), 2016). 
+The turbulent flow though the 90 degree circular pipe bend can be seen in Figure 1 and is characterized by 3 flow phenomena that we will try to capture. First of all, the turbulent flow separates in the bend. The exact location depends on the Reynolds number and the radius of curvature of the bend. Secondly, the flow re-attaches after the bend and finally, two counter-rotating vortices are formed after the bend, called Dean vortices. This particular geometry was studied experimentally by Sudo, Sumida and Hibara (*Experiments in Fluids* 25, 1998) [doi](https://doi.org/10.1007/s003480050206) and simulation results can be found in Dutta, Saha, Nandi and Pal (*Eng. Science Technol.* 19(2), 2016) [doi](https://doi.org/10.1016/j.jestch.2015.12.005). 
 
 ### Problem Setup
 
@@ -44,7 +44,7 @@ The configuration is a 90 degree bend with a diameter of D=0.104 m and a radius 
 
 ### Mesh Description
 
-The mesh consists of a structured mesh with 70k cells and 75k points. The mesh was created using Gmsh. The configuration file to create the mesh is ([sudo.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/sudo.geo)) and the only thing you need to do to create a mesh from the geometry is start Gmsh, and then load the .geo file. You will then see the geometry in the Gmsh visualization window. If you click on *Mesh->3D* the 3D mesh will be generated. You can then export the mesh as a .su2 file by choosing *File->Export*. The mesh will automatically be saved in su2 format when the filename has the extension .su2. In general, you should not choose *save all elements* because this will also save additional points that were used to construct the geometry but are not part of the final mesh, like for example the center of a circle. 
+The mesh consists of a structured mesh with 70k cells and 75k points. The mesh was created using Gmsh and the configuration file to create the mesh can be found here: [sudo_coarse.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/sudo_coarse.geo). The only thing you need to do to create a mesh from the geometry is start Gmsh, and then load the .geo file. You will then see the geometry in the Gmsh visualization window. If you click on *Mesh->3D* the 3D mesh will be generated. You can then export the mesh as a .su2 file by choosing *File->Export*. The mesh will automatically be saved in su2 format when the filename has the extension .su2. In general, you should not choose *save all elements* because this will also save additional points that were used to construct the geometry but are not part of the final mesh, like for example the center of a circle. 
 
 ![Turb sudo Mesh](../../tutorials_files/incompressible_flow/Inc_Turbulent_Bend/images/Screenshot_gmsh.png)
 
@@ -116,7 +116,7 @@ The paraview multiblock file can now be visualized, and the result is shown in F
 ## Part 2 : restart with an inlet profile
 
 In the experiment, the pipe bend was preceded by a very long straight pipe section with a length of 100D, ensuring that the turbulent flow is fully developed by the time it arrives at the pipe bend. In our simulations, we have only a straight section with a total length of 5D and constant inlet properties. We will now restart the simulation with an inlet profile that we extract from a slice of the pipe. It is a planar slice with the normal in the Z-direction, located at Z=2.5D from the inlet. Because in a multiblock mesh, nodes are duplicated on the boundary, so we first perform an *Extract Block* and select only the interior nodes. We then apply the slice on this extracted block. To keep the original quadrilateral cells, we de-select the option *triangulate slice*. Also make sure that the option *Merge duplicated points in the slice* is selected. In the information tab, you should see that the number points is 618, and we will check later that this corresponds with the number of nodes that SU2 expects in the inlet boundary file.
-Now save the slice data, making sure that only the slice is selected in the Pipeline Browser. Choose the .csv file format, and choose as _Arrays To Write_ only the variables *Omega*, *Pressure*, *Velocity* and *Turb_Kin_Energy*. The point coordinates are automatically saved. Also choose scientific notation with precision "6" to make sure that you have enough digits for the accurate interpolation of the inlet profile. A simple pvpython script is provided in the tutorials folder. This is a python script that you can run with paraview's pvpython command and it will generate an inlet.csv file for you :
+Now save the slice data, making sure that only the slice is selected in the Pipeline Browser. Choose the .csv file format, and choose as _Arrays To Write_ only the variables *Omega*, *Pressure*, *Velocity* and *Turb_Kin_Energy*. The point coordinates are automatically saved. Also choose scientific notation with precision "6" to make sure that you have enough digits for the accurate interpolation of the inlet profile. A simple pvpython script is provided in the tutorials folder here: [paraview_extract_slice_data.py](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/paraview_extract_slice_data.py). This is a python script that you can run with paraview's pvpython command and it will generate an inlet.csv file for you :
 
 ```
 $ pvpython paraview_extract_slice_data.py
@@ -166,8 +166,12 @@ Below are some of the contour plots taken at several locations in the pipe, show
 
 Figure (5): mean flow velocities in several pipe cross sections.
 
+A paraview script to extract the slices data as individual contour plots one by one can be found here: [paraview_extract_slice_data.py](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/paraview_extract_slice_data.py). 
+
 Below is a comparison of the axial velocity on the horizontal symmetry line through the vertical plane at $$\phi=90^0$$.  The flow separation in the bend is difficult to capture correctly, and it leads to an underestimation of the local velocity near the inner radius of the bend.
 
 ![Turb Bend lineplot](../../tutorials_files/incompressible_flow/Inc_Turbulent_Bend/images/sudo_phi90_lineplot.png)
 
 Figure (6): velocity on the symmetry line in the vertical planar cross-section at $$\phi=90^0$$.
+
+The paraview script to extract the line data as a .csv file can be found here: [paraview_extract_linedata.py](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/paraview_extract_linedata.py)
