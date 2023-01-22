@@ -143,7 +143,7 @@ where $\sigma_s$ is the effective collision~cross-section.
 
 | Solver | Version | 
 | --- | --- |
-| `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
+| `NEMO_NAVIER_STOKES` | 7.0.0 |
 
 
 Mass, momentum, and  energy transport in fluids are all governed by molecular collisions, and  expressions for these transport properties can be derived from the kinetic theory. The  mass diffusion fluxes, $\mathbf{J}_s$, are computed using Fick's Law of Diffusion:
@@ -344,9 +344,9 @@ If the Sutherland model is selected with a NEMO solver, species diffusion coeffi
 
 | Solver | Version | 
 | --- | --- |
-| `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
+| `NEMO_NAVIER_STOKES` | 7.0.0 |
 
-SU2-NEMO uses the Maxwell velocity and Smoluchowski temperature jump  equations to compute the velocity and temperature of the gas in contact with the surface. The equations are given as
+SU2-NEMO uses the Maxwell velocity and Smoluchowski temperature jump equations to compute the velocity and temperature of the gas in contact with the surface. The equations are given as
 $$
 v_s =  \frac{2 - \sigma}{\sigma} \lambda \frac{\partial v}{\partial n } + \\
 \frac{3}{4} \frac{\mu}{\rho T} \frac{\partial T}{\partial x},
@@ -371,7 +371,7 @@ The coefficients $\sigma$ and $\alpha$ are referred to as the Tangential Momentu
 
 | Solver | Version | 
 | --- | --- |
-| `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
+| `NEMO_NAVIER_STOKES` | 7.0.0 |
 
 Mechanisms of gas-surface interaction are implemented as specific boundary conditions within the SU2-NEMO computational suite. The net result of recombination reactions occurring on the surface is a production of chemical species due to catalytic reactions, $\dot{\omega}_s^{cat}$, that must be balanced by the normal diffusive and convective flux at the wall. For steady flow and a no-slip boundary, this can be expressed as
 
