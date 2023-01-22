@@ -328,7 +328,7 @@ $$
 
 In addition to the two models discussed above, there is the option to use a Sutherland model to calculate the flow viscosity. The Sutherland model is not applicable at high temperatures.
 
-In this case the viscosity is computed as
+In this case, the viscosity is computed as
 
 $$
 \mu = \mu_{0} \left( \frac{T}{T_{0}} \right)^{3/2} \frac{T_0 + S_{\mu}}{T + S_{\mu}},
