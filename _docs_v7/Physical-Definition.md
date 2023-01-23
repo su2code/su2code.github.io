@@ -18,6 +18,7 @@ SU2 offers different ways of setting and computing this definition. This documen
 - [Free-Stream Definition (Thermochemical Nonequilibrium)](#free-stream-definition-thermochemical-nonequilibrium)
   - [Free-Stream Temperatures](#free-stream-temperatures)
   - [Chemical Composition and Mass Fractions](#chemical-composition-and-mass-fractions)
+- [Transport Coefficient Model (Thermochemical Nonequilibrium)](#transport-coefficient-model-thermochemical-nonequilibrium)
 - [Flow Condition (Incompressible)](#flow-condition-incompressible)
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
   - [Initial State and Non-Dimensionalization](#initial-state-and-non-dimensionalization)
@@ -103,6 +104,18 @@ The NEMO solvers require a specification of thermochemical nonequilibrium librar
 A chemistry model, consisting of a set of flow species, thermochemical properties, and chemical reactions, is specified using `GAS_MODEL`. The names of these models are specific to the thermochemical library. If using the `SU2_NONEQ` option the choices are `ARGON`, `N2`, `AIR-5`, and `AIR-7`. 
 
 Free-stream mass fractions must also be specified in list using the option `GAS_COMPOSITION`. The mass fractions are specified as decimal values in the order of the species in the gas model. For example, an AIR-5 mixture of 77% oxygen and 23% nitrogen would be expressed as (0.77, 0.23, 0.00, 0.00, 0.00).
+
+## Transport Coefficient Model (Thermochemical Nonequilibrium) ##
+
+| Solver | Version |
+| --- | --- |
+| `NEMO_NAVIER_STOKES` | 7.0.0 |
+
+A transport coefficient model must be specified for viscous simulations with the NEMO solver, using the `TRANSPORT_COEFF_MODEL` config option. Available options are the Wilkes-Blottner-Eucken, Gupta-Yos, and Sutherland viscosity models, specified by `WILKE`, `GUPTA-YOS`, and `SUTHERLAND`, respectively. The default option for transport coefficient model is Wilkes-Blottner-Eucken. 
+
+It should be noted the Sutherland model is only used to evaluate viscosity, and the Wilkes-Blottner-Eucken model is used to evaluate diffusion coefficient and thermal conductivity.
+
+---
 
 ## Flow Condition (Incompressible) ##
 
