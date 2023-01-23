@@ -166,7 +166,7 @@ Below are some of the contour plots taken at several locations in the pipe, show
 
 Figure (5): mean flow velocities in several pipe cross sections.
 
-A paraview script to extract the slices data as individual contour plots one by one can be found here: [paraview_extract_slice_data.py](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/paraview_extract_slice_data.py). 
+A paraview script to extract the slices data as individual contour plots one by one can be found here: [extract_contours_sudo_bend.py](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/extract_contours_sudo_bend.py). 
 
 Below is a comparison of the axial velocity on the horizontal symmetry line through the vertical plane at $$\phi=90^0$$.  The flow separation in the bend is difficult to capture correctly, and it leads to an underestimation of the local velocity near the inner radius of the bend.
 
