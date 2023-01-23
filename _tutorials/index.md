@@ -53,8 +53,8 @@ Simulation of compressible flow in a nozzle using non-ideal thermodynamic models
 
 #### Nonequilibrium Flow
 
-* [Inviscid Bump in a Channel](/tutorials/Heat_Bath/)   
-A simulation of unsteady relaxation proceses in an adiabatic heat bath.
+* [Inviscid Hypersonic Wedge](/tutorials/Inviscid_Hypersonic_Wedge/)   
+A simulation of hypersonic flow over a 2D inviscid wedge.
 
 #### Incompressible Flow
 
