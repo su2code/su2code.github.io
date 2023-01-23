@@ -51,7 +51,7 @@ Perform uncertainty quantification of errors arising due to assumptions inherent
 * [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
 Simulation of compressible flow in a nozzle using non-ideal thermodynamic models.
 
-#### Nonequilibrium Flow
+#### Thermochemical Nonequilibrium Flow
 
 * [Inviscid Hypersonic Wedge](/tutorials/Inviscid_Hypersonic_Wedge/)   
 A simulation of hypersonic flow over a 2D inviscid wedge.
