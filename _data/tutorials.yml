@@ -28,6 +28,8 @@
   - Inc_Laminar_Cavity
   - Inc_Streamwise_Periodic
   - Inc_Species_Transport
+  - Inc_Species_Transport_Composition_Dependent_Model
+  - Inc_Turbulent_Bend
 
 - title: Structural Mechanics
   tutorials:
