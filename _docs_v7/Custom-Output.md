@@ -218,6 +218,7 @@ The available types are:
 - `Function`: Introduces a new scalar output that is a function of other scalar outputs, it cannot reference fields (e.g. velocity).
 - `AreaAvg` and `AreaInt`: Computes an area average or integral of a field (the expression) over the list of markers.
 - `MassFlowAvg` and `MassFlowInt`: Computes a mass flow average or integral.
+- `Probe`: Evaluates the expression using the values of the mesh point closest to the coordinates specified inside "[]", [x, y] or [x, y, z] (2 or 3D).
 
 **Note:** Each custom output can only use one type, e.g. it is not possible to write `p_drop : AreaAvg{PRESSURE}[inlet] - AreaAvg{PRESSURE}[outlet]`. This would need to be separated into two `AreaAvg` outputs and one `Function` to compute their difference.
 
@@ -226,7 +227,8 @@ The available types are:
 CUSTOM_OUTPUTS= 'velocity : Macro{sqrt(pow(VELOCITY_X, 2) + pow(VELOCITY_Y, 2) + pow(VELOCITY_Z, 2))};\
                  avg_vel : AreaAvg{$velocity}[z_minus, z_plus];\
                  var_vel : AreaAvg{pow($velocity - avg_vel, 2)}[z_minus, z_plus];\
-                 dev_vel : Function{sqrt(var_vel) / avg_vel}'
+                 dev_vel : Function{sqrt(var_vel) / avg_vel};\
+                 probe1 : Probe{$velocity}[0.005, 0.005, 0.05]'
 ```
 
 To obtain the list of solver variables that can be used, write an invalid expression (e.g. 'x : AreaAvg{INVALID}[]') and run SU2.
