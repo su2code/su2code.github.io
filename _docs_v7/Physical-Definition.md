@@ -111,7 +111,7 @@ Free-stream mass fractions must also be specified in list using the option `GAS_
 | --- | --- |
 | `NEMO_NAVIER_STOKES` | 7.0.0 |
 
-A transport coefficient model must be specified for viscous simulations with the NEMO solver, using the `TRANSPORT_COEFF_MODEL` config option. Available options are the Wilkes-Blottner-Eucken, Gupta-Yos, and Sutherland viscosity models, specified by `WILKE`, `GUPTA-YOS`, and `SUTHERLAND`, respectively. The default option for transport coefficient model is Wilkes-Blottner-Eucken. 
+A transport coefficient model must be specified for viscous simulations with the NEMO solver, using the `TRANSPORT_COEFF_MODEL` config option. Available options when using the SU2TCLib thermochemical library are the Wilkes-Blottner-Eucken, Gupta-Yos, and Sutherland viscosity models, specified by `WILKE`, `GUPTA-YOS`, and `SUTHERLAND`, respectively. The default option for transport coefficient model is Wilkes-Blottner-Eucken. 
 
 It should be noted the Sutherland model is only used to evaluate viscosity, and the Wilkes-Blottner-Eucken model is used to evaluate diffusion coefficient and thermal conductivity.
 
