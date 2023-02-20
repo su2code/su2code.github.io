@@ -46,14 +46,14 @@ $$
     0 & \text{for monatomic species and electrons,}
     \end{cases}
 $$
-where $\xi$ is an integer specifying the number of axes of rotation,
+where $$\xi$$ is an integer specifying the number of axes of rotation,
 $$
     e^{vib}_s =\begin{cases}
     \frac{R}{M_s} \frac{\theta^{vib}_s}{exp\left( \theta^{vib}_s / T^{ve}\right) - 1} & \text{for polyatomic species,}\\
     0 & \text{for monatomic species and electrons,}
     \end{cases}
 $$
-where $\theta^{vib}_s$ is the characteristic vibrational temperature of the species, and 
+where $$\theta^{vib}_s$$ is the characteristic vibrational temperature of the species, and 
 
 
 $$
@@ -63,7 +63,7 @@ $$
     \end{cases}
 $$
 
-where $\theta^{el}_s$ is the characteristic electronic temperature of the species and $g_i$ is the degeneracy of the $i^{th}$ state.
+where $$\theta^{el}_s$$ is the characteristic electronic temperature of the species and $$g_i$$ is the degeneracy of the $$i^{th}$$ state.
 
 ---
 
@@ -73,12 +73,12 @@ where $\theta^{el}_s$ is the characteristic electronic temperature of the specie
 | --- | --- |
 | `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
 
-The source terms in the species conservation equations are the  volumetric mass production rates which are governed by the forward and backward reaction rates, $R^f$ and $R^b$, for a given reaction $r$, and can be expressed as
+The source terms in the species conservation equations are the  volumetric mass production rates which are governed by the forward and backward reaction rates, $$R^f$$ and $$R^b$$, for a given reaction $r$, and can be expressed as
 $$
     \dot{w}_s = M_s \sum_r (\beta_{s,r} - \alpha_{s,r})(R_{r}^{f} - R_{r}^{b}). 
 $$
 
-From kinetic theory, the forward and backward reaction rates are dependent on the molar concentrations of the reactants and products, as well as the forward and backward reaction rate coefficients, $k^f$ and $k^b$, respectively, and can be expressed as
+From kinetic theory, the forward and backward reaction rates are dependent on the molar concentrations of the reactants and products, as well as the forward and backward reaction rate coefficients, $$k^f$$ and $$k^b$$, respectively, and can be expressed as
 $$
     R_{r}^f = k_{r}^f \prod_s (\frac{\rho_s}{M_s})^{\alpha_{s,r}},
 $$
@@ -91,7 +91,7 @@ For an Arrhenius reaction, the forward reaction rate coefficient can be computed
 $$
     k_{r}^f = C_r(T_r)^{\eta_r} exp\left(- \frac{\epsilon_r}{k_B T_r}\right),
 $$
-where $C_r$ is the pre-factor, $T_r$ is the rate-controlling temperature for the reaction, $\eta_r$ is an empirical exponent, and $\epsilon_r$ is the activation energy per molecule.
+where $$C_r$$ is the pre-factor, $$T_r$$ is the rate-controlling temperature for the reaction, $$\eta_r$$ is an empirical exponent, and $$\epsilon_r$$ is the activation energy per molecule.
 
 The rate-controlling temperature of the reaction is calculated as a geometric average of the translation-rotational and vibrational-electronic temperatures,
 $$
@@ -104,7 +104,7 @@ $$
     K_{eq} = \exp( A_0 \left(\frac{T^c}{10,000}\right) + A_1 + A_2 \log \left( \frac{10,000}{T^c} \right) + A_3 \left( \frac{10,000}{T^c} \right) + A_4 \left( \frac{10,000}{T^c} \right)^2  ),
 $$
 
-where $T^c$ is a controlling temperature and $A_0 - A_4$ are constants dependent on the reaction. These reaction constants, the rate constrolling temperature and Arrhenius parameters are stored within the fluid model class in SU2 NEMO.
+where $$T^c$$ is a controlling temperature and $$A_0 - A_4$$ are constants dependent on the reaction. These reaction constants, the rate constrolling temperature and Arrhenius parameters are stored within the fluid model class in SU2 NEMO.
 
 ---
 
@@ -118,7 +118,7 @@ Vibrational relaxation is computed using a standard Landau-Teller relaxation tim
 $$
      \dot{\Theta}^{tr:ve} = \sum _s \rho_s \frac{de^{ve}_{s}}{dt} = \sum _s \rho_s \frac{e^{ve*}_{s} - e^{ve}_{s}}{\tau_s},
 $$
-where $\tau_s$ is computed using a combination of the Landau-Teller relaxation time, $\langle \tau_s \rangle_{L-T}$, and a limiting relaxation time from Park, $\tau_{ps}$ using
+where $$\tau_s$$ is computed using a combination of the Landau-Teller relaxation time, $$\langle \tau_s \rangle_{L-T}$$, and a limiting relaxation time from Park, $$\tau_{ps}$$ using
 $$
     \tau_s = \langle \tau_s \rangle_{L-T} + \tau_{ps},
 $$
@@ -130,12 +130,12 @@ The interspecies relaxation times are taken from experimental data from Millikan
 $$
     \tau_{sr} = \frac{1}{P}exp\left[A_sr\left(T^{-1/3} - 0.015\mu_{sr}^{1/4}\right) - 18.42\right].
 $$
-A limiting relaxation time, $\tau_{ps}$, is used to correct for under-prediction of the Millikan--White model at high temperatures. $\tau_{ps}$ is defined as
+A limiting relaxation time, $$\tau_{ps}$$, is used to correct for under-prediction of the Millikan--White model at high temperatures. $$\tau_{ps}$$ is defined as
 $$
     \tau_{ps} = \frac{1}{\sigma_s c_s n},
 $$
 
-where $\sigma_s$ is the effective collision~cross-section.
+where $$\sigma_s$$ is the effective collision~cross-section.
 
 ---
 
@@ -151,18 +151,18 @@ $$
     \mathbf{J}_s = - \rho D_s \nabla(Y_s) + Y_s \sum_k \rho D_k \nabla(Y_k)
 $$
 
-where $c_s$ is the species mass fraction and $D_s$ is the species multi-component diffusion coefficient. The  values of $D_s$ are computed as a weighted sum of binary diffusion coefficients between all species in the mixture. These are obtained by solving the Stefan--Maxwell equations under the Ramshaw approximations. The  viscous stress tensor is written as
+where $$c_s$$ is the species mass fraction and $$D_s$$ is the species multi-component diffusion coefficient. The  values of $$D_s$$ are computed as a weighted sum of binary diffusion coefficients between all species in the mixture. These are obtained by solving the Stefan--Maxwell equations under the Ramshaw approximations. The  viscous stress tensor is written as
 $$
    \boldsymbol{\sigma} = \mu \left( \nabla \mathbf{u} + \nabla {\mathbf{u}}^\mathsf{T} - \frac{2}{3} \mathbf{I} (\nabla \cdot \mathbf{u}) \right),
 $$
-where $\mu$ is the mixture viscosity coefficient. The  conduction heat flux for each thermal energy mode, $\mathbf{q}^{k}$, is assumed to be given by Fourier’s Law of heat conduction:
+where $$\mu$$ is the mixture viscosity coefficient. The  conduction heat flux for each thermal energy mode, $$\mathbf{q}^{k}$$, is modeled by Fourier’s Law of heat conduction:
 $$
 \mathbf{q}^{k} = \kappa^{k}  \nabla(T^k),
 $$
 
-where $\kappa^{k}$ is the thermal conductivity associated with energy mode $k$.
+where $$\kappa^{k}$$ is the thermal conductivity associated with energy mode $$k$$.
 
-$D_s$, $\mu$, and $\kappa$ can be evaluated using the models discussed below by selecting the appropriate options in the configuration file.
+$$D_s$$, $$\mu$$, and $$\kappa$$ can be evaluated using the models discussed below by selecting the appropriate options in the configuration file.
 
 
 ## Wilkes-Blottner-Eucken ##
@@ -179,7 +179,7 @@ $$
 \kappa = \sum_s \frac{X_s \kappa_s}{\phi_s},
 $$
 
-where $X_s$ is the mole fraction of species $s$. The species dynamic viscosity is computed using Blottner's three paramter curve fit for high temperature air,
+where $$X_s$$ is the mole fraction of species $$s$$. The species dynamic viscosity is computed using Blottner's three paramter curve fit for high temperature air,
 
 $$
 \mu_s = 0.1 \exp [(A_s\log(T) + B_s)\log(T) + C_s].
@@ -195,7 +195,7 @@ $$
 \kappa^{ve}_s = \mu_s C^{ve}_{v_s}.
 $$
 
-And the term $\phi_s$ is given by
+And the term $$\phi_s$$ is given by
 $$
 \phi_s = \sum_r X_r \left[ 1 + \sqrt{\frac{\mu_r}{\mu_s}}\left( \frac{M_r}{M_s} \right)^{1/4} \right]^{2} \left[ \sqrt{8 \left(1 + \frac{M_s}{M_r} \right)} \right]^{-1}.
 $$
@@ -230,7 +230,7 @@ $$
 T^{*} = \frac{\lambda_D}{e^2_{CGS} / (k_{B,CGS} T) }
 $$
 
-and the Debye length $\lambda_D$ is defined as
+and the Debye length $$\lambda_D$$ is defined as
 
 $$
 \lambda_D = \sqrt{\frac{k_{B,CGS} T}{4 \pi n_{e,CGS} e^2_{CGS}}}.
@@ -286,7 +286,7 @@ $$
 m_s = \frac{M_s}{N_{av}}
 $$
 
-with $N_{av}$ being Avogadro's Number. The thermal conductivity for the rotational modes is expressed as
+with $$N_{av}$$ being Avogadro's Number. The thermal conductivity for the rotational modes is expressed as
 
 $$
 \kappa_r = k_{B} \sum_{s \neq e} 
@@ -334,7 +334,7 @@ $$
 \mu = \mu_{0} \left( \frac{T}{T_{0}} \right)^{3/2} \frac{T_0 + S_{\mu}}{T + S_{\mu}},
 $$
 
-where $T_0$ is a reference temperature (273.15 K), $\mu_0$ is a reference viscosity, and $S_{\mu}$ is the Sutherland constant.
+where $$T_0$$ is a reference temperature (273.15 K), $$\mu_0$$ is a reference viscosity, and $$S_{\mu}$$ is the Sutherland constant.
 
 If the Sutherland model is selected with a NEMO solver, species diffusion coefficients and thermal conductivity are computed using the models described in the Wilkes-Blottner-Eucken section.
 
@@ -357,12 +357,12 @@ $$
 T - T_w =  \frac{2 - \alpha}{\alpha} \lambda \frac{2\gamma}{(\gamma + 1 )Pr} \frac{\partial T}{\partial n}, 
 $$
 
-respectively, where $\mu$ is the flow viscosity, $\rho$ is the mixture density, $Pr$ is the Prandtl number, $\gamma$ is the specific heat ratio, $T$ is the temperature of the gas, $T_w$ is the temperature of the surface, and~= $\lambda$ is the mean free path, calculated as
+respectively, where $$\mu$$ is the flow viscosity, $$\rho$$ is the mixture density, $$Pr$$ is the Prandtl number, $$\gamma$$ is the specific heat ratio, $$T$$ is the temperature of the gas, $$T_w$$ is the temperature of the surface, and $$\lambda$$ is the mean free path, calculated as
 $$
     \lambda = \frac{\mu}{\rho} \frac{\pi}{\sqrt{2RT}}.
 $$
 
-The coefficients $\sigma$ and $\alpha$ are referred to as the Tangential Momentum Accommodation Coefficient (TMAC) and the Thermal Accommodation Coefficient (TAC), respectively. The values of the accommodation coefficients depend on the physical characteristics of the surface, and are usually determined empirically.
+The coefficients $$\sigma$$ and $$\alpha$$ are referred to as the Tangential Momentum Accommodation Coefficient (TMAC) and the Thermal Accommodation Coefficient (TAC), respectively. The values of the accommodation coefficients depend on the physical characteristics of the surface, and are usually determined empirically.
 
 
 ---
@@ -373,7 +373,7 @@ The coefficients $\sigma$ and $\alpha$ are referred to as the Tangential Momentu
 | --- | --- |
 | `NEMO_NAVIER_STOKES` | 7.0.0 |
 
-Mechanisms of gas-surface interaction are implemented as specific boundary conditions within the SU2-NEMO computational suite. The net result of recombination reactions occurring on the surface is a production of chemical species due to catalytic reactions, $\dot{\omega}_s^{cat}$, that must be balanced by the normal diffusive and convective flux at the wall. For steady flow and a no-slip boundary, this can be expressed as
+Mechanisms of gas-surface interaction are implemented as specific boundary conditions within the SU2-NEMO computational suite. The net result of recombination reactions occurring on the surface is a production of chemical species due to catalytic reactions, $$\dot{\omega}_s^{cat}$$, that must be balanced by the normal diffusive and convective flux at the wall. For steady flow and a no-slip boundary, this can be expressed as
 
 $$
     \mathbf{J}_s  \cdot \mathbf{n}  = \dot{\omega}_s^{cat}.
@@ -393,6 +393,6 @@ $$
     \dot{\omega}_s^{cat} = \gamma_s Y_s \rho_w \sqrt{\frac{R_s T_w}{2\pi}},
 $$
 
-where $\gamma_{s}$ is the species catalytic efficiency, and represents the proportion of incident mass flux of monatomic species $s$ which recombines into its heteronuclear diatomic molecule at the wall.
+where $$\gamma_{s}$$ is the species catalytic efficiency, and represents the proportion of incident mass flux of monatomic species $$s$$ which recombines into its heteronuclear diatomic molecule at the wall.
 
 ---
