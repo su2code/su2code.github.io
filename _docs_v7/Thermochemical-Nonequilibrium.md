@@ -46,6 +46,7 @@ $$
     0 & \text{for monatomic species and electrons,}
     \end{cases}
 $$
+\
 where $$\xi$$ is an integer specifying the number of axes of rotation,
 $$
     e^{vib}_s =\begin{cases}
@@ -53,6 +54,7 @@ $$
     0 & \text{for monatomic species and electrons,}
     \end{cases}
 $$
+\
 where $$\theta^{vib}_s$$ is the characteristic vibrational temperature of the species, and 
 
 
@@ -73,7 +75,7 @@ where $$\theta^{el}_s$$ is the characteristic electronic temperature of the spec
 | --- | --- |
 | `NEMO_EULER`, `NEMO_NAVIER_STOKES` | 7.0.0 |
 
-The source terms in the species conservation equations are the  volumetric mass production rates which are governed by the forward and backward reaction rates, $$R^f$$ and $$R^b$$, for a given reaction $r$, and can be expressed as
+The source terms in the species conservation equations are the  volumetric mass production rates which are governed by the forward and backward reaction rates, $$R^f$$ and $$R^b$$, for a given reaction $$r$$, and can be expressed as
 $$
     \dot{w}_s = M_s \sum_r (\beta_{s,r} - \alpha_{s,r})(R_{r}^{f} - R_{r}^{b}). 
 $$
@@ -98,7 +100,7 @@ $$
     T_r = (T)^{a_r}(T^{ve})^{b_r}.
 $$
 
-The value of he equilibrium constant $K_{eq}$ is expressed as 
+The value of he equilibrium constant $$K_{eq}$$ is expressed as 
 
 $$
     K_{eq} = \exp( A_0 \left(\frac{T^c}{10,000}\right) + A_1 + A_2 \log \left( \frac{10,000}{T^c} \right) + A_3 \left( \frac{10,000}{T^c} \right) + A_4 \left( \frac{10,000}{T^c} \right)^2  ),
@@ -146,7 +148,7 @@ where $$\sigma_s$$ is the effective collision~cross-section.
 | `NEMO_NAVIER_STOKES` | 7.0.0 |
 
 
-Mass, momentum, and  energy transport in fluids are all governed by molecular collisions, and  expressions for these transport properties can be derived from the kinetic theory. The  mass diffusion fluxes, $\mathbf{J}_s$, are computed using Fick's Law of Diffusion:
+Mass, momentum, and  energy transport in fluids are all governed by molecular collisions, and  expressions for these transport properties can be derived from the kinetic theory. The  mass diffusion fluxes, $$\mathbf{J}_s$$, are computed using Fick's Law of Diffusion:
 $$
     \mathbf{J}_s = - \rho D_s \nabla(Y_s) + Y_s \sum_k \rho D_k \nabla(Y_k)
 $$
