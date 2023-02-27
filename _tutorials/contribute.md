@@ -15,14 +15,14 @@ Do you want to contribute to SU2 with a tutorial? It's easy! Just create a fork 
 
 The tutorials in this section of the site are stored under the `_tutorials` folder. To add your contributions:
 
-**1.** Create a new subfolder in `_tutorials/` as `_tutorials/Your_Folder_Name`, where you will store your subgroup of tutorials. You can also add your conribution to an existing folder if it fits better within the existing structure.
+**1.** Create a new subfolder in `_tutorials/` as `_tutorials/Your_Folder_Name`, where you will store your subgroup of tutorials. You can also add your contribution to an existing folder if it fits better within the existing structure.
 
 **2.** Add a new Markdown file inside the subfolder, as `_tutorials/Your_Folder_Name/Your_Tutorial.md`. Add the following [front matter](https://jekyllrb.com/docs/frontmatter/) to your file:
 
 ```
 ---
 title: Your Tutorial Title
-permalink: /docs/Your_Folder_Name/Your_Tutorial/
+permalink: /tutorials/Your_Folder_Name/Your_Tutorial/
 ---
 
 I'm contributing to SU2!
@@ -32,7 +32,7 @@ I'm contributing to SU2!
 
 ```
 - title: Your Subgroup of Tutorials 
-  docs:
+  tutorials:
   - Your_Tutorial
 ```
 

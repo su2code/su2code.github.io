@@ -54,6 +54,10 @@
   - Unsteady_Shape_Opt_NACA0012
   - Species_Transport
 
+- title: Workflow Setup
+  tutorials:
+  - paraview_live
+
 - title: Event Content
   tutorials:
   - event_content
