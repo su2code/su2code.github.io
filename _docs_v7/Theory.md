@@ -15,6 +15,7 @@ This page contains a very brief summary of the different governing equation sets
 - [Incompressible Euler](#incompressible-euler)
 - [Turbulence Modeling](#turbulence-modeling)
 - [Species Transport](#species-transport)
+- [Combustion](#flamelet-combustion-model)
 - [Elasticity](#elasticity)
 - [Heat Conduction](#heat-conduction)
   
@@ -270,6 +271,16 @@ with $$D$$ $$[m^2/s]$$ being the mass diffusion.
 $$D = D_{lam} + \frac{\mu_T}{Sc_{T}}$$
 
 where $$\mu_T$$ is the eddy viscosity and $$Sc_{T}$$ $$[-]$$ the turbulent Schmidt number.
+
+---
+
+# Combustion #
+
+| Solver | Version | 
+| --- | --- |
+| `INC_NAVIER_STOKES` | 8.0.0 |
+
+The Flamelet combustion model (also called Flamelet Generated Manifold (FGM)) for laminar premixed flames has been implemented in the incompressible solver. The flamelet method is a tabulated chemistry approach. Two additional transport equations are solved for the progress variable $$C$$ and the total enthalpy $$h_t$$, which is here the sensible + the chemical enthalpy. Thermo-chemical properties (viscosity, temperature, reaction source terms,...) are retrieved from a lookup table, which is constructed from 1D detailed chemistry simulations (e.g. Cantera, FlameMaster, Chem1d). For a detailed introduction to flamelet modeling see the work of van Oijen et al. https://www.sciencedirect.com/science/article/pii/S0360128515300137
 
 ---
 
