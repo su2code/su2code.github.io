@@ -25,6 +25,8 @@ Patch releases cannot break backward compatibility.
 SU2 is written for C++11, the formatting rules are defined in a `clang-format` file located in the root of the repository.
 **New files must follow the formatting rules exactly.**
 
+SU2 uses pre-commit to enforce a consistent formatting. To use, [install pre-commit](https://pre-commit.com/#install) and run `pre-commit install` at the root of the project. You can now force the formatting on all files with `pre-commit run -a`. This will also run all pre-commit hooks before each commit, preventing dirty commits in the repository.
+
 ### Files, functions, and variables
 
 Basic recommendations for creating files, functions, and variables:
