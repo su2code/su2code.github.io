@@ -96,6 +96,9 @@ The `SLOPE_LIMITER_` options above may each be changed to use different limiters
 | `BARTH_JESPERSEN`       | Barth-Jespersen                                 | This limiter is a smooth version of the commonly seen Barth-Jespersen limiter seen in the literature  |
 | `VENKATAKRISHNAN`       | Venkatakrishnan                                 |  |
 | `VENKATAKRISHNAN_WANG`  | Venkatakrishnan-Wang                            |  |
+| `NISHIKAWA_R3`          | Nishikawa-R3                                    |  |
+| `NISHIKAWA_R4`          | Nishikawa-R4                                    |  |
+| `NISHIKAWA_R5`          | Nishikawa-R5                                    |  |
 | `SHARP_EDGES`           | Venkatakrishnan with sharp-edge modification    | This limiter should not be used for flow solvers |
 | `WALL_DISTANCE`         | Venkatakrishnan with wall distance modification | This limiter should not be used for flow solvers |
 | `VAN_ALBADA_EDGE`       | Van Albada (edge formulation)                   | This limiter is only implemented for flow solvers and does not output limiter values when using the VOLUME_OUTPUT option |
@@ -106,7 +109,7 @@ The default limiter is `VENKATAKRISHNAN`.
 
 The `VENKAT_LIMITER_COEFF` parameter is generally a small constant, defaulting to $$0.05$$, but its specific definition depends on the limiter being used.
 
-For the `VENKATAKRISHNAN`, `SHARP_EDGES`, and `WALL_DISTANCE` limiters, the `VENKAT_LIMITER_COEFF` parameter refers to $$K$$ in $$\epsilon^2=\left(K\bar{\Delta} \right)^3$$, where $$\bar{\Delta}$$ is an average grid size (this is hardcoded as 1m and thus all tuning is via $$K$$).
+For the `VENKATAKRISHNAN`, `SHARP_EDGES`, and `WALL_DISTANCE` limiters, the `VENKAT_LIMITER_COEFF` parameter refers to $$K$$ in $$\epsilon^2=\left(K\bar{\Delta} \right)^3$$, where $$\bar{\Delta}$$ is an average grid size (this is hardcoded as 1m and thus all tuning is via $$K$$). For NISHIKAWA_Rp limiters, $$\epsilon^p=\left(K\bar{\Delta} \right)^{p+1}$$ (p = 3, 4 or 5).
 The $$K$$ parameter defines a threshold, below which oscillations are not damped by the limiter, as described by [Venkatakrishnan](https://doi.org/10.1006/jcph.1995.1084).
 Thus, a large value will approach the case of using no limiter with undamped oscillations, while too small of a value will slow the convergence and add extra diffusion.
 The SU2 implementation of the `BARTH_JESPERSEN` limiter actually uses `VENKATAKRISHNAN` with $$K=0$$.
@@ -115,10 +118,10 @@ The SU2 implementation of the `BARTH_JESPERSEN` limiter actually uses `VENKATAKR
 When using the `VENKATAKRISHNAN_WANG` limiter, `VENKAT_LIMITER_COEFF` is instead $$\varepsilon '$$ in $$\varepsilon = \varepsilon ' (q_{max} - q_{min})$$, where $$q_{min}$$ and $$q_{max}$$ are the respective *global* minimum and maximum of the field variable being limited.
 This global operation incurs extra time costs due to communication between MPI ranks.
 The original work by [Wang](https://doi.org/10.2514/6.1996-2091) suggests using `VENKAT_LIMITER_COEFF` in the range of $$[0.01, 0.20]$$, where again larger values approach the case of using no limiter.
-**Note:** unlike the aforementioned `VENKATAKRISHNAN` limiter, the `VENKATAKRISHNAN_WANG` limiter does not depend directly on the mesh size and can thus be used without non-dimensionalization. If the `VENKATAKRISHNAN` limiter is used outside of non-dimensional mode, the fields with larger values (pressure and temperature) will generally be limited more aggressively than velocity.
+**Note:** unlike the aforementioned `VENKATAKRISHNAN` limiter and NISHIKAWA_Rp limiter, the `VENKATAKRISHNAN_WANG` limiter does not depend directly on the mesh size and can thus be used without non-dimensionalization. If the `VENKATAKRISHNAN` limiter is used outside of non-dimensional mode, the fields with larger values (pressure and temperature) will generally be limited more aggressively than velocity.
 
 
-The `NONE`, `BARTH_JESPERSEN`, `VENKATAKRISHNAN`, and `VENKATAKRISHNAN_WANG` limiter options all have no **geometric modifier**.
+The `NONE`, `BARTH_JESPERSEN`, `VENKATAKRISHNAN`, `VENKATAKRISHNAN_WANG`, and NISHIKAWA_Rp limiter options all have no **geometric modifier**.
 A geometric modifier increases limiting near walls or sharp edges. This is done by multiplying the limiter value by a **geometric factor**. 
 
 For both the `SHARP_EDGES` and `WALL_DISTANCE` limiters, the influence of the geometric modifier is controlled with `ADJ_SHARP_LIMITER_COEFF` which defaults to 3.0.
