@@ -14,7 +14,7 @@ By comparing the results of SU2 simulations case against the experimental data, 
 
 ## Problem Setup
 
-The flow conditions are based on the Sandia experiment$$^{1}$$:
+The flow conditions are based on the Sandia experiment $$^{1}$$:
 
 - Temperature = 294 [K]
 - Thermodynamic pressure = 101325 [Pa]
@@ -89,7 +89,7 @@ The comparisons in the figures demonstrate good agreement with the experimental 
 
 <p align="center">
 <img src="/vandv_files/SANDIA_jet/images/YD0_f.png" alt="Mixture Fraction along Jet Centerline" />
-<img src="/vandv_files/SANDIA_jet/images/XD4_f.png" alt="Mixture Fraction at x/D=4" />
+<img src="/vandv_files/SANDIA_jet/images/XD04_f.png" alt="Mixture Fraction at x/D=4" />
 <img src="/vandv_files/SANDIA_jet/images/XD15_f.png" alt="Mixture Fraction at x/D=15" />
 <img src="/vandv_files/SANDIA_jet/images/XD30_f.png" alt="Mixture Fraction at x/D=30" />
 <img src="/vandv_files/SANDIA_jet/images/XD50_f.png" alt="Mixture Fraction at x/D=50" />
@@ -100,7 +100,7 @@ The comparisons in the figures demonstrate good agreement with the experimental 
 <p align="center">
 <img src="/vandv_files/SANDIA_jet/images/YD0_U_norm.png" alt="Normalized Mean Velocity Decay along Jet Centerline" />
 <img src="/vandv_files/SANDIA_jet/images/YD0_U.png" alt="Mean Velocity Decay along Jet Centerline" />
-<img src="/vandv_files/SANDIA_jet/images/XD4_U.png" alt="Mean Axial Velocity at x/D=4" />
+<img src="/vandv_files/SANDIA_jet/images/XD04_U.png" alt="Mean Axial Velocity at x/D=4" />
 <img src="/vandv_files/SANDIA_jet/images/XD15_U.png" alt="Mean Axial Velocity at x/D=15" />
 <img src="/vandv_files/SANDIA_jet/images/XD30_U.png" alt="Mean Axial Velocity at x/D=30" />
 <img src="/vandv_files/SANDIA_jet/images/XD50_U.png" alt="Mean Axial Velocity at x/D=50" />
@@ -110,7 +110,7 @@ The comparisons in the figures demonstrate good agreement with the experimental 
 
 <p align="center">
 <img src="/vandv_files/SANDIA_jet/images/YD0_V.png" alt="Mean Radial Velocity along Jet Centerline" />
-<img src="/vandv_files/SANDIA_jet/images/XD4_V.png" alt="Mean Radial Velocity at x/D=4" />
+<img src="/vandv_files/SANDIA_jet/images/XD04_V.png" alt="Mean Radial Velocity at x/D=4" />
 <img src="/vandv_files/SANDIA_jet/images/XD15_V.png" alt="Mean Radial Velocity at x/D=15" />
 <img src="/vandv_files/SANDIA_jet/images/XD30_V.png" alt="Mean Radial Velocity at x/D=30" />
 <img src="/vandv_files/SANDIA_jet/images/XD50_V.png" alt="Mean Radial Velocity at x/D=50" />
@@ -120,7 +120,7 @@ The comparisons in the figures demonstrate good agreement with the experimental 
 
 <p align="center">
 <img src="/vandv_files/SANDIA_jet/images/YD0_TKE.png" alt="TKE along Jet Centerline" />
-<img src="/vandv_files/SANDIA_jet/images/XD4_TKE.png" alt="TKE Velocity at x/D=4" />
+<img src="/vandv_files/SANDIA_jet/images/XD04_TKE.png" alt="TKE Velocity at x/D=4" />
 <img src="/vandv_files/SANDIA_jet/images/XD15_TKE.png" alt="TKE Velocity at x/D=15" />
 <img src="/vandv_files/SANDIA_jet/images/XD30_TKE.png" alt="TKE Velocity at x/D=30" />
 <img src="/vandv_files/SANDIA_jet/images/XD50_TKE.png" alt="TKE Velocity at x/D=50" />
@@ -132,8 +132,8 @@ The comparisons in the figures demonstrate good agreement with the experimental 
 <img src="/vandv_files/SANDIA_jet/images/YD0_rho.png" alt="Mean density along Jet Centerline" />
 </p>
 
-The experimental results for the mean density are given in Sandia’s database, but these are directly computed from the mixture fraction by making use of the ratio between the density of propane and air. The ratio that is being used for this purpose is 1.6$$^{2}$$, whereas the expected ratio is lower. The higher density ratio used in the post-processing of the experimental data results in a wider
-density range across the domain, which can partly explain the differences between the experimental data and the numerical results on the density along the jet centerline. The spreading rate of a jet is independent of the initial density ratio $$^{2}$$.
+The experimental results for the mean density are given in Sandia’s database, but these are directly computed from the mixture fraction by making use of the ratio between the density of propane and air. The ratio that is being used for this purpose is 1.6 $$^{2}$$, whereas the expected ratio is lower. The higher density ratio used in the post-processing of the experimental data results in a wider
+density range across the domain, which can partly explain the differences between the experimental data and the numerical results on the density along the jet centerline. Note that the spreading rate of a jet is independent of the initial density ratio $$^{2}$$.
 
 <p align="center">
 <img src="/vandv_files/SANDIA_jet/images/Residuals_convergence.png" alt="Residuals Convergence for the Turbulent Jet Mixing" />
