@@ -13,6 +13,11 @@ The details of the 2D Axisymmetric, Nonpremixed, Nonreacting, Variable Density, 
 By comparing the results of SU2 simulations case against the experimental data, as well as OpenFOAM simulation results $$^{3}$$ (and MFSim $$^{4}$$), we can build a high degree of confidence that the composition-dependent model is implemented correctly in combination with the SST turbulence model. Therefore, the goal of this case is to validate the implementation of the  composition-dependent model in SU2. 
 
 ## Problem Setup
+The problem consists of a turbulent propane jet mixing into coflowing air. The schematic overview of this problem is given in the figure below:
+
+<p align="center">
+<img src="/vandv_files/SANDIA_jet/images/schematic_overview_SANDIA.png" alt="Schematic overview of the problem setup" />
+</p>
 
 The flow conditions are based on the Sandia experiment $$^{1}$$:
 
