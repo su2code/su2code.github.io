@@ -59,7 +59,7 @@ Structured meshes of increasing density have been used to perform a grid converg
 
 The length of the domain in streamwise direction is 80D. the width is 20D. Additionally, an inlet section with a length of 30D is included upstream of the jet exit, in order to achieve fully-developed turbulent pipe flow.
 
-If you would like to run the bump-in-channel problem for yourself, you can use the files available in the [SU2 V&V repository](https://github.com/su2code/VandV/tree/master/rans/SANDIA_jet). The configuration file, as well as the grids in GEO format, are provided. 
+If you would like to run the problem for yourself, you can use the files available in the [SU2 V&V repository](https://github.com/su2code/VandV/tree/master/rans/SANDIA_jet). The configuration file, as well as the grids in GEO format, are provided. 
 
 ## Results
 
