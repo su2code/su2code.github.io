@@ -16,7 +16,7 @@ By comparing the results of SU2 simulations case against the experimental data, 
 The problem consists of a turbulent propane jet mixing into coflowing air. The schematic overview of this problem is given in the figure below:
 
 <p align="center">
-<img src="/vandv_files/SANDIA_jet/images/schematic_overview_SANDIA.PNG" alt="Schematic overview of the problem setup" />
+<img src="/vandv_files/SANDIA_jet/images/VV_SETUP.png" alt="Schematic overview of the problem setup" />
 </p>
 
 The flow conditions are based on the Sandia experiment $$^{1}$$:
