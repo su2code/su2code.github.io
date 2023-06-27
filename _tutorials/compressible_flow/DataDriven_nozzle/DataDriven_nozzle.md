@@ -7,7 +7,7 @@ revised_by: talbring
 revision_date: 2023-04-19
 revised_version: 7.5.0
 solver: RANS
-requires: SU2_CFD python CoolProp
+requires: SU2_CFD python CoolProp MLPCpp
 complexity: advanced
 follows: 
 ---
@@ -42,7 +42,7 @@ The controlling variables for the MLP should be named "Density" and "Energy". Th
 5. "d2sde2": second entropy derivative w.r.t. static energy
 6. "d2sdrho2": second entropy derivative w.r.t. density 
 
-Based on the values for the partial derivatives of the entropy, it is possible to calculate the temperature, pressure, enthalpy, speed of sound, and secondary flow variables. Newton solver processes are used when the thermodynamic state is defined through variable pairs other than density and static energy. The initial values for density and static energy have to be defined by the user in the config file through ```DATADRIVEN_FLUID_INITIAL_DENSITY``` and ```DATADRIVEN_FLUID_INITIAL_ENERGY```. These values thave to be chosen carefully such that the initial condition of the simulation can be attained. The option ```DATADRIVEN_NEWTON_RELAXATION``` determines the relaxation factor for the Newton solver processes in the data-driven fluid model. Higher values result in faster convergence of the Newton solvers in stable regions. Lower values result in more iterations, but are more likely to avoid instabilities. 
+Based on the values for the partial derivatives of the entropy, it is possible to calculate the temperature, pressure, enthalpy, speed of sound, and secondary flow variables. Newton solver processes are used when the thermodynamic state is defined through variable pairs other than density and static energy. The initial values for density and static energy in these processes are defined through ideal-gas approximation, where properties like the gas constant and specific heat ratio are approximated from the centre of the regression method interpolation range. The option ```DATADRIVEN_NEWTON_RELAXATION``` determines the relaxation factor for the Newton solver processes in the data-driven fluid model. Higher values result in faster convergence of the Newton solvers in stable regions. Lower values result in more iterations, but are more likely to avoid instabilities. 
 
 ## MLP Definition
 Data regression using an MLP is enabled through selecting the ```MLP``` for the option ```INTERPOLATION_METHOD``` in the configuration file. In order to load an MLP architecture into SU2, an input file needs to be provided describing the network architecture, as well as the input and output variable names and ranges. An example of such an input file is provided in the tutorial folder (```MLP_Air.mlp```). This file can be generated from an MLP trained through Tensorflow using the ```Tensorflow2SU2.py``` script. Additional information regarding the translation from a Tensorflow model to an SU2 input file is provided in the python code. The script used to train the MLP is provided in ```MLPTrainer.py``` and the script used to generate the reference data from CoolProp in ```Generate_Dataset.py```. 
