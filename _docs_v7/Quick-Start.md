@@ -28,9 +28,9 @@ Welcome to the Quick Start Tutorial for the SU2 software suite. This tutorial is
 
 ## Goals
 
-Upon completing this simple tutorial, the user will be familiar with performing the flow and continuous adjoint simulation of external, inviscid flow around a 2D geometry and be able to plot both the flow solution and the surface sensitivities that result. The specific geometry chosen for the tutorial is the NACA 0012 airfoil. Consequently, the following capabilities of SU2 will be showcased in this tutorial:
+Upon completing this simple tutorial, the user will be familiar with performing the flow and continuous (and/or discrete) adjoint simulation of external, inviscid flow around a 2D geometry and be able to plot both the flow solution and the surface sensitivities that result. The specific geometry chosen for the tutorial is the NACA 0012 airfoil. Consequently, the following capabilities of SU2 will be showcased in this tutorial:
 
-- Steady, 2D, Euler and Continuous Adjoint Euler equations
+- Steady, 2D, Euler and Continuous/Discrete Adjoint Euler equations
 - Multigrid
 - JST numerical scheme for spatial discretization
 - Euler implicit time integration
@@ -38,7 +38,7 @@ Upon completing this simple tutorial, the user will be familiar with performing 
 
 ## Resources
 
-The files necessary to run this tutorial are included in the [Quick-Start_source](https://github.com/su2code/su2code.github.io/tree/master/_docs_v7/Quick-Start_source) directory, along with other auxiliary files useful to automate the tutorial simulations and the visualization of results. The bare minimum can also be found in the [SU2/QuickStart/](https://github.com/su2code/SU2/tree/master/QuickStart) directory. For the other tutorials, the files will be found in the TestCases/ repository. For a start, two files are needed as input to the code: a [configuration file](https://github.com/su2code/su2code.github.io/blob/master/_docs_v7/Quick-Start_source/inv_NACA0012.cfg) describing the options for the particular problem, and the corresponding computational [mesh file](https://github.com/su2code/su2code.github.io/blob/master/_docs_v7/Quick-Start_source/mesh_NACA0012_inv.su2).
+The files necessary to run this tutorial are included in the [QuickStart](https://github.com/su2code/Tutorials/tree/master/compressible_flow/QuickStart) directory of the [Tutorials](https://github.com/su2code/Tutorials) repository, along with other auxiliary files useful to automate the tutorial simulations and the visualization of results. Files for other tutorials may be found in the same repository. For a start, two files are needed as input to the code: a [configuration file](https://github.com/su2code/Tutorials/blob/master/compressible_flow/QuickStart/inv_NACA0012.cfg) describing the options for the particular problem, and the corresponding computational [mesh file](https://github.com/su2code/Tutorials/blob/master/compressible_flow/QuickStart/mesh_NACA0012_inv.su2).
 
 ## Tutorial
 
@@ -87,7 +87,7 @@ SU2 can output solution files in the .vtu (ParaView), .dat (Tecplot ASCII), and 
 ### Running SU2 Direct Analysis
 
 The first step in this tutorial is to solve the Euler equations:
- 1. Either navigate to the Quick-Start_source/ directory or create a directory in which to run the tutorial. If you have created a new directory, copy the config file (inv_NACA0012.cfg) and the mesh file (mesh_NACA0012_inv.su2) to this directory. 
+ 1. Either navigate to the QuickStart/ directory or create a directory in which to run the tutorial. If you have created a new directory, copy the config file (inv_NACA0012.cfg) and the mesh file (mesh_NACA0012_inv.su2) to this directory. 
  2. Run the executable by entering `SU2_CFD inv_NACA0012.cfg` at the command line. If you have not set the appropriate environment variables, you may need to specify the path to your SU2_CFD executable in the command line. 
  3. SU2 will print residual updates with each iteration of the flow solver, and the simulation will finish after reaching the specified convergence criteria.
  4. Files containing the flow results (with "flow" in the file name) will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtu) or Tecplot (.dat or .szplt). More specifically, these files are:
