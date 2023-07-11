@@ -38,7 +38,7 @@ Upon completing this simple tutorial, the user will be familiar with performing 
 
 ## Resources
 
-The files necessary to run this tutorial are included in the [QuickStart](https://github.com/su2code/Tutorials/tree/master/compressible_flow/QuickStart) directory of the [Tutorials](https://github.com/su2code/Tutorials) repository, along with other auxiliary files useful to automate the tutorial simulations and the visualization of results. Files for other tutorials may be found in the same repository. For a start, two files are needed as input to the code: a [configuration file](https://github.com/su2code/Tutorials/blob/master/compressible_flow/QuickStart/inv_NACA0012.cfg) describing the options for the particular problem, and the corresponding computational [mesh file](https://github.com/su2code/Tutorials/blob/master/compressible_flow/QuickStart/mesh_NACA0012_inv.su2).
+The files necessary to run this tutorial are included in the [SU2/QuickStart/](https://github.com/su2code/SU2/tree/master/QuickStart) of the [SU2](https://github.com/su2code/SU2) repository. Some auxiliary files, useful to automate the tutorial simulations and the visualization of results, may be found in the [QuickStart](https://github.com/su2code/Tutorials/tree/master/compressible_flow/QuickStart) directory of the [Tutorials](https://github.com/su2code/Tutorials) repository. Files for other tutorials may be found in the same repository. For a start, two files are needed as input to the code: a [configuration file](https://github.com/su2code/SU2/blob/master/QuickStart/inv_NACA0012.cfg) describing the options for the particular problem, and the corresponding computational [mesh file](https://github.com/su2code/SU2/blob/master/QuickStart/mesh_NACA0012_inv.su2).
 
 ## Tutorial
 
