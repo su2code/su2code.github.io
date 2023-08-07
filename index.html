@@ -8,7 +8,7 @@ layout: default
 <script>
   $(document).ready (function () {
       $.getJSON("https://api.github.com/repos/su2code/SU2/releases/latest").done(function (data) {
-        $ ('#current_release_tag').text ("SU2 " + data.tag_name + " Blackbird");
+        $ ('#current_release_tag').text ("SU2 " + data.tag_name + " Harrier");
       })
   })
 </script>
