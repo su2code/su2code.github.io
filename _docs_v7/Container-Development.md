@@ -23,16 +23,16 @@ We use [Docker](https://www.docker.com/) container during the software developme
 The files for the creation of the containers can found in the [Docker-Builds](https://github.com/su2code/Docker-Builds) repository. Currently we have three different containers:
 
 - **build-su2**: Based on Ubuntu 20.04 (GCC v9.4.0, OpenMPI v4.0.3) it features all necessary packages that are needed to compile SU2. Furthermore a script is provided (set as the [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint)) that will checkout and compile a specific branch with provided build options.
-- **test-su2**: Based on the latest **build-su2** container. Includes a script that checks out the test cases and the tutorials and runs a specified test script.
-- **build-su2-cross**:  Based on the latest **build-su2** container it features an environment to create binaries for Linux, MacOS and Windows. All libraries are linked statically (including a custom build MPICH v3.3.2) with the binaries if a host file is specified in order achieve portability. For more information have a look at the [ReadMe](https://github.com/su2code/Docker-Builds/blob/master/build_cross/README.md).
+- **test-su2**: Based on the corresponding version of the **build-su2** container. Includes a script that checks out the test cases and the tutorials and runs a specified test script.
+- **build-su2-cross**:  Based on the corresponding version of the **build-su2** container. It features an environment to create binaries for Linux, MacOS and Windows. All libraries are linked statically (including a custom build MPICH v3.3.2) with the binaries if a host file is specified in order achieve portability. For more information have a look at the [ReadMe](https://github.com/su2code/Docker-Builds/blob/master/build_cross/README.md).
 - **build-su2-tsan**: Based on the same setup as **build-su2**, this container is intended to build SU2 with the thread sanitizer for automatic data race detection. To this end, it features a custom gcc build and provides a preconfigured environment for building with the thread sanitizer.
-- **test-su2-tsan**: Like **test-su2** but based on the latest **build-su2-tsan** container instead. Can be used like **test-su2** and is intended for testing for data races.
+- **test-su2-tsan**: Like **test-su2** but based on the corresponding version of the **build-su2-tsan** container instead. Can be used like **test-su2** and is intended for testing for data races.
 
 **Note:** The build containers *do not* include binaries to run SU2, and they are not intended to do so (except for running the regression tests). 
 
 It is assumed that you have added your linux username to the `docker` group, like it is explained [here](https://docs.docker.com/install/linux/linux-postinstall/). Otherwise `sudo` is required to run docker. There also a [rootless version](https://docs.docker.com/engine/security/rootless/) available.
 
-The most recent versions of prebuilt container images can be found in the [GitHub container registry](https://github.com/orgs/su2code/packages). You can click on an image to see its versions and the command for pulling it, e.g., `docker pull ghcr.io/su2code/su2/build-su2:230704-1323`.
+The most recent versions of prebuilt container images can be found in the [GitHub container registry](https://github.com/orgs/su2code/packages). You can click on an image to see its versions and the command for pulling it, e.g., `docker pull ghcr.io/su2code/su2/build-su2:230704-1323` for a specific version of **build-su2**.
 
 
 In the following we give a small overview on how to use the containers to compile and run the tests. We will only cover basic commands for docker. If you are interested in learning more, check out the [official documentation](https://docs.docker.com/).
@@ -50,7 +50,7 @@ You should see the following message, which means that everything works as inten
 SU2 v7 Docker Compilation Container
 SU2 source directory not found. Make sure to ...
 ```
-The containers we provide all feature entrypoint scripts, i.e. a script that is executed when the container is started. If no arguments are given, like in the command above, it just prints an error message. The arguments of the compile and test scripts are discussed [here](#using-the-scripts-to-compile-su2). If the image does not already exist locally, it will be pulled from docker hub. You can specify a tag by adding `:tagname` to the name. If none is specified, it will use `:latest` by default. Let us have a look at the most important arguments for the `docker run` command:
+The containers we provide all feature entrypoint scripts, i.e. a script that is executed when the container is started. If no arguments are given, like in the command above, it just prints an error message. The arguments of the compile and test scripts are discussed [here](#using-the-scripts-to-compile-su2). Make sure to pull the image first, as explained above, or provide the full URL including a version tag, e.g., `ghcr.io/su2code/su2/build-su2:230704-1323`. Let us have a look at the most important arguments for the `docker run` command:
 
 - `-ti` (or `--interactive --tty`): Needed to provide input to the container (stdin) via the terminal.
 - `--rm`: Automatically remove the container when it exits (otherwise ressources (disk space) are still occupied)
