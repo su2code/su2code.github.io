@@ -22,7 +22,7 @@ We use [Docker](https://www.docker.com/) container during the software developme
 
 The files for the creation of the containers can found in the [Docker-Builds](https://github.com/su2code/Docker-Builds) repository. Currently we have three different containers:
 
-- **build-su2**: Based on Ubuntu 18.04 (GCC v7.4.0, OpenMPI v2.1.1) it features all necessary packages that are needed to compile SU2. Furthermore a script is provided (set as the [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint)) that will checkout and compile a specific branch with provided build options. 
+- **build-su2**: Based on Ubuntu 20.04 (GCC v9.4.0, OpenMPI v4.0.3) it features all necessary packages that are needed to compile SU2. Furthermore a script is provided (set as the [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint)) that will checkout and compile a specific branch with provided build options.
 - **test-su2**: Based on the latest **build-su2** container. Includes a script that checks out the test cases and the tutorials and runs a specified test script.
 - **build-su2-cross**:  Based on the latest **build-su2** container it features an environment to create binaries for Linux, MacOS and Windows. All libraries are linked statically (including a custom build MPICH v3.3.2) with the binaries if a host file is specified in order achieve portability. For more information have a look at the [ReadMe](https://github.com/su2code/Docker-Builds/blob/master/build_cross/README.md).
 
@@ -30,7 +30,8 @@ The files for the creation of the containers can found in the [Docker-Builds](ht
 
 It is assumed that you have added your linux username to the `docker` group, like it is explained [here](https://docs.docker.com/install/linux/linux-postinstall/). Otherwise `sudo` is required to run docker. There also a [rootless version](https://docs.docker.com/engine/security/rootless/) available.
 
-The most recent versions can be found on [Docker Hub](https://hub.docker.com/r/su2code/) and can be pulled with `docker pull su2code/*` (where `*` can be replaced with `build-su2`, `test-su2` or `build-su2-cross`) if docker is properly installed on your machine.
+The most recent versions of prebuilt container images can be found in the [GitHub container registry](https://github.com/orgs/su2code/packages). You can click on an image to see its versions and the command for pulling it, e.g., `docker pull ghcr.io/su2code/su2/build-su2:230704-1323`.
+
 
 In the following we give a small overview on how to use the containers to compile and run the tests. We will only cover basic commands for docker. If you are interested in learning more, check out the [official documentation](https://docs.docker.com/).
 
