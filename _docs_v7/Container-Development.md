@@ -25,6 +25,8 @@ The files for the creation of the containers can found in the [Docker-Builds](ht
 - **build-su2**: Based on Ubuntu 20.04 (GCC v9.4.0, OpenMPI v4.0.3) it features all necessary packages that are needed to compile SU2. Furthermore a script is provided (set as the [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint)) that will checkout and compile a specific branch with provided build options.
 - **test-su2**: Based on the latest **build-su2** container. Includes a script that checks out the test cases and the tutorials and runs a specified test script.
 - **build-su2-cross**:  Based on the latest **build-su2** container it features an environment to create binaries for Linux, MacOS and Windows. All libraries are linked statically (including a custom build MPICH v3.3.2) with the binaries if a host file is specified in order achieve portability. For more information have a look at the [ReadMe](https://github.com/su2code/Docker-Builds/blob/master/build_cross/README.md).
+- **build-su2-tsan**: Based on the same setup as **build-su2**, this container is intended to build SU2 with the thread sanitizer for automatic data race detection. To this end, it features a custom gcc build and provides a preconfigured environment for building with the thread sanitizer.
+- **test-su2-tsan**: Like **test-su2** but based on the latest **build-su2-tsan** container instead. Can be used like **test-su2** and is intended for testing for data races.
 
 **Note:** The build containers *do not* include binaries to run SU2, and they are not intended to do so (except for running the regression tests). 
 
