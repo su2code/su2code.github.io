@@ -58,11 +58,17 @@ The containers we provide all feature entrypoint scripts, i.e. a script that is 
 - `--volume <folder_on_host>:<folder_in_container>` (or `-v`): Bind mount a volume where `<folder_on_host>` is a local folder on the host and `<folder_in_container>` the mount location in the container.
 - `--workdir <directory>` (or `-w`): The working directory inside the container.
 
+### Working interactively in a container ###
+
 A typical call where the current directory on the host is mounted and used as working directory would look like this: 
 ```
 docker run -ti --rm -v $PWD:/workdir/  -w /workdir --entrypoint bash su2code/su2/build-su2
 ```
-Here, we also override the entrypoint in order to execute a bash shell. Note, that all changes you make will be lost after you exit the container (except from changes in the working directory). Once in the bash you can simply use an existing or new clone of the repository to compile SU2 [the usual way](/docs_v7/Build-SU2-Linux-MacOS/).
+Here, we also override the entrypoint in order to execute a bash shell. Note that all changes you make will be lost after you exit the container (except from changes in the working directory). Once in the bash you can simply use an existing or new clone of the repository to compile SU2 [the usual way](/docs_v7/Build-SU2-Linux-MacOS/), run a regression test script, or execute a specific regression test.
+
+This interactive way of using the container gives you most control over building and testing SU2, we recommend it particularly for running specific tests instead of entire test scripts, e.g., when debugging them with the thread sanitizer. If you look for an out-of-the-box way of compiling and testing SU2, please refer to the sections about using the scripts below.
+
+If you want to build SU2 with the thread sanitizer, you work with the **build-su2-tsan** container instead and compile SU2 as explained above. Note that the thread sanitizer is only meaningful for SU2 builds with OpenMP. You don't have to supply any additional flags when configuring, compiling, or running, the container provides a fully configured environment. Any test executed with SU2 built this way will perform thread sanitizer analysis.
 
 
 ## Using the scripts to compile SU2 ##
@@ -116,4 +122,17 @@ docker run -ti --rm -v $PWD:/workdir/ -w /workdir \
 docker run -ti --rm -v $PWD/install/bin:/workdir/install/bin -w /workdir \
   -v $PWD/src/SU2_develop:/workdir/src/SU2 \
   su2code/su2/test-su2 -t develop -c develop -s parallel_regression.py
+```
+
+### Running thread sanitizer tests ###
+
+If you want to run thread sanitizer tests, you have to build SU2 with the **build-su2-tsan** container and test with the **test-su2-tsan** container. Thread sanitizer analysis is only meaningful for OpenMP builds and the hybrid regression scripts. It is advisable to use optimized debug builds to reduce runtime while still getting useful stack traces. You should provide the `--tsan` flag to the test script, which disables tests that are either not compatible with the thread sanitizer or take too long to run. The following example demonstrates thread sanitizer testing.
+
+```
+docker run -ti --rm -v $PWD:/workdir/ -w /workdir \
+  su2code/su2/build-su2-tsan -f "--buildtype=debugoptimized -Dwith-omp=true" -b develop
+
+docker run -ti --rm -v $PWD/install/bin:/workdir/install/bin -w /workdir \
+  -v $PWD/src/SU2_develop:/workdir/src/SU2 \
+  su2code/su2/test-su2-tsan -t develop -c develop -s hybrid_regression.py -a "--tsan"
 ```
