@@ -20,7 +20,7 @@ A container is a virtual runtime environment that runs on top of a single operat
 
 We use [Docker](https://www.docker.com/) container during the software development life-cycle for running the regression tests and creating binaries for different operating systems during the release process. The execution of these containers is triggered by events (e.g. by a push to an open pull request) on Github using the [Github Actions](https://github.com/features/actions) feature.
 
-The files for the creation of the containers can found in the [Docker-Builds](https://github.com/su2code/Docker-Builds) repository. Currently we have three different containers:
+The files for the creation of the containers can found in the [Docker-Builds](https://github.com/su2code/Docker-Builds) repository. Currently we have five different containers:
 
 - **build-su2**: Based on Ubuntu 20.04 (GCC v9.4.0, OpenMPI v4.0.3) it features all necessary packages that are needed to compile SU2. Furthermore a script is provided (set as the [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint)) that will checkout and compile a specific branch with provided build options.
 - **test-su2**: Based on the corresponding version of the **build-su2** container. Includes a script that checks out the test cases and the tutorials and runs a specified test script.
@@ -37,7 +37,7 @@ The most recent versions of prebuilt container images can be found in the [GitHu
 
 In the following we give a small overview on how to use the containers to compile and run the tests. We will only cover basic commands for docker. If you are interested in learning more, check out the [official documentation](https://docs.docker.com/).
 
-Please note that some of the examples refer to features that are only available in the lasted [develop](https://github.com/su2code/SU2/tree/develop) branch of SU2.
+Please note that some of the examples refer to features that are only available in the latest [develop](https://github.com/su2code/SU2/tree/develop) branch of SU2.
 
 
 ## Running a container ##
