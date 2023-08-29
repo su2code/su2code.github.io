@@ -32,7 +32,7 @@ To achieve second-order in space, upwind schemes need to be used with MUSCL reco
 
 | Solver | Version | 
 | --- | --- |
-| `EULER`, `NAVIER_STOKES`, `RANS` | 7.0.0 |
+| `EULER`, `NAVIER_STOKES`, `RANS` | 8.0.0 |
 
 ### Central Schemes ###
 
@@ -46,9 +46,7 @@ In implicit time marching it improves the numerical properties of the Jacobian m
 To maintain CFL at lower-than-default values of dissipation coefficients, a higher factor should be used.
 `JST_MAT` benefits from higher values (~8.0).
 
-All compressible central schemes support vectorization (`USE_VECTORIZATION= YES`) with no robustness downsides, see the build instructions for how to tune the compilation for maximum vectorization performance.
-
-**Note:** The Lax-Friedrich scheme is always used on coarse multigrid levels when any central scheme is selected.
+**Note:** The Lax-Friedrich scheme is always used on coarse multigrid levels when any central scheme is selected. All compressible central schemes use vectorization, see the build instructions for how to tune the compilation for maximum performance.
 
 ### Upwind Schemes ###
 
@@ -62,28 +60,25 @@ All compressible central schemes support vectorization (`USE_VECTORIZATION= YES`
 - `SLAU` - Simple Low dissipation AUSM scheme;
 - `SLAU2` - SLAU with the alternative pressure flux formulation;
 - `HLLC` - Harten-Lax-van Leer-Contact;
-- `CUSP` - Convective Upwind Split Pressure;
 - `MSW` - Modified Steger-Warming.
 
 Some of the schemes above have tunning parameters or accept extra options, the following table lists those options and indicates to which schemes they apply (if a scheme does not appear on the table, no options apply to it).
 
-| Option \ Scheme                   | `ROE` | `L2ROE` | `TURKEL_PREC` | `AUSMPLUSUP[2]` | `SLAU[2]` | `HLLC` | `CUSP` |
-| --------------------------------- | ----- | ------- | ------------- | --------------- | --------- | ------ | ------ |
-| **`ROE_KAPPA`**                   |   X   |    X    |       X       |                 |           |   X    |        |
-| **`ENTROPY_FIX_COEFF`**           |   X   |    X    |       X       |                 |           |        |    X   |
-| **`ROE_LOW_DISSIPATION`**         |   X   |         |               |                 |     X     |        |        |
-| **`USE_ACCURATE_FLUX_JACOBIANS`** |       |         |               |        X        |     X     |        |        |
-| **`MIN/MAX_ROE_TURKEL_PREC`**     |       |         |       X       |                 |           |        |        |
-| **`USE_VECTORIZATION`**           |   X   |         |               |                 |           |        |        |
+| Option \ Scheme                   | `ROE` | `L2ROE` | `TURKEL_PREC` | `AUSMPLUSUP[2]` | `SLAU[2]` | `HLLC` |
+| --------------------------------- | ----- | ------- | ------------- | --------------- | --------- | ------ |
+| **`ROE_KAPPA`**                   |   X   |    X    |       X       |                 |           |   X    |
+| **`ENTROPY_FIX_COEFF`**           |   X   |    X    |       X       |                 |           |        |
+| **`ROE_LOW_DISSIPATION`**         |   X   |         |               |                 |     X     |        |
+| **`USE_ACCURATE_FLUX_JACOBIANS`** |       |         |               |        X        |     X     |        |
+| **`MIN/MAX_ROE_TURKEL_PREC`**     |       |         |       X       |                 |           |        |
 
 - `ROE_KAPPA`, default 0.5, constant that multiplies the left and right state sum;
 - `ENTROPY_FIX_COEFF`, default 0.001, puts a lower bound on dissipation by limiting the minimum convective Eigenvalue to a fraction of the speed of sound. Increasing it may help overcome convergence issues, at the expense of making the solution sensitive to this parameter.
 - `ROE_LOW_DISSIPATION`, default `NONE`, methods to reduce dissipation in regions where certain conditions are verified, `FD` (wall distance based), `NTS` (Travin and Shur), `FD_DUCROS` and `NTS_DUCROS` as before plus Ducros' shock sensor;
 - `USE_ACCURATE_FLUX_JACOBIANS`, default `NO`, if set to `YES` accurate flux Jacobians are used instead of Roe approximates, slower on a per iteration basis but in some cases allows much higher CFL values to be used and therefore faster overall convergence;
 - `MIN_ROE_TURKEL_PREC` and `MAX_ROE_TURKEL_PREC`, defaults 0.01 and 0.2 respectively, reference Mach numbers for Turkel preconditioning;
-- `USE_VECTORIZATION`, default `NO`, if `YES` use the vectorized (SSE, AVX, or AVX512) implementation which is faster but may be less robust against initial solution transients.
 
-**Note:** Some schemes are not compatible with all other features of SU2, the AUSM family and CUSP are not compatible with unsteady simulations of moving grids, non-ideal gases are only compatible with the standard Roe and HLLC schemes.
+**Note:** Some schemes are not compatible with all other features of SU2, the AUSM family is not compatible with unsteady simulations of moving grids, non-ideal gases are only compatible with the standard Roe and HLLC schemes. The only upwind scheme that uses vectorization is the Roe scheme (ideal gas only), see the build instructions for how to tune the compilation for maximum performance.
 
 ## Incompressible Flow ##
 
@@ -99,12 +94,13 @@ Some of the schemes above have tunning parameters or accept extra options, the f
 
 `FDS` - Flux Difference Splitting with low speed preconditioning, this scheme does not have tuning parameters.
 
-## Turbulence Equations ##
+## Turbulence and Scalar/Species Equations ##
 
 | Solver | Version | 
 | --- | --- |
-| `RANS`, `INC_RANS` | 7.0.0 |
+| `RANS`, `INC_RANS` | 8.0.0 |
 
-Only one method is currently available: `SCALAR_UPWIND` which must be selected via option `CONV_NUM_METHOD_TURB`.
-This method does not have any special parameters.
+For compressible flows the only method available is `SCALAR_UPWIND` which must be selected via option `CONV_NUM_METHOD_TURB`.
+For incompressible flows the `BOUNDED_SCALAR` method is also available, this includes a divergence correction to prevent spurious production/destruction of the transported scalar while convergence is not reached.
+These methods do not have any special parameters.
 
