@@ -1,36 +1,37 @@
 ---
-title: Species Transport
-permalink: /tutorials/Inc_Species_Transport/
-written_by: TobiKattmann 
-for_version: 7.2.1
+title: Incompressible, Laminar Combustion Simulation
+permalink: /tutorials/Inc_Combustion/
+written_by: EvertBunschoten
+for_version: 8.0.0
 revised_by:  
 revision_date:
 revised_version:
-solver: INC_RANS
-requires: SU2_CFD
-complexity: intermediate
-follows: Inc_Turbulent_Flat_Plate
+solver: INC_NAVIER_STOKES
+requires: SU2_CFD, mlpcpp
+complexity: advanced
+follows:
 ---
 
 
 ## Goals
 
-Upon completing this tutorial, the user will be familiar with adding passive species transport equations to an incompressible or compressible flow problem. The necessary steps and config options will be explained with the example of a simple 2D incompressible mixing channel system. Output options will be explained as well.
+Version 8.0.0 of SU2 supports the simulation of reduced-order combustion simulations. In particular, flamelet-generated manifold (FGM) simulations. The FGM solver in SU2 computes the transport of a set of controlling variables. These are used to interpolate a manifold of detailed-chemistry flamelet data to retrieve the thermo-chemical state of the mixture, and reaction source terms. This capability can be used to solve 2D and 3D, laminar, (partially) premixed, direct and adjoint simulations with heat loss and modeling of differential diffusion effects. The latter is relevant specifically lean hydrogen flames. This tutorial describes how to set up a premixed hydrogen combustion simulation case. Additionally, information is provided regarding the governing equations and preferential diffusion model. Finally, the relevant options in the configuration file regarding the SU2 FGM solver are discussed.
 
-Limitations: Mixture dependent fluid properties are not available yet. The mass diffusion coefficient can only be chosen as a constant for a all species transport equations.
+## Resources and Prerequisites
 
-## Resources
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Combustion](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the following files:
+1. *Configuration file*: The configuration file for this case is named [hydrogen_configuration.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/hydrogen_configuration.cfg).
+2. *Mesh file*: The geometry for this test case is a simple, 2D burner geometry with a cooled burner plate ([H2_Burner.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/H2_Burner.su2)).
+3. *Manifold files*: The working principle of the FGM method is the manifold containing the flamelet data. From this manifold, thermo-chemical and reaction source term information is retrieved during the simulation. SU2 supports the use of 2D and 3D look-up tables (LUT), as well as multi-layer perceptrons (MLP). In the current tutorial, MLP's will be utilized. These files have the `.mlp` extension. Evaluating MLP's in SU2 is done through the `MLPCpp` sub-module. Make sure you configure SU2 with the flag `-Denable-mlpcpp=true` to clone this submodule.
 
-The resources for this tutorial can be found in the [incompressible_flow/Inc_Species_Transport](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([species3_primitiveVenturi.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport/species3_primitiveVenturi.cfg)) and the mesh file ([primitiveVenturi.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport/primitiveVenturi.su2)).
+The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [H2_Burner.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/H2_Burner.geo). The mesh is unstructured (i.e. only contains triangular elements) with 70495 elements and 35926 points. This mesh is quite large, but a high resolution is required in order to resolve the flame front.
 
-The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [primitiveVenturi.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Species_Transport/primitiveVenturi.geo). The mesh is fully structured (i.e. only contains Quadrilateral elements) with 3364 elements and 3510 points. A progression towards walls is used but the mesh resolution is for demonstration purposes only. The small size also makes it ideal for code development.
-
-![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Species_Transport/images/mesh.jpg)
+![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Combustion/mesh.png)
 Figure (1): Computational mesh with color indication of the used boundary conditions.
 
 ## Prerequisites
 
-The following tutorial assumes you already compiled `SU2_CFD` in serial or parallel, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) if that is not done yet. Additionally it is advised to perform an entry level incompressible tutorial first, as this tutorial only goes over species transport
+The following tutorial assumes you already compiled `SU2_CFD` in serial or parallel, please see the [Download](/docs_v8/Download/) and [Installation](/docs_v8/Installation/) if that is not done yet. Additionally it is advised to perform an entry level incompressible tutorial first, as this tutorial only goes over species transport with combustion.
 
 ## Background
 
