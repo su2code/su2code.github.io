@@ -26,8 +26,11 @@ The resources for this tutorial can be found in the [incompressible_flow/Inc_Com
 
 The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [H2_Burner.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/H2_Burner.geo). The mesh is unstructured (i.e. only contains triangular elements) with 70495 elements and 35926 points. This mesh is quite large, but a high resolution is required in order to resolve the flame front.
 
-![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Combustion/mesh.png)
+![Mesh with boundary conditions](../../../tutorials_files/incompressible_flow/Inc_Combustion/mesh.png)
 Figure (1): Computational mesh with color indication of the used boundary conditions.
+
+The MLP files describe five architectures. These are used to predict the thermo-chemical state, preferential diffusion scalars, and reaction source terms. 
+![MLP architecture used for prediction of temperature, diffusion coefficient, and dynamic viscosity](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_Group1.png)
 
 ## Prerequisites
 
@@ -35,9 +38,81 @@ The following tutorial assumes you already compiled `SU2_CFD` in serial or paral
 
 ## Background
 
-The geometry with two separate inlets, a junction where the two feeders meet and a nozzle leading to an outlet, resembles loosely a venturi mixer. The geometry massively simplifies these design principles. The material properties and provided mass fractions at the inlet are for demonstration purposes.
+The test case represents a simplified version of a two-dimensional, pre-mixed hydrogen burner with a heat exchanger suspended in the hot exhaust. The purpose of this test case is to demonstrate the capabilities of the SU2 FGM solver (differential diffusion, heat loss), not a solution for a realistic hydrogen combustion problem.
 
 ## Problem Setup
+
+In order to run a FGM simulation in SU2, an additional set-up step apart from defining the mesh and configuration file is required. This step involves the definition of a flamelet data manifold which includes the necessary data required by SU2 to include the relevant phenomena. This section describes the two manifold formats supported by SU2 for FGM simulations, as well as an example of the set-up of the manifold used in the current tutorial. One of the key features in accurately modeling (lean) hydrogen combustion is the modeling of the effects of preferential diffusion. The preferential diffusion model currently implemented in SU2 is the model formulated by Nithin et al (TODO: reference to efimov paper). This section briefly summarizes this model and how to enable it in SU2 FGM simulations. Finally, this section describes the boundary and initial condition of the current test case, as well as the methodologies available to ignite the mixture. 
+
+### Manifold set-up 
+
+During FGM simulations, thermo-chemical, as well as reaction data is interpolated from a manifold of detailed-chemistry flamelet data based on a set of controlling variables. In SU2, two types of manifold are supported: two or three-dimensional look-up tables (LUT) and feed-forward, dense, multi-layer perceptrons (MLP). 
+
+Variables required to be included in manifold:
+
+Controlling variables: 
+1. Progress variable [-]
+2. Total enthalpy [J kg^-1]
+3. optional: mixture fraction [-]
+
+In the current example, the following progress variable definition is used:
+
+$$
+\begin{equation}
+\mathcal{Y} = -7.36Y_{H_2}-23.01Y_H-2.04Y_{O_2}-4.8Y_O+1.83Y_{H_2O}-15.31Y_{OH}-57.02Y_{H_2O_2}+24.55Y_{HO_2}
+\end{equation}
+$$
+
+Thermo-chemical data: 
+1. Temperature (`Temperature`)[K] 
+2. Specific heat (Cp)[J kg^-1 K^-1] 
+3. Dynamic viscosity (ViscosityDyn)[]
+4. Thermal conductivity (Conductivity)[W m^-1 K^-1]
+5. Diffusivity (DiffusionCoefficient) []
+6. Density (Density) [kg m^-3] or mixture molar weight (MolarWeightMix) [kg mol^-1]
+
+Source term data:
+1. Progress variable source term [kg m^-3 s^-1]
+
+LUT:
+The look-up table format supported in SU2 is based around the two-dimensional, trapezoidal map approach. The table file format should be in the dragon file format. For pre-mixed problems without differential diffusion (e.g. pre-mixed methane problems), a two-dimensional table is sufficient. An example of such a table can be found in the [methane combustion test case](https://github.com/su2code/TestCases/flamelet/01_laminar_premixed_ch4_flame_cfd/fgm_ch4.drg). The two table dimensions should span the progress variable and total enthalpy dimension.
+
+For partially- or non-premixed problems or pre-mixed problems with preferential diffusion, a three-dimensional table is required. SU2 supports a quasi-3D table format, consisting of two-dimensonal trapezoidal maps stacked in the third dimension. An example of this can be found in the [partially premixed methane combustion test case](https://github.com/su2code/TestCases/flamelet/06_laminar_partial_premixed_ch4_flame_cfd/LUT_methane_3D.drg). The first two dimensions should span the progress variable and total enthalpy dimension, while the third dimension should be mixture fraction.
+
+MLP:
+A more memory efficient option in terms of manifold format comes as one or multiple multi-layer perceptrons. Dense, feed-forward multi-layer perceptrons to be specific. SU2 uses the [MLPCpp module](https://github.com/EvertBunschoten/MLPCpp.git) to evaluate MLP's during simulations. Information on how to translate networks trained through TensorFlow to the `.mlp` format supported in SU2, see the [MLPCpp repository](https://github.com/EvertBunschoten/MLPCpp.git). In the current tutorial, a set of MLP's will be used as the manifold for the FGM solver. Here, two MLP's are used to extract the thermo-chemical state of the mixture:
+
+
+### Preferential diffusion model
+
+Pre-mixed combustion of reactants with high hydrogen content at lean conditions undergo a phenomenon called preferential diffusion. Here, the hydrogen diffuses differently from the other species in the mixture, causing local variations in mixture fraction and inherent instabilities in the flame front, even during laminar flow. Accurately modeling preferential diffusion is therefore crucial to capturing the behavior of pre-mixed hydrogen flames. The modeling of preferential diffusion is supported in SU2 through the Efimov model TODO: reference to Efimov paper. When solving hydrogen FGM problems, SU2 solves the following transport equations for the controlling variables:
+
+$$
+\begin{equation}
+    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(D\nabla\beta_\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
+\end{equation}
+$$
+$$
+\begin{equation}
+    \frac{\partial \rho h}{\partial t} + \nabla\cdot(\rho\vec{u} h) - \nabla\cdot\left(\beta_{h,1}\nabla T + D\nabla\beta_{h,2}\right) = 0
+\end{equation}
+$$
+$$
+\begin{equation}
+    \frac{\partial \rho Z}{\partial t} + \nabla\cdot(\rho\vec{u}Z) - \nabla\cdot\left(D\nabla\beta_Z\right) = 0
+\end{equation}
+$$
+
+Here, $\mathcal{Y},h$ and $Z$ are the progress variable, total enthalpy, and mixture fraction respectively. Preferential diffusion is modeled through the $\beta$-terms in the third term on the left hand side of equations 2-4. See TODO:reference to Efimov paper for details on the definitions of these scalars. The preferential diffusion model is automatically switched on when the $\beta$-terms are included in the manifold. In order to be detected, they should be named as follows:
+
+1. $\beta_\mathcal{Y}$ : `Beta_ProgVar`
+2. $\beta_{h,1}$ : `Beta_Enth_Thermal`
+3. $\beta_{h,2}$ : `Beta_Enth`
+4. $\beta_Z$ : `Beta_MixFrac`
+
+If not all the $\beta$- terms are detected, the preferential diffusion model will not be used during the simulation. During the initialization of the fluid model, a message will be displayed in the terminal indicating whether the preferential diffusion model is enabled.
+
+### Boundary conditions and ignition method
 
 The material properties of the incompressible mean flow represent air:
 - Density (constant) = 1.1766 kg/m^3
