@@ -14,8 +14,6 @@ The two repositories contain the same directory structure for the test cases, wi
 $ git clone https://github.com/su2code/SU2.git
 $ git clone https://github.com/su2code/TestCases.git
 $ cd SU2/
-$ ./configure
-$ make install
 $ cp -R ../TestCases/* ./TestCases/
 $ cd ./TestCases/
 $ python serial_regression.py
