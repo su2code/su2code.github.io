@@ -20,19 +20,24 @@ A container is a virtual runtime environment that runs on top of a single operat
 
 We use [Docker](https://www.docker.com/) container during the software development life-cycle for running the regression tests and creating binaries for different operating systems during the release process. The execution of these containers is triggered by events (e.g. by a push to an open pull request) on Github using the [Github Actions](https://github.com/features/actions) feature.
 
-The files for the creation of the containers can found in the [Docker-Builds](https://github.com/su2code/Docker-Builds) repository. Currently we have three different containers:
+The files for the creation of the containers can found in the [Docker-Builds](https://github.com/su2code/Docker-Builds) repository. Currently we have five different containers:
 
-- **build-su2**: Based on Ubuntu 18.04 (GCC v7.4.0, OpenMPI v2.1.1) it features all necessary packages that are needed to compile SU2. Furthermore a script is provided (set as the [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint)) that will checkout and compile a specific branch with provided build options. 
-- **test-su2**: Based on the latest **build-su2** container. Includes a script that checks out the test cases and the tutorials and runs a specified test script.
-- **build-su2-cross**:  Based on the latest **build-su2** container it features an environment to create binaries for Linux, MacOS and Windows. All libraries are linked statically (including a custom build MPICH v3.3.2) with the binaries if a host file is specified in order achieve portability. For more information have a look at the [ReadMe](https://github.com/su2code/Docker-Builds/blob/master/build_cross/README.md).
+- **build-su2**: Based on Ubuntu 20.04 (GCC v9.4.0, OpenMPI v4.0.3) it features all necessary packages that are needed to compile SU2. Furthermore a script is provided (set as the [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint)) that will checkout and compile a specific branch with provided build options.
+- **test-su2**: Based on the corresponding version of the **build-su2** container. Includes a script that checks out the test cases and the tutorials and runs a specified test script.
+- **build-su2-cross**:  Based on the corresponding version of the **build-su2** container. It features an environment to create binaries for Linux, MacOS and Windows. All libraries are linked statically (including a custom build MPICH v3.3.2) with the binaries if a host file is specified in order achieve portability. For more information have a look at the [ReadMe](https://github.com/su2code/Docker-Builds/blob/master/build_cross/README.md).
+- **build-su2-tsan**: Based on the same setup as **build-su2**, this container is intended to build SU2 with the thread sanitizer for automatic data race detection. To this end, it features a custom gcc build and provides a preconfigured environment for building with the thread sanitizer.
+- **test-su2-tsan**: Like **test-su2** but based on the corresponding version of the **build-su2-tsan** container instead. Can be used like **test-su2** and is intended for testing for data races.
 
 **Note:** The build containers *do not* include binaries to run SU2, and they are not intended to do so (except for running the regression tests). 
 
 It is assumed that you have added your linux username to the `docker` group, like it is explained [here](https://docs.docker.com/install/linux/linux-postinstall/). Otherwise `sudo` is required to run docker. There also a [rootless version](https://docs.docker.com/engine/security/rootless/) available.
 
-The most recent versions can be found on [Docker Hub](https://hub.docker.com/r/su2code/) and can be pulled with `docker pull su2code/*` (where `*` can be replaced with `build-su2`, `test-su2` or `build-su2-cross`) if docker is properly installed on your machine.
+The most recent versions of prebuilt container images can be found in the [GitHub container registry](https://github.com/orgs/su2code/packages). You can click on an image to see its versions and the command for pulling it, e.g., `docker pull ghcr.io/su2code/su2/build-su2:230704-1323` for a specific version of **build-su2**.
+
 
 In the following we give a small overview on how to use the containers to compile and run the tests. We will only cover basic commands for docker. If you are interested in learning more, check out the [official documentation](https://docs.docker.com/).
+
+Please note that some of the examples refer to features that are only available in the latest [develop](https://github.com/su2code/SU2/tree/develop) branch of SU2.
 
 
 ## Running a container ##
@@ -40,14 +45,14 @@ In the following we give a small overview on how to use the containers to compil
 A container can be started using the `run` command and the name, e.g.
 
 ```
-docker run su2code/build-su2
+docker run su2code/su2/build-su2
 ```
 You should see the following message, which means that everything works as intended:
 ```
 SU2 v7 Docker Compilation Container
 SU2 source directory not found. Make sure to ...
 ```
-The containers we provide all feature entrypoint scripts, i.e. a script that is executed when the container is started. If no arguments are given, like in the command above, it just prints an error message. The arguments of the compile and test scripts are discussed [here](#using-the-scripts-to-compile-su2). If the image does not already exist locally, it will be pulled from docker hub. You can specify a tag by adding `:tagname` to the name. If none is specified, it will use `:latest` by default. Let us have a look at the most important arguments for the `docker run` command:
+The containers we provide all feature entrypoint scripts, i.e. a script that is executed when the container is started. If no arguments are given, like in the command above, it just prints an error message. The arguments of the compile and test scripts are discussed [here](#using-the-scripts-to-compile-su2). Make sure to pull the image first, as explained above, or provide the full URL including a version tag, e.g., `ghcr.io/su2code/su2/build-su2:230704-1323`. Let us have a look at the most important arguments for the `docker run` command:
 
 - `-ti` (or `--interactive --tty`): Needed to provide input to the container (stdin) via the terminal.
 - `--rm`: Automatically remove the container when it exits (otherwise ressources (disk space) are still occupied)
@@ -55,11 +60,17 @@ The containers we provide all feature entrypoint scripts, i.e. a script that is 
 - `--volume <folder_on_host>:<folder_in_container>` (or `-v`): Bind mount a volume where `<folder_on_host>` is a local folder on the host and `<folder_in_container>` the mount location in the container.
 - `--workdir <directory>` (or `-w`): The working directory inside the container.
 
+### Working interactively in a container ###
+
 A typical call where the current directory on the host is mounted and used as working directory would look like this: 
 ```
-docker run -ti --rm -v $PWD:/workdir/  -w /workdir --entrypoint bash su2code/build-su2
+docker run -ti --rm -v $PWD:/workdir/  -w /workdir --entrypoint bash su2code/su2/build-su2
 ```
-Here, we also override the entrypoint in order to execute a bash shell. Note, that all changes you make will be lost after you exit the container (except from changes in the working directory). Once in the bash you can simply use an existing or new clone of the repository to compile SU2 [the usual way](/docs_v7/Build-SU2-Linux-MacOS/).
+Here, we also override the entrypoint in order to execute a bash shell. Note that all changes you make will be lost after you exit the container (except from changes in the working directory). Once in the bash you can simply use an existing or new clone of the repository to compile SU2 [the usual way](/docs_v7/Build-SU2-Linux-MacOS/), run a regression test script, or execute a specific regression test.
+
+This interactive way of using the container gives you most control over building and testing SU2, we recommend it particularly for running specific tests instead of entire test scripts, e.g., when debugging them with the thread sanitizer. If you look for an out-of-the-box way of compiling and testing SU2, please refer to the sections about using the scripts below.
+
+If you want to build SU2 with the thread sanitizer, you work with the **build-su2-tsan** container instead and compile SU2 as explained above. Note that the thread sanitizer is only meaningful for SU2 builds with OpenMP. You don't have to supply any additional flags when configuring, compiling, or running, the container provides a fully configured environment. Any test executed with SU2 built this way will perform thread sanitizer analysis.
 
 
 ## Using the scripts to compile SU2 ##
@@ -68,7 +79,7 @@ The scripts provide an easy way to directly clone and compile a specific branch 
 
 The [compile script](https://github.com/su2code/Docker-Builds/blob/master/build/compileSU2.sh) expects two arguments, the build flags for meson and the branch name. They are given with `-f` and `-b`, respectively. E.g. to compile the master branch with python wrapper enabled:
 ```
-docker run -ti --rm su2code/build-su2 -f "-Denable-pywrapper=true" -b master
+docker run -ti --rm su2code/su2/build-su2 -f "-Denable-pywrapper=true" -b master
 ```
 
 ### Accessing source code and binaries ###
@@ -82,7 +93,7 @@ Instead of checking out a fresh copy of the source code, it is also possible to 
 ```
 docker run -ti --rm -v ~/Documents/SU2:/workdir/src/SU2 \
  -v ~/Documents/SU2/bin:/workdir/install/ -w /workdir \
- su2code/build-su2 -f "-Denable-pywrapper=true"
+ su2code/su2/build-su2 -f "-Denable-pywrapper=true"
 ```
 
 The binaries can then be found at `~/Documents/SU2/bin`.
@@ -99,7 +110,7 @@ The compiled binaries used for the tests must be mounted at `/install/bin`.
 The following command will clone the master branches of all required repositories and run the `parallel_regression.py` script:
 ```
 docker run -ti --rm -v ~/Documents/SU2/bin:/workdir/install/bin \
- -w /workdir su2code/test-su2 -t master -b master -c master -s parallel_regression.py
+ -w /workdir su2code/su2/test-su2 -t master -b master -c master -s parallel_regression.py
 ```
 
 Similar to the compilation script, you can use already existing clones of the repositories by mounting them at `<workdir>/src/Tutorials`, `<workdir>/src/SU2`, `<workdir>/src/TestData` and omitting the `-t`, `-b` or `-c` option, respectively.
@@ -108,9 +119,22 @@ The following example will compile SU2 using the `build-su2` container and then 
 
 ```
 docker run -ti --rm -v $PWD:/workdir/ -w /workdir \
-  su2code/build-su2 -f "-Denable-pywrapper=true" -b develop
+  su2code/su2/build-su2 -f "-Denable-pywrapper=true" -b develop
 
 docker run -ti --rm -v $PWD/install/bin:/workdir/install/bin -w /workdir \
   -v $PWD/src/SU2_develop:/workdir/src/SU2 \
-  su2code/test-su2 -t develop -c develop -s parallel_regression.py
+  su2code/su2/test-su2 -t develop -c develop -s parallel_regression.py
+```
+
+### Running thread sanitizer tests ###
+
+If you want to run thread sanitizer tests, you have to build SU2 with the **build-su2-tsan** container and test with the **test-su2-tsan** container. Thread sanitizer analysis is only meaningful for OpenMP builds and the hybrid regression scripts. It is advisable to use optimized debug builds to reduce runtime while still getting useful stack traces. You should provide the `--tsan` flag to the test script, which disables tests that are either not compatible with the thread sanitizer or take too long to run. The following example demonstrates thread sanitizer testing.
+
+```
+docker run -ti --rm -v $PWD:/workdir/ -w /workdir \
+  su2code/su2/build-su2-tsan -f "--buildtype=debugoptimized -Dwith-omp=true" -b develop
+
+docker run -ti --rm -v $PWD/install/bin:/workdir/install/bin -w /workdir \
+  -v $PWD/src/SU2_develop:/workdir/src/SU2 \
+  su2code/su2/test-su2-tsan -t develop -c develop -s hybrid_regression.py -a "--tsan"
 ```

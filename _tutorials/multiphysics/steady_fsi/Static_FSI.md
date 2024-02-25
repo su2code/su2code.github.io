@@ -199,7 +199,7 @@ RESTART_FILENAME = restart_fsi_steady
 VOLUME_FILENAME = fsi_steady
 ```
 
-where the volume files ```fsi_steady_*.vtu``` and restart files ```restart_fsi_steady_*.vtu``` will be appended the zone number.
+where the volume files ```fsi_steady_*.vtu``` and restart files ```restart_fsi_steady_*.dat``` will be appended the zone number.
 
 #### Applying coupling conditions to the individual domains
 
@@ -280,11 +280,13 @@ which will show the following convergence history:
 
 The code is stopped as soon as the values of ```avg[bgs][0]``` and ```avg[bgs][1]``` are below the convergence criteria set in the config file. 
 
-The displacement field on the structural domain and the velocity field on the flow domain obtained in ```fsi_steady_1.vtu```_and ```fsi_steady_0.vtu``` respectively are shown below:
+The displacement field on the structural domain and the velocity field on the flow domain obtained in ```fsi_steady_1.vtu```_and ```fsi_steady_0.vtu``` respectively can be visualized with paraview and are shown below:
 
 ![FSI Results1](../../tutorials_files/multiphysics/steady_fsi/images/fsi2.png)
 
 ![FSI Results2](../../tutorials_files/multiphysics/steady_fsi/images/fsi3.png)
+
+Note that the cantilever geometry is stored as the original undeformed geometry and a displacement field. In paraview, the geometry can be deformed to match the flow domain using the 'Warp by Vector' filter.
 
 #### Relaxing the computation
 
