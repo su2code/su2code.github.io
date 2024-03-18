@@ -134,6 +134,8 @@ Options can be passed to the script to enable or disable different features of S
 | `-Denable-pastix`   |  `false`      |    enable PaStiX support        |
 | `-Denable-mpp`   |  `false`      |    enable Mutation++ support        |
 | `-Denable-mixedprec` | `false`      |    enable the use of single precision on linear solvers and preconditioners |
+| `-Denable-mlpcpp`    | `false` |  enable the use of multi-layer perceptrons for data-driven fluid models |
+| `-Denable-gprof`  | `false` |  enable profiling of SU2 through `gprof` |
 
 For example to enable AD support pass the option to the `meson.py` script along with a value:
 ```
@@ -185,6 +187,22 @@ For large structural FEA problems on highly anisotropic grids iterative linear s
 If the use of BLAS is restricted to RBF interpolation, parallel versions of OpenBLAS can be used, the number of threads will then have to be controlled via the appropriate environment variable (consult the OpenBLAS documentation). Otherwise sequential BLAS should be used.
 
 **Note:** The BLAS library needs to provide support for LAPACK functions. If this is not the case, the linker will fail with "undefined reference" errors, this problem can be solved by installing LAPACK and specifying it as an extra dependency when running `meson.py` using `-Dextra-deps=lapack` (this uses pkg-config, use commas to separate the names of multiple extra dependencies).
+
+#### Profiling for developers ####
+
+Profiling allows developers to identify inefficiencies in their code. SU2 can be compiled with profiling enabled through `-Denable-gprof=true`. After reconfiguration of meson and compiling the code, profiling is enabled for your SU2 executable. In order to retrieve the profiling analysis information, first run your simulation as normal. The following example is for `SU2_CFD`, although profiling is also supported for `SU2_CFD_AD`.
+
+```
+/path/to/binary/SU2_CFD config.cfg
+```
+
+After completion, a file called `gmon.out` is generated in your current working directory, indicating that the profiling was successful. In order to compile the analysis, run the command 
+
+```
+gprof /path/to/binary/SU2_CFD > analysis.txt
+```
+
+Now the file `analysis.txt` contains the profiling analysis summary. For more advanced features on using `gprof` for profiling, see the [GNU gprof website](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html).
 
 ### Compilation ###
 
