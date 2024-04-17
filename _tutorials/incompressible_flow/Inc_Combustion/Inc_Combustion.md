@@ -324,13 +324,14 @@ h_{i+1} = h_i + c_p(\mathcal{y},h_i,Z) (T_b - T(\mathcal{y},h_i,Z))
 $$
 is iterated until the temperature difference $T_b - T(\mathcal{y},h_i,Z)$ is less than $1e-3K$.
 
-For the current example, the equivalence ratio at the inlet was set to 0.5, translating to a mixture fraction of 1.447e-2. The reactants are presumed at a temperature of 300K at the inlet, while isothermal wall boundary conditions (400K) are applied on the burner wall and heat exchanger emulator. The iso-thermal wall boundary conditions are defined as weak boundary conditions.
+For the current example, the equivalence ratio at the inlet was set to 0.5, translating to a mixture fraction of 1.447e-2. The reactants are presumed at a temperature of 300K at the inlet, while isothermal wall boundary conditions are applied on the burner wall (350K) and heat exchanger emulator (400K). The iso-thermal wall boundary conditions are defined as strong boundary conditions, meaning that the total enthalpy is locally enforced to achieve the imposed temperature.
 ```
 SPECIES_INIT=(-0.575, 2.227e3, 1.447e-2)
 MARKER_INLET_SPECIES = (inlet, -0.575, 2.227e3, 1.447e-2, 0)
 MARKER_INLET=(inlet, 300.0, 0.565,1,0,0)
 
-MARKER_ISOTHERMAL= (burner_wall, 300, hex_wall, 400)
+MAKER_SPECIES_STRONG_BC=(burner_wall, cylinder_wall)
+MARKER_ISOTHERMAL= (burner_wall, 350, cylinder_wall, 400)
 ```
 ### Convective scheme
 Just like for regular species transport problems, there are two options available for the `CONV_NUM_METHOD_SPECIES`, those being `SCALAR_UPWIND` and `BOUNDED_SCALAR`. 
@@ -354,11 +355,26 @@ The current section describes the hydrogen burner tutorial in more detail.
 
 ## Manifold set-up 
 
-In the current tutorial, a set of MLP's is used for the manifold. These MLP's are visualized below:
+In the current tutorial, a set of MLP's is used for the manifold. These MLP's are visualized below.
+- Thermodynamic properties:
 
-TODO: visualized MLP architectures.
+![MLP_TD1](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_TD1.png)
 
-These MLP's were trained on flamelet data consisting of adiabatic free-flame data, burner-stabilized data, and chemical equilibrium data obtained over a range of equivalence ratio's and reactant temperature of 0.3-6.0 and 300K-900K respectively. 
+![MLP_TD2](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_TD2.png)
+
+- Preferential diffusion scalars:
+
+![MLP_PD](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_PD.png)
+
+- Progress variable source term and heat release rate:
+
+![MLP_SPV](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_SPV.png)
+
+- NO source term:
+
+![MLP_PNO](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_PNO.png)
+
+All networks use the Gaussian Error Linear Unit (GELU) activation function for all hidden layers and were trained on flamelet data consisting of adiabatic free-flame data, burner-stabilized data, and chemical equilibrium data obtained over a range of equivalence ratio's and reactant temperature of 0.3-6.0 and 280K-900K respectively. 
 
 ## Initial conditions
 
@@ -397,8 +413,15 @@ $ mpirun -n <#cores> SU2_CFD H2_burner.cfg
 
 ## Results
 
-The case converges nicely as expected on such a simple case and mesh.
+After 3000 iterations, the simulation converges to the following solution. This solution should not be taken as a fully accurate representation of the current problem, as neither the mesh nor manifold were optimized for the current application.
 
-## Additional remarks
+ The following image shows the solution for the progress variable and total enthalpy side-by-side. The progress variable solution indicates the progress of the reaction, with a local maximum next to the flame front, as is the case for lean, pre-mixed flames with preferential diffusion and no stretch. The total enthalpy solution correctly shows decreases near the cooled surfaces.
 
-An in depth optimization of this case with addition of the FFD-box, gradient validation and some more steps can found [here](/tutorials/Species_Transport/).
+![Result_PV_enth](../../../tutorials_files/incompressible_flow/Inc_Combustion/pv_enth.png)
+
+The solution for the mixture fraction and NO species is shown in the next figure. Due to the effects of preferential diffusion, the mixture fraction solution shows a local minimum in regions of positive flame curvature. The NO solution contains a local maximum in the region of maximum temperature and remaining nearly constant afterwards due to the reduction in temperature from the heat exchanger emulator.
+![Result_mixfrac_NO](../../../tutorials_files/incompressible_flow/Inc_Combustion/mixfrac_NO.png)
+
+Finally, the results for the temperature and heat release rate are shown below. These quantities are not retrieved through solving transport equations, but by retrieving them from the flamelet manifold. 
+![Result_T_qdot](../../../tutorials_files/incompressible_flow/Inc_Combustion/T_Qdot.png)
+
