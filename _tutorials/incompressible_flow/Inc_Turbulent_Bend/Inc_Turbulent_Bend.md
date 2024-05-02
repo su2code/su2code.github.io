@@ -29,6 +29,10 @@ In this tutorial we will simulate the turbulent flow in a 90 degree pipe bend. W
 
 The resources for this tutorial can be found in the [incompressible_flow/Inc_Turbulent_Bend_Wallfunctions](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([sudo.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/sudo.cfg)) and the mesh file ([sudo_coarse.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/sudo_coarse.su2)). Additionally, the Gmsh geometry is also provided so you can recreate the mesh yourself: [sudo_coarse.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend_Wallfunctions/sudo_coarse.geo).
 
+This test case was also presented at the 2022 SU2 conference:
+- [2022 su2 conference](https://su2foundation.org/su2conference2022/)
+- [doc:Turbulence modeling with wall functions](https://drive.google.com/file/d/16al4x0VIk9tDepSBjrJf0YTqaEu9QHDn/view)
+- [youtube:Turbulence modeling with wall functions](https://drive.google.com/file/d/16al4x0VIk9tDepSBjrJf0YTqaEu9QHDn/view)
 
 ## Tutorial
 
