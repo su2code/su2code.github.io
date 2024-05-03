@@ -29,8 +29,7 @@ The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` scr
 ![Mesh with boundary conditions](../../../tutorials_files/incompressible_flow/Inc_Combustion/mesh.png)
 Figure (1): Computational mesh with color indication of the used boundary conditions.
 
-The MLP files describe five architectures. These are used to predict the thermo-chemical state, preferential diffusion scalars, and reaction source terms. 
-![MLP architecture used for prediction of temperature, diffusion coefficient, and dynamic viscosity](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_Group1.png)
+The MLP files describe five dense, feed-forward multi-layer perceptrons. These are used to predict the thermo-chemical state, preferential diffusion scalars, and reaction source terms. 
 
 
 ## Prerequisites
