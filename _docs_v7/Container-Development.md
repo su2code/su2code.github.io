@@ -45,7 +45,7 @@ Please note that some of the examples refer to features that are only available 
 A container can be started using the `run` command and the name, e.g.
 
 ```
-docker run su2code/su2/build-su2
+docker run su2code/build-su2
 ```
 You should see the following message, which means that everything works as intended:
 ```
@@ -64,7 +64,7 @@ The containers we provide all feature entrypoint scripts, i.e. a script that is 
 
 A typical call where the current directory on the host is mounted and used as working directory would look like this: 
 ```
-docker run -ti --rm -v $PWD:/workdir/  -w /workdir --entrypoint bash su2code/su2/build-su2
+docker run -ti --rm -v $PWD:/workdir/  -w /workdir --entrypoint bash su2code/build-su2
 ```
 Here, we also override the entrypoint in order to execute a bash shell. Note that all changes you make will be lost after you exit the container (except from changes in the working directory). Once in the bash you can simply use an existing or new clone of the repository to compile SU2 [the usual way](/docs_v7/Build-SU2-Linux-MacOS/), run a regression test script, or execute a specific regression test.
 
@@ -93,7 +93,7 @@ Instead of checking out a fresh copy of the source code, it is also possible to 
 ```
 docker run -ti --rm -v ~/Documents/SU2:/workdir/src/SU2 \
  -v ~/Documents/SU2/bin:/workdir/install/ -w /workdir \
- su2code/su2/build-su2 -f "-Denable-pywrapper=true"
+ su2code/build-su2 -f "-Denable-pywrapper=true"
 ```
 
 The binaries can then be found at `~/Documents/SU2/bin`.
@@ -110,7 +110,7 @@ The compiled binaries used for the tests must be mounted at `/install/bin`.
 The following command will clone the master branches of all required repositories and run the `parallel_regression.py` script:
 ```
 docker run -ti --rm -v ~/Documents/SU2/bin:/workdir/install/bin \
- -w /workdir su2code/su2/test-su2 -t master -b master -c master -s parallel_regression.py
+ -w /workdir su2code/test-su2 -t master -b master -c master -s parallel_regression.py
 ```
 
 Similar to the compilation script, you can use already existing clones of the repositories by mounting them at `<workdir>/src/Tutorials`, `<workdir>/src/SU2`, `<workdir>/src/TestData` and omitting the `-t`, `-b` or `-c` option, respectively.
@@ -119,11 +119,11 @@ The following example will compile SU2 using the `build-su2` container and then 
 
 ```
 docker run -ti --rm -v $PWD:/workdir/ -w /workdir \
-  su2code/su2/build-su2 -f "-Denable-pywrapper=true" -b develop
+  su2code/build-su2 -f "-Denable-pywrapper=true" -b develop
 
 docker run -ti --rm -v $PWD/install/bin:/workdir/install/bin -w /workdir \
   -v $PWD/src/SU2_develop:/workdir/src/SU2 \
-  su2code/su2/test-su2 -t develop -c develop -s parallel_regression.py
+  su2code/test-su2 -t develop -c develop -s parallel_regression.py
 ```
 
 ### Running thread sanitizer tests ###
