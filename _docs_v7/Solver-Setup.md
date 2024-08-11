@@ -5,7 +5,7 @@ permalink: /docs_v7/Solver-Setup/
 
 This is a basic introduction on how to set up a simulation using SU2. We distinguish between single-zone computations and multi-zone computations. The following considers a single zone only. For an explanation on multi-zone problems, continue with [Basics of Multi-Zone Computations](/docs_v7/Multizone).
 
-Three different types of mathematical problems can be solved in SU2. The type of problem to be solved is specified on the config file by the `MATH_PROBLEM` field. The options are:
+Three different types of mathematical problem can be solved in SU2. The type is specified via the `MATH_PROBLEM` config option. The options are:
 `DIRECT`: Also referred to as primal, this is the default when SU2_CFD or SU2_DEF are used.
 `DISCRETE_ADJOINT`: A discrete adjoint methodology based on Automatic Differentiation, available for most solvers.
 `CONTINUOUS_ADJOINT`: A hand-derived continuous adjoint methodology available only for compressible flows.
