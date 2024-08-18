@@ -16,11 +16,12 @@ bootwatch: yeti
 # Build settings
 markdown: kramdown
 highlighter: rouge
-gems:
+plugins:
   - jekyll-feed
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-gist
 
 whitelist:
   - jekyll-redirect-from
@@ -32,7 +33,9 @@ exclude:
   - .idea/
   - .gitignore
   - README.md
-timezone: Europe/Berlin
+
+timezone: "America/New_York"
+
 defaults:
 - scope:
     path: _posts
@@ -76,6 +79,16 @@ defaults:
     sectionid: vandv
     seo:
       type: "WebPage"
+
+- scope:
+    path: _su2gui
+    type: su2gui
+  values:
+    layout: su2gui
+    sectionid: su2gui
+    seo:
+      type: "WebPage"
+
 collections:
   docs:
     permalink: /:collection/:path/
@@ -89,6 +102,9 @@ collections:
   vandv:
     permalink: /:collection/:path/
     output: true
+  su2gui:
+    permalink: /:collection/:path/
+    output: true
   posts:
     permalink: /blog/:year/:month/:day/:title/
     output: true
@@ -96,5 +112,3 @@ collections:
 # Google Analytics
 google_analytics: UA-28187985-1
 
-plugins:
-  - jekyll-gist
