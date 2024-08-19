@@ -4,7 +4,6 @@ permalink: /tutorials/Static_CHT/
 written_by: EvertBunschoten
 for_version: 8.0.1
 revised_by: EvertBunschoten
-revision_date: 2021-01-18
 revised_version: 8.0.1
 solver: MULTIPHYSICS
 requires: SU2_CFD, Gmsh
@@ -12,8 +11,6 @@ complexity: advanced
 follows: Static_CHT
 userguide: Multizone
 ---
-
-![Coupled_CHT](../../tutorials_files/multiphysics/steady_cht/images/coupled_cht.png)
 
 ## Goals
 
@@ -47,215 +44,111 @@ $$
 
 Here, $R_c$ is the contact resistance with the units $m K W^{-1}$, or the inverse of the heat transfer coefficient. For ideal contact, $R_c$ is equal to zero. This results in the temperature on both sides of the interface to be equal. Applying a non-zero value for $R_c$ restricts the heat transfer between the two solid domains, resulting in a temperature discontinuity. To illustrate this, consider the following set-up with two solid domains.
 
-![Solid domain set-up](../../tutorials_files/multiphysics/contact_resistance_cht/solid_domains.png)
+![Solid domain set-up](../../../tutorials_files/multiphysics/contact_resistance_cht/solid_domains.png)
+Figure 1: Two solid domains subject to iso-thermal boundary conditions connected by a zone interface.
 
-Here, the two colored blocks have different thermal properties and are subject to two isothermal walls. The temperature profile along the centerline for various values of $R_c$ is shown below. The discontinuity between the temperatures on either side of the interface is proportional to the value of $R_c$.
 
-![Effect of $R_c$](../../tutorials_files/multiphysics/contact_resistance_cht/contact_resistance_effect.png)
+Here, the two colored blocks have different thermal properties and are subject to two isothermal walls. The temperature profile along the centerline for various values of $R_c$ is shown below. The discontinuity between the temperatures on either side of the interface is proportional to the value of $R_c$. 
 
+![Effect of $R_c$](../../../tutorials_files/multiphysics/contact_resistance_cht/contact_resistance_effect.png)
+Figure 2: The effect of altering the contact resistance at the interface between the solid domains. 
+
+What follows is a tutorial with heat transfer between solid and fluid domains that illustrates the use of the contact resistance model. 
 
 ### Problem Setup
 
-This problem will solve for the incompressible flow over three cylinders as well as for the heat equation in all cylinders that are coupled by energy conservation across the interfaces.  
+This problem will solve for the incompressible flow along side two solid, metal blocks with different thermal properties, subject to heat transfer with contact resistance at the interface between the blocks. The simulation setup is shown below. The two solid blocks are squares with a side length of 1.0e-02m, while the fluid domain has a width of 5.0e-03m.
 
-The following flow conditions that are set to match the Reynolds number of 40. For hollow cylinders with outer diameters of 1m:
-- Density (variable) = 0.000210322 kg/m^3
-- Farfield Velocity Magnitude = 3.40297 m/s
-- Farfield Flow Direction, unit vector (x,y,z) = (1.0, 0.0, 0.0) 
-- Farfield Temperature = 288.15 K
-- Viscosity (constant) = 1.7893e-05 kg/(m-s)
-- Specific heat (constant) = 1004.703 J/(kg-K)
-- Prandtl Number (constant) = 0.72
+![Problem Setup](../../../tutorials_files/multiphysics/contact_resistance_cht/problem_setup.png)
+Figure 3: Computational setup for the tutorial problem for conjugate heat transfer between solid and fluid domains.
 
-The hollow cylinders will have the same material properties for its density (set to 0.00042 kg/m^3) and specific heat but a 4 times higher thermal conductivity of 0.1 W/(m-K).  
-A constant temperature boundary condition of 350 K on the inner core drives the heating in the solid and fluid zones.
+The following flow conditions that are set for the fluid domain with a Reynolds number of 260:
+- Fluid model: incompressible, ideal gas
+- Density  = 1.29 kg/m^3
+- Inlet Velocity Magnitude = 0.1 m/s
+- Inlet temperature = 300 K
+- Viscosity (constant) = 1.0e-05 kg/(m-s)
+
+Solid domain 1 has the material properties of stainless steel:
+- Density = 8935 kg/m^3
+- Specific heat = 3850 J/(kg-K)
+- Thermal conductivity = 26 W/(m-K)
+
+Solid domain 2 has the material properties of copper: 
+- Density = 8000 kg/m^3
+- Specific heat = 4420 J/(kg-K)
+- Thermal conductivity = 61 W/(m-K)
+
+The two solid blocks each are subject to an iso-thermal wall boundary condition, which drives the transfer of heat between the solid domains and the fluid. The interface type for all domains was set to ```DIRECT_TEMPERATURE_ROBIN_HEATFLUX```, with a contact resistance value of 1.0e-04 K-m/W applied to the interface between Solid 1 and Solid 2. All other boundaries were defined as symmetry boundary conditions.
+
 
 ### Mesh Description
 
-The computational mesh for the fluid zone is composed 33700 elements (quad-dominant). The far-field boundary contains 80 line elements and the cylinders surfaces all have 400 line elemtents.  
-The meshes for all three cylinders are composed of 4534 elements (quad-dominant) each, their inner diamaters are composed of 40 line elements, at their outer diamaters the mesh matches the one of the fluid zone.
+The computational mesh for all domains consist of quads and can be generated through Gmesh. The .geo files for [Solid 1](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_1.geo) and [Solid 2](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_2.geo) describe a simple, square mesh with 40 nodes along each side. The .geo file for the [fluid domain](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/fluid_3.geo) contains refinement commands around the solid-fluid interfaces.
 
-![Lam Plate Mesh](../../tutorials_files/multiphysics/steady_cht/images/heated_cylinders_mesh.png)
-Figure (1): Figure of the computational mesh with all four physical zones.
-
-Uniform velocity boundary conditions are used for the farfield.
+![Problem Setup Mesh](../../../tutorials_files/multiphysics/contact_resistance_cht/problem_mesh.png)
+Figure 4: The computational mesh with all three physical zones.
 
 ### Configuration File Options
 
-Several of the key configuration file options for this simulation are highlighted here. First we show how we start a multiphysics simulation run incorporating CHT by choosing the following options in a main config file [cht_2d_3cylinders.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/cht_2d_3cylinders.cfg) (see [https://su2code.github.io/docs_v7/Multizone](https://su2code.github.io/docs_v7/Multizone) how to setup a multiphysics simulation in general):
+Several of the key configuration file options for this simulation are highlighted here. For this problem, four configuration files are used. The [master configuration file](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/master.cfg) describes the interface between the fluid and solid domains as well as the application of contact resistance. 
 ```
-MARKER_ZONE_INTERFACE= (cylinder_outer1, cylinder_inner1, cylinder_outer2, cylinder_inner2, cylinder_outer3, cylinder_inner3)
-%
-%
-MARKER_CHT_INTERFACE= (cylinder_outer1, cylinder_inner1, cylinder_outer2, cylinder_inner2, cylinder_outer3, cylinder_inner3)
-```
+CONFIG_LIST = (solid_1.cfg, solid_2.cfg, fluid.cfg)
+MARKER_ZONE_INTERFACE= (cht_interface_1_2, cht_interface_2_1,\
+                        cht_interface_1_3, cht_interface_3_1,\
+                        cht_interface_2_3, cht_interface_3_2)
 
-By setting `MARKER_CHT_INTERFACE` for the outer diameters, temperature and heat flux data will be exchanged between the solvers at these boundaries in each outer iteration.  
-
-As in the [laminar flat plate with heat transfer tutorial](/tutorials/Inc_Laminar_Flat_Plate/), we activate the energy equation in the flow domain config ([flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/flow_cylinder.cfg)) but this time we allow for variable density as the heat input causes a non-neglectable influence on the density:
-
-```
-% ---------------- INCOMPRESSIBLE FLOW CONDITION DEFINITION -------------------%
-%
-% Density model within the incompressible flow solver.
-% Options are CONSTANT (default), BOUSSINESQ, or VARIABLE. If VARIABLE,
-% an appropriate fluid model must be selected.
-INC_DENSITY_MODEL= VARIABLE
-%
-% Solve the energy equation in the incompressible flow solver
-INC_ENERGY_EQUATION = YES
-```
-
-With the energy equation with variable density active, a value for the specific heat at constant pressure (Cp) should be specified as well as an appropriate fluid model that relates temperature and density.
+MARKER_CHT_INTERFACE= (cht_interface_1_2, cht_interface_2_1,\
+                        cht_interface_1_3, cht_interface_3_1,\
+                        cht_interface_2_3, cht_interface_3_2)
 
 ```
-% ---- IDEAL GAS, POLYTROPIC, VAN DER WAALS AND PENG ROBINSON CONSTANTS -------%
-%
-% Fluid model (STANDARD_AIR, IDEAL_GAS, VW_GAS, PR_GAS,
-%              CONSTANT_DENSITY, INC_IDEAL_GAS)
-FLUID_MODEL= INC_IDEAL_GAS
-%
-% Specific heat at constant pressure, Cp (1004.703 J/kg*K (air)).
-% Incompressible fluids with energy eqn. only (CONSTANT_DENSITY, INC_IDEAL_GAS).
-SPECIFIC_HEAT_CP= 1004.703
-```
-
-The config files for the solid zones are quite short and mostly identical. E.g. for the first cylinder in upstream direction ([solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/solid_cylinder1.cfg)), we have to invoke the heat equation solver by
+Here, ```cht_interface_1_2``` and ```cht_interface_2_1``` are the boundaries connecting Solid 1 with Solid 2, while the other interfaces connect the fluid and solid domains. The contact resistance model in SU2 allows the user to apply a contact resistance value for each of the interfaces. 
 
 ```
-% Physical governing equations (EULER, NAVIER_STOKES,
-%                               WAVE_EQUATION, HEAT_EQUATION, FEM_ELASTICITY,
-%                               POISSON_EQUATION)                           
-SOLVER= HEAT_EQUATION
-```
-and then set in inner (core) diameter temperature to 350 K (as mentioned above), that is we set
-
-```
-% -------------------- BOUNDARY CONDITION DEFINITION --------------------------%
-%
-MARKER_ISOTHERMAL= ( core1, 350.0 )
+CHT_INTERFACE_CONTACT_RESISTANCE = (1e-4,0,0)
 ```
 
-The solid's material properties are chosen as follows.
-```
-% Solid density (kg/m^3)
-MATERIAL_DENSITY= 0.00021
-%
-% Solid specific heat (J/kg*K)
-SPECIFIC_HEAT_CP = 1004.703
-%
-% Solid thermal conductivity (W/m*K)
-KT_CONSTANT= 0.1028
-```
+Be mindful that the number of values for contact resistance should match the number of interfaces. For solid-fluid interfaces, the contact resistance model does not apply. Applying a non-zero value for contact resistance for such interfaces will therefore not affect the simulation results.
+
+The configurations for the [steel solid domain](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_1.cfg), [copper solid domain](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_2.cfg), and [fluid domain](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/fluid_3.cfg) all contain standard settings for multi-physics simulations. 
+
 
 ### Running SU2
 
-The CHT simulation for the provided mesh  will execute relatively quick, given that the coupled outer loop has to converge to a interface temperature solution as well. To run this test case, follow these steps at a terminal command line:
+In order to run this test case, follow these steps at a terminal command line:
  1. Move to the directory containing the config files and the mesh files. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
     ```
-    $ SU2_CFD cht_2d_3cylinders.cfg
+    $ SU2_CFD master.cfg
     ```
  
     at the command line. 
- 3. SU2 will print residual updates with each outer iteration of the flow solver, and the simulation will terminate after reaching the specified convergence criteria.
- 4. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+ 3. SU2 will print residual updates with each outer iteration of the flow solver, and the simulation will terminate after reaching running for 2000 iterations
+ 4. Files containing the results will be written upon exiting SU2. The solutions for both solid and fluid domains are contained in a single ParaView multiblock file (.vtm), from which the solutions can be loaded.
 
+### Results 
 
-### Discrete adjoint solutions
+The temperature solution of the completed simulation is shown below. The hot, stainless steel block heats up the flow in the fluid domain, which transfers the heat partially to the copper block downstream through convection. 
 
-For optimization purposes, SU2 can perform discrete adjoint solutions for multiphysics simulations as well. Given the solution files from all the zones, we only have to change `MATH_PROBLEM` from `DIRECT` to
+![Temperature solution](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature.png)
+Figure 5: Temperature solution for the current setup.
 
+The effect of the application of contact resistance becomes clear when visualizing the temperature trend across interfaces. Three temperature trends according to each interface are shown below and are color coded corresponding to the lines shown in Figure 6.
+
+![Temperature solution lines](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines.png)
+Figure 6: Temperature trends across the heat transfer interfaces.
+
+The temperature trends across the solid-fluid interfaces (green, red) are continuous, the temperature trend across the solid-solid interface (purple) shows a discontinuity at the interface as a result of the application of contact resistance. This effect can be exaggerated when increasing the value for the contact resistance. For example, when applying a contact resistance value of 10 W-m/K,
 ```
-% Mathematical problem (DIRECT, CONTINUOUS_ADJOINT, DISCRETE_ADJOINT)
-MATH_PROBLEM= DISCRETE_ADJOINT
+CHT_INTERFACE_CONTACT_RESISTANCE = (10.0,0,0)
 ```
+ the two solid domains are currently essentially insulated from one another. This results in the following temperature solution.
 
-in the main config file.  
-SU2 will then compute coupled discrete adjoint solutions for all physical zones for a given objective function. Note that all cross dependencies from the CHT coupling at the interfaces are captured by default to give accurate sensitivities later on.
+![Temperature solution](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_n.png)
+Figure 7: Temperature solution for a contact resistance value of 10.0 W-m/K.
 
-As for this test case, the objective function will be the sum of all integrated heat fluxes at the CHT interfaces. This can be done by setting
 
-```
-% For a weighted sum of objectives: separate by commas, add OBJECTIVE_WEIGHT and MARKER_MONITORING in matching order.
-OBJECTIVE_FUNCTION= TOTAL_HEATFLUX
-
-```
-
-in [cht_2d_3cylinders.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/cht_2d_3cylinders.cfg),
-
-```
-% Marker(s) of the surface where the functional (Cd, Cl, etc.) will be evaluated
-MARKER_MONITORING= (cylinder_outer1, cylinder_outer2, cylinder_outer3)
-```
-
-in [flow_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/flow_cylinder.cfg) and 
-
-```
-% Marker(s) of the surface where the functional (Cd, Cl, etc.) will be evaluated
-MARKER_MONITORING= ( NONE )
-```
-
-in [solid_cylinder1.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/solid_cylinder1.cfg), [solid_cylinder2.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/solid_cylinder2.cfg) and  [solid_cylinder3.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/steady_cht/solid_cylinder3.cfg).  
-One could also set objective functions in all the solid config files seperately which would in the end give same results.
-
-Based on all four solution files from the different zones (`solution_flow_0.dat` and so on), we start the discrete adjoint run by entering
-
-```
-$ SU2_CFD_AD cht_2d_3cylinders.cfg
-```
-
-### Results and Validation
-
-Surface node sensitivities can be obtained from the discrete adjoint solutions via 
-
-```
-$ cp restart_adj_totheat_0.dat solution_adj_totheat_0.dat
-$ cp restart_adj_totheat_1.dat solution_adj_totheat_1.dat
-$ cp restart_adj_totheat_2.dat solution_adj_totheat_2.dat
-$ cp restart_adj_totheat_3.dat solution_adj_totheat_3.dat
-$ SU2_DOT_AD cht_2d_3cylinders.cfg
-```
-
-which are written to surface output files for each zone. Sensitivites from `surface_sens_0.dat` are shown as blue arrows, for all solid zones (`surface_sens_1.dat`, `surface_sens_2.dat`, `surface_sens_3.dat`) as red arrows.
-
-![Coupled_CHT_Sens](../../tutorials_files/multiphysics/steady_cht/images/heated_cylinders_sens.png)
-Figure (2): Heat flux sensitivities obtained from the discrete adjoint flow solution (blue) and the discrete adjoint heat solutions (red), their sum giving the correct result. Note the sensitivity change in downstream direction in both directions and magnitude.
-
-In order to validate the sensitivities (and therefore the discrete adjoint solutions, too), a free-form deformation box was already created around the first heated cylinder, to project all sensitivities onto one design variable (a FFD box control point) to check the obtained derivative against finite differences.
-
-![Coupled_CHT_FFD](../../tutorials_files/multiphysics/steady_cht/images/heated_cylinders_ffd.png)
-Figure (3): FFD box of degree 24x1.
-
-The upper middle control point at (12,1), moving into y-direction, is then used to define a single design parameter modifying the shape. This can be done by
-
-```
-DV_KIND= FFD_CONTROL_POINT_2D
-DV_MARKER= ( cylinder_outer1, cylinder_inner1 )
-DV_PARAM= ( MAIN_BOX, 12, 1, 0.0, 1.0 )
-```
-
-as in the main config file. The derivative of the integrated heat flux with respect to this design veriable was thus alsp automatically computed and written to `of_grad_0.dat` and `of_grad_1.dat`; the other to cylinders are giving no direct contribution as their shape is not affected).
-
-We will check the derivative (0.152507 + 0.234148 + 0.0 + 0.0 = 0,386655) against finite differences at magnitudes from 1.0e-2 to 1.0e-6. To this end, we have to deform the multizone mesh by setting
-
-```
-DV_VALUE= 0.00001
-```
-
-and running
-
-```
-$ SU2_DEF cht_2d_3cylinders.cfg
-```
-
-which will produce the deformed multizone mesh `mesh_cht_3cyl_out.su2`, on which the integrated heatflux can be recomputed (analogously for other magnitudes). Relative errors to the value generated from discrete adjoints are given below.
-
-magnitude | heatflux value | FD derivative | rel. error (%)
---- | --- | --- | ---
-1.0e-2 | -31.89331058028049 | 0,390077422 | 0,8861153
-1.0e-3 | -31.89682435269217 | 0.387001813 | 0.0906675
-1.0e-4 | -31.89717268560501 | 0.386688997 | 0.0097636
-1.0e-5 | -31.89720748792119 | 0.38665835  | 0.0018381
-1.0e-6 | -31.89721096784924 | 0.38665548  | 0.001095
+![Temperature solution lines](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines_n.png)
+Figure 8: Temperature trends across the interfaces for a contact resistance value of 10.0 W-m/K.
