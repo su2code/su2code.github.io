@@ -73,8 +73,8 @@ If there is a need to perform the perturbations individually (for example to run
 ```
 % ------------------- UNCERTAINTY QUANTIFICATION DEFINITION -------------------%
 %
-% Using uncertainty quantification module (YES, NO). Only available with SST
-USING_UQ= YES
+% Using uncertainty quantification module. Available as an option for the SST turbulence model.
+SST_OPTIONS= UQ
 %
 % Eigenvalue perturbation definition (1, 2, or 3)
 UQ_COMPONENT= 1
