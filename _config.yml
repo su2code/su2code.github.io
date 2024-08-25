@@ -16,12 +16,11 @@ bootwatch: yeti
 # Build settings
 markdown: kramdown
 highlighter: rouge
-plugins:
+gems:
   - jekyll-feed
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-gist
 
 whitelist:
   - jekyll-redirect-from
@@ -34,7 +33,7 @@ exclude:
   - .gitignore
   - README.md
 
-timezone: "America/New_York"
+timezone: Europe/Berlin
 
 defaults:
 - scope:

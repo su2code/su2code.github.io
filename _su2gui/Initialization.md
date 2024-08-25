@@ -4,6 +4,8 @@ title: Initialization
 permalink: /su2gui/Initialization/
 ---
 
+Initialization is the process of setting up the initial conditions and parameters required to start a simulation. Proper initialization is crucial as it significantly influences the convergence and accuracy of the simulation. By specifying initial values or states, you provide a starting point for the solver, which helps in stabilizing the simulation and achieving reliable results more efficiently.
+
 SU2GUI supports three methods for initializing a problem, which are available under the Initialization section of the menu:
 
 - [**Uniform Initialization**](#uniform-initialization)
@@ -23,7 +25,9 @@ Follow the steps below according to the type of initialization needed.
 
 ## Uniform Initialization
 
-As the name suggests, this method sets all points to a constant value, and a solution file is created for SU2.
+**Description**: This method involves assigning a single set of initial values (like pressure, velocity, temperature, etc.) uniformly across the entire computational domain.
+
+**Use Case**: Uniform initialization is commonly used when you have little prior knowledge about the flow field or when you want to start with a simple baseline.
 
 **Steps for Uniform Initialization**
 
@@ -37,7 +41,11 @@ As the name suggests, this method sets all points to a constant value, and a sol
 
 ## Initialization using Restart File
 
-This method uses a Restart File to initialize the problem. SU2GUI supports both `.dat` and `.csv` formats for restart files.
+**Description**: This method uses a previously saved simulation state from a Restart file to initialize the current simulation.
+
+**Use Case**: This is ideal for continuing simulations from where they left off or for testing variations without starting from scratch, which can save time and resources.
+
+SU2GUI supports both `.dat` and `.csv` formats for restart files.
 
 **Steps for Restart Initialization**
 
@@ -55,7 +63,11 @@ For instructions on loading a restart file through the terminal, refer to the gu
 
 ## Patch Initialization
 
-SU2GUI currently supports three types of patch initialization: Plane, Sphere, and Box. In this method, a patch is created in the visualization window according to the inputs, and a solution file is generated for SU2.
+**Description**: Patch initialization allows you to define different initial conditions for specific regions (or patches) within the computational domain.
+
+**Use Case**: This method is useful for simulations with complex geometries or varying conditions, enabling more precise control over the initial state of the simulation.
+
+SU2GUI currently supports three types of patch initialization: Plane, Sphere, and Box.
 
 **Steps for Patch Initialization**
 

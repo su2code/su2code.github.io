@@ -21,6 +21,6 @@ You can install SU2GUI via pip:
 To launch the GUI, run the following command in your terminal:
 
 
-    su2gui
+    SU2_GUI
 
-For a quick introduction to using SU2GUI, visit the [Quick start](./../quick-start) page. For additional terminal options, refer to the  [Terminal Initialization](./../terminal-initialization) page.
+For a quick introduction to using SU2GUI, visit the [Quick start](./../Quick-start) page. For additional terminal options, refer to the  [Terminal Initialization](./../Terminal-Initialization) page.

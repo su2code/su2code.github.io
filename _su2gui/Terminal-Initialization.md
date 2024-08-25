@@ -9,7 +9,7 @@ SU2GUI can be initialized directly from the terminal, allowing users to provide 
 
 The basic syntax for initializing SU2GUI from the terminal is as follows:
 
-      usage: su2gui.py [-h] [-p PORT] [-c CASE] [-m MESH] [--config CONFIG] [--restart RESTART]
+      usage: SU2_GUI [-h] [-p PORT] [-c CASE] [-m MESH] [--config CONFIG] [--restart RESTART]
 
 
 ### Options
@@ -36,9 +36,11 @@ The basic syntax for initializing SU2GUI from the terminal is as follows:
 
 - **Case Name Requirement**: The Case Name must be provided for the initialization of the MESH, CONFIG, or RESTART file. Without specifying a Case Name, these files cannot be initialized.
 
+- All the options mentioned above are completely optional. Users can choose to provide any combination of these options based on their requirements.
+
 ### Example Command
 
 To initialize SU2GUI with a specific case name, port, mesh file, configuration file, and restart file, use the following command:
 
 
-    SU2GUI -p 5000 -c case_name -m path_to_mesh_file --config path_to_config_file --restart path_to_restart_file
+    SU2_GUI -p 5000 -c case_name -m path_to_mesh_file --config path_to_config_file --restart path_to_restart_file
