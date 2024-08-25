@@ -3,7 +3,7 @@ title: Quick Start
 permalink: /su2gui/Quick-Start/
 ---
 
-Welcome to the Quick Start Tutorial for the SU2 software suite. This tutorial introduces key features of SU2's analysis and design tools in an easily accessible format, taking only a few minutes to complete. If you haven’t done so already, please visit the [SU2](../../docs_v7/Installation/) and [SU2_GUI](./../Installation) download pages to obtain the latest stable releases and installation details. This tutorial mirrors the [SU2 Quick Start](../../docs_v7/Quick-Start/) guide and requires both the SU2_CFD and SU2_GUI tools.
+Welcome to the Quick Start Tutorial for the SU2GUI. This tutorial introduces key features of SU2GUI, taking only a few minutes to complete. If you haven’t done so already, please visit the [SU2](../../docs_v7/Installation/) and [SU2_GUI](./../Installation) download pages to obtain the latest stable releases and installation details. This tutorial mirrors the [SU2 Quick Start](../../docs_v7/Quick-Start/) guide and requires both the SU2_CFD and SU2_GUI tools.
 
 This guide will help you:
 

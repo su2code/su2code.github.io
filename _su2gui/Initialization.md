@@ -14,7 +14,7 @@ SU2GUI supports three methods for initializing a problem, which are available un
 
 ### Opening the Initialization Options
 
-1. Start a new case and load the mesh file. Follow these guides for detailed steps on [starting a new case](./Manage-Cases/#starting-a-new-case) and [loading a mesh file](./mesh).
+1. Start a new case and load the mesh file. Follow these guides for detailed steps on [starting a new case](../Manage-Cases/#starting-a-new-case) and [loading a mesh file](../mesh-file).
 
 2. Navigate to the Initialization section from the left menu:  
    ![](../../su2gui_files/User_guide/initialization/initialize-options.png)

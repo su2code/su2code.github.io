@@ -10,7 +10,7 @@ SU2GUI allows users to load a configuration file through both the GUI and the te
 
 **Steps to load configuration file:**
 
- 1. Start a new case and load mesh file. Follow these guides for detailed steps on [starting a new case](./Manage-Cases/#starting-a-new-case) and [loading a mesh file](./mesh).
+ 1. Start a new case and load mesh file. Follow these guides for detailed steps on [starting a new case](../Manage-Cases/#starting-a-new-case) and [loading a mesh file](../mesh-file).
  
 
  2. Click on the "Load Config File" option. ![](../../su2gui_files/User_guide/Configuration/button-config-file.png)
