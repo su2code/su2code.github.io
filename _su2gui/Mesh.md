@@ -25,4 +25,4 @@ SU2GUI offers the option to load a mesh file through both the GUI and the termin
 
 
 
-For instructions on loading a mesh file through the terminal, refer to the guide on [ Terminal Initialization](./../terminal-initialization).
+For instructions on loading a mesh file through the terminal, refer to the guide on [ Terminal Initialization](./../Terminal-Initialization).
