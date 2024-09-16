@@ -40,4 +40,4 @@ SU2 generates various output files, such as:
 - **Surface Data**: Pressure and skin friction coefficients.
 - **Visualization Files**: Files compatible with tools like ParaView.
 
-SU2GUI allows you to download all output files from a case. For instructions on case management, refer to the [case installation procedure](../manage-cases/). By thoroughly analyzing these files, you can gain insights, validate models, and make informed decisions for future simulations.
+SU2GUI allows you to download all output files from a case. For instructions on case management, refer to the [case installation procedure](../Manage-Cases/). By thoroughly analyzing these files, you can gain insights, validate models, and make informed decisions for future simulations.

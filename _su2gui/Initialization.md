@@ -14,7 +14,7 @@ SU2GUI supports three methods for initializing a problem, which are available un
 
 ### Opening the Initialization Options
 
-1. Start a new case and load the mesh file. Follow these guides for detailed steps on [starting a new case](../Manage-Cases/#starting-a-new-case) and [loading a mesh file](../mesh-file).
+1. Start a new case and load the mesh file. Follow these guides for detailed steps on [starting a new case](../Manage-Cases/#starting-a-new-case) and [loading a mesh file](../Mesh-File).
 
 2. Navigate to the Initialization section from the left menu:  
    ![](../../su2gui_files/User_guide/initialization/initialize-options.png)
@@ -51,13 +51,13 @@ SU2GUI supports both `.dat` and `.csv` formats for restart files.
 
 1. After opening the Initialization options, select **Restart File Initialization** from the drop-down menu.
 
-2. Click on the **Load Restart File** option. ![](../../su2gui_files/User_guide/initialization/button-restart-file.png)
+2. Click on the **Load Restart File** option. ![](../../su2gui_files/User_guide/Initialization/button-restart-file.png)
 
 3. In the pop-up window, choose the desired restart file. ![](../../su2gui_files/User_guide/initialization/choose-restart-file.png)
 
 4. The Restart file will be loaded, and the visualization window will update accordingly. ![](../../su2gui_files/User_guide/initialization/loaded-restart-file.png)
 
-For instructions on loading a restart file through the terminal, refer to the guide on [ Terminal Initialization](./../terminal-initialization).
+For instructions on loading a restart file through the terminal, refer to the guide on [ Terminal Initialization](./../Terminal-Initialization).
 
 ---
 

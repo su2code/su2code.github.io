@@ -49,4 +49,4 @@ Loading a case is essential to start working with SU2GUI, as it helps organize a
 
 ## Loading a Case from the Terminal
 
-When starting SU2GUI from the terminal, users can specify a case name. If the case already exists, SU2GUI will load it; if not, it will start a new case. For instructions on loading a case through the terminal, refer to the guide on [Terminal Initialization](./../terminal-initialization).
+When starting SU2GUI from the terminal, users can specify a case name. If the case already exists, SU2GUI will load it; if not, it will start a new case. For instructions on loading a case through the terminal, refer to the guide on [Terminal Initialization](./../Terminal-Initialization).
