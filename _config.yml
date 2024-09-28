@@ -76,6 +76,16 @@ defaults:
     sectionid: vandv
     seo:
       type: "WebPage"
+
+- scope:
+    path: _su2gui
+    type: su2gui
+  values:
+    layout: su2gui
+    sectionid: su2gui
+    seo:
+      type: "WebPage"
+
 collections:
   docs:
     permalink: /:collection/:path/
@@ -87,6 +97,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   vandv:
+    permalink: /:collection/:path/
+    output: true
+  su2gui:
     permalink: /:collection/:path/
     output: true
   posts:

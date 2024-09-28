@@ -117,7 +117,7 @@ Additional `SCREEN_OUTPUT` for streamwise periodic flow is `STREAMWISE_MASSFLOW`
 
 In this tutorial, 2 configuration files are provided which differ in the streamwise periodic options.
 
-[First](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Streamwise_Periodic/sp_pinArray_dp_hf_tp.cfg), one of the simplest setups with a user provided pressure drop over the domain is chosen. Temperature periodicity is activated.
+[First](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Streamwise_Periodic/sp_pinArray_2d_dp_hf_tp.cfg), one of the simplest setups with a user provided pressure drop over the domain is chosen. Temperature periodicity is activated.
 ```
 % --------------------- STREAMWISE PERIODICITY DEFINITION ---------------------%
 %
@@ -127,7 +127,7 @@ STREAMWISE_PERIODIC_PRESSURE_DROP= 208.023676
 STREAMWISE_PERIODIC_TEMPERATURE= YES
 %
 ```
-For the [second configuration](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Streamwise_Periodic/sp_pinArray_mf_hf.cfg) a massflow is prescribed. The initial pressure drop matches the final value but changes within the first iterations until the flow converges. Streamwise periodic temperature is deactivated so the outlet heatsink is used. In this case the 3 heatflux markers form a full circle which makes an exact computation of the introduced heatflux possible which can be then specified using the `STREAMWISE_PERIODIC_OUTLET_HEAT`. Note that an exact computation of this value is not always possible and also not necessary as the area-averaged inlet temperature must match `INC_TEMPERATURE_INIT` upon convergence which serves as an anchor for the temperature.
+For the [second configuration](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Streamwise_Periodic/sp_pinArray_2d_mf_hf.cfg) a massflow is prescribed. The initial pressure drop matches the final value but changes within the first iterations until the flow converges. Streamwise periodic temperature is deactivated so the outlet heatsink is used. In this case the 3 heatflux markers form a full circle which makes an exact computation of the introduced heatflux possible which can be then specified using the `STREAMWISE_PERIODIC_OUTLET_HEAT`. Note that an exact computation of this value is not always possible and also not necessary as the area-averaged inlet temperature must match `INC_TEMPERATURE_INIT` upon convergence which serves as an anchor for the temperature.
 ```
 % --------------------- STREAMWISE PERIODICITY DEFINITION ---------------------%
 %

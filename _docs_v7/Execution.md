@@ -15,7 +15,7 @@ Once downloaded and installed, and now that you know the basics for setting up y
   - [Discrete Adjoint Gradient Calculation (discrete_adjoint.py)](#discrete-adjoint-gradient-calculation-discreteadjointpy)
   - [Finite Difference Gradient Calculation (finite_differences.py)](#finite-difference-gradient-calculation-finitedifferencespy)
   - [Shape Optimization Script (shape_optimization.py)](#shape-optimization-script-shapeoptimizationpy)
-  
+  - [Python wrapper scripts](#python-wrapper-scripts)
 ---
 
 ## C++ Modules
@@ -109,3 +109,30 @@ Options:
 * `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
 * `-g GRADIENT, --gradient=GRADIENT` Method for computing the GRADIENT (ADJOINT, DISCRETE_ADJOINT, FINDIFF, NONE)
 * `-q QUIET, --quiet=QUIET` True/False Quiet all SU2 output (optimizer output only)
+
+### Python wrapper scripts
+
+It is possible to call SU2 from python by importing it as a module. The first step is to compile SU2 with python wrapper support. For instance if your SU2 repository is in your home directory at *~/SU2*:
+
+Usage: `$ ./meson.py build -Denable-pywrapper=true --prefix=~/SU2`
+
+The python module will then be available in the installation folder *~/SU2/bin*. To make the SU2 python wrapper available from everywhere in the system, add the installation path to *PYTHONPATH*:
+
+Usage: `export PYTHONPATH=~/SU2/bin:$PYTHONPATH`
+
+You should now be able to call SU2 from a python file. A quick way to test this is by using the following command:
+
+Usage: `python -c "import pysu2; print('hello world') "`
+
+If you see the message *hello world* without any error messages, you can now try to run the pywrapper examples in the */Testcases/py_wrapper* subdirectory.
+For instance the unsteady flat plate with conjugate heat transfer. Note that the configuration files are inside the SU2 repository and the meshes for the testcases are inside the Testcases repository. We recommend to copy .cfg files to the Testcases repository and run from there.
+```
+cd ~/Testcases/py_wrapper/flatplate_unsteady_CHT
+cp ~/SU2/Testcases/py_wrapper/flatplate_unsteady_CHT/unsteady_CHT_FlatPlate_Conf.cfg .
+python launch_unsteady_CHT_FlatPlate.py -f unsteady_CHT_FlatPlate_Conf.cfg
+```
+
+Options:
+* `-h, --help` show this help message and exit
+* `-f FILE, --file=FILE` read config from FILE
+* `--parallel` Specify if we need to initialize MPI
