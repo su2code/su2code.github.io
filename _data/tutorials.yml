@@ -44,6 +44,7 @@
    - Dynamic_FSI_Python
    - Static_CHT
    - Inc_Heated_Cylinders_Unsteady
+   - SS_CR_CHT
 
 - title: Design Features
   tutorials:
