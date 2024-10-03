@@ -95,6 +95,7 @@ Linear Nastran-like model coupled with compressible unsteady RANS equations usin
 Simulation of multiple heated cylinders in incompressible fluid flow.
 * [Unsteady Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders_Unsteady/)    
 Simulation of an unsteady coupled CHT problem incorporating multiple physical zones.
+* [Pre-mixed Hydrogen Combustion](/tutorials/Inc_Combustion/) Simulation of a laminar, pre-mixed hydrogen flame on a cooled burner plate.
 
 #### Shape Design Features
 
