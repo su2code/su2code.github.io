@@ -2,10 +2,10 @@
 title: "Incompressible, Laminar Combustion Simulation"
 permalink: "/tutorials/Inc_Combustion/"
 written_by: EvertBunschoten
-for_version: 8.0.0
-revised_by:  
-revision_date:
-revised_version:
+for_version: 8.1.0
+revised_by: EvertBunschoten
+revision_date: 04-10-2024
+revised_version: 8.1.0
 solver: INC_NAVIER_STOKES
 requires: SU2_CFD, mlpcpp
 complexity: advanced
