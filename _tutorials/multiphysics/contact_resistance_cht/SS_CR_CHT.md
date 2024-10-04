@@ -1,6 +1,6 @@
 ---
 title: Solid-to-Solid Conjugate Heat Transfer with Contact Resistance
-permalink: /tutorials/Static_CHT/
+permalink: /tutorials/SS_CR_CHT/
 written_by: EvertBunschoten
 for_version: 8.0.1
 revised_by: EvertBunschoten
