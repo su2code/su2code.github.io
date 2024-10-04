@@ -95,6 +95,8 @@ Linear Nastran-like model coupled with compressible unsteady RANS equations usin
 Simulation of multiple heated cylinders in incompressible fluid flow.
 * [Unsteady Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders_Unsteady/)    
 Simulation of an unsteady coupled CHT problem incorporating multiple physical zones.
+* [Conjugate Heat Transfer between Solid Domains](/tutorials/SS_CR_CHT/) 
+Simulation of CHT between solid domains with contact resistance.
 
 #### Shape Design Features
 
