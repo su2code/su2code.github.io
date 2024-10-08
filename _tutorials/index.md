@@ -97,6 +97,8 @@ Simulation of multiple heated cylinders in incompressible fluid flow.
 Simulation of an unsteady coupled CHT problem incorporating multiple physical zones.
 * [Conjugate Heat Transfer between Solid Domains](/tutorials/SS_CR_CHT/) 
 Simulation of CHT between solid domains with contact resistance.
+* [Pre-mixed Hydrogen Combustion](/tutorials/Inc_Combustion/) 
+Simulation of a laminar, pre-mixed hydrogen flame on a cooled burner plate.
 
 #### Shape Design Features
 

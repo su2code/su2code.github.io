@@ -45,6 +45,7 @@
    - Static_CHT
    - Inc_Heated_Cylinders_Unsteady
    - SS_CR_CHT
+   - Inc_Combustion 
 
 - title: Design Features
   tutorials:
