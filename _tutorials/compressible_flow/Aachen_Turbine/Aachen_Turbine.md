@@ -3,13 +3,13 @@ title: Aachen turbine stage with Mixing-plane
 permalink: /tutorials/Aachen_Turbine/
 written_by: Alessandro Cappiello
 for_version: 8.1.0
-revised_by: xxxx
+revised_by: @joshkellyjak
 revision_date: xxx
-revised_version: xxx
+revised_version: 8.1.0
 solver: RANS
 requires: SU2_CFD
 complexity: advanced
-follows: 
+follows: compressible flow tutorials
 ---
 
 ![Mid-span Rel. Mach](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus_MachContour.png)
@@ -353,6 +353,10 @@ FREESTREAM_TURB2LAMVISCRATIO = 100.0
 %Init option to choose between Reynolds (default) or thermodynamics quantities for initializing the solution (REYNOLDS, TD_CONDITIONS)
 INIT_OPTION= TD_CONDITIONS
 ```
+
+#### Final Remarks
+
+To have the residuals exported to each volume zone `WRT_ZONE_HIST` should be set to `YES`.
 
 ### Running SU2
 
