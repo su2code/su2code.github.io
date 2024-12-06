@@ -17,7 +17,7 @@ follows: compressible flow tutorials
 ## Goals
 Upon completing this tutorial, the user will become familiar with  3D steady-state RANS calculations of multi-row axial turbines, elaborating viscous, compressible flows of air, modelled as an ideal gas.
 
-The solution will provide a flow field that can be compared against experimental data.
+The solution will provide a flow field that can be compared against experimental data. However, to achieve a meaningful result, much more refined grids should be used.
 
 The geometry chosen for the tutorial is a 1-1/2 axial turbine stage (stator 1 - rotor - stator 2), from Gallus, H. E., et al. "*Endwall and Unsteady Flow Phenomena in an Axial Turbine Stage.*" ASME. J. Turbomach. October 1995; 117(4): 562–570. https://doi.org/10.1115/1.2836568. 
 
@@ -77,7 +77,7 @@ Figure (1): Computational domain reduction.
 ### Mesh Description
 The mesh is composed of hexahedral elements, with 53634 elements for stator 1 passage, 67935 elements for the rotor passage and 52374 for stator 2 passage.
 
-Upon preparing the mesh, it is important to make sure that the machine axis is the Z-axis and that the flow proceeds in the positive z-direction.
+*Upon preparing the mesh, it is important to make sure that the machine axis is the Z-axis and that the flow proceeds in the positive z-direction.*
 
 
 ### Multizone Config File
@@ -165,7 +165,7 @@ The following box presents the corresponding syntax.
 % Format inlet:  
 ( marker, TOTAL_CONDITIONS_PT, Total Pressure , Total Temperature, Flow dir-norm, Flow dir-tang, Flow dir-span, under-relax-avg, under-relax-fourier)
 
-(INFLOW_STATOR1, TOTAL_CONDITIONS_PT, 153846.05, 308.26, 1.0, 0.0, 0.0, 0.3, 0.0)
+(INFLOW_STATOR1, TOTAL_CONDITIONS_PT, 158245.38, 308.26, 1.0, 0.0, 0.0, 0.3, 0.0)
 
 
 % Format outlet: 
@@ -214,9 +214,9 @@ TURBULENT_MIXINGPLANE= YES
 ![Non-reflective mixing-plane](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles_MixingPlane.png)
 Figure (5): Non-reflective mixing-plane
 
-To turn on the non-reflective behaviour, the following entry should be provided:
+To turn on the non-reflective behaviour, the `SPATIAL_FOURIER` should be set to `YES`. However, for the current tutorial it is not activated, as in the following box.
 ```
-SPATIAL_FOURIER = YES
+SPATIAL_FOURIER = NO
 ```
 If needed, extra under relaxation factor for the Giles BC at the hub and shroud can be provided as follows:
 ```
@@ -316,13 +316,12 @@ MIXEDOUT_COEFF= (1.0, 1.0E-05, 15)
 
 #### Plotting
 
-You can choose which boundaries to include in the surface flow file written by SU2_CFD via ```MARKER_PLOTTING`` and XXXXXXXXXX.
+You can choose which boundaries to include in the surface flow file written by SU2_CFD via ```MARKER_PLOTTING```.
 The following box shows the setting to export the three blade surfaces to the surface flow solution file.
 
 ```
 % Marker(s) of the surface in the surface flow solution file
 MARKER_PLOTTING= (BLADE1, BLADE2, BLADE3)
-MARKER_MONITORING= (BLADE1, BLADE2, BLADE3)
 ```
 
 
