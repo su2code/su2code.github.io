@@ -154,7 +154,7 @@ Non-reflective boundary conditions can be enforced by means of the
 ```MARKER_GILES``` boundary. They can be used for both inlet-outlet, as well as mixing-plane boundaries. Furthermore, under-relaxation factors can be provided both for the average and Fourier components at any boundary where the Giles boundary condition is used.
 
 ##### Inlet and outlet boundaries
-The ```TOTAL_CONDITIONS_PT``` option allows to enforce the total inlet condition on a chosen boundary (identified by its marker). These include pressure and temperature, together with the incoming flow direction, expressed via its components in cylindrical coordinates.
+The ```TOTAL_CONDITIONS_PT``` option allows to enforce the total inlet condition on a chosen boundary (identified by its marker). These include pressure and temperature, together with the incoming flow direction, expressed via its local coordinates (normal, tangential and radial to the chosen boundary).
 The ```STATIC_PRESSURE_1D``` can be used to enforce the outlet static pressure value on a boundary where the flow is in radial equilibrium. 
 These two options are applied to the inlet and outlet surfaces of the domain, respectively, highlighted in light blue in Figure 4. 
 The following box presents the corresponding syntax.
