@@ -1,7 +1,7 @@
 ---
 title: Aachen turbine stage with Mixing-plane
 permalink: /tutorials/Aachen_Turbine/
-written_by: Alessandro Cappiello
+written_by: @alecappiello
 for_version: 8.1.0
 revised_by: @joshkellyjak
 revision_date: xxx
