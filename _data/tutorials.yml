@@ -55,6 +55,7 @@
   - Multi_Objective_Shape_Design
   - Unsteady_Shape_Opt_NACA0012
   - Species_Transport
+  - Inc_Turbulent_Bend_Opt
 
 - title: Workflow Setup
   tutorials:

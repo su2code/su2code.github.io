@@ -114,3 +114,5 @@ Perform an optimal shape design with multiple objectives and a penalty function
 Shape optimization of an 2D airfoil in unsteady flow conditions.
 * [Species Transport](/tutorials/Species_Transport/)    
 Optimization of internal, turbulent, incompressible flow through a mixing channel.
+* [Optimizing pressure drop of a pipe bend](/tutorials/Inc_Turbulent_Bend_Opt/)    
+Optimization of the pressure drop (also known as head loss), of a pipe bend. 
