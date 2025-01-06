@@ -42,7 +42,7 @@ If you have not done so already, please first have a look at the prerequisite tu
 
 ## Resources
 
-You can find the resources for this tutorial in the folder [incompressible_flow/Inc_Turbulent_Bend](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_Bend) and the respective subfolders. Note that the setup used in this tutorial uses a pipe bend with a shorter pipe lenght before and after the bend to reduce the computing time. We have also merged all wall boundaries and all symmetry planes into one wall boundary and one symemtry plane. The gmsh file is provided in the repository so you can create your own pipe bend(s) with it.
+You can find the resources for this tutorial in the folder [design/Inc_Turbulent_Bend_Wallfunctions](https://github.com/su2code/Tutorials/tree/master/design/Inc_Turbulent_Bend_Wallfunctions) and the respective subfolders. Note that the setup used in this tutorial uses a pipe bend with a shorter pipe length before and after the bend to reduce the computing time. We have also merged all wall boundaries and all symmetry planes into one wall boundary and one symmetry plane. The gmsh file is provided in the repository so you can create your own pipe bend(s) with it.
 
 ## 1. Basic setup of FFD box and FADO
 Usually, designs are created with a CAD tool. These designs are then discretized into a computational mesh for CFD analysis. When optimizing a design, we usually only have the discretized mesh available. We could manipulate the mesh nodes directly but this usually does not lead to very smooth deformations. Instead we modify our mesh using FFD boxes. The nodes of the FFD box are moved according to the design sensitivities, and the mesh nodes inside the FFD box are then smoothly deformed using Bezier curves (default) or B-splines.
@@ -85,7 +85,7 @@ For the optimization, we need to modify 2 things in our config file: **DV_KIND**
  Note that the meaning of the entries are *( FFD_BoxTag, i_Ind, j_Ind, k_Ind, x_Disp, y_Disp, z_Disp )* , meaning that after the keyword **BOX**, we get the 3 indices i,j,k of the FFD box, followed by the allowed displacement of that index in the x-,y- and z-direction. Mesh nodes in the symmetry plane only move in the symmetry plane, so symmetry is preserved. 
 
 The list of FFD control points can be created using:
-```
+```python
 s = "FFD_CONTROL_POINT"
 ffd_string = s
 for i in range((DX**NDIM)*NDIM - 1):
@@ -100,9 +100,9 @@ And we automatically replace the placeholder **\_\_FFD_CTRL_PTS\_\_** in the fad
 replace_dv_kind = Parameter([ffd_string], LabelReplacer("__FFD_CTRL_PTS__"))
 ```
 
-For the DV_PARAM string, we can use a similar piece of python code:
+For the **DV_PARAM** string, we can use a similar piece of python code:
 
-```
+```python
 dv_param_string=""
 for idim in range(NDIM):
   xdim = ydim = zdim = "0.0"
@@ -116,11 +116,17 @@ for idim in range(NDIM):
         dv_param_string += s
 ```
 which is replaced using:
-```
+```python
 replace_dv_param =Parameter([dv_param_string], LabelReplacer("__FFD_PARAM__"))
 ```
 
 The only thing we need to take care of now is to define the correct number of FFD nodes DX=6 and the correct dimension of the problem, NDIM=3. You could even get these values from the .su2 mesh file if you want!
+
+In our config file sudo.cfg, we also use the following setting:
+```
+FFD_CONTINUITY= 1ST_DERIVATIVE
+```
+Which means that when the sides of the FFD box cuts through the mesh, then at the cut, we want the mesh deformation to stay first order continuous. If you do not do this, you might get sharp jumps in your mesh at the location of the  intersection.
 
 Unfortunately, if we use this unconstrained setup, the mesh deformation will be as shown in Figure (2) below:
 
@@ -135,14 +141,14 @@ The problem here is that the mesh nodes on the symmetry plane are not allowed to
 Since we disallow vertical movement in 2x(6x6)=72 nodes in the planes with $j=0$ and $j=1$,  The total degrees of freedom is then $648 - 72 = 576$ d.o.f. 
 
 The number of design variables needs to be reduced by 2x6x6 and we need to remove 2x6x6 strings from the ffd_string:
-```
+```python
 nDV = nDV - 2*DX*DX
 ffd_string.replace(s+", ","",2*DX*DX)
 ```
 
 Additionally, we need to remove the vertical movement of the nodes in the plane with j=[0,1]:
 
-```
+```python
 jlist = [0,1]
 dof = "0.0, 1.0, 0.0"
 
@@ -160,12 +166,12 @@ Another modification to the configuration file that we would like to add is to r
 
 We can do this with a simple *sed* command that searches and replaces the string in config.cfg in the working directory and then copies the config file back to the base dir:
 
-```
+```python
 restart_yes="sed -i 's/RESTART_SOL= NO/RESTART_SOL= YES/' config.cfg && cp " + configCopy + " ../../"
 ```
 
 The easiest way to perform the update is to simply add it as another ExternalRun process: 
-```
+```python
 update_restart = ExternalRun("UPDATE_RESTART",restart_yes,False) # True means sym links are used for addData
 update_restart.addData(configCopy)
 ```
@@ -175,7 +181,7 @@ FADO copies the restart file and all other necessary files from the base directo
 
 So what we will do now is every time after we run the primal solver, we copy the restart file from the working directory *OPTIM/DIRECT* back to the base dir.
 
-```
+```python
 cfd_command = "mpirun -n " + ncores + " " + su2_run + "SU2_CFD " + configMaster  + "&& cp restart.csv ../../solution.csv"
 ```
 
