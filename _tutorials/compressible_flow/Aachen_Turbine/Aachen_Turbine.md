@@ -17,9 +17,11 @@ follows: compressible flow tutorials
 ## Goals
 Upon completing this tutorial, the user will become familiar with  3D steady-state RANS calculations of multi-row axial turbines, elaborating viscous, compressible flows of air, modelled as an ideal gas.
 
-The solution will provide a flow field that can be compared against experimental data. However, to achieve a meaningful result, much more refined grids should be used.
 
 The geometry chosen for the tutorial is a 1-1/2 axial turbine stage (stator 1 - rotor - stator 2), from Gallus, H. E., et al. "*Endwall and Unsteady Flow Phenomena in an Axial Turbine Stage.*" ASME. J. Turbomach. October 1995; 117(4): 562–570. https://doi.org/10.1115/1.2836568. 
+
+
+The solution will provide a flow field that can be compared against experimental data. However, to achieve a meaningful result, much more refined grids should be used.
 
 *Note that the original stator geometries have been modified, increasing the blade count from 36 to 41.*
 
@@ -51,7 +53,7 @@ The following tutorial will walk you through the steps required when solving sta
 ### Background
 
 This example uses a 3D one and a half turbine stage encompassing one stator, one rotor and a downstream stator, equal to the 
-first one. Consequently, the case requires multiple frame of reference to account for the rotor rotation
+first one. Consequently, the case requires multiple frame of reference to account for the rotation of the rotor.
 
 
 ### Problem Setup
@@ -123,7 +125,7 @@ To setup a turbomachinery CFD calculation, several kinds of boundary conditions 
 
 This kind of boundary condition is applied to all solid walls, highlighted in grey in Figure 2, such as HUB, SHROUD
 AND BLADE belonging to each row. To make a wall adiabatic the ```MARKER_HEATFLUX``` can be used specifying a zero heatflux. This will also ensure that a no-slip condition is enforced on that wall.
-The following box shows the syntax to be used to enforce this boundary condition at all sold walls present in the meshes.
+The following box shows the syntax to be used to enforce this boundary condition at all solid walls present in the meshes.
 
 ```
 % Format: (marker, 0.0)
@@ -151,7 +153,7 @@ Figure (3): Periodic and donor surfaces.
 
 #### Non-reflective boundary conditions 
 Non-reflective boundary conditions can be enforced by means of the 
-```MARKER_GILES``` boundary. They can be used for both inlet-outlet, as well as mixing-plane boundaries. Furthermore, under-relaxation factors can be provided both for the average and Fourier components at any boundary where the Giles boundary condition is used.
+```MARKER_GILES``` boundary. They are used for both inlet-outlet, as well as mixing-plane boundaries. Furthermore, under-relaxation factors can be provided both for the average and Fourier components at any boundary where the Giles boundary condition is used. For additional details about their implementation and usage, the reader is referred to the paper by [Vitale et al.](https://doi.org/10.2514/1.B37685)
 
 ##### Inlet and outlet boundaries
 The ```TOTAL_CONDITIONS_PT``` option allows to enforce the total inlet condition on a chosen boundary (identified by its marker). These include pressure and temperature, together with the incoming flow direction, expressed via its local coordinates (normal, tangential and radial to the chosen boundary).
@@ -179,7 +181,7 @@ The following box presents the corresponding syntax.
 Figure (4): Non-reflective inlet and outlet boundary conditions
 
 ###### Mixing-plane surfaces
-For mixing plane surfaces, as those highlight in light red in Figure 5, ```MIXING_IN``` and ```MIXING_OUT``` can be used, depending on whether the flow enters or exits through that boundary.
+For mixing plane surfaces, as those highlight in light red in Figure 5, ```MIXING_IN``` and ```MIXING_OUT``` tags are used, depending on whether the flow enters or exits through that boundary.
 The following box shows the corresponding syntax.
 
 ```
@@ -223,7 +225,7 @@ If needed, extra under relaxation factor for the Giles BC at the hub and shroud 
 GILES_EXTRA_RELAXFACTOR = (0.05, 0.05)
 ```
 
-Finally, the kind of average process for linearizing the Navier-Stokes equation at inflow and outflow boundaries, including mixing-plane(s), can be controlled by ```AVERAGE_PROCESS_KIND```. Possible options are: ```ALGEBRAIC```, ```AREA```, ```MASSSFLUX```, ```MIXEDOUT```. The default one is ```AREA```.\
+Finally, the kind of average process for linearizing the Navier-Stokes equation at inflow and outflow boundaries, including mixing-plane(s), can be controlled by ```AVERAGE_PROCESS_KIND```. Possible options are: ```ALGEBRAIC```, ```AREA```, ```MASSSFLUX```, ```MIXEDOUT```. The default one is ```AREA```, however, only the ```MIXEDOUT``` option guarantees that the mixing plane treatment is conservative.\
 The following box shows the setting to be used for the current case.
 
 ``` 
@@ -243,7 +245,7 @@ MARKER_SHROUD = (SHROUD1, SHROUD2, SHROUD3)
 Figure (6): Shroud boundary condition
 
 #### Wall functions
-The guarantee an easy upload and transfer of the mesh file, as well as low computational cost, a particularly coarse mesh, featuring large $y^{+}$ values, was used. Therefore, to achieve convergence of the present calculation, wall functions are needed. These can be activated by the ```MARKER_WALL_FUNCTIONS```, followed by the ```marker_tag``` of the boundaries to which the wall functions will be applied. 
+To guarantee a low computational cost, a particularly coarse mesh, featuring large $y^{+}$ values, was used. Therefore, to achieve convergence of the present calculation, wall functions are needed. These are activated by the ```MARKER_WALL_FUNCTIONS```, followed by the ```MARKER_TAG``` of the boundaries to which the wall functions will be applied. 
 The following box shows the basic syntax to active the wall functions for the current case.
 ```
 % format: 
@@ -270,9 +272,7 @@ WALLMODEL_RELFAC= 0.5
 #### Ramps
 
 To ease the convergence of turbomachinery cases, particularly when the pressure ratio of the machine is large, the use of ramps can be beneficial. These can be applied to both rotational speed and outlet pressure via ```RAMP_OUTLET_PRESSURE``` and ```RAMP_ROTATING_FRAME```. \
-For the sake of the , the use of the outlet pressure ramp is demonstrated.
-
-the following box shows the setting to enable 
+For the sake of completeness, the use of the outlet pressure ramp is demonstrated presenting in the following box the syntax to activate it.
 
 ```
 % Specify ramp option for Outlet pressure (YES, NO) default NO
@@ -326,7 +326,7 @@ MARKER_PLOTTING= (BLADE1, BLADE2, BLADE3)
 
 
 ### Configuration File Options
-The initialization of the flow solver can be performed from thermodynamic quantities, directly with `INIT_OPTION=TD_CONDITIONS`. it is recommended that you always confirm the resulting initialization state in the console output during runtime of SU2 that is reported just before the solver begins iterating. 
+The initialization of the flow solver can be performed from thermodynamic quantities, directly with `INIT_OPTION=TD_CONDITIONS`. It is recommended that you always confirm the resulting initialization state in the console output during runtime of SU2 that is reported just before the solver begins iterating. 
 The initialization options are specified in the following box.
 
 ```
@@ -355,7 +355,7 @@ INIT_OPTION= TD_CONDITIONS
 
 #### Final Remarks
 
-To have the residuals exported to each volume zone `WRT_ZONE_HIST` should be set to `YES`.
+To have the residuals exported from each volume zone `WRT_ZONE_HIST` should be set to `YES`.
 
 ### Running SU2
 
