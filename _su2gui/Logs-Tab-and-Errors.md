@@ -8,7 +8,7 @@ The SU2 and SU2GUI logs provide essential information about the execution and pe
 
 ## SU2 Logs
 
-![SU2 Log Tab](../../su2gui_files/User_guide/logs/su2-logs.png)
+![SU2 Log Tab](../../su2gui_files/User_guide/Logs/su2-logs.png)
 
 The SU2 logs contain detailed information about the solver's execution, including convergence history, residual values, and solution progress. These logs are invaluable for identifying convergence issues, detecting numerical instabilities, and gaining insights into the overall simulation process.
 
@@ -17,7 +17,7 @@ Each SU2 log file is stored within the corresponding case folder and is unique t
 ---
 ## SU2GUI Logs
 
-![SU2GUI Log Tab](../../su2gui_files/User_guide/logs/su2gui-logs.png)
+![SU2GUI Log Tab](../../su2gui_files/User_guide/Logs/su2gui-logs.png)
 
 The SU2GUI logs capture interactions and events within the graphical user interface. These logs are useful for understanding user actions, identifying errors or warnings, and tracking the workflow followed during a simulation setup.
 
@@ -27,7 +27,7 @@ Unlike the SU2 logs, the SU2GUI log file is updated and cleared each time SU2GUI
 
 ## Error/Warn Message
 
-![Error message](../../su2gui_files/User_guide/logs/error-message.png)
+![Error message](../../su2gui_files/User_guide/Logs/error-message.png)
 
 In addition to capturing interactions and events within the graphical user interface, SU2GUI also displays any Error and Warning messages received in the log files as pop-up dialog box. This feature helps users quickly identify and address any issues or potential problems during the simulation setup or execution.
 
