@@ -17,6 +17,7 @@
   - Unsteady_NACA0012
   - UQ_NACA0012
   - NICFD_nozzle
+  - Aachen_Turbine
 
 - title: Incompressible Flow
   tutorials:
