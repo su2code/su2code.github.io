@@ -23,4 +23,4 @@ To launch the GUI, run the following command in your terminal:
 
     SU2_GUI
 
-For a quick introduction to using SU2GUI, visit the [Quick start](./../Quick-start) page. For additional terminal options, refer to the  [Terminal Initialization](./../Terminal-Initialization) page.
+For a quick introduction to using SU2GUI, visit the [Quick start](./../Quick-Start) page. For additional terminal options, refer to the  [Terminal Initialization](./../Terminal-Initialization) page.
