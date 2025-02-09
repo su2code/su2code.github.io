@@ -2,10 +2,10 @@
 title: "Incompressible, Laminar Combustion Simulation"
 permalink: "/tutorials/Inc_Combustion/"
 written_by: EvertBunschoten
-for_version: 8.0.0
-revised_by:  
-revision_date:
-revised_version:
+for_version: 8.1.0
+revised_by: EvertBunschoten
+revision_date: 04-10-2024
+revised_version: 8.1.0
 solver: INC_NAVIER_STOKES
 requires: SU2_CFD, mlpcpp
 complexity: advanced
@@ -19,18 +19,17 @@ Version 8.0.0 of SU2 supports the simulation of reduced-order combustion simulat
 
 ## Resources and Prerequisites
 
-The resources for this tutorial can be found in the [incompressible_flow/Inc_Combustion](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the following files:
-1. *Configuration file*: The configuration file for this case is named [hydrogen_configuration.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/hydrogen_configuration.cfg).
-2. *Mesh file*: The geometry for this test case is a simple, 2D burner geometry with a cooled burner plate ([H2_Burner.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/H2_Burner.su2)).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Combustion/1__premixed_hydrogen](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the following files:
+1. *Configuration file*: The configuration file for this case is named [H2_burner.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/H2_burner.cfg).
+2. *Mesh file*: The geometry for this test case is a simple, 2D burner geometry with a cooled burner plate ([H2_Burner.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/H2_burner.su2)).
 3. *Manifold files*: The working principle of the FGM method is the manifold containing the flamelet data. From this manifold, thermo-chemical and reaction source term information is retrieved during the simulation. SU2 supports the use of 2D and 3D look-up tables (LUT), as well as multi-layer perceptrons (MLP). In the current tutorial, MLP's will be utilized. These files have the `.mlp` extension. Evaluating MLP's in SU2 is done through the `MLPCpp` sub-module. Make sure you configure SU2 with the flag `-Denable-mlpcpp=true` to clone this submodule.
 
-The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [H2_Burner.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/H2_Burner.geo). The mesh is unstructured (i.e. only contains triangular elements) with 70495 elements and 35926 points. This mesh is quite large, but a high resolution is required in order to resolve the flame front.
+The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [H2_Burner.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/H2_burner.geo). The mesh is unstructured (i.e. only contains triangular elements) with 70495 elements and 35926 points. This mesh is quite large, but a high resolution is required in order to resolve the flame front.
 
 ![Mesh with boundary conditions](../../../tutorials_files/incompressible_flow/Inc_Combustion/mesh.png)
 Figure (1): Computational mesh with color indication of the used boundary conditions.
 
 The MLP files describe five architectures. These are used to predict the thermo-chemical state, preferential diffusion scalars, and reaction source terms. 
-![MLP architecture used for prediction of temperature, diffusion coefficient, and dynamic viscosity](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_Group1.png)
 
 
 ## Prerequisites
@@ -39,71 +38,85 @@ The following tutorial assumes you already compiled `SU2_CFD` in serial or paral
 
 ## Background
 
-The SU2 FGM solver solves two sets of transport equations: FGM controlling variables and optionally passive species. The solver supports up to three controlling variables, those representing the progress variable $(\mathcal{Y})$, total enthalpy ($h$), and optionally mixture fraction $(Z)$. The controlling variables are used as inputs to the flamelet data manifold to extract the thermo-chemical state variables and reaction source terms. The passive species $(Y_j)$ represent species of interest such as emissions. The solutions of the passive species distribution do not affect the behavior of the controlling variables, but can be used to define custom outputs and objective functions. The solution process is visualized in [solutionprocess](#solutionprocess). 
+The SU2 FGM solver solves two sets of transport equations: FGM controlling variables and optionally passive species. The solver supports up to three controlling variables, those representing the progress variable $$(\mathcal{Y})$$, total enthalpy ($$h$$), and optionally mixture fraction $$(Z)$$. The controlling variables are used as inputs to the flamelet data manifold to extract the thermo-chemical state variables and reaction source terms. The passive species $$(Y_j)$$ represent species of interest such as emissions. The solutions of the passive species distribution do not affect the behavior of the controlling variables, but can be used to define custom outputs and objective functions. The solution process is visualized in the [solution process](#solutionprocess). 
 
-![solutionprocess](../../../tutorials_files/incompressible_flow/Inc_Combustion/SolverProcess.png)
+![solution process](../../../tutorials_files/incompressible_flow/Inc_Combustion/SolverProcess.png)
 
 The `CSpeciesSolver` object in SU2 solves the controlling variables and passive species transport equations. These come in three variations, depending on the problem set-up and reactants:
 
 1. pre-mixed, no preferential diffusion: 
+
 $$
 \begin{equation}
     \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho h}{\partial t} + \nabla\cdot(\rho\vec{u} h) - \nabla\cdot\left(\rho D\nabla h\right) = 0
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \rho\dot{\omega}^+ + \rho\dot{\omega}^- Y_j
 \end{equation}
 $$
+
 2. partially or non-premixed, no preferential diffusion:
+
 $$
 \begin{equation}
     \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho h}{\partial t} + \nabla\cdot(\rho\vec{u} h) - \nabla\cdot\left(\rho D\nabla h\right) = 0
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho Z}{\partial t} + \nabla\cdot(\rho\vec{u}Z) - \nabla\cdot\left(\rho D\nabla Z\right) = \rho\dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \rho\dot{\omega}^+ + \rho\dot{\omega}^- Y_j
 \end{equation}
 $$
+
 3. pre-mixed, partially pre-mixed, non-premixed, with preferential diffusion:
+
 $$
 \begin{equation}
     \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\beta_\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho h}{\partial t} + \nabla\cdot(\rho\vec{u} h) - \nabla\cdot\left(\beta_{h,1}\nabla T + \rho D\nabla\beta_{h,2}\right) = 0
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho Z}{\partial t} + \nabla\cdot(\rho\vec{u}Z) - \nabla\cdot\left(\rho D\nabla\beta_Z\right) = 0
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \rho\dot{\omega}^+ + \rho\dot{\omega}^- Y_j
 \end{equation}
 $$
-Here, $D$ is the diffusion coefficient in $m^2s^{-1}$, $\rho\dot{\omega}_\mathcal{Y}$ the progress variable source term in $kg m^{-3} s^{-1}$, and $\rho\dot{\omega}^+$ and $\rho\dot{\omega}^-$ the passive species production and consumption rates respectively. The $\beta-$ terms on the left hand side of equations 8-10 are used to model preferential diffusion. These are discussed in more detail in the section describing the preferential diffusion model. 
+
+Here, $D$ is the diffusion coefficient in $$m^2s^{-1}$$, $$\rho\dot{\omega}_\mathcal{Y}$$ the progress variable source term in $$kg m^{-3} s^{-1}$$, and $$\rho\dot{\omega}^+$$ and $$\rho\dot{\omega}^-$$ the passive species production and consumption rates respectively. The $$\beta-$$ terms on the left hand side of equations 8-10 are used to model preferential diffusion. These are discussed in more detail in the section describing the preferential diffusion model. 
 
 
 The test case covered in this tutorial represents a simplified version of a two-dimensional, pre-mixed hydrogen burner with preferential diffusion and a heat exchanger emulator suspended in the hot exhaust. The purpose of this test case is to demonstrate the capabilities of the SU2 FGM solver (differential diffusion, heat loss), not a solution for a realistic hydrogen combustion problem.
@@ -119,9 +132,9 @@ During FGM simulations, thermo-chemical, as well as reaction data is interpolate
 
 The flamelet fluid model in SU2 requires thermo-chemical and scalar source term data from the manifold to function. First the manifold should have the controlling variable names as input variables in with the corresponding units:
 
-1. Progress variable ($\mathcal{Y}$)[-]
-2. Total enthalpy ($h$)[J kg^-1]
-3. optional: mixture fraction ($Z$)[-]
+1. Progress variable ($$\mathcal{Y}$$)[-]
+2. Total enthalpy ($$h$$)[J kg^-1]
+3. optional: mixture fraction ($$Z$$)[-]
 
 In the current tutorial, the following progress variable definition is used:
 
@@ -149,11 +162,10 @@ Finally, the manifold should contain the source terms for the progress variable 
 
 The manifold may contain more data for passive look-up purposes. If these are not defined, they will be ignored during the SU2 FGM solution process.
 
-
 The two manifold formats currently supported in SU2 are the unstructured look-up table and dense, feed-forward multi-layer perceptron. 
-The look-up table format supported in SU2 is based around the two-dimensional, trapezoidal map approach. The table file format should be in the dragon file format. For pre-mixed problems without differential diffusion (e.g. pre-mixed methane problems), a two-dimensional table is sufficient. An example of such a table can be found in the [methane combustion test case](https://github.com/su2code/TestCases/flamelet/01_laminar_premixed_ch4_flame_cfd/fgm_ch4.drg). The two table dimensions should span the progress variable and total enthalpy dimension.
+The look-up table format supported in SU2 is based around the two-dimensional, trapezoidal map approach. The table file format should be in the dragon file format. For pre-mixed problems without differential diffusion (e.g. pre-mixed methane problems), a two-dimensional table is sufficient. An example of such a table can be found in the [methane combustion test case](https://github.com/su2code/TestCases/tree/master/flamelet/01_laminar_premixed_ch4_flame_cfd/fgm_ch4.drg). The two table dimensions should span the progress variable and total enthalpy dimension.
 
-For partially- or non-premixed problems or pre-mixed problems with preferential diffusion, a three-dimensional table is required. SU2 supports a quasi-3D table format, consisting of two-dimensonal trapezoidal maps stacked in the third dimension. An example of this can be found in the [partially premixed methane combustion test case](https://github.com/su2code/TestCases/flamelet/06_laminar_partial_premixed_ch4_flame_cfd/LUT_methane_3D.drg). The first two dimensions should span the progress variable and total enthalpy dimension, while the third dimension should be mixture fraction.
+For partially- or non-premixed problems or pre-mixed problems with preferential diffusion, a three-dimensional table is required. SU2 supports a quasi-3D table format, consisting of two-dimensonal trapezoidal maps stacked in the third dimension. An example of this can be found in the [partially premixed methane combustion test case](https://github.com/su2code/TestCases/tree/master/flamelet/06_laminar_partial_premixed_ch4_flame_cfd/LUT_methane_3D.drg). The first two dimensions should span the progress variable and total enthalpy dimension, while the third dimension should be mixture fraction.
 
 
 
@@ -166,26 +178,28 @@ $$
     \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(D\nabla\beta_\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho h}{\partial t} + \nabla\cdot(\rho\vec{u} h) - \nabla\cdot\left(\beta_{h,1}\nabla T + D\nabla\beta_{h,2}\right) = 0
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \frac{\partial \rho Z}{\partial t} + \nabla\cdot(\rho\vec{u}Z) - \nabla\cdot\left(D\nabla\beta_Z\right) = 0
 \end{equation}
 $$
 
-Here, $\mathcal{Y},h$ and $Z$ are the progress variable, total enthalpy, and mixture fraction respectively. Preferential diffusion is modeled through the $\beta$-terms in the third term on the left hand side of equations 2-4. [The following work](https://doi.org/10.1080/13647830.2021.1970232) contains details on the definitions of these scalars. 
+Here, $$\mathcal{Y},h$$ and $$Z$$ are the progress variable, total enthalpy, and mixture fraction respectively. Preferential diffusion is modeled through the $$\beta$$-terms in the third term on the left hand side of equations 2-4. [The following work](https://doi.org/10.1080/13647830.2021.1970232) contains details on the definitions of these scalars. 
 Within the manifold, these scalars shall be named as follows:
 
-1. $\beta_\mathcal{Y}$ (`Beta_ProgVar`)[-]
-2. $\beta_{h,1}$ (`Beta_Enth_Thermal`)[J kg^-1 K^-1]
-3. $\beta_{h,2}$ (`Beta_Enth`)[J kg^-1]
-4. $\beta_Z$ (`Beta_MixFrac`)[-]
+1. $$\beta_\mathcal{Y}$$ (`Beta_ProgVar`)[-]
+2. $$\beta_{h,1}$$ (`Beta_Enth_Thermal`)[J kg^-1 K^-1]
+3. $$\beta_{h,2}$$ (`Beta_Enth`)[J kg^-1]
+4. $$\beta_Z$$ (`Beta_MixFrac`)[-]
 
-If not all the $\beta$- terms are detected, while preferential diffusion is enabled, an error will be raised. During the initialization of the fluid model, a message will be displayed in the terminal indicating whether the preferential diffusion model is enabled.
+If not all the $$\beta$$- terms are detected, while preferential diffusion is enabled, an error will be raised. During the initialization of the fluid model, a message will be displayed in the terminal indicating whether the preferential diffusion model is enabled.
 
 ## Configuration File Options 
 
@@ -193,12 +207,14 @@ The SU2 FGM solver is enabled through the options in the configuration file. In 
 
 ### Enabling Flamelet Fluid Model
 The SU2 FGM solver is enabled by setting `FLUID_MODEL=FLUID_FLAMELET`. This option results in the `CFluidFlamelet` class to be used as the fluid model during the simulation. Using the `FLUID_FLAMELET` option requires the options for `KIND_SCALAR_MODEL`, `DIFFUSIVITY_MODEL`, `VISCOSITY_MODEL`, and `CONDUCTIVITY_MODEL` to be set to `FLAMELET` as well. For the `INC_DENSITY_MODEL`, there are two options. By setting `INC_DENSITY_MODEL=VARIABLE`, the local density is calculated through the ideal gas law.
+
 $$
 \begin{equation}
 \rho=\frac{pW_M}{R_uT}
 \end{equation}
 $$
-where $p$ is the free-stream pressure, $R_u$ the universal gas constant, and $W_M$ and $T$ the mean molecular weight and temperature respectively, which are obtained from the manifold. Finally, the option for `INC_ENERGY_EQUATION` should be set to `YES` when solving FGM problems. In order to enable preferential
+
+where $$p$$ is the free-stream pressure, $$R_u$$ the universal gas constant, and $$W_M$$ and $$T$$ the mean molecular weight and temperature respectively, which are obtained from the manifold. Finally, the option for `INC_ENERGY_EQUATION` should be set to `YES` when solving FGM problems. In order to enable preferential
 diffusion, set the option `PREFERENTIAL_DIFFUSION` to `YES` (set by default to `NO`).
 
 In the current example for the hydrogen burner, the following options are used:
@@ -237,7 +253,7 @@ The table format supported under the option `LUT` allows for the interpolation o
 Examples of such 2D and 3D tables can be found in the `SU2` [unit tests](https://github.com/su2code/SU2/tree/master/UnitTests/Common/containers/) or [test cases](https://github.com/su2code/TestCases/tree/master/flamelet/01_laminar_premixed_ch4_flame_cfd).
 
 
-The artificial neural network type supported under the option `MLP` is the dense, feed-forward multi-layer perceptron. For FGM simulations, one or multiple MLP's can be loaded, over which the required flamelet manifold variables should be distributed. This offers the benefit of being able to use different MLP architectures for different data. `SU2` uses the [MLPCpp module](https://github.com/EvertBunschoten/MLPCpp.git) to evaluate MLP's during simulations. After training MLP architectures on flamelet data, it is possible to load these into `SU2` by storing the architecture, weights, biases, and activation function information in the supported `.mlp` format. Information on how to translate networks trained through TensorFlow to the `.mlp` format, see the [MLPCpp repository](https://github.com/EvertBunschoten/MLPCpp.git). Examples of such MLP files can be found in the `SU2` [unit tests](https://github.com/su2code/SU2/tree/master/UnitTests/Common/toolboxes/multilayer_perceptron), [test cases](https://github.com/su2code/TestCases/tree/master/flamelet/07_laminar_premixed_h2_flame_cfd), and the [MLPCpp repository](https://github.com/EvertBunschoten/MLPCpp.git).
+The artificial neural network type supported under the option `MLP` is the dense, feed-forward multi-layer perceptron. For FGM simulations, one or multiple MLP's can be loaded, over which the required flamelet manifold variables should be distributed. This offers the benefit of being able to use different MLP architectures for different data. `SU2` uses the [MLPCpp module](https://github.com/EvertBunschoten/MLPCpp.git) to evaluate MLP's during simulations. After training MLP architectures on flamelet data, it is possible to load these into `SU2` by storing the architecture, weights, biases, and activation function information in the supported `.mlp` format. Information on how to translate networks trained through TensorFlow to the `.mlp` format, see the [MLPCpp repository](https://github.com/EvertBunschoten/MLPCpp.git). Examples of such MLP files can be found in the `SU2` [unit tests](https://github.com/su2code/SU2/tree/master/UnitTests/Common/toolboxes/multilayer_perceptron), [test cases](https://github.com/su2code/TestCases/tree/master/flamelet/07_laminar_premixed_h2_flame_cfd), and the [MLPCpp repository](https://github.com/EvertBunschoten/MLPCpp.git). The neural networks were trained using the [SU2 DataMiner](https://github.com/EvertBunschoten/SU2_DataMiner) code. This repository contains test cases and tutorials which explain the data generation and set-up needed to train multi-layer perceptrons for flamelet-generated manifold applications.
 
 
 The preferred choice of manifold depends on the application, available computational resources, and available know-how. Typically, using a table results in shorter query times, and therefore simulation times compared to using MLP's. On the other hand, storing three-dimensional look-up tables with sufficient resolution for accurate FGM simulations requires substial amounts of memory (in the order of giga-bytes per core). If memory usage is not a constraint, using a LUT manifold therefore results in superior computational performance compared to using MLP's. The LUT uses linear interpolation over each cell in 2D queries. For highly non-linear data, this may result in inaccuracies and subsequent numerical instabilities during the simulation process. Using the MLP option allows for the use of non-linear activation functions, resulting in more smooth output data trends. The latter may result in improved solver robustness if the corresponding MLP can be trained to be sufficiently accurate. Finally, training artificial neural networks on flamelet data can be a cumbersome process and choosing an appropriate network architecture may not always be straightforward. On the other hand, generating a look-up table is comparatively easier. 
@@ -247,7 +263,7 @@ In the current example, a set of MLP's is used to define the manifold:
 INTERPOLATION_METHOD= MLP
 FILENAMES_INTERPOLATOR= (MLP_TD1.mlp, MLP_TD2.mlp, MLP_PD.mlp, MLP_SPV.mlp, MLP_PNO.mlp, MLP_null.mlp)
 ```
-Here, [MLP_TD1.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_TD1.mlp), and [MLP_TD2.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_TD2.mlp) are used to predict the thermo-chemical fluid properties, [MLP_PD.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_PD.mlp) the preferential diffusion scalars, [MLP_SPV.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_SPV.mlp) the progress variable source term and heat release, and [MLP_PNO.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_PNO.mlp) the production term for the passive $NO$ specie. [MLP_null.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_null.mlp) is a dummy MLP which returns 0 irrespective of the controlling variable values. This file is required when using `NULL` for any parameters such as source terms.
+Here, [MLP_TD1.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_TD1.mlp), and [MLP_TD2.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_TD2.mlp) are used to predict the thermo-chemical fluid properties, [MLP_PD.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_PD.mlp) the preferential diffusion scalars, [MLP_SPV.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_SPV.mlp) the progress variable source term and heat release, and [MLP_PNO.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_PNO.mlp) the production term for the passive $NO$ specie. [MLP_null.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_null.mlp) is a dummy MLP which returns 0 irrespective of the controlling variable values. This file is required when using `NULL` for any parameters such as source terms.
 
 
 ### Passive species definition
@@ -263,7 +279,7 @@ USER_SOURCE_NAMES = ( \
     Y_dot_net-NO,  NULL \
 )
 ```
-The solution for $NO$ will be stored in the volume output under the name ```Y_NO``` and only the production term will be used to define this species' source term. The name `Y_dot_net-NO` corresponds to the MLP output in the file [MLP_PNO.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_PNO.mlp).
+The solution for $$NO$$ will be stored in the volume output under the name ```Y_NO``` and only the production term will be used to define this species' source term. The name `Y_dot_net-NO` corresponds to the MLP output in the file [MLP_PNO.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_PNO.mlp).
 
 ### Passive look-up terms
 
@@ -273,7 +289,7 @@ A quantity of interest which is not computed in `SU2` is the heat release per un
 ```
 LOOKUP_NAMES=(Heat_Release)
 ```
-which corresponds to the heat release predicted by [MLP_SPV.mlp](https://github.com/su2code/Tutorials/tree/feature_new_flamelet/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_SPV.mlp).
+which corresponds to the heat release predicted by [MLP_SPV.mlp](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/MLP_SPV.mlp).
 
 ### Ignition methods
 
@@ -312,17 +328,21 @@ The spark will be initialized at iteration 100 and will remain active for anothe
 The boundary conditions for the `SU2` FGM solver are defined similarly as those defined for regular species transport problems. Make sure that the the number of species defined under `MARKER_INLET_SPECIES` equates the sum of controlling variables and passive species. By default, all boundary conditions are perceived as weak boundary conditions. 
 
 Iso-thermal wall or conjugate heat transfer boundary conditions affect the transport of total enthalpy. When using weak boundary conditions for iso-thermal walls, a heat flux term is applied to the enthalpy transport equation:
+
 $$
 \begin{equation}
 f = k \nabla T \cdot \vec{n}
 \end{equation}
 $$
+
 where $f$ is the heat flux perceived as a residual term to the enthalpy transport equation, and $n$ the local boundary normal unit vector.
 When defining the iso-thermal wall as a strong boundary condition, a 1D Newton solver process is initialized along the boundary, where
+
 $$
 h_{i+1} = h_i + c_p(\mathcal{y},h_i,Z) (T_b - T(\mathcal{y},h_i,Z)) 
 $$
-is iterated until the temperature difference $T_b - T(\mathcal{y},h_i,Z)$ is less than $1e-3K$.
+
+is iterated until the temperature difference $$T_b - T(\mathcal{y},h_i,Z)$$ is less than 1e-3K.
 
 For the current example, the equivalence ratio at the inlet was set to 0.5, translating to a mixture fraction of 1.447e-2. The reactants are presumed at a temperature of 300K at the inlet, while isothermal wall boundary conditions are applied on the burner wall (350K) and heat exchanger emulator (400K). The iso-thermal wall boundary conditions are defined as strong boundary conditions, meaning that the total enthalpy is locally enforced to achieve the imposed temperature.
 ```
@@ -336,14 +356,18 @@ MARKER_ISOTHERMAL= (burner_wall, 350, cylinder_wall, 400)
 ### Convective scheme
 Just like for regular species transport problems, there are two options available for the `CONV_NUM_METHOD_SPECIES`, those being `SCALAR_UPWIND` and `BOUNDED_SCALAR`. 
 
-The convective residual term in cell volume $\Omega$ as computed through `SCALAR_UPWIND` is as follows:
+The convective residual term in cell volume $$\Omega$$ as computed through `SCALAR_UPWIND` is as follows:
+
 $$
 R_{C, \mathrm{SCALAR\_UPWIND}} = \iiint_\Omega\nabla\cdot(\rho\vec{u}Y)\,d\Omega
 $$
+
 When using the `BOUNDED_SCALAR` option, a correction term is applied, which compensates for the effect of flow divergence.
+
 $$
 R_{C, \mathrm{BOUNDED\_SCALAR}} = R_{C, \mathrm{SCALAR\_UPWIND}} - \iiint_\Omega Y \nabla\cdot\rho\vec{u}\,d\Omega
 $$
+
 The effect of flow divergence can be significant in the early stages of convergence near boundaries. This may result in solution instabilities for transported scalars with source terms such as the progress variable. Therefore, it is  highly recommended to use `BOUNDED_SCALAR` for FGM simulations in SU2.
 
 The current example uses the ```BOUNDED_SCALAR``` option.
@@ -379,12 +403,14 @@ All networks use the Gaussian Error Linear Unit (GELU) activation function for a
 ## Initial conditions
 
 This test case represents a simplified version of a pre-mixed hydrogen burner with a heat exchanger emulator downstream of the burner hole. The reactants (hydrogen and air at 1 atm) are pre-mixed at an equivalence ratio of 0.5 and at a temperature of 300 Kelvin. Given the species mass fractions at this equivalence ratio and the given temperature, the initial value for the transported species are
+
 $$
 \begin{align}
 \mathcal{Y}_{\mathrm{init}} = -0.575 && h_{\mathrm{init}} = 2227 J kg^{-1} && Z_{\mathrm{init}} = 1.447e-2
 \end{align}
 $$
-No $NO$ is present in the pre-mixed solution, so the value of $Y-{NO}$ is zero upon initialization. The initial values for the species are therefore
+
+No $$NO$$ is present in the pre-mixed solution, so the value of $$Y_{NO}$$ is zero upon initialization. The initial values for the species are therefore
 ```
 SPECIES_INIT=(-0.575, 2.227e3, 1.447e-2, 0)
 ```
