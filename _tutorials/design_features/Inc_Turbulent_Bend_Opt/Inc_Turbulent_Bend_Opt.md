@@ -18,19 +18,9 @@ follows: Inc_Turbulent_Bend
 #### Figure (1): The 90 degree bend with the FFD box.
 
 
-## Prerequisites
-
-This Tutorial builds directly on the case given as Prerequisite on the top of the site, see [Species Transport](/tutorials/Species_Transport/) and [Turbulent bend with wall functions](/tutorials/Inc_Turbulent_Bend/). Therefore details to the problem setup, mesh, etc. are not repeated here. However the process outlined in this tutorial is directly applicable to many other cases using SU2.
-
-Note that the script provided uses 8 cores, so you need to compile with mpi support as well as enable autodiff:
-```
-./meson.py build --optimization=2 -Ddebug=false -Denable-autodiff=true -Dwith-mpi=enabled --prefix=/home/user/Codes/su2_github_develop/su2/
-```
-
-
 ## Goals
 
-This tutorial closely follows the design optimization setup of the 2D mixing channel. We will use the python framework [FADO](https://github.com/su2code/FADO) to set up the optimization problem. In this tutorial however we will optimize the pressure drop of the 90 degree pipe bend. The CFD results were already discussed previously in  [this tutorial](/tutorials/Inc_Turbulent_Bend/). Here we focus on the following aspects:
+This tutorial closely follows the design optimization setup of the 2D mixing channel, see the tutorial on design optimization for [Species Transport](/tutorials/Species_Transport/). We will use the python framework [FADO](https://github.com/su2code/FADO) to set up the optimization problem. In this tutorial however we will optimize the pressure drop of the 90 degree pipe bend. The CFD results were already discussed previously in  [this tutorial](/tutorials/Inc_Turbulent_Bend/). Here we focus on the following aspects:
 * Setup of the FFD box for a 3D problem using SU2_DEF.
 * Setup of the FADO problem: 
 	- using previous solutions of the CFD and adjoint solver to reduce computing time.
@@ -40,16 +30,23 @@ This tutorial closely follows the design optimization setup of the 2D mixing cha
 
 If you have not done so already, please first have a look at the prerequisite tutorials for a better understanding.
 
+## Prerequisites
+
+Besides the python library FADO, you will need to compile SU2 with automatic differentiation support. Note that the script provided uses 8 cores, so you need to compile with mpi support as well as enable autodiff:
+```
+./meson.py build --optimization=2 -Ddebug=false -Denable-autodiff=true -Dwith-mpi=enabled --prefix=/home/user/Codes/su2_github_develop/su2/
+```
+
 ## Resources
 
 You can find the resources for this tutorial in the folder [design/Inc_Turbulent_Bend_Wallfunctions](https://github.com/su2code/Tutorials/tree/master/design/Inc_Turbulent_Bend_Wallfunctions) and the respective subfolders. Note that the setup used in this tutorial uses a pipe bend with a shorter pipe length before and after the bend to reduce the computing time. We have also merged all wall boundaries and all symmetry planes into one wall boundary and one symmetry plane. The gmsh file is provided in the repository so you can create your own pipe bend(s) with it.
 
 ## 1. Basic setup of FFD box and FADO
-Usually, designs are created with a CAD tool. These designs are then discretized into a computational mesh for CFD analysis. When optimizing a design, we usually only have the discretized mesh available. We could manipulate the mesh nodes directly but this usually does not lead to very smooth deformations. Instead we modify our mesh using FFD boxes. The nodes of the FFD box are moved according to the design sensitivities, and the mesh nodes inside the FFD box are then smoothly deformed using Bezier curves (default) or B-splines.
+Usually, designs are created with a CAD tool. These designs are then discretized into a computational mesh for CFD analysis. When optimizing a design, we then only have the discretized mesh available. We could manipulate the mesh nodes directly but this does not lead to very smooth deformations. Instead we modify our mesh using FFD boxes. The nodes of the FFD box are moved according to the design sensitivities, and the mesh nodes inside the FFD box are then smoothly deformed using Bezier curves (default) or B-splines.
 Figure (1) above shows the setup that we will be using. 
 
 ### Creation of the FFD box
-The FFD box can be created and added to the .su2 mesh file using SU2_DEF. The important parameters are:
+The FFD box can be created and added to the .su2 mesh file using SU2_DEF. The important parameters to add to the configuration file are:
 
 ```
 FFD_DEFINITION= (BOX, \
@@ -74,12 +71,12 @@ We run the command
 $ SU2_DEF sudo_0_add_FFD_box.cfg
 ```
 
-This will create a new .su2 mesh called *mesh_out.su2* that has the definition of the FFD box added to the file. Note that at this stage we need to provide the boundaries inside the FFD box that are allowed to deform. The nodes on the boundaries inside the FFD box are part of the information that is added with the FFD box to the .su2 mesh file.
+We will only use the file *sudo_0_add_FFD_box.cfg* to create the FFD box. This command will create a new .su2 mesh called *mesh_out.su2* that has the definition of the FFD box added to the file. Note that at this stage we need to provide the boundaries inside the FFD box that are allowed to deform using the keyword **DV_MARKER**. The nodes on the boundaries inside the FFD box are part of the information that is added with the FFD box to the mesh_out.su2 mesh file. 
 
 
 ### Setup the FADO script optimization.py
 
-Previously the python script *set_ffd_design_var.py* was used in the tutorial on the optimization of the mixing channel. We can however create the correct entries with a couple of simple python commands and add them directly to the main python script that we will use, *optimization.py*. We already used *optimization.py* before in the tutorial [Species Transport](/tutorials/Species_Transport/) and we will highlight some changes here. 
+Previously the python script *set_ffd_design_var.py* was used in the tutorial on the optimization of the mixing channel. We can however create the correct entries with a couple of simple python commands and add them directly to the main python script that FADO will use, *optimization.py*. We already used *optimization.py* before in the tutorial [Species Transport](/tutorials/Species_Transport/) and we will highlight some changes here. 
 
 For the optimization, we need to modify 2 things in our config file: **DV_KIND** and **DV_PARAM**. The keyword **DV_PARAM** contains N entries of the form *( BOX, 0, 0, 0, 1.0, 0.0, 0.0 );*
  Note that the meaning of the entries are *( FFD_BoxTag, i_Ind, j_Ind, k_Ind, x_Disp, y_Disp, z_Disp )* , meaning that after the keyword **BOX**, we get the 3 indices i,j,k of the FFD box, followed by the allowed displacement of that index in the x-,y- and z-direction. Mesh nodes in the symmetry plane only move in the symmetry plane, so symmetry is preserved. 
@@ -91,7 +88,7 @@ ffd_string = s
 for i in range((DX**NDIM)*NDIM - 1):
   ffd_string = ffd_string + ", " + s 
 ```
-In the .cfg file we have a placeholder which has the form:
+In the sudo.cfg file we have a placeholder which has the form:
 ```
 DV_KIND= __FFD_CTRL_PTS__ 
 ```
@@ -133,12 +130,17 @@ Unfortunately, if we use this unconstrained setup, the mesh deformation will be 
 ![bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/mesh_deformation.png "Figure(2): bad mesh for unconstrained FFD box.")
 #### Figure (2): The unconstrained deformation leads to mesh cells that have collapsed on the symmetry plane. This leads to convergence issues at the next design iteration.
 
-So we need some additional constraints on the movement of the nodes of the FFD box.
+As you can see, the row of cells just above the symmetry plane has collapsed onto the symmetry plane, leading to a very bad mesh. In the next design iteration, the simulations do not converge anymore and the optimization procedure stops. So we need some additional constraints on the movement of the nodes of the FFD box.
 
 ### constrained FFD deformation
 
-The problem here is that the mesh nodes on the symmetry plane are not allowed to move vertically, they only move horizontally outward inside the symmetry plane. Unfortunately, the FFD deformation is such that mesh nodes just above the symmetry plane are moved down, almost on the symmetry plane. To improve the quality of the mesh deformation, we disallow the vertical movement of the FFD box nodes on the nodes in the bottom plane of the FFD box, with j-index 0 and vertical displacement (0,1,0). So we remove entries in the **DV_PARAM** list of the form *(BOX, i_Ind, 0, k_Ind, 0,1,0)*. Additionally, we also disallow the vertical movement of the nodes in the plane j=1.
+The problem here is that the mesh nodes on the symmetry plane are not allowed to move vertically, they only move horizontally outward inside the symmetry plane. Unfortunately, the FFD deformation is such that mesh nodes just above the symmetry plane are moved down, almost on the symmetry plane. To improve the quality of the mesh deformation, we disallow the vertical movement of the FFD box nodes on the nodes in the bottom plane of the FFD box, with j-index 0 and vertical displacement (0,1,0). In Figure (3), the plane with index j=0 is the bottom plane, indicated in yellow. So we remove entries in the **DV_PARAM** list of the form *(BOX, i_Ind, 0, k_Ind, 0,1,0)*. Additionally, we also disallow the vertical movement of the nodes in the plane j=1.
 Since we disallow vertical movement in 2x(6x6)=72 nodes in the planes with $j=0$ and $j=1$,  The total degrees of freedom is then $648 - 72 = 576$ d.o.f. 
+
+
+![Pressure bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/opt_iter0_pressure_ffdbox.png "Pressure distribution")
+#### Figure (3): The 90 degree bend with the FFD box.
+
 
 The number of design variables needs to be reduced by 2x6x6 and we need to remove 2x6x6 strings from the ffd_string:
 ```python
@@ -185,7 +187,8 @@ So what we will do now is every time after we run the primal solver, we copy the
 cfd_command = "mpirun -n " + ncores + " " + su2_run + "SU2_CFD " + configMaster  + "&& cp restart.csv ../../solution.csv"
 ```
 
-Note that the primal solver by default saves the file restart.csv (keyword: **RESTART_FILENAME= restart**), but reads the file solution.csv (keyword: **SOLUTION_FILENAME= solution**). Note that we save ASCII files here, which is determined by the option **OUTPUT_FILES= RESTART_ASCII**. When reading ASCII restart files, we also need **READ_BINARY_RESTART= NO**.   
+Note that the primal solver by default saves the file restart.csv (keyword: **RESTART_FILENAME= restart**), but reads the file solution.csv (keyword: **SOLUTION_FILENAME= solution**). Note that we save ASCII files here, which is determined by the option **OUTPUT_FILES= RESTART_ASCII**. When reading ASCII restart files, we also need **READ_BINARY_RESTART= NO**.
+Please go through the *optimization.py* script now and check the settings. By default, the above procedure to restart from a previous solution is not active. You can activate it now if you wish.
 
 ## 2. FADO optimized result
 
@@ -195,10 +198,7 @@ We run the optimization script:
 $ python optimization.py
 ```
 
-We have set it to run 5 design iterations. 
-
-![Pressure bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/opt_iter0_pressure_ffdbox.png "Pressure distribution")
-#### Figure (3): The 90 degree bend with the FFD box.
+We have set it to run 5 design iterations. Please note that the optimization was set up for a parallel run.
 
 The objective values for the 5 design iterations are given in the table below.
 
@@ -216,5 +216,3 @@ We see that the global pressure drop between the inlet and the outlet reduces fr
 
 ![Optimized bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/opt_iter5_pressure_ffdbox.png "Optimized bend")
 #### Figure (4): Optimized bend after 5 design iterations, with the deformed FFD box.
-
-
