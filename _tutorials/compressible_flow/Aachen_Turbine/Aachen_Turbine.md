@@ -1,10 +1,10 @@
 ---
 title: Aachen turbine stage with Mixing-plane
 permalink: /tutorials/Aachen_Turbine/
-written_by: @alecappiello
+written_by: alecappiello
 for_version: 8.1.0
-revised_by: @joshkellyjak
-revision_date: xxx
+revised_by: joshkellyjak
+revision_date: 
 revised_version: 8.1.0
 solver: RANS
 requires: SU2_CFD

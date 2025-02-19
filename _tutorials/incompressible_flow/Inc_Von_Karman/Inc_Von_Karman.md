@@ -9,12 +9,11 @@ revised_version:
 solver: INC_NAVIER_STOKES
 requires: SU2_CFD
 complexity: intermediate
-follows: -
 ---
 
-![von_karman_street](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.mp4)
+![von_karman_street](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.gif)
 
-Figure (1): impression of the von Karman vortex shedding.
+Figure (1): impression of the von Karman vortex shedding. A high quality mp4 video can be found [here](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.mp4)
 
 ## Goals
 
