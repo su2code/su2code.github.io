@@ -12,7 +12,7 @@ complexity: intermediate
 follows: -
 ---
 
-![von_karman_street](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.mp4)
+![von_karman_street](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.mp4)
 
 Figure (1): impression of the von Karman vortex shedding.
 
@@ -40,7 +40,7 @@ When the Reynolds number $$Re=\rho \cdot V \cdot D / \mu$$ is low (Re < 40), the
 
 The configuration is a circular cylinder of 5 mm surrounded by a far field at $$L = 30 D$$ and a rectangular wake region of $$X = 150 D$$. The far-field velocity is $$U_{\infty} = 0.12 m/s$$. With a viscosity of $$\mu=1.0 \cdot 10^{-5}$$ and a density of $$\rho = 1 kg/m3$$, the Reynolds number is $$Re=120$$.
 
-![von_karman_mesh](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/mesh.png)
+![von_karman_mesh](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/mesh.png)
 Figure 2: Computational domain for the von Karman vortex shedding.
 
 The solution is initialized with uniform flow conditions. After an initial phase of around 4 seconds, the flow becomes periodic with a specific frequency depending on the Reynolds number. 
@@ -103,54 +103,68 @@ If possible, always use a parallel setup to reduce computational time (wall cloc
 
 ### Results
 
-![particles_streamlines](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/particles.png)
+![particles_streamlines](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/particles.png)
 Figure (3): Developed von Karman street with injected particles.
 
 The figure above shows the von Karman vortices. The colored vorticity gradients are created in the wake immediately behind the cylinder, and transported downstream. In paraview, we inject particles and let them be transported downstream over streamlines. We can clearly see that the particles are not mixed homogeneously but are being transported in batches of red and green particles moving with their corresponding vortices.
 
-![validation](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman.png)
+![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman.png)
 
 Figure (4): Strouhal number, comparison with experimental data from Williamson (2006).
 
 The Strouhal number can be computed from the lift coefficient that was stored in the history.csv file. A simple python file gives us the frequency from the FFT:
 
 ```python
+#%matplotlib inline
+#import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import scipy.fftpack
+import csv
+
+# Return value belonging to key in config.cfg 
+# (splits key= value for you)
+def find_config_key_value(filename,config_key):
+  with open(filename, "r") as file:
+    for line in file:
+        line = line.split('=')
+        if line[0] == config_key:
+            print(line[-1].strip() )
+            return(line[-1].strip())
+  raise ValueError('key not found:',config_key)
 
 # diameter of cylinder
 D = 0.01
-# velocity
-U = 0.12
-# Number of samplepoints
-N = 2500
-# sample spacing (timestep)
-T = 0.01
 
-# extract the lift coefficient from the history file 
-df = pd.read_csv('cl.csv')
+# read history, use comma as separator, with zero or more spaces before or after 
+df = pd.read_csv('history.csv', sep='\s*,\s*')
+
+T = float(find_config_key_value('unsteady_incomp_cylinder.cfg','TIME_STEP'))
+U = find_config_key_value('unsteady_incomp_cylinder.cfg','INC_VELOCITY_INIT')
+N = len(df.index)
+print('timestep=',T)
+print('samplepoints=',N)
+print('velocity=',U)
+U = float(U.replace('(','').replace(')','').split(',')[0].strip())
+print('velocity=',U)
 
 # assign data 
-x = df['Cur_Time']
-y = df['CL']
+x = df['"Cur_Time"']
+y = df['"CL"']
 
 # compute DFT with optimized FFT 
 xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
-yf = np.fft.fft(y) 
+yf = np.fft.fft(y)
 yf2 = 2.0/N * np.abs(yf[:N//2])
 
-fig, ax = plt.subplots()
-plt.xlim(0,5.0)
-
-ax.plot(xf, yf2 )
-plt.show()
+#fig, ax = plt.subplots()
+#plt.xlim(0,5.0)
+#ax.plot(xf, yf2 )
+#plt.show()
 
 print("index of max = ",np.argmax(yf2))
 freq = xf[np.argmax(yf2)]
 print("frequency of max = ",freq)
-
 St = freq * D / U
 print("strouhal number = ",St)
 ```
@@ -162,7 +176,7 @@ When we compare the Strouhal number with the experimental data from Williamson, 
 
 ### Numerical variations
 
-![validation](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman.png)
+![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_variation.png)
 
 Figure (5): Comparison of different numerical settings
 
@@ -172,7 +186,7 @@ It is also known that the size of the computational domain influences the result
  
 As a final test, the testcase can be executed for varying Reynolds numbers, ranging from Re=60 to Re=180, giving the result in Figure  (6).
 
-![validation](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_Re.png)
+![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_Re.png)
 
 Figure (5): Comparison of numerical Strouhal numbers with experiments for varying Reynolds numbers.
 
