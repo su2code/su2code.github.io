@@ -179,7 +179,8 @@ When we compare the Strouhal number with the experimental data from Williamson, 
 
 Figure (5): Comparison of different numerical settings
 
-In Figure 5, we see the effect of different numerical settings on the prediction of the Strouhal number. The second order scheme predicts a Strouhal number of $$St = 0.1734$$, slightly over predicting the experimental value of $$St_{exp} = 0.170$$. When switching from second order in time to first order, the Strouhal number is under predicted by 8 \% compared to the second order schem. Also, when increasing the time step from 0.01 s to 0.02 seconds, the St decreases by 2 \%. When increasing the time step even further to $$ \Delta t = 0.05 s%%, St decreases by 13 \%. The period of the nondimensional frequency is $$f \approx 0.5 s$$, so with a timestep of 0.01 s we have 50 time steps per period, we have 25 time steps when $$\Delta t = 0.02 s$$, and only 10 time steps when $$\Delta t = 0.05 s$$. It is clear that 10 time steps per period is not sufficient.
+In Figure 5, we see the effect of different numerical settings on the prediction of the Strouhal number. The second order scheme predicts a Strouhal number of $$St = 0.1734$$, slightly over predicting the experimental value of $$St_{exp} = 0.170$$. Note that our predictions of the Strouhal frequency depends on the number of samples and sampling rate that we provide to the FFT. We took 2500 timesteps of 0.01 s which contains enough cycles for an accurate frequency prediction using an fft. 
+When switching from second order in time to first order, the Strouhal number is under predicted by 6 \% compared to the experimental value. Also, when increasing the time step from 0.01 s to 0.02 seconds, the St decreases by 2 \%. When increasing the time step even further to $$ \Delta t = 0.04 s%%, St is under predicted  by 8 \%. The period of the dimensional frequency is $$f \approx 0.5 s$$, so with a timestep of 0.01 s we have 50 time steps per period, we have 25 time steps when $$\Delta t = 0.02 s$$, and only 12 time steps when $$\Delta t = 0.04 s$$. It is clear that 12 time steps per period is not sufficient.
 
 It is also known that the size of the computational domain influences the results, so we reduce the domain by half, $$L = 15 D$$ and $$X = 75 D$$. The Strouhal then increases to $$St = 0.1768$$, an increase of 2 \%. It seems that a far-field that is 15D away from the cylinder is sufficient.
  
@@ -187,9 +188,9 @@ As a final test, the testcase can be executed for varying Reynolds numbers, rang
 
 ![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_Re.png)
 
-Figure (5): Comparison of numerical Strouhal numbers with experiments for varying Reynolds numbers.
+Figure (6): Comparison of numerical Strouhal numbers with experiments for varying Reynolds numbers.
 
-For the lower Reynolds numbers, the Strouhal number seems to be more sensitive to the geometry, mesh and settings and the Strouhal number is under predicted for $$St<80$$.
+We get a pretty good agreement compared to the experimentally measured values.
 
 ### Final notes
 
