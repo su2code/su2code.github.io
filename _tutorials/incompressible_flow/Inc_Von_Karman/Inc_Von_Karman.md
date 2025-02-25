@@ -28,7 +28,7 @@ In this tutorial we will simulate the laminar but unsteady vortex shedding behin
 
 ## Resources
 
-The resources for this tutorial can be found in the [incompressible_flow/Inc_Von_Karman](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([sudo.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman/vonkarman.cfg)) and the mesh file ([sudo_coarse.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman/cylinder.su2)). Additionally, the Gmsh geometry is also provided so you can recreate the mesh yourself: [sudo_coarse.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman/cylinder.geo).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Von_Karman](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_Cylinder) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([unsteady_incomp_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_Cylinder/unsteady_incomp_cylinder.cfg)) and the mesh file ([cylinder_wake.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_cylinder/cylinder_wake.su2)). Additionally, the Gmsh geometry is also provided so you can recreate the mesh yourself: [cylinder_wake.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_Cylinder/cylinder_wake.geo).
 
 
 ### Background
