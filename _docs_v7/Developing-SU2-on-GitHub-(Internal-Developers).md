@@ -5,10 +5,10 @@ permalink: /docs_v7/Developing-SU2-on-GitHub-(Internal-Developers)/
 
 The repository for SU2 is being hosted here on GitHub. As you are likely aware, GitHub is simply an online project hosting service with a very useful web interface and additional tools to aid code development with Git as its backbone. Git is a version control system (VCS) that is similar to SVN, Mercurial, etc., and it helps organize the development of code over time by tracking changes. 
 
-To get started, you need to create a personal user account on GitHub (free) and follow the [basic setup instructions](https://help.github.com/articles/set-up-git). These instructions include how to get Git installed on your local machine. To sync up your local settings with GitHub, change the user.email and user.name variables for your local git configuration with
+To get started, you need to create a personal user account on GitHub (free) and follow the [basic setup instructions](https://help.github.com/articles/set-up-git). These instructions include how to get Git installed on your local machine. To sync up your local settings with GitHub, change the `user.email` and `user.name` variables for your local git configuration with
 ```
-git config --global user.email "your_email@domain.com" 
-git config --global user.name "Your Name"
+git config --local user.email "your_email@domain.com" 
+git config --local user.name "Your Name"
 ```
 Note that the email address should be the one associated with your GitHub account.
 
