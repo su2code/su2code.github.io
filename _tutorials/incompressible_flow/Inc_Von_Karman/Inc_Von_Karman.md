@@ -105,7 +105,14 @@ If possible, always use a parallel setup to reduce computational time (wall cloc
 ![particles_streamlines](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/particles.png)
 Figure (3): Developed von Karman street with injected particles.
 
-The figure above shows the von Karman vortices. The colored vorticity gradients are created in the wake immediately behind the cylinder, and transported downstream. In paraview, we inject particles and let them be transported downstream over streamlines. We can clearly see that the particles are not mixed homogeneously but are being transported in batches of red and green particles moving with their corresponding vortices.
+The figure above shows the von Karman vortices. A movie of the von Karman Vortex shedding as shown in this tutorial can be made using the paraview statefile here: [statefile_with_particles.pvsm](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_Cylinder/statefile_with_particles.pvsm). The colored vorticity gradients are created in the wake immediately behind the cylinder, and transported downstream. In paraview, we inject particles and let them be transported downstream over streamlines. We can clearly see that the particles are not mixed homogeneously but are being transported in batches of red and green particles moving with their corresponding vortices.
+
+
+![von_karman_street_arrow](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder_arrow.gif)
+
+A link to a high quality video can be found [here](https://github.com/su2code/su2code.github.io/tree/master/tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder_arrow.mp4).
+
+The forces on the cylinder can also be visualized, see the above movie. We see the unsteady velocity magnitude, and on the cylinder surface we visualize the local force as the local pressure normal to the surface. For this we need to extract the surface data only and then compute the surface normal using a programmable filter. We can then visualize the glyph distribution. The total lift force is the integrated vertical component, whose size can be visualize as a colored arrow of a size proportional to the lift force using another programmable filter. Below the image we visualize the lift force in time using the PlotSelectionOverTime feature.  
 
 ![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman.png)
 
@@ -194,4 +201,7 @@ We get a pretty good agreement compared to the experimentally measured values.
 
 ### Final notes
 
-The paraview statefile to create the movie can be found here: [paraview_vonkarman.pvsm](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Von_Karman/paraview_vonkarman.pvsm)
+The paraview statefile to create the movie can be found here: [statefile_with_particles.pvsm](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Von_Karman/statefile_with_particles.pvsm)
+and here: 
+[statefile_movablearrow_timeseries.pvsm](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Von_Karman/statefile_movablearrow_timeseries.pvsm)
+Note that you have to select your own, local files when you load the statefile.
