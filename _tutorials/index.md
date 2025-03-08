@@ -50,6 +50,8 @@ Simulation of unsteady, external, viscous flow around an airfoil.
 Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models.
 * [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
 Simulation of compressible flow in a nozzle using non-ideal thermodynamic models.
+* [Turbomachinery: Aachen Turbine stage with mixing plane](/tutorials/Aachen_Turbine/)    
+Simulation of compressible flow of the Aachen turbine demonstrating turbomachinery application.
 
 #### Incompressible Flow
 
@@ -71,6 +73,8 @@ Simulation of internal, turbulent, incompressible flow in a unit cell of a 2D pi
 Simulation of internal, turbulent, incompressible flow through a mixing channel.
 * [Species Transport Composition Dependent Model](/tutorials/Inc_Species_Transport_Composition_Dependent_Model/)    
 Simulation of internal, turbulent, 3D incompressible flow through a Kenics static mixer.
+* [Vortex Shedding](/tutorials/Inc_Von_Karman/)    
+Simulation of unsteady laminar vortex shedding behind a circular cylinder.
 * [Turbulent Bend](/tutorials/Inc_Turbulent_Bend/)    
 Simulation of turbulent flow in a 90 degree pipe bend using wall functions.
 
