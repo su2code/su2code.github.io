@@ -53,6 +53,11 @@ Simulation of compressible flow in a nozzle using non-ideal thermodynamic models
 * [Turbomachinery: Aachen Turbine stage with mixing plane](/tutorials/Aachen_Turbine/)    
 Simulation of compressible flow of the Aachen turbine demonstrating turbomachinery application.
 
+#### Thermochemical Nonequilibrium Flow
+
+* [Inviscid Hypersonic Wedge](/tutorials/Inviscid_Hypersonic_Wedge/)   
+A simulation of hypersonic flow over a 2D inviscid wedge.
+
 #### Incompressible Flow
 
 * [Inviscid Hydrofoil](/tutorials/Inc_Inviscid_Hydrofoil/)   
