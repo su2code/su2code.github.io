@@ -1,6 +1,6 @@
 ---
 title: 2D DSMA661 Airfoil Near-Wake RANS Verification Case
-permalink: /vandv/DSMA661/
+permalink: /vandv/dsma661/
 ---
 
 | Solver | Version |

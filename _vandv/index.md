@@ -31,7 +31,7 @@ Results for the 30p30n airfoil, mesh independence study at low angle-of-attack, 
 Comparison of grid-converged results with experimental data. SA and SST turbulence models.
 * [2D Flat Plate (T3A & T3A-) for Langtry and Menter transition model](/vandv/LM_transition/)
 Comparison of grid-converged results with results of another solver and experimental data.
-* [2D DSMA661 Airfoil Near-Wake RANS Verification Case](/vandv/DSMA661/)
+* [2D DSMA661 Airfoil Near-Wake RANS Verification Case](/vandv/dsma661/)
 Code-to-Code comparisons of grid-converged results of lift, drag and wake profile plots is presented using data from the NASA Turbulence Modeling Resource.
 
 
