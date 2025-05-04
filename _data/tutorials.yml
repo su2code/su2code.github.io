@@ -17,6 +17,7 @@
   - Unsteady_NACA0012
   - UQ_NACA0012
   - NICFD_nozzle
+  - Aachen_Turbine
 
 - title: Incompressible Flow
   tutorials:
@@ -29,6 +30,7 @@
   - Inc_Streamwise_Periodic
   - Inc_Species_Transport
   - Inc_Species_Transport_Composition_Dependent_Model
+  - Inc_Von_Karman
   - Inc_Turbulent_Bend
 
 - title: Structural Mechanics
@@ -55,6 +57,7 @@
   - Multi_Objective_Shape_Design
   - Unsteady_Shape_Opt_NACA0012
   - Species_Transport
+  - Inc_Turbulent_Bend_Opt
 
 - title: Workflow Setup
   tutorials:
