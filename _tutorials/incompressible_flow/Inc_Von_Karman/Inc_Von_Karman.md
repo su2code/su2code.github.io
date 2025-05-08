@@ -33,11 +33,11 @@ The resources for this tutorial can be found in the [incompressible_flow/Inc_Von
 
 ### Background
 
-When the Reynolds number $$Re=\rho \cdot V \cdot D / \mu$$ is low (Re < 40), the flow around a circular cylinder is laminar and steady. At around Re=49, the flow becomes unsteady and a periodic shedding of vortices forms in the wake of the cylinder, known as vortex shedding. The frequency of this vortex shedding is usually expressed in terms of the Strouhal number $$St= f \ cdot D / U_{\infty}$$, with f the shedding frequency, D the diameter of the cylinder and U the far-field velocity. Important experimental work can be found in the paper of Williamson, *Vortex Dynamics in the Cylinder Wake*, Annual Review of Fluid Mechanics (1996) [doi](https://doi.org/10.1146/annurev.fl.28.010196.002401). After around Re=180, a second frequency is observed experimentally, in the longitudinal direction. This frequency can only be observed in a 3D simulation. The increase in number of frequencies continues until after around Re=1000 the flow is considered fully turbulent.
+When the Reynolds number $$Re=\rho \cdot V \cdot D / \mu$$ is low (Re < 40), the flow around a circular cylinder is laminar and steady. At around Re=49, the flow becomes unsteady and a periodic shedding of vortices forms in the wake of the cylinder, known as vortex shedding. The frequency of this vortex shedding is usually expressed in terms of the Strouhal number $$St= f \cdot D / U_{\infty}$$, with f the shedding frequency, D the diameter of the cylinder and U the far-field velocity. Important experimental work can be found in the paper of Williamson, *Vortex Dynamics in the Cylinder Wake*, Annual Review of Fluid Mechanics (1996) [doi](https://doi.org/10.1146/annurev.fl.28.010196.002401). After around Re=180, a second frequency is observed experimentally, in the longitudinal direction. This frequency can only be observed in a 3D simulation. The increase in number of frequencies continues until after around Re=1000 the flow is considered fully turbulent.
 
 ### Problem Setup
 
-The configuration is a circular cylinder of 5 mm surrounded by a far field at $$L = 30 D$$ and a rectangular wake region of $$X = 150 D$$. The far-field velocity is $$U_{\infty} = 0.12 m/s$$. With a viscosity of $$\mu=1.0 \cdot 10^{-5}$$ and a density of $$\rho = 1 kg/m3$$, the Reynolds number is $$Re=120$$.
+The configuration is a circular cylinder of diameter $$D=0.01 m$$ surrounded by a far field at $$L = 30 D$$ and a rectangular wake region of $$X = 150 D$$. The far-field velocity is $$U_{\infty} = 0.12 m/s$$. With a viscosity of $$\mu=1.0 \cdot 10^{-5}$$ and a density of $$\rho = 1 kg/m3$$, the Reynolds number is $$Re = 120$$.
 
 ![von_karman_mesh](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/mesh.png)
 Figure 2: Computational domain for the von Karman vortex shedding.
@@ -176,7 +176,7 @@ print("strouhal number = ",St)
 ```
 
 
-When we compare the Strouhal number with the experimental data from Williamson, we see in Figure 4 that the frequency is underpredicted. We will vary some numerical settings to investigate if we can improve the prediction of the Strouhal number.
+When we compare the Strouhal number with the experimental data from Williamson, we see in Figure 4 that the frequency is slightly overpredicted. We will vary some numerical settings to investigate the impact on the prediction of the Strouhal number.
 
 
 
@@ -184,12 +184,12 @@ When we compare the Strouhal number with the experimental data from Williamson, 
 
 ![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_variation.png)
 
-Figure (5): Comparison of different numerical settings
+Figure (5): Comparison of different numerical settings.
 
 In Figure 5, we see the effect of different numerical settings on the prediction of the Strouhal number. The second order scheme predicts a Strouhal number of $$St = 0.1734$$, slightly over predicting the experimental value of $$St_{exp} = 0.170$$. Note that our predictions of the Strouhal frequency depends on the number of samples and sampling rate that we provide to the FFT. We took 2500 timesteps of 0.01 s which contains enough cycles for an accurate frequency prediction using an fft. 
-When switching from second order in time to first order, the Strouhal number is under predicted by 6 \% compared to the experimental value. Also, when increasing the time step from 0.01 s to 0.02 seconds, the St decreases by 2 \%. When increasing the time step even further to $$ \Delta t = 0.04 s%%, St is under predicted  by 8 \%. The period of the dimensional frequency is $$f \approx 0.5 s$$, so with a timestep of 0.01 s we have 50 time steps per period, we have 25 time steps when $$\Delta t = 0.02 s$$, and only 12 time steps when $$\Delta t = 0.04 s$$. It is clear that 12 time steps per period is not sufficient.
+When switching from second order in time to first order, the Strouhal number is under predicted by 6 % compared to the experimental value. Also, when increasing the time step from 0.01 s to 0.02 seconds, the St decreases by 2 \%. When increasing the time step even further to $$ \Delta t = 0.04 s $$, St is under predicted  by 8 %. The period of the dimensional frequency is $$f \approx 0.5 s$$, so with a timestep of 0.01 s we have 50 time steps per period, we have 25 time steps when $$\Delta t = 0.02 s$$, and only 12 time steps when $$\Delta t = 0.04 s$$. It is clear that 12 time steps per period is not sufficient.
 
-It is also known that the size of the computational domain influences the results, so we reduce the domain by half, $$L = 15 D$$ and $$X = 75 D$$. The Strouhal then increases to $$St = 0.1768$$, an increase of 2 \%. It seems that a far-field that is 15D away from the cylinder is sufficient.
+It is also known that the size of the computational domain influences the results, so we reduce the domain by half, $$L = 15 D$$ and $$X = 75 D$$. The Strouhal then increases to $$St = 0.1768$$, an increase of 2 %. It seems that a far-field that is 15D away from the cylinder is sufficient.
  
 As a final test, the testcase can be executed for varying Reynolds numbers, ranging from Re=60 to Re=180, giving the result in Figure  (6).
 
