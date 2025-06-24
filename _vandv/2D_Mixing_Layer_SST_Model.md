@@ -1,6 +1,6 @@
 ---
 title: SST Model For 2D Mixing Layer
-permalink: /vandv/2D_Mixing_Layer_SST_Model
+permalink: /vandv/2D_Mixing_Layer_SST_Model/
 ---
 
 <img src="/vandv_files/2D_Mixing_Layer_SST_Model/profile_x200mm.png" alt="SST Model Results For x=200mm"/>
