@@ -72,10 +72,12 @@ To profile a function in SU2, add Tracy macros to the source code. Here’s an e
 
 After compiling and instrumenting SU2, profile and visualize the data as follows:
 
-> For Ubuntu users, install additional dependencies required for the Tracy server with: 
+Note: For Ubuntu users, install additional dependencies required for the Tracy server with the following command.
+```bash
 sudo apt install libfreetype6-dev libcapstone-dev libdbus-1-dev \
 libxkbcommon-dev libwayland-dev wayland-protocols \
 libegl1-mesa-dev libglvnd-dev libgtk-3-dev
+```
 
 1. **Build the Tracy Server:**
    - Navigate to the Tracy directory: `cd <SU2_SOURCE_DIR>/subprojects/tracy`.
