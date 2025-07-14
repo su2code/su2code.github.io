@@ -24,19 +24,19 @@ In order to compile the unit tests, add the flag `-Denable-tests=true`
 to your meson configure call. Then, you can build and run the tests by
 calling `ninja test`.
 
-## Running Tests 
+## Running Tests
 
 There are three ways to run the main unit tests:
 
-1. `meson test -C builddir`, where `builddir` is the build directory.
-2. `ninja test -C builddir`, where `builddir` is the build directory.
+1. `meson test -C [builddir]`, where `[builddir]` is the build directory.
+2. `ninja test -C [builddir]`, where `[builddir]` is the build directory.
 3. `./UnitTests/test_driver` from the SU2 build directory.
 
 If you have run `ninja install`, then the `test_driver` executable will
 also be located in the `bin` directory where you have installed SU2. The
 first option will call ninja, which will then run the `test_driver`
 executable.  The second option will call the `test_driver` executable.
-The last option, manually running the test driver, gives the most flexibility. 
+The last option, manually running the test driver, gives the most flexibility.
 This help page will focus on the command-line options for that last option.
 
 By default, Catch2 will only show the output from failing tests.  To also
@@ -48,7 +48,7 @@ are actually three test drivers:
 `test_driver`, `test_driver_AD`, and `test_driver_DD`.  These test drivers
 are built or run depending on the type of installation (e.g. direcdiff,
 autodiff). For the most common use-case, you will not have a directdiff
-or autodiff build and will only use `test_driver`. If you call 
+or autodiff build and will only use `test_driver`. If you call
 `meson_test` or `ninja test`, the correct
 drivers will run automatically.  For more on tests using algorithmic
 differentiation or direct differentiation, see the section "AD and
@@ -88,7 +88,7 @@ run:
 ```
 
 To run tests matching a specific tag, write the tag name in square braces
-as an argument for the test driver.  For example, if I want to run the 
+as an argument for the test driver.  For example, if I want to run the
 tests with the tag "Dual Grid", I would run:
 
 ```

@@ -94,7 +94,7 @@ Options:
 * `-f FILE, --file=FILE` read config from FILE
 * `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
 * `-s STEP, --step=STEP` finite difference STEP
-* `-q QUIET, --quiet=QUIET` if True, output QUIET to log files 
+* `-q QUIET, --quiet=QUIET` if True, output QUIET to log files
 
 ### Shape Optimization Script (shape_optimization.py)
 
@@ -114,7 +114,7 @@ Options:
 
 It is possible to call SU2 from python by importing it as a module. The first step is to compile SU2 with python wrapper support. For instance if your SU2 repository is in your home directory at *~/SU2*:
 
-Usage: `$ ./meson.py build -Denable-pywrapper=true --prefix=~/SU2`
+Usage: `$ ./meson.py setup build -Denable-pywrapper=true --prefix=~/SU2`
 
 The python module will then be available in the installation folder *~/SU2/bin*. To make the SU2 python wrapper available from everywhere in the system, add the installation path to *PYTHONPATH*:
 

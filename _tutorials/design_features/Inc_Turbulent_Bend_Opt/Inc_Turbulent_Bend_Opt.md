@@ -4,8 +4,8 @@ permalink: /tutorials/Inc_Turbulent_Bend_Opt/
 written_by: Nijso Beishuizen
 for_version: 8.0.1
 revised_by:
-revision_date: 
-revised_version: 
+revision_date:
+revised_version:
 solver: INC_RANS
 requires: SU2_CFD, FADO
 complexity: advanced
@@ -22,7 +22,7 @@ follows: Inc_Turbulent_Bend
 
 This tutorial closely follows the design optimization setup of the 2D mixing channel, see the tutorial on design optimization for [Species Transport](/tutorials/Species_Transport/). We will use the python framework [FADO](https://github.com/su2code/FADO) to set up the optimization problem. In this tutorial however we will optimize the pressure drop of the 90 degree pipe bend. The CFD results were already discussed previously in  [this tutorial](/tutorials/Inc_Turbulent_Bend/). Here we focus on the following aspects:
 * Setup of the FFD box for a 3D problem using SU2_DEF.
-* Setup of the FADO problem: 
+* Setup of the FADO problem:
 	- using previous solutions of the CFD and adjoint solver to reduce computing time.
 	- automatically add the correct keywords for the FFD box (type and degrees of freedom).
 	- discussion of mesh quality issues and improvement using FFD constraints.
@@ -34,7 +34,7 @@ If you have not done so already, please first have a look at the prerequisite tu
 
 Besides the python library FADO, you will need to compile SU2 with automatic differentiation support. Note that the script provided uses 8 cores, so you need to compile with mpi support as well as enable autodiff:
 ```
-./meson.py build --optimization=2 -Ddebug=false -Denable-autodiff=true -Dwith-mpi=enabled --prefix=/home/user/Codes/su2_github_develop/su2/
+./meson.py setup build --optimization=2 -Ddebug=false -Denable-autodiff=true -Dwith-mpi=enabled --prefix=/home/user/Codes/su2_github_develop/su2/
 ```
 
 ## Resources
@@ -43,7 +43,7 @@ You can find the resources for this tutorial in the folder [design/Inc_Turbulent
 
 ## 1. Basic setup of FFD box and FADO
 Usually, designs are created with a CAD tool. These designs are then discretized into a computational mesh for CFD analysis. When optimizing a design, we then only have the discretized mesh available. We could manipulate the mesh nodes directly but this does not lead to very smooth deformations. Instead we modify our mesh using FFD boxes. The nodes of the FFD box are moved according to the design sensitivities, and the mesh nodes inside the FFD box are then smoothly deformed using Bezier curves (default) or B-splines.
-Figure (1) above shows the setup that we will be using. 
+Figure (1) above shows the setup that we will be using.
 
 ### Creation of the FFD box
 The FFD box can be created and added to the .su2 mesh file using SU2_DEF. The important parameters to add to the configuration file are:
@@ -65,32 +65,32 @@ DV_MARKER= ( wall, symmetry)
 DV_PARAM= (1.0)
 ```
 Our FFD box is 5x5x5 cells, or 6x6x6=216 nodes. With each 3 degrees of freedom for the x-,y- and z-direction, we get a total of 648 d.o.f. The box is slightly larger than our original bend, but most importantly the symmetry plane is completely inside the FFD box.
-We run the command 
+We run the command
 
 ```
 $ SU2_DEF sudo_0_add_FFD_box.cfg
 ```
 
-We will only use the file *sudo_0_add_FFD_box.cfg* to create the FFD box. This command will create a new .su2 mesh called *mesh_out.su2* that has the definition of the FFD box added to the file. Note that at this stage we need to provide the boundaries inside the FFD box that are allowed to deform using the keyword **DV_MARKER**. The nodes on the boundaries inside the FFD box are part of the information that is added with the FFD box to the mesh_out.su2 mesh file. 
+We will only use the file *sudo_0_add_FFD_box.cfg* to create the FFD box. This command will create a new .su2 mesh called *mesh_out.su2* that has the definition of the FFD box added to the file. Note that at this stage we need to provide the boundaries inside the FFD box that are allowed to deform using the keyword **DV_MARKER**. The nodes on the boundaries inside the FFD box are part of the information that is added with the FFD box to the mesh_out.su2 mesh file.
 
 
 ### Setup the FADO script optimization.py
 
-Previously the python script *set_ffd_design_var.py* was used in the tutorial on the optimization of the mixing channel. We can however create the correct entries with a couple of simple python commands and add them directly to the main python script that FADO will use, *optimization.py*. We already used *optimization.py* before in the tutorial [Species Transport](/tutorials/Species_Transport/) and we will highlight some changes here. 
+Previously the python script *set_ffd_design_var.py* was used in the tutorial on the optimization of the mixing channel. We can however create the correct entries with a couple of simple python commands and add them directly to the main python script that FADO will use, *optimization.py*. We already used *optimization.py* before in the tutorial [Species Transport](/tutorials/Species_Transport/) and we will highlight some changes here.
 
 For the optimization, we need to modify 2 things in our config file: **DV_KIND** and **DV_PARAM**. The keyword **DV_PARAM** contains N entries of the form *( BOX, 0, 0, 0, 1.0, 0.0, 0.0 );*
- Note that the meaning of the entries are *( FFD_BoxTag, i_Ind, j_Ind, k_Ind, x_Disp, y_Disp, z_Disp )* , meaning that after the keyword **BOX**, we get the 3 indices i,j,k of the FFD box, followed by the allowed displacement of that index in the x-,y- and z-direction. Mesh nodes in the symmetry plane only move in the symmetry plane, so symmetry is preserved. 
+ Note that the meaning of the entries are *( FFD_BoxTag, i_Ind, j_Ind, k_Ind, x_Disp, y_Disp, z_Disp )* , meaning that after the keyword **BOX**, we get the 3 indices i,j,k of the FFD box, followed by the allowed displacement of that index in the x-,y- and z-direction. Mesh nodes in the symmetry plane only move in the symmetry plane, so symmetry is preserved.
 
 The list of FFD control points can be created using:
 ```python
 s = "FFD_CONTROL_POINT"
 ffd_string = s
 for i in range((DX**NDIM)*NDIM - 1):
-  ffd_string = ffd_string + ", " + s 
+  ffd_string = ffd_string + ", " + s
 ```
 In the sudo.cfg file we have a placeholder which has the form:
 ```
-DV_KIND= __FFD_CTRL_PTS__ 
+DV_KIND= __FFD_CTRL_PTS__
 ```
 And we automatically replace the placeholder **\_\_FFD_CTRL_PTS\_\_** in the fado script during run-time using the command
 ```
@@ -164,7 +164,7 @@ for j in jlist:
       dv_param_string = dv_param_string.replace(remove_dof, "", 1)
 ```
 
-Another modification to the configuration file that we would like to add is to restart from the solution of the previous design. SU2 will automatically interpolate the solution to the nearest neighbor if the mesh coordinates do not match. Since we might not have an initial solution to start with, we would like to switch from **RESTART= NO** to **RESTART= YES** after the first iteration. 
+Another modification to the configuration file that we would like to add is to restart from the solution of the previous design. SU2 will automatically interpolate the solution to the nearest neighbor if the mesh coordinates do not match. Since we might not have an initial solution to start with, we would like to switch from **RESTART= NO** to **RESTART= YES** after the first iteration.
 
 We can do this with a simple *sed* command that searches and replaces the string in config.cfg in the working directory and then copies the config file back to the base dir:
 
@@ -172,12 +172,12 @@ We can do this with a simple *sed* command that searches and replaces the string
 restart_yes="sed -i 's/RESTART_SOL= NO/RESTART_SOL= YES/' config.cfg && cp " + configCopy + " ../../"
 ```
 
-The easiest way to perform the update is to simply add it as another ExternalRun process: 
+The easiest way to perform the update is to simply add it as another ExternalRun process:
 ```python
 update_restart = ExternalRun("UPDATE_RESTART",restart_yes,False) # True means sym links are used for addData
 update_restart.addData(configCopy)
 ```
-This means that we will call this function every design iteration, but only in the first design iteration will it have an effect. 
+This means that we will call this function every design iteration, but only in the first design iteration will it have an effect.
 
 FADO copies the restart file and all other necessary files from the base directory (where you start your script) into the working directory. Here, the working directory is called *OPTIM*. Inside *OPTIM* we have subdirectories for the different runs, i.e. *OPTIM/DEFORM*, OPTIM/DIRECT*, *OPTIM/ADJOINT* and *OPTIM/DOT*. When all runs in this directory are done, they are archived in *DSN_001*, *DSN_002*, etc.
 
@@ -203,7 +203,7 @@ We have set it to run 5 design iterations. Please note that the optimization was
 The objective values for the 5 design iterations are given in the table below.
 
 
-| iteration | $$\Delta P$$, total| $$\Delta P$$, bend| gain, total| gain, bend | 
+| iteration | $$\Delta P$$, total| $$\Delta P$$, bend| gain, total| gain, bend |
 | --------|--------|--------|--------|--------|
 |0|89.0 [Pa]|20.7 [Pa]| -| - |
 |1|84.9 [Pa]|16.6 [Pa]|4.6 %|19.8 %|
