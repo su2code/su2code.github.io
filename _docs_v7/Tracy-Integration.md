@@ -73,6 +73,7 @@ To profile a function in SU2, add Tracy macros to the source code. Here’s an e
 After compiling and instrumenting SU2, profile and visualize the data as follows:
 
 1. **Build the Tracy Server:**
+
 Install additional dependencies required for the Tracy server.
 ```bash
 sudo apt install libfreetype6-dev libcapstone-dev libdbus-1-dev \
