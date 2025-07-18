@@ -50,23 +50,31 @@ This embeds the Tracy client into SU2 for profiling.
 
 ## Instrumenting SU2 Code
 
-To profile a function in SU2, add Tracy macros to the source code. Here’s an example:
+To profile a function in SU2, you must use the project's centralized wrapper macros. This approach ensures that profiling can be cleanly enabled or disabled at compile time without modifying the core logic.
 
-1. **Include the Tracy Header:**
-   - Add this at the top of the source file:
-     ```c++
-     #include <tracy/Tracy.hpp>
-     ```
+1.  **Include the SU2 Tracy Wrapper Header:**
+    -   Add an include directive for `tracy_structure.hpp` at the top of your C++ source file. The relative path will depend on the file's location. For example, for a file in `SU2_CFD/src/fluid/`:
+        ```cpp
+        #include "../../../Common/include/tracy_structure.hpp"
+        ```
+    -   **Important:** Do not include `<tracy/Tracy.hpp>` directly. The wrapper header manages the actual Tracy library.
 
-2. **Instrument the Function:**
-   - Use `ZoneScopedN` to mark the function for profiling:
-     ```c++
-     void MyFunction() {
-         ZoneScopedN("MyFunction");
-         // Function implementation
-     }
-     ```
-   - The `"MyFunction"` label identifies this section in the Tracy GUI.
+2.  **Instrument the Function with SU2 Macros:**
+    -   Use `SU2_ZONE_SCOPED_N("MyLabel")` to mark a function or scope with a custom name. This is the recommended macro for clarity.
+        ```cpp
+        void MyFunction() {
+            SU2_ZONE_SCOPED_N("MyFunction");
+            // Function implementation
+        }
+        ```
+    -   The label you provide (e.g., `"MyFunction"`) is what will appear in the Tracy profiler's timeline.
+    -   Alternatively, for a quick annotation, you can use `SU2_ZONE_SCOPED;`. This macro automatically uses the compiler-provided function name for the label.
+        ```cpp
+        void MyFunction() {
+            SU2_ZONE_SCOPED;
+            // Function implementation
+        }
+        ```
 
 ## Running the Profiler and Visualizing Data
 
