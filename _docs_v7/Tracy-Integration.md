@@ -38,7 +38,7 @@ To compile SU2 with Tracy support, follow these steps:
 3. **Configure and Build SU2:**
    - Configure the build with Tracy enabled using Meson:
      ```bash
-     meson setup build -Dwith-mpi=disabled --buildtype=debugoptimized -Dtracy_enable=true --prefix=<SU2_INSTALL_PATH>
+     meson setup build -Dwith-mpi=disabled --buildtype=debugoptimized -Denable_tracy=true --prefix=<SU2_INSTALL_PATH>
      ```
    - Build and install SU2:
      ```bash
