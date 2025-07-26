@@ -19,32 +19,15 @@ Tracy is a high-performance, real-time profiler designed for C++ applications, o
 
 To compile SU2 with Tracy support, follow these steps:
 
-1. **Install Required Tools:**
-   - Tracy requires Meson version >=1.3.0, which is newer than the version provided by SU2. Install it manually:
-     ```bash
-     pip install --user --upgrade meson
-     ```
-   - Install Ninja manually, as it is required for the build process:
-     ```bash
-     sudo apt install ninja-build
-     ```
-
-2. **Run the Preconfigure Script:**
-   - Since the provided `meson.py` script is not used, run the preconfigure script to set up the build environment:
-     ```bash
-     ./preconfigure.py
-     ```
-
-3. **Configure and Build SU2:**
-   - Configure the build with Tracy enabled using Meson:
-     ```bash
-     meson setup build -Dwith-mpi=disabled --buildtype=debugoptimized -Denable_tracy=true --prefix=<SU2_INSTALL_PATH>
-     ```
-   - Build and install SU2:
-     ```bash
-     ninja -C build install
-     ```
-   - Replace `<SU2_INSTALL_PATH>` with your desired installation directory.
+- Configure the build with Tracy enabled using Meson:
+  ```bash
+  meson setup build -Dwith-mpi=disabled --buildtype=debugoptimized -Denable-tracy=true --prefix=<SU2_INSTALL_PATH>
+  ```
+- Build and install SU2:
+  ```bash
+  ./ninja -C build install
+  ```
+- Replace `<SU2_INSTALL_PATH>` with your desired installation directory.
 
 This embeds the Tracy client into SU2 for profiling.
 
