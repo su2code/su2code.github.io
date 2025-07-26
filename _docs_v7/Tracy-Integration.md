@@ -21,7 +21,7 @@ To compile SU2 with Tracy support, follow these steps:
 
 - Configure the build with Tracy enabled using Meson:
   ```bash
-  meson setup build -Dwith-mpi=disabled --buildtype=debugoptimized -Denable-tracy=true --prefix=<SU2_INSTALL_PATH>
+  ./meson.py setup build -Dwith-mpi=disabled --buildtype=debugoptimized -Denable-tracy=true --prefix=<SU2_INSTALL_PATH>
   ```
 - Build and install SU2:
   ```bash
