@@ -15,7 +15,7 @@ This page contains a very brief summary of the different governing equation sets
 - [Incompressible Euler](#incompressible-euler)
 - [Turbulence Modeling](#turbulence-modeling)
 - [Species Transport](#species-transport)
-- [Combustion](#flamelet-combustion-model)
+- [Combustion](#combustion)
 - [Elasticity](#elasticity)
 - [Heat Conduction](#heat-conduction)
   
@@ -280,14 +280,14 @@ where $$\mu_T$$ is the eddy viscosity and $$Sc_{T}$$ $$[-]$$ the turbulent Schmi
 | --- | --- |
 | `INC_NAVIER_STOKES` | 8.0.0 |
 
-Combustion with tabulated chemistry solves the scalar transport equations for total enthalpy $h_t=h + h_{chem}$, which is the sum of the sensible enthalpy and the chemical enthalpy. Additionally, it solves a transport equation for the progress variable $C$, indicating the progress of combustion. Reaction source terms for the progress variable, as well as necessary thermodynamic quantities like density, temperature, viscosity, heat capacity, etc. are all obtained from a 2D lookup table where the properties are stored as a function of the progress variable and total enthalpy. Note that temperature is now a quantity that is retrieved from the lookup table. These lookup tables are constructed from 1D detailed chemistry simulations, using codes like Cantera, Ember, FlameMaster (RWTH Aachen) or Chem1d (TU Eindhoven) and are also known as flamelets or Flamelet Generated Manifolds (FGM).  
+Combustion with tabulated chemistry solves the scalar transport equations for total enthalpy $$h_t=h + h_{chem}$$, which is the sum of the sensible enthalpy and the chemical enthalpy. Additionally, it solves a transport equation for the progress variable $$C$$, indicating the progress of combustion. Reaction source terms for the progress variable, as well as necessary thermodynamic quantities like density, temperature, viscosity, heat capacity, etc. are all obtained from a 2D lookup table where the properties are stored as a function of the progress variable and total enthalpy. Note that temperature is now a quantity that is retrieved from the lookup table. These lookup tables are constructed from 1D detailed chemistry simulations, using codes like Cantera, Ember, FlameMaster (RWTH Aachen) or Chem1d (TU Eindhoven) and are also known as flamelets or Flamelet Generated Manifolds (FGM).  
 
 The progress variable-enthalpy approach is used to simulate laminar premixed flames. Nonpremixed flames can also be simulated by simply using a lookup table for non-premixed flames. The progress variable then effectively becomes a mixture fraction. Combustion with conjugate heat transfer is also supported in the tabulated chemistry approach.
 Additional transport of (reacting) species can be supported as well. The source terms for these additional species have to be stored in the lookup table. A split-source-term approach is supported, where the source term is assumed to be of the form $$S_{total} = S_{Production} + Y \cdot S_{Consumption}.$$ We store the production and consumption terms in the lookup table and construct the total source term internally. If only a total source term is available, the consumption source term can be set to zero.
 
-At the moment there is no turbulence-chemistry interaction implemented in this approach and the Lewis number is assumed to be $Le=1$
+At the moment there is no turbulence-chemistry interaction implemented in this approach and the Lewis number is assumed to be $$Le=1$$.
 
-For a detailed introduction to flamelet modeling see the work of van Oijen et al. https://www.sciencedirect.com/science/article/pii/S0360128515300137
+For a detailed introduction to flamelet modeling see the work of [van Oijen et al.](https://www.sciencedirect.com/science/article/pii/S0360128515300137)
 
 ---
 
