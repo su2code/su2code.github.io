@@ -19,6 +19,10 @@
   - NICFD_nozzle
   - Aachen_Turbine
 
+- title: Thermochemical Nonequilibrium Flow
+  tutorials:
+  - Inviscid_Hypersonic_Wedge
+
 - title: Incompressible Flow
   tutorials:
   - Inc_Inviscid_Hydrofoil
