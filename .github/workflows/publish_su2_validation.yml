@@ -252,7 +252,7 @@ jobs:
             # Process images with their relative path
             find "${dir}" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | sort | while read -r img; do
               # Calculate relative path
-              rel_path="../${img#*/vandv_files/}"
+              rel_path="/${img#*/vandv_files/}"
               echo "<img src=\"${rel_path}\" alt=\"${folder_name} - $(basename "${img}")\" style=\"width:80%; display: block; margin: 0 auto;\">" >> "${OUTPUT_FILE}"
               echo "" >> "${OUTPUT_FILE}"
             done
