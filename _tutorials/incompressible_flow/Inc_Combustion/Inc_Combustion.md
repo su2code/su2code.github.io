@@ -48,7 +48,7 @@ The `CSpeciesSolver` object in SU2 solves the controlling variables and passive 
 
 $$
 \begin{equation}
-    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
+    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\mathcal{Y}\right) = \dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
 
@@ -60,7 +60,7 @@ $$
 
 $$
 \begin{equation}
-    \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \rho\dot{\omega}^+ + \rho\dot{\omega}^- Y_j
+    \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \dot{\omega}^+ + \dot{\omega}^- Y_j
 \end{equation}
 $$
 
@@ -68,7 +68,7 @@ $$
 
 $$
 \begin{equation}
-    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
+    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\mathcal{Y}\right) = \dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
 
@@ -80,13 +80,13 @@ $$
 
 $$
 \begin{equation}
-    \frac{\partial \rho Z}{\partial t} + \nabla\cdot(\rho\vec{u}Z) - \nabla\cdot\left(\rho D\nabla Z\right) = \rho\dot{\omega}_\mathcal{Y}
+    \frac{\partial \rho Z}{\partial t} + \nabla\cdot(\rho\vec{u}Z) - \nabla\cdot\left(\rho D\nabla Z\right) = \dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
 
 $$
 \begin{equation}
-    \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \rho\dot{\omega}^+ + \rho\dot{\omega}^- Y_j
+    \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \dot{\omega}^+ + \dot{\omega}^- Y_j
 \end{equation}
 $$
 
@@ -94,7 +94,7 @@ $$
 
 $$
 \begin{equation}
-    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\beta_\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
+    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(\rho D\nabla\beta_\mathcal{Y}\right) = \dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
 
@@ -112,7 +112,7 @@ $$
 
 $$
 \begin{equation}
-    \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \rho\dot{\omega}^+ + \rho\dot{\omega}^- Y_j
+    \frac{\partial \rho Y_j}{\partial t} + \nabla\cdot(\rho\vec{u}Y_j) - \nabla\cdot\left(\rho D\nabla Y_j\right) = \dot{\omega}^+ + \dot{\omega}^- Y_j
 \end{equation}
 $$
 
@@ -175,7 +175,7 @@ Pre-mixed combustion of reactants with high hydrogen content at lean conditions 
 
 $$
 \begin{equation}
-    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(D\nabla\beta_\mathcal{Y}\right) = \rho\dot{\omega}_\mathcal{Y}
+    \frac{\partial \rho \mathcal{Y}}{\partial t} + \nabla\cdot(\rho\vec{u}\mathcal{Y}) - \nabla\cdot\left(D\nabla\beta_\mathcal{Y}\right) = \dot{\omega}_\mathcal{Y}
 \end{equation}
 $$
 
