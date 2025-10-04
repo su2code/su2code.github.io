@@ -19,7 +19,7 @@ The problem consists of a turbulent propane jet mixing into coflowing air. The s
 <img src="/vandv_files/SANDIA_jet/images/VV_SETUP.png" alt="Schematic overview of the problem setup" />
 </p>
 
-The flow conditions are based on the Sandia experiment $$^{1}$$:
+The flow conditions are based on the Sandia experiment <sup>[1](#ref1)</sup>:
 
 - Temperature = 294 [K]
 - Thermodynamic pressure = 101325 [Pa]
