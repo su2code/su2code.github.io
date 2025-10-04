@@ -8,9 +8,9 @@ permalink: /vandv/SANDIA_jet/
 | `INC_RANS` | 7.5.0 | Sem Bosmans |
 
 
-The details of the 2D Axisymmetric, Nonpremixed, Nonreacting, Variable Density, Turbulent Jet Flow are taken from [Sandia National Laboratories database](https://tnfworkshop.org/data-archives/simplejet/propanejet) <sup>[1](#ref1),[2](#ref2)/<sup>.
+The details of the 2D Axisymmetric, Nonpremixed, Nonreacting, Variable Density, Turbulent Jet Flow are taken from [Sandia National Laboratories database](https://tnfworkshop.org/data-archives/simplejet/propanejet) <sup>[1](#ref1),[2](#ref2)</sup>.
 
-By comparing the results of SU2 simulations case against the experimental data, as well as OpenFOAM simulation results <sup>[3](#ref3)/<sup> (and MFSim <sup>[4](#ref4)/<sup>), we can build a high degree of confidence that the composition-dependent model is implemented correctly in combination with the SST turbulence model. Therefore, the goal of this case is to validate the implementation of the  composition-dependent model in SU2.
+By comparing the results of SU2 simulations case against the experimental data, as well as OpenFOAM simulation results <sup>[3](#ref3)</sup> (and MFSim <sup>[4](#ref4)</sup>), we can build a high degree of confidence that the composition-dependent model is implemented correctly in combination with the SST turbulence model. Therefore, the goal of this case is to validate the implementation of the  composition-dependent model in SU2.
 
 ## Problem Setup
 The problem consists of a turbulent propane jet mixing into coflowing air. The schematic overview of this problem is given in the figure below:
@@ -137,7 +137,7 @@ The comparisons in the figures demonstrate good agreement with the experimental 
 <img src="/vandv_files/SANDIA_jet/images/YD0_rho.png" alt="Mean density along Jet Centerline" />
 </p>
 
-The experimental results for the mean density are given in Sandia’s database, but these are directly computed from the mixture fraction by making use of the ratio between the density of propane and air. The ratio that is being used for this purpose is 1.6 <sup>[2](#ref2)/<sup>, whereas the expected ratio is lower. The higher density ratio used in the post-processing of the experimental data results in a wider density range across the domain, which can partly explain the differences between the experimental data and the numerical results on the density along the jet centerline. Note that the spreading rate of a jet is independent of the initial density ratio <sup>[2](#ref2)/<sup>.
+The experimental results for the mean density are given in Sandia’s database, but these are directly computed from the mixture fraction by making use of the ratio between the density of propane and air. The ratio that is being used for this purpose is 1.6 <sup>[2](#ref2)</sup>, whereas the expected ratio is lower. The higher density ratio used in the post-processing of the experimental data results in a wider density range across the domain, which can partly explain the differences between the experimental data and the numerical results on the density along the jet centerline. Note that the spreading rate of a jet is independent of the initial density ratio <sup>[2](#ref2)</sup>.
 
 <p align="center">
 <img src="/vandv_files/SANDIA_jet/images/Residuals_convergence.png" alt="Residuals Convergence for the Turbulent Jet Mixing" />
