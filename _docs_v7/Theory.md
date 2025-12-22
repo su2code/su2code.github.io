@@ -264,12 +264,11 @@ $$S$$ is a generic source term, and the convective and viscous fluxes are
 
 $$\bar{F}^{c}(V) = \left\{\begin{array}{c} \rho Y_1 \bar{v} \\ ... \\\rho Y_{N-1} \, \bar{v} \end{array} \right\}$$
 
-$$\bar{F}^{v}(V,\nabla V) = \left\{\begin{array}{c} \rho D \nabla Y_{1} \\ ... \\  \rho D \nabla Y_{N-1} \end{array} \right\} $$
+$$\bar{F}^{v}(V,\nabla V) = \left\{\begin{array}{c} D \nabla Y_{1} \\ ... \\  D \nabla Y_{N-1} \end{array} \right\} $$
 
 with $$D$$ $$[m^2/s]$$ being the mass diffusion. 
-For turbulence modeling, the diffusion coefficient becomes:
 
-$$\rho D = \rho D_{lam} + \frac{\mu_T}{Sc_{T}}$$
+$$D = D_{lam} + \frac{\mu_T}{Sc_{T}}$$
 
 where $$\mu_T$$ is the eddy viscosity and $$Sc_{T}$$ $$[-]$$ the turbulent Schmidt number.
 
