@@ -74,3 +74,45 @@ Each of the C++ modules for SU2 can be called directly from the command line and
 - SciPy
 
 Alternatively, Python and these packages can be found in prebuilt installations, such as the Anaconda Distribution, or from package managers like Homebrew for Mac OS X.
+
+## Windows Installation
+
+### ⚠️ Important Note for Windows Users
+
+**We strongly recommend using Windows Subsystem for Linux (WSL)** for building and running SU2 on Windows. Native Windows builds have known limitations with MPI support and may encounter linking errors (see issue [#1468](https://github.com/su2code/SU2/issues/1468)).
+
+### Option 1: WSL Installation (Recommended) ✅
+
+Windows Subsystem for Linux provides a native Linux environment on Windows and is the most reliable way to build SU2.
+
+#### Install WSL
+
+1. Open PowerShell as Administrator and run:
+```powershell
+   wsl --install
+```
+
+2. Restart your computer when prompted
+
+3. Open Ubuntu from the Start menu (installed automatically)
+
+4. Follow these commands in the Ubuntu terminal:
+```bash
+   sudo apt update && sudo apt upgrade
+   sudo apt install git cmake g++ python3 libopenmpi-dev
+   git clone https://github.com/su2code/SU2.git
+   cd SU2
+   ./meson.py build
+   ./ninja -C build install
+```
+
+#### Advantages of WSL
+- ✅ Native MPI support (no linking errors)
+- ✅ Better performance than traditional VMs
+- ✅ Seamless file system integration with Windows
+- ✅ Same commands as Linux installation
+
+### Option 2: Native Windows Build (Advanced Users Only) ⚠️
+
+Native Windows builds have known MPI linking issues ([#1468](https://github.com/su2code/SU2/issues/1468)). We strongly recommend WSL instead.
+
