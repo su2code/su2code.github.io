@@ -1,0 +1,68 @@
+- title: Getting Started
+  tutorials:
+  - home
+  - contribute
+
+- title: Compressible Flow
+  tutorials:
+  - Inviscid_Bump
+  - Inviscid_Wedge
+  - Inviscid_ONERAM6
+  - Laminar_Flat_Plate
+  - Laminar_Cylinder
+  - Turbulent_Flat_Plate
+  - Transitional_Flat_Plate
+  - Transitional_Flat_Plate_T3A
+  - Turbulent_ONERAM6
+  - Unsteady_NACA0012
+  - UQ_NACA0012
+  - NICFD_nozzle
+  - Aachen_Turbine
+
+- title: Incompressible Flow
+  tutorials:
+  - Inc_Inviscid_Hydrofoil
+  - Inc_Laminar_Flat_Plate
+  - Inc_Turbulent_Flat_Plate
+  - Inc_Turbulent_NACA0012
+  - Inc_Laminar_Step
+  - Inc_Laminar_Cavity
+  - Inc_Streamwise_Periodic
+  - Inc_Species_Transport
+  - Inc_Species_Transport_Composition_Dependent_Model
+  - Inc_Von_Karman
+  - Inc_Turbulent_Bend
+
+- title: Structural Mechanics
+  tutorials:
+  - Linear_Elasticity
+  - Linear_Dynamics
+  - Nonlinear_Elasticity
+  - Multiple_Material
+  
+- title: Multiphysics
+  tutorials:
+   - Static_FSI
+   - Dynamic_FSI_Python
+   - Static_CHT
+   - Inc_Heated_Cylinders_Unsteady
+   - SS_CR_CHT
+   - Inc_Combustion 
+
+- title: Design Features
+  tutorials:
+  - Inviscid_2D_Unconstrained_NACA0012
+  - Turbulent_2D_Constrained_RAE2822
+  - Inviscid_3D_Constrained_ONERAM6
+  - Multi_Objective_Shape_Design
+  - Unsteady_Shape_Opt_NACA0012
+  - Species_Transport
+  - Inc_Turbulent_Bend_Opt
+
+- title: Workflow Setup
+  tutorials:
+  - paraview_live
+
+- title: Event Content
+  tutorials:
+  - event_content

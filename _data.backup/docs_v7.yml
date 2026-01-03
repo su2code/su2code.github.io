@@ -1,0 +1,68 @@
+- title: Introduction to SU2
+  docs_v7:
+  - home
+  - contribute
+
+- title: New in Version 7
+  docs_v7:
+  - Guide-to-v7
+
+- title: Quick Start
+  docs_v7:
+  - Quick-Start
+
+- title: Installation
+  docs_v7:
+  - Download
+  - Software-Components
+  - Installation
+  - SU2-Linux-MacOS
+  - SU2-Windows
+  - Test-Cases
+
+- title: Build From Source
+  docs_v7:
+  - Build-SU2-Linux-MacOS
+  - Build-SU2-Windows
+  - Running-Unit-Tests
+
+- title: Theory
+  docs_v7:
+  - Theory
+  - Streamwise-Periodicity
+  - Thermochemical-Nonequilibrium
+
+- title: Users Guide
+  docs_v7:
+  - Configuration-File
+  - Mesh-File
+  - Restart-File
+  - Solver-Setup
+  - Physical-Definition
+  - Markers-and-BC
+  - Convective-Schemes
+  - Slope-Limiters-and-Shock-Resolution
+  - Custom-Output
+  - Linear-Solvers-and-Preconditioners
+  - Multizone
+  - Execution
+
+- title: Developer Docs
+  docs_v7:
+  - Gitting-Started
+  - Developing-SU2-on-GitHub-(Internal-Developers)
+  - Running-Regression-Tests
+  - Code-Review
+  - Code-Structure
+  - Style-Guide
+  - Advanced-AD-Techniques
+  - Container-Development
+  - Writing-Unit-Tests
+  - Tracy-Integration
+- title: FAQ
+  docs_v7:
+  - FAQ
+
+- title: Contact
+  docs_v7:
+  - Contact

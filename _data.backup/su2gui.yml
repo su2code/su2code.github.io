@@ -1,0 +1,19 @@
+- title: Introduction to SU2GUI
+  su2gui:
+  - Introduction
+  - Quick-Start
+
+- title: Installation
+  su2gui:
+  - Installation
+
+- title: User Guide
+  su2gui:
+  - Terminal-Initialization
+  - Manage-Cases
+  - Mesh-File
+  - configurations
+  - Initialization
+  - Logs-Errors
+  - Result-Analysis
+  - Supported-Functionalities
