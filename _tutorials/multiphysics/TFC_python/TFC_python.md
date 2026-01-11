@@ -1,6 +1,6 @@
 ---
 title: User Defined combustion model with Python
-permalink: /tutorials/multiphysics/
+permalink: /tutorials/TFC_python/
 written_by: Nijso Beishuizen 
 for_version: 8.3.0
 revised_by:  
@@ -27,18 +27,18 @@ In this tutorial we will touch upon the following aspects:
 
 ## Resources
 
-The resources for this tutorial can be found in the [TFC_python](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([psi.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/psi.cfg)) and the mesh file ([psi.su2](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/psi.su2)). Additionally, the Gmsh geometry is also provided so you can recreate the mesh yourself: [psi.geo](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/psi.geo).
+The resources for this tutorial can be found in the [TFC_python](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([psi.cfg](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/adiabatic/psi.cfg)) and the mesh file ([psi.su2](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/adiabatic/psi.su2)). Additionally, the Gmsh geometry is also provided so you can recreate the mesh yourself: [psi.geo](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/psi.geo). Files for the non-adiabatic case are in the folder [enthalpy](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/enthalpy) and files for the case with source term quenching and custom wall boundary conditions are in the folder [quench](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/quench)
 
 
 ### Background
 
 Turbulent combustion can be very expensive to simulate, especially when high accuracy is required and detailed information about specific species (NOx emissions for instance) is required. The Turbulent Flamespeed Closure (TFC) model, first pioneered by Zimont, is a very simple model for turbulent premixed combustion that aims to give accurate predictions for temperature in turbulent premixed combustion. When the goal is to mainly resolve the flame structure and gas temperature to compute for instance burner temperatures in a conjugate heat transfer setup, then the TFC model has sufficient accuracy. In the TFC model, a transport equation for the progress variable is solved:
 
-$$ \frac{\partial c}{\dt} + \nabla \cdot (\rho u c) = \nabla\cdot (\frac{\mu_t}{Sc_t}\nabla c) + \rho S_c$$
+$$ \frac{\partial c}{dt} + \nabla \cdot (\rho u c) = \nabla\cdot (\frac{\mu_t}{Sc_t}\nabla c) + \rho S_c$$
 
 and the combustion source term is given by 
 $$ S_c = \rho_u U_t \nabla c$$,
-with $\rho_u$ the unburnt density of the gas an $U_t$ the turbulent flamespeed. The Zimont model uses the gradient of the progress variable to construct the source term, but other models exist as well. These models can be implemented easily in SU2 by writing a user defined source term in the python wrapper.
+with $$\rho_u$$ the unburnt density of the gas an $$U_t$$ the turbulent flamespeed. The Zimont model uses the gradient of the progress variable to construct the source term, but other models exist as well. These models can be implemented easily in SU2 by writing a user defined source term in the python wrapper.
 
 ### Problem Setup
 
@@ -77,8 +77,11 @@ Note that the although the enthalpy equation is not solved, the enthalpy field i
 To activate the custom source term, we keyword **PYTHON_CUSTOM_SOURCE= YES** is used.
 
 in the python file, we have defined several functions to set up the testcase. The first function creates a simple initial condition for the progress variable c:
-```python ################################################################## #
-# create a function for the initial progress variable c              # ################################################################## #
+```python
+
+################################################################## #
+# create a function for the initial progress variable c            #
+# ################################################################ #
 def initC(coord):
     x = coord[0]
     #y = coord[1]
@@ -92,8 +95,9 @@ def initC(coord):
 
     return C
     
-# ################################################################## #
-# loop over all vertices and set the species progress variable c     # ################################################################## #
+# ###################################################################
+# loop over all vertices and set the species progress variable c    #
+# ################################################################# #
 def SetInitialSpecies(SU2Driver):
     allCoords = SU2Driver.Coordinates()
     iSPECIESSOLVER = SU2Driver.GetSolverIndices()['SPECIES']
@@ -159,7 +163,7 @@ For the temperature update, we update all points, including the halo points. Bec
 ```
 
 The actual temperature update is done in update_temperature:
-```
+```python
 # ################################################################## #
 # Temperature is an algebraic function of c
 # ################################################################## #
@@ -179,7 +183,7 @@ def update_temperature(SU2Driver, iPoint):
 We update the sensible enthalpy and let SU2 compute the temperature internally. 
 
 The computation of the source term according to Zimon is given by:
-```
+```python
 # ################################################################## #
 # Source term according to Zimont
 # ################################################################## #
@@ -220,7 +224,10 @@ Note that we are using here a different formulation for the turbulent velocity, 
 
 If possible, always use a parallel setup to reduce computational time (wall clock time). Run the SU2_CFD executable in parallel using MPI and 4 nodes by entering: 
 
-    $ mpirun -n 4 python run.py
+```bash
+$ mpirun -n 4 python run.py
+```
+
 
 ### Results
 
@@ -236,14 +243,18 @@ Note that we clip the species between [0,1] to prevent (temporary) unphysical va
 
 When heat losses at the wall need to be taken into account, this can be done by solving the energy (enthalpy) equation. The wall boundaries can be given a wall temperature in the usual way. To take into account combustion, we add a source term similar to the Zimont source term for the progress variable. This replaces the algebraic computation of the enthalpy and temperature.
 
-```
+```python
       iENTH = 3
       Source_h.Set(i_node, iENTH, 0.0284*50.5*1e6*S)
 ```
 
 The source term S needs to be multiplied by the lower heating value of the mixture 50.5 MJ/kg and the mass fraction of methane in the mixture (with equivalence ratio 0.5, this amounts to Y=0.0284).
 In the config file, the wall temperature can now be set to an appropriate temperature. Since the combustion chamber is known to become very hot, we set the walls to 1200K. The wall temperature is imposed weakly, meaning that we compute the wall flux from Fourier's law and impose that flux:
-$$ q_w = k_f \left( \frac{\partial T}{\partial n} \right)_{\textrm{wall}$$
+
+$$q_w = k_f \left( 
+  \frac{\partial T}{\partial n} 
+\right)_{\textrm{wall}}$$
+
 The near wall mesh needs to be fine enough to accurately represent the flux.
 
 
@@ -251,13 +262,20 @@ The near wall mesh needs to be fine enough to accurately represent the flux.
 Figure (4): visualization of the temperature with a line plot showing the wall temperature. 
 
 Figure 4 shows the temperature in the domain, clearly showing the thermal boundary layer at the wall. In the upper left corner the temperature redistribution due to the recirculation zone is also clearly present.
-More accurate modeling can be achieved by taking into account the effect of heat loss on the laminar flame speed. In cantera, the laminar flame speed can be computed and a relationship for the laminar flame speed $S_L(\Delta h_t)$ as a function of the enthalpy deficiency can be used instead of a constant $S_L$. The local flame quenching due to heat losses at the wall can then be taken into account. The total enthalpy can be computed from the sensible enthalpy and the progress variable, noticing that when the progress variable is 1, then all chemical enthalpy has been converted into sensible enthalpy. 
+More accurate modeling can be achieved by taking into account the effect of heat loss on the laminar flame speed. In cantera, the laminar flame speed can be computed and a relationship for the laminar flame speed $$S_L(\Delta h_t)$$ as a function of the enthalpy deficiency can be used instead of a constant $$S_L$$. The local flame quenching due to heat losses at the wall can then be taken into account. The total enthalpy can be computed from the sensible enthalpy and the progress variable, noticing that when the progress variable is 1, then all chemical enthalpy has been converted into sensible enthalpy. 
 
-The heating value of methane is 50.5 MJ/kg, and with a mass fraction of $Y=0.0284$ we have a chemical enthalpy of $h_{\textrm{chem}}^{\textrm{max}} = 1.4342 MJ/kg$. With our chemical enthalpy converted to sensible enthalpy, our flame temperature ends up to be around 1735K.  
+The heating value of methane is 50.5 MJ/kg, and with a mass fraction of $$Y=0.0284$$ we have a chemical enthalpy of 
+
+$$h_{\textrm{chem}}^{\textrm{max}} = 1.4342 MJ/kg$$. 
+
+With our chemical enthalpy converted to sensible enthalpy, our flame temperature ends up to be around 1735K.  
 
 With the measured flame temperature of T=1777K (used in our algebraic relationship for temperature), we compute a sensible enthalpy of 2MJ/kg, very close to the total enthalpy computed using the sum of the initial sensible enthalpy and the chemical enthalpy.
 
-Our progress variable now tells us that the chemical enthalpy that we have left is $h_{\textrm{chem}} = c \cdot h_{chem}^{\textrm{max}}$.
+Our progress variable now tells us that the chemical enthalpy that we have left is 
+
+$$h_{\textrm{chem}} = c \cdot h_{chem}^{\textrm{max}}$$.
+
 Since total enthalpy is conserverved during combustion, the temperature difference between the actual temperature and the temperature computed from the sensible enthalpy gives us the heat loss. With this enthalpy deficiency we can compute the local laminar flame speed and the corrected source term. 
 
 ![TFC_source](../../../tutorials_files/multiphysics/TFC_python/images/TFC_source_correction.png)
@@ -274,7 +292,9 @@ Figure (6): Line plot of the progress variable on the centerline showing the res
 Figure 6 confirms that the flame is more diffuse with variable S_L.  
 
 Note that with python it is also very easy to impose temperature profiles. The code is simply:
-```def ApplyWallTemperature(SU2Driver, marker_ids):
+```python
+
+def ApplyWallTemperature(SU2Driver, marker_ids):
   """Applies an isothermal wall boundary condition on a specific wall"""
   for marker_id in marker_ids:
     if marker_id < 0:
@@ -289,7 +309,7 @@ Note that with python it is also very easy to impose temperature profiles. The c
       driver.SetMarkerCustomTemperature(marker_id, i_vertex, hf)
 ```
 And in the config file, we simply add 
-```
+```bash
 MARKER_PYTHON_CUSTOM= (wall_top, wall_side )
 ```
 
