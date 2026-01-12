@@ -22,7 +22,7 @@ In general, all SU2 execution occurs via command line arguments within a termina
 
 ### Data Visualization
 
-Users of SU2 need a data visualization tool to post-process solution files. The software currently supports .vtk and .plt output formats natively read by ParaView and Tecplot, respectively. ParaView provides full functionality for data visualization and is freely available under an open source license. Tecplot is a commercially-licensed software package widely used by the scientific computing community and is available for purchase. Some SU2 results are also output to comma-separated value (.csv) files, which can be read by a number of software packages. Furthermore, CGNS output files can also be generated, which can also be read by the majority of visualization programs. The two most typical packages used by the development team are the following:
+Users of SU2 need a data visualization tool to post-process solution files. The software currently supports .vtk and .plt output formats natively read by ParaView and Tecplot, respectively. ParaView provides full functionality for data visualization and is freely available under an open source license. Tecplot is a commercially-licensed software package widely used by the scientific computing community and is available for purchase. Some SU2 results are also output to comma-separated value (.csv) files, which can be read by a number of software packages. Furthermore, CGNS output files can also be generated, which can also be read by the majority of visualization programs. The three most typical packages used by the development team are the following:
 - ParaView
 - Tecplot
 - FieldView
