@@ -50,6 +50,8 @@ Simulation of unsteady, external, viscous flow around an airfoil.
 Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models.
 * [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
 Simulation of compressible flow in a nozzle using non-ideal thermodynamic models.
+* [Data-driven equation of state for non-ideal compressible fluids](/tutorials/NICFD_nozzle_datadriven/)    
+Demonstration of data-driven equation of state using a physics-informed neural network.
 * [Turbomachinery: Aachen Turbine stage with mixing plane](/tutorials/Aachen_Turbine/)    
 Simulation of compressible flow of the Aachen turbine demonstrating turbomachinery application.
 
