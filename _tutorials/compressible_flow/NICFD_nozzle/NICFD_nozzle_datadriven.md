@@ -53,7 +53,10 @@ The thermodynamic state data used to train the network for the data-driven fluid
 
 By running the script [1:generate_fluid_data.py](https://github.com/su2code/Tutorials/tree/master/compressible_flow/NICFD_nozzle/PhysicsInformed/1:generate_fluid_data.py) will generate the thermodynamic state data used for the training of the network and generate contour plots of the temperature, pressure, and speed of sound. The complete set of thermodynamic state data is stored in the file titled *fluid_data_full.csv*. 80% of the randomly sampled fluid data is used to update the weights of the network during training, 10% is used to monitor the convergence of the training process, and the remaining 10% is used to validate the accuracy of the network upon completion of the training process. The complete data set contains approximately 2.3e5 unique data points.
 
-IMAGE: training data plot
+![PT_diagram_trainingdata](../../tutorials_files/compressible_flow/NICFD_nozzle_datadriven/images/PT_diagram.png)
+Figure (1): Section of training data set near the critial point ('cp'). 
+
+
 ### 3. Train physics-informed neural network
 The network used in this tutorial uses two hidden layers with 12 nodes each. The exponential function is used as the hidden layer activation function. This is an unusual choice, but is motivated by the fact that it reduces the computational cost required to calculate the network Jacobian and Hessian during the CFD solution process. 
 The training process uses an exponential decay function for the learning rate, with an initial value of 1e-3. During each update step, the weights and biases of the network are adjusted according to the value of the loss function evaluated on a batch of 64 training data points. 
