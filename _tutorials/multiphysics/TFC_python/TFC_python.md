@@ -22,7 +22,7 @@ In this tutorial we will touch upon the following aspects:
 - Create a User Defined Source
 - Create User Defined boundary conditions
 - Create User Defined initial conditions
-- Overwrite the enthalpy (temperature) field with a user defined field.
+- Overwrite the enthalpy (temperature) field with a user defined field
 
 
 ## Resources
@@ -53,7 +53,7 @@ Note that the python wrapper (or your python setup) might need additional python
 
 ### Mesh Description
 
-The geometry of this testcase is provided as a gmsh file and matches the of the experimental setup of Griebel et al (2007), https://doi.org/10.1016/j.proci.2006.07.042.
+The geometry of this testcase is provided as a gmsh file and matches the of the experimental setup of Griebel et al (2007), [doi](https://doi.org/10.1016/j.proci.2006.07.042).
 
 The mesh consists of a a coarse structured mesh with 16.3k cells and 16.6k points. The mesh was created using Gmsh and the configuration file to create the mesh can be found here: [psi.geo](https://github.com/su2code/Tutorials/tree/master/multiphysics/TFC_python/psi.geo). The only thing you need to do to create a mesh from the geometry is start Gmsh, and then load the .geo file. You will then see the geometry in the Gmsh visualization window. If you click on *Mesh->2D* the 2D mesh will be generated. You can then export the mesh as a .su2 file by choosing *File->Export*. The mesh will automatically be saved in su2 format when the filename has been given the extension .su2. In general, you should not choose *save all elements* because this will also save additional points that were used to construct the geometry but are not part of the final mesh, like for example the center of a circle. 
 
@@ -74,7 +74,7 @@ PYTHON_CUSTOM_SOURCE= YES
 ```
 
 Note that the although the enthalpy equation is not solved, the enthalpy field is present. It is just a constant field and not altered by any computation. Every iteration, the temperature is computed from the enthalpy field, independent of the energy equation being active or not.
-To activate the custom source term, we keyword **PYTHON_CUSTOM_SOURCE= YES** is used.
+To activate the custom source term, the keyword **PYTHON_CUSTOM_SOURCE= YES** is used.
 
 in the python file, we have defined several functions to set up the testcase. The first function creates a simple initial condition for the progress variable c:
 ```python
@@ -153,7 +153,7 @@ The functions *update_temperature* and *zimont* implement the algebraic temperat
 ```
 
 Note that we do not add the source term to the halo nodes, which are used in parallel computing. In parallel computing we divide the mesh in parts and each cpu gets a part, which is called a rank. The points on the interface between ranks need information from the other side of the interface. But this information is computed on another rank and not directly available. This is why each rank has halo points, which are copies of the points on the other side of the rank. During a synchronisation step, all information in the halo nodes is updated so the local computations on each of the ranks can proceed with the correct information present at the rank boundaries. They should not be taken into account in any computation, because they are in fact copies of points that *are* taken into account during the computation. 
-For the temperature update, we update all points, including the halo points. Because we overwrite the entire enthalpy (and temperature) field, and no other computations are performed on the enthalpy field, the halo points would not get updated and this will lead to incorrect computations of gradients at the rank interface.
+For the temperature update, we update all points, including the halo points. Because we overwrite the entire enthalpy (and temperature) field, and no other computations are performed on the enthalpy field, the halo points would not get updated and not updating them will lead to incorrect computations of gradients at the rank interface.
 
 ```python
    # for the update of temperature, we need to update also the halo nodes
