@@ -24,10 +24,9 @@ In this tutorial we will look at the modeling of wind speed and pollutant disper
 - simulate dispersion of a smoke cloud from a point source (burning car for instance) through streets to assess evacuation zone
 
 
-
 ## Resources
 
-The resources for this tutorial can be found in the [incompressible_flow/Inc_Urban_City](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Urban_City) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([unsteady_incomp_cylinder.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_Cylinder/unsteady_incomp_cylinder.cfg)) and the mesh file ([cylinder_wake.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_cylinder/cylinder_wake.su2)). Additionally, the Gmsh geometry is also provided so you can recreate the mesh yourself: [cylinder_wake.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_Cylinder/cylinder_wake.geo).
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Urban_City](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Urban_City) directory in the [tutorial repository](https://github.com/su2code/Tutorials). 
 
 
 ### Background
@@ -37,6 +36,7 @@ CFD simulations around buildings in a city have many applications. One applicati
 Information about buildings, specifically their surface shape and often even their height and 3D shape, is available in many countries like the Netherlands. This data is stored in GIS-databases (Geographic Information System). Google maps and google earth are examples of well-known GIS databases. We will use 2D building information and create a 2D mesh from it.
 With a simple python script it is possible to retrieve information of buildings given a city name, or longitude-latitude coordinates. 
 These building contours then need to be converted into a set of closed contours that can be given to a mesher like gmsh to create a 2D mesh for the SU2 CFD solver.
+
 
 ### Pedestrian comfort: flow through the streets of Amsterdam
 
@@ -93,8 +93,7 @@ We can further smooth the shapes by using dilation-erosion, and also by using th
 
 ### Mesh Description
 
-
-The final step in creating this setup is to give all polygons to gmsh and create the mesh. We use a triangulated mesh with a quadrilateral inflation layer around the buildings. The final mesh is 770k cells.
+The final step in creating this setup is to give all polygons to gmsh and create the mesh. We use a triangulated mesh with a quadrilateral inflation layer around the buildings. The final mesh is 786k cells.
 
 <div align="center">
 <a href="gmsh_mesh">
@@ -104,9 +103,11 @@ The final step in creating this setup is to give all polygons to gmsh and create
   <img src="../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/gmsh_mesh_zoom.png" width="360px">
 </a>
 </div>
-Figure 3: Gmsh mesh and zoom of the mesh around the royal palace showing the inflation layers. Note that the mesh is very coarse close to the wall and needs to be refined for more accurate results.
- 
+Figure 3: Gmsh mesh and zoom of the mesh around the royal palace showing the inflation layers. 
 
+Note that the mesh is very coarse close to the wall and needs to be refined for more accurate results. For resolved boundary layers the dimensionless wall cell size needs to be $y^{+} < 1$. 
+We have also made some simplifications in the geometry and physics. Note that cutting to a circular shape means that at the edges the results are inaccurate because we are missing the effect of buildings outside of the circular area. Also note that assuming a 2D planar scenario is not accurate. We do not take into account the different heights of the buildings and we also do not take into account that the wind blows over the entire city and has a downward component as well. So although this simulation will not accurately represent the wind velocity through the streets in a quantitative way, at least qualitatively they give an impression of the accelerating wind speeds through the streets of the city center.
+ 
 
 ### Configuration File Options
 
@@ -131,8 +132,8 @@ If possible, always use a parallel setup to reduce computational time (wall cloc
 
 
 
-### Results
 
+### Results
 
 ![urban_city](../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/wind_velocity_zoom.png)
 
@@ -143,11 +144,38 @@ The zoom of the wind velocity in Figure 4 shows the wind around the royal palace
 
 ### Fire!
 
-What if there was a fire on the main square? How would the smoke be transported by the wind through the streets of Amsterdam? This can be simulated very easily by adding a species source term using the python wrapper. We will use a circular source of smoke. 
+What if there was a fire on the main square? How would the smoke be transported by the wind through the streets of Amsterdam? This can be simulated very easily by adding a species source term using the python wrapper. We will use a simple circular constant source of smoke and add it to the species transport equation. 
+```python
+# ################################################################## #
+# Source term for smoke/fire                                         #
+# ################################################################## #
+def smoke(SU2Driver, iPoint, nDim):
+  
+    allCoords = SU2Driver.Coordinates()
+    coord = allCoords.Get(iPoint)
+    x = coord[0]
+    y = coord[1]
+    R = np.sqrt(x*x + y*y)
+    # source size: R = 5 m, source term located at center (0,0)
+    if (R < 5.0):
+      # source is kg.m^-3.s^-1
+      Sc = 0.1 
+    else:
+      Sc = 0.0
+    return Sc
 
-### Final notes
+```
 
-The paraview statefile to create the movie can be found here: [statefile_with_particles.pvsm](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Von_Karman/statefile_with_particles.pvsm)
-and here: 
-[statefile_movablearrow_timeseries.pvsm](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Von_Karman/statefile_movablearrow_timeseries.pvsm)
-Note that you have to select your own, local files when you load the statefile.
+This source term was added to a standard python wrapper script, the configuration file was left unchanged, except for the addition of the keyword 
+```bash
+PYTHON_CUSTOM_SOURCE= YES
+```
+to activate the custom source term.
+
+![urban_city](../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/fire_zoom.png)
+
+Figure (5): Zoom of the 'Dam' square in front of the royal palace. 
+
+Figure 5 clearly shows that the smoke blows into the 'Damrak' street. 
+
+

@@ -32,6 +32,7 @@
   - Inc_Species_Transport_Composition_Dependent_Model
   - Inc_Von_Karman
   - Inc_Turbulent_Bend
+  - Inc_Urban_City
 
 - title: Structural Mechanics
   tutorials:
