@@ -1,5 +1,5 @@
 ---
-title: unsteady pollutant dispersion in a city
+title: Wind velocity and pollutant dispersion in a city
 permalink: /tutorials/Inc_Urban_City/
 written_by: Nijso Beishuizen  
 for_version: 8.4.0 
