@@ -2,7 +2,7 @@
 title: Non-ideal compressible flows with physics-informed neural networks
 permalink: /tutorials/NICFD_nozzle_datadriven/
 written_by: EvertBunschoten
-for_version: 8.3.0
+for_version: 8.4.0
 solver: RANS
 requires: SU2_CFD SU2_DataMiner
 complexity: advanced
