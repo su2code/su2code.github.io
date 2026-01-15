@@ -79,6 +79,8 @@ Simulation of internal, turbulent, 3D incompressible flow through a Kenics stati
 Simulation of unsteady laminar vortex shedding behind a circular cylinder.
 * [Turbulent Bend](/tutorials/Inc_Turbulent_Bend/)    
 Simulation of turbulent flow in a 90 degree pipe bend using wall functions.
+* [Urban City](/tutorials/Inc_Urban_City/)    
+Simulation of wind velocity and smoke through the city center of Amsterdam. 
 
 #### Structural Mechanics
 
