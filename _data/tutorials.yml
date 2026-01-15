@@ -40,7 +40,7 @@
   - Linear_Dynamics
   - Nonlinear_Elasticity
   - Multiple_Material
-  
+
 - title: Multiphysics
   tutorials:
    - Static_FSI
@@ -48,7 +48,8 @@
    - Static_CHT
    - Inc_Heated_Cylinders_Unsteady
    - SS_CR_CHT
-   - Inc_Combustion 
+   - Inc_Combustion
+   - TFC_python
 
 - title: Design Features
   tutorials:

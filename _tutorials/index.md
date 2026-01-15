@@ -96,7 +96,7 @@ Simulation of a non-linear problem with multiple material definitions
 * [Static Fluid-Structure Interaction](/tutorials/Static_FSI/)  
 Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
 * [Dynamic Fluid-Structure Interaction with the Python wrapper](/tutorials/Dynamic_FSI_Python/)    
-Linear Nastran-like model coupled with compressible unsteady RANS equations using the Python wrapper
+Linear Nastran-like model coupled with compressible unsteady RANS equations using the Python wrapper.
 * [Static Conjugate Heat Transfer](/tutorials/Static_CHT/)    
 Simulation of multiple heated cylinders in incompressible fluid flow.
 * [Unsteady Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders_Unsteady/)    
@@ -105,6 +105,8 @@ Simulation of an unsteady coupled CHT problem incorporating multiple physical zo
 Simulation of CHT between solid domains with contact resistance.
 * [Pre-mixed Hydrogen Combustion](/tutorials/Inc_Combustion/) 
 Simulation of a laminar, pre-mixed hydrogen flame on a cooled burner plate.
+* [Python wrapper for User Defined Functionality](/tutorials/TFC_python/) 
+Use the Python wrapper to setup user defined source terms, initial conditions and boundary conditions for combustion.
 
 #### Shape Design Features
 
