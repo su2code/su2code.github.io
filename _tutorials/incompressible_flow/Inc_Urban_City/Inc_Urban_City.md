@@ -26,7 +26,7 @@ In this tutorial we will look at the modeling of wind speed and pollutant disper
 
 ## Resources
 
-The resources for this tutorial can be found in the [incompressible_flow/Inc_Urban_City](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Urban_City) directory in the [tutorial repository](https://github.com/su2code/Tutorials). 
+The resources for this tutorial can be found in the [incompressible_flow/Inc_Urban_City](https://github.com/su2code/Tutorials/tree/develop/incompressible_flow/Inc_Urban_City) directory in the [tutorial repository](https://github.com/su2code/Tutorials). 
 
 
 ### Background
