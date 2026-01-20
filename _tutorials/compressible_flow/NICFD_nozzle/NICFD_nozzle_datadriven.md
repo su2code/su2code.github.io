@@ -11,7 +11,7 @@ follows:
 
 ## Goals
 
-Upon completing this tutorial, the user will be familiar with performing simulations of nonideal compressible fluids through the use of physics-informed neural networks. The flow is simulated through the same supersonic convergent-divergent nozzle as in the [tutorial](NICFD_nozzle.md) for nonideal compressible fluid flows. 
+Upon completing this tutorial, the user will be familiar with performing simulations of nonideal compressible fluids through the use of physics-informed neural networks. The flow is simulated through the same supersonic convergent-divergent nozzle as in the [tutorial](https://su2code.github.io/tutorials/NICFD_nozzle/) for nonideal compressible fluid flows. 
 The following capabilities of will be showcased in this tutorial:
 - Using [SU2 DataMiner](https://github.com/EvertBunschoten/SU2_DataMiner.git) to train physics-informed neural networks for fluid simulations.
 - Data-driven equation of state with multi-layer perceptrons.
