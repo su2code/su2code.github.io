@@ -54,6 +54,8 @@ Simulation of compressible flow in a nozzle using non-ideal thermodynamic models
 Demonstration of data-driven equation of state using a physics-informed neural network.
 * [Turbomachinery: Aachen Turbine stage with mixing plane](/tutorials/Aachen_Turbine/)    
 Simulation of compressible flow of the Aachen turbine demonstrating turbomachinery application.
+* [Actuator Disk with Variable Load](/tutorials/ActuatorDisk_VariableLoad/)    
+Simulation of an actuator disk with variable load. 
 
 #### Incompressible Flow
 
