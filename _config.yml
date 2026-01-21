@@ -86,6 +86,15 @@ defaults:
     seo:
       type: "WebPage"
 
+- scope:
+    path: _gsoc
+    type: gsoc
+  values:
+    layout: gsoc
+    sectionid: gsoc
+    seo:
+      type: "WebPage"
+
 collections:
   docs:
     permalink: /:collection/:path/
@@ -100,6 +109,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   su2gui:
+    permalink: /:collection/:path/
+    output: true
+  gsoc:
     permalink: /:collection/:path/
     output: true
   posts:
