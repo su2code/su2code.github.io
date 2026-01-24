@@ -34,3 +34,12 @@ Expected Outcome (deliverables): SU2_AMR, an added executable that simply splits
 - Expected Project Size (90 hrs/ small , 175 hrs/medium, 350 hrs/large): 175 hrs (medium)
 - Difficulty rating: **medium**
 
+## Project CMPLX: Performance Optimization of Complex Arithmetic in SU2
+Project Description (max. 5 Sentences)
+Complex arithmetic operations currently cause significant performance degradation in SU2 when features requiring complex numbers are enabled. This limitation affects the efficiency of certain solver capabilities and restricts their practical application in industrial-scale problems. Preliminary observations suggest that complex arithmetic is a primary bottleneck, but systematic profiling is needed to confirm and quantify these losses. The project's objective is to profile the solver to identify performance hotspots, validate that complex arithmetic is the root cause, and develop a custom complex arithmetic library optimised for SU2's specific use cases. This work will enable more efficient execution of complex-number-dependent features without compromising computational performance.
+Expected Outcome (deliverables): Performance profiling report, custom complex arithmetic library (if validated as necessary), benchmark comparisons demonstrating speedup, integration into SU2 codebase, and documentation with usage guidelines.
+- Skills Required: C++
+- Possible Mentors: Joshua A. Kelly (lead)  
+- Expected Project Size (90 hrs/ small , 175 hrs/medium, 350 hrs/large): 175 hrs (medium)
+- Difficulty rating: **medium**
+
