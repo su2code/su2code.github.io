@@ -43,3 +43,13 @@ Expected Outcome (deliverables): Performance profiling report, custom complex ar
 - Expected Project Size (90 hrs/ small , 175 hrs/medium, 350 hrs/large): 175 hrs (medium)
 - Difficulty rating: **medium**
 
+## Project PIML: Towards physics-informed machine learning with SU2
+Project Description (max. 5 Sentences)
+SU2 uses algorithmic differentiation (AD) for the adjoint solver and has the ability to use multi-layer perceptrons in data-driven equation of state models through the [MLPCpp](https://github.com/EvertBunschoten/MLPCpp.git) submodule. The aim of this project is to combine these two functionalities to enable physics-informed machine learning (PIML) in SU2 by updating the weights and biases of multi-layer perceptrons using AD for sensitivity calculation. PIML would enable data-driven turbulence modeling, solving partial differential equations without a mesh, and open the door to many other interesting research opportunities. 
+Expected Outcome (deliverables): Demonstration of training a MLP for a reference data set within SU2 and comparison, MLP training library including at least one commonly used training algorithm (e.g. Adam), and documentation explaining usage.
+- Skills Required: C++, experience with machine learning
+- Possible Mentors: Evert Bunschoten (lead)
+- Expected Project Size (90 hrs/ small , 175 hrs/medium, 350 hrs/large): 175 hrs (medium)
+- Difficulty rating: **medium-hard**
+
+  
