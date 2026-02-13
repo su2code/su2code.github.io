@@ -5,7 +5,7 @@ permalink: /gsoc/Introduction/
 
 **Welcome to SU2 - GSOC!**  
 
-This is the updated ideas list for GSOC 2026. If you are interested in participating in Google Sumemr of Code with the SU2 team, then please read the page on [participation](https://su2code.github.io/gsoc/Participation/). We can also accept personal ideas beyond the ones presented below but you need to convince one of the mentors to support you. We also need you to be proficient in SU2 and have some kind of technical background beyond general computer science (studying physics, mechanical engineering, aerospace engineering,...). 
+This is the updated ideas list for GSOC 2026. If you are interested in participating in [Google Summer of Code](https://summerofcode.withgoogle.com/about) with the SU2 team, then please read the page on [participation](https://su2code.github.io/gsoc/Participation/). The projects listed below have been tuned to fit within the google summer of code program and they have mentors assigned to them. We can also accept personal ideas beyond the ones presented below but you need to convince one of the mentors to support you. We also need you to be proficient in SU2 and have some kind of technical background beyond general computer science (studying physics, mechanical engineering, aerospace engineering,...). 
 
 ## Project BP: Adding pressure-based solver
 Project Description (max. 5 Sentences)
