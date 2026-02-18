@@ -52,4 +52,11 @@ Expected Outcome (deliverables): Demonstration of training a MLP for a reference
 - Expected Project Size (90 hrs/ small , 175 hrs/medium, 350 hrs/large): 175 hrs (medium)
 - Difficulty rating: **medium-hard**
 
-  
+## Project FWH: Generalizing FWH-Based Aeroacoustic Noise Prediction
+This project aims to generalize a Python tool that implements Farassat’s 1A formulation of the Ffowcs Williams-Hawkings (FWH) equation for far-field noise prediction. While originally developed for tandem cylinder test cases and recently extended to airfoils, the current implementation is limited by case-specific logic. The primary objective is to refactor the codebase into a robust, geometry-agnostic framework capable of handling diverse and complex flow configurations. Test cases should be included in the regression tests. 
+Expected Outcome (deliverables): A stand-alone Python code.
+- Skills Required: Python
+- Possible Mentors: Huseyin Ozdemir, (lead) Nijso Beishuizen 
+- Expected Project Size (90 hrs/ small, 175 hrs/medium, 350 hrs/large): 175 hrs (medium)
+- Difficulty rating: **medium**
+- 
