@@ -21,6 +21,10 @@
   - Aachen_Turbine
   - Actuator_Disk
 
+- title: Thermochemical Nonequilibrium Flow
+  tutorials:
+  - Inviscid_Hypersonic_Wedge
+
 - title: Incompressible Flow
   tutorials:
   - Inc_Inviscid_Hydrofoil

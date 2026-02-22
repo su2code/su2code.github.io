@@ -57,6 +57,11 @@ Simulation of compressible flow of the Aachen turbine demonstrating turbomachine
 * [Actuator Disk with Variable Load](/tutorials/ActuatorDisk_VariableLoad/)    
 Simulation of an actuator disk with variable load. 
 
+#### Thermochemical Nonequilibrium Flow
+
+* [Inviscid Hypersonic Wedge](/tutorials/Inviscid_Hypersonic_Wedge/)   
+A simulation of hypersonic flow over a 2D inviscid wedge.
+
 #### Incompressible Flow
 
 * [Inviscid Hydrofoil](/tutorials/Inc_Inviscid_Hydrofoil/)   
