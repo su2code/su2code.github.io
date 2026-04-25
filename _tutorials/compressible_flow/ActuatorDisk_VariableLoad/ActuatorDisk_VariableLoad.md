@@ -55,8 +55,8 @@ The global propeller data are:
 - Advance Ratio = 2.81487
 - Radius = 2.5146 m
 
-The thrust coefficient is defined using the "Renard" definition: the reference force is <img src="https://render.githubusercontent.com/render/math?math=\rho n^2D^4">, where *n* are the propeller rounds per second and *D* is the propeller diameter
-The advance ratio is defined as <img src="https://render.githubusercontent.com/render/math?math=J=\frac{V_\infty}{nD}">.
+The thrust coefficient is defined using the "Renard" definition: the reference force is $$\rho n^2D^4$$, where *n* are the propeller rounds per second and *D* is the propeller diameter
+The advance ratio is defined as $$J=\frac{V_\infty}{nD}$$.
 
 ### Mesh Description
 
@@ -167,16 +167,16 @@ The `MARKER_ACTDISK` option, as the same for the configuration file, is used to 
 The `CENTER` option contains the coordinates of the actuator disk center, expressed in the grid reference system.
 The `AXIS` option contains the components of the unit vector normal to the actuator disk surface.
 The `RADIUS` option is used to specify the actuator disk radius.
-The `ADV_RATIO` option contains the advance ratio of the propeller defined as <img src="https://render.githubusercontent.com/render/math?math=J=\frac{V_\infty}{nD}">, where *n* are the propeller rounds per second and *D* is the propeller diameter.
+The `ADV_RATIO` option contains the advance ratio of the propeller defined as $$J=\frac{V_\infty}{nD}$$, where *n* are the propeller rounds per second and *D* is the propeller diameter.
 The `NROW` option isused to indicate the number of radial stations of the actuator disk in which we assign the load distribution.
 The next row is a dummy row, so it is skipped.
 Then there are 4 columns containing respectively:
-- The non dimensional radial station <img src="https://render.githubusercontent.com/render/math?math=\overline{r}=\frac{r}{R}">
-- The thrust coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=\frac{\mathrm{d}C_T}{\mathrm{d}\overline{r}}">
-- The power coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=\frac{\mathrm{d}C_P}{\mathrm{d}\overline{r}}">
-- The radial force coefficient distribution <img src="https://render.githubusercontent.com/render/math?math=\frac{\mathrm{d}C_R}{\mathrm{d}\overline{r}}">
+- The non dimensional radial station $$\overline{r}=\frac{r}{R}$
+- The thrust coefficient distribution $$\frac{\mathrm{d}C_T}{\mathrm{d}\overline{r}}$$
+- The power coefficient distribution $$\frac{\mathrm{d}C_P}{\mathrm{d}\overline{r}}$
+- The radial force coefficient distribution $$\frac{\mathrm{d}C_R}{\mathrm{d}\overline{r}}$$
 
-These coefficients are defined using the "Renard" definition: the reference force is <img src="https://render.githubusercontent.com/render/math?math=\rho n^2D^4">, while the reference power is reference force is <img src="https://render.githubusercontent.com/render/math?math=\rho n^3D^5">
+These coefficients are defined using the "Renard" definition: the reference force is $$\rho n^2D^4$$, while the reference power is reference force is $$\rho n^3D^5$$
 
 *It is possible to append other propellers data at the end of the input file. Note that the order and the format of the options should not be changed.*
 
@@ -195,13 +195,13 @@ This script allows the user to use the `VARIABLE_LOAD` actuator disk type also w
 
 The input is interactive, and requires the following data:
 1. Number of radial stations (where local data should be generated).
-2. CT: the total thrust coefficient defined using the "Renard" definition.
-3. R: The propeller radius expressed in meters.
-4. r_hub: the hub radius expressed in meters.
-5. J: the advance ratio.
-6. Vinf: the free-stream velocity expressed in m/s.
+2. $$CT$$: the total thrust coefficient defined using the "Renard" definition.
+3. $$R$$: The propeller radius expressed in meters.
+4. $$r_{\textrm{hub}}$$: the hub radius expressed in meters.
+5. $$J$$: the advance ratio.
+6. $$V_{\textrm{inf}}$$: the free-stream velocity expressed in m/s.
 7. Here, the script asks if you want to use the tip loss Prandtl correction (*yes* is the default choise).
-8. N: if you chose yes in the previous stage, it requires also the number of propeller blades.
+8. $$N$$: if you chose yes in the previous stage, it requires also the number of propeller blades.
 
 Once the input is given, the script provides 3 plots showing the tip loss Prandtl correction function, the axial and rotational interference factors and the thrust and power coefficients distributions along the non dimentional radius.
 The script also provides 2 files:

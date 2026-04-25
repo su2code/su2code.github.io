@@ -50,8 +50,12 @@ Simulation of unsteady, external, viscous flow around an airfoil.
 Perform uncertainty quantification of errors arising due to assumptions inherent in turbulence models.
 * [Non-ideal compressible flow in a supersonic nozzle](/tutorials/NICFD_nozzle/)    
 Simulation of compressible flow in a nozzle using non-ideal thermodynamic models.
+* [Data-driven equation of state for non-ideal compressible fluids](/tutorials/NICFD_nozzle_datadriven/)    
+Demonstration of data-driven equation of state using a physics-informed neural network.
 * [Turbomachinery: Aachen Turbine stage with mixing plane](/tutorials/Aachen_Turbine/)    
 Simulation of compressible flow of the Aachen turbine demonstrating turbomachinery application.
+* [Actuator Disk with Variable Load](/tutorials/ActuatorDisk_VariableLoad/)    
+Simulation of an actuator disk with variable load. 
 
 #### Incompressible Flow
 
@@ -77,6 +81,8 @@ Simulation of internal, turbulent, 3D incompressible flow through a Kenics stati
 Simulation of unsteady laminar vortex shedding behind a circular cylinder.
 * [Turbulent Bend](/tutorials/Inc_Turbulent_Bend/)    
 Simulation of turbulent flow in a 90 degree pipe bend using wall functions.
+* [Urban City](/tutorials/Inc_Urban_City/)    
+Simulation of wind velocity and smoke through the city center of Amsterdam. 
 
 #### Structural Mechanics
 
@@ -94,7 +100,7 @@ Simulation of a non-linear problem with multiple material definitions
 * [Static Fluid-Structure Interaction](/tutorials/Static_FSI/)  
 Non-linear structural mechanics coupled with incompressible Navier-Stokes flow
 * [Dynamic Fluid-Structure Interaction with the Python wrapper](/tutorials/Dynamic_FSI_Python/)    
-Linear Nastran-like model coupled with compressible unsteady RANS equations using the Python wrapper
+Linear Nastran-like model coupled with compressible unsteady RANS equations using the Python wrapper.
 * [Static Conjugate Heat Transfer](/tutorials/Static_CHT/)    
 Simulation of multiple heated cylinders in incompressible fluid flow.
 * [Unsteady Conjugate Heat Transfer](/tutorials/Inc_Heated_Cylinders_Unsteady/)    
@@ -103,6 +109,8 @@ Simulation of an unsteady coupled CHT problem incorporating multiple physical zo
 Simulation of CHT between solid domains with contact resistance.
 * [Pre-mixed Hydrogen Combustion](/tutorials/Inc_Combustion/) 
 Simulation of a laminar, pre-mixed hydrogen flame on a cooled burner plate.
+* [Python wrapper for User Defined Functionality](/tutorials/TFC_python/) 
+Use the Python wrapper to setup user defined source terms, initial conditions and boundary conditions for combustion.
 
 #### Shape Design Features
 
