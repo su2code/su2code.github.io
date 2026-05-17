@@ -15,16 +15,19 @@ follows:
 
 ## Goals
 
+![Counterflow burner](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_flame_temperature_streamlines.png)
+*Figure 1: 2D axisymmetric configuration of the laminar counterflow diffusion flame. The axisymmetry is shown here vertically to align the simulation results with the usual lab orientation, but in the simulations, the axisymmetry axis is always horizontally at y=0.*
+
 In this tutorial we show how to setup a laminar diffusion flame computation for a counterflow flame. We will use a flamelet method to model combustion, which is a tabulated chemistry approach. We explain how to generate the flamelet lookup table from cantera counterflow flames and how to generate the lookup table. We then reproduce the experiments of C.K. Law, mentioned in his book *Combustion Physics* (2006).
 ![Counterflow burner](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/opflow01-1024x766_thomsonlab.jpg)
-Figure (1): Counterflow Diffusion burner from the Thomson Lab in Toronto: https://thomsonlab.mie.utoronto.ca/counterflow-diffusion-burner/.
+*Figure (2): Counterflow Diffusion burner from the Thomson Lab in Toronto: https://thomsonlab.mie.utoronto.ca/counterflow-diffusion-burner/.*
 ## Resources and Prerequisites
 
 The resources for this tutorial can be found in the [incompressible_flow/Inc_Laminar_Premixed_Flame](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Diffusion_Flame) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the following files:
 
 1. *Configuration file*: The configuration file for this case is named [counterflow.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow.cfg).
 2. *Mesh file*: The geometry for this test case is a simple, 2D burner geometry with a cooled burner plate ([counterflow.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow.su2)).
-3. *Manifold files*: We will use a 2D flamelet table with mixture fraction and enthalpy as the controlling variables. The lookup table contains a small enthalpy range for this specific setup. The detailed chemistry simulations were performed with cantera. The strain rate at which the counterflow flames were generated was 56 [1/s]. The file can be found at ([fgm_ch4_ZH.drg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Diffusion_Flame/fgm_ch4_ZH.drg)).
+3. *Manifold file*: We will use a 2D flamelet table with mixture fraction and enthalpy as the controlling variables. The lookup table contains a small enthalpy range for this specific setup. The detailed chemistry simulations were performed with cantera. The strain rate at which the counterflow flames were generated was 56 [1/s]. The file can be found at ([fgm_ch4_ZH.drg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Diffusion_Flame/fgm_ch4_ZH.drg)).
 
 The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [counterflow.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow.geo). The mesh is unstructured (i.e. only contains triangular elements) with 8324 elements and 8551 points. This very coarse mesh is sufficient to capture accurately resolve the flame for this testcase.
 
@@ -34,14 +37,16 @@ Figure (2): Computational mesh with color indication of the used boundary condit
 
 ## Background
 
-For premixed flames, the controlling variable is the progress variable, which monitors the progress of combustion. The smallest value is the unburnt mixture and the largest value is the burnt mixture, and in the reaction zone the progress variable is monotonously increasing. For nonpremixed flames, also called diffusion flames, the main controlling variable is the mixture fraction Z: Z=1 for the fuel and Z=0 for the oxidizer.
+For premixed flames, the controlling variable is the progress variable C, which monitors the progress of combustion. The smallest value represents the unburnt mixture and the largest value the burnt mixture, and in the reaction zone the progress variable is monotonously increasing. For nonpremixed flames, also called diffusion flames, the main controlling variable is the mixture fraction Z: Z=1 for the fuel and Z=0 for the oxidizer. In partially premixed combustion we need to solve a transport equation for both. The usual flamelet approach is to solve 1D flames using detailed chemistry. This can be done with detailed chemistry packages like cantera, FlameMaster, chem1d or other chemistry software. The solution is then rewritten into progress variable space or mixture fraction space. For example temperature T(x) is rewritten to T(Z). For purely premixed flames, the 1d solutions have to be generated for the equivalence ratio $\phi$ of the problem that you want to study. For purely nonmpremixed flames, the 1d solutions have to be generated for the strain rate $s$ of the problem. The equivalence ratio stays constant in purely premixed flames. However, in purely nonpremixed flames the strain rate is usually not constant except in exceptional cases like counterflow diffusion flames. So in general, a nonpremixed laminar flame needs 2 controlling variables: the mixture fraction and a controlling variable representing the strain rate. This will be treated in another tutorial. For this tutorial we will stick with a fixed strain rate. 
+
+When heat loss occurs, the enthalpy also has to be taken into account as a controlling variable. Usually, heat losses are important and are taken into account by default in flamelet approaches. We also generate a lookup table as function of mixture fraction and enthalpy here. In SU2, an additional enthalpy equation is solved together with mixture fraction (the original energy equation of the flow solver is de-activated). Fluid and chemistry properties are tabulated from cantera results, stored in a LUT.drg file and retrieved from the lookup table every iteration.
 
 ## Problem Setup
 
-
-
-### Manifold set-up 
-
+The Flamelet Generated Manifold method used the incompressible flow solver, so we set:
+```
+SOLVER = INC_NAVIER_STOKES
+```
 
 
 ### Enabling Flamelet Fluid Model
@@ -54,7 +59,7 @@ FILENAMES_INTERPOLATOR= fgm_ch4_ZH.drg
 CONTROLLING_VARIABLE_SOURCE_NAMES = (NULL, NULL)
 ```
 
-We use a flamelet model for the other fluid submodels, except for density. For density, we use the incompressible ideal gas law. In that case we do not have to store density in the table.
+We use a flamelet model for the other fluid submodels, except for density. For density, we use the incompressible ideal gas law. In that case we do not have to store density in the table. The results are the same.
 
 ```
 KIND_SCALAR_MODEL= FLAMELET      
@@ -64,15 +69,12 @@ CONDUCTIVITY_MODEL= FLAMELET
 INC_DENSITY_MODEL= VARIABLE
 INC_ENERGY_EQUATION = NO
 ```
-
-
-### Manifold options
-
+Note that the energy equation from the flow solver will always be de-activated. 
 
 
 ### Passive look-up terms
 
-To compare the species mole fractions with experiments, we need to look up these values from the table and then save them in the paraview file. All quantities defined by **LOOKUP_NAMES** are passive values and are only retieved from the table and then saved to an output file.
+To compare the species mole fractions with experiments, we need to look up these values from the table and then save them in for instance the paraview file for visualization. All quantities defined by **LOOKUP_NAMES** are passive values and are only retieved from the table and then saved to an output file.
 ```
 LOOKUP_NAMES = (MolarWeightMix, Conductivity, Cp, Heat_Release, DiffusionCoefficient, X-CO, X-CO2, X-H2O, X-CH4, X-O2)
 ```
@@ -108,6 +110,18 @@ FLAME_INIT= (-0.006, 0.00, 0.00, 1.0, 0.0, 0.0, 1.0e-4, 1.0)
 ```
 This method also overrules any values defined using **SPECIES_INIT**.
 
+### Manifold set-up 
+The lookup table was generated using the SU2_DataMiner package, which can be found here:
+[SU2_DataMiner](https://github.com/su2code/SU2_DataMiner)
+We will not go into the table generation now, but merely provide the results. For the constant strain diffusion flamelets, we fix the strain rate and run a series of counterflow flames for different enthalpies (we vary the inlet temperature). The resulting solutions for temperature are shown below:
+
+![LUT Temperature](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/ZH_lines_Temperature.png)
+
+We then store the 1D solutions as a 2D field with mixture fraction and enthalpy as the independent variables. The result for temperature and heat release rate is shown below:
+
+![LUT field](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/ZH_fields.png)
+Note that the mixture fraction equation is a diffusion equation and does not contain any source terms, unlike the progress variable equation for premixed flames.
+
 
 ## Running SU2
 
@@ -128,6 +142,8 @@ The residuals for pressure and velocity have dropped by 6 orders of magnitude, w
 
 A contour plot of the temperature field in the domain is shown below. Note that only 1/3 of the right vertical edge is an outlet. The smaller outlet will force the flow to accelerate close to the outlet. This prevents backflow, which deteriorates convergence. 
 ![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_flame_temperature.png)
+
+
 In the figure we have indicated the isocontours of mixture fraction for values Z=0.4,Z=0.5 and Z=0.6, showing that the maximum temperature occurs at $Z<0.4$. The flame looks very diffusive close to the outlet because of the blockage in the corners. Here, a low velocity recirculation zone in the top and bottom corner is mixing the fuel and air, causing the diffusive behavior. 
 
 A figure of the temperature on the symmetry axis is shown below, together with measured results from Sung et al. (1995). These results are also mentioned in the book of C.K. Law, *Combustion Physics*.
