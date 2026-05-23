@@ -16,14 +16,14 @@ layout: default
   <script>
       $(document).ready (function () {
           $.getJSON("https://api.github.com/repos/su2code/SU2/releases/latest").done(function (data) {
-              $ ('#current_release').text ("Current Release: " + data.name); 
+              $ ('#current_release').text ("Current Release: " + data.name);
               $ ('#html_url').attr("href", data.html_url)
               $ ('#zip_ball').attr("href", data.zipball_url)
               $ ('#tar_ball').attr("href", data.tarball_url)
               for (var key in data.assets) {
-                if (data.assets[key].name.includes("linux64.zip")) {
+                if (data.assets[key].name.includes("linux64-omp.zip")) {
                   $('#asset_linux').attr("href",data.assets[key].browser_download_url)
-                  $('#asset_linux').text("SU2 " + data.tag_name + " for Linux")
+                  $('#asset_linux').text("SU2 OMP" + data.tag_name + " for Linux")
                   $('#asset_linux_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_linux_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                   $('#asset_linux_count').text(data.assets[key].download_count)
@@ -46,22 +46,22 @@ layout: default
                   $('#asset_mac_mpi').attr("href",data.assets[key].browser_download_url)
                   $('#asset_mac_mpi').text("SU2 MPI " + data.tag_name + " for macOS")
                   $('#asset_mac_mpi_time').text(data.assets[key].created_at.substring(0, 10))
-                  $('#asset_mac_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB') 
-                  $('#asset_mac_mpi_count').text(data.assets[key].download_count)               
+                  $('#asset_mac_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
+                  $('#asset_mac_mpi_count').text(data.assets[key].download_count)
                 }
-                if (data.assets[key].name.includes("win64.zip")) {
+                if (data.assets[key].name.includes("win64-omp.zip")) {
                   $('#asset_win').attr("href",data.assets[key].browser_download_url)
-                  $('#asset_win').text("SU2 " + data.tag_name + " for Windows")
+                  $('#asset_win').text("SU2 OMP" + data.tag_name + " for Windows")
                   $('#asset_win_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_win_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
-                  $('#asset_win_count').text(data.assets[key].download_count)               
+                  $('#asset_win_count').text(data.assets[key].download_count)
                 }
                 if (data.assets[key].name.includes("win64-mpi.zip")) {
                   $('#asset_win_mpi').attr("href",data.assets[key].browser_download_url)
                   $('#asset_win_mpi').text("SU2 MPI " + data.tag_name + " for Windows")
                   $('#asset_win_mpi_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_win_mpi_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
-                  $('#asset_win_mpi_count').text(data.assets[key].download_count)               
+                  $('#asset_win_mpi_count').text(data.assets[key].download_count)
                 }
               }
 
