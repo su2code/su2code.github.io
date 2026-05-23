@@ -23,7 +23,7 @@ layout: default
               for (var key in data.assets) {
                 if (data.assets[key].name.includes("linux64-omp.zip")) {
                   $('#asset_linux').attr("href",data.assets[key].browser_download_url)
-                  $('#asset_linux').text("SU2 OMP" + data.tag_name + " for Linux")
+                  $('#asset_linux').text("SU2 OMP " + data.tag_name + " for Linux")
                   $('#asset_linux_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_linux_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                   $('#asset_linux_count').text(data.assets[key].download_count)
@@ -51,7 +51,7 @@ layout: default
                 }
                 if (data.assets[key].name.includes("win64-omp.zip")) {
                   $('#asset_win').attr("href",data.assets[key].browser_download_url)
-                  $('#asset_win').text("SU2 OMP" + data.tag_name + " for Windows")
+                  $('#asset_win').text("SU2 OMP " + data.tag_name + " for Windows")
                   $('#asset_win_time').text(data.assets[key].created_at.substring(0, 10))
                   $('#asset_win_size').text(parseInt(data.assets[key].size/1024/1024) + 'MB')
                   $('#asset_win_count').text(data.assets[key].download_count)
