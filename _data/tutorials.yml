@@ -50,6 +50,7 @@
    - Static_CHT
    - Inc_Heated_Cylinders_Unsteady
    - SS_CR_CHT
+   - Inc_Laminar_Diffusion_Flame
    - Inc_Combustion
    - TFC_python
 
