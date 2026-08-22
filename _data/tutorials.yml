@@ -35,6 +35,7 @@
   - Inc_Von_Karman
   - Inc_Turbulent_Bend
   - Inc_Urban_City
+  - Inc_Laminar_Diffusion_Flame
 
 - title: Structural Mechanics
   tutorials:
