@@ -1,18 +1,21 @@
 - title: The SU2 V&V Collection
   vandv:
-  - home
-  - Contribute
-  
+    - home
+    - Contribute
 - title: Compressible Flow
   vandv:
-  - MMS_FVM_Navier_Stokes
-  - Flat_Plate
-  - Bump_Channel
-  - 30p30n
-  - swbli
-  - LM_transition
-  - dsma661
-  
+    - MMS_FVM_Navier_Stokes
+    - Flat_Plate
+    - Bump_Channel
+    - 30p30n
+    - swbli
+    - LM_transition
+    - dsma661
+    - 2DML
 - title: Incompressible Flow
   vandv:
-  - SANDIA_jet
+    - SANDIA_jet
+    - 2DML
+- title: All Validation Cases
+  vandv:
+    - All_Validation_Cases
