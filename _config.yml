@@ -50,14 +50,14 @@ defaults:
     seo:
       type: "WebPage"
 
-- scope:
-    path: _docs
-    type: docs
-  values:
-    layout: docs
-    sectionid: docs
-    seo:
-      type: "WebPage"
+# - scope:
+#     path: _docs
+#     type: docs
+#   values:
+#     layout: docs
+#     sectionid: docs
+#     seo:
+#       type: "WebPage"
 
 - scope:
     path: _tutorials
