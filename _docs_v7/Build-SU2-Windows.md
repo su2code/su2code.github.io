@@ -33,7 +33,7 @@ however, we can only document (and support) a limited number of possibilities.
 - Git, if you clone the source code (download [here](https://git-scm.com/download/win))
 - Optional, for parallel runs: Microsoft MPI (download [here](https://www.microsoft.com/en-us/download/details.aspx?id=100593), you need the `msmpisetup.exe` and the `msmpisdk.msi`)
 
-These instructions were tested on Windows 11 with Python 3.10, MSVC 19.44 (Visual Studio 2022 Build Tools) and Microsoft MPI 10.1.
+These instructions were tested on Windows 11 with Python 3.10, MSVC 19.44 (Visual Studio 2022 Build Tools) and Microsoft MPI 10.1, building the `develop` branch of SU2. They require a version of SU2 that includes [#2900](https://github.com/su2code/SU2/pull/2900), i.e. the `develop` branch or a release after v8.5.0. SU2 v8.5.0 does not compile with MSVC.
 
 ### Installation of Dependencies
 
