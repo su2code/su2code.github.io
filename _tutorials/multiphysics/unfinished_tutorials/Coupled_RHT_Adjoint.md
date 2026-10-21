@@ -51,7 +51,7 @@ We start the tutorial by definining the problem as an incompressible, Navier Sto
 SOLVER = INC_NAVIER_STOKES
 ```
 
-and we set the properties for the flow to obtain a ```Re = 40``` based on the cylinder diameter. We use standard settings for the linear solver and a FDS scheme for the convective terms. The problem admits a relatively high ```CFL = 1.0E4```. 
+and we set the properties for the flow to obtain a ```Re = 40``` based on the cylinder diameter. We use standard settings for the linear solver and a FDS scheme for the convective terms. The problem admits a relatively high ```CFL_NUMBER = 1.0E4```. 
 
 ```
 INC_DENSITY_MODEL = VARIABLE
@@ -106,7 +106,6 @@ Finally, we are interested in the drag coefficient of the cylinder. Therefore, w
 ```
 INNER_ITER = 5000
 
-CONV_CRITERIA = CAUCHY
 CONV_FIELD = DRAG
 
 CONV_CAUCHY_ELEMS = 50

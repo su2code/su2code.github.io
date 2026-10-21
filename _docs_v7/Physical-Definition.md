@@ -167,7 +167,7 @@ The reference values $$\rho_{ref}, T_{ref}, v_{ref}$$ equal the initial state va
 | --- | --- |
 | `*_RANS` | 7.4.0 |
 
-This section describes how to setup turbulence models for RANS simulations. Turbulence is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS`
+This section describes how to setup turbulence models for RANS simulations. Turbulence is activated using the option `SOLVER= RANS`, or `SOLVER= INC_RANS`
 A turbulence model can then be selected via the option `KIND_TURB_MODEL`
 Different submodels and parameters are specified via the different options listed below.
 The turbulent Prandtl number can be modified with the option `PRANDTL_TURB` (the default is 0.9).
@@ -226,7 +226,7 @@ Modifications from each of these three groups can be combined, for example `SST_
 | --- | --- |
 | `*_RANS` | 7.5.0 |
 
-This section describes how to setup transition models for RANS simulations. Transition is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS` together with a choice of `KIND_TRANS_MODEL` (different from `NONE`).
+This section describes how to setup transition models for RANS simulations. Transition is activated using the option `SOLVER= RANS`, or `SOLVER= INC_RANS` together with a choice of `KIND_TRANS_MODEL` (different from `NONE`).
 Currently, the only valid option for `KIND_TRANS_MODEL` is `LM`, for Langtry-Menter transition models.
 Different submodels and correlations are then specified via `LM_OPTIONS` (for example `LM_OPTIONS= LM2015, MENTER_LANGTRY`).
 

@@ -94,7 +94,7 @@ CONFIG_LIST=(stator1.cfg, rotor.cfg, stator2.cfg)
 #### Sub-config Files
 The most important information that must be specified in the sub-config files concerns the grid movement. To activate it, the `GRID_MOVEMENT` option must be specified, together with the `MOTION_ORIGIN` and angular velocity (`ROTATION_RATE`) components about the rotation axis.\
 For the solver initialization the motion Mach number is specified via the `MACH_MOTION`. \
-Finally, a smoother convergence can be achieved via the `RAMP_ROTATING_FRAME`. Although not used in the present case, it can be activated similarly to the outlet pressure ramp, describe later in this tutorial.
+Finally, a smoother convergence can be achieved via the `RAMP_MOTION_FRAME`. Although not used in the present case, it can be activated similarly to the outlet pressure ramp, describe later in this tutorial.
 
 These options are shown for the rotor sub-config file in the following box.
 
@@ -109,13 +109,13 @@ MOTION_ORIGIN= 0.0 0.0 0.0
 % Angular velocity vector in rad/s 
 ROTATION_RATE= 0.0 0.0 -366.52
 
-RAMP_ROTATING_FRAME= NO
+RAMP_MOTION_FRAME= NO
 
 % Parameters of the rotating frame ramp: 
    starting rotational speed, 
    updating-iteration-frequency, 
    total number of iterations for the ramp
-RAMP_ROTATING_FRAME_COEFF= (0.0, 150.0, 2000)
+RAMP_MOTION_FRAME_COEFF= (0.0, 150.0, 2000)
 ```
 
 ### Boundary Conditions
@@ -271,7 +271,7 @@ WALLMODEL_RELFAC= 0.5
 
 #### Ramps
 
-To ease the convergence of turbomachinery cases, particularly when the pressure ratio of the machine is large, the use of ramps can be beneficial. These can be applied to both rotational speed and outlet pressure via ```RAMP_OUTLET_PRESSURE``` and ```RAMP_ROTATING_FRAME```. \
+To ease the convergence of turbomachinery cases, particularly when the pressure ratio of the machine is large, the use of ramps can be beneficial. These can be applied to both rotational speed and outlet pressure via ```RAMP_OUTLET_PRESSURE``` and ```RAMP_MOTION_FRAME```. \
 For the sake of completeness, the use of the outlet pressure ramp is demonstrated presenting in the following box the syntax to activate it.
 
 ```

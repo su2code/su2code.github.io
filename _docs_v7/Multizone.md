@@ -86,7 +86,7 @@ While for the single-physics problems the usage of sub-config files is optional,
 % main_config.cfg
 % ------------------------ MULTI-PHYSICS SETUP --------------------------------%
 % Problem definition
-PHYSICAL_PROBLEM= MULTIPHYSICS
+SOLVER= MULTIPHYSICS
 
 % The list of config files
 CONFIG_LIST = (configFlow.cfg, configSolid.cfg)

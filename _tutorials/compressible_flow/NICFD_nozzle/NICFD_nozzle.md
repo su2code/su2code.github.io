@@ -128,7 +128,7 @@ CRITICAL_PRESSURE= 1437500
 ACENTRIC_FACTOR= 0.524
 ```
 
-In addition, the models for transport coefficients can also be customized by exploring the viscosity and thermal conductivity options. By default with compressible flow, the laminar viscosity is governed by Sutherland’s law, and the thermal conductivity is assumed to depend on a constant Prandtl number. However, in the case of the Peng-Robinson-Stryjek-Vera equation of state (`PR_GAS`), the `CONSTANT_VISCOSITY` and `CONSTANT_CONDUCTIVITY` options are the only available. The values of the dynamic viscosity and thermal conductivity are imposed by entering the values for `MU_CONSTANT` and `KT_CONSTANT`.
+In addition, the models for transport coefficients can also be customized by exploring the viscosity and thermal conductivity options. By default with compressible flow, the laminar viscosity is governed by Sutherland’s law, and the thermal conductivity is assumed to depend on a constant Prandtl number. However, in the case of the Peng-Robinson-Stryjek-Vera equation of state (`PR_GAS`), the `CONSTANT_VISCOSITY` and `CONSTANT_CONDUCTIVITY` options are the only available. The values of the dynamic viscosity and thermal conductivity are imposed by entering the values for `MU_CONSTANT` and `THERMAL_CONDUCTIVITY_CONSTANT`.
 
 ```
 % --------------------------- VISCOSITY MODEL ---------------------------------%
@@ -146,7 +146,7 @@ MU_CONSTANT= 1.21409E-05
 CONDUCTIVITY_MODEL= CONSTANT_CONDUCTIVITY
 %
 % Molecular Thermal Conductivity that would be constant (0.0257 by default)
-KT_CONSTANT= 0.030542828
+THERMAL_CONDUCTIVITY_CONSTANT= 0.030542828
 ```
 
 Characteristics-based Riemann boundary conditions are imposed on the INFLOW and OUTFLOW boundaries.

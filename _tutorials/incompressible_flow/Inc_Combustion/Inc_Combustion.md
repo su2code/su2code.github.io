@@ -350,7 +350,7 @@ SPECIES_INIT=(-0.575, 2.227e3, 1.447e-2)
 MARKER_INLET_SPECIES = (inlet, -0.575, 2.227e3, 1.447e-2, 0)
 MARKER_INLET=(inlet, 300.0, 0.565,1,0,0)
 
-MAKER_SPECIES_STRONG_BC=(burner_wall, cylinder_wall)
+MARKER_SPECIES_STRONG_BC=(burner_wall, cylinder_wall)
 MARKER_ISOTHERMAL= (burner_wall, 350, cylinder_wall, 400)
 ```
 ### Convective scheme

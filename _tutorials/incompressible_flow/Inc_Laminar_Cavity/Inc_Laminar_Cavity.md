@@ -108,7 +108,7 @@ MU_CONSTANT= 1.716e-5
 CONDUCTIVITY_MODEL= CONSTANT_CONDUCTIVITY
 %
 % Molecular Thermal Conductivity that would be constant (0.0257 by default)
-KT_CONSTANT= 0.0246295028571
+THERMAL_CONDUCTIVITY_CONSTANT= 0.0246295028571
 ```
 
 Lastly, in order to impose gravity, we apply a body force in the negative y-direction as follows:
