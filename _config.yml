@@ -18,12 +18,14 @@ markdown: kramdown
 highlighter: rouge
 plugins:
   - jekyll-feed
+  - jekyll-gist
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-sitemap
 
 whitelist:
   - jekyll-feed
+  - jekyll-gist
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-sitemap
@@ -126,5 +128,3 @@ collections:
 # Google Analytics
 google_analytics: UA-28187985-1
 
-plugins:
-  - jekyll-gist
