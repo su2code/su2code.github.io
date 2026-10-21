@@ -47,6 +47,18 @@
   - Multizone
   - Execution
 
+- title: Case Setup Guides
+  docs_v7:
+  - Setup-Guide-RANS-External-Aero
+  - Setup-Guide-Incompressible
+  - Setup-Guide-Unsteady-DES
+  - Setup-Guide-Transition
+  - Setup-Guide-Turbomachinery
+  - Setup-Guide-Heat-Transfer-CHT
+  - Setup-Guide-Species-Combustion
+  - Setup-Guide-Shape-Optimization
+  - Setup-Guide-NICFD
+
 - title: Developer Docs
   docs_v7:
   - Gitting-Started
