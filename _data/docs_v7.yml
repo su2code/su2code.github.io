@@ -3,8 +3,9 @@
   - home
   - contribute
 
-- title: New in Version 7
+- title: What's New
   docs_v7:
+  - Guide-to-v8
   - Guide-to-v7
 
 - title: Quick Start
