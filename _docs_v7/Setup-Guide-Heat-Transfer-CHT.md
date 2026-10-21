@@ -124,7 +124,7 @@ LINEAR_SOLVER_ERROR= 1E-15
 LINEAR_SOLVER_ITER= 5
 ```
 
-The zone files do not list the interface markers as boundary conditions. `MARKER_CHT_INTERFACE` in the main file sets them, and the zone files inherit every option of the main file ([Multizone](../Multizone/#multiphysics)).
+The zone files do not list the interface markers as boundary conditions. `MARKER_CHT_INTERFACE` in the main file sets them, and the zone files inherit every option of the main file ([Multizone](../Multizone/#how-to-set-up-a-multi-physics-problem)).
 
 ## Settings that matter
 
@@ -163,18 +163,18 @@ A solid alone runs as a normal single-zone case, for example [`solid_heat_conduc
 
 ### Zones and config files
 
-A CHT case is a multiphysics case ([Multizone](../Multizone/#multiphysics)):
+A CHT case is a multiphysics case ([Multizone](../Multizone/#how-to-set-up-a-multi-physics-problem)):
 
 1. Write one config file per zone. Each one sets `SOLVER`, and the boundary conditions and numerics of the zone.
 2. Write a main config file with `SOLVER= MULTIPHYSICS` and `CONFIG_LIST`, the list of zone files. The order in `CONFIG_LIST` gives the zone number, starting at 0.
-3. Options that are the same in all zones can go in the main file. The zone files inherit them ([Multizone](../Multizone/#multiphysics)).
+3. Options that are the same in all zones can go in the main file. The zone files inherit them ([Multizone](../Multizone/#how-to-set-up-a-multi-physics-problem)).
 
 The mesh:
 
-- One file for all zones: `MULTIZONE_MESH= YES` (default). This works with the SU2 mesh format, with `NZONE=` and `IZONE=` in the mesh file ([Multizone](../Multizone/#multizone-mesh)).
+- One file for all zones: `MULTIZONE_MESH= YES` (default). This works with the SU2 mesh format, with `NZONE=` and `IZONE=` in the mesh file ([Multizone](../Multizone/#providing-mesh-information-for-a-multi-zone-problem)).
 - One file per zone: `MULTIZONE_MESH= NO`, and `MESH_FILENAME` in each zone file. The [contact resistance tutorial](/tutorials/SS_CR_CHT/) uses three mesh files.
 
-Run each zone alone first, with a fixed temperature or heat flux at the interface, to find numerical settings that work (advice). [Multizone](../Multizone/#multiphysics) gives the same advice.
+Run each zone alone first, with a fixed temperature or heat flux at the interface, to find numerical settings that work (advice). [Multizone](../Multizone/#how-to-set-up-a-multi-physics-problem) gives the same advice.
 
 ### Interface markers
 
