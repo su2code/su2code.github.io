@@ -142,7 +142,7 @@ Set `SOLVER= RANS` and pick the model with `KIND_TURB_MODEL`. With `SOLVER= RANS
 - SST is often preferred when adverse pressure gradients and separation matter (advice, to be reviewed).
 - If the two models give different lift or drag, treat the difference as model uncertainty. Look at the flow where they differ (advice).
 
-See [Physical Definition](../Physical-Definition/#turbulence-models) for the full option list.
+See [Turbulence Models](../Turbulence-Models/) for the full option list.
 
 ### Convective scheme: JST or an upwind scheme
 

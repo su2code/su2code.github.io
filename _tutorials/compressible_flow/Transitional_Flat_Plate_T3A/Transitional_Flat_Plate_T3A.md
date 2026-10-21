@@ -14,7 +14,7 @@ follows:
 Upon completing this tutorial, the user will be familiar with performing an external, transitional flow over a flat plate. The flow over the flat plate will be laminar until it reaches a point where a transition correlation depending on local flow variables is activated. The results can be compared to the zero pressure gradient natural transition experiment of T3A & T3A-[ERCOFTAC](http://cfd.mace.manchester.ac.uk/ercoftac/doku.php). The following capabilities of SU2 will be showcased in this tutorial:
 
 - Steady, 2D, incompressible RANS equations
-- k-w SST-2003m turbulence model with Langtry and Menter 2009 ([LM2009](https://turbmodels.larc.nasa.gov/langtrymenter_4eqn.html)) transition model
+- k-w SST-2003m turbulence model with Langtry and Menter 2009 ([LM2009](https://tmbwg.github.io/turbmodels/langtrymenter_4eqn.html)) transition model
 - L2Roe convective scheme in space (2nd-order, upwind)
 - Corrected average-of-gradients viscous scheme
 - Euler implicit time integration
@@ -30,7 +30,7 @@ The following tutorial will walk you through the steps required when solving for
 
 ### Background
 
-Practically, most CFD analyses are carried out using fully turbulent fields that do not account for boundary layer transition. Given that the flow is everywhere turbulent, no separation bubbles or other complex flow phenomena evolve. A transition model can be introduced, however, such that the flow begins as laminar by damping the production term of the turbulence model until a point where a transition correlation is activated. Currently, Langtry and Menter transition model ([LM](https://turbmodels.larc.nasa.gov/langtrymenter_4eqn.html)) that uses k-w SST-2003m as the baseline turbulence model is implemented in SU2.
+Practically, most CFD analyses are carried out using fully turbulent fields that do not account for boundary layer transition. Given that the flow is everywhere turbulent, no separation bubbles or other complex flow phenomena evolve. A transition model can be introduced, however, such that the flow begins as laminar by damping the production term of the turbulence model until a point where a transition correlation is activated. Currently, Langtry and Menter transition model ([LM](https://tmbwg.github.io/turbmodels/langtrymenter_4eqn.html)) that uses k-w SST-2003m as the baseline turbulence model is implemented in SU2.
 
 For verification, we will be comparing SU2 results against the results of natural transition flat plate experiment of [ERCOFTAC](http://cfd.mace.manchester.ac.uk/ercoftac/doku.php). The experimental data include skin friction coefficient distribution versus the local Reynolds number over the flat plate.
 
@@ -107,4 +107,4 @@ Figure (3): Comparison of the skin friction coefficients for the T3A- case.
 
 ## Notes
 
-The [LM model](https://turbmodels.larc.nasa.gov/langtrymenter_4eqn.html) is designed using general subsonic transition experiment results(T-S wave, bypass transition, and separation-induced transition). So, This LM model can't provide appropriate simulation results for crossflow, supersonic, and hypersonic flow transition(= crossflow instability, 1st mode, Mack 2nd mode).
+The [LM model](https://tmbwg.github.io/turbmodels/langtrymenter_4eqn.html) is designed using general subsonic transition experiment results(T-S wave, bypass transition, and separation-induced transition). So, This LM model can't provide appropriate simulation results for crossflow, supersonic, and hypersonic flow transition(= crossflow instability, 1st mode, Mack 2nd mode).

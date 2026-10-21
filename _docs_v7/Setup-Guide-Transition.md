@@ -286,7 +286,7 @@ Test cases (develop branch):
 
 User guide pages:
 
-- [Physical Definition: Transition Models](../Physical-Definition/#transition-models) and [Turbulence Models](../Physical-Definition/#turbulence-models).
+- [Transition Models](../Transition-Models/) and [Turbulence Models](../Turbulence-Models/).
 - [Governing Equations](../Theory/), [Convective Schemes](../Convective-Schemes/), [History and Solution Output](../Custom-Output/).
 - All options: [Option Reference](../Option-Reference/). All output fields: [Output Fields Reference](../Output-Fields-Reference/).
 

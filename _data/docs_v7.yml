@@ -48,6 +48,13 @@
   - Multizone
   - Execution
 
+- title: Physical Models
+  docs_v7:
+  - Turbulence-Models
+  - Transition-Models
+  - Hybrid-RANS-LES
+  - Wall-Treatment
+
 - title: Case Setup Guides
   docs_v7:
   - Setup-Guide-RANS-External-Aero
