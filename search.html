@@ -1,0 +1,67 @@
+---
+layout: default
+title: Search
+permalink: /search/
+sitemap: false
+---
+
+<div class="container">
+  <h1>Search</h1>
+  <p>Search the user guide, the tutorials and the V&amp;V pages. All words must appear on the page.</p>
+  <input id="search-box" type="search" class="form-control" placeholder="For example: CFL_ADAPT, wall function, transition" autofocus>
+  <p id="search-count"></p>
+  <ol id="search-results"></ol>
+</div>
+
+<script>
+(function () {
+  var box = document.getElementById("search-box");
+  var count = document.getElementById("search-count");
+  var list = document.getElementById("search-results");
+  var pages = null;
+  var names = { docs_v7: "Docs", tutorials: "Tutorials", vandv: "V&V" };
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
+  }
+
+  function snippet(text, word) {
+    var i = text.toLowerCase().indexOf(word);
+    if (i < 0) return escapeHtml(text.slice(0, 160));
+    var start = Math.max(0, i - 80);
+    return (start > 0 ? "..." : "") + escapeHtml(text.slice(start, i + 120)) + "...";
+  }
+
+  function run() {
+    var words = box.value.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 1; });
+    list.innerHTML = "";
+    if (!pages || words.length === 0) { count.textContent = ""; return; }
+    var hits = [];
+    pages.forEach(function (p) {
+      var title = p.title.toLowerCase(), text = p.text.toLowerCase(), score = 0;
+      for (var k = 0; k < words.length; k++) {
+        var inTitle = title.indexOf(words[k]) >= 0, inText = text.indexOf(words[k]) >= 0;
+        if (!inTitle && !inText) return;
+        score += (inTitle ? 20 : 0) + Math.min(text.split(words[k]).length - 1, 10);
+      }
+      hits.push({ page: p, score: score });
+    });
+    hits.sort(function (a, b) { return b.score - a.score; });
+    count.textContent = hits.length + " pages found.";
+    hits.slice(0, 50).forEach(function (h) {
+      var li = document.createElement("li");
+      li.innerHTML = '<a href="' + h.page.url + '"><b>' + escapeHtml(h.page.title) + "</b></a> (" +
+        names[h.page.section] + ")<br><small>" + snippet(h.page.text, words[0]) + "</small>";
+      list.appendChild(li);
+    });
+  }
+
+  fetch("{{ '/search.json' | relative_url }}").then(function (r) { return r.json(); }).then(function (data) {
+    pages = data;
+    var q = new URLSearchParams(location.search).get("q");
+    if (q) box.value = q;
+    run();
+  });
+  box.addEventListener("input", run);
+})();
+</script>

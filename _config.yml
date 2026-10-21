@@ -23,7 +23,10 @@ plugins:
   - jekyll-sitemap
 
 whitelist:
+  - jekyll-feed
   - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 
 exclude:
@@ -56,6 +59,8 @@ defaults:
   values:
     layout: docs
     sectionid: docs
+    # Old v6 documentation: kept for old links, not listed for search engines.
+    sitemap: false
     seo:
       type: "WebPage"
 
