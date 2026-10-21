@@ -13,8 +13,9 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
   - [Time-dependent Simulation](#time-dependent-simulation)
   - [Steady-state Simulation](#steady-state-simulation)
   - [Setting convergence criteria](#setting-convergence-criteria)
-    - [Residual](#residual)
-    - [Coefficient](#coefficient)
+    - [Steady-state Residual](#steady-state-residual)
+    - [Steady-state Coefficient](#steady-state-coefficient)
+    - [Time-dependent Coefficient](#time-dependent-coefficient)
   
 ---
 
