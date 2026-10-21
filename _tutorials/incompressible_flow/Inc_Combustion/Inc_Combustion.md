@@ -151,7 +151,7 @@ The manifold should also contain the following thermo-chemical data. The variabl
 3. Dynamic viscosity (`ViscosityDyn`)[]
 4. Thermal conductivity (`Conductivity`)[W m^-1 K^-1]
 5. Diffusivity (`DiffusionCoefficient`)[m^2 s^-1]
-6. Density (`Density`) [kg m^-3] or mixture molar weight (`MolarWeightMix`) [kg mol^-1]
+6. Density (`Density`) [kg m^-3] or mixture molar weight (`MolarWeightMix`) [g mol^-1]
 
 The distinction between storing the fluid density or molar weight depends on the configuration file setting for `INC_DENSITY_MODEL`. MOre on that the section on configuration file settings.
 
@@ -214,7 +214,7 @@ $$
 \end{equation}
 $$
 
-where $$p$$ is the free-stream pressure, $$R_u$$ the universal gas constant, and $$W_M$$ and $$T$$ the mean molecular weight and temperature respectively, which are obtained from the manifold. Finally, the option for `INC_ENERGY_EQUATION` should be set to `YES` when solving FGM problems. In order to enable preferential
+where $$p$$ is the free-stream pressure, $$R_u$$ the universal gas constant, and $$W_M$$ and $$T$$ the mean molecular weight and temperature respectively, which are obtained from the manifold. Finally, the option `INC_ENERGY_EQUATION` has no effect for FGM problems: SU2 turns it off, because the temperature is looked up from the manifold. In order to enable preferential
 diffusion, set the option `PREFERENTIAL_DIFFUSION` to `YES` (set by default to `NO`).
 
 In the current example for the hydrogen burner, the following options are used:
@@ -309,7 +309,7 @@ The second option is through an artificial spark, enabled through setting `FLAME
 - `iter_start`: (outer) iteration after which the spark will be applied.
 - `duration`: number of (outer) iterations for which the artificial spark will be applied.
 
-The source terms applied to the controlling variables are defined under the option `SPARK_REACTION_RATES`. This option expects an array with the same length as `CONTROLLING_VARIABLE_NAMES` containing the source terms applied to the controlling variables within the spark sphere. 
+The source terms applied to the controlling variables are defined under the option `SPARK_REACTION_RATES`. This option expects one value for each transported scalar, that is for each controlling variable in `CONTROLLING_VARIABLE_NAMES` and each passive species in `USER_SCALAR_NAMES`. These are the source terms applied within the spark sphere. 
 
 The final and default option for initializing the solution is to perform a cold flow analysis without a flame front. This option is enabled through setting `FLAME_INIT_METHOD=NONE`. 
 
@@ -317,7 +317,7 @@ In the current example, the `SPARK` ignition method is used. Here, an artificial
 ```
 FLAME_INIT_METHOD= SPARK
 SPARK_INIT= (0.001, 0.0004, 0.00, 1e-4, 100, 5)
-SPARK_REACTION_RATES=(1000, 0, 0)
+SPARK_REACTION_RATES=(1000, 0, 0, 0)
 ```
 The spark will be initialized at iteration 100 and will remain active for another 5 iterations. This should be sufficient to artificially ignite the mixture and have the flame front propagate naturally. 
 
@@ -346,7 +346,7 @@ is iterated until the temperature difference $$T_b - T(\mathcal{y},h_i,Z)$$ is l
 
 For the current example, the equivalence ratio at the inlet was set to 0.5, translating to a mixture fraction of 1.447e-2. The reactants are presumed at a temperature of 300K at the inlet, while isothermal wall boundary conditions are applied on the burner wall (350K) and heat exchanger emulator (400K). The iso-thermal wall boundary conditions are defined as strong boundary conditions, meaning that the total enthalpy is locally enforced to achieve the imposed temperature.
 ```
-SPECIES_INIT=(-0.575, 2.227e3, 1.447e-2)
+SPECIES_INIT=(-0.575, 2.227e3, 1.447e-2, 0)
 MARKER_INLET_SPECIES = (inlet, -0.575, 2.227e3, 1.447e-2, 0)
 MARKER_INLET=(inlet, 300.0, 0.565,1,0,0)
 

@@ -36,7 +36,7 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 |`INC_EULER` | **Incompressible Euler's equation** | Finite-Volume method |
 |`INC_NAVIER_STOKES` | **Incompressible Navier-Stokes' equation** | Finite-Volume method|
 |`INC_RANS` | **Incompressible Reynolds-averaged Navier-Stokes' equation** | Finite-Volume method|
-|`HEAT_EQUATION_FVM` | **Heat equation** | Finite-Volume method |
+|`HEAT_EQUATION` | **Heat equation** | Finite-Volume method |
 |`ELASTICITY` | **Equations of elasticity** | Finite-Element method |
 |`FEM_EULER` | **Euler's equation** | Discontinuous Galerkin FEM |
 |`FEM_NAVIER_STOKES`| **Navier-Stokes' equation** | Discontinuous Galerkin FEM |

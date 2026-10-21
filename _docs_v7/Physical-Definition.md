@@ -201,7 +201,7 @@ SU2 implements the "Standard" (1994) and 2003 versions of the SST model along wi
 
 **Note:** Currently all versions are "modified" i.e. the turbulence kinetic energy (TKE) is not included in the viscous stress tensor.
 
-The main model is selected using `KIND_TURB_MODEL= SST` and the version and modifications via the `SST_OPTIONS` list. If this list is empty SU2 defaults to the baseline 1994 model, `V1994m` (see warning below). The options allow for a version and a set of modifiers to the version. 
+The main model is selected using `KIND_TURB_MODEL= SST` and the version and modifications via the `SST_OPTIONS` list. If this list is empty SU2 defaults to the 2003 model, `V2003m`. The options allow for a version and a set of modifiers to the version. 
 The freestream and inlet conditions are specified via the options `FREESTREAM_TURBULENCEINTENSITY= 0.05` (5%) and `FREESTREAM_TURB2LAMVISCRATIO= 10` (ratio of turbulent to laminar viscosity).
 
 **Note:** The default values for these options are suitable for internal flows but may be too high for external aerodynamics problems.
@@ -212,7 +212,7 @@ The following modifications are allowed:
   - `V2003m` - SST-2003m (no known inconsistencies).
 - Production modifications:
   - `VORTICITY` - Uses vorticity to compute the source term instead of strain-rate magnitude.
-  - `KATO_LAUNDER` - Uses the Kato-Launder modification (vorticity times strain-rate).
+  - `KATO-LAUNDER` - Uses the Kato-Launder modification (vorticity times strain-rate).
   - `UQ` - Production is computed using a modified stress tensor for [uncertainty quantification](https://su2code.github.io/tutorials/UQ_NACA0012/). **Note** with this modification TKE is always included in the stress tensor.
 - Corrections:
   - `SUSTAINING` - SST with controlled decay.

@@ -107,8 +107,10 @@ Options:
 * `-f FILE, --file=FILE` read config from FILE
 * `-r NAME, --name=NAME` try to restart from project file NAME
 * `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
-* `-g GRADIENT, --gradient=GRADIENT` Method for computing the GRADIENT (ADJOINT, DISCRETE_ADJOINT, FINDIFF, NONE)
+* `-g GRADIENT, --gradient=GRADIENT` Method for computing the GRADIENT (CONTINUOUS_ADJOINT, DISCRETE_ADJOINT, FINDIFF, NONE), default DISCRETE_ADJOINT
+* `-o OPTIMIZATION, --optimization=OPTIMIZATION` OPTIMIZATION technique (SLSQP, CG, BFGS, POWELL), default SLSQP
 * `-q QUIET, --quiet=QUIET` True/False Quiet all SU2 output (optimizer output only)
+* `-z ZONES, --zones=ZONES` Number of ZONES
 
 ### Python wrapper scripts
 

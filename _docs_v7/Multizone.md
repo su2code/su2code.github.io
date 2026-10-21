@@ -80,7 +80,7 @@ ROTATION_RATE = 0.0 0.0 160.0
  <a name="multiphysics"></a> 
 ### How to set up a multi-physics problem ###
 
-While for the single-physics problems the usage of sub-config files is optional, setting up a multi-physics problem heavily relies on this feature. A good way to start is to first create a separate config file for each individual zone. If it is possible, also try to run each zone independently (with appropriate boundary conditions) to find proper numerical settings. To couple the zones create a new config file with the option `MATH_PROBLEM` set to `MULTIPHYSICS`. Then specify the list of config files with `CONFIG_LIST`. These two options are mandatory. To set a coupling between the zones the `MARKER_ZONE_INTERFACE` option can be used (same way as for the [single-physics problem](#singlephysics)). As an example consider the following main config file:
+While for the single-physics problems the usage of sub-config files is optional, setting up a multi-physics problem heavily relies on this feature. A good way to start is to first create a separate config file for each individual zone. If it is possible, also try to run each zone independently (with appropriate boundary conditions) to find proper numerical settings. To couple the zones create a new config file with the option `SOLVER` set to `MULTIPHYSICS`. Then specify the list of config files with `CONFIG_LIST`. These two options are mandatory. To set a coupling between the zones the `MARKER_ZONE_INTERFACE` option can be used (same way as for the [single-physics problem](#singlephysics)). As an example consider the following main config file:
 
 ```
 % main_config.cfg

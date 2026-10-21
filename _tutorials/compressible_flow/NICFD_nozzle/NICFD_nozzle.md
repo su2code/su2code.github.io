@@ -128,7 +128,7 @@ CRITICAL_PRESSURE= 1437500
 ACENTRIC_FACTOR= 0.524
 ```
 
-In addition, the models for transport coefficients can also be customized by exploring the viscosity and thermal conductivity options. By default with compressible flow, the laminar viscosity is governed by Sutherland’s law, and the thermal conductivity is assumed to depend on a constant Prandtl number. However, in the case of the Peng-Robinson-Stryjek-Vera equation of state (`PR_GAS`), the `CONSTANT_VISCOSITY` and `CONSTANT_CONDUCTIVITY` options are the only available. The values of the dynamic viscosity and thermal conductivity are imposed by entering the values for `MU_CONSTANT` and `THERMAL_CONDUCTIVITY_CONSTANT`.
+In addition, the models for transport coefficients can also be customized by exploring the viscosity and thermal conductivity options. By default with compressible flow, the laminar viscosity is governed by Sutherland’s law, and the thermal conductivity is assumed to depend on a constant Prandtl number. In this tutorial, constant values are used instead, with the `CONSTANT_VISCOSITY` and `CONSTANT_CONDUCTIVITY` options. The values of the dynamic viscosity and thermal conductivity are imposed by entering the values for `MU_CONSTANT` and `THERMAL_CONDUCTIVITY_CONSTANT`.
 
 ```
 % --------------------------- VISCOSITY MODEL ---------------------------------%
@@ -166,7 +166,7 @@ The parameters specified in the config excerpt below are:
 MARKER_RIEMANN= ( INFLOW, TOTAL_CONDITIONS_PT, 904388, 542.13, 1.0, 0.0, 0.0, OUTFLOW, STATIC_PRESSURE, 200000, 0.0, 0.0, 0.0, 0.0 )
 ```
 
-In this test case, CFL adaptation is employed to accelerate convergence to steady state. Within this procedure, the CFL value at each iteration is determined based on the residual value at the current and previous iteration, as *CFL = CFL * (residual_old / residual_new)^power*. The value of *power* is given by the parameters `factor down` or `factor up` provided at the entry `CFL_ADAPT_PARAM`. The value of *power* is chosen depending on whether *residual_new* is greater or lower than the *residual_old*. The user can choose to only increase the CFL by setting the first entry of `CFL_ADAPT_PARAM` to `0`.
+In this test case, CFL adaptation is employed to accelerate convergence to steady state. Within this procedure, the local CFL value is multiplied by a factor at each iteration. It is multiplied by `factor up` when the full solution update is applied and the linear solver converges well. It is multiplied by `factor down` when the update has to be strongly under-relaxed, when the linear solver does not converge well, or when the residuals oscillate. Otherwise the CFL value is kept. Both factors are given in `CFL_ADAPT_PARAM`, and the CFL value always stays between `CFL min value` and `CFL max value`.
 
 ```
 % CFL number (initial value for the adaptive CFL number)

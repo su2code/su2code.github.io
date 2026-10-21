@@ -42,7 +42,7 @@ $$
 q_{w} = \frac{T - T_w}{\frac{l}{k} + R_c}
 $$
 
-Here, $R_c$ is the contact resistance with the units $m K W^{-1}$, or the inverse of the heat transfer coefficient. For ideal contact, $R_c$ is equal to zero. This results in the temperature on both sides of the interface to be equal. Applying a non-zero value for $R_c$ restricts the heat transfer between the two solid domains, resulting in a temperature discontinuity. To illustrate this, consider the following set-up with two solid domains.
+Here, $R_c$ is the contact resistance with the units $m^2 K W^{-1}$, or the inverse of the heat transfer coefficient. For ideal contact, $R_c$ is equal to zero. This results in the temperature on both sides of the interface to be equal. Applying a non-zero value for $R_c$ restricts the heat transfer between the two solid domains, resulting in a temperature discontinuity. To illustrate this, consider the following set-up with two solid domains.
 
 ![Solid domain set-up](../../../tutorials_files/multiphysics/contact_resistance_cht/solid_domains.png)
 Figure 1: Two solid domains subject to iso-thermal boundary conditions connected by a zone interface.
@@ -79,7 +79,7 @@ Solid domain 2 has the material properties of copper:
 - Specific heat = 4420 J/(kg-K)
 - Thermal conductivity = 61 W/(m-K)
 
-The two solid blocks each are subject to an iso-thermal wall boundary condition, which drives the transfer of heat between the solid domains and the fluid. The interface type for all domains was set to ```DIRECT_TEMPERATURE_ROBIN_HEATFLUX```, with a contact resistance value of 1.0e-04 K-m/W applied to the interface between Solid 1 and Solid 2. All other boundaries were defined as symmetry boundary conditions.
+The two solid blocks each are subject to an iso-thermal wall boundary condition, which drives the transfer of heat between the solid domains and the fluid. The interface type for all domains was set to ```DIRECT_TEMPERATURE_ROBIN_HEATFLUX```, with a contact resistance value of 1.0e-04 m^2-K/W applied to the interface between Solid 1 and Solid 2. All other boundaries were defined as symmetry boundary conditions.
 
 
 ### Mesh Description
@@ -140,15 +140,15 @@ The effect of the application of contact resistance becomes clear when visualizi
 ![Temperature solution lines](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines.png)
 Figure 6: Temperature trends across the heat transfer interfaces.
 
-The temperature trends across the solid-fluid interfaces (green, red) are continuous, the temperature trend across the solid-solid interface (purple) shows a discontinuity at the interface as a result of the application of contact resistance. This effect can be exaggerated when increasing the value for the contact resistance. For example, when applying a contact resistance value of 10 W-m/K,
+The temperature trends across the solid-fluid interfaces (green, red) are continuous, the temperature trend across the solid-solid interface (purple) shows a discontinuity at the interface as a result of the application of contact resistance. This effect can be exaggerated when increasing the value for the contact resistance. For example, when applying a contact resistance value of 10 m^2-K/W,
 ```
 CHT_INTERFACE_CONTACT_RESISTANCE = (10.0,0,0)
 ```
  the two solid domains are currently essentially insulated from one another. This results in the following temperature solution.
 
 ![Temperature solution](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_n.png)
-Figure 7: Temperature solution for a contact resistance value of 10.0 W-m/K.
+Figure 7: Temperature solution for a contact resistance value of 10.0 m^2-K/W.
 
 
 ![Temperature solution lines](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines_n.png)
-Figure 8: Temperature trends across the interfaces for a contact resistance value of 10.0 W-m/K.
+Figure 8: Temperature trends across the interfaces for a contact resistance value of 10.0 m^2-K/W.

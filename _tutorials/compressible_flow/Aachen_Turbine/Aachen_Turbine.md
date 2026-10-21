@@ -225,7 +225,7 @@ If needed, extra under relaxation factor for the Giles BC at the hub and shroud 
 GILES_EXTRA_RELAXFACTOR = (0.05, 0.05)
 ```
 
-Finally, the kind of average process for linearizing the Navier-Stokes equation at inflow and outflow boundaries, including mixing-plane(s), can be controlled by ```AVERAGE_PROCESS_KIND```. Possible options are: ```ALGEBRAIC```, ```AREA```, ```MASSSFLUX```, ```MIXEDOUT```. The default one is ```AREA```, however, only the ```MIXEDOUT``` option guarantees that the mixing plane treatment is conservative.\
+Finally, the kind of average process for linearizing the Navier-Stokes equation at inflow and outflow boundaries, including mixing-plane(s), can be controlled by ```AVERAGE_PROCESS_KIND```. Possible options are: ```ALGEBRAIC```, ```AREA```, ```MASSFLUX```, ```MIXEDOUT```. The default one is ```AREA```, however, only the ```MIXEDOUT``` option guarantees that the mixing plane treatment is conservative.\
 The following box shows the setting to be used for the current case.
 
 ``` 
@@ -271,15 +271,15 @@ WALLMODEL_RELFAC= 0.5
 
 #### Ramps
 
-To ease the convergence of turbomachinery cases, particularly when the pressure ratio of the machine is large, the use of ramps can be beneficial. These can be applied to both rotational speed and outlet pressure via ```RAMP_OUTLET_PRESSURE``` and ```RAMP_MOTION_FRAME```. \
+To ease the convergence of turbomachinery cases, particularly when the pressure ratio of the machine is large, the use of ramps can be beneficial. These can be applied to both rotational speed and outlet pressure via ```RAMP_OUTLET``` and ```RAMP_MOTION_FRAME```. \
 For the sake of completeness, the use of the outlet pressure ramp is demonstrated presenting in the following box the syntax to activate it.
 
 ```
 % Specify ramp option for Outlet pressure (YES, NO) default NO
-RAMP_OUTLET_PRESSURE= YES
+RAMP_OUTLET= YES
 %
 % Parameters of the outlet pressure ramp (starting outlet pressure, updating-iteration-frequency, total number of iteration for the ramp)
-RAMP_OUTLET_PRESSURE_COEFF= (140000.0, 150.0, 2000)
+RAMP_OUTLET_COEFF= (140000.0, 150.0, 2000)
 ```
 
 
@@ -290,7 +290,7 @@ To have SU2_CFD computing the typical turbomachinery performance indexes, the tu
 
 Additionally, the inlet and outlet boundary to each zone must be specified in stream-wise order via the ```MARKER_TURBOMACHINERY```, as well as the inlet and the outlet boundaries of the full machine via the ```MARKER_ANALYZE```.
 
-Finally, the performance averaging method, i.e. AREA, MASSSFLUX, MIXEDOUT, etc., must be specified via the ```PERFORMANCE_AVERAGE_PROCESS_KIND```. In case the MIXEDOUT option is selected, the parameters for the Newton method used for the mixed out process can be specified via ```MIXEDOUT_COEFF```.
+Finally, the performance averaging method, i.e. AREA, MASSFLUX, MIXEDOUT, etc., must be specified via the ```PERFORMANCE_AVERAGE_PROCESS_KIND```. In case the MIXEDOUT option is selected, the parameters for the Newton method used for the mixed out process can be specified via ```MIXEDOUT_COEFF```.
 
 The following box summarizes the setup for the Turbo Performance and Analysis of the current case.
 
@@ -306,7 +306,7 @@ MARKER_TURBOMACHINERY= (INFLOW_STATOR1, OUTFLOW_STATOR1,
 
 MARKER_ANALYZE = (INFLOW_STATOR1, OUTFLOW_STATOR2)
 
-% (ALGEBRAIC, AREA, MASSSFLUX, MIXEDOUT) default AREA
+% (ALGEBRAIC, AREA, MASSFLUX, MIXEDOUT) default AREA
 PERFORMANCE_AVERAGE_PROCESS_KIND= MIXEDOUT
 
 %Parameters of the Newton method for the MIXEDOUT average algorithm (under relaxation factor, tolerance, max number of iterations) 
