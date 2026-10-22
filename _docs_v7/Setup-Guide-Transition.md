@@ -139,7 +139,7 @@ MUSCL_TURB= YES
 
 ### Base turbulence model: SST or SA
 
-Develop supports LM with both SST and SA (code, docs). The two couplings differ in how they get the turbulence intensity Tu. Tu drives the transition correlations, the empirical formulas that predict where transition starts:
+The develop branch of SU2 supports LM with both SST and SA (code, docs). The two couplings differ in how they get the turbulence intensity Tu. Tu drives the transition correlations, the empirical formulas that predict where transition starts:
 
 | | `KIND_TURB_MODEL= SST` | `KIND_TURB_MODEL= SA` |
 | --- | --- | --- |
@@ -150,7 +150,7 @@ Develop supports LM with both SST and SA (code, docs). The two couplings differ 
 What this means (advice, to be reviewed):
 
 - With SST, the intensity at the body depends on how much k decays on its way from the far field. You control it with `FREESTREAM_TURBULENCEINTENSITY` and `FREESTREAM_TURB2LAMVISCRATIO`.
-- With SA, there is no decay in the correlation. Set `FREESTREAM_TURBULENCEINTENSITY` to the intensity you expect at the leading edge.
+- With SA, LM uses the same intensity everywhere, so nothing decays. Set `FREESTREAM_TURBULENCEINTENSITY` to the intensity you expect at the leading edge.
 
 The original LM model was published with SST (advice).
 
@@ -223,7 +223,7 @@ General points for the mesh of an LM run (advice, to be reviewed):
 
 ### The algebraic BC model: a lighter option with SA
 
-Develop also has an algebraic transition model for SA, the Bas-Cakmakcioglu (BC) model: `KIND_TURB_MODEL= SA` with `SA_OPTIONS= BCM` (tutorial, code).
+The develop branch also has an algebraic transition model for SA, the Bas-Cakmakcioglu (BC) model: `KIND_TURB_MODEL= SA` with `SA_OPTIONS= BCM` (tutorial, code).
 
 - It adds no transport equation. It damps the SA production term until a local criterion is met (tutorial).
 - It also uses `FREESTREAM_TURBULENCEINTENSITY` as a fraction (code). The tutorial uses `0.0018` for 0.18 % (tutorial).

@@ -151,7 +151,7 @@ Data-driven options (code):
 - `INTERPOLATION_METHOD`: `LUT` (look-up table, default) or `MLP` (multi-layer perceptron, a neural network). The comment in the code says that the default is `MLP`, but the code sets `LUT`.
 - `FILENAMES_INTERPOLATOR`: the `.mlp` files of the networks, or one `.drg` table file for `LUT`. The file types are from `config_template.cfg`.
 - `USE_PINN= YES` uses a physics-informed network, default `NO`. The network gives the entropy as a function of density and internal energy. SU2 computes the other properties from its derivatives, which keeps them consistent (tutorial).
-- `DATADRIVEN_NEWTON_RELAXATION` (default 1.0) relaxes the Newton solver that finds the state from other pairs of properties.
+- `DATADRIVEN_NEWTON_RELAXATION` (default 1.0) relaxes a Newton solver. The model takes density and internal energy as inputs. When SU2 knows another pair of properties, for example pressure and temperature, this Newton solver finds the matching density and energy.
 - The [data-driven tutorial](/tutorials/NICFD_nozzle_datadriven/) shows how to make the network with SU2 DataMiner.
 
 ### Reference values
@@ -185,7 +185,7 @@ What the examples use:
 - Data-driven test: `CONSTANT_VISCOSITY` and `CONSTANT_PRANDTL` (test case).
 - CoolProp test `transportModel.cfg`: `COOLPROP` for both (test case).
 
-With `CONDUCTIVITY_MODEL= COOLPROP`, also set `TURBULENT_CONDUCTIVITY_MODEL= NONE`. With the default `CONSTANT_PRANDTL_TURB`, the code replaces the CoolProp conductivity with `THERMAL_CONDUCTIVITY_CONSTANT` (code, to be reviewed). The compressible solvers add the turbulent part of the heat flux from `PRANDTL_TURB` in any case (code).
+With `CONDUCTIVITY_MODEL= COOLPROP`, also set `TURBULENT_CONDUCTIVITY_MODEL= NONE`. With the default `CONSTANT_PRANDTL_TURB`, the code replaces the CoolProp conductivity with `THERMAL_CONDUCTIVITY_CONSTANT` (code, to be reviewed). `NONE` does not remove the turbulent heat flux: the compressible solvers add it from `PRANDTL_TURB` in any case (code).
 
 ### Boundary conditions
 

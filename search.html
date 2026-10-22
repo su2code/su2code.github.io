@@ -47,7 +47,7 @@ sitemap: false
       hits.push({ page: p, score: score });
     });
     hits.sort(function (a, b) { return b.score - a.score; });
-    count.textContent = hits.length + " pages found.";
+    count.textContent = hits.length + (hits.length === 1 ? " page found." : " pages found.");
     hits.slice(0, 50).forEach(function (h) {
       var li = document.createElement("li");
       li.innerHTML = '<a href="' + h.page.url + '"><b>' + escapeHtml(h.page.title) + "</b></a> (" +

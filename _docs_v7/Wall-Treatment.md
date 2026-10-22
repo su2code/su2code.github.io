@@ -75,7 +75,7 @@ Where y+ is below `WALLMODEL_MINYPLUS`, the flow solver uses the normal no-slip 
 
 The y+ in the output (`Y_PLUS`) is the y+ from the wall function on these markers.
 
-The page [Markers and BC](../Markers-and-BC/#wall-functions) gives the original description, and [Theory](../Theory/#wall-functions) gives the summary.
+The [Markers and BC](../Markers-and-BC/#wall-functions) and [Theory](../Theory/#wall-functions) pages also describe the wall function.
 
 ### LES wall models for the DG solver
 
@@ -133,7 +133,7 @@ All four use the roughness in wall units, k+ = u_τ k_s / ν, at the wall node. 
 
 ## What SU2 does differently from the literature
 
-All facts below are from the SU2 code. Files: `SU2_CFD/src/solvers/CNSSolver.cpp`, `CIncNSSolver.cpp`, `CTurbSASolver.cpp`, `CTurbSSTSolver.cpp`, `SU2_CFD/include/numerics/turbulent/turb_sources.hpp`.
+All facts below are from the SU2 code, in the files `SU2_CFD/src/solvers/CNSSolver.cpp`, `CIncNSSolver.cpp`, `CTurbSASolver.cpp`, `CTurbSSTSolver.cpp`, `SU2_CFD/include/numerics/turbulent/turb_sources.hpp`.
 
 **Wall functions**
 
@@ -142,7 +142,7 @@ All facts below are from the SU2 code. Files: `SU2_CFD/src/solvers/CNSSolver.cpp
 - **Incompressible solver.** The law has no compressibility or heat transfer terms. Wall functions on a CHT interface stop with an error in the incompressible solver.
 - **Below `WALLMODEL_MINYPLUS`** the flow solver falls back to the no-slip wall. The turbulence solver then sets no wall condition at all at that node: ν̃ (SA) or k and ω (SST) at the wall are left free. A wall-resolved RANS sets ν̃ = 0, or k = 0 and a large ω, at the wall (to be reviewed).
 - **Non-converged Newton method.** SU2 falls back to fixed values (y+ = 30, friction velocity 1, eddy viscosity 1) in the units of the run. Watch for the warning message.
-- **SST ω and k.** ω follows Nichols and Nelson (eqs. 19–21). k = ω μt / ρ uses the density at the wall. The code comment notes that the paper uses ρ, not ρ_wall.
+- **SST ω and k.** ω follows Nichols and Nelson (eqs. 19–21). k = ω μt / ρ uses the density at the wall. A code comment asks whether this is right, because the paper writes ρ, not ρ_wall.
 
 **SA roughness**
 
@@ -152,7 +152,7 @@ All facts below are from the SU2 code. Files: `SU2_CFD/src/solvers/CNSSolver.cpp
 **SST roughness**
 
 - k+ uses the wall shear stress from the previous force evaluation, so it lags by one iteration.
-- `LIMITER_KNOPP` limits ω at the wall to the smooth-wall value 60ν/(β1 d1²), where d1 is the distance to the nearest node. It uses `WALLMODEL_KAPPA` as the von Karman constant (to be reviewed).
+- `LIMITER_KNOPP` limits ω at the wall to the smooth-wall value 60ν/(β1 d1²), where d1 is the distance from the wall node to its nearest neighbor node. It uses `WALLMODEL_KAPPA` as the von Karman constant (to be reviewed).
 - Roughness changes only the wall values. The SST source terms are unchanged.
 
 ## Equations and references
@@ -211,10 +211,10 @@ Tutorials with wall functions:
 ## Known limits
 
 - **List all viscous walls.** The turbulence solvers check one global flag: "does any marker have a wall function?" If yes, they apply the wall-function condition on every heat flux and isothermal wall, also on walls not listed in `MARKER_WALL_FUNCTIONS`. The flow solver applies the law of the wall only on the listed markers. A mix of listed and unlisted walls is therefore inconsistent (code, `CTurbSASolver::BC_HeatFlux_Wall`, `CTurbSSTSolver::BC_HeatFlux_Wall`).
-- **Small y+.** Below `WALLMODEL_MINYPLUS`, the turbulence variables at the wall get no boundary condition (see above). A mesh with y+ much below 5 should be run without wall functions (to be reviewed).
+- **Small y+.** Below `WALLMODEL_MINYPLUS`, the turbulence variables at the wall get no boundary condition (see [What SU2 does differently](#what-su2-does-differently-from-the-literature)). A mesh with y+ much below 5 should be run without wall functions (to be reviewed).
 - **DG wall model types in RANS.** `EQUILIBRIUM_WALL_MODEL` passes the config check in a finite-volume RANS run, but the finite-volume flow solver ignores it. The turbulence solver still switches to its wall-function condition.
 - **Wall functions and roughness** cannot be combined.
-- **SA roughness and DES**: the roughness is only partly used.
+- **SA roughness and DES**: the SA source term ignores the roughness. Only the rough-wall condition and the eddy viscosity use it.
 - **Incompressible CHT interfaces** do not support wall functions.
 
 ## Links

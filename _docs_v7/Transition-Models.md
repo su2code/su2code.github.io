@@ -98,7 +98,7 @@ Original papers:
 ### LM with SST
 
 - **Base model.** The TMR LM model is built on SST-2003. In SU2 the SST model is always the "m" form (no turbulent kinetic energy in the stress tensor), and the default is `V2003m`. The T3A tutorial uses the default; the E387 tutorial with SST uses `V1994m`. See [Turbulence Models](../Turbulence-Models/#what-su2-does-differently-from-the-literature).
-- **Coupling to SST**, as in the TMR: SU2 multiplies the production of k by the effective intermittency gamma_eff, and the destruction of k by min(max(gamma_eff, 0.1), 1). gamma_eff is the larger of gamma and the separation-induced intermittency gamma_sep. The omega equation is unchanged. The blending function F1 is replaced by max(F1, F3), with F3 = exp(-(Ry/120)^8). <!-- turb_sources.hpp:1001-1005; SU2_CFD/src/variables/CTransLMVariable.cpp:48-53; SU2_CFD/src/variables/CTurbSSTVariable.cpp:86-91 -->
+- **Coupling to SST**, as in the TMR: SU2 multiplies the production of k by the effective intermittency gamma_eff, and the destruction of k by min(max(gamma_eff, 0.1), 1). gamma_eff is the larger of gamma and the separation-induced intermittency gamma_sep. The omega equation is unchanged. The blending function F1 is replaced by max(F1, F3), with F3 = exp(-(Ry/120)^8) and Ry = rho y sqrt(k) / mu, where y is the wall distance. <!-- turb_sources.hpp:1001-1005; SU2_CFD/src/variables/CTransLMVariable.cpp:48-53; SU2_CFD/src/variables/CTurbSSTVariable.cpp:86-91 -->
 - **Turbulence intensity.** SU2 computes the local intensity from k: Tu = 100 sqrt(2k/3) / U, in percent, and keeps it at 0.027 % or above. <!-- trans_sources.hpp:133; CTransLMSolver.cpp:236-238 -->
 
 ### LM with SA
@@ -106,8 +106,8 @@ Original papers:
 The LM model was published for SST. SU2 also couples it to SA, which has no k. This coupling differs from the SST one:
 
 - **Turbulence intensity.** Tu is `FREESTREAM_TURBULENCEINTENSITY` (times 100) everywhere in the domain. It does not decay.
-- **Onset and length functions.** SU2 uses the ratio mu_t/mu in place of rho k/(mu omega). The onset function is capped at 4 instead of 2, and its third part is max(2 - (R_t/2.5)^3, 0) instead of max(1 - (R_t/2.5)^3, 0). The length function has no sublayer blending, and the wake function is 1.
-- **Coupling to SA.** SU2 multiplies the SA production by gamma_eff, and the SA destruction by min(max(gamma, 0.5), 1), where gamma is the transported intermittency. The closest TMR model, [SA-noft2-Gamma-Retheta](https://tmbwg.github.io/turbmodels/sa_gamma_retheta_3eqn.html), puts no intermittency factor on the destruction term. The TMR says an older form of that factor, max(min(gamma, 0.5), 1), is always 1. A comment in the SU2 code raises the same question.
+- **Onset and length functions.** For the ratio R_t, SU2 uses mu_t/mu in place of rho k/(mu omega). The onset function is capped at 4 instead of 2, and its third part is max(2 - (R_t/2.5)^3, 0) instead of max(1 - (R_t/2.5)^3, 0). The length function has no sublayer blending, and the wake function is 1.
+- **Coupling to SA.** SU2 multiplies the SA production by gamma_eff, and the SA destruction by min(max(gamma, 0.5), 1), where gamma is the transported intermittency. The closest TMR model, [SA-noft2-Gamma-Retheta](https://tmbwg.github.io/turbmodels/sa_gamma_retheta_3eqn.html), puts no intermittency factor on the destruction term. The TMR says an older form of that factor, max(min(gamma, 0.5), 1), is always 1. A comment in the SU2 code makes the same point and asks whether the published form is wrong.
 - SU2 does not check which SA variant you use with LM.
 
 <!-- trans_sources.hpp:133-170, 196-201; CTransLMSolver.cpp:236-247; turb_sources.hpp:326-332 -->

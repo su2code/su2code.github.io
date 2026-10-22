@@ -60,7 +60,7 @@ Did you mean, FULLMG_CYCLE, V_CYCLE, W_CYCLE?
 
 **What you see:** `Line 102 CFL_NUMBER: option appears twice`
 
-- **Why:** the option is set on two lines. SU2 does not let the second line win.
+- **Why:** the option is set on two lines. SU2 does not pick one of them; it stops.
 - **What to do:** delete one of the two lines.
 
 **What you see:** `configfile: File does not exist: case.cfg`

@@ -32,7 +32,7 @@ Use this guide when the flow carries more than one chemical species, or a flame:
 - **Species transport**: mixing of gases, or a pollutant in air, without reactions. SU2 transports the mass fraction of each species: the mass of that species divided by the total mass.
 - **Flamelet model** (FGM, flamelet-generated manifold): laminar premixed, partially premixed and diffusion flames. SU2 transports a few controlling variables. It reads the gas properties and the reaction rates from a table computed beforehand.
 
-`KIND_SCALAR_MODEL` sets both. Both run on top of the flow solver, so read [Setup Guide: Incompressible Flows](../Setup-Guide-Incompressible/) first.
+`KIND_SCALAR_MODEL` selects one of the two. Both run on top of the flow solver, so read [Setup Guide: Incompressible Flows](../Setup-Guide-Incompressible/) first.
 For flames next to solid walls that conduct heat, also read [Setup Guide: Heat Transfer and Conjugate Heat Transfer](../Setup-Guide-Heat-Transfer-CHT/).
 
 Every option is listed in the [option reference](../Option-Reference/).
@@ -45,7 +45,7 @@ Every output field is listed in the [output fields reference](../Output-Fields-R
 This config mixes two gas streams in a 2D venturi, with the SST turbulence model.
 The mixture density depends on the composition (`FLUID_MIXTURE`).
 It is the test case [`species_transport/venturi_primitive_3species/species2_primitiveVenturi_mixingmodel.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/species_transport/venturi_primitive_3species/species2_primitiveVenturi_mixingmodel.cfg) with fewer options.
-Change to the test case: `CONV_FIELD` uses `RMS_SPECIES_0`. The test case writes `RMS_SPECIES`, which is not an output field, so SU2 ignores it.
+One change from the test case: here `CONV_FIELD` uses `RMS_SPECIES_0`. The test case lists `RMS_SPECIES`, which is not an output field, so SU2 ignores it.
 The mesh `primitiveVenturi.su2` is in the same folder of the [TestCases repository](https://github.com/su2code/TestCases).
 
 ```
@@ -122,7 +122,7 @@ HISTORY_OUTPUT= RMS_RES, FLOW_COEFF, LINSOL, SPECIES_COEFF, SPECIES_COEFF_SURF
 VOLUME_OUTPUT= RESIDUAL, PRIMITIVE
 ```
 
-With two species, SU2 solves one species equation. Species 0 has the first value of each property list. The last species fills the rest of the mass (code).
+With two species, SU2 solves one species equation. The first value of each property list belongs to species 0, the one SU2 solves for. The last species fills the rest of the mass (code).
 
 ### Flamelet: laminar premixed methane flame
 
@@ -239,7 +239,7 @@ SU2 checks that each mass fraction in `SPECIES_INIT` and `MARKER_INLET_SPECIES`,
 ### Passive scalar or active mixture
 
 - **Passive scalar** (the species does not change the flow, for example a dilute pollutant): use `INC_DENSITY_MODEL= CONSTANT`. The flow properties are those of a single fluid. Example: [`passive_transport.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/species_transport/passive_transport_validation/passive_transport.cfg) (test case).
-- **Active mixture** (density and properties depend on the composition): use `FLUID_MODEL= FLUID_MIXTURE`. It requires `INC_DENSITY_MODEL= VARIABLE` and `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. The density follows from the ideal gas law, with the mixture molecular weight at `THERMODYNAMIC_PRESSURE` (default 101325 Pa). For this model, `INIT_OPTION_INC` defaults to `OPERATING_PRESSURE`, so `INC_DENSITY_INIT` does not change the operating pressure (code).
+- **Active mixture** (density and properties depend on the composition): use `FLUID_MODEL= FLUID_MIXTURE`. It requires `INC_DENSITY_MODEL= VARIABLE` and `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. The density follows from the ideal gas law, using the mixture molecular weight and `THERMODYNAMIC_PRESSURE` (default 101325 Pa). For this model, `INIT_OPTION_INC` defaults to `OPERATING_PRESSURE`, so `INC_DENSITY_INIT` does not change the operating pressure (code).
 
 For a mixture ([composition-dependent tutorial](/tutorials/Inc_Species_Transport_Composition_Dependent_Model/)):
 
@@ -362,7 +362,7 @@ Use `FLOW_MARKERS` when you know the temperatures, which is the usual case. It a
 - **Field names.** SU2 ignores unknown names in `CONV_FIELD` and prints `Ignoring Convergence Field(s)` at the start. `RMS_SPECIES` without a number is not a field (code).
 - **Linear solver.** `LINSOL_ITER_SPECIES` and `LINSOL_RESIDUAL_SPECIES` (or `LINSOL_ITER_FLAMELET` and `LINSOL_RESIDUAL_FLAMELET`) show whether SU2 solves the species linear systems well (code).
 - **Mixing quality.** With `MARKER_ANALYZE`, `SURFACE_SPECIES_0` gives the average mass fraction on those markers, and `SURFACE_SPECIES_VARIANCE` measures how uneven the mixture is there. Add the groups `SPECIES_COEFF` and `SPECIES_COEFF_SURF` to `HISTORY_OUTPUT` (code, tutorial).
-- **Mass balance of a species.** At convergence, the species mass flow in through the inlets should equal the flow out through the outlet (advice, to be reviewed: there is no direct output field; a `CUSTOM_OUTPUTS` expression such as the one in [`passive_transport.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/species_transport/passive_transport_validation/passive_transport.cfg) can compute a mass-flow-averaged value).
+- **Mass balance of a species.** At convergence, the species mass flow in through the inlets should equal the flow out through the outlet (advice, to be reviewed). No output field gives this species mass flow directly. A `CUSTOM_OUTPUTS` expression, such as the one in [`passive_transport.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/species_transport/passive_transport_validation/passive_transport.cfg), can compute a mass-flow-averaged value (to be reviewed).
 - **Table misses (flamelet).** Add `LOOKUP` to `VOLUME_OUTPUT` and check the field `TABLE_MISSES`. Points with misses have controlling variables outside the table (code).
 - **Flame position (flamelet).** Look at the progress variable and the temperature in ParaView. The flame should not move between the last outputs of a steady run (advice, to be reviewed).
 

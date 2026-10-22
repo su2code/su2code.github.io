@@ -29,7 +29,7 @@ permalink: /docs_v7/Setup-Guide-Shape-Optimization/
 
 Use this guide to change the shape of a body or a duct so that an output of the flow improves: for example less drag at a fixed lift, or a lower pressure drop.
 
-SU2 computes the gradient of the output with respect to many shape parameters, at the cost of about one extra flow solution. It does this with the **adjoint method**: one extra solve gives the sensitivity of one output to all shape parameters.
+SU2 computes the gradient of the output with respect to the shape parameters with the **adjoint method**: one extra solve, at about the cost of one flow solution, gives the sensitivity of one output to all shape parameters.
 
 SU2 has two adjoint solvers:
 
@@ -161,7 +161,7 @@ For a RANS case, start from the [RAE 2822 tutorial](/tutorials/Turbulent_2D_Cons
 - `MATH_PROBLEM` takes `DIRECT`, `CONTINUOUS_ADJOINT` or `DISCRETE_ADJOINT` (code).
 - With the Python scripts, keep `MATH_PROBLEM= DIRECT` in your file. The scripts set the adjoint value themselves, from the gradient method you choose on the command line (code).
 - To run by hand: run `SU2_CFD` for the flow, and copy the restart file to the name in `SOLUTION_FILENAME`. Then run `SU2_CFD_AD` with `MATH_PROBLEM= DISCRETE_ADJOINT`. Then run `SU2_DOT_AD`, which turns the surface sensitivities into the gradient for the design variables (tutorial, to be reviewed: check the file names against the scripts).
-- The discrete adjoint uses the numerical settings of the flow solver. It ignores the continuous adjoint options, such as `CONV_NUM_METHOD_ADJFLOW`, `ADJ_JST_SENSOR_COEFF`, `CFL_REDUCTION_ADJFLOW` and `LIMIT_ADJFLOW` (tutorial). The tutorial text calls the switch that changes this `INCONSISTENT_AD`; the option in the code is `INCONSISTENT_DISC` (default `NO`) (code).
+- The discrete adjoint uses the numerical settings of the flow solver. It ignores the continuous adjoint options, such as `CONV_NUM_METHOD_ADJFLOW`, `ADJ_JST_SENSOR_COEFF`, `CFL_REDUCTION_ADJFLOW` and `LIMIT_ADJFLOW` (tutorial). `INCONSISTENT_DISC= YES` (default `NO`) makes the discrete adjoint use the adjoint scheme options `CONV_NUM_METHOD_ADJFLOW` and `ADJ_JST_SENSOR_COEFF` instead (code). The tutorial text calls this switch `INCONSISTENT_AD`.
 - `FROZEN_VISC_DISC` (default `NO`) freezes the turbulence model in the adjoint. `FROZEN_LIMITER_DISC` (default `NO`) freezes the slope limiter (code). Both make the adjoint cheaper or more robust, but the gradient then no longer matches finite differences exactly (advice, to be reviewed).
 - `QUASI_NEWTON_NUM_SAMPLES` above 1 adds a quasi-Newton correction to the adjoint iterations. The default is 0 (off) (code). It can speed up the adjoint convergence (to be reviewed).
 
@@ -261,7 +261,7 @@ Optimizer settings (tutorial):
 
 - `OPT_ITERATIONS`, `OPT_ACCURACY`: the maximum number of iterations and the requested accuracy.
 - `OPT_BOUND_UPPER`, `OPT_BOUND_LOWER`: the bounds of each design variable. The script divides them by `OPT_RELAX_FACTOR` before it passes them to the optimizer (code).
-- `OPT_GRADIENT_FACTOR`: scales objective and gradient. The tutorials aim at a gradient norm (column GNORM) near 1E-6 for SLSQP.
+- `OPT_GRADIENT_FACTOR`: scales objective and gradient. The tutorials aim at a gradient norm near 1E-6 for SLSQP (the GNORM column of the optimizer output).
 - `OPT_RELAX_FACTOR`: scales the first step. Check the size of the first deformation in `DESIGNS/DSN_002/DEFORM/log_Deform.out` (the `Max Diff` line in the ONERA M6 tutorial).
 - `OPT_LINE_SEARCH_BOUND` (default 1E6) bounds the line search in SU2_DEF (code).
 
@@ -291,7 +291,7 @@ With a direct-diff build, `discrete_adjoint.py -v True` compares the adjoint gra
 |---|---|---|
 | SU2 stops: "MATH_PROBLEM= DISCRETE_ADJOINT requires AD support". | The adjoint config was given to `SU2_CFD` (code). | Use `SU2_CFD_AD`, or let the Python scripts call it. Build with `-Denable-autodiff=true`. |
 | The gradient differs from finite differences. | The flow or the adjoint is not converged; the finite difference step is too large or too small; the turbulence or the limiter is frozen (advice). | Converge both deeper. Try several `FIN_DIFF_STEP` values. Set `FROZEN_VISC_DISC= NO` and `FROZEN_LIMITER_DISC= NO`. |
-| The adjoint diverges or stalls. | The flow solution oscillates (limiter, shock, separation), so the adjoint of the last iteration has no fixed point (advice, to be reviewed). | Converge the flow deeper. Freeze the limiter in the flow with `LIMITER_ITER`. Try `FROZEN_LIMITER_DISC= YES` or `QUASI_NEWTON_NUM_SAMPLES` (to be reviewed). |
+| The adjoint diverges or stalls. | The flow solution oscillates (limiter, shock, separation), so the adjoint iterations have no steady solution to converge to (advice, to be reviewed). | Converge the flow deeper. Freeze the limiter in the flow with `LIMITER_ITER`. Try `FROZEN_LIMITER_DISC= YES` or `QUASI_NEWTON_NUM_SAMPLES` (to be reviewed). |
 | The flow does not converge on a new design. | The step was too large, or the shape became unphysical (advice). | Lower `OPT_RELAX_FACTOR` or the bounds. Restart the optimization from its project file with `-r` (to be reviewed). |
 | SU2_DEF reports: "There are N elements with negative volume". | The deformation is too large for the mesh (code). | Lower the step (`OPT_RELAX_FACTOR`, bounds). Raise `DEFORM_NONLINEAR_ITER`. Try another `DEFORM_STIFFNESS_TYPE` or `DEFORM_KIND= RBF`. Set `FFD_INTPREV= YES` (to be reviewed). |
 | The mesh is torn at an outlet or a side boundary. | That boundary is fixed while its neighbour moves (tutorial). | Declare flat boundaries next to the moving surface as `MARKER_SYM`. |

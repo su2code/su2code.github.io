@@ -38,7 +38,7 @@ Terms used below:
 
 ## Start from
 
-The block below comes from the regression test [turbomachinery/axial_stage_2D](https://github.com/su2code/SU2/blob/develop/TestCases/turbomachinery/axial_stage_2D/Axial_stage2D.cfg). It is a 2D axial stage (a stator and a moving row) with a mixing plane, Giles boundaries and the SST model. We removed the comments, the options that the test sets to their default value, and most output settings. We also removed the options that have no effect in this setup, for example limiter settings of schemes that do not use a limiter. The mesh file `mesh_axial_stage_2d_turb.su2` is in the [TestCases repository](https://github.com/su2code/TestCases).
+The block below comes from the regression test [turbomachinery/axial_stage_2D](https://github.com/su2code/SU2/blob/develop/TestCases/turbomachinery/axial_stage_2D/Axial_stage2D.cfg). It is a 2D axial stage (a stator and a moving row) with a mixing plane, Giles boundaries and the SST model. We removed the comments, most output settings, and the options that are at their default value or have no effect in this setup. The mesh file `mesh_axial_stage_2d_turb.su2` is in the [TestCases repository](https://github.com/su2code/TestCases).
 
 Main file, `Axial_stage2D.cfg`:
 
@@ -146,13 +146,13 @@ For a 3D machine, start from the [Aachen turbine tutorial](/tutorials/Aachen_Tur
 Choose the motion of each zone with `GRID_MOVEMENT` in its sub-config file (code):
 
 - `ROTATING_FRAME`: the mesh does not move. SU2 solves the flow in a frame that turns with the rotor. Use it for steady simulations of rotors (tutorial). Set `ROTATION_RATE` (rad/s, vector), `MOTION_ORIGIN` and `MACH_MOTION`.
-- `STEADY_TRANSLATION`: the 2D version of the above, for a row that moves along a straight line. Set `TRANSLATION_RATE` (m/s) (test case).
+- `STEADY_TRANSLATION`: the 2D version of `ROTATING_FRAME`, for a row that moves along a straight line. Set `TRANSLATION_RATE` (m/s) (test case).
 - `RIGID_MOTION`: the mesh really moves. This needs a time-accurate simulation (`TIME_DOMAIN= YES`) and sliding interfaces between zones (`MARKER_FLUID_INTERFACE`). See the [sliding_interface](https://github.com/su2code/SU2/tree/develop/TestCases/sliding_interface) test cases (test case). This guide does not cover unsteady rotor-stator runs.
 - `NONE`: no motion, for stators.
 
 `MACH_MOTION` is a Mach number based on the speed of the moving mesh. The [multizone page](../Multizone/) says that SU2 uses it to initialize a viscous flow from the Reynolds number, and to compute force coefficients on moving meshes (docs). The test cases use 0.35 (test case).
 
-The Aachen and APU turbocharger test cases set `GRID_MOVEMENT= ROTATING_FRAME` without a rotation rate in the stator zones. The 2D axial stage uses `NONE`. Both run (test case).
+For the stator zones, the Aachen and APU turbocharger test cases set `GRID_MOVEMENT= ROTATING_FRAME` with no rotation rate, and the 2D axial stage uses `NONE`. Both work (test case).
 
 Use `MARKER_SHROUD` to list the shroud walls. In a rotating zone, SU2 sets the grid velocity to zero on these markers, so that the shroud does not turn with the rotor (code, tutorial).
 
@@ -163,7 +163,7 @@ Every interface between two zones needs two lists. Give the markers in pairs (up
 - `MARKER_ZONE_INTERFACE` tells SU2 that the two markers are connected.
 - One of these two options sets the kind of interface (code):
   - `MARKER_MIXINGPLANE_INTERFACE`: mixing plane. SU2 passes averaged values for each span-wise section from one row to the next.
-  - `MARKER_FLUID_INTERFACE`: frozen rotor. SU2 interpolates the local values, with no averaging (to be reviewed). The test case [multi_interface](https://github.com/su2code/SU2/blob/develop/TestCases/turbomachinery/multi_interface/multi_interface_rst.cfg) uses one interface of each kind (test case).
+  - `MARKER_FLUID_INTERFACE`: frozen rotor, where the rows keep a fixed position relative to each other. SU2 interpolates the local values, with no averaging (to be reviewed). The test case [multi_interface](https://github.com/su2code/SU2/blob/develop/TestCases/turbomachinery/multi_interface/multi_interface_rst.cfg) uses one interface of each kind (test case).
 
 Mixing-plane options:
 
@@ -200,15 +200,15 @@ Kinds of Giles boundary (code):
 | `STATIC_PRESSURE_1D` | outlet | static pressure, imposed on the average of the whole boundary |
 | `RADIAL_EQUILIBRIUM` | outlet (3D) | static pressure at mid-span; SU2 builds the span-wise pressure profile from the radial equilibrium of the averaged flow |
 | `MASS_FLOW_OUTLET` | outlet | target mass flow (value 1) and a relaxation factor (value 2) |
-| `MIXING_IN`, `MIXING_OUT` | mixing plane | none (write zeros), averages for each span-wise section |
-| `MIXING_IN_1D`, `MIXING_OUT_1D` | mixing plane | none, average of the whole boundary |
+| `MIXING_IN`, `MIXING_OUT` | mixing plane, averages for each span-wise section | none (write zeros) |
+| `MIXING_IN_1D`, `MIXING_OUT_1D` | mixing plane, average of the whole boundary | none (write zeros) |
 
 The `_1D` kinds impose only the average over the whole boundary, so the span-wise profile is free to develop. The tutorial uses `STATIC_PRESSURE_1D` on an outlet "where the flow is in radial equilibrium" (tutorial).
 
 **`MARKER_RIEMANN`** is a characteristic condition with 7 values per marker: (marker, kind, value 1, value 2, direction 1, direction 2, direction 3). It accepts these kinds (code):
 
 - Without turbomachinery markers: `TOTAL_CONDITIONS_PT`, `STATIC_PRESSURE`, `DENSITY_VELOCITY`, `STATIC_SUPERSONIC_INFLOW_PT` and `STATIC_SUPERSONIC_INFLOW_PD`.
-- With turbomachinery markers, SU2 uses an averaged version on the finest mesh. It accepts `TOTAL_CONDITIONS_PT`, `STATIC_PRESSURE`, `RADIAL_EQUILIBRIUM`, `MIXING_IN` and `MIXING_OUT`.
+- With turbomachinery markers, SU2 uses an averaged version of the condition on the finest mesh. It accepts `TOTAL_CONDITIONS_PT`, `STATIC_PRESSURE`, `RADIAL_EQUILIBRIUM`, `MIXING_IN` and `MIXING_OUT`.
 - Any other kind stops the run with "Invalid Riemann input!".
 
 Which one to choose: the turbomachinery test cases and the Aachen tutorial use `MARKER_GILES` (test case, tutorial). Giles boundaries can sit closer to the blades than reflecting ones (advice, to be reviewed).
@@ -285,7 +285,7 @@ See [Solver Setup](../Solver-Setup/) for the convergence options.
 |---|---|---|
 | SU2 stops: "Giles Boundary conditions can only be used with turbomachinery markers". | `MARKER_TURBOMACHINERY` is missing (code). | Add the inlet and outlet markers of every zone. |
 | SU2 stops: "Insufficient TURBO_PERF_KIND options specified with turbomachinery markers". | There are fewer `TURBO_PERF_KIND` entries than zones (code). | Give one entry per zone. Do the same for `TURBOMACHINERY_KIND`. |
-| SU2 stops: "Outlet pressure ramp only implemented for NRBC". | `RAMP_OUTLET= YES` with a `MARKER_RIEMANN` static-pressure outlet (code). | Use a Giles outlet, or switch the ramp off. |
+| SU2 stops: "Outlet pressure ramp only implemented for NRBC". | `RAMP_OUTLET= YES` with a `MARKER_RIEMANN` static-pressure outlet (code). | Use a Giles outlet (NRBC means non-reflecting boundary condition), or switch the ramp off. |
 | SU2 stops: "Invalid Riemann input!" | A Riemann kind that this boundary does not support (code). | Check the lists in [Inlet and outlet boundaries](#inlet-and-outlet-boundaries-giles-or-riemann). |
 | The run diverges in the first iterations. | A large pressure ratio or a high rotation speed at start-up (tutorial). | Use `RAMP_OUTLET` and `RAMP_MOTION_FRAME`, lower `CFL_NUMBER`, start first order and use `RAMP_MUSCL` (advice, to be reviewed). |
 | The flow near hub or shroud is unstable in 3D with Giles. | Strong span-wise gradients at the endwalls (advice, to be reviewed). | Lower `GILES_EXTRA_RELAXFACTOR` and the average relaxation factor of the Giles markers, as in the Aachen case (0.05 and 0.3) (test case). |

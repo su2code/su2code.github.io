@@ -130,7 +130,7 @@ Set `SOLVER= RANS` and pick the model with `KIND_TURB_MODEL`. With `SOLVER= RANS
 
 **Menter SST (`SST`).** SST solves two transport equations: one for the turbulent kinetic energy k, one for the specific dissipation rate omega.
 
-- With an empty `SST_OPTIONS`, SU2 runs the 2003 version, "SST-2003m". This is set in `ParseSSTOptions` in `option_structure.hpp` (code). Some older pages say that the default is `V1994m`; the code uses `V2003m`.
+- With an empty `SST_OPTIONS`, SU2 runs the 2003 version, "SST-2003m", as set in `ParseSSTOptions` in `option_structure.hpp` (code). Some older pages give `V1994m` as the default; this is out of date.
 - The other `SST_OPTIONS` values are `V1994m`, `V2003m`, `SUSTAINING`, `VORTICITY`, `KATO-LAUNDER`, `UQ`, `COMPRESSIBILITY-WILCOX`, `COMPRESSIBILITY-SARKAR` and `DIMENSIONLESS_LIMIT`. Write `KATO-LAUNDER` with a dash (code).
 - SST needs free-stream values for k and omega. They come from `FREESTREAM_TURBULENCEINTENSITY` (a fraction: `0.001` means 0.1 %) and `FREESTREAM_TURB2LAMVISCRATIO` (eddy viscosity over laminar viscosity). The defaults are `0.05` and `10.0` (code). These defaults suit internal flows and may be too high for external aerodynamics (docs).
 - External aerodynamics tests use, for example, `FREESTREAM_TURBULENCEINTENSITY= 0.001` with `FREESTREAM_TURB2LAMVISCRATIO= 100.0` (RAE2822 SST), or `0.001` with `0.1` (NACA0012 SST with `SUSTAINING`) (test case).
@@ -161,7 +161,7 @@ The convective scheme computes the flux of mass, momentum and energy through eac
 - `ENTROPY_FIX_COEFF` sets a lower bound on the Roe dissipation. The default is `0.001` (code). The 30P30N validation case uses `1e-5` (test case).
 - The tests `rans/oneram6/turb_ONERAM6.cfg` and `rans/naca0012/turb_NACA0012_sst.cfg` use `ROE` (test case).
 
-**Turbulence equations.** Use `CONV_NUM_METHOD_TURB= SCALAR_UPWIND`. All external aerodynamics tests use it (test case). The code also accepts `BOUNDED_SCALAR`, and the RAE2822 tests use it (code, test case). `MUSCL_TURB` defaults to `NO`, so the turbulence convection is first order unless you change it (code). Most tests keep `MUSCL_TURB= NO` (test case).
+**Turbulence equations.** Use `CONV_NUM_METHOD_TURB= SCALAR_UPWIND`, as most external aerodynamics tests do (test case). The code also accepts `BOUNDED_SCALAR`; the tests `turb_SA_RAE2822.cfg` and `turb_SST_RAE2822.cfg` use it (code, test case). `MUSCL_TURB` defaults to `NO`, so the turbulence convection is first order unless you change it (code). Most tests keep `MUSCL_TURB= NO` (test case).
 
 See [Convective Schemes](../Convective-Schemes/).
 
@@ -214,7 +214,7 @@ The [Linear Solvers and Preconditioners](../Linear-Solvers-and-Preconditioners/)
 - Use `ILU` at high CFL. `LU_SGS` can be faster at low CFL because it has no setup cost.
 - If memory is a problem, use `RESTARTED_FGMRES` or `BCGSTAB`.
 
-Two more points (test case):
+From the test cases (test case):
 
 - Add `LINSOL_ITER` and `LINSOL_RESIDUAL` to `SCREEN_OUTPUT` to see how well the linear solver converges.
 - A Newton-Krylov method is also available with `NEWTON_KRYLOV= YES`. The 30P30N validation case shows its parameters.

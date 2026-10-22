@@ -136,13 +136,13 @@ These conditions need the energy equation in the fluid: `INC_ENERGY_EQUATION= YE
 - `MARKER_HEATFLUX= ( marker, q [W/m²] )`: fixed heat flux. Zero gives an adiabatic wall. With `INTEGRATED_HEATFLUX= YES`, the value is a total heat rate in W, spread over the marker area ([Markers and BC](../Markers-and-BC/#constant-heatflux-no-slip-wall)). In SU2 a positive value adds heat to the domain (to be reviewed).
 - `MARKER_HEATTRANSFER= ( marker, h [W/(m² K)], T_inf [K] )`: the wall heat flux is h·(T_inf − T_wall). Use it to model a wall that you do not mesh, such as a thin wall to an outside fluid. h = 0 gives an adiabatic wall; a very large h gives a wall at T_inf ([Markers and BC](../Markers-and-BC/#heat-transfer-or-convection-no-slip-wall)).
 
-`MARKER_HEATTRANSFER` is implemented for the flow solvers only. The heat equation solver for solids does not implement it (code).
+Only the flow solvers implement `MARKER_HEATTRANSFER`. The heat equation solver for solids does not (code).
 
 ### Temperature without coupling to the flow
 
 If the temperature does not change the flow (constant density and constant properties), you have two options:
 
-- `INC_DENSITY_MODEL= CONSTANT` with `INC_ENERGY_EQUATION= YES`: the flow solver also solves for temperature, one way ([laminar flat plate tutorial](/tutorials/Inc_Laminar_Flat_Plate/)).
+- `INC_DENSITY_MODEL= CONSTANT` with `INC_ENERGY_EQUATION= YES`: the flow solver also solves for temperature ([laminar flat plate tutorial](/tutorials/Inc_Laminar_Flat_Plate/)).
 - `WEAKLY_COUPLED_HEAT_EQUATION= YES` with `INC_ENERGY_EQUATION= NO`: SU2 solves the temperature with the separate heat solver, using the flow velocity (code). Its numerics use `CONV_NUM_METHOD_HEAT`, `MUSCL_HEAT`, `TIME_DISCRE_HEAT` and `TIMESTEP_HEAT`. Example: [`disc_adj_heat/primal.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/disc_adj_heat/primal.cfg).
 
 For incompressible CHT, SU2 stops unless the fluid zone has `INC_ENERGY_EQUATION= YES` (code). So in CHT, use the energy equation, not the weakly coupled heat equation.
@@ -174,7 +174,7 @@ The mesh:
 - One file for all zones: `MULTIZONE_MESH= YES` (default). This works with the SU2 mesh format, with `NZONE=` and `IZONE=` in the mesh file ([Multizone](../Multizone/#providing-mesh-information-for-a-multi-zone-problem)).
 - One file per zone: `MULTIZONE_MESH= NO`, and `MESH_FILENAME` in each zone file. The [contact resistance tutorial](/tutorials/SS_CR_CHT/) uses three mesh files.
 
-Run each zone alone first, with a fixed temperature or heat flux at the interface, to find numerical settings that work (advice). [Multizone](../Multizone/#how-to-set-up-a-multi-physics-problem) gives the same advice.
+Run each zone alone first, with a fixed temperature or heat flux at the interface, to find numerical settings that work (advice). The [Multizone](../Multizone/#how-to-set-up-a-multi-physics-problem) page gives the same advice.
 
 ### Interface markers
 
@@ -228,11 +228,11 @@ SU2 solves the zones one after the other and exchanges interface data between th
 
 - `OUTER_ITER` (main file): the number of outer iterations of a steady case, or per time step of an unsteady case.
 - `INNER_ITER` (default 1): the iterations of each zone inside one outer iteration (code, tutorial). You can set it per zone file.
-- `MULTIZONE_SOLVER`: `BLOCK_GAUSS_SEIDEL` (default) or `BLOCK_JACOBI` (code). In general terms, Gauss-Seidel uses the newest data of the zones already solved, and Jacobi uses the data of the previous outer iteration (advice).
+- `MULTIZONE_SOLVER`: `BLOCK_GAUSS_SEIDEL` (default) or `BLOCK_JACOBI` (code). Gauss-Seidel uses the newest data of the zones already solved, and Jacobi uses the data of the previous outer iteration (advice).
 - `RELAXATION_FACTOR_CHT` (default 1.0, no relaxation): the new interface value is factor × new + (1 − factor) × old (code).
 - `ITER` is not allowed in multizone cases: SU2 stops. Use `OUTER_ITER` and `INNER_ITER` (code).
 
-The solid often converges more slowly than the fluid, because heat conduction has no convection to carry information. A large `CFL_NUMBER` in the solid zone helps; the solid test case uses 1e8 when run alone (advice, to be reviewed).
+The solid often converges more slowly than the fluid, because heat conduction has no convection to carry information. A large `CFL_NUMBER` in the solid zone helps; the solid-only test case `solid_heat_conduction/periodic_pins` uses 1e8 (advice, to be reviewed).
 
 ### Unsteady CHT
 
@@ -255,7 +255,7 @@ These values are from the test case [`coupled_cht/incomp_2d_unsteady`](https://g
 
 ## Check convergence and results
 
-- **Coupling residuals.** In a multizone case, SU2 prints for each zone the change between outer iterations: the block Gauss-Seidel (BGS) residuals. Fields such as `BGS_PRESSURE[0]` and `BGS_TEMPERATURE[1]` are per zone; the number in brackets is the zone. Add the group `BGS_RES[i]` to `HISTORY_OUTPUT` for zone i.
+- **Coupling residuals.** In a multizone case, SU2 prints for each zone how much the solution changed since the last outer iteration. These are the block Gauss-Seidel (BGS) residuals. Fields such as `BGS_PRESSURE[0]` and `BGS_TEMPERATURE[1]` are per zone; the number in brackets is the zone. Add the group `BGS_RES[i]` to `HISTORY_OUTPUT` for zone i.
 - **Default stop rule.** Without `CONV_FIELD`, a multizone case monitors `AVG_BGS_RES[0]`, the averaged BGS residual of zone 0 (code). Set `CONV_FIELD` and `CONV_RESIDUAL_MINVAL` in the main file to monitor what you need, for example the solid temperature. The pin array test case sets `CONV_RESIDUAL_MINVAL` in its main file (test case).
 - **Field names.** SU2 ignores unknown names in `CONV_FIELD` and prints `Ignoring Convergence Field(s)` at the start (code).
 - **Heat balance.** Monitor `TOTAL_HEATFLUX` and `AVG_TEMPERATURE` (group `HEAT`) on the interface markers, through `MARKER_MONITORING` in each zone. At convergence, the heat that leaves the solid through the interface should equal the heat that enters the fluid (advice, to be reviewed: check the sign convention of each zone).

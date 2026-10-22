@@ -102,7 +102,7 @@ Select it with `KIND_TURB_MODEL= SST`. The model solves two equations: the turbu
 
 ### SST_OPTIONS keywords
 
-The keywords fall into four groups.
+The keywords fall into four groups. SU2 has only the "m" forms of SST ([see below](#sst)).
 
 **Version** (at most one):
 
@@ -158,7 +158,7 @@ Original papers:
 
 ## What SU2 does differently from the literature
 
-The TMR pages define each variant precisely. This section lists where SU2 departs from them, or where the SU2 defaults differ from what the TMR calls "standard".
+This section lists where SU2 departs from the TMR definitions, or where the SU2 defaults differ from what the TMR calls "standard".
 
 ### SA
 
@@ -173,7 +173,7 @@ The TMR pages define each variant precisely. This section lists where SU2 depart
 
 - **SST is always the "m" form.** SU2 does not include the turbulent kinetic energy in the viscous stress tensor of the mean flow equations. The production of k is mu_t S^2 (or the vorticity or Kato-Launder form). The unmodified keywords `V1994` and `V2003` are not available. <!-- flow_diffusion.cpp:141; turb_sources.hpp:964; option_structure.hpp:1121-1123 -->
 - **Exception: `UQ`.** With `UQ`, SU2 uses the perturbed Reynolds stress tensor, which includes k, both in the mean flow equations and in the production of k. <!-- flow_diffusion.cpp:132-138; turb_sources.hpp:927-931 -->
-- **`V1994m` is consistent with the TMR.** Older versions of this page warned about an inconsistency ([issue #1551](https://github.com/su2code/SU2/issues/1551)): SU2 dropped k from the stress tensor but kept a divergence term in the production. [Pull request #2062](https://github.com/su2code/SU2/pull/2062) removed that term and made `V2003m` the default. It was merged in July 2023 for SU2 v8, and the issue is closed. <!-- option_structure.hpp:1168-1174 -->
+- **`V1994m` is consistent with the TMR since SU2 v8.** Before, SU2 dropped k from the stress tensor but kept a divergence term in the production ([issue #1551](https://github.com/su2code/SU2/issues/1551), now closed). [Pull request #2062](https://github.com/su2code/SU2/pull/2062), merged in July 2023, removed that term and made `V2003m` the default. <!-- option_structure.hpp:1168-1174 -->
 - **1994 versus 2003.** As in the TMR: 1994 uses the vorticity in the eddy viscosity limiter, a production limiter of 20 and the unlimited production in the omega equation; 2003 uses the strain rate, a limiter of 10 and the limited production in the omega equation. The 2003 version also uses its own values of the constants gamma_1 = 5/9 and gamma_2 = 0.44. <!-- CTurbSSTSolver.cpp:92-109, 254-255; turb_sources.hpp:961-976 -->
 - **Sustaining terms.** The TMR adds the sustaining terms to the sources. SU2 instead takes the larger of the production and the sustaining term, for k and for omega. Where production is larger, the model is unchanged. The ambient values are the free-stream k and omega that SU2 computes from `FREESTREAM_TURBULENCEINTENSITY` and `FREESTREAM_TURB2LAMVISCRATIO` (see below). The TMR recommends specific ambient values; SU2 does not set them for you. <!-- turb_sources.hpp:978-989 -->
 - **Compressibility corrections replace the production keyword.** In the code, `COMPRESSIBILITY-WILCOX` and `COMPRESSIBILITY-SARKAR` overwrite the production setting. If you combine them with `VORTICITY`, `KATO-LAUNDER` or `UQ`, SU2 gives no error, but the production uses the strain rate. The start-up message shows only the compressibility correction. With `UQ`, the mean flow stress tensor is still perturbed. Do not combine the two groups. <!-- option_structure.hpp:1193-1210; turb_sources.hpp:926-959; flow_diffusion.cpp:132 -->

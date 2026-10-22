@@ -5,7 +5,7 @@ permalink: /docs_v7/Hybrid-RANS-LES/
 
 Hybrid RANS/LES methods run a RANS model in attached boundary layers and a large-eddy simulation (LES) away from the walls. In LES, the mesh and the time step resolve the large turbulent eddies, and the model only handles the small ones. Detached eddy simulation (DES) and its variants are the hybrid methods in SU2. Use them for massively separated, unsteady flows where URANS is not accurate enough and a full LES is too expensive.
 
-This page explains the options and what the SU2 code does. For a step-by-step case setup, see [Setup Guide: Unsteady Flows and DES](../Setup-Guide-Unsteady-DES/). For the SA model itself, see [Turbulence Models](../Turbulence-Models/).
+For a step-by-step case setup, see [Setup Guide: Unsteady Flows and DES](../Setup-Guide-Unsteady-DES/). For the SA model itself, see [Turbulence Models](../Turbulence-Models/).
 
 ---
 
@@ -215,7 +215,7 @@ Background: [An Overview of DDES in SU2: Implementation and Recent Results](/doc
 - **No check for steady runs.** SU2 does not stop if `HYBRID_RANSLES` is set with `TIME_DOMAIN= NO`. A steady DES has no physical meaning.
 - **`ROE_LOW_DISSIPATION` is ignored** with schemes other than `ROE`, `SLAU` and `SLAU2`, and in the incompressible solver, without a warning.
 - **Backscatter is 3D only** and needs the SA model.
-- **Wall roughness is only partly used with DES** (see above).
+- **Wall roughness is only partly used with DES** (see [Roughness](#what-su2-does-differently-from-the-literature)).
 - **Time averages restart from zero** after a restart.
 
 ## Links

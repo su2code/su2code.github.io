@@ -55,7 +55,7 @@ Removed option values (v8.0.0):
 - `DV_KIND= FFD_TWIST_2D`. It was never implemented.
 - `OBJECTIVE_FUNCTION= FLOW_ANGLE_OUT` and `MASS_FLOW_IN` (turbomachinery).
 
-Changed in v7.4.0 and not covered by the v7 guide. Older v7 configs may still use these:
+These turbulence settings changed in v7.4.0. The v7 guide does not cover them, and older v7 configs may still use them:
 
 | Old setting | New setting |
 | --- | --- |
@@ -83,7 +83,7 @@ Notes:
 - **SST.** To keep the old model, set `SST_OPTIONS= V1994m`. In v8.0.0 the 1994m model itself also changed to match the literature, so old SST-1994m results are not reproduced exactly.
 - **Restart files.** With compact restarts, extra fields such as pressure or skin friction are no longer in the restart file. They are still in the visualization files. Set `WRT_RESTART_COMPACT= NO` if your scripts read these fields from the restart file. See [Restart File](../Restart-File/).
 - **File names.** Give file names without an extension. If you give the expected extension, SU2 removes it. A different extension stays part of the name.
-- **Multigrid.** To get fixed smoothing and fixed damping again, set `MG_SMOOTH_EARLY_EXIT= NO`. The old damping default was 0.75.
+- **Multigrid.** `MG_SMOOTH_EARLY_EXIT= NO` gives fixed smoothing and fixed damping again. To also get the old damping values, set `MG_DAMP_RESTRICTION` and `MG_DAMP_PROLONGATION` to 0.75.
 
 ### Changes that affect results
 

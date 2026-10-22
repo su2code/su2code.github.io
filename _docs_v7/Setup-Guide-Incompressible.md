@@ -28,7 +28,7 @@ permalink: /docs_v7/Setup-Guide-Incompressible/
 ## When to use this guide
 
 Use this guide for a flow where the density does not depend on the pressure.
-This covers liquids and low-speed gas flows. It also covers low-speed gas flows with heat transfer, where the density changes only with temperature.
+This covers liquids and low-speed gas flows, also with heat transfer, where the density changes only with temperature.
 As a rule of thumb, the Mach number is below about 0.3 (advice).
 
 This guide covers the solvers `INC_EULER`, `INC_NAVIER_STOKES` and `INC_RANS`.
@@ -272,8 +272,8 @@ Use streamwise periodic flow for one module of a repeating geometry, such as a c
 | `FLUID_MODEL` seems to have no effect. | `INC_DENSITY_MODEL` is `CONSTANT` or `BOUSSINESQ`, so SU2 uses `CONSTANT_DENSITY` (code). | Use `INC_DENSITY_MODEL= VARIABLE`. |
 | Non-physical values or a division by zero at the start of a closed-cavity case. | `INC_VELOCITY_INIT` is zero with `INC_NONDIM= INITIAL_VALUES` (code). | Set a small non-zero initial velocity, or use `INC_NONDIM= DIMENSIONAL`. |
 | The temperature hits a limit; SU2 reports non-physical points. | The temperature left `TEMPERATURE_LIMITS` (default 0 K to 5000 K), so SU2 rejects the update in those points (code). | Lower the CFL number and check the thermal boundary values. Widen `TEMPERATURE_LIMITS` only if the range is physical. |
-| The residuals stall or oscillate. | The CFL number is too high, or the flow is in reality unsteady (advice). | Lower `CFL_NUMBER` or use `CFL_ADAPT`. If the flow sheds vortices, run it unsteady (to be reviewed). |
-| A pressure inlet case converges slowly. | The damped velocity update at the inlet (code). | Try a larger `INC_INLET_DAMPING` (to be reviewed). |
+| The residuals stall or oscillate. | The CFL number is too high, or the flow is really unsteady (advice). | Lower `CFL_NUMBER` or use `CFL_ADAPT`. If the flow sheds vortices, run it unsteady (to be reviewed). |
+| A pressure inlet case converges slowly. | `INC_INLET_DAMPING` slows down the update of the inlet velocity (code). | Try a larger `INC_INLET_DAMPING` (to be reviewed). |
 | A streamwise periodic case stops at the start. | `INC_NONDIM` is not `DIMENSIONAL`, or an isothermal wall is used with `STREAMWISE_PERIODIC_TEMPERATURE= YES` (code). | Set `INC_NONDIM= DIMENSIONAL`. Use `MARKER_HEATFLUX`, or set `STREAMWISE_PERIODIC_TEMPERATURE= NO`. |
 | The flow from a pressure inlet or a far field goes the wrong way. | The direction vector or `INC_VELOCITY_INIT` points the wrong way (advice). | Check the signs of the direction components against the mesh axes. |
 

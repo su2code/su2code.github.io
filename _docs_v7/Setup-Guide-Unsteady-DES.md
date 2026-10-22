@@ -198,7 +198,7 @@ The mesh files of the test cases are in the [TestCases repository](https://githu
 
 ### Dual time stepping
 
-Dual time stepping splits the run into physical time steps. Inside each time step, SU2 solves for the new solution with "inner iterations", the same way it solves a steady problem in pseudo-time (tutorial, docs).
+Dual time stepping splits the run into physical time steps. Inside each time step, SU2 runs "inner iterations" to find the new solution, the same way it converges a steady problem (tutorial, docs).
 
 - `TIME_DOMAIN= YES` turns on the time-accurate solver (docs). `TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER` is used by all URANS and DES test cases (test case). `DUAL_TIME_STEPPING-1ST_ORDER` and `TIME_STEPPING` (one update per time step, no inner iterations) also exist (code).
 - `TIME_STEP` is the physical time step. It is always in seconds, also when the equations are non-dimensional: SU2 divides it by the reference time (code).
@@ -224,7 +224,7 @@ Each time step needs converged inner iterations. If not, the time history is wro
 - The inner loop uses the same criteria as a steady run: `CONV_FIELD`, `CONV_RESIDUAL_MINVAL`, `CONV_STARTITER` (docs). It stops at the criterion or at `INNER_ITER`.
 - `REL_RMS_DENSITY` is the residual relative to its value at the first inner iteration of the time step (code). `CONV_FIELD= REL_RMS_DENSITY` with `CONV_RESIDUAL_MINVAL= -3` asks for a drop of three orders of magnitude in each time step (tutorial).
 - Set `CONV_STARTITER= 0` so the check starts at the first inner iteration (tutorial). The default is `5` (code).
-- The inner iterations march in pseudo-time with the local `CFL_NUMBER`. The NACA0012 tutorial uses `CFL_NUMBER= 1e12` with `JST` (tutorial). The DES test uses `10` with `SLAU2`, the square cylinder test `2.0` with `ROE` (test case).
+- The inner iterations use `CFL_NUMBER` as in a steady run. The NACA0012 tutorial uses `CFL_NUMBER= 1e12` with `JST` (tutorial). The DES test uses `10` with `SLAU2`, the square cylinder test `2.0` with `ROE` (test case).
 - Watch `INNER_ITER` on the screen. If most time steps end at the maximum without reaching the criterion, raise `INNER_ITER` or the CFL, or lower the time step (advice).
 - In a time-domain run, SU2 writes the history file once per time step by default. Set `HISTORY_WRT_FREQ_INNER` to also write inner iterations (code).
 
@@ -251,7 +251,7 @@ See [Restart File](../Restart-File/).
 **Stop when the average stops changing.** `WINDOW_CAUCHY_CRIT= YES` turns on a Cauchy criterion on the averages (docs). This criterion looks at how much the average changes from step to step.
 
 - `CONV_WINDOW_FIELD` lists the averaged fields, for example `( TAVG_DRAG, TAVG_LIFT )` (tutorial).
-- `CONV_WINDOW_CAUCHY_EPS` (default `1E-3`), `CONV_WINDOW_CAUCHY_ELEMS` (default `100`) and `CONV_WINDOW_STARTITER` (default `15`, counted from `WINDOW_START_ITER`) play the same role as in the steady criterion (code, docs).
+- `CONV_WINDOW_CAUCHY_EPS` (default `1E-3`), `CONV_WINDOW_CAUCHY_ELEMS` (default `100`) and `CONV_WINDOW_STARTITER` (default `15`, counted from `WINDOW_START_ITER`) play the same role as `CONV_CAUCHY_EPS`, `CONV_CAUCHY_ELEMS` and `CONV_STARTITER` in a steady run (code, docs).
 - The tutorial uses `CONV_WINDOW_CAUCHY_EPS= 1E-4` with `CONV_WINDOW_CAUCHY_ELEMS= 10` (tutorial).
 
 **Volume averages.** Add `TIME_AVERAGE` to `VOLUME_OUTPUT` (code). SU2 then writes:
@@ -266,7 +266,7 @@ How these averages work (code):
 - SU2 only computes them if `TIME_AVERAGE` is in `VOLUME_OUTPUT`.
 - SU2 keeps them in memory. They are not read back from the restart files, so after a restart they start again from `RESTART_ITER`.
 
-Plan long runs with this in mind: average over one continuous run segment (advice).
+So average over one continuous run, without restarts (advice).
 
 ### Hybrid RANS/LES: which DES variant
 
@@ -301,7 +301,7 @@ General points for the DES mesh (advice, to be reviewed):
 
 - DES resolves turbulent eddies, which are three-dimensional. Run DES in 3D. 2D DES runs do not give physical turbulence.
 - Near the walls, the mesh must be fine enough for RANS: first-cell y+ about 1.
-- In the regions you want in LES mode (wakes, separated zones), use cells of similar size in all directions. SU2 uses the largest cell dimension as the cell size (code), so stretched cells give a large cell size and more modelled, less resolved, turbulence.
+- In the regions you want in LES mode (wakes, separated zones), use cells of similar size in all directions. SU2 uses the largest cell dimension as the cell size (code), so stretched cells give a large cell size: more of the turbulence is modelled and less is resolved.
 - Keep the cell size changes smooth between the RANS and LES regions.
 - For a body with a spanwise direction, the spanwise extent must hold the largest eddies of interest.
 
@@ -320,7 +320,7 @@ Reduce numerical dissipation where you can. Upwind schemes and limiters add it, 
 - It works with `ROE`, `SLAU` and `SLAU2`.
 - `FD`: uses the DDES shielding function, computed from the wall distance.
 - `NTS`: the blending of Travin and Shur. It uses `DES_CONST` and the cell size.
-- `FD_DUCROS` and `NTS_DUCROS`: as above, plus the Ducros sensor, which keeps the full dissipation at shocks. The docs say the same (docs).
+- `FD_DUCROS` and `NTS_DUCROS`: as above, plus the Ducros sensor, which keeps the full dissipation at shocks (code, docs).
 - SU2 keeps at least 5 % of the upwind dissipation for stability.
 - Write the `ROE_DISSIPATION` output group to see where the dissipation is reduced.
 
