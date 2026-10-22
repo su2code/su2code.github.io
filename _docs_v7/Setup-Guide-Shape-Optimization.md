@@ -20,7 +20,7 @@ permalink: /docs_v7/Setup-Guide-Shape-Optimization/
 
 Use this guide to change the shape of a body or a duct so that an output of the flow improves: for example less drag at a fixed lift, or a lower pressure drop.
 
-SU2 computes the gradient of the output with respect to the shape parameters with the **adjoint method**: one extra solve, at about the cost of one flow solution, gives the sensitivity of one output to all shape parameters.
+SU2 computes the gradient of the output with respect to the shape parameters with the **adjoint method**: one adjoint solve gives the sensitivity of one scalar output to all shape parameters. Its cost does not grow by one flow solve per parameter, but runtime and memory depend on the solver, convergence and recording strategy.
 
 SU2 has two adjoint solvers:
 
@@ -153,7 +153,7 @@ For a RANS case, start from the [RAE 2822 tutorial](/tutorials/Turbulent_2D_Cons
 - With the Python scripts, keep `MATH_PROBLEM= DIRECT` in your file. The scripts set the adjoint value themselves, from the gradient method you choose on the command line (code).
 - To run by hand: run `SU2_CFD` for the flow, and copy the restart file to the name in `SOLUTION_FILENAME`. Then run `SU2_CFD_AD` with `MATH_PROBLEM= DISCRETE_ADJOINT`. Then run `SU2_DOT_AD`, which turns the surface sensitivities into the gradient for the design variables (tutorial, to be reviewed: check the file names against the scripts).
 - The discrete adjoint uses the numerical settings of the flow solver. It ignores the continuous adjoint options, such as `CONV_NUM_METHOD_ADJFLOW`, `ADJ_JST_SENSOR_COEFF`, `CFL_REDUCTION_ADJFLOW` and `LIMIT_ADJFLOW` (tutorial). `INCONSISTENT_DISC= YES` (default `NO`) makes the discrete adjoint use the adjoint scheme options `CONV_NUM_METHOD_ADJFLOW` and `ADJ_JST_SENSOR_COEFF` instead (code). The tutorial text calls this switch `INCONSISTENT_AD`.
-- `FROZEN_VISC_DISC` (default `NO`) freezes the turbulence model in the adjoint. `FROZEN_LIMITER_DISC` (default `NO`) freezes the slope limiter (code). Both make the adjoint cheaper or more robust, but the gradient then no longer matches finite differences exactly (advice, to be reviewed).
+- `FROZEN_VISC_DISC` (default `NO`) freezes the turbulence model in the adjoint. `FROZEN_LIMITER_DISC` (default `NO`) freezes the slope limiter (code). These differentiate a frozen model or limiter rather than the fully coupled, recomputed residual. For a gradient comparison, make the derivative definition and frozen settings agree on both sides; otherwise disagreement is expected (advice).
 - `QUASI_NEWTON_NUM_SAMPLES` above 1 adds a quasi-Newton correction to the adjoint iterations. The default is 0 (off) (code). It can speed up the adjoint convergence (to be reviewed).
 
 ### Objective function
@@ -222,17 +222,17 @@ The box moves only the surface points that lie inside it (tutorial). Make the bo
 
 After the surface moves, `SU2_DEF` moves the volume mesh by treating it as an elastic solid (tutorial).
 
-- `DEFORM_STIFFNESS_TYPE`: `WALL_DISTANCE` (default), `INVERSE_VOLUME` or `CONSTANT_STIFFNESS` (code). The first two make small cells near walls stiffer, so that the boundary layer cells keep their shape (advice, to be reviewed).
+- `DEFORM_STIFFNESS_TYPE`: `WALL_DISTANCE` (default), `INVERSE_VOLUME` or `CONSTANT_STIFFNESS` (code). `WALL_DISTANCE` stiffens elements near a wall; `INVERSE_VOLUME` stiffens small elements wherever they occur. These can help preserve boundary-layer cells, but do not guarantee positive volumes (code, advice).
 - `DEFORM_LINEAR_SOLVER` (default `FGMRES`), `DEFORM_LINEAR_SOLVER_PREC` (default `ILU`), `DEFORM_LINEAR_SOLVER_ITER` (default 1000), `DEFORM_LINEAR_SOLVER_ERROR` (default 1E-14) (code).
 - `DEFORM_NONLINEAR_ITER` (default 1) splits the deformation into this many smaller steps (code). More steps help with large deformations (advice, to be reviewed).
 - `DEFORM_LIMIT` (default 1E6) deforms only the cells closer to the wall than this distance (code).
-- `DEFORM_COEFF` is used as the Poisson ratio of the elastic mesh. Its option text gives a range from -1.0 to 0.5, but the default is 1E6 (code). The [species transport tutorial](/tutorials/Species_Transport/) sets 0.0. Set it in your file (to be reviewed).
+- With the default legacy `SU2_DEF` path (`DEFORM_MESH= NO`), `CLinearElasticity` uses `DEFORM_COEFF` as its Poisson ratio. The parser default is 1E6, outside the physical isotropic-elastic interval −1 < ν < 0.5; do not interpret that default as a material recommendation. The [species transport tutorial](/tutorials/Species_Transport/) sets 0.0. With `DEFORM_MESH= YES`, `SU2_DEF` instead uses `CMeshSolver`, whose Poisson ratio is `DEFORM_POISSONS_RATIO` (default 0.3). These options belong to different deformation paths (code).
 - `DEFORM_KIND= RBF` uses radial basis functions instead of the elastic solid (default `ELASTIC`) (code). See the test case [deformation/naca0012](https://github.com/su2code/SU2/blob/develop/TestCases/deformation/naca0012/def_NACA0012_rbf.cfg) (test case).
-- Boundaries that are not in `DV_MARKER` stay fixed. Points on `MARKER_SYM` boundaries can slide in their plane. Declaring a flat outlet as `MARKER_SYM` avoids torn cells there (tutorial).
+- Boundaries that are not in `DV_MARKER` stay fixed. Points on `MARKER_SYM` boundaries can slide in their plane. If a separate deformation configuration uses `MARKER_SYM` to allow a planar end boundary to slide, retain the actual inlet/outlet conditions in the flow configuration. Changing a flow outlet into a symmetry boundary changes the physical problem (advice).
 - `HOLD_GRID_FIXED= YES` with `HOLD_GRID_FIXED_COORD` keeps the mesh outside a box fixed (code).
 - Set `DEFORM_CONSOLE_OUTPUT= YES` to see the minimum cell volume after each step (code).
 
-The options `DEFORM_MESH` and `MARKER_DEFORM_MESH` belong to the mesh solver inside SU2_CFD, for moving boundaries during a flow simulation. Shape optimization with the Python scripts uses SU2_DEF.
+`DEFORM_MESH` also selects the newer mesh-solver path in `SU2_DEF`; it is not exclusive to `SU2_CFD`. In a flow run, use `DEFORM_MESH` and `MARKER_DEFORM_MESH` for deforming moving boundaries. The Python shape-optimization workflow calls `SU2_DEF` (code).
 
 ### Python scripts
 
@@ -272,7 +272,7 @@ Optimizer settings (tutorial):
 2. Run `finite_differences.py -f config.cfg`. The gradient is in `of_grad_findiff`, with the same extension. The step comes from `FIN_DIFF_STEP`; the script uses 0.001 when the option is missing. The template suggests 0.001 times `REF_LENGTH` (code).
 3. Compare the two files, design variable by design variable. Signs and orders of magnitude must agree. Try two or three step sizes: a step that is too large adds truncation error, and a step that is too small adds noise from the incomplete convergence (advice).
 
-With a direct-diff build, `discrete_adjoint.py -v True` compares the adjoint gradient with forward-mode AD, instead of finite differences (code, to be reviewed).
+`discrete_adjoint.py` accepts `-v True`, but the forward-mode AD calculation and comparison report in `discrete_design` are commented out in this version. That flag does not validate the gradient. Use the finite-difference workflow above; a forward-mode comparison needs a separately verified driver (code).
 
 **Check each new design.** Look at the deformed meshes in `DESIGNS/DSN_*/DEFORM`, the flow solutions in `DESIGNS/DSN_*/DIRECT`, and the history in `history_project` (tutorial).
 
@@ -284,8 +284,8 @@ With a direct-diff build, `discrete_adjoint.py -v True` compares the adjoint gra
 | The gradient differs from finite differences. | The flow or the adjoint is not converged; the finite difference step is too large or too small; the turbulence or the limiter is frozen (advice). | Converge both deeper. Try several `FIN_DIFF_STEP` values. Set `FROZEN_VISC_DISC= NO` and `FROZEN_LIMITER_DISC= NO`. |
 | The adjoint diverges or stalls. | The flow solution oscillates (limiter, shock, separation), so the adjoint iterations have no steady solution to converge to (advice, to be reviewed). | Converge the flow deeper. Freeze the limiter in the flow with `LIMITER_ITER`. Try `FROZEN_LIMITER_DISC= YES` or `QUASI_NEWTON_NUM_SAMPLES` (to be reviewed). |
 | The flow does not converge on a new design. | The step was too large, or the shape became unphysical (advice). | Lower `OPT_RELAX_FACTOR` or the bounds. Restart the optimization from its project file with `-r` (to be reviewed). |
-| SU2_DEF reports: "There are N elements with negative volume". | The deformation is too large for the mesh (code). | Lower the step (`OPT_RELAX_FACTOR`, bounds). Raise `DEFORM_NONLINEAR_ITER`. Try another `DEFORM_STIFFNESS_TYPE` or `DEFORM_KIND= RBF`. Set `FFD_INTPREV= YES` (to be reviewed). |
-| The mesh is torn at an outlet or a side boundary. | That boundary is fixed while its neighbour moves (tutorial). | Declare flat boundaries next to the moving surface as `MARKER_SYM`. |
+| SU2_DEF reports: "There are N elements with negative volume". | The deformation is too large for the mesh (code). | Lower the step (`OPT_RELAX_FACTOR`, bounds). Raise `DEFORM_NONLINEAR_ITER`. Try another `DEFORM_STIFFNESS_TYPE` or `DEFORM_KIND= RBF`. `FFD_INTPREV= YES` checks FFD-box intersections; it does not guarantee a valid volume mesh (code, advice). |
+| The mesh is torn at an outlet or a side boundary. | That boundary is fixed while its neighbour moves (tutorial). | Allow planar sliding in a separate deformation configuration where appropriate; preserve the physical inlet/outlet types in the flow configuration. |
 | Kinks at the edge of the FFD box. | Control points on the box faces move (tutorial). | Use `FFD_CONTINUITY= 2ND_DERIVATIVE`, or fix the outer planes with `FFD_FIX_I`, `FFD_FIX_J`, `FFD_FIX_K`. |
 | Part of the surface does not move. | It lies outside the FFD box (tutorial). | Enlarge the box and run the `FFD_SETTING` step again. |
 | The FFD point inversion does not converge. | The box is badly shaped, or points sit near its faces (advice, to be reviewed). | Raise `FFD_ITERATIONS`. Make the box larger and closer to a regular hexahedron. |
@@ -316,4 +316,4 @@ Test cases (SU2 repository):
 
 User guide pages: [Build SU2 on Linux/MacOS](../Build-SU2-Linux-MacOS/), [Execution](../Execution/), [Advanced AD Techniques](../Advanced-AD-Techniques/), [Solver Setup](../Solver-Setup/), [Setup Guide: Turbomachinery](../Setup-Guide-Turbomachinery/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

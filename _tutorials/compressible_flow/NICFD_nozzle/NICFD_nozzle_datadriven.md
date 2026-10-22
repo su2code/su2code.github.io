@@ -102,9 +102,10 @@ The simulation us run by the following command
 ```
 mpirun -n <NP> SU2_CFD config_NICFD_PINN.cfg 
 ```
-where ```<NP>``` is the number of cores. [Figure 5](#mesh_highlight) shows the residual trends of the flow solution of the course of 10k iterations.
+where ```<NP>``` is the number of cores. [Figure 5](#convergence-history) shows the residual trends of the flow solution over the course of 10k iterations.
 
-![mesh_highlight](../../tutorials_files/compressible_flow/NICFD_nozzle_datadriven/images/convergence_history.png)
+<a id="convergence-history"></a>
+![Convergence history](../../tutorials_files/compressible_flow/NICFD_nozzle_datadriven/images/convergence_history.png)
 Figure (5): Convergence history of the SU2 simulation.
 
 

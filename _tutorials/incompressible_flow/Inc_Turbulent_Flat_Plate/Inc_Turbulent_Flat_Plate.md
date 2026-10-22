@@ -76,7 +76,7 @@ Instructions for running this test case are given here for both serial and paral
 #### In Serial
 
 To run this test case, follow these steps at a terminal command line:
- 1. Copy the config file ([turb_flatplate.cfg](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_545x385.su2](../../tutorials_files/incompressible_flow/Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
+ 1. Copy the config file ([turb_flatplate.cfg](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Turbulent_Flat_Plate/turb_flatplate.cfg)) and/or the mesh file ([mesh_flatplate_turb_545x385.su2](https://github.com/su2code/Tutorials/blob/master/incompressible_flow/Inc_Turbulent_Flat_Plate/mesh_flatplate_turb_545x385.su2)) so that they are in the same directory. Move to the directory containing the config file and the mesh file. Make sure that the SU2 tools were compiled, installed, and that their install location was added to your path.
  2. Run the executable by entering 
  
      ```

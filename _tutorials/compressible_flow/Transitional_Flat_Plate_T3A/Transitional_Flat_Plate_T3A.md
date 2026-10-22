@@ -44,7 +44,7 @@ The mesh used for T3A tutorial, which provided by [AIAA Transition modeling work
 The mesh used for T3A- tutorial, which consists of 122,880 quadrilaterals.
 Both T3A and T3A- boundary conditions are shown below.
 
-![Flat Plate](../../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Boundary_conditions.png)
+![Flat Plate](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Boundary_conditions.png)
 
 Figure (1): Mesh with boundary conditions (red: far, blue:out, orange:symmetry, green:wall)
 
@@ -99,9 +99,9 @@ To run this test case, follow these steps at a terminal command line:
 
 The figure below compares the skin friction results obtained by the LM transition model to the result of another solver(=Fluent 19.0) and experimental data. 
 
-![T3A_Cf_Rex](../../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A.png)
+![T3A_Cf_Rex](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A.png)
 Figure (2): Comparison of the skin friction coefficients for the T3A case.
-![T3A-_Cf_Rex](../../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A-.png)
+![T3A-_Cf_Rex](../../tutorials_files/compressible_flow/Transitional_Flat_Plate/images/LM_flat_plate/Cf_T3A-.png)
 Figure (3): Comparison of the skin friction coefficients for the T3A- case.
 
 

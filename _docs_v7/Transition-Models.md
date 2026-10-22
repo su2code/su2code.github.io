@@ -35,7 +35,7 @@ Both models need `SOLVER= RANS` or `SOLVER= INC_RANS` and a turbulence model (se
 
 <!-- Common/src/CConfig.cpp:1213, 3436-3439, 3815-3817; Common/include/option_structure.hpp:1363-1370 -->
 
-This page describes the SU2 develop branch. More transition model variants are in open pull requests.
+This page describes the SU2 develop branch. Availability here is determined by this source revision; options from another branch may differ.
 
 ## Langtry-Menter (LM)
 
@@ -126,7 +126,7 @@ The LM model was published for SST. SU2 also couples it to SA, which has no k. T
 SU2 follows the TMR description:
 
 - the critical Reynolds number is Re_theta_c = 803.73 (Tu + 0.6067)^-1.027, with Tu in percent from `FREESTREAM_TURBULENCEINTENSITY` (times 100), constant in the domain;
-- the constants are chi_1 = 0.002 and chi_2 = 50 (the TMR writes 0.02 in the denominator, which is the same);
+- chi_1 = 0.002; SU2 multiplies mu_t/mu by 50 in the second intermittency term, equivalent to dividing by the TMR value chi_2 = 0.02;
 - the destruction term is not changed;
 - the free-stream nu-tilde is 0.005 times the usual SA value. With the default `FREESTREAM_NU_FACTOR= 3`, this gives 0.015 times the kinematic viscosity, the low end of the TMR range (0.015 to 0.025).
 
@@ -183,4 +183,4 @@ If you set both `SA_OPTIONS= BCM` and `KIND_TRANS_MODEL= LM`, SU2 gives no error
 - For developers: [Adding a Transition Model](../Adding-a-Transition-Model/)
 - [NASA Turbulence Modeling Resource](https://tmbwg.github.io/turbmodels/). It moved from turbmodels.larc.nasa.gov in 2026; the old links now lead to a NASA landing page.
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

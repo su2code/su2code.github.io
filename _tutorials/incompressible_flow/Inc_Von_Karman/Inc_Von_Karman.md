@@ -11,9 +11,9 @@ requires: SU2_CFD
 complexity: intermediate
 ---
 
-![von_karman_street](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.gif)
+![von_karman_street](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.gif)
 
-Figure (1): impression of the von Karman vortex shedding. A high quality mp4 video can be found [here](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.mp4)
+Figure (1): impression of the von Karman vortex shedding. A high quality mp4 video can be found [here](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder.mp4)
 
 ## Goals
 
@@ -39,7 +39,7 @@ When the Reynolds number $$Re=\rho \cdot V \cdot D / \mu$$ is low (Re < 40), the
 
 The configuration is a circular cylinder of diameter $$D=0.01 m$$ surrounded by a far field at $$L = 30 D$$ and a rectangular wake region of $$X = 150 D$$. The far-field velocity is $$U_{\infty} = 0.12 m/s$$. With a viscosity of $$\mu=1.0 \cdot 10^{-5}$$ and a density of $$\rho = 1 kg/m3$$, the Reynolds number is $$Re = 120$$.
 
-![von_karman_mesh](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/mesh.png)
+![von_karman_mesh](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/mesh.png)
 Figure 2: Computational domain for the von Karman vortex shedding.
 
 The solution is initialized with uniform flow conditions. After an initial phase of around 4 seconds, the flow becomes periodic with a specific frequency depending on the Reynolds number. 
@@ -102,19 +102,19 @@ If possible, always use a parallel setup to reduce computational time (wall cloc
 
 ### Results
 
-![particles_streamlines](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/particles.png)
+![particles_streamlines](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/particles.png)
 Figure (3): Developed von Karman street with injected particles.
 
 The figure above shows the von Karman vortices. A movie of the von Karman Vortex shedding as shown in this tutorial can be made using the paraview statefile here: [statefile_with_particles.pvsm](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Von_Karman_Cylinder/statefile_with_particles.pvsm). The colored vorticity gradients are created in the wake immediately behind the cylinder, and transported downstream. In paraview, we inject particles and let them be transported downstream over streamlines. We can clearly see that the particles are not mixed homogeneously but are being transported in batches of red and green particles moving with their corresponding vortices.
 
 
-![von_karman_street_arrow](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder_arrow.gif)
+![von_karman_street_arrow](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder_arrow.gif)
 
 A link to a high quality video can be found [here](https://github.com/su2code/su2code.github.io/tree/master/tutorials_files/incompressible_flow/Inc_Von_Karman/images/unsteady_cylinder_arrow.mp4).
 
 The forces on the cylinder can also be visualized, see the above movie. We see the unsteady velocity magnitude, and on the cylinder surface we visualize the local force as the local pressure normal to the surface. For this we need to extract the surface data only and then compute the surface normal using a programmable filter. We can then visualize the glyph distribution. The total lift force is the integrated vertical component, whose size can be visualize as a colored arrow of a size proportional to the lift force using another programmable filter. Below the image we visualize the lift force in time using the PlotSelectionOverTime feature.  
 
-![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman.png)
+![validation](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman.png)
 
 Figure (4): Strouhal number, comparison with experimental data from Williamson (2006).
 
@@ -182,7 +182,7 @@ When we compare the Strouhal number with the experimental data from Williamson, 
 
 ### Numerical variations
 
-![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_variation.png)
+![validation](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_variation.png)
 
 Figure (5): Comparison of different numerical settings.
 
@@ -193,7 +193,7 @@ It is also known that the size of the computational domain influences the result
  
 As a final test, the testcase can be executed for varying Reynolds numbers, ranging from Re=60 to Re=180, giving the result in Figure  (6).
 
-![validation](../../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_Re.png)
+![validation](../../tutorials_files/incompressible_flow/Inc_Von_Karman/images/strouhal_cylinder_karman_Re.png)
 
 Figure (6): Comparison of numerical Strouhal numbers with experiments for varying Reynolds numbers.
 

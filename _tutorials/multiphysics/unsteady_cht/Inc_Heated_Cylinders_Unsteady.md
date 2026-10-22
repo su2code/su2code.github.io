@@ -18,7 +18,7 @@ userguide: Multizone
 
 ## Goals
 
-This tutorial is a follow-up on the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/) where a steady CHT solution was computed for a problem involving multiple physical zones.
+This tutorial is a follow-up on the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Static_CHT/) where a steady CHT solution was computed for a problem involving multiple physical zones.
 The following capabilities of SU2 will be showcased in this tutorial:
 
 - Time domain and time-marching config file options (plus related ones) for unsteady simulations
@@ -33,7 +33,7 @@ The resources for this tutorial can be found in the [Inc_Heated_Cylinders_Unstea
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for an unsteady coupled CHT solution. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages and that make sure you have completed the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/).
+The following tutorial will walk you through the steps required when solving for an unsteady coupled CHT solution. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs/Download/) and [Installation](/docs/Installation/) pages and that make sure you have completed the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Static_CHT/).
 
 ### Background
 
@@ -41,7 +41,7 @@ For unsteady flows around walls that are transferring heat from an adjacent (sol
 
 ### Problem Setup
 
-The problem setup is the same as in the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/) except for the density. It is increased in all zones by a factor of 100 so that for the flow we obtain a Reynolds number of 4000 which will make it unsteady. Thus we set
+The problem setup is the same as in the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Static_CHT/) except for the density. It is increased in all zones by a factor of 100 so that for the flow we obtain a Reynolds number of 4000 which will make it unsteady. Thus we set
 ```
 INC_DENSITY_INIT= 0.0210322
 ```
@@ -56,7 +56,7 @@ For simplicity we leave all other parameters unchanged.
 
 ### Mesh Description
 
-The [mesh](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/mesh_cht_3cyl.su2) is the same as in the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/).
+The [mesh](https://github.com/su2code/Tutorials/tree/master/multiphysics/unsteady_cht/mesh_cht_3cyl.su2) is the same as in the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Static_CHT/).
 
 ### Configuration File Options
 
@@ -85,4 +85,4 @@ The number of inner (zone-internal) iterations is set to 1 by default. We do not
 
 ### Running SU2
 
-One time iteration will run rather quick and it is up to the user for how long the simulation should run or, equivalently, which physical time span should be covered. In the video above, 1000 time steps had been computed to generate a 50s realtime video. See the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Inc_Heated_Cylinders/) how to execute SU2_CFD.
+One time iteration will run rather quick and it is up to the user for how long the simulation should run or, equivalently, which physical time span should be covered. In the video above, 1000 time steps had been computed to generate a 50s realtime video. See the [heated cylinders with conjugate heat transfer tutorial](/tutorials/Static_CHT/) how to execute SU2_CFD.

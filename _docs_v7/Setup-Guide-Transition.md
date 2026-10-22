@@ -26,7 +26,7 @@ Use a transition model when laminar flow covers a large part of the surface, for
 - wind turbine blades, gliders, natural laminar flow wings,
 - cases with laminar separation bubbles.
 
-In these cases, a fully turbulent run over-predicts the skin friction drag and misses laminar separation (advice).
+A fully turbulent model cannot represent the laminar region and its transition mechanisms. It can overpredict local skin friction there, but the change in total drag also depends on separation and pressure drag (advice).
 
 Limits of the Langtry-Menter (LM) model in SU2 (tutorial):
 
@@ -146,9 +146,9 @@ What this means (advice, to be reviewed):
 - With SST, the intensity at the body depends on how much k decays on its way from the far field. You control it with `FREESTREAM_TURBULENCEINTENSITY` and `FREESTREAM_TURB2LAMVISCRATIO`.
 - With SA, LM uses the same intensity everywhere, so nothing decays. Set `FREESTREAM_TURBULENCEINTENSITY` to the intensity you expect at the leading edge.
 
-The original LM model was published with SST (advice).
+The original LM model was published with SST; see the [TMR model definition](https://tmbwg.github.io/turbmodels/langtrymenter_4eqn.html) (reference).
 
-More transition variants are in open pull requests.
+The supported variants here are those registered in this source revision; check the generated reference before using options from another branch.
 
 ### LM_OPTIONS
 
@@ -191,7 +191,7 @@ The free-stream turbulence intensity is the main input of the transition correla
 - k decays between the far field and the body. A larger viscosity ratio gives a slower decay (advice, to be reviewed).
 - The T3A tutorial sets `FREESTREAM_TURBULENCEINTENSITY= 0.05855` and `FREESTREAM_TURB2LAMVISCRATIO= 11.9` at the inflow (tutorial).
 - Check the intensity just upstream of the body. Compute it from the `TKE` output field: Tu = sqrt(2k/3)/U (advice).
-- `SST_OPTIONS= SUSTAINING` and `TURB_FIXED_VALUES= YES` stop the decay of k (docs, code). No transition test case uses them with LM (to be reviewed).
+- `SST_OPTIONS= SUSTAINING` adds ambient sustaining terms through a production floor in SU2. `TURB_FIXED_VALUES= YES` with `TURB_FIXED_VALUES_DOMAIN` fixes the turbulence variables in a specified upstream region (code). These change the turbulence environment; match the measured intensity and decay rather than removing decay automatically (advice). No transition test case uses them with LM (to be reviewed).
 
 **With SA.**
 
@@ -238,7 +238,7 @@ The develop branch also has an algebraic transition model for SA, the Bas-Cakmak
 
 | Field | Group | What to look for |
 | --- | --- | --- |
-| `SKIN_FRICTION-X` (surface) | `PRIMITIVE` | Low in the laminar part, then a sharp rise at transition. Negative values mark a laminar separation bubble (advice). |
+| `SKIN_FRICTION-X` (surface) | `PRIMITIVE` | Low in the laminar part, then a sharp rise at transition. For flow aligned with +x, negative values indicate reversed wall shear, which can occur in either laminar or turbulent separation. Use the local streamwise shear component on a curved or inclined surface (advice). |
 | `INTERMITTENCY` | `SOLUTION` | Transported intermittency: 0 laminar, 1 turbulent (code). |
 | `INTERMITTENCY_EFF` | `PRIMITIVE` | Effective intermittency that multiplies the production term. It can exceed 1 in separated regions (advice, to be reviewed). |
 | `INTERMITTENCY_SEP` | `PRIMITIVE` | Extra intermittency for separation-induced transition (advice, to be reviewed). |
@@ -284,4 +284,4 @@ User guide pages:
 - [Governing Equations](../Theory/), [Convective Schemes](../Convective-Schemes/), [History and Solution Output](../Custom-Output/).
 - All options: [Option Reference](../Option-Reference/). All output fields: [Output Fields Reference](../Output-Fields-Reference/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

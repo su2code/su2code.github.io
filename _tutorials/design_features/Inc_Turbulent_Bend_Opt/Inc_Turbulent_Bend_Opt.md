@@ -14,7 +14,7 @@ follows: Inc_Turbulent_Bend
 
 
 
-![bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/bend_with_FFD.png "Figure (1): The 90 degree bend with the FFD box.")
+![bend](../../tutorials_files/design_features/Inc_Turbulent_Bend/bend_with_FFD.png "Figure (1): The 90 degree bend with the FFD box.")
 #### Figure (1): The 90 degree bend with the FFD box.
 
 
@@ -127,7 +127,7 @@ Which means that when the sides of the FFD box cuts through the mesh, then at th
 
 Unfortunately, if we use this unconstrained setup, the mesh deformation will be as shown in Figure (2) below:
 
-![bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/mesh_deformation.png "Figure(2): bad mesh for unconstrained FFD box.")
+![bend](../../tutorials_files/design_features/Inc_Turbulent_Bend/mesh_deformation.png "Figure(2): bad mesh for unconstrained FFD box.")
 #### Figure (2): The unconstrained deformation leads to mesh cells that have collapsed on the symmetry plane. This leads to convergence issues at the next design iteration.
 
 As you can see, the row of cells just above the symmetry plane has collapsed onto the symmetry plane, leading to a very bad mesh. In the next design iteration, the simulations do not converge anymore and the optimization procedure stops. So we need some additional constraints on the movement of the nodes of the FFD box.
@@ -138,7 +138,7 @@ The problem here is that the mesh nodes on the symmetry plane are not allowed to
 Since we disallow vertical movement in 2x(6x6)=72 nodes in the planes with $$j=0$$ and $$j=1$$,  The total degrees of freedom is then $$648 - 72 = 576$$ d.o.f. 
 
 
-![Pressure bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/opt_iter0_pressure_ffdbox.png "Pressure distribution")
+![Pressure bend](../../tutorials_files/design_features/Inc_Turbulent_Bend/opt_iter0_pressure_ffdbox.png "Pressure distribution")
 #### Figure (3): The 90 degree bend with the FFD box.
 
 
@@ -214,5 +214,5 @@ The objective values for the 5 design iterations are given in the table below.
 
 We see that the global pressure drop between the inlet and the outlet reduces from 89 Pa to 80 Pa, a reduction of more than 10 %. However, since we are optimizing only the bend, we should subtract the pressure drop of the straight parts and only consider the pressure drop of the bend for a more fair comparison. In paraview, we can integrate the pressure in a 2D slice at the start and end of the bend. The pressure drop of the bend comes to $$\Delta P = 20.7 Pa$$. That means that the reduction of pressure drop in the bend is actually 44 % !
 
-![Optimized bend](../../../tutorials_files/design_features/Inc_Turbulent_Bend/opt_iter5_pressure_ffdbox.png "Optimized bend")
+![Optimized bend](../../tutorials_files/design_features/Inc_Turbulent_Bend/opt_iter5_pressure_ffdbox.png "Optimized bend")
 #### Figure (4): Optimized bend after 5 design iterations, with the deformed FFD box.

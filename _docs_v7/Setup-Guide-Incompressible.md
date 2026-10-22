@@ -19,7 +19,7 @@ permalink: /docs_v7/Setup-Guide-Incompressible/
 ## When to use this guide
 
 Use this guide for a flow where the density does not depend on the pressure.
-This covers liquids and low-speed gas flows, also with heat transfer, where the density changes only with temperature.
+This covers liquids and low-speed gas flows, also with heat transfer, where density may depend on temperature and composition while remaining independent of the hydrodynamic pressure.
 As a rule of thumb, the Mach number is below about 0.3 (advice).
 
 This guide covers the solvers `INC_EULER`, `INC_NAVIER_STOKES` and `INC_RANS`.
@@ -103,7 +103,7 @@ Inlets use these settings unless overridden with `MARKER_INLET_TURBULENT`: two v
 
 `KIND_INCOMP_SYSTEM` selects how SU2 couples pressure and velocity (code):
 
-- `DENSITY_BASED` (default): SU2 adds a pseudo-time derivative of the pressure to the continuity equation. This is called artificial compressibility, a form of preconditioning. SU2 then solves pressure, velocity and temperature together, in one coupled system. All tutorials on this page use it.
+- `DENSITY_BASED` (default): SU2 adds a pseudo-time derivative of the pressure to the continuity equation. This is called artificial compressibility, a form of preconditioning. SU2 solves pressure and velocity together, with enthalpy in the coupled system when the energy equation is enabled; temperature is recovered from the fluid model. All tutorials on this page use it.
 - `PRESSURE_BASED`: a segregated method of the SIMPLE type, which solves the equations one after the other. Choose `SIMPLE` (default) or `SIMPLEC` with `KIND_PB_ITER`. It uses `CONV_NUM_METHOD_FLOW= UDS` (upwind) or `CDS` (centered).
 
 With `PRESSURE_BASED`, SU2 stops if you use multigrid (`MGLEVEL` above 0), an adjoint, `MARKER_PERIODIC`, streamwise periodic flow, or `TIME_MARCHING= TIME_STEPPING` (code).
@@ -123,7 +123,7 @@ The rest of this page is about the density-based solver.
 
 How to choose:
 
-- **No heat transfer, or temperature as a passive quantity.** Use `CONSTANT`. With `INC_ENERGY_EQUATION= YES`, SU2 solves for temperature, but the temperature does not change the flow. This one-way coupling is used in the [laminar flat plate tutorial](/tutorials/Inc_Laminar_Flat_Plate/) (tutorial). Set `SPECIFIC_HEAT_CP` (default 1004.703 J/(kg K)).
+- **No heat transfer, or temperature as a passive quantity.** Use `CONSTANT`. With `INC_ENERGY_EQUATION= YES`, SU2 solves the energy equation for enthalpy and recovers temperature. Temperature is passive only when properties affecting momentum, notably viscosity, are independent of temperature and no thermal buoyancy is present. Constant density alone does not ensure one-way coupling: `POLYNOMIAL_VISCOSITY` can still make viscosity temperature-dependent (code). Constant-property one-way coupling is used in the [laminar flat plate tutorial](/tutorials/Inc_Laminar_Flat_Plate/) (tutorial). Set `SPECIFIC_HEAT_CP` (default 1004.703 J/(kg K)).
 - **Small temperature differences with buoyancy.** Use `BOUSSINESQ`. The buoyancy force uses `THERMAL_EXPANSION_COEFF` (default 0.00347 1/K) and the difference to `INC_TEMPERATURE_INIT`. Gravity is fixed at 9.81 m/s², along the negative y axis in 2D and the negative z axis in 3D. You cannot add `BODY_FORCE= YES`: SU2 stops (code).
 - **Large temperature differences in a gas.** Use `VARIABLE` with `FLUID_MODEL= INC_IDEAL_GAS` (constant specific heat) or `INC_IDEAL_GAS_POLY` (specific heat as a polynomial of temperature, set with `CP_POLYCOEFFS`, five coefficients). Set `MOLECULAR_WEIGHT` in g/mol (default 28.96) and `SPECIFIC_HEAT_CP`.
 - **Mixtures of gases.** Use `VARIABLE` with `FLUID_MODEL= FLUID_MIXTURE`. See the [species guide](../Setup-Guide-Species-Combustion/).
@@ -168,7 +168,7 @@ They also set the free-stream state used at `MARKER_FAR` markers, the Reynolds n
 
 The reference pressure is the reference density times the reference velocity squared.
 The inputs in the config file are always in SI units ([NACA 0012 tutorial](/tutorials/Inc_Turbulent_NACA0012/)).
-The volume and restart files contain the solver variables. So pressure, velocity and temperature in these files are divided by the reference values, unless you use `DIMENSIONAL` (code).
+The flow energy solution field is `ENTHALPY` in `SOLUTION`; `TEMPERATURE` is a recovered field in `PRIMITIVE`. The separate weakly coupled heat solver instead uses `TEMPERATURE` as its solution variable (`CFlowIncOutput`, code). Output and restart fields depend on the requested groups; do not read an enthalpy column as temperature. Pressure, velocity and recovered temperature are divided by their respective reference values unless you use `DIMENSIONAL` (code).
 SU2 prints the reference values and the non-dimensional values at the start of the run. Use them to convert results back to SI units.
 
 Advice:
@@ -181,7 +181,7 @@ Advice:
 
 `MARKER_INLET` sets the inlet markers. `INC_INLET_TYPE` gives one type per inlet marker, in the same order (code):
 
-- `VELOCITY_INLET`: `MARKER_INLET= ( marker, temperature [K], velocity magnitude [m/s], nx, ny, nz )`. The direction vector does not need unit length. The temperature is needed even without the energy equation, but then SU2 does not use it ([Markers and BC](../Markers-and-BC/)).
+- `VELOCITY_INLET`: `MARKER_INLET= ( marker, temperature [K], velocity magnitude [m/s], nx, ny, nz )`. SU2 normalizes the nonzero direction vector, so it does not need unit length (code). The temperature is needed even without the energy equation, but then SU2 does not use it ([Markers and BC](../Markers-and-BC/)).
 - `PRESSURE_INLET`: `MARKER_INLET= ( marker, temperature [K], total gauge pressure [Pa], nx, ny, nz )`. SU2 adjusts the inlet velocity to reach the total pressure. `INC_INLET_DAMPING` (default 0.1) damps these updates.
 
 The incompressible solver has no mass flow inlet (code).
@@ -194,7 +194,7 @@ For a measured or computed inlet profile, set `SPECIFIED_INLET_PROFILE= YES` and
 `MARKER_OUTLET` sets the outlet markers. `INC_OUTLET_TYPE` gives one type per outlet marker (code):
 
 - `PRESSURE_OUTLET`: `MARKER_OUTLET= ( marker, gauge pressure [Pa] )`. This is the usual choice. Zero is a good value, because the pressure level is arbitrary in incompressible flow (advice).
-- `MASS_FLOW_OUTLET`: `MARKER_OUTLET= ( marker, mass flow [kg/s] )`. SU2 adjusts the outlet pressure to reach the target. `INC_OUTLET_DAMPING` (default 0.1) damps these updates.
+- `MASS_FLOW_OUTLET`: `MARKER_OUTLET= ( marker, mass flow [kg/s] )`. In a planar 2D case, this is the rate for a unit out-of-plane depth. SU2 adjusts the outlet pressure to reach the target. `INC_OUTLET_DAMPING` (default 0.1) damps these updates.
 
 Put the outlet far enough downstream that no recirculation crosses it (advice, to be reviewed).
 
@@ -216,7 +216,7 @@ For the density-based solver, `CONV_NUM_METHOD_FLOW` accepts these schemes (code
 - `FDS` (flux difference splitting, an upwind scheme). Almost all incompressible test cases use it. It has no tuning parameters ([Convective Schemes](../Convective-Schemes/#incompressible-flow)).
 - `JST` and `LAX-FRIEDRICH` (centered schemes with artificial dissipation).
 
-`MUSCL_FLOW= YES` (default) makes the scheme second order. The default limiter is `VENKATAKRISHNAN`, but most incompressible test cases use `SLOPE_LIMITER_FLOW= NONE` (code, test case).
+`MUSCL_FLOW= YES` (default) enables second-order reconstruction for the upwind `FDS` scheme; it does not change the centered schemes. The default limiter is `VENKATAKRISHNAN`, but most incompressible test cases use `SLOPE_LIMITER_FLOW= NONE` (code, test case).
 Add a limiter only if the solution shows wiggles, or if the run diverges near sharp gradients (advice, to be reviewed).
 
 For `INC_RANS`, the test cases use `CONV_NUM_METHOD_TURB= SCALAR_UPWIND`. `BOUNDED_SCALAR` is also available for incompressible flow. It corrects for a non-zero velocity divergence during convergence ([Convective Schemes](../Convective-Schemes/#turbulence-and-scalarspecies-equations)).
@@ -297,4 +297,4 @@ Test cases (density-based unless noted):
 
 User guide pages: [Physical Definition](../Physical-Definition/#flow-condition-incompressible), [Markers and BC](../Markers-and-BC/), [Theory](../Theory/#incompressible-navier-stokes), [Convective Schemes](../Convective-Schemes/), [Solver Setup](../Solver-Setup/), [Custom Output](../Custom-Output/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

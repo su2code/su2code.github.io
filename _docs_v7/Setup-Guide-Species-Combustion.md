@@ -234,7 +234,7 @@ SU2 checks that each mass fraction in `SPECIES_INIT` and `MARKER_INLET_SPECIES`,
 
 For a mixture ([composition-dependent tutorial](/tutorials/Inc_Species_Transport_Composition_Dependent_Model/)):
 
-- The mean molecular weight is a mole-fraction average. The specific heat is a mass-fraction average (tutorial).
+- The mean molecular weight is a mole-fraction average, equivalently 1/M_mix = Σ(Y_i/M_i) for mass fractions Y_i. Specific heat is a mass-fraction average (tutorial, code).
 - `MIXING_VISCOSITY_MODEL` sets the mixing rule for viscosity: `DAVIDSON` (default) or `WILKE` (code).
 - With a species model and variable density, SU2 does not switch the energy equation on for you (code). If all streams have the same temperature and the walls are adiabatic, `INC_ENERGY_EQUATION= NO` is possible, as in the tutorial. Otherwise set `INC_ENERGY_EQUATION= YES`.
 
@@ -254,7 +254,7 @@ Here μ is the viscosity, k the thermal conductivity, c_p the specific heat, Sc 
 For RANS, turbulence adds μ_t / Sc_t to ρD, with `SCHMIDT_NUMBER_TURBULENT` (default 0.7) as Sc_t ([Theory](../Theory/#species-transport)).
 
 For gases that diffuse fast, such as hydrogen, the [composition-dependent tutorial](/tutorials/Inc_Species_Transport_Composition_Dependent_Model/) suggests `CONSTANT_LEWIS` (tutorial).
-`UNITY_LEWIS` and `CONSTANT_LEWIS` keep heat and mass diffusion consistent in a gas mixture. Hydrogen has a Lewis number well below 1 (advice, to be reviewed).
+`UNITY_LEWIS` and `CONSTANT_LEWIS` prescribe the ratio of thermal to mass diffusivity; they do not reproduce general multicomponent diffusion or thermal diffusion. Hydrogen-rich mixtures can require differential-diffusion treatment, but choose coefficients for the actual composition and state (advice, to be reviewed).
 
 ### Species boundary conditions
 
@@ -263,7 +263,7 @@ Species boundary conditions sit on top of the flow boundary conditions (code):
 - **Inlet**: every `MARKER_INLET` marker needs an entry in `MARKER_INLET_SPECIES= ( marker, Y_1, ..., Y_N-1, ... )`. The values are mass fractions. Inlet profiles from a file are possible, see [`species3_primitiveVenturi_inletFile.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/species_transport/venturi_primitive_3species/species3_primitiveVenturi_inletFile.cfg).
 - **Outlet**: zero gradient. Nothing to set.
 - **Far field**: the values of `SPECIES_INIT`.
-- **Walls**: zero flux by default. `MARKER_WALL_SPECIES= ( marker, FLUX, value, VALUE, value, ... )` sets, per species, a flux (`FLUX`) or a fixed mass fraction (`VALUE`). The pairs follow the species order, for example `MARKER_WALL_SPECIES= ( wall, VALUE, 1.0, FLUX, 0.01 )` (test case). The flux is per unit area (to be reviewed: units).
+- **Walls**: zero flux by default. `MARKER_WALL_SPECIES= ( marker, FLUX, value, VALUE, value, ... )` sets, per species, a flux (`FLUX`) or a fixed mass fraction (`VALUE`). The pairs follow the species order, for example `MARKER_WALL_SPECIES= ( wall, VALUE, 1.0, FLUX, 0.01 )` (test case). The `FLUX` value enters `CSpeciesSolver::BC_Wall_Generic` directly as a scalar mass flux per area, with positive values adding the species to the domain. With `INC_NONDIM= DIMENSIONAL` its units are kg/(m² s). Otherwise normalize by the reference density times reference velocity; this boundary routine performs no automatic dimensional conversion (code).
 
 `MARKER_SPECIES_STRONG_BC` lists markers where SU2 imposes the species values directly in the solution: a strong, or Dirichlet, condition. By default, SU2 imposes them through the boundary flux: a weak condition (code).
 
@@ -280,11 +280,11 @@ Start from the test case closest to your problem (to be reviewed).
 
 ### Numerics for the species equations
 
-- `CONV_NUM_METHOD_SPECIES`: `SCALAR_UPWIND` (default) or `BOUNDED_SCALAR`. Centered schemes are not available for scalars (code). `BOUNDED_SCALAR` subtracts the effect of a non-zero velocity divergence during convergence, which keeps scalars inside their bounds ([Convective Schemes](../Convective-Schemes/#turbulence-and-scalarspecies-equations)). The [combustion tutorial](/tutorials/Inc_Combustion/) highly recommends it for flamelet runs.
+- `CONV_NUM_METHOD_SPECIES`: `SCALAR_UPWIND` (default) or `BOUNDED_SCALAR`. Centered schemes are not available for scalars (code). `BOUNDED_SCALAR` subtracts the effect of a non-zero velocity divergence during convergence, which helps avoid scalar overshoots from an unconverged continuity equation; it is not a general bound-preservation guarantee ([Convective Schemes](../Convective-Schemes/#turbulence-and-scalarspecies-equations)). The [combustion tutorial](/tutorials/Inc_Combustion/) highly recommends it for flamelet runs.
 - `MUSCL_SPECIES` (default `NO`) makes the scheme second order. `SLOPE_LIMITER_SPECIES` (default `NONE`) adds a limiter (code).
 - `TIME_DISCRE_SPECIES`: `EULER_IMPLICIT` (default) or `EULER_EXPLICIT`. No other value is allowed (code).
 - `CFL_REDUCTION_SPECIES` (default 1.0) multiplies the CFL number for the species equations (code).
-- `SPECIES_CLIPPING= YES` keeps the mass fractions between `SPECIES_CLIPPING_MIN` and `SPECIES_CLIPPING_MAX`. SU2 stops if you switch it on without both limits (code). The composition-dependent tutorial uses clipping with `SCALAR_UPWIND` only; `BOUNDED_SCALAR` works without it (tutorial).
+- `SPECIES_CLIPPING= YES` clips each transported mass fraction to `SPECIES_CLIPPING_MIN` and `SPECIES_CLIPPING_MAX`. For more than two species, clipping individual fractions to [0,1] does not guarantee their sum is at most one or that the reconstructed last species stays nonnegative. Clipping can also disturb species conservation; inspect all fractions and balances. SU2 stops if you switch it on without both limits (code). The composition-dependent tutorial uses clipping with `SCALAR_UPWIND` only; that example uses `BOUNDED_SCALAR` without clipping (tutorial).
 - Unsteady runs with dual time stepping and a density that depends on the species cannot use multigrid (`MGLEVEL` above 0) (code).
 
 ### Flamelet model: required options
@@ -317,7 +317,7 @@ A look-up table is faster to query, but a 3D table can need a lot of memory per 
 - `USER_SOURCE_NAMES`: two names per extra species, a production term and a consumption term. The source is production + consumption × Y. Use `NULL` or `zero` for a missing term (code).
 - `LOOKUP_NAMES`: table columns to write in the volume output, with `LOOKUP` in `VOLUME_OUTPUT` (tutorial).
 - `PREFERENTIAL_DIFFUSION= YES` adds the preferential diffusion model for hydrogen flames. The table must then contain `Beta_ProgVar`, `Beta_Enth_Thermal`, `Beta_Enth` and `Beta_MixFrac`. This is stated in the config template and used in the tutorial (code, tutorial).
-- `THICKENED_FLAME_CORRECTION` (default `YES`) lowers the source terms and raises the diffusion in cells that are larger than the flame thickness. This keeps the run stable on coarse meshes (code).
+- `THICKENED_FLAME_CORRECTION` (default `YES`) lowers the source terms and raises the diffusion in cells that are larger than the flame thickness. This is intended to improve resolution of an under-resolved flame, but does not guarantee stability or mesh-independent flame properties (code, advice).
 
 `SPECIES_INIT` and `MARKER_INLET_SPECIES` need one value per controlling variable, plus one per extra species (code). In the start config, these are: progress variable, enthalpy, CO, NOx.
 
@@ -353,7 +353,7 @@ Use `FLOW_MARKERS` when you know the temperatures, which is the usual case. It a
 - **Field names.** SU2 ignores unknown names in `CONV_FIELD` and prints `Ignoring Convergence Field(s)` at the start. `RMS_SPECIES` without a number is not a field (code).
 - **Linear solver.** `LINSOL_ITER_SPECIES` and `LINSOL_RESIDUAL_SPECIES` (or `LINSOL_ITER_FLAMELET` and `LINSOL_RESIDUAL_FLAMELET`) show whether SU2 solves the species linear systems well (code).
 - **Mixing quality.** With `MARKER_ANALYZE`, `SURFACE_SPECIES_0` gives the average mass fraction on those markers, and `SURFACE_SPECIES_VARIANCE` measures how uneven the mixture is there. Add the groups `SPECIES_COEFF` and `SPECIES_COEFF_SURF` to `HISTORY_OUTPUT` (code, tutorial).
-- **Mass balance of a species.** At convergence, the species mass flow in through the inlets should equal the flow out through the outlet (advice, to be reviewed). No output field gives this species mass flow directly. A `CUSTOM_OUTPUTS` expression, such as the one in [`passive_transport.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/species_transport/passive_transport_validation/passive_transport.cfg), can compute a mass-flow-averaged value (to be reviewed).
+- **Mass balance of a species.** For a steady non-reacting case with no volume source and impermeable walls, the advective plus diffusive species influx must balance the outflux. Include prescribed wall fluxes and reaction/volume sources when present; an inlet/outlet-only balance is then insufficient (advice). No output field gives this species mass flow directly. A `CUSTOM_OUTPUTS` expression, such as the one in [`passive_transport.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/species_transport/passive_transport_validation/passive_transport.cfg), can compute a mass-flow-averaged value (to be reviewed).
 - **Table misses (flamelet).** Add `LOOKUP` to `VOLUME_OUTPUT` and check the field `TABLE_MISSES`. Points with misses have controlling variables outside the table (code).
 - **Flame position (flamelet).** Look at the progress variable and the temperature in ParaView. The flame should not move between the last outputs of a steady run (advice, to be reviewed).
 
@@ -404,4 +404,4 @@ Test cases:
 
 User guide pages: [Theory: Species Transport and Combustion](../Theory/#species-transport), [Convective Schemes](../Convective-Schemes/), [Markers and BC](../Markers-and-BC/), [Custom Output](../Custom-Output/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

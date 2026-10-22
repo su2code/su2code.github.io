@@ -124,7 +124,7 @@ The zone files do not list the interface markers as boundary conditions. `MARKER
 These conditions need the energy equation in the fluid: `INC_ENERGY_EQUATION= YES` for the incompressible solver.
 
 - `MARKER_ISOTHERMAL= ( marker, T [K] )`: fixed wall temperature. Use it when you know the wall temperature.
-- `MARKER_HEATFLUX= ( marker, q [W/m²] )`: fixed heat flux. Zero gives an adiabatic wall. With `INTEGRATED_HEATFLUX= YES`, the value is a total heat rate in W, spread over the marker area ([Markers and BC](../Markers-and-BC/#constant-heatflux-no-slip-wall)). In SU2 a positive value adds heat to the domain (to be reviewed).
+- `MARKER_HEATFLUX= ( marker, q [W/m²] )`: fixed heat flux. Zero gives an adiabatic wall. With `INTEGRATED_HEATFLUX= YES`, the value is a total heat rate in W, spread over the marker area ([Markers and BC](../Markers-and-BC/#constant-heatflux-no-slip-wall)). In these finite-volume thermal boundary conditions, a positive value adds heat to the domain (code). For a planar 2D case, integrated heat rates represent a unit out-of-plane depth.
 - `MARKER_HEATTRANSFER= ( marker, h [W/(m² K)], T_inf [K] )`: the wall heat flux is h·(T_inf − T_wall). Use it to model a wall that you do not mesh, such as a thin wall to an outside fluid. h = 0 gives an adiabatic wall; a very large h gives a wall at T_inf ([Markers and BC](../Markers-and-BC/#heat-transfer-or-convection-no-slip-wall)).
 
 Only the flow solvers implement `MARKER_HEATTRANSFER`. The heat equation solver for solids does not (code).
@@ -133,7 +133,7 @@ Only the flow solvers implement `MARKER_HEATTRANSFER`. The heat equation solver 
 
 If the temperature does not change the flow (constant density and constant properties), you have two options:
 
-- `INC_DENSITY_MODEL= CONSTANT` with `INC_ENERGY_EQUATION= YES`: the flow solver also solves for temperature ([laminar flat plate tutorial](/tutorials/Inc_Laminar_Flat_Plate/)).
+- `INC_DENSITY_MODEL= CONSTANT` with `INC_ENERGY_EQUATION= YES`: the flow solver solves for enthalpy and recovers temperature from the fluid model ([laminar flat plate tutorial](/tutorials/Inc_Laminar_Flat_Plate/)).
 - `WEAKLY_COUPLED_HEAT_EQUATION= YES` with `INC_ENERGY_EQUATION= NO`: SU2 solves the temperature with the separate heat solver, using the flow velocity (code). Its numerics use `CONV_NUM_METHOD_HEAT`, `MUSCL_HEAT`, `TIME_DISCRE_HEAT` and `TIMESTEP_HEAT`. Example: [`disc_adj_heat/primal.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/disc_adj_heat/primal.cfg).
 
 For incompressible CHT, SU2 stops unless the fluid zone has `INC_ENERGY_EQUATION= YES` (code). So in CHT, use the energy equation, not the weakly coupled heat equation.
@@ -148,7 +148,7 @@ Set `SOLVER= HEAT_EQUATION` in the solid zone. This solver solves for temperatur
 - Boundary conditions: `MARKER_ISOTHERMAL`, `MARKER_HEATFLUX`, `MARKER_PERIODIC`, and the CHT interface.
 - All solid test cases use `INC_NONDIM= DIMENSIONAL` (test case).
 
-In a steady run, only the conductivity changes the final temperature. Density and specific heat matter in unsteady runs (advice, to be reviewed).
+For steady conduction with prescribed thermal boundary data, density and specific heat drop out of the physical heat equation; they still affect the numerical convergence. Conductivity sets the heat flux and, with flux or Robin data, the temperature gradients. A uniform conductivity cancels from a source-free, purely prescribed-temperature problem. Density and specific heat set the thermal response time in an unsteady run.
 
 A solid alone runs as a normal single-zone case, for example [`solid_heat_conduction/periodic_pins/configSolid.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/solid_heat_conduction/periodic_pins/configSolid.cfg).
 
@@ -223,7 +223,7 @@ SU2 solves the zones one after the other and exchanges interface data between th
 - `RELAXATION_FACTOR_CHT` (default 1.0, no relaxation): the new interface value is factor × new + (1 − factor) × old (code).
 - `ITER` is not allowed in multizone cases: SU2 stops. Use `OUTER_ITER` and `INNER_ITER` (code).
 
-The solid often converges more slowly than the fluid, because heat conduction has no convection to carry information. A large `CFL_NUMBER` in the solid zone helps; the solid-only test case `solid_heat_conduction/periodic_pins` uses 1e8 (advice, to be reviewed).
+The solid often converges more slowly than the fluid, because heat conduction has no convection to carry information. A larger `CFL_NUMBER` can accelerate the solid solve if the linear system remains adequately solved; the solid-only test case `solid_heat_conduction/periodic_pins` uses 1e8 (advice, to be reviewed).
 
 ### Unsteady CHT
 
@@ -249,7 +249,7 @@ These values are from the test case [`coupled_cht/incomp_2d_unsteady`](https://g
 - **Coupling residuals.** In a multizone case, SU2 prints for each zone how much the solution changed since the last outer iteration. These are the block Gauss-Seidel (BGS) residuals. Fields such as `BGS_PRESSURE[0]` and `BGS_TEMPERATURE[1]` are per zone; the number in brackets is the zone. Add the group `BGS_RES[i]` to `HISTORY_OUTPUT` for zone i.
 - **Default stop rule.** Without `CONV_FIELD`, a multizone case monitors `AVG_BGS_RES[0]`, the averaged BGS residual of zone 0 (code). Set `CONV_FIELD` and `CONV_RESIDUAL_MINVAL` in the main file to monitor what you need, for example the solid temperature. The pin array test case sets `CONV_RESIDUAL_MINVAL` in its main file (test case).
 - **Field names.** SU2 ignores unknown names in `CONV_FIELD` and prints `Ignoring Convergence Field(s)` at the start (code).
-- **Heat balance.** Monitor `TOTAL_HEATFLUX` and `AVG_TEMPERATURE` (group `HEAT`) on the interface markers, through `MARKER_MONITORING` in each zone. At convergence, the heat that leaves the solid through the interface should equal the heat that enters the fluid (advice, to be reviewed: check the sign convention of each zone).
+- **Heat balance.** Monitor `TOTAL_HEATFLUX` and `AVG_TEMPERATURE` (group `HEAT`) on the interface markers, through `MARKER_MONITORING` in each zone. At steady convergence, integrate conductive heat flux on both sides with a consistent normal convention: heat leaving the solid equals heat entering the fluid. With outward normals for both domains, their signed interface rates sum to zero. Non-matching interpolation also needs a conservation check (advice).
 - **Per-zone history.** `WRT_ZONE_HIST= YES` writes a history file per zone. `WRT_ZONE_CONV= YES` prints the convergence of each zone (code).
 - **Visual check.** `OUTPUT_FILES= (RESTART, PARAVIEW_MULTIBLOCK)` writes one ParaView file with all zones. The temperature should be continuous across solid-fluid interfaces ([contact resistance tutorial](/tutorials/SS_CR_CHT/)).
 
@@ -293,4 +293,4 @@ Test cases:
 
 User guide pages: [Basics of Multi-Zone Computations](../Multizone/), [Markers and BC](../Markers-and-BC/), [Theory: Heat Conduction](../Theory/#heat-conduction), [Solver Setup](../Solver-Setup/), [Custom Output](../Custom-Output/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

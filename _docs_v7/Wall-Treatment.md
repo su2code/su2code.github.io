@@ -5,7 +5,7 @@ permalink: /docs_v7/Wall-Treatment/
 
 This page explains the model and its SU2 implementation. For numerical setup choices, see the [setup guide](../Setup-Guide-RANS-External-Aero/); use its tutorial and V&V links for worked examples and comparisons.
 
-This page covers two ways to change what a turbulence model does at a viscous wall. *Wall functions* replace the resolved near-wall layer with an analytical law of the wall, so the first mesh point can be further from the wall. *Roughness models* change the wall boundary condition of the turbulence model so that it predicts the higher friction and heat transfer of a rough surface.
+This page covers two ways to change what a turbulence model does at a viscous wall. *Wall functions* replace the resolved near-wall layer with an analytical law of the wall, so the first mesh point can be further from the wall. *Roughness models* change the wall boundary condition of the turbulence model to represent roughness effects on turbulence and wall friction. Heat transfer is then affected through the coupled solution and heat-transport closure; these are not universal correlations for rough-wall heat transfer.
 
 For the SA and SST models themselves, see [Turbulence Models](../Turbulence-Models/). For the basic wall boundary conditions, see [Markers and Boundary Conditions](../Markers-and-BC/).
 
@@ -175,7 +175,7 @@ All advice in this section is general practice, not checked in SU2 (to be review
 
 **Wall functions**
 
-- Aim for the first interior node in the log layer: y+ about 30 to 100. The upper limit grows with the Reynolds number. The [Markers and BC](../Markers-and-BC/#wall-functions) page gives 100 to 500 (to be reviewed).
+- Aim for the first interior node in the log layer: y+ about 30 to 100. The upper limit grows with the Reynolds number. The [Markers and BC](../Markers-and-BC/#wall-functions) page gives a broader 100 to 500 range. Neither range is a universal upper accuracy bound: verify log-layer placement for the Reynolds number, pressure gradient and wall treatment in use (advice, to be reviewed).
 - Avoid a first node in the buffer layer (y+ about 5 to 30) on large parts of the wall (to be reviewed).
 - Wall functions assume an attached boundary layer in equilibrium. Expect lower accuracy near separation, reattachment and strong pressure gradients (to be reviewed).
 - List every viscous wall in `MARKER_WALL_FUNCTIONS` (see [Known limits](#known-limits)).
@@ -231,4 +231,4 @@ Tutorials with wall functions:
 
 ---
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

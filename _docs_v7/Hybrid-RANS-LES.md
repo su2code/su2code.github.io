@@ -32,12 +32,13 @@ For a step-by-step case setup, see [Setup Guide: Unsteady Flows and DES](../Setu
 
 In SU2, all DES variants modify the Spalart-Allmaras (SA) model. The SA model uses the wall distance in its destruction term. DES replaces this distance with a *DES length scale*:
 
-- Near the wall, the length scale is the wall distance. The model acts as RANS.
-- Far from the wall, the length scale is `DES_CONST` times a local cell size. The model then acts as a subgrid model for LES.
+- In original DES, the length scale is min(d, C_DES Δ), using wall distance d and the local grid measure Δ.
+- In the delayed variants it is d − f_d·max(0, d − C_DES Δ). Shielding f_d near zero retains the RANS wall distance; f_d near one recovers the DES limit.
+- With a suitable mesh and time step, the shortened scale lets the model act as an LES subgrid model. Distance from the wall alone does not select the mode.
 
 The variants differ in two points: how they protect attached boundary layers from switching to LES, and how they measure the cell size.
 
-The DES length scale is computed only in the SA solver (`CTurbSASolver::SetDES_LengthScale`). The SST solver never reads `HYBRID_RANSLES`. So in SU2 develop, DES needs `KIND_TURB_MODEL= SA`. SST-based DES variants are in open pull requests.
+The DES length scale is computed only in the SA solver (`CTurbSASolver::SetDES_LengthScale`). The SST solver never reads `HYBRID_RANSLES`. So in SU2 develop, DES needs `KIND_TURB_MODEL= SA`. The options on this page describe the checked source revision; do not infer SST-DES support from an option being accepted by the parser.
 
 DES works with the compressible (`RANS`) and the incompressible (`INC_RANS`) solvers. Both pass the DES length scale and the LES sensor to the output.
 
@@ -185,7 +186,7 @@ All advice in this section is general practice, not checked in SU2 (to be review
 - **Time step.** Choose a time step so that the convective CFL number, based on the local cell size and velocity, is about 1 or less in the LES region (to be reviewed).
 - **Time marching.** Use `TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER`, as in the test cases. Converge the inner iterations by 2 to 3 orders per time step (to be reviewed).
 - **Convective scheme.** Use a second-order scheme (`MUSCL_FLOW= YES`) without a slope limiter where there are no shocks. With `ROE`, `SLAU` or `SLAU2`, try `ROE_LOW_DISSIPATION= FD` or `NTS`. Add a `_DUCROS` variant if there are shocks (to be reviewed).
-- **Statistics.** Run the start-up transient first. Then set `WINDOW_START_ITER` and average over many flow-through times. Check that the averages no longer change (to be reviewed).
+- **Statistics.** Exclude the start-up transient with `WINDOW_START_ITER`, then sample over many characteristic times. Compare separate sampling blocks and extend the interval; a flat cumulative average or passing Cauchy criterion alone does not establish statistical convergence (advice, to be reviewed).
 - **Check the switch.** Plot `LES_SENSOR` and `DES_LENGTHSCALE`. Attached boundary layers should stay at sensor 0 (RANS). Separated regions should show sensor near 1 (LES).
 
 ## Output fields
@@ -232,4 +233,4 @@ Background: [An Overview of DDES in SU2: Implementation and Recent Results](/doc
 
 ---
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

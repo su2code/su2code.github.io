@@ -25,9 +25,9 @@ The guide covers the compressible solvers (`SOLVER= EULER`, `NAVIER_STOKES` or `
 Terms used below:
 
 - **Equation of state (EOS)**: the relation between pressure, density, temperature and energy of the fluid.
-- **Critical point**: the pressure and temperature above which liquid and vapour can no longer be told apart. Near it, the fluid properties change fast.
-- **Acentric factor**: a number that describes the shape of the molecule. Cubic equations of state such as Peng-Robinson use it.
-- **Two-phase region**: the states where liquid and vapour coexist. Inside it, a cubic EOS gives non-physical values, for example a negative square of the speed of sound.
+- **Critical point**: the endpoint of the liquid-vapour coexistence curve, where the two phases become identical. A supercritical state has both temperature and pressure above their critical values. Properties can vary rapidly nearby.
+- **Acentric factor**: a dimensionless parameter defined from the reduced saturation pressure at a reduced temperature of 0.7. Peng-Robinson uses it to represent departures from simple-fluid behaviour.
+- **Two-phase region**: states where liquid and vapour coexist in equilibrium. A cubic EOS may return a metastable or unstable single-phase continuation there. Positive pressure and sound-speed squared do not establish phase stability; check the saturation boundary separately.
 
 In this guide, (advice) also covers general thermodynamics practice.
 
@@ -35,7 +35,7 @@ In this guide, (advice) also covers general thermodynamics practice.
 
 The block below is built from the regression test [nicf/coolprop/fluidModel.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/nicf/coolprop/fluidModel.cfg). That test runs the supersonic nozzle of the [NICFD nozzle tutorial](/tutorials/NICFD_nozzle/) with CoolProp.
 
-- We replaced the CoolProp fluid with the Peng-Robinson fluid block of the tutorial (siloxane MDM), so that the config runs with a normal SU2 build.
+- We replaced the CoolProp fluid with the Peng-Robinson fluid block of the tutorial (siloxane MDM), so that the fluid model needs no CoolProp build. This modified combination has not been run as a new validation case.
 - We set `RESTART_SOL= NO`, and removed the comments and the file names.
 - We replaced `LIFT` and `DRAG` in the screen output with `NONPHYSICAL_POINTS`.
 - The mesh `coolprop_nozzle.su2` is in the [TestCases repository](https://github.com/su2code/TestCases).
@@ -127,8 +127,10 @@ How to choose (advice, to be reviewed):
 
 - `VW_GAS` is the simplest non-ideal model. It is mainly useful for qualitative studies and code tests.
 - `PR_GAS` is a common choice for organic fluids. It gives fair accuracy away from the critical point. The NICFD nozzle tutorial uses it (tutorial).
-- `COOLPROP` is the most accurate near the critical point, but each property evaluation is slower.
-- `DATADRIVEN_FLUID` gives accuracy close to the reference EOS at a lower cost. First you must build a table, or train a network, for your fluid and your range of states.
+- `COOLPROP` provides fluid-specific multiparameter equations of state. Check the underlying EOS reference, validity range and uncertainty for the fluid and states of interest; neither accuracy nor evaluation cost has a universal ranking.
+- `DATADRIVEN_FLUID` approximates a reference EOS with a table or network. Establish property and derivative errors over the intended state range and measure cost; closeness to the reference and a speedup are not guaranteed.
+
+For background on the EOS families and their limits, see the primary [CoolProp fluid-property documentation](https://coolprop.org/fluid_properties/PurePseudoPure.html) and [cubic-EOS documentation](https://coolprop.org/coolprop/Cubics.html). These describe the library, not a guarantee about SU2 coupling.
 
 Parameters and their defaults (code):
 
@@ -248,9 +250,9 @@ What SU2 does with non-physical states (code):
 | SU2 stops: "SU2 was not compiled with MLPCpp enabled (-Denable-mlpcpp=true)." | A build without MLPCpp (code). | Rebuild with `-Denable-mlpcpp=true`. |
 | SU2 stops: "Viscosity model not available for this fluid in CoolProp library." (or the same for conductivity). | `FLUID_NAME` is not in the list of the transport model, or is spelled with other capitals (code). | Use the exact name, for example `Nitrogen`, or use a constant model. |
 | SU2 stops: "POLYNOMIAL_VISCOSITY and POLYNOMIAL_CONDUCTIVITY are for incompressible only currently." | A polynomial transport model with a compressible solver (code). | Use a constant model or `COOLPROP`. |
-| `NONPHYSICAL_POINTS` stays above zero, or the speed of sound is negative. | States inside the two-phase region, where a cubic EOS has no physical solution; or too large a step at start-up (advice). | Check the boundary values against the saturation curve. Lower the CFL, start first order, and refine near the critical point (to be reviewed). |
+| `NONPHYSICAL_POINTS` stays above zero, or sound-speed squared is negative. | An invalid single-phase state, a metastable/unstable EOS branch, or too large a step at start-up (advice). | Check the boundary values against the saturation curve. Lower the CFL, start first order, and refine near the critical point (to be reviewed). |
 | Strange results close to saturation with `COOLPROP`. | In a two-phase state, the code raises the temperature by 0.1 K and evaluates the speed of sound of the gas phase (code). | Keep the flow out of the two-phase region: the results there are not reliable. |
-| The results look like air. | `CRITICAL_*`, `ACENTRIC_FACTOR`, `GAMMA_VALUE`, `GAS_CONSTANT`, `MU_CONSTANT` or `THERMAL_CONDUCTIVITY_CONSTANT` left at their defaults, which are air values (code). | Set all fluid and transport parameters for your fluid. |
+| The results look like air. | `CRITICAL_*`, `ACENTRIC_FACTOR`, `GAMMA_VALUE`, `GAS_CONSTANT`, `MU_CONSTANT` or `THERMAL_CONDUCTIVITY_CONSTANT` left at their defaults, which do not collectively describe the intended fluid (code). | Set all fluid and transport parameters for your fluid. |
 | The CoolProp conductivity has no effect. | `TURBULENT_CONDUCTIVITY_MODEL` is left at `CONSTANT_PRANDTL_TURB` (code). | Set `TURBULENT_CONDUCTIVITY_MODEL= NONE` (to be reviewed). |
 | `EXTRAPOLATION` is 1 in parts of the domain. | The data-driven model is used outside its training range (code). | Generate data and retrain over a wider range of density and energy. |
 | The inlet flow angle is wrong on a 2D inlet that is not normal to x. | In 2D, SU2 reads the direction of the Riemann `TOTAL_CONDITIONS_PT` inlet relative to the boundary normal. In 3D, it reads it as x, y, z components (code, to be reviewed). | In 2D, give the direction as (normal, tangential) components. |
@@ -275,4 +277,4 @@ Test cases (SU2 repository):
 
 User guide pages: [Physical Definition](../Physical-Definition/), [Markers and Boundary Conditions](../Markers-and-BC/), [Convective Schemes](../Convective-Schemes/), [Slope Limiters and Shock Resolution](../Slope-Limiters-and-Shock-Resolution/), [Theory](../Theory/), [Option reference](../Option-Reference/), [Output fields](../Output-Fields-Reference/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

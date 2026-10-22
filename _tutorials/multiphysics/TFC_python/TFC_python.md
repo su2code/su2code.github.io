@@ -11,7 +11,7 @@ requires: SU2_CFD, python
 complexity: advanced
 ---
 
-![TFC_temp](../../../tutorials_files/multiphysics/TFC_python/images/TFC_temp.png)
+![TFC_temp](../../tutorials_files/multiphysics/TFC_python/images/TFC_temp.png)
 Figure (1): high-pressure turbulent premixed flame of the Paul-Scherrer Institute (PSI), Switzerland
 
 ## Goals
@@ -109,7 +109,7 @@ def SetInitialSpecies(SU2Driver):
 
 ```
 
-![TFC_temp_init](../../../tutorials_files/multiphysics/TFC_python/images/TFC_temp_init.png)
+![TFC_temp_init](../../tutorials_files/multiphysics/TFC_python/images/TFC_temp_init.png)
 Figure(2): initial temperature field created using the python wrapper
 
 Note that when setting the species solution, we use the index=0, because we have only 1 species transport equation. When setting a flow solution, the index to the required field should be used. The indices can be retrieved using:
@@ -231,7 +231,7 @@ $ mpirun -n 4 python run.py
 
 ### Results
 
-![TFC_source](../../../tutorials_files/multiphysics/TFC_python/images/TFC_source.png)
+![TFC_source](../../tutorials_files/multiphysics/TFC_python/images/TFC_source.png)
 Figure (3): visualization of the TFC source term for the turbulent combustion model, together with the streamlines. 
 
 
@@ -258,7 +258,7 @@ $$q_w = k_f \left(
 The near wall mesh needs to be fine enough to accurately represent the flux.
 
 
-![TFC_source](../../../tutorials_files/multiphysics/TFC_python/images/TFC_temp_heatloss.png)
+![TFC_source](../../tutorials_files/multiphysics/TFC_python/images/TFC_temp_heatloss.png)
 Figure (4): visualization of the temperature with a line plot showing the wall temperature. 
 
 Figure 4 shows the temperature in the domain, clearly showing the thermal boundary layer at the wall. In the upper left corner the temperature redistribution due to the recirculation zone is also clearly present.
@@ -278,15 +278,15 @@ $$h_{\textrm{chem}} = c \cdot h_{chem}^{\textrm{max}}$$.
 
 Since total enthalpy is conserverved during combustion, the temperature difference between the actual temperature and the temperature computed from the sensible enthalpy gives us the heat loss. With this enthalpy deficiency we can compute the local laminar flame speed and the corrected source term. 
 
-![TFC_source](../../../tutorials_files/multiphysics/TFC_python/images/TFC_source_correction.png)
+![TFC_source](../../tutorials_files/multiphysics/TFC_python/images/TFC_source_correction.png)
 Figure (4): visualization of the source term showing the results using constant laminar flamespeed (top) and the variable laminar flamespeed (bottom).
 
 
-![TFC_source](../../../tutorials_files/multiphysics/TFC_python/images/TFC_temp_correction.png)
+![TFC_source](../../tutorials_files/multiphysics/TFC_python/images/TFC_temp_correction.png)
 Figure (5): visualization of the temperature showing the result using constant laminar flamespeed (top) and the variable laminar flamespeed (bottom).
 
 Figures 4 and 5 show a comparison between the simulation results using a constant laminar flamespeed and a variable laminar flamespeed that takes into account local heat losses. In Figure 4, the source term is smaller close to the wall where the flame attaches. The temperature field in Figure 5 shows that the flame zone is more diffusive.  
-![TFC_source](../../../tutorials_files/multiphysics/TFC_python/images/TFC_c_correction.png)
+![TFC_source](../../tutorials_files/multiphysics/TFC_python/images/TFC_c_correction.png)
 Figure (6): Line plot of the progress variable on the centerline showing the result using constant laminar flamespeed and variable laminar flamespeed.
 
 Figure 6 confirms that the flame is more diffuse with variable S_L.  

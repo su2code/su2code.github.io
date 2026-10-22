@@ -263,7 +263,7 @@ So average over one continuous run, without restarts (advice).
 
 All DES variants in SU2 develop build on the SA model. Set `KIND_TURB_MODEL= SA` and pick a variant with `HYBRID_RANSLES` (code).
 
-In DES, the model uses a length scale that is the smaller of two values: the wall distance, and `DES_CONST` times a cell size (code). Near the wall, the wall distance is smaller and the model acts as RANS. Far from the wall, the cell size is smaller and the model acts as an LES subgrid model.
+In original `SA_DES`, the length scale is min(d, C_DES Δ), where d is wall distance and Δ the grid measure. The delayed variants use d − f_d·max(0, d − C_DES Δ): f_d near zero protects attached boundary layers, and f_d near one recovers the DES limit. The grid measure also changes with the variant. Thus distance from the wall alone does not determine the RANS/LES mode (code, reference). See [Hybrid RANS/LES](../Hybrid-RANS-LES/#what-su2-does-differently-from-the-literature).
 
 | `HYBRID_RANSLES` | What it is (code) |
 | --- | --- |
@@ -275,7 +275,7 @@ In DES, the model uses a length scale that is the smaller of two values: the wal
 
 Advice:
 
-- `SA_DES` can switch to LES inside an attached boundary layer if the mesh is fine along the wall. The mesh, not the flow, can then cause separation. `SA_DDES` or `SA_EDDES` avoid this (advice).
+- `SA_DES` can switch to LES inside an attached boundary layer if the mesh is fine along the wall. The mesh, not the flow, can then cause separation. `SA_DDES` and `SA_EDDES` add shielding to reduce this risk; the result still needs mesh and sensor checks (advice).
 - `SA_ZDES` in SU2 is DDES with the ZDES cell size. It is not the full zonal method of the reference, where the user picks RANS and LES zones (code, to be reviewed).
 - SU2 does not stop with an error if you set `HYBRID_RANSLES` with `KIND_TURB_MODEL= SST`. Only the SA solver uses the DES length scale, so such a run is plain URANS (code).
 
@@ -292,7 +292,7 @@ General points for the DES mesh (advice, to be reviewed):
 
 - DES resolves turbulent eddies, which are three-dimensional. Run DES in 3D. 2D DES runs do not give physical turbulence.
 - Near the walls, the mesh must be fine enough for RANS: first-cell y+ about 1.
-- In the regions you want in LES mode (wakes, separated zones), use cells of similar size in all directions. SU2 uses the largest cell dimension as the cell size (code), so stretched cells give a large cell size: more of the turbulence is modelled and less is resolved.
+- In the regions you want in LES mode (wakes, separated zones), use cells of similar size in all directions. Original DES/DDES use the longest edge from a node to its neighbours; ZDES/EDDES use the variant-specific measures described in [Hybrid RANS/LES](../Hybrid-RANS-LES/#what-su2-does-differently-from-the-literature) (code). Stretched cells can limit LES resolution; inspect the chosen grid measure and the RANS/LES sensor rather than assuming that refinement in one direction is sufficient.
 - Keep the cell size changes smooth between the RANS and LES regions.
 - For a body with a spanwise direction, the spanwise extent must hold the largest eddies of interest.
 
@@ -332,7 +332,7 @@ No test case in develop uses `ROE_LOW_DISSIPATION` (test case).
 
 - **Inner convergence.** `REL_RMS_DENSITY` (or your `CONV_FIELD`) reaches the criterion in each time step before `INNER_ITER` (tutorial).
 - **Start-up phase over.** Plot `LIFT` and `DRAG` against time. The signal should be periodic or statistically steady before `WINDOW_START_ITER` (tutorial).
-- **Averages settled.** `TAVG_LIFT` and `TAVG_DRAG` are flat. With `WINDOW_CAUCHY_CRIT= YES`, the `CAUCHY_TAVG_` values are below `CONV_WINDOW_CAUCHY_EPS` (tutorial).
+- **Averages settled.** Compare averages from separate sampling blocks and extend the sampling interval. A slowly changing cumulative average alone does not establish statistical convergence, especially for DES. Monitor `TAVG_LIFT` and `TAVG_DRAG`. With `WINDOW_CAUCHY_CRIT= YES`, the `CAUCHY_TAVG_` values are below `CONV_WINDOW_CAUCHY_EPS` (tutorial).
 - **Time step and mesh.** Halve the time step and refine the mesh. The frequency and the averages should change little (advice).
 - **DES regions.** Write the `DDES` group: `DES_LENGTHSCALE`, `WALL_DISTANCE` and `LES_SENSOR`. `LES_SENSOR` is 0 where the model acts as RANS. In LES mode it is 1 for `SA_DES` and the value of the shielding function for the DDES variants (code). Attached boundary layers should stay at 0 (advice).
 - **Resolved eddies.** Write the `VORTEX_IDENTIFICATION` group: `VORTICITY` (2D) or `VORTICITY_X`, `VORTICITY_Y`, `VORTICITY_Z` (3D), and `Q_CRITERION` (code). Iso-surfaces of `Q_CRITERION` show the resolved eddies (advice).
@@ -377,4 +377,4 @@ User guide pages:
 - [Solver Setup](../Solver-Setup/), [Restart File](../Restart-File/), [History and Solution Output](../Custom-Output/), [Convective Schemes](../Convective-Schemes/), [Physical Definition](../Physical-Definition/).
 - All options: [Option Reference](../Option-Reference/). All output fields: [Output Fields Reference](../Output-Fields-Reference/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

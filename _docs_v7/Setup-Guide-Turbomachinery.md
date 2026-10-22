@@ -122,7 +122,7 @@ For a 3D machine, start from the [Aachen turbine tutorial](/tutorials/Aachen_Tur
 
 ### Mesh and machine axis
 
-- The machine axis must be the z-axis, and the flow should go in the positive z direction (tutorial). The code computes the radius as the distance from the z-axis when it builds the span-wise sections. The rotation ramp changes only the z component of `ROTATION_RATE` (code).
+- For 3D turbomachinery, align the machine axis with z. The Aachen axial-flow example uses flow along positive z; radial machines also have a radial flow component, and the 2D translating-row example uses the x–y plane (tutorial, code). The code computes the radius as the distance from the z-axis when it builds the span-wise sections. The rotation ramp changes only the z component of `ROTATION_RATE` (code).
 - Mesh one blade passage per row, and connect its sides with `MARKER_PERIODIC` (tutorial). For a rotational periodicity, give the rotation centre and the rotation angle about each axis, in degrees. The Aachen case has 41 blades per row and uses an angle of 360/41 = 8.7804878 about z (test case).
 - In 3D, list the periodic pairs in `MARKER_PERIODIC` in zone order: the first pair for zone 1, the second pair for zone 2, and so on. The code that finds the span-wise sections of zone *n* looks at the *n*-th periodic pair (code, to be reviewed). All 3D test cases follow this order (test case).
 
@@ -221,7 +221,7 @@ SU2 builds the span-wise sections as follows (code):
 
 ### Ramps
 
-Ramps help when the machine has a high pressure ratio or a high rotation speed (tutorial). A ramp changes a value linearly, from a start value to the final value set in the config file.
+Ramps help when the machine has a high pressure ratio or a high rotation speed (tutorial). A ramp approaches the final value from a prescribed start value, using the configured update interval and ramp length.
 
 The ramp options (code):
 
@@ -304,4 +304,4 @@ Test cases (SU2 repository):
 
 User guide pages: [Basics of Multi-Zone Computations](../Multizone/), [Markers and Boundary Conditions](../Markers-and-BC/), [Solver Setup](../Solver-Setup/), [History and Solution Output](../Custom-Output/), [Setup Guide: Non-Ideal Compressible Flows](../Setup-Guide-NICFD/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

@@ -12,7 +12,7 @@ complexity: Basic
 follows: 
 ---
 
-![Actuator Disk](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/SwirlAndCp.png)
+![Actuator Disk](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/SwirlAndCp.png)
 
 ## Goals
 
@@ -67,16 +67,16 @@ Three boundary conditions are employed:
 - Navier-Stokes adiabatic wall on the spinner.
 - Far-field condition on the outer domain surface.
 
-![Domain](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Domain.png)
+![Domain](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Domain.png)
 Figure (1): Far-field view of the computational domain.
 
-![Grid XY](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridXY.png)
+![Grid XY](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridXY.png)
 Figure (2): Mesh of the domain in the *x-y* plane.
 
-![Grid Disk](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridDisk.png)
+![Grid Disk](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridDisk.png)
 Figure (3): Close-up view of the mesh of the actuator disk in the *y-z* plane at *x=0*.
 
-![Grid Disk](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridSpinner.png)
+![Grid Disk](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/GridSpinner.png)
 Figure (4): Close-up view of the mesh of the spinner in the *y-x* plane.
 
 ### Configuration File Options
@@ -182,10 +182,10 @@ These coefficients are defined using the "Renard" definition: the reference forc
 
 The visualization of the tabular input for this case is shown in the following figure:
 
-![dct input](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/dct_input.png)
+![dct input](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/dct_input.png)
 Figure (5): Thrust coefficient distribution along the non-dimensional radius.
 
-![dcp input](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/dcp_input.png)
+![dcp input](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/dcp_input.png)
 Figure (6): Power coefficient distribution along the non-dimensional radius.
 
 ### Optimal Propeller Script
@@ -233,26 +233,26 @@ The actuator disk with variable load test case is small and will execute relativ
 
 Some results for this test case are shown below.
 
-![Mach Number](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MachNumber.png)
+![Mach Number](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MachNumber.png)
 Figure (7): Mach number contour in the *x-z* plane.
 
-![Pressure Coefficient](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/ContourCp.png)
+![Pressure Coefficient](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/ContourCp.png)
 Figure (8): Pressure coefficient contour in the *x-z* plane.
 
-![Swirl Vectors](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Swirl_Vectors.png)
+![Swirl Vectors](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Swirl_Vectors.png)
 Figure (9): Tangential velocity vectors just downstream the actuator disk. Swirl effect visualization.
 
-![Momentum X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MomentumX.png)
+![Momentum X](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/MomentumX.png)
 Figure (10): Momentum in normal direction along *x* for different stations.
 
-![Pressure Coefficient X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/PressureCoeff.png)
+![Pressure Coefficient X](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/PressureCoeff.png)
 Figure (11): Pressure coefficient along *x* for different stations.
 
-![Tangential Velocity X](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt_x.png)
+![Tangential Velocity X](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt_x.png)
 Figure (12): Tangential velocity component along *x* for different stations.
 
-![Pressure Coefficient Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/DeltaCp.png)
+![Pressure Coefficient Jump](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/DeltaCp.png)
 Figure (13): Pressure coefficient jump along the non-dimensional radius.
 
-![Tangential Velocity Jump](../../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt.png)
+![Tangential Velocity Jump](../../tutorials_files/compressible_flow/ActuatorDisk_VariableLoad/images/Vt.png)
 Figure (14): Tangential velocity component along *z* just upstream (State 1) and downstream (State 2) the actuator disk.

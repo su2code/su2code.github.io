@@ -123,15 +123,15 @@ Set `SOLVER= RANS` and pick the model with `KIND_TURB_MODEL`. With `SOLVER= RANS
 
 - With an empty `SST_OPTIONS`, SU2 runs the 2003 version, "SST-2003m", as set in `ParseSSTOptions` in `option_structure.hpp` (code). Some older pages give `V1994m` as the default; this is out of date.
 - The other `SST_OPTIONS` values are `V1994m`, `V2003m`, `SUSTAINING`, `VORTICITY`, `KATO-LAUNDER`, `UQ`, `COMPRESSIBILITY-WILCOX`, `COMPRESSIBILITY-SARKAR` and `DIMENSIONLESS_LIMIT`. Write `KATO-LAUNDER` with a dash (code).
-- SST needs free-stream values for k and omega. They come from `FREESTREAM_TURBULENCEINTENSITY` (a fraction: `0.001` means 0.1 %) and `FREESTREAM_TURB2LAMVISCRATIO` (eddy viscosity over laminar viscosity). The defaults are `0.05` and `10.0` (code). These defaults suit internal flows and may be too high for external aerodynamics (docs).
+- SST needs free-stream values for k and omega. They come from `FREESTREAM_TURBULENCEINTENSITY` (a fraction: `0.001` means 0.1 %) and `FREESTREAM_TURB2LAMVISCRATIO` (eddy viscosity over laminar viscosity). The defaults are `0.05` and `10.0` (code). These are parser defaults, not calibrated inlet conditions. Choose values for the actual flow and check their decay to the body; see the [TMR SST boundary conditions](https://tmbwg.github.io/turbmodels/sst.html) (reference, advice).
 - External aerodynamics tests use, for example, `FREESTREAM_TURBULENCEINTENSITY= 0.001` with `FREESTREAM_TURB2LAMVISCRATIO= 100.0` (RAE2822 SST), or `0.001` with `0.1` (NACA0012 SST with `SUSTAINING`) (test case).
-- In SST, k decays between the far field and the body. Two options stop this decay. `SST_OPTIONS= SUSTAINING` adds source terms that keep the free-stream values (docs). `TURB_FIXED_VALUES= YES` holds k and omega at the far-field values in an upstream region set by `TURB_FIXED_VALUES_DOMAIN` (code). The test `rans/naca0012/turb_NACA0012_sst_fixedvalues.cfg` uses the second one (test case).
+- In SST, k decays between the far field and the body. Two options control this decay. `SST_OPTIONS= SUSTAINING` supplies a floor to production using the ambient values; SU2 uses a maximum rather than the additive sustaining terms of the TMR definition (code). See [the implementation difference](../Turbulence-Models/#sst). `TURB_FIXED_VALUES= YES` holds k and omega at the far-field values in an upstream region set by `TURB_FIXED_VALUES_DOMAIN` (code). The test `rans/naca0012/turb_NACA0012_sst_fixedvalues.cfg` uses the second one (test case).
 
 **Which one to pick.**
 
 - SA is robust and widely used for attached flows over wings and airfoils (advice).
 - SST is often preferred when adverse pressure gradients and separation matter (advice, to be reviewed).
-- If the two models give different lift or drag, treat the difference as model uncertainty. Look at the flow where they differ (advice).
+- Differences between SA and SST are evidence of model sensitivity, not a quantified uncertainty bound. First check iterative and mesh convergence, then examine the regions where the models differ (advice).
 
 See [Turbulence Models](../Turbulence-Models/) for the full option list.
 
@@ -172,7 +172,7 @@ See [Slope Limiters and Shock Resolution](../Slope-Limiters-and-Shock-Resolution
 
 ### CFL number and adaptive CFL
 
-SU2 marches a steady case in pseudo-time. The CFL number sets the local pseudo-time step. A higher CFL converges in fewer iterations, but each iteration needs a harder linear solve.
+SU2 marches a steady case in pseudo-time. The CFL number sets the local pseudo-time step. A higher CFL can reduce the iteration count, but can also make the linear solve harder or destabilize the nonlinear iteration.
 
 - The default `CFL_NUMBER` is `1.25` (code). Implicit RANS runs use much higher values: `100` in the ONERA M6 tutorial, `1000` in the RAE2822 SA and NACA0012 SST tests (tutorial, test case).
 - `CFL_ADAPT= YES` lets SU2 change the CFL during the run. `CFL_NUMBER` is then the starting value (code).
@@ -256,7 +256,7 @@ With `INIT_OPTION= REYNOLDS` (the default), SU2 builds the free stream from the 
 
 Things to check:
 
-- The mesh must be in meters. `REYNOLDS_LENGTH` is the length (in mesh units) that the Reynolds number refers to, for example the chord (tutorial).
+- With `SYSTEM_MEASUREMENTS= SI` (the default), give mesh lengths in metres. `REYNOLDS_LENGTH` is the length (in mesh units) that the Reynolds number refers to, for example the chord (tutorial).
 - With `INIT_OPTION= TD_CONDITIONS`, SU2 uses `FREESTREAM_PRESSURE` and `FREESTREAM_TEMPERATURE` instead, and ignores the Reynolds number (tutorial).
 - SU2 prints a table of free-stream values before the first iteration. Check it (tutorial).
 - `REF_DIMENSIONALIZATION` sets the scaling of the equations. The default is `DIMENSIONAL` (code). The tests also use `FREESTREAM_VEL_EQ_ONE`, `FREESTREAM_VEL_EQ_MACH` and `FREESTREAM_PRESS_EQ_ONE` (tutorial, test case).
@@ -282,7 +282,7 @@ y+ is the distance of the first point from the wall, in wall units. It tells you
 - Without wall functions, the first point must be in the viscous sublayer: y+ below 5 (docs). y+ about 1 is the usual target (advice).
 - With wall functions, SU2 models the near-wall layer, so the first point can be further from the wall. Turn them on per marker: `MARKER_WALL_FUNCTIONS= ( wall, STANDARD_WALL_FUNCTION )`. They work with SA and SST, compressible and incompressible (docs).
 - For RANS, only `NO_WALL_FUNCTION` and `STANDARD_WALL_FUNCTION` are tested. `ADAPTIVE_WALL_FUNCTION`, `SCALABLE_WALL_FUNCTION` and `NONEQUILIBRIUM_WALL_MODEL` stop SU2 with an error (code, test case).
-- The wall function is active only where y+ is above `WALLMODEL_MINYPLUS` (default `5.0`) (code, docs). The docs give an upper limit of y+ 100 to 500, rising with the Reynolds number (docs).
+- The wall function is active only where y+ is above `WALLMODEL_MINYPLUS` (default `5.0`) (code, docs). The activation threshold is not a mesh-accuracy target. See [Wall Treatment](../Wall-Treatment/#recommended-use) for log-layer placement and the current restrictions on mixed wall treatments.
 - Wall functions and `WALL_ROUGHNESS` cannot be used together (code).
 - Wall functions assume an attached boundary layer in equilibrium. They are less accurate near separation and strong pressure gradients (advice).
 - Check the `Y_PLUS` output field on the wall. It is in the default `PRIMITIVE` output group (code).
@@ -293,7 +293,7 @@ See [Markers and Boundary Conditions](../Markers-and-BC/#wall-functions) and the
 
 - **Residuals.** Plot `RMS_DENSITY` and the turbulence residual (`RMS_NU_TILDE` for SA, `RMS_TKE` and `RMS_DISSIPATION` for SST). A drop of several orders of magnitude is a good sign (advice).
 - **Coefficients.** `LIFT`, `DRAG` and the moments must be flat at the end of the run. Add the `CAUCHY` group to `HISTORY_OUTPUT` to see the Cauchy values (code).
-- **Linear solver and CFL.** `LINSOL_RESIDUAL` should stay below `LINEAR_SOLVER_ERROR` most of the time. With `CFL_ADAPT= YES`, `AVG_CFL` should grow and stay high (advice).
+- **Linear solver and CFL.** `LINSOL_RESIDUAL` is log10 of the final linear residual: compare it with log10(`LINEAR_SOLVER_ERROR`), for example −6 for a tolerance of 1e-6 (code). With `CFL_ADAPT= YES`, `AVG_CFL` should grow and stay high (advice).
 - **Free stream.** Read the free-stream table that SU2 prints at the start: Reynolds number, density, pressure, velocity (tutorial).
 - **y+.** Look at `Y_PLUS` on the walls (code).
 - **Surface data.** Put `SURFACE_PARAVIEW` or `SURFACE_CSV` in `OUTPUT_FILES`, and plot `PRESSURE_COEFF` and `SKIN_FRICTION-X` along the wall (code, tutorial).
@@ -312,7 +312,7 @@ See [History and Solution Output](../Custom-Output/) and the [Output Fields Refe
 | `LINSOL_RESIDUAL` stays near 1. | The linear system is too hard at this CFL. | Lower the CFL, use `ILU`, raise `LINEAR_SOLVER_ITER` (docs). |
 | The drag is too high with `JST` on a coarse mesh. | Too much numerical dissipation. | Try `JST_MAT`, or an upwind scheme with MUSCL (docs). Refine the mesh. |
 | The skin friction or drag is far from the expected value. | Wrong Reynolds number: the mesh is not in meters, or `REYNOLDS_LENGTH` is wrong. | Check the mesh units and the free-stream table (tutorial). |
-| SST results depend on the far-field distance. | The free-stream k decays before it reaches the body. | Use `SST_OPTIONS= SUSTAINING` or `TURB_FIXED_VALUES= YES` (docs, code). |
+| SST results depend on the far-field distance. | The free-stream k decays before it reaches the body. | Check the incoming turbulence and domain-size sensitivity. If decay is the cause, consider `SST_OPTIONS= SUSTAINING` or `TURB_FIXED_VALUES= YES` with its upstream plane set; these do not fix pressure-field interference from a close far field (advice). |
 | The run stops at iteration 1000. | `ITER` has a default of `1000`. | Set `ITER` (code). |
 | A fixed-CL run ends before CL reaches the target. | The angle is updated too rarely, or `CONV_CAUCHY_EPS` is too large. | Lower `UPDATE_AOA_ITER_LIMIT` and check `CONV_CAUCHY_EPS` (code). |
 
@@ -342,4 +342,4 @@ User guide pages:
 - [Physical Definition](../Physical-Definition/), [Convective Schemes](../Convective-Schemes/), [Slope Limiters and Shock Resolution](../Slope-Limiters-and-Shock-Resolution/), [Linear Solvers and Preconditioners](../Linear-Solvers-and-Preconditioners/), [Markers and Boundary Conditions](../Markers-and-BC/), [Solver Setup](../Solver-Setup/), [Governing Equations](../Theory/), [History and Solution Output](../Custom-Output/).
 - All options: [Option Reference](../Option-Reference/). All output fields: [Output Fields Reference](../Output-Fields-Reference/).
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

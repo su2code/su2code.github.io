@@ -24,7 +24,7 @@ The resources for this tutorial can be found in the [multiphysics/contact_resist
 
 ## Tutorial
 
-The following tutorial will walk you through the steps required when solving for a coupled CHT solution incorporating multiple physical zones and contact resistance. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs_v8/Download/) and [Installation](/docs_v8/Installation/) pages.
+The following tutorial will walk you through the steps required when solving for a coupled CHT solution incorporating multiple physical zones and contact resistance. It is assumed you have already obtained and compiled the SU2_CFD code for a serial computation. If you have yet to complete these requirements, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) pages.
 
 ### Background
 
@@ -44,13 +44,13 @@ $$
 
 Here, $R_c$ is the contact resistance with the units $m^2 K W^{-1}$, or the inverse of the heat transfer coefficient. For ideal contact, $R_c$ is equal to zero. This results in the temperature on both sides of the interface to be equal. Applying a non-zero value for $R_c$ restricts the heat transfer between the two solid domains, resulting in a temperature discontinuity. To illustrate this, consider the following set-up with two solid domains.
 
-![Solid domain set-up](../../../tutorials_files/multiphysics/contact_resistance_cht/solid_domains.png)
+![Solid domain set-up](../../tutorials_files/multiphysics/contact_resistance_cht/solid_domains.png)
 Figure 1: Two solid domains subject to iso-thermal boundary conditions connected by a zone interface.
 
 
 Here, the two colored blocks have different thermal properties and are subject to two isothermal walls. The temperature profile along the centerline for various values of $R_c$ is shown below. The discontinuity between the temperatures on either side of the interface is proportional to the value of $R_c$. 
 
-![Effect of $R_c$](../../../tutorials_files/multiphysics/contact_resistance_cht/contact_resistance_effect.png)
+![Effect of $R_c$](../../tutorials_files/multiphysics/contact_resistance_cht/contact_resistance_effect.png)
 Figure 2: The effect of altering the contact resistance at the interface between the solid domains. 
 
 What follows is a tutorial with heat transfer between solid and fluid domains that illustrates the use of the contact resistance model. 
@@ -59,7 +59,7 @@ What follows is a tutorial with heat transfer between solid and fluid domains th
 
 This problem will solve for the incompressible flow along side two solid, metal blocks with different thermal properties, subject to heat transfer with contact resistance at the interface between the blocks. The simulation setup is shown below. The two solid blocks are squares with a side length of 1.0e-02m, while the fluid domain has a width of 5.0e-03m.
 
-![Problem Setup](../../../tutorials_files/multiphysics/contact_resistance_cht/problem_setup.png)
+![Problem Setup](../../tutorials_files/multiphysics/contact_resistance_cht/problem_setup.png)
 Figure 3: Computational setup for the tutorial problem for conjugate heat transfer between solid and fluid domains.
 
 The following flow conditions that are set for the fluid domain with a Reynolds number of 260:
@@ -86,7 +86,7 @@ The two solid blocks each are subject to an iso-thermal wall boundary condition,
 
 The computational domain for this tutorial is made up of three separate meshes; [Solid 1](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_mesh_1.su2), [Solid 2](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_mesh_2.su2), and [Fluid](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/fluid_mesh.su2). The meshes for the solid domains are simple, square meshes with 40 nodes along each side, while the fluid domain mesh is refined near the interface with the solid domains. These meshes can alternatively be generated through Gmesh. The .geo files for [Solid 1](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_1.geo), [Solid 2](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/solid_2.geo), and [Fluid](https://github.com/su2code/Tutorials/tree/master/multiphysics/contact_resistance_cht/fluid_3.geo) allow for the generation of the respective SU2 mesh files.
 
-![Problem Setup Mesh](../../../tutorials_files/multiphysics/contact_resistance_cht/problem_mesh.png)
+![Problem Setup Mesh](../../tutorials_files/multiphysics/contact_resistance_cht/problem_mesh.png)
 Figure 4: The computational mesh with all three physical zones.
 
 ### Configuration File Options
@@ -132,12 +132,12 @@ In order to run this test case, follow these steps at a terminal command line:
 
 The temperature solution of the completed simulation is shown below. The hot, stainless steel block heats up the flow in the fluid domain, which transfers the heat partially to the copper block downstream through convection. 
 
-![Temperature solution](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature.png)
+![Temperature solution](../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature.png)
 Figure 5: Temperature solution for the current setup.
 
 The effect of the application of contact resistance becomes clear when visualizing the temperature trend across interfaces. Three temperature trends according to each interface are shown below and are color coded corresponding to the lines shown in Figure 6.
 
-![Temperature solution lines](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines.png)
+![Temperature solution lines](../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines.png)
 Figure 6: Temperature trends across the heat transfer interfaces.
 
 The temperature trends across the solid-fluid interfaces (green, red) are continuous, the temperature trend across the solid-solid interface (purple) shows a discontinuity at the interface as a result of the application of contact resistance. This effect can be exaggerated when increasing the value for the contact resistance. For example, when applying a contact resistance value of 10 m^2-K/W,
@@ -146,9 +146,9 @@ CHT_INTERFACE_CONTACT_RESISTANCE = (10.0,0,0)
 ```
  the two solid domains are currently essentially insulated from one another. This results in the following temperature solution.
 
-![Temperature solution](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_n.png)
+![Temperature solution](../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_n.png)
 Figure 7: Temperature solution for a contact resistance value of 10.0 m^2-K/W.
 
 
-![Temperature solution lines](../../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines_n.png)
+![Temperature solution lines](../../tutorials_files/multiphysics/contact_resistance_cht/solution_temperature_lines_n.png)
 Figure 8: Temperature trends across the interfaces for a contact resistance value of 10.0 m^2-K/W.

@@ -12,7 +12,7 @@ complexity: advanced
 follows: compressible flow tutorials
 ---
 
-![Mid-span Rel. Mach](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus_MachContour.png)
+![Mid-span Rel. Mach](../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus_MachContour.png)
 
 ## Goals
 Upon completing this tutorial, the user will become familiar with  3D steady-state RANS calculations of multi-row axial turbines, elaborating viscous, compressible flows of air, modelled as an ideal gas.
@@ -72,8 +72,8 @@ This tutorial will solve the flow through the Aachen turbine for the following b
 To reduce the computational cost, the geometrical periodicity of the system is exploited reducing the computational domain to one blade passage per row
 (with the blade at the centre of the mesh). As it will be explained later, this requires the use of periodic boundary conditions.
 
-![Full Annulus Domain](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus.png)
-![Single Passage Domain](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SinglePassage.png)
+![Full Annulus Domain](../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus.png)
+![Single Passage Domain](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SinglePassage.png)
 Figure (1): Computational domain reduction.
 
 ### Mesh Description
@@ -132,7 +132,7 @@ The following box shows the syntax to be used to enforce this boundary condition
 
 MARKER_HEATFLUX = (BLADE1, 0.0, BLADE2, 0.0, BLADE3, 0.0, HUB1, 0.0, SHROUD1, 0.0, HUB2, 0.0, SHROUD2, 0.0, HUB3, 0.0, SHROUD3, 0.0)
 ```
-![Adiabatic, no-slip bc](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_NoSlip.png)
+![Adiabatic, no-slip bc](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_NoSlip.png)
 Figure (2): Hub, shroud and blade surfaces.
 
 
@@ -148,7 +148,7 @@ The following box shows the syntax to be used to enforce this boundary condition
 MARKER_PERIODIC = (PER1_STATOR1, PER2_STATOR1, 0.0, 0.0, 0.0, 0.0, 0.0, 8.7804878, 0.0, 0.0, 0.0, PER1_ROTOR, PER2_ROTOR, 0.0, 0.0, 0.0, 0.0, 0.0, 8.7804878, 0.0, 0.0, 0.0, PER1_STATOR2, PER2_STATOR2, 0.0, 0.0, 0.0, 0.0, 0.0, 8.7804878, 0.0, 0.0, 0.0)
 
 ```
-![Periodic boundary conditions](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Periodics.png)
+![Periodic boundary conditions](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Periodics.png)
 Figure (3): Periodic and donor surfaces.
 
 #### Non-reflective boundary conditions 
@@ -177,7 +177,7 @@ The following box presents the corresponding syntax.
 0.0, 0.0, 0.0, 0.0 , 1.0, 0.0)
 ```
 
-![Non-reflective inlet and outlet boundary conditions](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles.png)
+![Non-reflective inlet and outlet boundary conditions](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles.png)
 Figure (4): Non-reflective inlet and outlet boundary conditions
 
 ###### Mixing-plane surfaces
@@ -213,7 +213,7 @@ To make the mixing-plane turbulent, the following option must be used:
 TURBULENT_MIXINGPLANE= YES
 ```
 
-![Non-reflective mixing-plane](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles_MixingPlane.png)
+![Non-reflective mixing-plane](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles_MixingPlane.png)
 Figure (5): Non-reflective mixing-plane
 
 To turn on the non-reflective behaviour, the `SPATIAL_FOURIER` should be set to `YES`. However, for the current tutorial it is not activated, as in the following box.
@@ -241,7 +241,7 @@ The following box shows the syntax to enforce this functionality.
 MARKER_SHROUD = (SHROUD1, SHROUD2, SHROUD3)
 ```
 
-![Shroud boundary condition](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_shroud.png)
+![Shroud boundary condition](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_shroud.png)
 Figure (6): Shroud boundary condition
 
 #### Wall functions
@@ -387,6 +387,6 @@ To compute it the following steps can be take in a post-processing tool, such as
 
 4. Plot the relative Mach number contour of the extracted slice in a 2D space $(R \cdot \theta$ vs $z)$ and reverse the Z-axis, Fig. 7b. 
 
-![Midspan Relative Mach number](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/Full_View_MachContour.png)
-![2D Relative Mach number blade-to-blade view](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/2D_MidSpan_RelMach.png)
+![Midspan Relative Mach number](../../tutorials_files/compressible_flow/Aachen_Turbine/images/Full_View_MachContour.png)
+![2D Relative Mach number blade-to-blade view](../../tutorials_files/compressible_flow/Aachen_Turbine/images/2D_MidSpan_RelMach.png)
 Figure (7): (a) Relative Mach number contour on a cylindrical cut (blade-to-blade view) at midspan of the turbine flow domain; (b) planar (blade-to-blade) view of the cylindrical cut.

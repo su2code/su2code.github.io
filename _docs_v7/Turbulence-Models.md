@@ -118,7 +118,7 @@ The keywords fall into four groups. SU2 has only the "m" forms of SST ([see belo
 | Keyword | Effect | TMR name |
 | --- | --- | --- |
 | `VORTICITY` | Uses the vorticity magnitude. | [SST-Vm](https://tmbwg.github.io/turbmodels/sst.html#sst-v) |
-| `KATO-LAUNDER` | Uses the square root of strain rate times vorticity. | [SST-KLm](https://tmbwg.github.io/turbmodels/sst.html#sst-kl) |
+| `KATO-LAUNDER` | Replaces S² in production by SΩ, the product of strain-rate and vorticity magnitudes. | [SST-KLm](https://tmbwg.github.io/turbmodels/sst.html#sst-kl) |
 | `UQ` | Uses a perturbed Reynolds stress tensor, for uncertainty quantification. See the [UQ tutorial](/tutorials/UQ_NACA0012/) and the options `UQ_COMPONENT` (default `1`), `UQ_DELTA_B` (`1.0`), `UQ_URLX` (`0.1`), `UQ_PERMUTE` (`NO`). | none |
 
 **Compressibility correction** (at most one, only with `SOLVER= RANS`):
@@ -204,7 +204,7 @@ With `BCM`, SU2 multiplies the free-stream, inlet and engine values (not the act
 
 SU2 computes k = 1.5 (Tu U)^2 from the free-stream speed U, and then omega = rho k / (mu × ratio). <!-- CTurbSSTSolver.cpp:122-127 -->
 
-The defaults (5 % and 10) suit internal flows, but are usually too high for external aerodynamics (to be reviewed). The TMR gives recommended far-field values for each model, and [Setup Guide: Steady RANS for External Aerodynamics](../Setup-Guide-RANS-External-Aero/) discusses the choice.
+The defaults (5 % and 10) are not calibrated inlet conditions. Choose the intensity and length/time scale for the actual flow, and check their decay between the boundary and the body. The TMR gives recommended far-field values for each model, and [Setup Guide: Steady RANS for External Aerodynamics](../Setup-Guide-RANS-External-Aero/) discusses the choice.
 
 **Inlets.** `MARKER_INLET_TURBULENT` sets values per inlet marker:
 
@@ -258,4 +258,4 @@ Tutorials:
 - For developers: [Adding a Turbulence Model](../Adding-a-Turbulence-Model/)
 - [NASA Turbulence Modeling Resource](https://tmbwg.github.io/turbmodels/). It moved from turbmodels.larc.nasa.gov in 2026; the old links now lead to a NASA landing page.
 
-Last checked against SU2 develop `11c177b904`.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.
