@@ -83,7 +83,7 @@ MESH_FORMAT= CGNS
 **What you see:** `wing.cgns was not found or is not a properly formatted CGNS file.` followed by `Note that SU2 expects unstructured CGNS files in ADF data format.`
 
 - **Why:** the file is missing, or it is not a CGNS file that SU2 can read. SU2 reads unstructured CGNS meshes only.
-- **What to do:** check the name and the folder. If the file exists, export it again from your mesh tool as an unstructured CGNS file in ADF format. See [Mesh File](/docs_v7/Mesh-File/).
+- **What to do:** check the name and the folder, then check that the file is a valid unstructured CGNS mesh supported by the reader. The ADF-only wording in this error is outdated: the bundled CGNS library supports both ADF and HDF5. A valid HDF5 mesh does not need conversion to ADF. See [Mesh File](/docs_v7/Mesh-File/).
 
 **What you see:** `mesh.su2 is not an SU2 mesh file or has the wrong format` and `('NDIME=' not found). Please check.`, or `Could not find the keyword "NPOIN=".`
 

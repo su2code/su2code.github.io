@@ -84,7 +84,7 @@ Keep the default correlation unless a validation for your type of flow supports 
 SA-BCM is an algebraic model: it solves no extra equation. It multiplies the production term of SA by an intermittency function, gamma_BC. This function depends on the local vorticity Reynolds number, the eddy viscosity and the free-stream turbulence intensity. SU2 implements the 2020 version listed on the [TMR SA-BCM page](https://tmbwg.github.io/turbmodels/sa-bc_1eqn.html).
 
 - SA-BCM is built on SA-noft2. SU2 stops with an error if you combine `BCM` with `WITHFT2`, `ROTATION`, `COMPRESSIBILITY`, `QCR2000` or `NEGATIVE`, unless you add `EXPERIMENTAL`.
-- The intermittency is written to the volume output as `INTERMITTENCY` (group `INTERMITTENCY`).
+- The volume field `INTERMITTENCY` (group `INTERMITTENCY`) is registered for SA-BCM, but currently reads a getter that returns zero. It does not show the computed BCM intermittency; do not use it to locate transition. The LM intermittency fields are separate and do not have this getter problem.
 
 <!-- option_structure.hpp:1336-1356; SU2_CFD/include/numerics/turbulent/turb_sources.hpp:303-324; SU2_CFD/src/output/CFlowOutput.cpp:1599-1601 -->
 
@@ -166,6 +166,8 @@ If you set both `SA_OPTIONS= BCM` and `KIND_TRANS_MODEL= LM`, SU2 gives no error
 ## Known limits
 
 - Only LM and SA-BCM are available in develop.
+- **LM has no discrete adjoint.** Do not combine `KIND_TRANS_MODEL= LM` with `MATH_PROBLEM= DISCRETE_ADJOINT`: the required transition solver is not created, and the run can crash during setup. See [the developer guide](../Adding-a-Transition-Model/#discrete-adjoint).
+- **SA-BCM intermittency output is zero** in this code version, so it is not a transition-location diagnostic (see [SA-BCM](#bas-cakmakcioglu-sa-bcm)).
 - LM uses the velocity magnitude and its streamwise gradient. The TMR notes that the model is therefore not Galilean invariant: results depend on the frame of reference (to be reviewed for moving walls and rotating frames).
 - `LM2015` works only in 3D.
 - LM with SA uses one constant turbulence intensity in the whole domain. So does SA-BCM.

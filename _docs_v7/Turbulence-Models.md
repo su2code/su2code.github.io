@@ -33,7 +33,7 @@ Other options that act on all turbulence models:
 | Option | Default | What it does |
 | --- | --- | --- |
 | `PRANDTL_TURB` | `0.9` | Turbulent Prandtl number. It turns the eddy viscosity into a turbulent heat conductivity. Takes one value per species for mixtures. |
-| `TURBULENT_CONDUCTIVITY_MODEL` | `CONSTANT_PRANDTL_TURB` | `NONE` switches off the turbulent heat conductivity. |
+| `TURBULENT_CONDUCTIVITY_MODEL` | `CONSTANT_PRANDTL_TURB` | In incompressible flow, `NONE` switches off the fluid model's turbulent heat conductivity. Compressible viscous fluxes still add Cp × mu_t / `PRANDTL_TURB`, independently of this setting. |
 | `TURB_FIXED_VALUES` | `NO` | Keeps the turbulence variables at their free-stream values in the region upstream of a plane. |
 | `TURB_FIXED_VALUES_DOMAIN` | none | Position of that plane, as a distance along the free-stream direction. Required with `TURB_FIXED_VALUES= YES`. |
 
@@ -228,7 +228,7 @@ Verification and validation (V&V) pages, with configs in [TestCases/vandv](https
 
 Test cases that show the option keywords:
 
-- SA variants on the RAE2822 airfoil, in [TestCases/turbulence_models/sa/rae2822](https://github.com/su2code/SU2/tree/develop/TestCases/turbulence_models/sa/rae2822): baseline, `COMPRESSIBILITY`, `EDWARDS`, `EDWARDS, COMPRESSIBILITY, EXPERIMENTAL`, `NEGATIVE, EXPERIMENTAL` (SA-neg without ft2) and `QCR2000`. The regression scripts do not run these configs.
+- SA variants on the RAE2822 airfoil, in [TestCases/turbulence_models/sa/rae2822](https://github.com/su2code/SU2/tree/develop/TestCases/turbulence_models/sa/rae2822): baseline, `COMPRESSIBILITY`, `EDWARDS`, `EDWARDS, COMPRESSIBILITY, EXPERIMENTAL`, `NEGATIVE, EXPERIMENTAL` (SA-neg without ft2) and `QCR2000`. `TestCases/parallel_regression.py` runs all six configs as the `turbmod_sa_*_rae2822` tests.
 - SST variants on the NACA 0012, in [TestCases/rans/naca0012](https://github.com/su2code/SU2/tree/develop/TestCases/rans/naca0012): `turb_NACA0012_sst.cfg` (`V1994m`), `turb_NACA0012_sst_2003m.cfg`, `turb_NACA0012_sst_2003-Vm.cfg`, `turb_NACA0012_sst_1994-KLm.cfg`, `turb_NACA0012_sst_sust.cfg` and `turb_NACA0012_sst_fixedvalues.cfg` (`TURB_FIXED_VALUES`).
 - SST compressibility corrections on a flat plate: [turb_SST_flatplate_compressibility_Wilcox.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/rans/flatplate/turb_SST_flatplate_compressibility_Wilcox.cfg) and [turb_SST_flatplate_compressibility_Sarkar.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/rans/flatplate/turb_SST_flatplate_compressibility_Sarkar.cfg).
 - SST with sustaining terms on the RAE2822: [turb_SST_SUST_RAE2822.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/rans/rae2822/turb_SST_SUST_RAE2822.cfg).

@@ -59,12 +59,17 @@ These turbulence settings changed in v7.4.0. The v7 guide does not cover them, a
 
 | Old setting | New setting |
 | --- | --- |
-| `KIND_TURB_MODEL= SA_NEG` | `KIND_TURB_MODEL= SA`, `SA_OPTIONS= NEGATIVE` |
+| `KIND_TURB_MODEL= SA_NEG` | `KIND_TURB_MODEL= SA`, `SA_OPTIONS= NEGATIVE, WITHFT2` |
 | `KIND_TURB_MODEL= SA_E` | `KIND_TURB_MODEL= SA`, `SA_OPTIONS= EDWARDS` |
 | `KIND_TURB_MODEL= SA_COMP` | `KIND_TURB_MODEL= SA`, `SA_OPTIONS= COMPRESSIBILITY` |
-| `KIND_TURB_MODEL= SA_E_COMP` | `KIND_TURB_MODEL= SA`, `SA_OPTIONS= EDWARDS, COMPRESSIBILITY` |
+| `KIND_TURB_MODEL= SA_E_COMP` | `KIND_TURB_MODEL= SA`, `SA_OPTIONS= EDWARDS, COMPRESSIBILITY, EXPERIMENTAL` |
 | `KIND_TURB_MODEL= SST_SUST` | `KIND_TURB_MODEL= SST`, `SST_OPTIONS= SUSTAINING` |
 | `KIND_TRANS_MODEL= BC` | `KIND_TURB_MODEL= SA`, `SA_OPTIONS= BCM` |
+
+The `SA_NEG` row selects standard SA-neg, including ft2. To request negative SA without ft2, use
+`SA_OPTIONS= NEGATIVE, EXPERIMENTAL`; this is a different formulation and can change the results.
+Edwards with a compressibility correction also needs `EXPERIMENTAL`, because it is not a standard TMR
+combination. See [Turbulence Models](../Turbulence-Models/#combinations-that-su2-accepts).
 
 ### Changed defaults and behaviour
 

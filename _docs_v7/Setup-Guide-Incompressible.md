@@ -105,8 +105,8 @@ Choose the solver with `SOLVER`:
 - `INC_NAVIER_STOKES`: laminar flow.
 - `INC_RANS`: turbulent flow. Choose the turbulence model with `KIND_TURB_MODEL` (`SA` or `SST`).
 
-For `INC_RANS`, the inlet turbulence comes from `FREESTREAM_TURBULENCEINTENSITY` (default 0.05) and `FREESTREAM_TURB2LAMVISCRATIO` (default 10), the ratio of turbulent to laminar viscosity (code).
-You can set other values per inlet with `MARKER_INLET_TURBULENT`: two values per marker for `SST` (intensity, viscosity ratio), one value for `SA` (viscosity ratio) (code).
+For `INC_RANS` with SST, the free-stream turbulence comes from `FREESTREAM_TURBULENCEINTENSITY` (default 0.05, a fraction) and `FREESTREAM_TURB2LAMVISCRATIO` (default 10, the eddy-to-laminar viscosity ratio). With SA, `FREESTREAM_NU_FACTOR` (default 3.0) sets nu-tilde divided by the kinematic viscosity (code).
+Inlets use these settings unless overridden with `MARKER_INLET_TURBULENT`: two values per marker for SST (intensity, viscosity ratio), or one for SA (nu-tilde divided by the local kinematic viscosity). The SA factor is not the eddy-to-laminar viscosity ratio. With `SA_OPTIONS= BCM`, SU2 also multiplies nu-tilde by 0.005 (code). See [Turbulence Models](../Turbulence-Models/#free-stream-and-inlet-values).
 
 ### Density-based or pressure-based solver
 

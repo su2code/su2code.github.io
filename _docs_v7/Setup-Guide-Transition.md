@@ -42,6 +42,9 @@ Limits of the Langtry-Menter (LM) model in SU2 (tutorial):
 - It is built from subsonic experiments: transition caused by Tollmien-Schlichting waves, by free-stream turbulence ("bypass" transition) and by laminar separation.
 - It does not predict crossflow transition (except through the `LM2015` option, see below), nor supersonic and hypersonic transition mechanisms.
 
+LM has no discrete adjoint in this code version. Do not use `KIND_TRANS_MODEL= LM` with
+`MATH_PROBLEM= DISCRETE_ADJOINT`; see [Transition Models](../Transition-Models/#known-limits) (code).
+
 For the RANS settings that are not specific to transition, see [Setup Guide: Steady RANS for External Aerodynamics](../Setup-Guide-RANS-External-Aero/).
 
 ## Start from
@@ -229,7 +232,7 @@ The develop branch also has an algebraic transition model for SA, the Bas-Cakmak
 - It also uses `FREESTREAM_TURBULENCEINTENSITY` as a fraction (code). The tutorial uses `0.0018` for 0.18 % (tutorial).
 - Do not combine `BCM` with other SA options. SU2 stops with an error unless you add `EXPERIMENTAL` (code).
 - The old option `KIND_TRANS_MODEL= BC` is removed. SU2 stops with a message that points to `SA_OPTIONS= BCM` (code).
-- Add the `INTERMITTENCY` group to `VOLUME_OUTPUT` to write its intermittency (code).
+- The SA-BCM `INTERMITTENCY` output currently returns zero instead of the computed intermittency. Do not use it to locate transition; inspect the skin friction and eddy viscosity instead (code, advice). See [Transition Models](../Transition-Models/#bas-cakmakcioglu-sa-bcm).
 - See the tutorial [Transitional Flat Plate](/tutorials/Transitional_Flat_Plate/).
 
 ## Check convergence and results

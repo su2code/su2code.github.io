@@ -13,7 +13,7 @@ follows:
 
 Upon completing this tutorial, the user will be familiar with performing an external, transitional flow over a flat plate. The flow over the flat plate will be laminar until it reaches a point where a transition correlation depending on local flow variables is activated. The results can be compared to the zero pressure gradient natural transition experiment of T3A & T3A-[ERCOFTAC](http://cfd.mace.manchester.ac.uk/ercoftac/doku.php). The following capabilities of SU2 will be showcased in this tutorial:
 
-- Steady, 2D, incompressible RANS equations
+- Steady, 2D, compressible RANS equations at low Mach number
 - k-w SST-2003m turbulence model with Langtry and Menter 2009 ([LM2009](https://tmbwg.github.io/turbmodels/langtrymenter_4eqn.html)) transition model
 - L2Roe convective scheme in space (2nd-order, upwind)
 - Corrected average-of-gradients viscous scheme
@@ -30,7 +30,7 @@ The following tutorial will walk you through the steps required when solving for
 
 ### Background
 
-Practically, most CFD analyses are carried out using fully turbulent fields that do not account for boundary layer transition. Given that the flow is everywhere turbulent, no separation bubbles or other complex flow phenomena evolve. A transition model can be introduced, however, such that the flow begins as laminar by damping the production term of the turbulence model until a point where a transition correlation is activated. Currently, Langtry and Menter transition model ([LM](https://tmbwg.github.io/turbmodels/langtrymenter_4eqn.html)) that uses k-w SST-2003m as the baseline turbulence model is implemented in SU2.
+A fully turbulent RANS calculation does not model laminar-to-turbulent boundary-layer transition. It can predict turbulent separation and reattachment, but may miss laminar separation bubbles whose behavior depends on transition. A transition model allows the boundary layer to start laminar by damping turbulence production until its transition criterion is met. This tutorial uses the [Langtry-Menter model](https://tmbwg.github.io/turbmodels/langtrymenter_4eqn.html) with SST-2003m in SU2's compressible solver at low Mach number.
 
 For verification, we will be comparing SU2 results against the results of natural transition flat plate experiment of [ERCOFTAC](http://cfd.mace.manchester.ac.uk/ercoftac/doku.php). The experimental data include skin friction coefficient distribution versus the local Reynolds number over the flat plate.
 

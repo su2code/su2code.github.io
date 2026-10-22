@@ -86,7 +86,7 @@ Below are the options that have changed or are removed:
 | `RESIDUAL_MINVAL` | `CONV_RESIDUAL_MINVAL` | - |
 | `CAUCHY_ELEMS` | `CONV_CAUCHY_ELEMS` | - |
 | `CAUCHY_EPS` | `CONV_CAUCHY_EPS` | - |
-| `CONV_CRITERIA` | `CONV_FIELD` | Accepts all fields available as output for the current solver (see [Solver Setup](/docs_v7/Solver-Setup#setting-convergence-critera))|
+| `CONV_CRITERIA` | `CONV_FIELD` | Accepts all fields available as output for the current solver (see [Solver Setup](/docs_v7/Solver-Setup#setting-convergence-criteria))|
 | `RESIDUAL_REDUCTION` | - | Removed. Equivalent behavior can be achieved by choosing a relative residual field for `CONV_FIELD` and setting `CONV_RESIDUAL_MINVAL` appropriately. 
 
 
