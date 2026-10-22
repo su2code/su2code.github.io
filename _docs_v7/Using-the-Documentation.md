@@ -41,3 +41,5 @@ A **Draft** label means that review remains incomplete. A successful configurati
 For example, start with the [external RANS setup guide](../Setup-Guide-RANS-External-Aero/) to understand the choices, use [Turbulence Models](../Turbulence-Models/) and [Wall Treatment](../Wall-Treatment/) to check model assumptions, then follow the linked tutorial to run a case. Use the V&V comparisons relevant to that model and flow when assessing its accuracy.
 
 When contributing, keep worked case instructions in Tutorials and numerical comparisons in V&V. Explain general choices in setup guides, and link to those cases instead of copying their full instructions. Model pages should identify the exact variant, define symbols and units, cite the relevant paper or equation, and distinguish the published model from SU2's implementation. Developer pages should connect implementation steps to the source and an appropriate test.
+
+See [Documentation Improvements and Status](../Documentation-Status/) for what has changed, outstanding review and maintenance work, and the next priorities.
