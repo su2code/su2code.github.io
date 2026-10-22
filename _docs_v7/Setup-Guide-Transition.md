@@ -3,16 +3,7 @@ title: "Setup Guide: Laminar-Turbulent Transition"
 permalink: /docs_v7/Setup-Guide-Transition/
 ---
 
-> **Draft.** The settings below come from the SU2 code, the tutorials and the test cases. The advice parts need a review by experienced users.
-
-**Source tags.** A tag at the end of a statement says where it comes from. A tag on the line that introduces a list or a table covers the whole list or table.
-
-- **(code)**: read in the SU2 source. Option defaults come from `Common/src/CConfig.cpp`.
-- **(test case)**: used in a test case config.
-- **(tutorial)**: used in a tutorial.
-- **(docs)**: stated in another page of this website.
-- **(advice)**: general CFD practice.
-- **(to be reviewed)**: added after any of the above when the statement needs a check by an experienced user.
+{% include setup-guide-intro.md %}
 
 ---
 

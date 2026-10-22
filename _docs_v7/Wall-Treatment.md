@@ -3,6 +3,8 @@ title: "Wall Treatment: Wall Functions and Roughness"
 permalink: /docs_v7/Wall-Treatment/
 ---
 
+This page explains the model and its SU2 implementation. For numerical setup choices, see the [setup guide](../Setup-Guide-RANS-External-Aero/); use its tutorial and V&V links for worked examples and comparisons.
+
 This page covers two ways to change what a turbulence model does at a viscous wall. *Wall functions* replace the resolved near-wall layer with an analytical law of the wall, so the first mesh point can be further from the wall. *Roughness models* change the wall boundary condition of the turbulence model so that it predicts the higher friction and heat transfer of a rough surface.
 
 For the SA and SST models themselves, see [Turbulence Models](../Turbulence-Models/). For the basic wall boundary conditions, see [Markers and Boundary Conditions](../Markers-and-BC/).

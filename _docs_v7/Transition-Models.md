@@ -3,6 +3,8 @@ title: Transition Models
 permalink: /docs_v7/Transition-Models/
 ---
 
+This page explains the model and its SU2 implementation. For numerical setup choices, see the [setup guide](../Setup-Guide-Transition/); use its tutorial and V&V links for worked examples and comparisons.
+
 A turbulence model alone treats the boundary layer as turbulent from the leading edge. A transition model lets the boundary layer start laminar and become turbulent further downstream, where a transition criterion is met. SU2 has two transition models: the Langtry-Menter (LM) model, which adds two transport equations and works with SST or SA, and the algebraic Bas-Cakmakcioglu model (SA-BCM), which only changes the SA equation.
 
 ---

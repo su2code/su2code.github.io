@@ -3,6 +3,8 @@ title: "Hybrid RANS/LES (DES)"
 permalink: /docs_v7/Hybrid-RANS-LES/
 ---
 
+This page explains the model and its SU2 implementation. For numerical setup choices, see the [setup guide](../Setup-Guide-Unsteady-DES/); use its tutorial and V&V links for worked examples and comparisons.
+
 Hybrid RANS/LES methods run a RANS model in attached boundary layers and a large-eddy simulation (LES) away from the walls. In LES, the mesh and the time step resolve the large turbulent eddies, and the model only handles the small ones. Detached eddy simulation (DES) and its variants are the hybrid methods in SU2. Use them for massively separated, unsteady flows where URANS is not accurate enough and a full LES is too expensive.
 
 For a step-by-step case setup, see [Setup Guide: Unsteady Flows and DES](../Setup-Guide-Unsteady-DES/). For the SA model itself, see [Turbulence Models](../Turbulence-Models/).

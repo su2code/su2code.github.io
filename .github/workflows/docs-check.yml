@@ -1,0 +1,62 @@
+name: Documentation Checks
+
+on:
+  push:
+    branches: ['docs_site']
+  pull_request:
+    branches: ['docs_site']
+  workflow_dispatch:
+    inputs:
+      su2_ref:
+        description: SU2 commit SHA or branch
+        default: docs_site
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-check-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout website under review
+        uses: actions/checkout@v4
+        with:
+          path: site
+          fetch-depth: 0
+          filter: blob:none
+          persist-credentials: false
+      - name: Checkout SU2 documentation tools
+        uses: actions/checkout@v4
+        with:
+          repository: rois1995/SU2
+          ref: ${{ inputs.su2_ref || 'docs_site' }}
+          path: su2
+          fetch-depth: 0
+          filter: blob:none
+          persist-credentials: false
+      - name: Get release tags for migration reference
+        run: git -C su2 fetch --quiet --filter=blob:none https://github.com/su2code/SU2.git 'refs/tags/v7.*:refs/tags/v7.*' 'refs/tags/v8.*:refs/tags/v8.*'
+      - name: Setup Ruby and locked gems
+        uses: ruby/setup-ruby@v1
+        with:
+          working-directory: site
+          ruby-version: .ruby-version
+          bundler: '2.4.22'
+          bundler-cache: true
+      - name: Install code reference tools
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      - name: Build and check website
+        env:
+          GITHUB_REPOSITORY: rois1995/SU2
+          BUNDLE_PATH: ${{ github.workspace }}/site/vendor/bundle
+        run: python3 su2/Docs/website/tools/build_docs.py --su2 su2 --site site --build-dir "$RUNNER_TEMP/docs-site" --baseurl /SU2 --mark-changes
+      - name: Upload checked preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-preview
+          path: ${{ runner.temp }}/docs-site/site
+          retention-days: 7

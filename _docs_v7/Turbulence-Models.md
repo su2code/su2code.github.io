@@ -3,6 +3,8 @@ title: Turbulence Models
 permalink: /docs_v7/Turbulence-Models/
 ---
 
+This page explains the model and its SU2 implementation. For numerical setup choices, see the [setup guide](../Setup-Guide-RANS-External-Aero/); use its tutorial and V&V links for worked examples and comparisons.
+
 A RANS simulation does not resolve turbulent eddies. A turbulence model adds transport equations that give the eddy viscosity, which models the extra mixing caused by turbulence. SU2 has two model families: the one-equation Spalart-Allmaras (SA) model and the two-equation k-omega Shear Stress Transport (SST) model, each with several variants.
 
 ---
