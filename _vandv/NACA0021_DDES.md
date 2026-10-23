@@ -41,7 +41,7 @@ Numerical settings:
 - Time step 0.025 c/U with `DUAL_TIME_STEPPING-2ND_ORDER` and 50 inner iterations per time step. Guseva et al. use 0.03 c/U.
 - Mean flow: `JST` central scheme. Turbulence: first-order `SCALAR_UPWIND`. Green-Gauss gradients.
 - Each run starts from a steady RANS solution of the same turbulence model. SA-EDDES starts from the developed flow of an earlier SA-EDDES run.
-- The first 100 c/U are left out of the statistics as start-up transient (20 c/U for SA-EDDES).
+- The first 100 c/U are left out of the statistics as start-up transient (20 c/U for SA-EDDES). All runs are then averaged over the same time, 520 c/U.
 
 The configuration file is [available here](/vandv_files/NACA0021_DDES/naca0021_hybrid.cfg). Its header lists the lines to change for each model.
 
@@ -63,7 +63,7 @@ The reference computations of Guseva et al. use a finer O-grid with a span of 4 
 
 ## Results
 
-All results are averages in time and along the span. The error bars and bands are standard errors of the mean, computed from blocks of 50 c/U. The length of the statistics is given in the figures. Garbaruk et al. (2009) estimate that a span of 1 chord needs about 2400 c/U for a 1% error in the mean forces, so a few percent of statistical error remains here.
+All results are averages in time and along the span. The error bars and bands are standard errors of the mean, computed from blocks of 50 c/U. Garbaruk et al. (2009) estimate that a span of 1 chord needs about 2400 c/U for a 1% error in the mean forces, so a few percent of statistical error remains here.
 
 ### Mean forces
 
@@ -74,15 +74,15 @@ All results are averages in time and along the span. The error bars and bands ar
 
 | Run | Statistics (c/U) | Mean C_L | Mean C_D | RMS of sectional C_L | Shedding Strouhal number |
 | --- | --- | --- | --- | --- | --- |
-| SA-DDES | 644 | 1.09 ± 0.03 | 1.83 ± 0.06 | 0.31 | 0.18 |
-| SA-EDDES | 524 | 1.01 ± 0.03 | 1.72 ± 0.05 | 0.25 | 0.19 |
-| SST-DDES | 1051 | 1.14 ± 0.02 | 1.95 ± 0.05 | 0.35 | 0.17 |
-| SST-EDDES | 926 | 0.97 ± 0.02 | 1.63 ± 0.03 | 0.24 | 0.19 |
+| SA-DDES | 520 | 1.08 ± 0.04 | 1.81 ± 0.07 | 0.30 | 0.18 |
+| SA-EDDES | 520 | 1.02 ± 0.03 | 1.72 ± 0.05 | 0.25 | 0.19 |
+| SST-DDES | 520 | 1.12 ± 0.05 | 1.94 ± 0.09 | 0.35 | 0.17 |
+| SST-EDDES | 520 | 0.96 ± 0.03 | 1.62 ± 0.05 | 0.25 | 0.19 |
 | DES, span 1 c (Garbaruk et al. 2009) | – | 0.97 – 1.01 | 1.59 – 1.62 | 0.22 – 0.24 | about 0.2 |
 | Experiment (Swalwell et al.) | – | 0.93 | 1.52 | 0.10 | 0.20 |
 
 - The two EDDES runs agree with the published DES at the same span, within about 7% in drag.
-- The two DDES runs give 8 to 23% more lift and drag than the published DES, and larger fluctuations. With SST, the difference between DDES and EDDES is more than 5 standard errors, so it is not a statistical effect.
+- The two DDES runs give 7 to 22% more lift and drag than the published DES, and larger fluctuations. With SST, the difference between DDES and EDDES is about 3 standard errors, so it is unlikely to be a statistical effect.
 - All runs give more lift and drag than the experiment. This is expected with a span of 1 chord: the published DES at the same span show the same trend.
 
 ### Mean pressure coefficient
@@ -118,7 +118,7 @@ All results are averages in time and along the span. The error bars and bands ar
 
 - One mesh, with a span of 1 chord. The published reference uses 4 chords. A run with a span of 4 chords has been started.
 - The `JST` scheme without a low-dissipation option damps the small eddies more than the schemes of the reference computations.
-- The statistics cover 520 to 1050 c/U. The mean forces still have a statistical error of 2 to 3%.
+- The statistics cover 520 c/U for each run. The mean forces still have a statistical error of 3 to 5%. The SST runs were continued further (to about 1000 c/U): over the longer time, their mean forces change by less than 0.02, within this error.
 
 ## References
 
