@@ -78,8 +78,8 @@ All results are averages in time and along the span. The error bars and bands ar
 | SA-EDDES | 520 | 1.02 ± 0.03 | 1.72 ± 0.05 | 0.25 | 0.19 |
 | SST-DDES | 520 | 1.12 ± 0.05 | 1.94 ± 0.09 | 0.35 | 0.17 |
 | SST-EDDES | 520 | 0.96 ± 0.03 | 1.62 ± 0.05 | 0.25 | 0.19 |
-| DES, span 1 c (Garbaruk et al. 2009) | – | 0.97 – 1.01 | 1.59 – 1.62 | 0.22 – 0.24 | about 0.2 |
-| Experiment (Swalwell et al.) | – | 0.93 | 1.52 | 0.10 | 0.20 |
+| DES, span 1 c (Garbaruk et al. 2009) | 1000 – 2100 | 0.97 – 1.01 | 1.59 – 1.62 | 0.22 – 0.24 | about 0.2 |
+| Experiment (Swalwell et al.) | 8860 | 0.93 | 1.52 | 0.10 | 0.20 |
 
 - The two EDDES runs agree with the published DES at the same span, within about 7% in drag.
 - The two DDES runs give 7 to 22% more lift and drag than the published DES, and larger fluctuations. With SST, the difference between DDES and EDDES is about 3 standard errors, so it is unlikely to be a statistical effect.
@@ -119,6 +119,7 @@ All results are averages in time and along the span. The error bars and bands ar
 - One mesh, with a span of 1 chord. The published reference uses 4 chords. A run with a span of 4 chords has been started.
 - The `JST` scheme without a low-dissipation option damps the small eddies more than the schemes of the reference computations.
 - The statistics cover 520 c/U for each run. The mean forces still have a statistical error of 3 to 5%. The SST runs were continued further (to about 1000 c/U): over the longer time, their mean forces change by less than 0.02, within this error.
+- The published DES at a span of 1 chord average over 1000 to 2100 c/U (Garbaruk et al. 2009, Table 2), 2 to 4 times longer than here. With their error estimate (their Eq. 1), our 520 c/U give an error of about 2 to 3% in the mean forces, close to our own estimate.
 
 ## References
 
