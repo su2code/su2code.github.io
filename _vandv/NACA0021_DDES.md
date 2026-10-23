@@ -22,7 +22,11 @@ The shear-layer-adapted cell size of Shur et al. (2015) is smaller than Δmax in
 
 Note: the SST variants and the current form of `SA_EDDES` come with [PR #2150](https://github.com/su2code/SU2/pull/2150). They are in `develop` once that pull request is merged.
 
-<!-- Figure 1 (flow picture) goes here: the author will provide it. -->
+<div style="display: flex; gap: 2%; justify-content: center;">
+<img src="/vandv_files/NACA0021_DDES/flow_sst_ddes.png" alt="Instantaneous vortical structures, SST-DDES" style="width: 49%; min-width: 0;" />
+<img src="/vandv_files/NACA0021_DDES/flow_sst_eddes.png" alt="Instantaneous vortical structures, SST-EDDES" style="width: 49%; min-width: 0;" />
+</div>
+**Figure 1** - Instantaneous vortical structures coloured by the pressure coefficient, SST-DDES (left) and SST-EDDES (right). With SST-DDES, the shear layer from the leading edge stays a smooth sheet before it rolls up. With SST-EDDES, it breaks up into small, three-dimensional eddies close to the airfoil.
 
 ## Problem Setup
 
@@ -50,6 +54,11 @@ The mesh is a structured O-grid made of hexahedra:
 - 416,826 points and 398,520 hexahedra in total.
 - The first cell at the wall gives y+ below 1 on average (95% of the wall points are below 1.4).
 
+<p align="center">
+<img src="/vandv_files/NACA0021_DDES/mesh.png" alt="Mesh near the airfoil" />
+</p>
+**Figure 2** - Mesh near the airfoil, in a plane normal to the span.
+
 The reference computations of Guseva et al. use a finer O-grid with a span of 4 chords. The span matters: with a span of 1 chord, DES gives higher mean forces, larger fluctuations and stronger suction than with 4 chords (Garbaruk et al. 2009). For this reason, this page compares the results with the published DES at a span of 1 chord, and with the experiment.
 
 ## Results
@@ -61,7 +70,7 @@ All results are averages in time and along the span. The error bars and bands ar
 <p align="center">
 <img src="/vandv_files/NACA0021_DDES/forces.png" alt="Mean lift, mean drag and RMS of the sectional lift" />
 </p>
-**Figure 1** - Mean lift and drag coefficients (± 1 standard error) and root mean square (RMS) of the sectional lift coefficient. Grey band: range of four published DES with a span of 1 chord (Garbaruk et al. 2009). Dotted line: NTS DES with a span of 4 chords. Dashed line: experiment of Swalwell et al.
+**Figure 3** - Mean lift and drag coefficients (± 1 standard error) and root mean square (RMS) of the sectional lift coefficient. Grey band: range of four published DES with a span of 1 chord (Garbaruk et al. 2009). Dotted line: NTS DES with a span of 4 chords. Dashed line: experiment of Swalwell et al.
 
 | Run | Statistics (c/U) | Mean C_L | Mean C_D | RMS of sectional C_L | Shedding Strouhal number |
 | --- | --- | --- | --- | --- | --- |
@@ -81,7 +90,7 @@ All results are averages in time and along the span. The error bars and bands ar
 <p align="center">
 <img src="/vandv_files/NACA0021_DDES/cp_mean.png" alt="Mean pressure coefficient on the airfoil" />
 </p>
-**Figure 2** - Mean pressure coefficient. The bands show ± 2 standard errors. Crosses: NTS SA-DES with a span of 1 chord (Garbaruk et al. 2009). Grey dots: NTS SA-DDES with the shear-layer-adapted cell size and a span of 4 chords (Guseva et al. 2017).
+**Figure 4** - Mean pressure coefficient. The bands show ± 2 standard errors. Crosses: NTS SA-DES with a span of 1 chord (Garbaruk et al. 2009). Grey dots: NTS SA-DDES with the shear-layer-adapted cell size and a span of 4 chords (Guseva et al. 2017).
 
 - On the pressure side, all models agree with the experiment and with each other.
 - On the suction side, SST-EDDES follows the experiment and the published DES at 1 chord. SA-EDDES has a little more suction.
@@ -93,7 +102,7 @@ All results are averages in time and along the span. The error bars and bands ar
 <p align="center">
 <img src="/vandv_files/NACA0021_DDES/psd_cl.png" alt="Power spectral density of the sectional lift coefficient" />
 </p>
-**Figure 3** - Power spectral density (PSD) of the sectional lift coefficient, averaged along the span, against the Strouhal number St = f c / U. Welch method with segments of 100 c/U. Experiment and NTS DES digitized from Guseva et al. (2017) and Garbaruk et al. (2009). The scaling of the published curves is not stated, so compare the shapes and the peak positions.
+**Figure 5** - Power spectral density (PSD) of the sectional lift coefficient, averaged along the span, against the Strouhal number St = f c / U. Welch method with segments of 100 c/U. Experiment and NTS DES digitized from Guseva et al. (2017) and Garbaruk et al. (2009). The scaling of the published curves is not stated, so compare the shapes and the peak positions.
 
 - All runs show the vortex-shedding peak. The EDDES runs put it at St = 0.19, close to the experiment (0.198).
 - SST-DDES puts the peak at St = 0.17, with more energy at low frequency. This suggests stronger and more regular shedding, closer to a two-dimensional flow.
