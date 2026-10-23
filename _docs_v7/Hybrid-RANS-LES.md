@@ -46,10 +46,11 @@ The variants differ in two points: how they protect attached boundary layers fro
 
 SU2 computes the DES length scale at the start of every iteration, in the turbulence solver: `CTurbSASolver::SetDES_LengthScale` for SA and `CTurbSSTSolver::SetDES_LengthScale` for SST. Both are called from `Preprocessing`.
 
-SU2 checks two things before the run (`CConfig::SetPostprocessing`). It stops with an error if:
+SU2 checks the setup before the run (`CConfig::SetPostprocessing`). It stops with an error if:
 
 - `HYBRID_RANSLES` is set and `TIME_DOMAIN= NO`. A steady DES has no physical meaning.
 - The variant does not match the turbulence model. The `SA_*` variants need `KIND_TURB_MODEL= SA`, the `SST_*` variants need `KIND_TURB_MODEL= SST`. This also stops a run with `KIND_TURB_MODEL= NONE`.
+- An `SST_*` variant is combined with an option it does not support: `STOCHASTIC_BACKSCATTER= YES`, `COMPRESSIBILITY-WILCOX` or `COMPRESSIBILITY-SARKAR` in `SST_OPTIONS`, `DES_CONST`, a positive `LES_FILTER_WIDTH`, or `ENFORCE_LES= YES`. See [SST variants](#sst-variants).
 
 DES works with the compressible (`RANS`) and the incompressible (`INC_RANS`) solvers. Both pass the DES length scale and the LES sensor to the output. The regression tests of the SST variants use only the compressible solver.
 
@@ -83,7 +84,9 @@ For SST, set `KIND_TURB_MODEL= SST` and an `SST_*` variant, for example `HYBRID_
 
 ### DES length scale options
 
-These options act only on the `SA_*` variants. The `SST_*` variants ignore them, without a warning.
+These options act only on the `SA_*` variants. With an `SST_*` variant, SU2 stops with an error if you set `DES_CONST`, give a positive `LES_FILTER_WIDTH`, or set `ENFORCE_LES= YES`.
+
+At the start of the run, the screen shows the DES constant in use. For SA it is the value of `DES_CONST`. For SST it is the blended formula of the [SST variants](#sst-variants).
 
 | Option | Default | What it does |
 |---|---|---|
@@ -111,7 +114,7 @@ Facts from the code:
 - The sensor is computed in the compressible Navier-Stokes solver (`CNSSolver::SetRoe_Dissipation`). The incompressible solver does not use this option.
 - The minimum upwind fraction is fixed at 0.05 in the code. The Ducros threshold for `FD_DUCROS` is fixed at 0.65.
 - `FD` computes its own f_d from the wall distance and the eddy viscosity. It does not need `HYBRID_RANSLES`. It always uses the SA form of f_d (constant 8), also with an SST variant.
-- `NTS` always reads `DES_CONST`, also with an SST variant.
+- `NTS` always reads `DES_CONST`, also with an SST variant. With an SST variant you cannot set `DES_CONST`, so `NTS` uses the default, 0.65.
 - With the option on, the volume output gets the field `ROE_DISSIPATION`.
 
 For incompressible LES regions, SU2 has the centered scheme `CONV_NUM_METHOD_FLOW= LD2` (low dissipation, low dispersion). It works only with the incompressible solver and a constant-density fluid. The backscatter test case uses it.
@@ -120,11 +123,11 @@ For incompressible LES regions, SU2 has the centered scheme `CONV_NUM_METHOD_FLO
 
 In the "grey area" just after separation, a DES has neither modeled nor resolved turbulence: the RANS eddy viscosity is gone and the resolved eddies have not grown yet. The stochastic backscatter model (Kok 2017) adds random forcing in LES regions to speed up the growth of resolved eddies. *Backscatter* means energy that flows from the small, modeled scales back to the large, resolved ones.
 
-SU2 adds a random stress to the momentum equations. The random field comes from three extra equations (Langevin equations) for a random vector, solved together with the SA equation. The model works only with the `SA_*` variants (see [Known limits](#known-limits)).
+SU2 adds a random stress to the momentum equations. The random field comes from three extra equations (Langevin equations) for a random vector, solved together with the SA equation. The model works only with the `SA_*` variants. With an `SST_*` variant, SU2 stops with an error.
 
 | Option | Default | What it does |
 |---|---|---|
-| `STOCHASTIC_BACKSCATTER` | `NO` | Turns the model on. Needs `HYBRID_RANSLES` other than `NONE` and a 3D mesh, else SU2 stops with an error. |
+| `STOCHASTIC_BACKSCATTER` | `NO` | Turns the model on. Needs an `SA_*` variant in `HYBRID_RANSLES` and a 3D mesh, else SU2 stops with an error. |
 | `SBS_INTENSITY_COEFF` | `1.0` | Strength of the random stress. Must not be negative. |
 | `SBS_TIMESCALE_COEFF` | `0.05` | Time scale coefficient of the Langevin equations. If `0` or less, SU2 does not solve them. It then uses a new, uncorrelated random field at every time step. |
 | `SBS_LENGTHSCALE_COEFF` | `0.02` | Strength of the spatial smoothing of the random source. The smoothing length grows with this coefficient times the squared cell size. |
@@ -181,6 +184,8 @@ All facts below are from `SU2_CFD/src/solvers/CTurbSASolver.cpp` (`SetDES_Length
 
 **Roughness.** With DES on, the SA source term uses the DES length scale and ignores `WALL_ROUGHNESS`. The rough-wall boundary condition and the eddy viscosity still use it. See [Wall Treatment](../Wall-Treatment/#roughness-with-sa).
 
+**Compressibility correction.** With `SA_OPTIONS= COMPRESSIBILITY`, the extra destruction term −C5 ν̃² Σ(∂u_i/∂x_j)² / a² (C5 = 3.5, a the speed of sound) acts everywhere, also in LES mode, but it scales with ν̃², so it is small there. Forsythe et al. (2002) used the same term with SA-based DES and found a negligible effect.
+
 **Backscatter inside the SA equation.** Where the backscatter model is active (LES sensor above `SBS_FD_LOWER_THRESHOLD`), the SA source term uses fv1 = 1, fv2 = 0 and fw = 0 (`SU2_CFD/include/numerics/turbulent/turb_sources.hpp`). With fw = 0, the SA destruction term is switched off there. The random source added to the SA equation is limited to 5 times the production term.
 
 **Backscatter energy estimate.** The random stress scales with an estimate of the subgrid kinetic energy, (eddy viscosity / DES length scale)². In the momentum equations, SU2 uses the dynamic eddy viscosity μt for this estimate (`SU2_CFD/src/numerics/flow/flow_diffusion.cpp`). In the SA equation and in the averaged output, it uses the kinematic eddy viscosity νt (to be reviewed).
@@ -192,7 +197,7 @@ The length scale is computed in `CTurbSSTSolver::SetDES_LengthScale` (`SU2_CFD/s
 **Common parts.**
 
 - l_RANS = √k / (β* ω), with β* = 0.09.
-- The DES constant is blended with the SST function F1: C_DES = 0.78·F1 + 0.61·(1 − F1). SU2 does not read `DES_CONST` here.
+- The DES constant is blended with the SST function F1: C_DES = 0.78·F1 + 0.61·(1 − F1). SU2 does not use `DES_CONST` here, and stops with an error if you set it.
 - h_max is the longest edge from the node, as for SA. The paper uses the longest edge of the cell.
 - The shielding functions use r_d = (ν_t + ν) / (κ² d² √(0.5 (S² + Ω²))), with κ = 0.41, the strain rate magnitude S and the vorticity magnitude Ω. To avoid a division by zero, SU2 keeps S and Ω above 1e-12 and the denominator of r_d above 1e-10.
 
@@ -210,15 +215,18 @@ The length scale is computed in `CTurbSSTSolver::SetDES_LengthScale` (`SU2_CFD/s
 
 **`SST_EDDES`.** The same as `SST_DDES`, with h_max replaced by the [shear-layer-adapted cell size](#shear-layer-adapted-cell-size). The paper of Shur et al. (2015) uses SA. The code comment cites Guseva et al. (2017) and Xiao et al. (2020) for the use with SST.
 
+**LES sensor.** `CTurbSSTSolver::SetDES_LengthScale` also sets the LES sensor, with the same meaning as for SA. Where the LES length is shorter than l_RANS, the sensor is the weight of the LES branch: f_d for `SST_DDES` and `SST_EDDES`, and 1 − f̃\_d for `SST_IDDES` and `SST_SIDDES`. Elsewhere it is 0.
+
 **Source term.**
 
 - In every SST variant, the k destruction is ρ k^{3/2} / l_DES. The ω equation does not change.
 - The production limiter keeps its RANS form, based on ω, as in the paper (Eq. 3). Its constant is 20 with `V1994m` and 10 with `V2003m`, as in RANS.
-- The implicit Jacobian of the k destruction keeps its RANS form, β* ω. This affects only how the inner iterations converge, not the converged solution.
+- The implicit Jacobian of the k destruction follows the hybrid term. SU2 treats l_DES as a constant there. The derivative with respect to ρk is then 1.5 √k / l_DES, times the cell volume, and there is no ω term.
+- The source term declares l_DES as an input of the algorithmic differentiation (AD) preaccumulation. The discrete adjoint then gets the derivatives that pass through the length scale.
 
-**`SST_OPTIONS`.** SU2 accepts every `SST_OPTIONS` value with a hybrid variant. The regression tests use the default, `V2003m`. Points to know:
+**`SST_OPTIONS`.** The regression tests use the default, `V2003m`. Points to know:
 
-- `COMPRESSIBILITY-WILCOX` and `COMPRESSIBILITY-SARKAR`: in hybrid mode, the k destruction loses the compressibility factor (1 + ζ F(Mt)). The ω destruction and the Sarkar dilatation term keep their corrections.
+- `COMPRESSIBILITY-WILCOX` and `COMPRESSIBILITY-SARKAR`: SU2 stops with an error if you use them with an SST variant. How these corrections should act in the LES region is not validated yet, and the literature does not agree. Forsythe et al. (2002) put the correction only into the RANS length scale, so it switches off in LES mode. Xiao and Fu (2009) keep the correction factor on the whole k destruction.
 - `SUSTAINING`: the sustaining source of k keeps its RANS form: β* ρ k ω, with the free-stream values of k and ω.
 - With the LM transition model, SU2 multiplies the hybrid k destruction by the effective intermittency (limited to between 0.1 and 1), as in RANS.
 
@@ -259,6 +267,8 @@ This page does not repeat the model equations. See the original papers:
 - ZDES: S. Deck, "Recent improvements in the Zonal Detached Eddy Simulation (ZDES) formulation", *Theor. Comput. Fluid Dyn.* 26, 523–550, 2012. [doi:10.1007/s00162-011-0240-z](https://doi.org/10.1007/s00162-011-0240-z)
 - EDDES and the SLA cell size: M. L. Shur et al., "An enhanced version of DES with rapid transition from RANS to LES in separated flows", *Flow Turbul. Combust.* 95, 709–737, 2015. [doi:10.1007/s10494-015-9618-0](https://doi.org/10.1007/s10494-015-9618-0)
 - SST DDES and IDDES: M. S. Gritskevich, A. V. Garbaruk, J. Schütze, F. R. Menter, "Development of DDES and IDDES formulations for the k-ω shear stress transport model", *Flow Turbul. Combust.* 88, 431–449, 2012. [doi:10.1007/s10494-011-9378-4](https://doi.org/10.1007/s10494-011-9378-4)
+- Compressibility corrections in DES (SA and SST): J. R. Forsythe, K. A. Hoffmann, R. M. Cummings, K. D. Squires, "Detached-eddy simulation with compressibility corrections applied to a supersonic axisymmetric base flow", *J. Fluids Eng.* 124(4), 911–923, 2002. [doi:10.1115/1.1517572](https://doi.org/10.1115/1.1517572)
+- Compressibility correction kept on the whole k destruction: Z. Xiao, S. Fu, "Studies of the unsteady supersonic base flows around three afterbodies", *Acta Mech. Sin.* 25(4), 471–479, 2009. [doi:10.1007/s10409-009-0248-4](https://doi.org/10.1007/s10409-009-0248-4)
 - SLA with SST, as cited in the code: Guseva et al., *Flow Turbul. Combust.* 98, 2017; Xiao et al., *Int. J. Heat Fluid Flow* 85, 2020.
 - NTS blending: A. Travin et al., "Physical and numerical upgrades in the detached-eddy simulation of complex turbulent flows", *Advances in LES of Complex Flows*, 239–254, 2002. [doi:10.1007/0-306-48383-1_16](https://doi.org/10.1007/0-306-48383-1_16)
 - NTS form used in SU2: Z. Xiao et al., "Numerical dissipation effects on massive separation around tandem cylinders", *AIAA J.* 50(5), 1119–1136, 2012. [doi:10.2514/1.J051299](https://doi.org/10.2514/1.J051299)
@@ -278,8 +288,8 @@ All advice in this section is general practice, not checked in SU2 (to be review
 - **Time marching.** Use `TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER`, as in the flat plate and backscatter tests. Converge the inner iterations by 2 to 3 orders per time step (to be reviewed).
 - **Convective scheme.** Use a second-order scheme (`MUSCL_FLOW= YES`) without a slope limiter where there are no shocks. With `ROE`, `SLAU` or `SLAU2`, try `ROE_LOW_DISSIPATION= FD` or `NTS`. Add a `_DUCROS` variant if there are shocks (to be reviewed).
 - **Statistics.** Exclude the start-up transient with `WINDOW_START_ITER`, then sample over many characteristic times. Compare separate sampling blocks and extend the interval; a flat cumulative average or passing Cauchy criterion alone does not establish statistical convergence (advice, to be reviewed).
-- **Check the switch (SA).** Plot `LES_SENSOR` and `DES_LENGTHSCALE`. Attached boundary layers should stay at sensor 0 (RANS). Separated regions should show sensor near 1 (LES).
-- **Check the switch (SST).** `LES_SENSOR` is zero for the SST variants. Instead, divide `DES_LENGTHSCALE` by 10 × `SRS_GRID_SIZE`, which is l_RANS. For `SST_DDES` and `SST_EDDES`, the ratio is 1 in RANS mode and smaller in LES mode.
+- **Check the switch.** Plot `LES_SENSOR` and `DES_LENGTHSCALE`, for SA and SST variants alike. Attached boundary layers should stay at sensor 0 (RANS). Separated regions should show sensor near 1 (LES). With `SST_IDDES` and `SST_SIDDES`, the wall-modelled LES branch can put the outer part of an attached boundary layer in LES mode on purpose.
+- **Extra check (SST).** Divide `DES_LENGTHSCALE` by 10 × `SRS_GRID_SIZE`, which is l_RANS. For `SST_DDES` and `SST_EDDES`, the ratio is 1 in RANS mode and smaller in LES mode.
 
 ## Output fields
 
@@ -298,7 +308,7 @@ All advice in this section is general practice, not checked in SU2 (to be review
 The fields that are new with PR #2150 (`CFlowOutput.cpp`):
 
 - `DES_LENGTHSCALE` holds the hybrid length. For SA it is the length that replaces the wall distance in the destruction term. For SST it is l_DES in the k destruction; in RANS mode it equals l_RANS.
-- `LES_SENSOR` comes from the SA solver. For the SST variants, SU2 writes 0 everywhere.
+- `LES_SENSOR` comes from the turbulence solver, for SA and SST variants. It is 0 in RANS mode. See [SA variants](#sa-variants) and [SST variants](#sst-variants) for its value in LES mode.
 - `LESIQ` = 1 / (1 + 0.05 ((μ_t + μ)/μ)^0.53). This is the viscosity-based LES index of quality of Celik et al. (2005). It is near 1 where the eddy viscosity is small compared with the laminar viscosity.
 - `SRS_GRID_SIZE` = 0.1 · √k / (0.09 ω), one tenth of l_RANS. It suggests a cell size for a scale-resolving simulation. The factor 0.1 is fixed in the code.
 - `GRAD_VEL_` fields hold the velocity gradient: the first letter is the velocity component, the second the direction. For example, `GRAD_VEL_XY` is ∂u/∂y.
@@ -316,18 +326,16 @@ The regression tests only check that the options run and that the results do not
 
 - [`TestCases/ddes/flatplate/ddes_flatplate.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/ddes/flatplate/ddes_flatplate.cfg): `SA_EDDES` on a 2D flat plate, compressible, `SLAU2`. A 2D flat plate is not a real DES case.
 - [`TestCases/backscatter/backward_step/backwardStep.cfg`](https://github.com/su2code/SU2/blob/develop/TestCases/backscatter/backward_step/backwardStep.cfg): `SA_DDES` with stochastic backscatter in a box, incompressible, `LD2` scheme, periodic in the spanwise direction. It shows all `SBS_*` options and the `TIME_AVERAGE` output.
-- `TestCases/ddes/oneram6/ddes_oneram6_*.cfg` (PR #2150), one per model: [`sst_ddes`](https://github.com/su2code/SU2/blob/e9e85686ad3b53fb76eb912d1e8be3b521372838/TestCases/ddes/oneram6/ddes_oneram6_sst_ddes.cfg), [`sst_iddes`](https://github.com/su2code/SU2/blob/e9e85686ad3b53fb76eb912d1e8be3b521372838/TestCases/ddes/oneram6/ddes_oneram6_sst_iddes.cfg), [`sst_siddes`](https://github.com/su2code/SU2/blob/e9e85686ad3b53fb76eb912d1e8be3b521372838/TestCases/ddes/oneram6/ddes_oneram6_sst_siddes.cfg), [`sst_eddes`](https://github.com/su2code/SU2/blob/e9e85686ad3b53fb76eb912d1e8be3b521372838/TestCases/ddes/oneram6/ddes_oneram6_sst_eddes.cfg) and [`sa_eddes`](https://github.com/su2code/SU2/blob/e9e85686ad3b53fb76eb912d1e8be3b521372838/TestCases/ddes/oneram6/ddes_oneram6_sa_eddes.cfg). They use the ONERA M6 wing on a hexahedral mesh, compressible, `ROE`. Each one restarts from an SA or SST RANS solution, so that the LES branch of the length scale is active, and runs a few short time steps. They are in the serial, parallel and hybrid regression scripts. They are not a setup example.
+- `TestCases/ddes/oneram6/ddes_oneram6_*.cfg` (PR #2150), one per model: [`sst_ddes`](https://github.com/su2code/SU2/blob/1bcd4a74257d5cce1929187d635fc1dc0d1ae5c8/TestCases/ddes/oneram6/ddes_oneram6_sst_ddes.cfg), [`sst_iddes`](https://github.com/su2code/SU2/blob/1bcd4a74257d5cce1929187d635fc1dc0d1ae5c8/TestCases/ddes/oneram6/ddes_oneram6_sst_iddes.cfg), [`sst_siddes`](https://github.com/su2code/SU2/blob/1bcd4a74257d5cce1929187d635fc1dc0d1ae5c8/TestCases/ddes/oneram6/ddes_oneram6_sst_siddes.cfg), [`sst_eddes`](https://github.com/su2code/SU2/blob/1bcd4a74257d5cce1929187d635fc1dc0d1ae5c8/TestCases/ddes/oneram6/ddes_oneram6_sst_eddes.cfg) and [`sa_eddes`](https://github.com/su2code/SU2/blob/1bcd4a74257d5cce1929187d635fc1dc0d1ae5c8/TestCases/ddes/oneram6/ddes_oneram6_sa_eddes.cfg). They use the ONERA M6 wing on a hexahedral mesh, compressible, `ROE`. Each one restarts from an SA or SST RANS solution, so that the LES branch of the length scale is active, and runs a few short time steps. They are in the serial, parallel and hybrid regression scripts. They are not a setup example.
 
 Background: [An Overview of DDES in SU2: Implementation and Recent Results](/documents/dev_meeting_2017/su2_dev_molina.pdf) (2017 developers meeting).
 
 ## Known limits
 
 - **`ROE_LOW_DISSIPATION` is ignored** with schemes other than `ROE`, `SLAU` and `SLAU2`, and in the incompressible solver, without a warning.
-- **Backscatter is 3D only and needs an `SA_*` variant.** SU2 does not stop if you turn it on with an `SST_*` variant. The SST solver has no random field, so the flow solver reads other turbulence variables in its place. Do not use this combination.
-- **The SST variants ignore `DES_CONST`, `LES_FILTER_WIDTH` and `ENFORCE_LES`**, without a warning. With `ENFORCE_LES= YES`, the screen still says that LES is enforced everywhere.
-- **No LES sensor for SST.** `LES_SENSOR` is zero for the SST variants (see [Recommended use](#recommended-use) for another check).
-- **SST compressibility corrections.** In hybrid mode, the k destruction has no compressibility factor (see [SST variants](#sst-variants)).
-- **Discrete adjoint with SST variants.** The SST source term does not declare the DES length scale as an input of the algorithmic differentiation (AD) preaccumulation (`turb_sources.hpp`). Derivatives that pass through the length scale can be missing (to be reviewed).
+- **Backscatter is 3D only and needs an `SA_*` variant.** SU2 stops with an error in 2D or with an `SST_*` variant.
+- **The SST variants do not use `DES_CONST`, `LES_FILTER_WIDTH` and `ENFORCE_LES`.** SU2 stops with an error if you set `DES_CONST`, give a positive `LES_FILTER_WIDTH`, or set `ENFORCE_LES= YES` with an SST variant.
+- **No SST compressibility corrections in hybrid mode.** SU2 stops with an error if `SST_OPTIONS` contains `COMPRESSIBILITY-WILCOX` or `COMPRESSIBILITY-SARKAR` with an SST variant (see [SST variants](#sst-variants)).
 - **Wall roughness is only partly used with SA DES** (see [Roughness](#sa-variants)).
 - **Time averages restart from zero** after a restart.
 
@@ -343,4 +351,4 @@ Background: [An Overview of DDES in SU2: Implementation and Recent Results](/doc
 
 ---
 
-Source review: 23 October 2026, against [SU2 PR #2150 at `e9e85686ad`](https://github.com/su2code/SU2/tree/e9e85686ad3b53fb76eb912d1e8be3b521372838). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.
+Source review: 23 October 2026, against [SU2 PR #2150 at `1bcd4a7425`](https://github.com/su2code/SU2/tree/1bcd4a74257d5cce1929187d635fc1dc0d1ae5c8). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.

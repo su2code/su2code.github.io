@@ -128,6 +128,8 @@ The keywords fall into four groups. SU2 has only the "m" forms of SST ([see belo
 | `COMPRESSIBILITY-WILCOX` | Wilcox dilatation-dissipation correction. Active where the turbulent Mach number sqrt(2k)/a is above 0.25. |
 | `COMPRESSIBILITY-SARKAR` | Sarkar correction: dilatation dissipation plus a pressure-dilatation term. Same threshold. |
 
+With the SST hybrid RANS/LES variants (`HYBRID_RANSLES= SST_*`, [PR #2150](https://github.com/su2code/SU2/pull/2150)), SU2 stops with an error if you set one of these corrections. See [Hybrid RANS-LES](../Hybrid-RANS-LES/).
+
 **Other modifiers** (combine with anything):
 
 | Keyword | Effect | TMR name |
