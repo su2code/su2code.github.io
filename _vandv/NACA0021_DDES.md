@@ -26,7 +26,7 @@ Note: the SST variants and the current form of `SA_EDDES` come with [PR #2150](h
 <img src="/vandv_files/NACA0021_DDES/flow_sst_ddes.png" alt="Instantaneous vortical structures, SST-DDES" style="width: 49%; min-width: 0;" />
 <img src="/vandv_files/NACA0021_DDES/flow_sst_eddes.png" alt="Instantaneous vortical structures, SST-EDDES" style="width: 49%; min-width: 0;" />
 </div>
-**Figure 1** - Instantaneous vortical structures coloured by the pressure coefficient, SST-DDES (left) and SST-EDDES (right). With SST-DDES, the shear layer from the leading edge stays a smooth sheet before it rolls up. With SST-EDDES, it breaks up into small, three-dimensional eddies close to the airfoil.
+**Figure 1** - Instantaneous iso-surfaces of the Q-criterion, which show the vortical structures, coloured by the pressure coefficient: SST-DDES (left) and SST-EDDES (right). With SST-DDES, the shear layer from the leading edge stays a smooth sheet before it rolls up. With SST-EDDES, it breaks up into small, three-dimensional eddies close to the airfoil.
 
 ## Problem Setup
 
