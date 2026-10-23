@@ -43,7 +43,7 @@ Other options that act on all turbulence models:
 
 Old values of `KIND_TURB_MODEL` (`SST_SUST`, `SA_NEG`, `SA_E`, `SA_COMP`, `SA_E_COMP`) and `KIND_TRANS_MODEL= BC` are no longer accepted. SU2 stops and prints the new option to use. <!-- CConfig.cpp:3425-3439 -->
 
-Hybrid RANS-LES models (DES, DDES and stochastic backscatter) build on these models. See [Hybrid RANS-LES](../Hybrid-RANS-LES/). Wall functions and wall roughness, including the SST roughness boundary conditions, are on [Wall Treatment](../Wall-Treatment/).
+Hybrid RANS-LES models (DES, DDES and stochastic backscatter) build on these models. The `SA_*` variants and stochastic backscatter build on SA. The `SST_*` variants (DDES and IDDES for SST, from [PR #2150](https://github.com/su2code/SU2/pull/2150)) build on SST. See [Hybrid RANS-LES](../Hybrid-RANS-LES/). Wall functions and wall roughness, including the SST roughness boundary conditions, are on [Wall Treatment](../Wall-Treatment/).
 
 ## Spalart-Allmaras (SA)
 
