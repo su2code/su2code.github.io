@@ -68,6 +68,7 @@
 - title: Workflow Setup
   tutorials:
   - paraview_live
+  - Aeroacoustic_Pressure_Spectrum
 
 - title: Event Content
   tutorials:
