@@ -24,7 +24,9 @@ Use this guide when the flow changes in time and you want to follow that change.
 - buffet, large separated regions, wakes,
 - bodies that move, such as a pitching airfoil.
 
-The guide covers two approaches:
+Unsteady simulations can also use `SOLVER= EULER` for inviscid flow, or `SOLVER= NAVIER_STOKES` for laminar viscous flow. The general time-stepping controls below apply to these cases too.
+
+The examples below focus on two turbulence-modelling approaches:
 
 - **URANS** (unsteady RANS): the RANS equations solved in time. The turbulence model still models all turbulent eddies. URANS captures large, regular unsteadiness such as vortex shedding (advice).
 - **DES** (detached eddy simulation), a hybrid RANS/LES method: RANS near the walls, large-eddy simulation (LES) in separated regions. In LES, the mesh and the time step resolve the large turbulent eddies and the model handles only the small ones (advice).
