@@ -310,7 +310,7 @@ The second option is through an artificial spark, enabled through setting `FLAME
 - `iter_start`: (outer) iteration after which the spark will be applied.
 - `duration`: number of (outer) iterations for which the artificial spark will be applied.
 
-The source terms applied to the controlling variables are defined under the option `SPARK_REACTION_RATES`. This option expects one value for each transported scalar, that is for each controlling variable in `CONTROLLING_VARIABLE_NAMES` and each passive species in `USER_SCALAR_NAMES`. These are the source terms applied within the spark sphere. 
+The source terms applied to the controlling variables are defined under the option `SPARK_REACTION_RATES`. This option expects one value for each transported scalar, that is for each controlling variable in `CONTROLLING_VARIABLE_NAMES` and each passive species in `USER_SCALAR_NAMES`. These are the source terms applied within the spark sphere.
 
 The final and default option for initializing the solution is to perform a cold flow analysis without a flame front. This option is enabled through setting `FLAME_INIT_METHOD=NONE`. 
 

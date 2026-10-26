@@ -55,13 +55,13 @@ If you would like to run the DSMA661 testcase problem for yourself, the files us
 ## Results
 The results for the mesh refinement study are presented and compared to results from FUN3D and CFL3D, including results for both SA and SST turbulence models. 
 
-To keep the comparisons consistent with these solvers, the results shown use the standard SA model and V2003m SST turbulence models. For SA model, the turbulent inflow is defined by $\tilde{\nu} = 3 \nu_{\infty}$ and $k/w$=0.009 for SST. The ROE scheme (with kappa=0.33333) is used with MUSCL treatment on the convective terms with a VAN ALBADA EDGE limiter and first order treatment on the turbulent advective terms. All cases were converged until the density residual was reduced to 10<sup>-11</sup>. More details about the FUN3D and CFL3D set ups can found on the [NASA TMR website](https://tmbwg.github.io/turbmodels/airfoilwakeverif500c_sa.html). 
+To keep the comparisons consistent with these solvers, the results shown use the standard SA model and V2003m SST turbulence models. For SA model, the turbulent inflow is defined by $\tilde{\nu} = 3 \nu_{\infty}$ and $k/w$=0.009 for SST. The ROE scheme (with kappa=0.33333) is used with MUSCL treatment on the convective terms with a VAN ALBADA EDGE limiter and first order treatment on the turbulent advective terms. All cases were converged until the density residual was reduced to 10<sup>-11</sup>. More details about the FUN3D and CFL3D set ups can found on the [NASA TMR website](https://tmbwg.github.io/turbmodels/airfoilwakeverif500c_sa.html).
 
 We will compare the convergence of lift and drag force values, splitting the drag into its pressure and viscous terms, and the minimum x-velocity in the wake regions at certain points. The coefficients of pressure and skin friction over the airfoil surface, velocity profiles in the wake region and the eddy viscosity contours will also be compared.
 
 Both the SA and SST models exhibit excellent agreement in the figures below. With grid refinement, we see that the asymptotic force values and minimum velocity values in the wake region reach very close to those of the FUN3D and CFL3D. The differences between the experimental and numerical results arise from the use of a blunt trailing edge in the experiments and a sharp one in the simulations. Nonetheless the CFD codes demonstrate a high degree of accuracy.
 
-Additional codes have been compared against the FUN3D and CFL3D results, and are available on the [NASA TMR website](https://tmbwg.github.io/turbmodels/airfoilwakeverif500c_sa.html). Overall this builds a high degree of confidence in the implementations of these turbulence models in SU2. 
+Additional codes have been compared against the FUN3D and CFL3D results, and are available on the [NASA TMR website](https://tmbwg.github.io/turbmodels/airfoilwakeverif500c_sa.html). Overall this builds a high degree of confidence in the implementations of these turbulence models in SU2.
 
 
 ### SA Model
