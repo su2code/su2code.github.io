@@ -40,6 +40,12 @@ jobs:
           persist-credentials: false
       - name: Get release tags for migration reference
         run: git -C su2 fetch --quiet --filter=blob:none https://github.com/su2code/SU2.git 'refs/tags/v7.*:refs/tags/v7.*' 'refs/tags/v8.*:refs/tags/v8.*'
+      - name: Setup Node for search checks
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check search behavior
+        run: node site/tools/test_search.js
       - name: Setup Ruby and locked gems
         uses: ruby/setup-ruby@v1
         with:

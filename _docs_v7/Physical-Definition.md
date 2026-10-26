@@ -24,6 +24,8 @@ SU2 offers different ways of setting and computing this definition. This documen
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
   - [Initial State and Non-Dimensionalization](#initial-state-and-non-dimensionalization)
 - [Turbulence Models](#turbulence-models)
+  - [Spalart-Allmaras (SA)](#spalart-allmaras-sa)
+  - [Shear Stress Transport (SST)](#shear-stress-transport-sst)
 - [Transition Models](#transition-models)
 
 ---
@@ -125,7 +127,7 @@ The NEMO solvers require a specification of thermochemical nonequilibrium librar
 
 A chemistry model, consisting of a set of flow species, thermochemical properties, and chemical reactions, is specified using `GAS_MODEL`. The names of these models are specific to the thermochemical library. If using the `SU2_NONEQ` option the choices are `ARGON`, `N2`, `AIR-5`, and `AIR-7`. 
 
-Free-stream mass fractions must also be specified in list using the option `GAS_COMPOSITION`. The mass fractions are specified as decimal values in the order of the species in the gas model. For example, an AIR-5 mixture of 77% oxygen and 23% nitrogen would be expressed as (0.77, 0.23, 0.00, 0.00, 0.00).
+Free-stream mass fractions must also be specified in list using the option `GAS_COMPOSITION`. The mass fractions are specified as decimal values in the order of the species in the gas model. With `FLUID_MODEL= SU2_NONEQ` and `GAS_MODEL= AIR-5`, the species order is N2, O2, NO, N, O. A mixture of 77% nitrogen and 23% oxygen by mass is therefore `GAS_COMPOSITION= (0.77, 0.23, 0.00, 0.00, 0.00)`.
 
 ## Transport Coefficient Model (Thermochemical Nonequilibrium) ##
 
@@ -163,7 +165,14 @@ The reference values $$\rho_{ref}, T_{ref}, v_{ref}$$ equal the initial state va
 
 Set `SOLVER= RANS` or `SOLVER= INC_RANS`, and choose the model with `KIND_TURB_MODEL= SA` or `KIND_TURB_MODEL= SST`.
 Choose the variant with `SA_OPTIONS` or `SST_OPTIONS`. The defaults are SA without the ft2 term and SST-2003m.
-[Turbulence Models](../Turbulence-Models/) lists all variants, the free-stream and inlet values, and where SU2 differs from the literature.
+
+### Spalart-Allmaras (SA)
+
+See [SA variants and inlet values](../Turbulence-Models/#spalart-allmaras-sa), including the differences between SU2 and the published models.
+
+### Shear Stress Transport (SST)
+
+See [SST variants and inlet values](../Turbulence-Models/#shear-stress-transport-sst), including the differences between SU2 and the published models.
 
 ## Transition Models ##
 
