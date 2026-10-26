@@ -2,14 +2,14 @@ name: Documentation Checks
 
 on:
   push:
-    branches: ['docs_site']
+    branches: ['docs_site', 'docs/user-guides', 'docs/naca0021']
   pull_request:
-    branches: ['docs_site']
+    branches: ['docs_site', 'master', 'docs/user-guides']
   workflow_dispatch:
     inputs:
       su2_ref:
         description: SU2 commit SHA or branch
-        default: docs_site
+        default: docs/developer-guides
 
 permissions:
   contents: read
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: rois1995/SU2
-          ref: ${{ inputs.su2_ref || 'docs_site' }}
+          ref: ${{ inputs.su2_ref || 'docs/developer-guides' }}
           path: su2
           fetch-depth: 0
           filter: blob:none
