@@ -345,7 +345,7 @@ Rules (code):
 Some pages write `FLAMELET_ENTHALPY_BC`; the option name is `FLAME_ENTHALPY_BC`.
 For wall values set per point from Python, see [`SU2_CFD/flamelet_python_bc.md`](https://github.com/su2code/SU2/blob/develop/SU2_CFD/flamelet_python_bc.md) in the code.
 
-Use `FLOW_MARKERS` when you know the temperatures, which is the usual case. It avoids an enthalpy that does not match the table ([diffusion flame tutorial](/tutorials/Inc_Laminar_Diffusion_Flame/)).
+Use `FLOW_MARKERS` when you know the temperatures, which is the usual case. It avoids an enthalpy that does not match the table ([diffusion flame tutorial](https://su2code.github.io/tutorials/Inc_Laminar_Diffusion_Flame/)).
 
 ## Check convergence and results
 
@@ -376,7 +376,7 @@ Use `FLOW_MARKERS` when you know the temperatures, which is the usual case. It a
 | The converged flame is reset after a restart. | Ignition runs again on restart, unless `FLAME_INIT_METHOD= NONE` (code). | Set `FLAME_INIT_METHOD= NONE` when you restart. |
 | The inlet enthalpy in `MARKER_INLET_SPECIES` has no effect. | `FLAME_ENTHALPY_BC= FLOW_MARKERS` (default) uses the inlet temperature instead (code). | Set the temperature in `MARKER_INLET`, or use `FLAME_ENTHALPY_BC= SPECIES_MARKERS`. |
 | SU2 stops with an unknown option `FLAMELET_ENTHALPY_BC`. | Wrong option name, from an older page (code). | Use `FLAME_ENTHALPY_BC`. |
-| Many table misses; the temperature jumps. | Controlling variables outside the table, often an enthalpy below the table range at cold walls (advice). | Check the wall and inlet temperatures. Extend the table to lower enthalpy ([diffusion flame tutorial](/tutorials/Inc_Laminar_Diffusion_Flame/)). |
+| Many table misses; the temperature jumps. | Controlling variables outside the table, often an enthalpy below the table range at cold walls (advice). | Check the wall and inlet temperatures. Extend the table to lower enthalpy ([diffusion flame tutorial](https://su2code.github.io/tutorials/Inc_Laminar_Diffusion_Flame/)). |
 | SU2 stops: "Dual-time stepping with species-dependent variable density does not support MGLEVEL > 0". | Multigrid in an unsteady mixture run (code). | Set `MGLEVEL= 0`. |
 
 ## Related tutorials and test cases
@@ -387,7 +387,7 @@ Tutorials:
 - [Composition-Dependent model for Species Transport](/tutorials/Inc_Species_Transport_Composition_Dependent_Model/): `FLUID_MIXTURE`, Lewis number models, `BOUNDED_SCALAR`.
 - [Wind velocity and pollutant dispersion in a city](/tutorials/Inc_Urban_City/): smoke as a species, with a source term set from the Python wrapper.
 - [Incompressible, Laminar Combustion Simulation](/tutorials/Inc_Combustion/): premixed hydrogen flame with neural networks, preferential diffusion and spark ignition.
-- [Incompressible, Laminar counterflow diffusion flame](/tutorials/Inc_Laminar_Diffusion_Flame/): mixture fraction and enthalpy, `FLAME_ENTHALPY_BC`.
+- [Incompressible, Laminar counterflow diffusion flame](https://su2code.github.io/tutorials/Inc_Laminar_Diffusion_Flame/): mixture fraction and enthalpy, `FLAME_ENTHALPY_BC`.
 
 Test cases:
 

@@ -125,7 +125,7 @@ Many bug fixes and small improvements are not listed. See the [GitHub release no
 
 ### Solvers and models
 
-- **Combustion.** Flamelet model for premixed flames: `KIND_SCALAR_MODEL= FLAMELET` with `FLUID_MODEL= FLUID_FLAMELET` (v8.0.0). Preferential diffusion (`PREFERENTIAL_DIFFUSION`) and spark ignition (`FLAME_INIT_METHOD= SPARK`) (v8.1.0). See [Species Transport and Combustion](../Setup-Guide-Species-Combustion/) and the tutorials [Laminar Combustion](/tutorials/Inc_Combustion/) and [Counterflow Diffusion Flame](/tutorials/Inc_Laminar_Diffusion_Flame/).
+- **Combustion.** Flamelet model for premixed flames: `KIND_SCALAR_MODEL= FLAMELET` with `FLUID_MODEL= FLUID_FLAMELET` (v8.0.0). Preferential diffusion (`PREFERENTIAL_DIFFUSION`) and spark ignition (`FLAME_INIT_METHOD= SPARK`) (v8.1.0). See [Species Transport and Combustion](../Setup-Guide-Species-Combustion/) and the tutorials [Laminar Combustion](/tutorials/Inc_Combustion/) and [Counterflow Diffusion Flame](https://su2code.github.io/tutorials/Inc_Laminar_Diffusion_Flame/).
 - **Data-driven fluid model.** `FLUID_MODEL= DATADRIVEN_FLUID` with look-up tables or neural networks (`INTERPOLATION_METHOD= LUT` or `MLP`) (v8.0.0). Physics-informed networks with `USE_PINN` (v8.2.0). See [NICFD](../Setup-Guide-NICFD/) and the tutorial [Physics-informed neural networks](/tutorials/NICFD_nozzle_datadriven/).
 - **Species transport.** Custom wall conditions with `MARKER_WALL_SPECIES` (v8.4.0). Adaptive CFL now also covers species (v8.1.0).
 - **NEMO.** Ionization for viscous flows (v8.0.0). See [Thermochemical Nonequilibrium](../Thermochemical-Nonequilibrium/).
