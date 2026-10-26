@@ -4,7 +4,7 @@ on:
   push:
     branches: ['docs_site', 'docs/user-guides', 'docs/naca0021']
   pull_request:
-    branches: ['docs_site', 'master', 'docs/user-guides']
+    branches: ['docs_site', 'develop', 'docs/user-guides']
   workflow_dispatch:
     inputs:
       su2_ref:
