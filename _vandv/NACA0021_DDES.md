@@ -33,17 +33,31 @@ Note: the SST variants and the current form of `SA_EDDES` come with [PR #2150](h
 - Airfoil: NACA 0021, chord c = 1 m, angle of attack 60 degrees.
 - Reynolds number based on the chord: 2.7 × 10⁵, as in the experiment of Swalwell et al.
 - The experiment is at low Mach number, so the incompressible solver is used. Free-stream speed U = 4.1625 m/s, density 1.2 kg/m³, viscosity 1.85 × 10⁻⁵ Pa s.
-- Inflow eddy viscosity equal to the laminar viscosity, as in Guseva et al. (2017).
-- The span is periodic. All four runs use the same mesh and the same numerical settings.
+- SST free stream: turbulence intensity 1.8% and eddy-to-laminar viscosity ratio 1, as in Guseva et al. (2017).
+- SA free stream: `FREESTREAM_NU_FACTOR= 3`, the ratio of the SA working variable to the kinematic viscosity. This is not an eddy-viscosity ratio; the SST ratio option has no effect with SA.
+- The span is periodic. All four runs use the same mesh, time step and flow discretization; the turbulence closures and their free-stream inputs differ as stated above.
 
 Numerical settings:
 
 - Time step 0.025 c/U with `DUAL_TIME_STEPPING-2ND_ORDER` and 50 inner iterations per time step. Guseva et al. use 0.03 c/U.
 - Mean flow: `JST` central scheme. Turbulence: first-order `SCALAR_UPWIND`. Green-Gauss gradients.
-- Each run starts from a steady RANS solution of the same turbulence model. SA-EDDES starts from the developed flow of an earlier SA-EDDES run.
+- SA-DDES and both SST runs start from a steady RANS solution of the same turbulence model. SA-EDDES starts from the developed flow of an earlier SA-EDDES run.
 - The first 100 c/U are left out of the statistics as start-up transient (20 c/U for SA-EDDES). All runs are then averaged over the same time, 520 c/U.
 
-The configuration file is [available here](/vandv_files/NACA0021_DDES/naca0021_hybrid.cfg). Its header lists the lines to change for each model.
+The [configuration file](/vandv_files/NACA0021_DDES/naca0021_hybrid.cfg) contains the SST-EDDES settings; its header lists the changes for the other models. It now explicitly sets `MAX_TIME= 481.0` so that the default 1-second limit cannot truncate the run. `CONV_FIELD= RMS_PRESSURE` names an available incompressible residual; `CONV_STARTITER= 50` preserves the fixed 50 inner iterations of the reported runs. This iteration count is not evidence of sufficient inner convergence.
+
+### Case files and restart preparation
+
+The mesh is available to the author; its public download location is pending review. Supply `Mesh.cgns` separately to run the configuration. The mesh description below identifies the grid used for the results.
+
+You can generate the steady starting solution instead of downloading restart files:
+
+1. Copy the configuration to `naca0021_steady.cfg` and use the same turbulence model as the intended unsteady run. Set `HYBRID_RANSLES= NONE`, `TIME_DOMAIN= NO` and `RESTART_SOL= NO`.
+2. Remove `TIME_MARCHING`, `TIME_STEP`, `TIME_ITER`, `MAX_TIME`, `INNER_ITER`, `WINDOW_START_ITER` and `RESTART_ITER` from that steady copy. Set `ITER= 10000` as an initial iteration limit, then run `SU2_CFD naca0021_steady.cfg`. Check the residuals and forces and extend the solve if needed; reaching the limit does not establish convergence.
+3. For second-order dual-time stepping with `RESTART_ITER= 2`, supply two old time levels. After the steady solve has converged, copy its binary restart to `restart_flow_00000.dat` and `restart_flow_00001.dat` in the unsteady run directory. These names follow `SOLUTION_FILENAME= restart_flow.dat`.
+4. Run `SU2_CFD naca0021_hybrid.cfg` with `TIME_DOMAIN= YES`, `RESTART_SOL= YES` and `RESTART_ITER= 2`. For later continuation, use the next step after an available saved pair, rather than resetting `RESTART_ITER` to 2. See [Restart File](/docs_v7/Restart-File/).
+
+The configuration sets `WINDOW_START_ITER= 4005`, approximately 100 c/U for its stated velocity and time step. This excludes the initial transient from SU2's output averages, which continue until the run stops. The figures below instead use a fixed 520 c/U analysis window: 100–620 c/U for SA-DDES and the SST cases, and 20–540 c/U for the already-developed SA-EDDES run. A new SA-EDDES run from a steady RANS field must not automatically reuse the shorter 20 c/U exclusion; check its transient first. Changing the time step or restarting changes the appropriate window index.
 
 ## Mesh Description
 
@@ -63,16 +77,16 @@ The reference computations of Guseva et al. use a finer O-grid with a span of 4 
 
 ## Results
 
-All results are averages in time and along the span. The error bars and bands are standard errors of the mean, computed from blocks of 50 c/U. Garbaruk et al. (2009) estimate that a span of 1 chord needs about 2400 c/U for a 1% error in the mean forces, so a few percent of statistical error remains here.
+Mean forces and pressure are averaged in time and along the span. The [numerical results table](/vandv_files/NACA0021_DDES/results.csv) provides the unrounded values behind the table below; `T_stats` is in c/U and the `_se` columns are standard errors of the mean. The force error bars and pressure bands use standard errors estimated from ten complete, non-overlapping blocks of 50 c/U; the remaining partial block is excluded from the error estimate. These estimates assume that the block means are sufficiently independent and the sampled flow is stationary. They are not bounds on mesh, time-step or turbulence-model error. Garbaruk et al. (2009) estimate that a span of 1 chord needs about 2400 c/U for a 1% error in the mean forces, so a few percent of statistical error remains here.
 
 ### Mean forces
 
 <p align="center">
 <img src="/vandv_files/NACA0021_DDES/forces.png" alt="Mean lift, mean drag and RMS of the sectional lift" />
 </p>
-**Figure 3** - Mean lift and drag coefficients (± 1 standard error) and root mean square (RMS) of the sectional lift coefficient. Grey band: range of four published DES with a span of 1 chord (Garbaruk et al. 2009). Dotted line: NTS DES with a span of 4 chords. Dashed line: experiment of Swalwell et al.
+**Figure 3** - Mean lift and drag coefficients (± 1 standard error) and RMS of the sectional lift fluctuations: the temporal standard deviation at each spanwise station, averaged along the span. Grey band: range of four published DES with a span of 1 chord (Garbaruk et al. 2009). Dotted line: NTS DES with a span of 4 chords. Dashed line: experiment of Swalwell et al.
 
-| Run | Statistics (c/U) | Mean C_L | Mean C_D | RMS of sectional C_L | Shedding Strouhal number |
+| Run | Statistics (c/U) | Mean C_L | Mean C_D | RMS of sectional C_L fluctuations | Shedding Strouhal number |
 | --- | --- | --- | --- | --- | --- |
 | SA-DDES | 520 | 1.08 ± 0.04 | 1.81 ± 0.07 | 0.30 | 0.18 |
 | SA-EDDES | 520 | 1.02 ± 0.03 | 1.72 ± 0.05 | 0.25 | 0.19 |
@@ -81,9 +95,9 @@ All results are averages in time and along the span. The error bars and bands ar
 | DES, span 1 c (Garbaruk et al. 2009) | 1000 – 2100 | 0.97 – 1.01 | 1.59 – 1.62 | 0.22 – 0.24 | about 0.2 |
 | Experiment (Swalwell et al.) | 8860 | 0.93 | 1.52 | 0.10 | 0.20 |
 
-- The two EDDES runs agree with the published DES at the same span, within about 7% in drag.
-- The two DDES runs give 7 to 22% more lift and drag than the published DES, and larger fluctuations. With SST, the difference between DDES and EDDES is about 3 standard errors, so it is unlikely to be a statistical effect.
-- All runs give more lift and drag than the experiment. This is expected with a span of 1 chord: the published DES at the same span show the same trend.
+- SST-EDDES drag lies inside the published range for the same span; SA-EDDES drag is about 6–8% above that range.
+- The two DDES runs give 7 to 22% more lift and drag than the published DES, and larger fluctuations. For SST, the difference is about three combined standard errors, using the square root of the sum of the two squared error estimates. This comparison assumes independent runs and does not test the adequacy of the block length.
+- All runs give more lift and drag than the experiment. The published span study shows the same direction of change, so the narrow span is a plausible contributor. Its contribution cannot be separated here from numerical and model differences.
 
 ### Mean pressure coefficient
 
@@ -118,6 +132,8 @@ All results are averages in time and along the span. The error bars and bands ar
 
 - One mesh, with a span of 1 chord. The published reference uses 4 chords. A run with a span of 4 chords has been started.
 - The `JST` scheme without a low-dissipation option damps the small eddies more than the schemes of the reference computations.
+- There is no mesh-refinement, time-step-refinement or inner-iteration sensitivity study in this comparison. Agreement with a reference on one mesh does not establish numerical convergence.
+- The table and figures summarize the existing runs; the configuration and restart instructions are starting points for reproduction, not a newly repeated CFD campaign.
 - The statistics cover 520 c/U for each run. The mean forces still have a statistical error of 3 to 5%. The SST runs were continued further (to about 1000 c/U): over the longer time, their mean forces change by less than 0.02, within this error.
 - The published DES at a span of 1 chord average over 1000 to 2100 c/U (Garbaruk et al. 2009, Table 2), 2 to 4 times longer than here. With their error estimate (their Eq. 1), our 520 c/U give an error of about 2 to 3% in the mean forces, close to our own estimate.
 
