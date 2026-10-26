@@ -37,6 +37,7 @@ exclude:
   - .idea/
   - .gitignore
   - README.md
+  - tools/
 timezone: Europe/Berlin
 defaults:
 - scope:
