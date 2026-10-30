@@ -207,7 +207,7 @@ With each design iteration, the direct and adjoint solutions are used to compute
 	WINDOW_START_ITER = 350
 	%
 	%Iteration number to begin the reverse time integration in the direct solver for the unsteady adjoint.
-	UNST_ADJOINT_START_ITER = 600
+	UNST_ADJOINT_ITER = 600
 	%
 	%Number of iterations to average the objective 
 	ITER_AVERAGE_OBJ =  250

@@ -108,9 +108,9 @@ LINEAR_SOLVER_ERROR = 1E-8
 LINEAR_SOLVER_ITER = 1000
 ```
 
-Finally, the output of the solver needs to be set. We set the screen output to print out the residual of the linear solver in the x and y components of the displacement, and the maximum Von Mises Stress (VMS) in the structure.
+Finally, the output of the solver needs to be set. We set the screen output to print the structural residuals in the x and y components of the displacement, and the maximum von Mises stress (VMS) in the structure.
 
-In this case, we will write the volume file in [Paraview](https://www.paraview.org/) format, as _linear_elastic.vtk_. The convergence file will be written as _history.csv_, which in this case will only consists of one line as the linear problem is computed in a single iteration. The binary restart file will be saved as *restart_linear_elastic.dat*.
+In this case, we will write the volume file in [Paraview](https://www.paraview.org/) format, as _linear_elastic.vtk_. The convergence file will be written as _history.csv_, which in this case will only consist of one line as the linear problem is computed in a single iteration. The binary restart file will be saved as *restart_linear_elastic.dat*.
 
 
 
@@ -118,7 +118,7 @@ In this case, we will write the volume file in [Paraview](https://www.paraview.o
 SCREEN_OUTPUT = (INNER_ITER, RMS_DISP_X, RMS_DISP_Y, VMS)
 
 TABULAR_FORMAT = CSV
-OUTPUT_FILES = (RESTART, PARAVIEW_BINARY)
+OUTPUT_FILES = (RESTART, PARAVIEW_LEGACY)
 
 CONV_FILENAME = history
 VOLUME_FILENAME = linear_elastic
@@ -137,7 +137,7 @@ This is a very small example that we will run in serial. To run this test case, 
      
      at the command line.
  3. SU2 will print the residual of the linear solver, and the simulation will finish after one iteration.
- 4. Files containing the results will be written upon exiting SU2. The flow solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
+ 4. Files containing the results will be written upon exiting SU2. The structural solution can be visualized in ParaView (.vtk) or Tecplot (.dat for ASCII).
  
 For this particular problem, the solver should have run very quickly. The screen output of the code will go over your settings, before initializing the solver. Once done so, you will obtain an output such as
 
@@ -148,12 +148,12 @@ For this particular problem, the solver should have run very quickly. The screen
 |           0|   -9.779193|   -9.986436|  1.1541e+06|
 ```
 
-where ```rms[DispX]``` and ```rms[DispY]``` correspond to the residual of the linear solver in the x and y components of the displacements, and ```VonMises``` corresponds to the maximum Von Mises Stress in the structural domain.
+where ```rms[DispX]``` and ```rms[DispY]``` correspond to the residual of the linear solver in the x and y components of the displacements, and ```VonMises``` corresponds to the maximum von Mises stress in the structural domain.
 
 ### Results
 
 
-The output file contains the displacement field, the nodal tensions $$\sigma_{xx}$$, $$\sigma_{yy}$$ and $$\sigma_{xy}$$ (as Sxx, Syy and Sxy), and the Von Misses stress. In order to visualize the deformation of the cantilever on Paraview, one can use the filter _Warp By Vector_ applied on the displacement field. The solution of the problem is shown next.
+The output file contains the displacement field, the nodal tensions $$\sigma_{xx}$$, $$\sigma_{yy}$$ and $$\sigma_{xy}$$ (as Sxx, Syy and Sxy), and the von Mises stress. In order to visualize the deformation of the cantilever on Paraview, one can use the filter _Warp By Vector_ applied on the displacement field. The solution of the problem is shown next.
 
 ![Linear Results](../../tutorials_files/structural_mechanics/Linear_Elasticity/images/lin3.png)
 

@@ -7,7 +7,7 @@ permalink: /vandv/Flat_Plate/
 | --- | --- |
 |  `RANS` | 7.0.0 |
 
-The details of the Zero Pressure Gradient Flat Plate case are taken from the [NASA TMR website](https://turbmodels.larc.nasa.gov/flatplate.html).
+The details of the Zero Pressure Gradient Flat Plate case are taken from the [NASA TMR website](https://tmbwg.github.io/turbmodels/flatplate.html).
 
 By comparing the SU2 results of the flat plate case against CFL3D and FUN3D on a sequence of refined grids and seeing agreement of key quantities, we can build a high degree of confidence that the SA and SST models are implemented correctly. Therefore, the goal of this case is to verify the implementations of the SA and SST models in SU2.
 
@@ -25,7 +25,7 @@ The length of the flat plate is 2 meters, and it is represented by an adiabatic 
 
 ## Mesh Description
 
-Structured meshes of increasing density are used to perform a grid convergence study. The meshes are identical to the 2D versions found on the [NASA TMR website](https://turbmodels.larc.nasa.gov/flatplate_grids.html) for this case after converting to native SU2 ASCII mesh format. These meshes are named according to the number of vertices in the x and y directions, respectively. The mesh sizes are:
+Structured meshes of increasing density are used to perform a grid convergence study. The meshes are identical to the 2D versions found on the [NASA TMR website](https://tmbwg.github.io/turbmodels/flatplate_grids.html) for this case after converting to native SU2 ASCII mesh format. These meshes are named according to the number of vertices in the x and y directions, respectively. The mesh sizes are:
 
 1. 35x25   - 816 quadrilaterals
 2. 69x49   - 3264 quadrilaterals

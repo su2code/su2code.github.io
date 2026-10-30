@@ -12,7 +12,7 @@ The SU2 configuration file name typically carries a name of the form *filename.c
 The configuration file consists of only three elements:
 - **Options**. An option in the file has the following syntax: option_name = value, where option_name is the name of the option and value is the desired option value. The value element may be a scalar data type, a list of data types, or a more complicated structure. The "=" sign must come immediately after the option_name element and is not optional. Lists of data types may be formatted for appearance using commas, ()-braces, {}-braces, and []-braces, though this is not required. Semicolons are semantically relevant for several option types and may not be used as convenience delimiters. SU2 will exit with an error if there are options in the config file which do not exist or if there are options with improper formatting. Some example option formats are given below.
   - `FREESTREAM_VELOCITY = ( 5.0, 0.00, 0.00 ) % braces and commas can be used for list options`
-  - `REF_ORIGIN_MOMENT= 0.25 0.0 0.0 % however, braces and commas are optional for lists`
+  - `MOTION_ORIGIN= 0.25 0.0 0.0 % however, braces and commas are optional for lists`
   - `KIND_TURB_MODEL     = NONE % space between elements is not significant`
 - **Comments**. On a given line in the file, any text appearing after a % is considered a comment and is ignored by SU2. Additional % signs after the first on a given line are not significant.
 - **White space**. Empty lines are ignored. On text lines that define options, white space (tabs, spaces) can be used to format the appearance of the file

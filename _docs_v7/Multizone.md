@@ -7,7 +7,7 @@ SU2 is capable of solving physical problems in distinct zones coupled through in
 
 --- 
 
-- [What is a Zone ?](#what-is-a-zone)
+- [What is a Zone?](#what-is-a-zone)
 - [Multi-zone and Multi-physics](#multi-zone-and-multi-physics)
   - [How to set up a single-physics problem](#how-to-set-up-a-single-physics-problem)
     - [Sub-config files](#sub-config-files)
@@ -16,7 +16,7 @@ SU2 is capable of solving physical problems in distinct zones coupled through in
 
 ---
 
-## What is a Zone ? ##
+## What is a Zone? ##
 We refer to a Zone as a subdomain in your physical problem. For example consider a heated cylinder immersed into a fluid. In this case, the solid cylinder would be refered to as zone 0 and the fluid domain as zone 1. All zones can be discretized independently and do not need to be matching at the interfaces. See the figure below.
 
 ![Definition of a Zone](../../docs_files/zones.png)
@@ -80,13 +80,13 @@ ROTATION_RATE = 0.0 0.0 160.0
  <a name="multiphysics"></a> 
 ### How to set up a multi-physics problem ###
 
-While for the single-physics problems the usage of sub-config files is optional, setting up a multi-physics problem heavily relies on this feature. A good way to start is to first create a separate config file for each individual zone. If it is possible, also try to run each zone independently (with appropriate boundary conditions) to find proper numerical settings. To couple the zones create a new config file with the option `MATH_PROBLEM` set to `MULTIPHYSICS`. Then specify the list of config files with `CONFIG_LIST`. These two options are mandatory. To set a coupling between the zones the `MARKER_ZONE_INTERFACE` option can be used (same way as for the [single-physics problem](#singlephysics)). As an example consider the following main config file:
+While for the single-physics problems the usage of sub-config files is optional, setting up a multi-physics problem heavily relies on this feature. A good way to start is to first create a separate config file for each individual zone. If it is possible, also try to run each zone independently (with appropriate boundary conditions) to find proper numerical settings. To couple the zones create a new config file with the option `SOLVER` set to `MULTIPHYSICS`. Then specify the list of config files with `CONFIG_LIST`. These two options are mandatory. To set a coupling between the zones the `MARKER_ZONE_INTERFACE` option can be used (same way as for the [single-physics problem](#how-to-set-up-a-single-physics-problem)). As an example consider the following main config file:
 
 ```
 % main_config.cfg
 % ------------------------ MULTI-PHYSICS SETUP --------------------------------%
 % Problem definition
-PHYSICAL_PROBLEM= MULTIPHYSICS
+SOLVER= MULTIPHYSICS
 
 % The list of config files
 CONFIG_LIST = (configFlow.cfg, configSolid.cfg)

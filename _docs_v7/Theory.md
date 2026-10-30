@@ -233,7 +233,7 @@ Within the `INC_EULER` solver, we discretize the equations in space using a fini
 
 Available for `RANS`, `INC_RANS`.
 
-SU2 implements several variants of the SST and SA turbulence models, for specifics of the models please see the [NASA Turbulence Modeling Resource](https://turbmodels.larc.nasa.gov/index.html) (TMR).
+SU2 implements several variants of the SST and SA turbulence models, for specifics of the models please see the [NASA Turbulence Modeling Resource](https://tmbwg.github.io/turbmodels/index.html) (TMR).
 For information on how to use turbulence models in SU2 see the [users guide](https://su2code.github.io/docs_v7/Physical-Definition/).
 
 The edge-based finite volume discretization of flow solvers is also used in turbulence solvers. Convective fluxes are evaluated using a scalar upwind scheme (1st or 2nd order).

@@ -11,7 +11,7 @@ requires: SU2_CFD
 complexity: intermediate
 ---
 
-![urban_city](../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/wind_velocity.png)
+![urban_city](../../tutorials_files/incompressible_flow/Inc_Urban_City/images/wind_velocity.png)
 
 Figure (1): Flow through the streets of the city center of amsterdam.
 
@@ -81,7 +81,7 @@ overpass_url = "https://overpass-api.de/api/interpreter"
 ```
 This information can then be saved as polygon data to a file. The information that we retrieved is visualized in Figure 2:
 
-![Building information](../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/amsterdam_buildings.png)
+![Building information](../../tutorials_files/incompressible_flow/Inc_Urban_City/images/amsterdam_buildings.png)
 
 Figure 2: Visualization of the building information that was retrieved. The polygon data was saved as a pickle file for further processing.
 
@@ -96,11 +96,11 @@ We can further smooth the shapes by using dilation-erosion, and also by using th
 The final step in creating this setup is to give all polygons to gmsh and create the mesh. We use a triangulated mesh with a quadrilateral inflation layer around the buildings. The final mesh is 786k cells.
 
 <div align="center">
-<a href="gmsh_mesh">
-  <img src="../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/gmsh_mesh.png" width="320px">
+<a href="../../tutorials_files/incompressible_flow/Inc_Urban_City/images/gmsh_mesh.png">
+  <img src="../../tutorials_files/incompressible_flow/Inc_Urban_City/images/gmsh_mesh.png" width="320px">
 </a>
-<a href="gmsh_mesh_zoom">
-  <img src="../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/gmsh_mesh_zoom.png" width="360px">
+<a href="../../tutorials_files/incompressible_flow/Inc_Urban_City/images/gmsh_mesh_zoom.png">
+  <img src="../../tutorials_files/incompressible_flow/Inc_Urban_City/images/gmsh_mesh_zoom.png" width="360px">
 </a>
 </div>
 Figure 3: Gmsh mesh and zoom of the mesh around the royal palace showing the inflation layers. 
@@ -135,7 +135,7 @@ If possible, always use a parallel setup to reduce computational time (wall cloc
 
 ### Results
 
-![urban_city](../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/wind_velocity_zoom.png)
+![urban_city](../../tutorials_files/incompressible_flow/Inc_Urban_City/images/wind_velocity_zoom.png)
 
 Figure (4): Zoom of the flow through the streets of the city center of amsterdam.
 
@@ -172,7 +172,7 @@ PYTHON_CUSTOM_SOURCE= YES
 ```
 to activate the custom source term.
 
-![urban_city](../../../tutorials_files/incompressible_flow/Inc_Urban_City/images/fire_zoom.png)
+![urban_city](../../tutorials_files/incompressible_flow/Inc_Urban_City/images/fire_zoom.png)
 
 Figure (5): Zoom of the 'Dam' square in front of the royal palace. 
 

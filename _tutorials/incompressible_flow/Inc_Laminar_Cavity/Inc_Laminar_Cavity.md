@@ -28,7 +28,7 @@ The intent of this tutorial is to demonstrate the variable density capability of
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Laminar_Cavity](incompressible_flow/https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_buoyancy_cavity.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/mesh_cavity_257x257.su2)).
+The resources for this tutorial can be found in the [Inc_Laminar_Cavity](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([lam_buoyancy_cavity.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/lam_buoyancy_cavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Cavity/mesh_cavity_257x257.su2)).
 
 
 ## Tutorial
@@ -108,7 +108,7 @@ MU_CONSTANT= 1.716e-5
 CONDUCTIVITY_MODEL= CONSTANT_CONDUCTIVITY
 %
 % Molecular Thermal Conductivity that would be constant (0.0257 by default)
-KT_CONSTANT= 0.0246295028571
+THERMAL_CONDUCTIVITY_CONSTANT= 0.0246295028571
 ```
 
 Lastly, in order to impose gravity, we apply a body force in the negative y-direction as follows:

@@ -15,7 +15,7 @@ The options listed here do not apply to the high order DG solver.
 - [Incompressible Flow](#incompressible-flow)
   - [Central Schemes](#central-schemes-1)
   - [Upwind Schemes](#upwind-schemes-1)
-- [Turbulence Equations](#turbulence-equations)
+- [Turbulence and Scalar/Species Equations](#turbulence-and-scalarspecies-equations)
 
 ---
 
@@ -100,7 +100,7 @@ Some of the schemes above have tunning parameters or accept extra options, the f
 | --- | --- |
 | `RANS`, `INC_RANS` | 8.0.0 |
 
-For compressible flows the only method available is `SCALAR_UPWIND` which must be selected via option `CONV_NUM_METHOD_TURB`.
-For incompressible flows the `BOUNDED_SCALAR` method is also available, this includes a divergence correction to prevent spurious production/destruction of the transported scalar while convergence is not reached.
+The method is selected via option `CONV_NUM_METHOD_TURB`. Two methods are available, for both compressible and incompressible flows: `SCALAR_UPWIND` and `BOUNDED_SCALAR`.
+The `BOUNDED_SCALAR` method includes a divergence correction to prevent spurious production/destruction of the transported scalar while convergence is not reached.
 These methods do not have any special parameters.
 

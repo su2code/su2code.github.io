@@ -19,7 +19,7 @@
   - NICFD_nozzle
   - NICFD_nozzle_datadriven
   - Aachen_Turbine
-  - Actuator_Disk
+  - ActuatorDisk_VariableLoad
 
 - title: Incompressible Flow
   tutorials:

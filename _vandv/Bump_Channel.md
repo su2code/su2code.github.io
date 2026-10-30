@@ -12,7 +12,7 @@ permalink: /vandv/Bump_Channel/
 </p>
 
 
-The details of the 2D Bump-in-Channel Verification case are taken from the [NASA TMR website](https://turbmodels.larc.nasa.gov/bump.html). 
+The details of the 2D Bump-in-Channel Verification case are taken from the [NASA TMR website](https://tmbwg.github.io/turbmodels/bump.html).
 
 By comparing the SU2 results of the bump-in-channel case against CFL3D and FUN3D on a sequence of refined grids and seeing agreement of key quantities, we can build a high degree of confidence that the SA and SST models are implemented correctly. Therefore, the goal of this case is to verify the implementations of the SA and SST models in SU2.
 
@@ -30,7 +30,7 @@ The length of the section of wall with the bump is 1.5 meters, and it is represe
 
 ## Mesh Description
 
-Structured meshes of increasing density are used to perform a grid convergence study. The meshes are identical to the 2D versions found on the [NASA TMR website](https://turbmodels.larc.nasa.gov/bump_grids.html) for this case after converting to 2D, unstructured CGNS format (ADF). These meshes are named according to the number of vertices in the x and y directions, respectively. The mesh sizes are: 
+Structured meshes of increasing density are used to perform a grid convergence study. The meshes are identical to the 2D versions found on the [NASA TMR website](https://tmbwg.github.io/turbmodels/bump_grids.html) for this case after converting to 2D, unstructured CGNS format (ADF). These meshes are named according to the number of vertices in the x and y directions, respectively. The mesh sizes are:
 
 1. 89x41  - 3520 quadrilaterals
 2. 177x81  - 14080 quadrilaterals

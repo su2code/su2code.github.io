@@ -55,11 +55,11 @@ The material properties specific to the species transport equations are:
 
 All available options concerning species transport are listed below as they occur in the [config_template.cfg](https://github.com/su2code/SU2/blob/master/config_template.cfg).
 
-The options as of now are fairly limited. Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. The `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY` is currently the only available therefore the only additional choice the value of `DIFFUSIVITY_CONSTANT`. For the `SCHMIDT_NUMBER_TURBULENT` please consult [the respective theory](/docs_v7/Theory/#species-transport).
+The options as of now are fairly limited. Species transport is switched on by setting `KIND_SCALAR_MODEL= SPECIES_TRANSPORT`. This tutorial uses `DIFFUSIVITY_MODEL= CONSTANT_DIFFUSIVITY`, therefore the only additional choice is the value of `DIFFUSIVITY_CONSTANT`. The other available models are `CONSTANT_SCHMIDT`, `UNITY_LEWIS` and `CONSTANT_LEWIS`. For the `SCHMIDT_NUMBER_TURBULENT` please consult [the respective theory](/docs_v7/Theory/#species-transport).
 
 The number of species transport equations is not set individually but deduced from the number of values given in the respective lists for species options. SU2 checks whether the same amount of values is given in each option and solves the appropriate amount of equations. `MARKER_INLET_SPECIES` is one of these options and has to be used alongside a usual `MARKER_INLET`. For outlets, symmetries or walls this is not necessary. 
 
-The option `SPECIES_USE_STRONG_BC` should be left to `NO` and is an experimental option where a switch to strongly enforced boundary conditions can be made.
+The option `MARKER_SPECIES_STRONG_BC` is experimental and is not used here. It lets you list the markers where the boundary conditions of the species solver are enforced strongly.
 
 For `CONV_NUM_METHOD_SPECIES= SCALAR_UPWIND` a second order MUSCL reconstruction and multiple limiters are available.
 
@@ -88,8 +88,8 @@ SCHMIDT_NUMBER_TURBULENT= 0.7
 % (inlet_marker, Species1, Species2, ..., SpeciesN-1, inlet_marker2, Species1, Species2, ...)
 MARKER_INLET_SPECIES= (inlet, 0.5, ..., inlet2, 0.6, ...)
 %
-% Use strong inlet and outlet BC in the species solver
-SPECIES_USE_STRONG_BC= NO
+% Markers where strong BCs are applied in the species solver (experimental, not used here)
+% MARKER_SPECIES_STRONG_BC= ( inlet )
 %
 % Convective numerical method for species transport (SCALAR_UPWIND)
 CONV_NUM_METHOD_SPECIES= SCALAR_UPWIND

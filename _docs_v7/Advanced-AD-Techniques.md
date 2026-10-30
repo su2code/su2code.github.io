@@ -3,6 +3,8 @@ title: Advanced AD Techniques
 permalink: /docs_v7/Advanced-AD-Techniques/
 ---
 
+> **Note.** Parts of this page are from 2019 and out of date (build options, tape types, the list of `AD::` functions, how adjoints are read back). The current guide is [Automatic Differentiation (AD)](../Automatic-Differentiation/).
+
 [Algorithmic Differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation) (AD) is a frequently used method to calculate
 the derivative of a function by means of the transformation of the underlying program which calculates the
 numerical values of this function. As distinguished from symbolic differentiation an explicit expression for the

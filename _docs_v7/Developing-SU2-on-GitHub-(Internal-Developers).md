@@ -22,7 +22,7 @@ After cloning, you should have a new SU2/ folder in your current working directo
 ```
 git log
 ```
-To setup the local copy of SU2 for development purposes, one must follow the steps mentioned in [Build-SU2-Windows](_docs_v7/Build-SU2-Windows.md) and [Build-SU2-Linux-MacOS](_docs_v7/Build-SU2-Linux-MacOS.md).
+To setup the local copy of SU2 for development purposes, one must follow the steps mentioned in [Build-SU2-Windows](/docs_v7/Build-SU2-Windows/) and [Build-SU2-Linux-MacOS](/docs_v7/Build-SU2-Linux-MacOS/).
 
 ## Typical Workflow with Git
 

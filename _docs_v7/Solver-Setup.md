@@ -13,8 +13,9 @@ This is a basic introduction on how to set up a simulation using SU2. We disting
   - [Time-dependent Simulation](#time-dependent-simulation)
   - [Steady-state Simulation](#steady-state-simulation)
   - [Setting convergence criteria](#setting-convergence-criteria)
-    - [Residual](#residual)
-    - [Coefficient](#coefficient)
+    - [Steady-state Residual](#steady-state-residual)
+    - [Steady-state Coefficient](#steady-state-coefficient)
+    - [Time-dependent Coefficient](#time-dependent-coefficient)
   
 ---
 
@@ -36,7 +37,7 @@ SU2 is capable of dealing with different kinds of physical problems. The kind of
 |`INC_EULER` | **Incompressible Euler's equation** | Finite-Volume method |
 |`INC_NAVIER_STOKES` | **Incompressible Navier-Stokes' equation** | Finite-Volume method|
 |`INC_RANS` | **Incompressible Reynolds-averaged Navier-Stokes' equation** | Finite-Volume method|
-|`HEAT_EQUATION_FVM` | **Heat equation** | Finite-Volume method |
+|`HEAT_EQUATION` | **Heat equation** | Finite-Volume method |
 |`ELASTICITY` | **Equations of elasticity** | Finite-Element method |
 |`FEM_EULER` | **Euler's equation** | Discontinuous Galerkin FEM |
 |`FEM_NAVIER_STOKES`| **Navier-Stokes' equation** | Discontinuous Galerkin FEM |

@@ -344,7 +344,7 @@ After 15 iterations, both the flow and structural adjoint fields are successfull
 
 with a gradient of the drag with respect to the Young's modulus, E, of 1.1606E-05. The convergence of the Young's modulus sensitivity is as follows:
 
-![FSI Results2](../multiphysics/images/fsipyadj1.png)
+![FSI Results2](../../tutorials_files/multiphysics/unfinished_tutorials/images/fsipyadj1.png)
 
 #### Sensitivity verification
 

@@ -26,7 +26,7 @@ The resources for this tutorial can be found in the [incompressible_flow/Inc_Com
 
 The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [H2_Burner.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Combustion/1__premixed_hydrogen/H2_burner.geo). The mesh is unstructured (i.e. only contains triangular elements) with 70495 elements and 35926 points. This mesh is quite large, but a high resolution is required in order to resolve the flame front.
 
-![Mesh with boundary conditions](../../../tutorials_files/incompressible_flow/Inc_Combustion/mesh.png)
+![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Combustion/mesh.png)
 Figure (1): Computational mesh with color indication of the used boundary conditions.
 
 The MLP files describe five architectures. These are used to predict the thermo-chemical state, preferential diffusion scalars, and reaction source terms. 
@@ -34,13 +34,14 @@ The MLP files describe five architectures. These are used to predict the thermo-
 
 ## Prerequisites
 
-The following tutorial assumes you already compiled `SU2_CFD` in serial or parallel, please see the [Download](/docs_v8/Download/) and [Installation](/docs_v8/Installation/) if that is not done yet. Additionally it is advised to perform an entry level incompressible tutorial first, as this tutorial only goes over species transport with combustion.
+The following tutorial assumes you already compiled `SU2_CFD` in serial or parallel, please see the [Download](/docs_v7/Download/) and [Installation](/docs_v7/Installation/) if that is not done yet. Additionally it is advised to perform an entry level incompressible tutorial first, as this tutorial only goes over species transport with combustion.
 
 ## Background
 
-The SU2 FGM solver solves two sets of transport equations: FGM controlling variables and optionally passive species. The solver supports up to three controlling variables, those representing the progress variable $$(\mathcal{Y})$$, total enthalpy ($$h$$), and optionally mixture fraction $$(Z)$$. The controlling variables are used as inputs to the flamelet data manifold to extract the thermo-chemical state variables and reaction source terms. The passive species $$(Y_j)$$ represent species of interest such as emissions. The solutions of the passive species distribution do not affect the behavior of the controlling variables, but can be used to define custom outputs and objective functions. The solution process is visualized in the [solution process](#solutionprocess). 
+The SU2 FGM solver solves two sets of transport equations: FGM controlling variables and optionally passive species. The solver supports up to three controlling variables, those representing the progress variable $$(\mathcal{Y})$$, total enthalpy ($$h$$), and optionally mixture fraction $$(Z)$$. The controlling variables are used as inputs to the flamelet data manifold to extract the thermo-chemical state variables and reaction source terms. The passive species $$(Y_j)$$ represent species of interest such as emissions. The solutions of the passive species distribution do not affect the behavior of the controlling variables, but can be used to define custom outputs and objective functions. The solution process is visualized in the [solution process](#solution-process).
 
-![solution process](../../../tutorials_files/incompressible_flow/Inc_Combustion/SolverProcess.png)
+<a id="solution-process"></a>
+![solution process](../../tutorials_files/incompressible_flow/Inc_Combustion/SolverProcess.png)
 
 The `CSpeciesSolver` object in SU2 solves the controlling variables and passive species transport equations. These come in three variations, depending on the problem set-up and reactants:
 
@@ -151,7 +152,7 @@ The manifold should also contain the following thermo-chemical data. The variabl
 3. Dynamic viscosity (`ViscosityDyn`)[]
 4. Thermal conductivity (`Conductivity`)[W m^-1 K^-1]
 5. Diffusivity (`DiffusionCoefficient`)[m^2 s^-1]
-6. Density (`Density`) [kg m^-3] or mixture molar weight (`MolarWeightMix`) [kg mol^-1]
+6. Density (`Density`) [kg m^-3] or mixture molar weight (`MolarWeightMix`) [g mol^-1]
 
 The distinction between storing the fluid density or molar weight depends on the configuration file setting for `INC_DENSITY_MODEL`. MOre on that the section on configuration file settings.
 
@@ -214,7 +215,7 @@ $$
 \end{equation}
 $$
 
-where $$p$$ is the free-stream pressure, $$R_u$$ the universal gas constant, and $$W_M$$ and $$T$$ the mean molecular weight and temperature respectively, which are obtained from the manifold. Finally, the option for `INC_ENERGY_EQUATION` should be set to `YES` when solving FGM problems. In order to enable preferential
+where $$p$$ is the free-stream pressure, $$R_u$$ the universal gas constant, and $$W_M$$ and $$T$$ the mean molecular weight and temperature respectively, which are obtained from the manifold. Finally, the option `INC_ENERGY_EQUATION` has no effect for FGM problems: SU2 turns it off, because the temperature is looked up from the manifold. In order to enable preferential
 diffusion, set the option `PREFERENTIAL_DIFFUSION` to `YES` (set by default to `NO`).
 
 In the current example for the hydrogen burner, the following options are used:
@@ -309,7 +310,7 @@ The second option is through an artificial spark, enabled through setting `FLAME
 - `iter_start`: (outer) iteration after which the spark will be applied.
 - `duration`: number of (outer) iterations for which the artificial spark will be applied.
 
-The source terms applied to the controlling variables are defined under the option `SPARK_REACTION_RATES`. This option expects an array with the same length as `CONTROLLING_VARIABLE_NAMES` containing the source terms applied to the controlling variables within the spark sphere. 
+The source terms applied to the controlling variables are defined under the option `SPARK_REACTION_RATES`. This option expects one value for each transported scalar, that is for each controlling variable in `CONTROLLING_VARIABLE_NAMES` and each passive species in `USER_SCALAR_NAMES`. These are the source terms applied within the spark sphere.
 
 The final and default option for initializing the solution is to perform a cold flow analysis without a flame front. This option is enabled through setting `FLAME_INIT_METHOD=NONE`. 
 
@@ -317,11 +318,11 @@ In the current example, the `SPARK` ignition method is used. Here, an artificial
 ```
 FLAME_INIT_METHOD= SPARK
 SPARK_INIT= (0.001, 0.0004, 0.00, 1e-4, 100, 5)
-SPARK_REACTION_RATES=(1000, 0, 0)
+SPARK_REACTION_RATES=(1000, 0, 0, 0)
 ```
 The spark will be initialized at iteration 100 and will remain active for another 5 iterations. This should be sufficient to artificially ignite the mixture and have the flame front propagate naturally. 
 
-![ignitionlocation](../../../tutorials_files/incompressible_flow/Inc_Combustion/ignition_location.png)
+![ignitionlocation](../../tutorials_files/incompressible_flow/Inc_Combustion/ignition_location.png)
 
 ### Boundary conditions
 
@@ -346,11 +347,11 @@ is iterated until the temperature difference $$T_b - T(\mathcal{y},h_i,Z)$$ is l
 
 For the current example, the equivalence ratio at the inlet was set to 0.5, translating to a mixture fraction of 1.447e-2. The reactants are presumed at a temperature of 300K at the inlet, while isothermal wall boundary conditions are applied on the burner wall (350K) and heat exchanger emulator (400K). The iso-thermal wall boundary conditions are defined as strong boundary conditions, meaning that the total enthalpy is locally enforced to achieve the imposed temperature.
 ```
-SPECIES_INIT=(-0.575, 2.227e3, 1.447e-2)
+SPECIES_INIT=(-0.575, 2.227e3, 1.447e-2, 0)
 MARKER_INLET_SPECIES = (inlet, -0.575, 2.227e3, 1.447e-2, 0)
 MARKER_INLET=(inlet, 300.0, 0.565,1,0,0)
 
-MAKER_SPECIES_STRONG_BC=(burner_wall, cylinder_wall)
+MARKER_SPECIES_STRONG_BC=(burner_wall, cylinder_wall)
 MARKER_ISOTHERMAL= (burner_wall, 350, cylinder_wall, 400)
 ```
 ### Convective scheme
@@ -382,21 +383,21 @@ The current section describes the hydrogen burner tutorial in more detail.
 In the current tutorial, a set of MLP's is used for the manifold. These MLP's are visualized below.
 - Thermodynamic properties:
 
-![MLP_TD1](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_TD1.png)
+![MLP_TD1](../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_TD1.png)
 
-![MLP_TD2](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_TD2.png)
+![MLP_TD2](../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_TD2.png)
 
 - Preferential diffusion scalars:
 
-![MLP_PD](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_PD.png)
+![MLP_PD](../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_PD.png)
 
 - Progress variable source term and heat release rate:
 
-![MLP_SPV](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_SPV.png)
+![MLP_SPV](../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_SPV.png)
 
 - NO source term:
 
-![MLP_PNO](../../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_PNO.png)
+![MLP_PNO](../../tutorials_files/incompressible_flow/Inc_Combustion/MLP_PNO.png)
 
 All networks use the Gaussian Error Linear Unit (GELU) activation function for all hidden layers and were trained on flamelet data consisting of adiabatic free-flame data, burner-stabilized data, and chemical equilibrium data obtained over a range of equivalence ratio's and reactant temperature of 0.3-6.0 and 280K-900K respectively. 
 
@@ -443,11 +444,11 @@ After 3000 iterations, the simulation converges to the following solution. This 
 
  The following image shows the solution for the progress variable and total enthalpy side-by-side. The progress variable solution indicates the progress of the reaction, with a local maximum next to the flame front, as is the case for lean, pre-mixed flames with preferential diffusion and no stretch. The total enthalpy solution correctly shows decreases near the cooled surfaces.
 
-![Result_PV_enth](../../../tutorials_files/incompressible_flow/Inc_Combustion/pv_enth.png)
+![Result_PV_enth](../../tutorials_files/incompressible_flow/Inc_Combustion/pv_enth.png)
 
 The solution for the mixture fraction and NO species is shown in the next figure. Due to the effects of preferential diffusion, the mixture fraction solution shows a local minimum in regions of positive flame curvature. The NO solution contains a local maximum in the region of maximum temperature and remaining nearly constant afterwards due to the reduction in temperature from the heat exchanger emulator.
-![Result_mixfrac_NO](../../../tutorials_files/incompressible_flow/Inc_Combustion/mixfrac_NO.png)
+![Result_mixfrac_NO](../../tutorials_files/incompressible_flow/Inc_Combustion/mixfrac_NO.png)
 
 Finally, the results for the temperature and heat release rate are shown below. These quantities are not retrieved through solving transport equations, but by retrieving them from the flamelet manifold. 
-![Result_T_qdot](../../../tutorials_files/incompressible_flow/Inc_Combustion/T_Qdot.png)
+![Result_T_qdot](../../tutorials_files/incompressible_flow/Inc_Combustion/T_Qdot.png)
 

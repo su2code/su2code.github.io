@@ -23,7 +23,7 @@ This tutorial follows up the coupled SU2's [incompressible CFD-RHT tutorial](../
 
 In this tutorial, we define a problem similar to the [Laminar_Cylinder](../Laminar_Cylinder), however using in this case the incompressible solver. A cylinder with ```D = 1.0 m``` is immersed in a laminar, external flow with a Reynolds number ```Re = 40```. 
 
-![ProblemSetup1](../multiphysics/images/rhtadj1.png)
+![ProblemSetup1](../../tutorials_files/multiphysics/unfinished_tutorials/images/rhtadj1.png)
 
 ### Resources
 
@@ -51,7 +51,7 @@ We start the tutorial by definining the problem as an incompressible, Navier Sto
 SOLVER = INC_NAVIER_STOKES
 ```
 
-and we set the properties for the flow to obtain a ```Re = 40``` based on the cylinder diameter. We use standard settings for the linear solver and a FDS scheme for the convective terms. The problem admits a relatively high ```CFL = 1.0E4```. 
+and we set the properties for the flow to obtain a ```Re = 40``` based on the cylinder diameter. We use standard settings for the linear solver and a FDS scheme for the convective terms. The problem admits a relatively high ```CFL_NUMBER = 1.0E4```.
 
 ```
 INC_DENSITY_MODEL = VARIABLE
@@ -106,7 +106,6 @@ Finally, we are interested in the drag coefficient of the cylinder. Therefore, w
 ```
 INNER_ITER = 5000
 
-CONV_CRITERIA = CAUCHY
 CONV_FIELD = DRAG
 
 CONV_CAUCHY_ELEMS = 50
@@ -245,11 +244,11 @@ All convergence criteria satisfied.
 
 And we observe that the higher temperature has a significant impact in the drag coefficient. The problem presents a very uniform and fast convergence, as it is shown next
 
-![Primal Convergence](../multiphysics/images/rhtadj2.png)
+![Primal Convergence](../../tutorials_files/multiphysics/unfinished_tutorials/images/rhtadj2.png)
 
 The resulting velocity and temperature fields are
 
-![Primal Results](../multiphysics/images/rhtadj3.png)
+![Primal Results](../../tutorials_files/multiphysics/unfinished_tutorials/images/rhtadj3.png)
 
 #### Computing the drag adjoint
 
@@ -337,13 +336,13 @@ An iterative process is then started by running in reverse mode through the adjo
 
 Some convergence properties of the primal problem are inherited in the adjoint run, as further explained by Albring _et al_$$^3$$. This can be observed in the convergence of the adjoint variables
 
-![Adjoint Convergence](../multiphysics/images/rhtadj4.png)
+![Adjoint Convergence](../../tutorials_files/multiphysics/unfinished_tutorials/images/rhtadj4.png)
 
 #### FFD Box
 
 Now, we want to convert the solution of our adjoint problem into usable magnitudes for a shape optimization problem. In order to do so, we will define a Free-Form Deformation (FFD) box around the body such as
 
-![Adjoint Convergence](../multiphysics/images/rhtadj5.png)
+![Adjoint Convergence](../../tutorials_files/multiphysics/unfinished_tutorials/images/rhtadj5.png)
 
 where the design parameters $$x_1$$ to $$x_{50}$$ correspond to the vertical deformation of the FFD box for 50 nodes.
 
@@ -522,7 +521,7 @@ DRAG gradient : 0.00131275
 
 To finalize this tutorial, the sensitivities for the FFD points are written to the file ```of_grad.dat``` and are plotted next
 
-![Adjoint Convergence](../multiphysics/images/rhtadj6.png)
+![Adjoint Convergence](../../tutorials_files/multiphysics/unfinished_tutorials/images/rhtadj6.png)
 
 ### References
 

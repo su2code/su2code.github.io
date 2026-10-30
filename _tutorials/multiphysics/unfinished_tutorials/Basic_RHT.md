@@ -21,7 +21,7 @@ This tutorial couples SU2's incompressible fluid solver with a one-equation Radi
 
 In this tutorial, we use a very similar problem definition as for the [Laminar Buoyancy-driven Cavity](../Inc_Laminar_Cavity) tutorial, a 1x1 m cavity in 2D with opposing hot and cold vertical walls and insulated horizontal walls. In this case, the media is participating, which means it absorbs part of the energy emitted by the hot and cold walls in form of radiation, and this absorption will have an impact on the overall behaviour of the flow. The properties of the test case are shown next:
 
-![ProblemSetup1](../multiphysics/images/rht1.png)
+![ProblemSetup1](../../tutorials_files/multiphysics/unfinished_tutorials/images/rht1.png)
 
 ### Resources
 
@@ -47,7 +47,7 @@ $$\kappa$$ and $$\sigma_s$$ are, respectively, the absorption and scattering coe
 
 The cavity is discretized with an structured mesh using 50 nodes in the horizontal and vertical boundaries, for a total of 2500 rectangular elements. The nodes are concentrated towards the boundary regions to adequately capture the boundary layer. The boundary conditions are as follows: 
 
-![ProblemSetup2](../multiphysics/images/rht2.png)
+![ProblemSetup2](../../tutorials_files/multiphysics/unfinished_tutorials/images/rht2.png)
 
 #### Configuration File Options
 
@@ -75,7 +75,7 @@ VISCOSITY_MODEL= CONSTANT_VISCOSITY
 MU_CONSTANT= 1.716e-5
 
 CONDUCTIVITY_MODEL= CONSTANT_CONDUCTIVITY
-KT_CONSTANT= 0.0246295028571
+THERMAL_CONDUCTIVITY_CONSTANT= 0.0246295028571
 
 BODY_FORCE= YES
 BODY_FORCE_VECTOR= ( 0.0, -9.81, 0.0 )
@@ -125,7 +125,6 @@ The convergence of the problem is controlled using
 ```
 INNER_ITER= 2000
 
-CONV_CRITERIA = RESIDUAL
 CONV_FIELD = RMS_PRESSURE, RMS_VELOCITY-X, RMS_TEMPERATURE
 CONV_RESIDUAL_MINVAL = -8
 ```
@@ -202,7 +201,7 @@ All convergence criteria satisfied.
 
 From the convergence, it can be observed that the convective part of the problem converges quickly, however the energy equation is more stiff due to the quartic dependence of the radiative energy on the flow temperature. The resultant radiative energy field is shown next
 
-![FSI Results](../multiphysics/images/rht3.png)
+![FSI Results](../../tutorials_files/multiphysics/unfinished_tutorials/images/rht3.png)
 
 #### Assessing the radiation effects
 
@@ -248,11 +247,11 @@ Running the case now, the convergence to the required level is faster
 
 We can compare the temperature field in the case with radiation (left) versus the case without radiation (right). The latter corresponds to the [Laminar Buoyancy-driven Cavity](../Inc_Laminar_Cavity) for ```Ra = 1.0E06```. It can be observed how the radiated case has an average temperature which is notably higher that in the non-absorbing case.
 
-![RHT Results2](../multiphysics/images/rht4.png)
+![RHT Results2](../../tutorials_files/multiphysics/unfinished_tutorials/images/rht4.png)
 
 The temperature field has also an impact in the velocity fields, which are compared next for the cases with (left) and without radiation (right). 
 
-![RHT Results3](../multiphysics/images/rht5.png)
+![RHT Results3](../../tutorials_files/multiphysics/unfinished_tutorials/images/rht5.png)
 
 ### References
 $$^1$$ Frank,  M., _et al._ (2006), Partial moment entropy approximation to radiative heat transfer. _Journal of Computational Physics 218(1),  1–18._ DOI: [10.1016/j.jcp.2006.01.038](https://doi.org/10.1016/j.jcp.2006.01.038)

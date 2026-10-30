@@ -12,7 +12,7 @@ complexity: advanced
 follows: compressible flow tutorials
 ---
 
-![Mid-span Rel. Mach](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus_MachContour.png)
+![Mid-span Rel. Mach](../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus_MachContour.png)
 
 ## Goals
 Upon completing this tutorial, the user will become familiar with  3D steady-state RANS calculations of multi-row axial turbines, elaborating viscous, compressible flows of air, modelled as an ideal gas.
@@ -72,8 +72,8 @@ This tutorial will solve the flow through the Aachen turbine for the following b
 To reduce the computational cost, the geometrical periodicity of the system is exploited reducing the computational domain to one blade passage per row
 (with the blade at the centre of the mesh). As it will be explained later, this requires the use of periodic boundary conditions.
 
-![Full Annulus Domain](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus.png)
-![Single Passage Domain](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SinglePassage.png)
+![Full Annulus Domain](../../tutorials_files/compressible_flow/Aachen_Turbine/images/FullAnnulus.png)
+![Single Passage Domain](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SinglePassage.png)
 Figure (1): Computational domain reduction.
 
 ### Mesh Description
@@ -94,7 +94,7 @@ CONFIG_LIST=(stator1.cfg, rotor.cfg, stator2.cfg)
 #### Sub-config Files
 The most important information that must be specified in the sub-config files concerns the grid movement. To activate it, the `GRID_MOVEMENT` option must be specified, together with the `MOTION_ORIGIN` and angular velocity (`ROTATION_RATE`) components about the rotation axis.\
 For the solver initialization the motion Mach number is specified via the `MACH_MOTION`. \
-Finally, a smoother convergence can be achieved via the `RAMP_ROTATING_FRAME`. Although not used in the present case, it can be activated similarly to the outlet pressure ramp, describe later in this tutorial.
+Finally, a smoother convergence can be achieved via the `RAMP_MOTION_FRAME`. Although not used in the present case, it can be activated similarly to the outlet pressure ramp, describe later in this tutorial.
 
 These options are shown for the rotor sub-config file in the following box.
 
@@ -109,13 +109,13 @@ MOTION_ORIGIN= 0.0 0.0 0.0
 % Angular velocity vector in rad/s 
 ROTATION_RATE= 0.0 0.0 -366.52
 
-RAMP_ROTATING_FRAME= NO
+RAMP_MOTION_FRAME= NO
 
 % Parameters of the rotating frame ramp: 
    starting rotational speed, 
    updating-iteration-frequency, 
    total number of iterations for the ramp
-RAMP_ROTATING_FRAME_COEFF= (0.0, 150.0, 2000)
+RAMP_MOTION_FRAME_COEFF= (0.0, 150.0, 2000)
 ```
 
 ### Boundary Conditions
@@ -132,7 +132,7 @@ The following box shows the syntax to be used to enforce this boundary condition
 
 MARKER_HEATFLUX = (BLADE1, 0.0, BLADE2, 0.0, BLADE3, 0.0, HUB1, 0.0, SHROUD1, 0.0, HUB2, 0.0, SHROUD2, 0.0, HUB3, 0.0, SHROUD3, 0.0)
 ```
-![Adiabatic, no-slip bc](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_NoSlip.png)
+![Adiabatic, no-slip bc](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_NoSlip.png)
 Figure (2): Hub, shroud and blade surfaces.
 
 
@@ -148,7 +148,7 @@ The following box shows the syntax to be used to enforce this boundary condition
 MARKER_PERIODIC = (PER1_STATOR1, PER2_STATOR1, 0.0, 0.0, 0.0, 0.0, 0.0, 8.7804878, 0.0, 0.0, 0.0, PER1_ROTOR, PER2_ROTOR, 0.0, 0.0, 0.0, 0.0, 0.0, 8.7804878, 0.0, 0.0, 0.0, PER1_STATOR2, PER2_STATOR2, 0.0, 0.0, 0.0, 0.0, 0.0, 8.7804878, 0.0, 0.0, 0.0)
 
 ```
-![Periodic boundary conditions](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Periodics.png)
+![Periodic boundary conditions](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Periodics.png)
 Figure (3): Periodic and donor surfaces.
 
 #### Non-reflective boundary conditions 
@@ -177,7 +177,7 @@ The following box presents the corresponding syntax.
 0.0, 0.0, 0.0, 0.0 , 1.0, 0.0)
 ```
 
-![Non-reflective inlet and outlet boundary conditions](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles.png)
+![Non-reflective inlet and outlet boundary conditions](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles.png)
 Figure (4): Non-reflective inlet and outlet boundary conditions
 
 ###### Mixing-plane surfaces
@@ -213,7 +213,7 @@ To make the mixing-plane turbulent, the following option must be used:
 TURBULENT_MIXINGPLANE= YES
 ```
 
-![Non-reflective mixing-plane](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles_MixingPlane.png)
+![Non-reflective mixing-plane](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_Adiabatic_Giles_MixingPlane.png)
 Figure (5): Non-reflective mixing-plane
 
 To turn on the non-reflective behaviour, the `SPATIAL_FOURIER` should be set to `YES`. However, for the current tutorial it is not activated, as in the following box.
@@ -225,7 +225,7 @@ If needed, extra under relaxation factor for the Giles BC at the hub and shroud 
 GILES_EXTRA_RELAXFACTOR = (0.05, 0.05)
 ```
 
-Finally, the kind of average process for linearizing the Navier-Stokes equation at inflow and outflow boundaries, including mixing-plane(s), can be controlled by ```AVERAGE_PROCESS_KIND```. Possible options are: ```ALGEBRAIC```, ```AREA```, ```MASSSFLUX```, ```MIXEDOUT```. The default one is ```AREA```, however, only the ```MIXEDOUT``` option guarantees that the mixing plane treatment is conservative.\
+Finally, the kind of average process for linearizing the Navier-Stokes equation at inflow and outflow boundaries, including mixing-plane(s), can be controlled by ```AVERAGE_PROCESS_KIND```. Possible options are: ```ALGEBRAIC```, ```AREA```, ```MASSFLUX```, ```MIXEDOUT```. The default one is ```AREA```, however, only the ```MIXEDOUT``` option guarantees that the mixing plane treatment is conservative.\
 The following box shows the setting to be used for the current case.
 
 ``` 
@@ -241,7 +241,7 @@ The following box shows the syntax to enforce this functionality.
 MARKER_SHROUD = (SHROUD1, SHROUD2, SHROUD3)
 ```
 
-![Shroud boundary condition](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_shroud.png)
+![Shroud boundary condition](../../tutorials_files/compressible_flow/Aachen_Turbine/images/SingleMesh_shroud.png)
 Figure (6): Shroud boundary condition
 
 #### Wall functions
@@ -271,15 +271,15 @@ WALLMODEL_RELFAC= 0.5
 
 #### Ramps
 
-To ease the convergence of turbomachinery cases, particularly when the pressure ratio of the machine is large, the use of ramps can be beneficial. These can be applied to both rotational speed and outlet pressure via ```RAMP_OUTLET_PRESSURE``` and ```RAMP_ROTATING_FRAME```. \
+To ease the convergence of turbomachinery cases, particularly when the pressure ratio of the machine is large, the use of ramps can be beneficial. These can be applied to both rotational speed and outlet pressure via ```RAMP_OUTLET``` and ```RAMP_MOTION_FRAME```. \
 For the sake of completeness, the use of the outlet pressure ramp is demonstrated presenting in the following box the syntax to activate it.
 
 ```
 % Specify ramp option for Outlet pressure (YES, NO) default NO
-RAMP_OUTLET_PRESSURE= YES
+RAMP_OUTLET= YES
 %
 % Parameters of the outlet pressure ramp (starting outlet pressure, updating-iteration-frequency, total number of iteration for the ramp)
-RAMP_OUTLET_PRESSURE_COEFF= (140000.0, 150.0, 2000)
+RAMP_OUTLET_COEFF= (140000.0, 150.0, 2000)
 ```
 
 
@@ -290,7 +290,7 @@ To have SU2_CFD computing the typical turbomachinery performance indexes, the tu
 
 Additionally, the inlet and outlet boundary to each zone must be specified in stream-wise order via the ```MARKER_TURBOMACHINERY```, as well as the inlet and the outlet boundaries of the full machine via the ```MARKER_ANALYZE```.
 
-Finally, the performance averaging method, i.e. AREA, MASSSFLUX, MIXEDOUT, etc., must be specified via the ```PERFORMANCE_AVERAGE_PROCESS_KIND```. In case the MIXEDOUT option is selected, the parameters for the Newton method used for the mixed out process can be specified via ```MIXEDOUT_COEFF```.
+Finally, the performance averaging method, i.e. AREA, MASSFLUX, MIXEDOUT, etc., must be specified via the ```PERFORMANCE_AVERAGE_PROCESS_KIND```. In case the MIXEDOUT option is selected, the parameters for the Newton method used for the mixed out process can be specified via ```MIXEDOUT_COEFF```.
 
 The following box summarizes the setup for the Turbo Performance and Analysis of the current case.
 
@@ -306,7 +306,7 @@ MARKER_TURBOMACHINERY= (INFLOW_STATOR1, OUTFLOW_STATOR1,
 
 MARKER_ANALYZE = (INFLOW_STATOR1, OUTFLOW_STATOR2)
 
-% (ALGEBRAIC, AREA, MASSSFLUX, MIXEDOUT) default AREA
+% (ALGEBRAIC, AREA, MASSFLUX, MIXEDOUT) default AREA
 PERFORMANCE_AVERAGE_PROCESS_KIND= MIXEDOUT
 
 %Parameters of the Newton method for the MIXEDOUT average algorithm (under relaxation factor, tolerance, max number of iterations) 
@@ -387,6 +387,6 @@ To compute it the following steps can be take in a post-processing tool, such as
 
 4. Plot the relative Mach number contour of the extracted slice in a 2D space $(R \cdot \theta$ vs $z)$ and reverse the Z-axis, Fig. 7b. 
 
-![Midspan Relative Mach number](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/Full_View_MachContour.png)
-![2D Relative Mach number blade-to-blade view](../../../tutorials_files/compressible_flow/Aachen_Turbine/images/2D_MidSpan_RelMach.png)
+![Midspan Relative Mach number](../../tutorials_files/compressible_flow/Aachen_Turbine/images/Full_View_MachContour.png)
+![2D Relative Mach number blade-to-blade view](../../tutorials_files/compressible_flow/Aachen_Turbine/images/2D_MidSpan_RelMach.png)
 Figure (7): (a) Relative Mach number contour on a cylindrical cut (blade-to-blade view) at midspan of the turbine flow domain; (b) planar (blade-to-blade) view of the cylindrical cut.
