@@ -24,8 +24,8 @@ SU2 offers different ways of setting and computing this definition. This documen
   - [Thermodynamic and Gauge Pressure](#thermodynamic-and-gauge-pressure)
   - [Initial State and Non-Dimensionalization](#initial-state-and-non-dimensionalization)
 - [Turbulence Models](#turbulence-models)
-  - [Spalart-Allmaras (SA)](#spalart-allmaras-model)
-  - [Shear Stress Transport (SST)](#shear-stress-transport)
+  - [Spalart-Allmaras (SA)](#spalart-allmaras-sa)
+  - [Shear Stress Transport (SST)](#shear-stress-transport-sst)
 - [Transition Models](#transition-models)
 
 ---
@@ -127,7 +127,7 @@ The NEMO solvers require a specification of thermochemical nonequilibrium librar
 
 A chemistry model, consisting of a set of flow species, thermochemical properties, and chemical reactions, is specified using `GAS_MODEL`. The names of these models are specific to the thermochemical library. If using the `SU2_NONEQ` option the choices are `ARGON`, `N2`, `AIR-5`, and `AIR-7`. 
 
-Free-stream mass fractions must also be specified in list using the option `GAS_COMPOSITION`. The mass fractions are specified as decimal values in the order of the species in the gas model. For example, an AIR-5 mixture of 77% oxygen and 23% nitrogen would be expressed as (0.77, 0.23, 0.00, 0.00, 0.00).
+Free-stream mass fractions must also be specified in list using the option `GAS_COMPOSITION`. The mass fractions are specified as decimal values in the order of the species in the gas model. With `FLUID_MODEL= SU2_NONEQ` and `GAS_MODEL= AIR-5`, the species order is N2, O2, NO, N, O. A mixture of 77% nitrogen and 23% oxygen by mass is therefore `GAS_COMPOSITION= (0.77, 0.23, 0.00, 0.00, 0.00)`.
 
 ## Transport Coefficient Model (Thermochemical Nonequilibrium) ##
 
@@ -163,81 +163,19 @@ The reference values $$\rho_{ref}, T_{ref}, v_{ref}$$ equal the initial state va
 
 ## Turbulence Models ##
 
-| Solver | Version |
-| --- | --- |
-| `*_RANS` | 7.4.0 |
+Set `SOLVER= RANS` or `SOLVER= INC_RANS`, and choose the model with `KIND_TURB_MODEL= SA` or `KIND_TURB_MODEL= SST`.
+Choose the variant with `SA_OPTIONS` or `SST_OPTIONS`. The defaults are SA without the ft2 term and SST-2003m.
 
-This section describes how to setup turbulence models for RANS simulations. Turbulence is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS`
-A turbulence model can then be selected via the option `KIND_TURB_MODEL`
-Different submodels and parameters are specified via the different options listed below.
-The turbulent Prandtl number can be modified with the option `PRANDTL_TURB` (the default is 0.9).
+### Spalart-Allmaras (SA)
 
-### Spalart-Allmaras (SA) ###
+See [SA variants and inlet values](../Turbulence-Models/#spalart-allmaras-sa), including the differences between SU2 and the published models.
 
-SU2 implements several versions and corrections of the SA model.
-The model is selected using `KIND_TURB_MODEL= SA` and the modifications via the `SA_OPTIONS` list. If this list is empty, then SU2 defaults to `SA-noft2`.
-The freestream and inlet conditions are specified via the option `FREESTREAM_NU_FACTOR= 3` (ratio of SA variable to freestream kinematic viscosity).
+### Shear Stress Transport (SST)
 
-The following modifications are allowed (refer to [NASA's TMR](https://turbmodels.larc.nasa.gov/spalart.html) for further info):
-- Versions:
-  - `NEGATIVE` - Negative SA model.
-  - `EDWARDS` - Edwards modification.
-  - `BCM` - BCM transitional model.
-  - `WITHFT2` - SA model **with** ft2 term, note that by default we omit this term.
-- Corrections:
-  - `QCR2000` - Quadratic contitutive relation used in the stress tensor.
-  - `COMPRESSIBILITY` - Mixing layer compressibility correction.
-  - `ROTATION` - Dacles-Mariani et al. rotation correction.
-
-All the modifications can be combined with each other expect `NEGATIVE` and `EDWARDS`.
-For example, to specify `SA-neg-R-comp-QCR2000` use `SA_OPTIONS= NEGATIVE, WITHFT2, ROTATION, COMPRESSIBILITY, QCR2000`.
-**However, some combinations are not considered standard**, e.g. `SA-neg` should have the ft2 term, whereas `SA-noft2-Edwards` and `SA-noft2-BCM` should not have the ft2 term, and they are usually not combined with other corrections (see TMR for more details). To use non-standard combinations it is necessary to add `EXPERIMENTAL` to the option list, e.g. `SA_OPTIONS= NEGATIVE, BCM, EXPERIMENTAL`.
-
-The rough wall correction is implicitly turned on by specifying roughness values for wall markers via the `WALL_ROUGHNESS` option.
-
-### Shear Stress Transport (SST) ###
-
-SU2 implements the "Standard" (1994) and 2003 versions of the SST model along with several modifications.
-
-**Note:** Currently all versions are "modified" i.e. the turbulence kinetic energy (TKE) is not included in the viscous stress tensor.
-
-The main model is selected using `KIND_TURB_MODEL= SST` and the version and modifications via the `SST_OPTIONS` list. If this list is empty SU2 defaults to the baseline 1994 model, `V1994m` (see warning below). The options allow for a version and a set of modifiers to the version. 
-The freestream and inlet conditions are specified via the options `FREESTREAM_TURBULENCEINTENSITY= 0.05` (5%) and `FREESTREAM_TURB2LAMVISCRATIO= 10` (ratio of turbulent to laminar viscosity).
-
-**Note:** The default values for these options are suitable for internal flows but may be too high for external aerodynamics problems.
-
-The following modifications are allowed:
-- Versions:
-  - `V1994m` - SSTm **WARNING:** Our implementation has a small [inconsistency with the literature](https://github.com/su2code/SU2/issues/1551), which will be resolved in the next major SU2 update (i.e. version 8).
-  - `V2003m` - SST-2003m (no known inconsistencies).
-- Production modifications:
-  - `VORTICITY` - Uses vorticity to compute the source term instead of strain-rate magnitude.
-  - `KATO_LAUNDER` - Uses the Kato-Launder modification (vorticity times strain-rate).
-  - `UQ` - Production is computed using a modified stress tensor for [uncertainty quantification](https://su2code.github.io/tutorials/UQ_NACA0012/). **Note** with this modification TKE is always included in the stress tensor.
-- Corrections:
-  - `SUSTAINING` - SST with controlled decay.
-  - Curvature corrections are currently not implemented.
-
-Modifications from each of these three groups can be combined, for example `SST_OPTIONS= V2003m, VORTICITY, SUSTAINING`
+See [SST variants and inlet values](../Turbulence-Models/#shear-stress-transport-sst), including the differences between SU2 and the published models.
 
 ## Transition Models ##
 
-| Solver | Version |
-| --- | --- |
-| `*_RANS` | 7.5.0 |
-
-This section describes how to setup transition models for RANS simulations. Transition is activated using the option `KIND_SOLVER= RANS`, or `KIND_SOLVER= INC_RANS` together with a choice of `KIND_TRANS_MODEL` (different from `NONE`).
-Currently, the only valid option for `KIND_TRANS_MODEL` is `LM`, for Langtry-Menter transition models.
-Different submodels and correlations are then specified via `LM_OPTIONS` (for example `LM_OPTIONS= LM2015, MENTER_LANGTRY`).
-
-The following modifications are allowed:
-- Versions:
-  - `LM2015` - Correction to include stationary crossflow instabilities. It has to be used only in 3D problems. The RMS of roughness used in this model has to be set through the separate option `HROUGHNESS`.
-- Correlations (only one can be specified):
-  - `MALAN` - This is the default correlation when the LM model is coupled with the `SA` turbulence model.
-  - `SULUKSNA` - This should be used only if the `SST` model is used. It should require a formulation of the Re_theta_t correlation that omits the pressure gradient parameter, however it is not clear. 
-  - `KRAUSE` - This correlation should be used for hypersonic flows. Its implementation at the moment is unclear due to inconsistencies in the literature.
-  - `KRAUSE_HYPER` - This correlation should be used for hypersonic flows. Its implementation at the moment is unclear due to inconsistencies in the literature.
-  - `MEDIDA` - Designed for `SA` turbulence model. Has problems when dealing with separation induced transition.
-  - `MEDIDA_BAEDER` - Designed for `SA` turbulence model. Has problems when dealing with separation induced transition.
-  - `MENTER_LANGTRY` - This is the default correlation when the LM model is coupled with the `SST` turbulence model.
+Set `KIND_TRANS_MODEL= LM` for the Langtry-Menter model, with SST or SA, and choose the version and correlation with `LM_OPTIONS`.
+For the algebraic SA-BCM model, set `KIND_TURB_MODEL= SA` and `SA_OPTIONS= BCM`.
+[Transition Models](../Transition-Models/) describes both models and their options.

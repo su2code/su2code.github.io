@@ -332,13 +332,13 @@ which yields for its last iteration
 
 The displacement field on the structural domain and the velocity field on the flow domain obtained in ```fsi_steady_1.vtu```_and ```fsi_steady_0.vtu``` respectively are shown below:
 
-![FSI Results1](../multiphysics/images/fsipy1.png)
+![FSI Results1](../../tutorials_files/multiphysics/unfinished_tutorials/images/fsipy1.png)
 
-![FSI Results2](../multiphysics/images/fsipy2.png)
+![FSI Results2](../../tutorials_files/multiphysics/unfinished_tutorials/images/fsipy2.png)
 
 which is, as expected, identical to the result of the [Static FSI](../Static_FSI/) tutorial. The convergence of the drag coefficient is as follows:
 
-![FSI Results2](../multiphysics/images/fsipy3.png)
+![FSI Results2](../../tutorials_files/multiphysics/unfinished_tutorials/images/fsipy3.png)
 
 The drag coefficient will be used as the objective function for the adjoint computation in the [next tutorial](../Adjoint_FSI_Python/).
 

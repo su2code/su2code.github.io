@@ -1,10 +1,12 @@
 - title: Introduction to SU2
   docs_v7:
   - home
+  - Using-the-Documentation
   - contribute
 
-- title: New in Version 7
+- title: What's New
   docs_v7:
+  - Guide-to-v8
   - Guide-to-v7
 
 - title: Quick Start
@@ -47,6 +49,25 @@
   - Multizone
   - Execution
 
+- title: Physical Models
+  docs_v7:
+  - Turbulence-Models
+  - Transition-Models
+  - Hybrid-RANS-LES
+  - Wall-Treatment
+
+- title: Case Setup Guides
+  docs_v7:
+  - Setup-Guide-RANS-External-Aero
+  - Setup-Guide-Incompressible
+  - Setup-Guide-Unsteady-DES
+  - Setup-Guide-Transition
+  - Setup-Guide-Turbomachinery
+  - Setup-Guide-Heat-Transfer-CHT
+  - Setup-Guide-Species-Combustion
+  - Setup-Guide-Shape-Optimization
+  - Setup-Guide-NICFD
+
 - title: Developer Docs
   docs_v7:
   - Gitting-Started
@@ -62,6 +83,7 @@
 - title: FAQ
   docs_v7:
   - FAQ
+  - Troubleshooting
 
 - title: Contact
   docs_v7:

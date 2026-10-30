@@ -95,7 +95,7 @@ For this inviscid case, we have selected a modified version of the JST scheme fo
 
 If you are having trouble converging your adjoint calculation, we often recommend adjusting the level of dissipation, along with reducing the CFL condition with the `CFL_REDUCTION_ADJFLOW` option, or even imposing a hard limit on the value of the adjoint density variable using the `LIMIT_ADJFLOW` option. While increasing the dissipation or limiting the adjoint variables can sometimes help to stabilize a solution, **note that overly increasing the dissipation or imposing limits that are too strict can result in decreased accuracy**. One should fully investigate the effect of these parameters, and ideally, a gradient accuracy/verification study should be performed (one can always compare against finite differencing).
 
-As a side note, in case you are planning to use the discrete adjoint mode, SU2 software will not use these parameters unless you activate the option `INCONSISTENT_AD`
+As a side note, in case you are planning to use the discrete adjoint mode, SU2 software will not use these parameters unless you activate the option `INCONSISTENT_DISC`
 
 Now, we present the options that specify the optimal shape design problem:
 ```

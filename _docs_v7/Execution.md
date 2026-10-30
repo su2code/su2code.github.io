@@ -10,11 +10,11 @@ Once downloaded and installed, and now that you know the basics for setting up y
 
 - [C++ Modules](#c-modules)
 - [Python Scripts](#python-scripts)
-  - [Parallel Computation Script (parallel_computation.py)](#parallel-computation-script-parallelcomputationpy)
-  - [Continuous Adjoint Gradient Calculation (continuous_adjoint.py)](#continuous-adjoint-gradient-calculation-continuousadjointpy)
-  - [Discrete Adjoint Gradient Calculation (discrete_adjoint.py)](#discrete-adjoint-gradient-calculation-discreteadjointpy)
-  - [Finite Difference Gradient Calculation (finite_differences.py)](#finite-difference-gradient-calculation-finitedifferencespy)
-  - [Shape Optimization Script (shape_optimization.py)](#shape-optimization-script-shapeoptimizationpy)
+  - [Parallel Computation Script (parallel_computation.py)](#parallel-computation-script-parallel_computationpy)
+  - [Continuous Adjoint Gradient Calculation (continuous_adjoint.py)](#continuous-adjoint-gradient-calculation-continuous_adjointpy)
+  - [Discrete Adjoint Gradient Calculation (discrete_adjoint.py)](#discrete-adjoint-gradient-calculation-discrete_adjointpy)
+  - [Finite Difference Gradient Calculation (finite_differences.py)](#finite-difference-gradient-calculation-finite_differencespy)
+  - [Shape Optimization Script (shape_optimization.py)](#shape-optimization-script-shape_optimizationpy)
   - [Python wrapper scripts](#python-wrapper-scripts)
 ---
 
@@ -107,8 +107,10 @@ Options:
 * `-f FILE, --file=FILE` read config from FILE
 * `-r NAME, --name=NAME` try to restart from project file NAME
 * `-n PARTITIONS, --partitions=PARTITIONS` number of PARTITIONS
-* `-g GRADIENT, --gradient=GRADIENT` Method for computing the GRADIENT (ADJOINT, DISCRETE_ADJOINT, FINDIFF, NONE)
+* `-g GRADIENT, --gradient=GRADIENT` Method for computing the GRADIENT (CONTINUOUS_ADJOINT, DISCRETE_ADJOINT, FINDIFF, NONE), default DISCRETE_ADJOINT
+* `-o OPTIMIZATION, --optimization=OPTIMIZATION` OPTIMIZATION technique (SLSQP, CG, BFGS, POWELL), default SLSQP
 * `-q QUIET, --quiet=QUIET` True/False Quiet all SU2 output (optimizer output only)
+* `-z ZONES, --zones=ZONES` Number of ZONES
 
 ### Python wrapper scripts
 

@@ -14,10 +14,10 @@ This page contains an overview of the theory behind streamwise periodic flow and
 
 - [Limitations](#limitations)
 - [Introduction](#introduction)
-- [Pressure and Velocity Periodiciy](#pandv-periodiciy)
-    - [Massflow prescription](#massflow)
-- [Temperature Periodiciy](#T-periodiciy)
-    - [Fake temperature periodicity via outlet heat sink](#fake-temperature-periodicity-via-outlet-heat-sink)
+- [Pressure and Velocity Periodicity](#pressure-and-velocity-periodicity)
+    - [Massflow prescription](#massflow-prescription)
+- [Temperature Periodicity](#temperature-periodicity)
+    - [Temperature periodicity via outlet heat sink](#temperature-periodicity-via-outlet-heat-sink)
 - [References](#references)
 
 ---
@@ -71,7 +71,7 @@ $$\Delta p_0^{n+1} = \Delta p_0^{n} + \phi \Delta \left( \Delta p_0 \right).$$
 
 ## Temperature Periodicity
 
-The here presented approach for periodicity in temperature is only possible if only heatflux or symmetry boundary conditions are used, isothermal walls in particular are not allowed. In that case use the [method described below](#fake-temperature-periodicity-via-outlet-heat-sink) is used:
+The here presented approach for periodicity in temperature is only possible if only heatflux or symmetry boundary conditions are used, isothermal walls in particular are not allowed. In that case use the [method described below](#temperature-periodicity-via-outlet-heat-sink):
 
 Similar to the pressure term for the momentum equation the Temperature can be split in a periodic and a linear part:
 

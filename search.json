@@ -1,0 +1,8 @@
+---
+layout: null
+sitemap: false
+---
+[
+{% assign groups = "docs_v7,tutorials,vandv" | split: "," %}{% assign first = true %}{% for g in groups %}{% for doc in site[g] %}{% unless doc.title == nil %}{% unless first %},{% endunless %}{% assign first = false %}
+{"title": {{ doc.title | jsonify }}, "url": {{ doc.url | relative_url | jsonify }}, "section": {{ g | jsonify }}, "text": {{ doc.content | strip_html | normalize_whitespace | jsonify }}}{% endunless %}{% endfor %}{% endfor %}
+]

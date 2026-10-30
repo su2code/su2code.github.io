@@ -179,7 +179,6 @@ The relative residual cannot be used as this is reset at each inner iteration. T
 residuals are already quite low. For this reason we will use:
 
 ```
-CONV_CRITERIA = RESIDUAL
 CONV_FIELD= RMS_DENSITY
 CONV_RESIDUAL_MINVAL= -9.0
 ```

@@ -13,7 +13,7 @@ revised_version: 7.0.0
 
 ## Getting started with SU2
 
-Rather than writing a long manual on all available (and constantly evolving) configuration options available in SU2, the approach has been taken to teach the various aspects of the SU2 code through a range of tutorials. If you would like to see all of the available config options, we keep a configuration file template in the root directory of the source distribution (see [config_template.cfg](https://github.com/su2code/SU2/blob/master/config_template.cfg)).
+These tutorials teach SU2 through complete worked examples. Use the **Case Setup Guides** in the [documentation](/docs_v7/Using-the-Documentation/) to understand the choices for a class of problems, the [Option Reference](/docs_v7/Option-Reference/) for configuration details, and [V&V](/vandv/home/) for accuracy comparisons. Tutorial settings apply to their stated case and version; check convergence before using them for a different problem.
 
 The tutorials are numbered roughly in order of their complexity and how experienced with the code the user may need to be, noting that the more advanced tutorials may assume the user has already worked through the earlier ones. Each tutorial attempts to present new features of SU2 and contains explanations for the key configuration file options. More information on the exact learning goals of a tutorial can be seen at the beginning of each.
 

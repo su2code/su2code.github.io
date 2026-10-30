@@ -31,7 +31,7 @@ This tutorial also provides an explanation of the non-dimensional scheme used fo
 The resources for this tutorial can be found in the [incompressible_flow/Inc_Turbulent_NACA0012](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([turb_naca0012.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/turb_naca0012.cfg)) and the mesh file ([n0012_897-257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Turbulent_NACA0012/n0012_897-257.su2)).
 
  The 897x257 mesh is obtained from the Langley Research Center Turbulence Modeling Resource (TMR) website, Additionally, skin friction and pressure distribution data for the CFL3D code, along with experimental pressure data of Gregory (N. Gregory and C. L. O’Reilly. Low-speed aerodynamic characteristics of naca 0012 aerofoil sections, including the effects
-of upper-surface roughness simulation hoar frost. NASA R & M 3726, 1970.), from the TMR are used for later comparison with SU2 results. These files can be found on the following website: https://turbmodels.larc.nasa.gov/naca0012_val.html.
+of upper-surface roughness simulation hoar frost. NASA R & M 3726, 1970.), from the TMR are used for later comparison with SU2 results. These files can be found on the following website: https://tmbwg.github.io/turbmodels/naca0012_val.html.
 
 ## Tutorial
 
@@ -52,7 +52,7 @@ Note that we will run this case at both a 0 deg angle of attack as well as a 10 
 
 ### Mesh Description
 
-A series of C-grids are available from the NASA TMR, and for the results presented below, the quadrilateral grid with 897 nodes in the airfoil-normal and 257 in the airfoil-tangent directions is used. The far-field boundary is approximately 500 chord lengths away from the airfoil surface, and the mesh spacing near the airfoil is sufficient to ensure y+ < 1 over the airfoil surface. An adiabatic, no-slip condition is applied to the airfoil surface. See the [NACA 0012 TMR page](https://turbmodels.larc.nasa.gov/naca0012_val.html) for more details on the availabls grids.
+A series of C-grids are available from the NASA TMR, and for the results presented below, the quadrilateral grid with 897 nodes in the airfoil-normal and 257 in the airfoil-tangent directions is used. The far-field boundary is approximately 500 chord lengths away from the airfoil surface, and the mesh spacing near the airfoil is sufficient to ensure y+ < 1 over the airfoil surface. An adiabatic, no-slip condition is applied to the airfoil surface. See the [NACA 0012 TMR page](https://tmbwg.github.io/turbmodels/naca0012_val.html) for more details on the availabls grids.
 
 
 ### Configuration File Options
@@ -80,7 +80,7 @@ INC_VELOCITY_REF= 1.0
 INC_TEMPERATURE_REF = 1.0
 ```
 
-The `INC_NONDIM` option controls your non-dim. scheme for incompressible flow problems. The default behavior is `INC_NONDIM= INITIAL_VALUES`, which automatically sets rho_ref = `INC_DENSITY_INIT`, v_ref = `INC_VELOCITY_INIT` (magnitude), and T_ref = `INC_VELOCITY_INIT`. No options are required for this mode. Alternatively, the user can specify custom reference values in order to separate the initialization and non-dim. values. To do so, set `INC_NONDIM= REFERENCE_VALUES` and prescribe values for `INC_DENSITY_REF`, `INC_VELOCITY_REF`, and `INC_TEMPERATURE_REF`. If you wish to perform a dimensional simulation you can pick the `INC_NONDIM= DIMENSIONAL` option, which is equivalent to choosing  `INC_NONDIM= REFERENCE_VALUES` and setting the reference values to 1.0.
+The `INC_NONDIM` option controls your non-dim. scheme for incompressible flow problems. The default behavior is `INC_NONDIM= INITIAL_VALUES`, which automatically sets rho_ref = `INC_DENSITY_INIT`, v_ref = `INC_VELOCITY_INIT` (magnitude), and T_ref = `INC_TEMPERATURE_INIT`. No options are required for this mode. Alternatively, the user can specify custom reference values in order to separate the initialization and non-dim. values. To do so, set `INC_NONDIM= REFERENCE_VALUES` and prescribe values for `INC_DENSITY_REF`, `INC_VELOCITY_REF`, and `INC_TEMPERATURE_REF`. If you wish to perform a dimensional simulation you can pick the `INC_NONDIM= DIMENSIONAL` option, which is equivalent to choosing  `INC_NONDIM= REFERENCE_VALUES` and setting the reference values to 1.0.
 
 Don't forget that SU2 will print all input dimensional values, the selected reference values, and the resulting non-dim. values to the console before the start of a calculation. This information is useful for verifying that the desired non-dim. has been set and also for re-dimensionalizion of outputs after the calculation.
 

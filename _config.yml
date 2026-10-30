@@ -18,12 +18,17 @@ markdown: kramdown
 highlighter: rouge
 plugins:
   - jekyll-feed
+  - jekyll-gist
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-sitemap
 
 whitelist:
+  - jekyll-feed
+  - jekyll-gist
   - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 
 exclude:
@@ -32,6 +37,7 @@ exclude:
   - .idea/
   - .gitignore
   - README.md
+  - tools/
 timezone: Europe/Berlin
 defaults:
 - scope:
@@ -56,6 +62,8 @@ defaults:
   values:
     layout: docs
     sectionid: docs
+    # Old v6 documentation: kept for old links, not listed for search engines.
+    sitemap: false
     seo:
       type: "WebPage"
 
@@ -120,6 +128,3 @@ collections:
 
 # Google Analytics
 google_analytics: UA-28187985-1
-
-plugins:
-  - jekyll-gist

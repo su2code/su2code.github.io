@@ -2,8 +2,11 @@
 # https://jekyllrb.com/docs/structure/
 /_site
 
-# bundler snapshot of all gems and versions that it installed
-# https://bundler.io/rationale.html
-Gemfile.lock
+# Keep Gemfile.lock tracked so local and CI builds use the same gems.
 
 .jekyll-metadata
+
+# Local/CI dependency and Jekyll caches
+.bundle/
+vendor/bundle/
+.jekyll-cache/

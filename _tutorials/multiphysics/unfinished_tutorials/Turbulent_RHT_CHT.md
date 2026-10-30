@@ -15,7 +15,7 @@ follows2: Coupled_RHT_Adjoint
 
 ### Goals
 
-This tutorial builds up on SU2's [Conjugate Heat Transfer](../Inc_Heated_Cylinders) and [Radiative Heat Transfer](../Coupled_RHT_Adjoint) capabilities, to solve a multizone, multiphysics problem involving incompressible turbulent flows, radiation, and conjugate heat transfer between a solid domain and a buoyancy-driven cavity. Upon the completion of this example, the user will be capable of
+This tutorial builds up on SU2's [Conjugate Heat Transfer](../Static_CHT/) and [Radiative Heat Transfer](../Coupled_RHT_Adjoint) capabilities, to solve a multizone, multiphysics problem involving incompressible turbulent flows, radiation, and conjugate heat transfer between a solid domain and a buoyancy-driven cavity. Upon the completion of this example, the user will be capable of
 - Setting up a multiphysics simulation with Conjugate Heat Transfer interfaces between zones
 - Solving a turbulent buoyancy-driven cavity with participating media and radiation
 - Computing coupled adjoint solutions of problems involving incompressible flow and radiation
@@ -24,7 +24,7 @@ This tutorial builds up on SU2's [Conjugate Heat Transfer](../Inc_Heated_Cylinde
 
 In this tutorial, we define a problem similar to the [Laminar Buoyancy-Driven Cavity](../Basic_RHT), however using in this case the right wall is a solid wall rather than an isothermal boundary condition. 
 
-![ProblemSetup1](../multiphysics/images/chtrht1.png)
+![ProblemSetup1](../../tutorials_files/multiphysics/unfinished_tutorials/images/chtrht1.png)
 
 Where the inlet velocity is 3 m/s and its temperature is 450 K, while the outlet is a 0 pressure outlet. 
 
@@ -44,11 +44,11 @@ The flow domain is discretized using a structured mesh with a total of 4800 elem
 
 First, we define the two FFD boxes to parametrize the upper and lower boundaries of the fluid domain, using 14 design variables per boundary. This is shown next
 
-![ProblemSetup2](../multiphysics/images/chtrht2.png)
+![ProblemSetup2](../../tutorials_files/multiphysics/unfinished_tutorials/images/chtrht2.png)
 
 In order to ensure that the solid domain remains fixed, the FFD boxes are defined so that they do not intersect the CHT boundary. This is shown in detail in the next image, where the red domain corresponds to the solid, and the blue to the FFD box
 
-![ProblemSetup2](../multiphysics/images/chtrht3.png)
+![ProblemSetup2](../../tutorials_files/multiphysics/unfinished_tutorials/images/chtrht3.png)
 
 We define the FFD boxes using the [FFD config file](https://github.com/su2code/Tutorials/blob/feature_radiation_multizone/multiphysics/turb_rht_cht/config_ffd.cfg). In this case, we define 2 boxes using
 
@@ -232,7 +232,7 @@ VISCOSITY_MODEL = CONSTANT_VISCOSITY
 MU_CONSTANT = 1e-5
 
 CONDUCTIVITY_MODEL = CONSTANT_CONDUCTIVITY
-KT_CONSTANT = 0.01
+THERMAL_CONDUCTIVITY_CONSTANT = 0.01
 
 FLUID_MODEL = INC_IDEAL_GAS
 SPECIFIC_HEAT_CP = 1000
@@ -411,7 +411,7 @@ We need to converge the problem thoroughly in order to obtain a converged heatfl
 
 The temperature and velocity fields for the primal settings are as follows
 
-![Result](../multiphysics/images/chtrht4.png)
+![Result](../../tutorials_files/multiphysics/unfinished_tutorials/images/chtrht4.png)
 
 ### Running the adjoint simulation
 
@@ -548,7 +548,7 @@ MESH_FILENAME= mesh_flow_ffd_deform.su2
 
 it is possible to run a deformed primal simulation. The temperature and velocity fields for this particular deformed configuration are as follows
 
-![ResultDef](../multiphysics/images/chtrht5.png)
+![ResultDef](../../tutorials_files/multiphysics/unfinished_tutorials/images/chtrht5.png)
 
 ### Attribution
 
