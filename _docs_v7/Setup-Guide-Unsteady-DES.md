@@ -193,7 +193,7 @@ The mesh files of the test cases are in the [TestCases repository](https://githu
 
 Dual time stepping splits the run into physical time steps. Inside each time step, SU2 runs "inner iterations" to find the new solution, the same way it converges a steady problem (tutorial, docs).
 
-- `TIME_DOMAIN= YES` turns on the time-accurate solver (docs). `TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER` is used by all URANS and DES test cases (test case). `DUAL_TIME_STEPPING-1ST_ORDER` and `TIME_STEPPING` (one update per time step, no inner iterations) also exist (code).
+- `TIME_DOMAIN= YES` turns on the time-accurate solver (docs). `TIME_MARCHING= DUAL_TIME_STEPPING-2ND_ORDER` is used by the URANS test cases and by the flat plate and backscatter DES tests (test case). The short ONERA M6 DES regression tests of PR #2150 use `DUAL_TIME_STEPPING-1ST_ORDER` (test case). `DUAL_TIME_STEPPING-1ST_ORDER` and `TIME_STEPPING` (one update per time step, no inner iterations) also exist (code).
 - `TIME_STEP` is the physical time step. It is always in seconds, also when the equations are non-dimensional: SU2 divides it by the reference time (code).
 - `TIME_ITER` is the number of time steps. The default is `1` (code).
 - `MAX_TIME` is the final physical time in seconds. The default is `1.0`. SU2 stops at `MAX_TIME` or at `TIME_ITER`, whichever comes first (code, docs). Set `MAX_TIME` larger than `TIME_STEP` × `TIME_ITER` if you want `TIME_ITER` steps.
@@ -263,9 +263,9 @@ So average over one continuous run, without restarts (advice).
 
 ### Hybrid RANS/LES: which DES variant
 
-All DES variants in SU2 develop build on the SA model. Set `KIND_TURB_MODEL= SA` and pick a variant with `HYBRID_RANSLES` (code).
+The `SA_*` variants build on the SA model, the `SST_*` variants on the SST model. Set `KIND_TURB_MODEL` and pick a matching variant with `HYBRID_RANSLES` (code). The SST variants come with [PR #2150](https://github.com/su2code/SU2/pull/2150) and are in develop once it is merged.
 
-In original `SA_DES`, the length scale is min(d, C_DES Δ), where d is wall distance and Δ the grid measure. The delayed variants use d − f_d·max(0, d − C_DES Δ): f_d near zero protects attached boundary layers, and f_d near one recovers the DES limit. The grid measure also changes with the variant. Thus distance from the wall alone does not determine the RANS/LES mode (code, reference). See [Hybrid RANS/LES](../Hybrid-RANS-LES/#what-su2-does-differently-from-the-literature).
+In original `SA_DES`, the length scale is min(d, C_DES Δ), where d is wall distance and Δ the grid measure. The delayed variants use d − f_d·max(0, d − C_DES Δ): f_d near zero protects attached boundary layers, and f_d near one recovers the DES limit. The SST variants use the same idea with the RANS length √k / (β* ω) in place of d. The grid measure also changes with the variant. Thus distance from the wall alone does not determine the RANS/LES mode (code, reference). See [Hybrid RANS/LES](../Hybrid-RANS-LES/#what-su2-does-differently-from-the-literature).
 
 | `HYBRID_RANSLES` | What it is (code) |
 | --- | --- |
@@ -274,19 +274,25 @@ In original `SA_DES`, the length scale is min(d, C_DES Δ), where d is wall dist
 | `SA_DDES` | Delayed DES (Spalart et al. 2006). A shielding function keeps attached boundary layers in RANS mode. |
 | `SA_ZDES` | DDES with a cell size based on the vorticity direction (Deck 2012). |
 | `SA_EDDES` | DDES with a cell size adapted to shear layers (Shur et al. 2015). Meant to switch faster from RANS to LES in separated shear layers. |
+| `SST_DDES` | DDES for SST (Gritskevich et al. 2012). |
+| `SST_IDDES` | Improved DDES for SST (Gritskevich et al. 2012), with a wall-modelled LES branch. |
+| `SST_SIDDES` | Simplified IDDES: IDDES without the elevating function. |
+| `SST_EDDES` | `SST_DDES` with the shear-layer-adapted cell size of `SA_EDDES`. |
 
 Advice:
 
 - `SA_DES` can switch to LES inside an attached boundary layer if the mesh is fine along the wall. The mesh, not the flow, can then cause separation. `SA_DDES` and `SA_EDDES` add shielding to reduce this risk; the result still needs mesh and sensor checks (advice).
 - `SA_ZDES` in SU2 is DDES with the ZDES cell size. It is not the full zonal method of the reference, where the user picks RANS and LES zones (code, to be reviewed).
-- SU2 does not stop with an error if you set `HYBRID_RANSLES` with `KIND_TURB_MODEL= SST`. Only the SA solver uses the DES length scale, so such a run is plain URANS (code).
+- SU2 stops with an error if the variant does not match `KIND_TURB_MODEL`, or if `TIME_DOMAIN= NO` (code).
+- With an `SST_*` variant, SU2 also stops if `SST_OPTIONS` contains `COMPRESSIBILITY-WILCOX` or `COMPRESSIBILITY-SARKAR`. How these corrections should act in the LES region is not validated yet (code). See [Hybrid RANS/LES](../Hybrid-RANS-LES/#sst-variants).
 
 Related options (code):
 
 - `DES_CONST`: the DES constant. The default is `0.65`.
 - `LES_FILTER_WIDTH`: a fixed LES filter width. The default `-1.0` means SU2 uses the local cell size (the largest distance from a point to its neighbours).
 - `ENFORCE_LES= YES`: LES mode everywhere. It needs `HYBRID_RANSLES` other than `NONE`.
-- `STOCHASTIC_BACKSCATTER= YES` and the `SBS_` options: a stochastic backscatter model, which feeds energy from the modelled to the resolved scales. It works only in 3D and only with `HYBRID_RANSLES` set. The test case `backscatter/backward_step/backwardStep.cfg` shows all its options (code, test case).
+- These three options act only on the `SA_*` variants. With an `SST_*` variant, SU2 stops with an error if you set `DES_CONST`, give a positive `LES_FILTER_WIDTH`, or set `ENFORCE_LES= YES` (code). The SST variants use their own constant, C_DES = 0.78·F1 + 0.61·(1 − F1). The screen shows the constant in use at the start of the run (code).
+- `STOCHASTIC_BACKSCATTER= YES` and the `SBS_` options: a stochastic backscatter model, which feeds energy from the modelled to the resolved scales. It works only in 3D and only with an `SA_*` variant. SU2 stops with an error otherwise (code). The test case `backscatter/backward_step/backwardStep.cfg` shows all its options (code, test case).
 
 ### Mesh for DES
 
@@ -302,7 +308,7 @@ General points for the DES mesh (advice, to be reviewed):
 
 - The time step must resolve the eddies the mesh can hold. A common target is a convective CFL number of about 1 in the LES region, that is, a time step of about cell size / local velocity (advice, to be reviewed).
 - Use `DUAL_TIME_STEPPING-2ND_ORDER` (test case).
-- The DES and backscatter tests use `INNER_ITER= 20` (test case). Check the inner convergence as for URANS.
+- The flat plate DES test and the backscatter test use `INNER_ITER= 20` (test case). The short ONERA M6 DES regression tests use `INNER_ITER= 2` and are not a setup example. Check the inner convergence as for URANS.
 
 ### Numerical dissipation
 
@@ -312,7 +318,7 @@ Reduce numerical dissipation where you can. Upwind schemes and limiters add it, 
 
 - It works with `ROE`, `SLAU` and `SLAU2`.
 - `FD`: uses the DDES shielding function, computed from the wall distance.
-- `NTS`: the blending of Travin and Shur. It uses `DES_CONST` and the cell size.
+- `NTS`: the blending of Travin and Shur. It uses `DES_CONST` and the cell size. With an `SST_*` variant you cannot set `DES_CONST`, so it uses the default, 0.65.
 - `FD_DUCROS` and `NTS_DUCROS`: as above, plus the Ducros sensor, which keeps the full dissipation at shocks (code, docs).
 - SU2 keeps at least 5 % of the upwind dissipation for stability.
 - Write the `ROE_DISSIPATION` output group to see where the dissipation is reduced.
@@ -336,7 +342,7 @@ No test case in develop uses `ROE_LOW_DISSIPATION` (test case).
 - **Start-up phase over.** Plot `LIFT` and `DRAG` against time. The signal should be periodic or statistically steady before `WINDOW_START_ITER` (tutorial).
 - **Averages settled.** Compare averages from separate sampling blocks and extend the sampling interval. A slowly changing cumulative average alone does not establish statistical convergence, especially for DES. Monitor `TAVG_LIFT` and `TAVG_DRAG`. With `WINDOW_CAUCHY_CRIT= YES`, the `CAUCHY_TAVG_` values are below `CONV_WINDOW_CAUCHY_EPS` (tutorial).
 - **Time step and mesh.** Halve the time step and refine the mesh. The frequency and the averages should change little (advice).
-- **DES regions.** Write the `DDES` group: `DES_LENGTHSCALE`, `WALL_DISTANCE` and `LES_SENSOR`. `LES_SENSOR` is 0 where the model acts as RANS. In LES mode it is 1 for `SA_DES` and the value of the shielding function for the DDES variants (code). Attached boundary layers should stay at 0 (advice).
+- **DES regions.** Write the `DDES` group: `DES_LENGTHSCALE`, `WALL_DISTANCE` and `LES_SENSOR`. `LES_SENSOR` is 0 where the model acts as RANS. In LES mode it is 1 for `SA_DES`, the value of the shielding function f_d for the SA DDES variants, `SST_DDES` and `SST_EDDES`, and 1 − f̃\_d for `SST_IDDES` and `SST_SIDDES` (code). Attached boundary layers should stay at 0 (advice). See [Hybrid RANS/LES](../Hybrid-RANS-LES/#recommended-use) for an extra check with SST.
 - **Resolved eddies.** Write the `VORTEX_IDENTIFICATION` group: `VORTICITY` (2D) or `VORTICITY_X`, `VORTICITY_Y`, `VORTICITY_Z` (3D), and `Q_CRITERION` (code). Iso-surfaces of `Q_CRITERION` show the resolved eddies (advice).
 
 See [History and Solution Output](../Custom-Output/) and the [Output Fields Reference](../Output-Fields-Reference/).
@@ -357,7 +363,9 @@ See [History and Solution Output](../Custom-Output/) and the [Output Fields Refe
 | The inner iterations never reach the criterion. | Time step too large, or CFL too low for the inner loop. | Reduce `TIME_STEP`, raise `CFL_NUMBER` or `INNER_ITER` (advice). |
 | DES: the boundary layer separates too early. | LES mode inside the attached boundary layer (check `LES_SENSOR`). | Use `SA_DDES` or `SA_EDDES` instead of `SA_DES`; check the cell size along the wall (advice). |
 | DES: the wake looks smooth, with no resolved eddies. | Too much dissipation, or the mesh is too coarse or too stretched in the wake. | Use `ROE_LOW_DISSIPATION` or `LD2`, remove the limiter, refine the wake with near-cubic cells (advice, to be reviewed). |
-| DES has no effect at all. | `HYBRID_RANSLES` set with `KIND_TURB_MODEL= SST`. | Use `KIND_TURB_MODEL= SA` (code). |
+| SU2 stops: "Hybrid RANS/LES models (HYBRID_RANSLES) require an unsteady simulation ...". | `HYBRID_RANSLES` set in a steady run. | Set `TIME_DOMAIN= YES` (code). |
+| SU2 stops: "The hybrid RANS/LES model (HYBRID_RANSLES) must match the turbulence model ...". | An `SA_*` variant without `KIND_TURB_MODEL= SA`, or an `SST_*` variant without `KIND_TURB_MODEL= SST`. | Pick a variant that matches the turbulence model (code). |
+| SU2 stops with an `SST_*` variant, and the message names `DES_CONST`, `LES_FILTER_WIDTH`, `ENFORCE_LES`, `STOCHASTIC_BACKSCATTER` or the SST compressibility corrections. | The SST variants do not support this option. | Remove the option, or use an `SA_*` variant (code). |
 
 ## Related tutorials and test cases
 
@@ -372,6 +380,7 @@ Test cases (develop branch):
 - [unsteady/square_cylinder/turb_square.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/unsteady/square_cylinder/turb_square.cfg): URANS with SST and `ROE`, restart from step 2.
 - [unsteady/pitching_naca64a010_rans/turb_NACA64A010.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/unsteady/pitching_naca64a010_rans/turb_NACA64A010.cfg): URANS of a pitching airfoil with SA and rigid mesh motion.
 - [ddes/flatplate/ddes_flatplate.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/ddes/flatplate/ddes_flatplate.cfg): `SA_EDDES` with `SLAU2`.
+- `ddes/oneram6/ddes_oneram6_*.cfg` (PR #2150): short regression tests of `SST_DDES`, `SST_IDDES`, `SST_SIDDES`, `SST_EDDES` and `SA_EDDES` on the ONERA M6 wing. See [Hybrid RANS/LES](../Hybrid-RANS-LES/#verification-and-test-cases).
 - [backscatter/backward_step/backwardStep.cfg](https://github.com/su2code/SU2/blob/develop/TestCases/backscatter/backward_step/backwardStep.cfg): incompressible `SA_DDES` with stochastic backscatter, `LD2` scheme and time-average output.
 
 User guide pages:
@@ -379,4 +388,4 @@ User guide pages:
 - [Solver Setup](../Solver-Setup/), [Restart File](../Restart-File/), [History and Solution Output](../Custom-Output/), [Convective Schemes](../Convective-Schemes/), [Physical Definition](../Physical-Definition/).
 - All options: [Option Reference](../Option-Reference/). All output fields: [Output Fields Reference](../Output-Fields-Reference/).
 
-Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.
+Source review: 22 October 2026, against [SU2 `docs_site` at `41ea6a219a`](https://github.com/rois1995/SU2/tree/41ea6a219ac038574f3d4a5b130c0c1d8af66457). The DES statements were updated on 23 October 2026 against [PR #2150 at `1bcd4a7425`](https://github.com/su2code/SU2/tree/1bcd4a74257d5cce1929187d635fc1dc0d1ae5c8). See the [review scope and outstanding validation](../Documentation-Status/#guide-and-model-review). Setup recommendations remain draft where indicated.
