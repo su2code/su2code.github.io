@@ -15,11 +15,11 @@ follows:
 
 ## Goals
 
-![Counterflow burner](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_flame_temperature_streamlines.png)
+![Counterflow burner](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_flame_temperature_streamlines.png)
 *Figure (1): 2D axisymmetric configuration of the laminar counterflow diffusion flame. The axisymmetry is shown here vertically to align the simulation results with the usual lab orientation, but in the simulations, the axisymmetry axis is always horizontally at y=0.*
 
 In this tutorial we show how to setup a laminar diffusion flame computation for a counterflow flame. We will use a flamelet method to model combustion, which is a tabulated chemistry approach. The table was precomputed from 1D Cantera solutions using the SU2_DataMiner code. We then reproduce the experiments of C.K. Law, mentioned in his book *Combustion Physics* (2006).
-![Counterflow burner](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/opflow01-1024x766_thomsonlab.jpg)
+![Counterflow burner](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/opflow01-1024x766_thomsonlab.jpg)
 *Figure (2): Counterflow Diffusion burner from the Thomson Lab in Toronto: https://thomsonlab.mie.utoronto.ca/counterflow-diffusion-burner/.*
 ## Resources
 
@@ -31,7 +31,7 @@ The resources for this tutorial can be found in the [incompressible_flow/Inc_Lam
 
 The mesh is created using [gmsh](https://gmsh.info/) and a respective `.geo` script is available to recreate/modify the mesh [counterflow.geo](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow.geo). The mesh has quadrilateral cells,  with 8324 elements and 8551 points. This very coarse mesh is sufficient to capture accurately resolve the flame for this testcase.
 
-![Mesh with boundary conditions](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/mesh.png)
+![Mesh with boundary conditions](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/mesh.png)
 *Figure (3): Computational mesh with color indication of the used boundary conditions.*
 
 
@@ -123,12 +123,12 @@ The lookup table was generated using the SU2_DataMiner package, which can be fou
 [SU2_DataMiner](https://github.com/su2code/SU2_DataMiner)
 We will not go into the table generation now, but merely provide the results. For the constant strain diffusion flamelets, we fix the strain rate and run a series of counterflow flames for different enthalpies (we vary the inlet temperature). The resulting solutions for temperature are shown below:
 
-![LUT Temperature](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/ZH_lines_Temperature.png)
+![LUT Temperature](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/ZH_lines_Temperature.png)
 *Figure (4): The 1D cantera solutions for the counterflow flames, using a variation in inlet temperature.*
 
 We then store the 1D solutions as a 2D field with mixture fraction and enthalpy as the independent variables. The result for temperature and heat release rate is shown below:
 
-![LUT field](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/ZH_fields.png)
+![LUT field](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/ZH_fields.png)
 *Figure (5): A 2D surface representation of the FGM, showing the temperature and the heat release rate as function of mixture fraction and enthalpy. Note that our enthalpy range is not very large. We can represent constant strain flames with different inlet temperatures, but for simulations with large heat losses the table has to be extended to lower enthalpies.*
 
 Note that the mixture fraction equation is a diffusion equation and does not contain any source terms, unlike the progress variable equation for premixed flames.
@@ -149,42 +149,42 @@ $ mpirun -n <#cores> SU2_CFD lam_nonprem_ch4.cfg
 
 After 800 iterations, the simulation has converged. The convergence plot normalized with the first value of the residual looks like this: 
 
-![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_convergence.png)
+![convergence_plot](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_convergence.png)
 *Figure (6): Residual plot showing convergence of the counterflow diffusion flame.*
 
 The residuals for pressure and velocity have dropped by 6 orders of magnitude, which is sufficient for this testcase.
 
 A contour plot of the temperature field in the domain is shown below. Note that only 1/3 of the right vertical edge is an outlet. The smaller outlet will force the flow to accelerate close to the outlet. This prevents backflow, which deteriorates convergence. 
 
-![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_flame_temperature_streamlines.png)
+![convergence_plot](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_diffusion_flame_temperature_streamlines.png)
 *Figure (7): Result visualized using paraview. Shown is the temperature field and the streamlines colored by mixture fraction.*
 
 In the figure we have also indicated the isocontours of mixture fraction for values Z=0.4 (blue), Z=0.5 (dark purple) and Z=0.6 (red), showing that the maximum temperature occurs at $Z<0.4$. The flame looks very diffusive close to the outlet because of the blockage in the corners. Here, a low velocity recirculation zone in the top and bottom corner is mixing the fuel and air, causing the diffusive behavior. 
 
 A figure of the temperature on the symmetry axis is shown below, together with measured results from Sung et al. (1995). These results are also mentioned in the book of C.K. Law, *Combustion Physics*.
-![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_temperature.png)
+![convergence_plot](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_temperature.png)
 *Figure (8): Temperature as function of distance (from the fuel inlet) on the symmetry axis.*
 
 We see that the temperature profile is predicted quite accurately, for the first order as well as for the second order MUSCL scheme. 
 
 The methane mole fraction at the fuel inlet was 23%, which can be clearly seen in the figure for mole fraction of $CH_4$ below.
-![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_CH4.png)
+![convergence_plot](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_CH4.png)
 *Figure (9): Methane mole fraction as function of distance (from the fuel inlet) on the symmetry axis.*
 
 A first sanity check is always to to check that inlet mass fraction or mole fractions are correct. The consumption of $CH_4$ in the flame is also predicted correctly
 
 The $CO_2$ mole fraction is zero at both inlets and rises in the reaction zone.
-![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_CO2.png)
+![convergence_plot](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_CO2.png)
 *Figure (10): Mole fraction of CO2 as function of distance (from the fuel inlet) on the symmetry axis.*
 
 As for $CH_4$, the $CO_2$ mole fraction in the flame zone is correctly predicted, the maximum value as well as the slope is matching with the experiment.
 
 The lookup value for CO is much lower than the experimentally measured value. CO as well as NO are very slow reactions, and are not accurately predicted by flamelet approaches. To get more accurate results for CO or NO, a separate transport equation should be solved for them. Instead of the value for CO, we look up the source term for the transport equation for CO. 
-![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_CO.png)
+![convergence_plot](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_CO.png)
 *Figure (11): Mole fraction of CO as function of distance (from the fuel inlet) on the symmetry axis.*
 
 The temperature can also be plotted as function of the mixture fraction, leading to the 1D flamelet result shown below.
-![convergence_plot](../../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_Z_T.png)
+![convergence_plot](../../tutorials_files/incompressible_flow/Inc_Laminar_Diffusion_Flame/counterflow_S56_Z_T.png)
 *Figure (12): Temperature as function of mixture fraction, using the values taken at the symmetry axis.*
 
 This shows the typical Burke-Schumann- like behavior where the diffusion flame can be described by a pre-flame and a post-flame zone with almost linear slope for temperature.

@@ -27,7 +27,7 @@ The intent of this tutorial is to demonstrate the pressure-correction solver (PI
 
 ## Resources
 
-The resources for this tutorial can be found in the [Inc_Lid_Driven_Cavity](incompressible_flow/https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Lid_Driven_Cavity) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([incomp_pb_liddrivencavity.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Lid_Driven_Cavity/incomp_pb_liddrivencavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Lid_Driven_Cavity/mesh_cavity_257x257.su2)).
+The resources for this tutorial can be found in the [Inc_Lid_Driven_Cavity](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Lid_Driven_Cavity) directory in the [tutorial repository](https://github.com/su2code/Tutorials). You will need the configuration file ([incomp_pb_liddrivencavity.cfg](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Lid_Driven_Cavity/incomp_pb_liddrivencavity.cfg)) and the mesh file ([mesh_cavity_257x257.su2](https://github.com/su2code/Tutorials/tree/master/incompressible_flow/Inc_Lid_Driven_Cavity/mesh_cavity_257x257.su2)).
 
 
 ## Tutorial
@@ -104,7 +104,6 @@ For a regular PISO algorithm, the pressure and momentum underrelaxation is commo
 KIND_PB_ITER= SIMPLE
 PISO_CORRECTIONS = 2
 RELAXATION_FACTOR_PRESSURE= 1.0
-RELAXATION_FACTOR_MOMENTUM= 1.0
 TRANSIENT_TERM_REMOVAL_FACTOR= 0.0
 ```
 
