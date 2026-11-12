@@ -14,4 +14,4 @@ The build directory must be separate from both source trees. The build runs the 
 SU2_SOURCE=/path/to/SU2 python3 -m unittest discover -s developer-docs/tools
 ```
 
-Edit the guides in `developer-docs/pages`; generated pages are built from SU2 and should not be edited directly. The documentation checks workflow builds a preview with SU2 develop and records the revisions used. External links and numerical convergence are not checked.
+Edit the guides in `developer-docs/pages`; generated pages are built from SU2 and should not be edited directly. The documentation checks workflow builds a preview with the SU2 documentation branch and records the revisions used; switch it to SU2 develop after the source corrections in SU2 PR #2992 merge. External links and numerical convergence are not checked.

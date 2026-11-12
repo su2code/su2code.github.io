@@ -9,7 +9,7 @@ on:
     inputs:
       su2_ref:
         description: SU2 commit SHA or branch
-        default: develop
+        default: docs/developer-guides
 
 permissions:
   contents: read
@@ -32,8 +32,8 @@ jobs:
       - name: Checkout SU2 source
         uses: actions/checkout@v4
         with:
-          repository: su2code/SU2
-          ref: ${{ inputs.su2_ref || 'develop' }}
+          repository: rois1995/SU2
+          ref: ${{ inputs.su2_ref || 'docs/developer-guides' }}
           path: su2
           fetch-depth: 0
           filter: blob:none
@@ -57,7 +57,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
       - name: Build and check website
         env:
-          GITHUB_REPOSITORY: su2code/SU2
+          GITHUB_REPOSITORY: rois1995/SU2
           BUNDLE_PATH: ${{ github.workspace }}/site/vendor/bundle
         run: python3 site/developer-docs/tools/build_docs.py --su2 su2 --site site --build-dir "$RUNNER_TEMP/docs-site" --baseurl /SU2 --mark-changes
       - name: Upload checked preview
