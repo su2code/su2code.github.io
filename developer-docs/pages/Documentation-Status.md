@@ -5,7 +5,7 @@ permalink: /docs_v7/Documentation-Status/
 
 This page tracks the documentation overhaul: what has been implemented, what still needs review, and the next work to undertake. Update it when a batch of work is completed, with links to its changes and checks.
 
-**Status date: 26 October 2026.** This work is implemented on the `docs_site` branches of [rois1995/SU2](https://github.com/rois1995/SU2/tree/docs_site) and [rois1995/su2code.github.io](https://github.com/rois1995/su2code.github.io/tree/docs_site). It is a development preview; adoption by the official repositories remains a separate review.
+**Status date: 12 November 2026.** The [combined preview](https://rois1995.github.io/SU2/) builds from the SU2 `docs/developer-guides` branch and the website `docs/developer-guides-site` branch. Developer guides and generation tools are proposed in [website PR #232](https://github.com/su2code/su2code.github.io/pull/232); configuration and flamelet-note corrections remain in [SU2 PR #2992](https://github.com/su2code/SU2/pull/2992). Both PRs are open. Merge SU2 #2992 first, then switch website CI to upstream SU2 `develop` and verify it before merging website #232.
 
 For the current build, see [Docs Check](../Docs-Check/), the [source and tool manifest]({{ '/build-info.json' | relative_url }}) and the [automated check results]({{ '/docs-check.json' | relative_url }}). Those reports complement this maintained account of the work; a successful build does not establish the scientific accuracy of every explanation or recommendation.
 
@@ -37,7 +37,7 @@ For the current build, see [Docs Check](../Docs-Check/), the [source and tool ma
 | Website maintenance | Implemented | Feed and sitemap generation were restored by consolidating the plugin configuration. Added/modified menu sections, entries and page titles remain red in the fork preview. |
 | Automated checks | Implemented | Generator regression tests, local files/anchors, documented option names, enum keywords in configuration blocks, descriptions for new options and search coverage are checked during builds. Existing findings are recorded separately from new failures. |
 | Local and online builds | Implemented | One build command stages both sources, generates references, builds Doxygen/Jekyll and checks the assembled site. Ruby and gem versions are fixed; each artifact records both source revisions, build flags and actual tool versions. |
-| Review and publishing | Implemented on the forks | Both repositories have push and pull-request checks. Pull requests produce previews without deploying. Successful SU2 branch builds publish to the fork's Pages site; website-only changes are checked separately and can be published by selecting their commit SHA in the SU2 workflow. |
+| Review and publishing | Implemented on the forks | The website repository runs documentation checks for pull requests. The fork preview workflow builds the combined site from the SU2 and website PR branches and publishes it to the fork's Pages site. Website PR checks also build a preview artifact without deploying. |
 
 ## Corrections from the content and code review
 
@@ -93,7 +93,7 @@ The same follow-up repaired all 180 recorded link findings: image/media paths, t
 
 ## What is still missing
 
-The current [accepted-findings list](https://github.com/su2code/su2code.github.io/blob/develop/developer-docs/tools/check-baseline.json) retains 24 missing source descriptions. The link, template-name and enum baselines are empty after the follow-up above. Historical build counts earlier on this page remain dated evidence; use the generated reports for current counts.
+The current [accepted-findings list](https://github.com/rois1995/su2code.github.io/blob/docs/developer-guides-site/developer-docs/tools/check-baseline.json) retains 24 missing source descriptions. The link, template-name and enum baselines are empty after the follow-up above. Historical build counts earlier on this page remain dated evidence; use the generated reports for current counts.
 
 | Priority | Remaining work | What completion requires |
 | --- | --- | --- |
@@ -104,7 +104,7 @@ The current [accepted-findings list](https://github.com/su2code/su2code.github.i
 | Then | Strengthen extraction and build checks when a new mismatch is demonstrated. | Add a focused reproducing test and fix its cause. Solver-specific configuration compatibility still needs appropriate SU2 checks; a general parser or framework rewrite is not an agreed requirement. |
 | Then | Decide whether the remaining build tools need tighter version control. | Demonstrate that an unpinned tool causes a relevant difference, then document or pin it. Continue recording actual versions and both source SHAs. |
 | Separate work | Verify and fix underlying solver defects noted during documentation review. | Reproduce the behavior, add an appropriate failing check, fix the implementation and update the affected documentation. A documentation caveat alone is not a solver repair. |
-| Separate review | Propose the improvements to the official repositories. | Submit focused, reviewable changes with evidence and coordinated source/website revisions. Fork deployment does not establish upstream approval. |
+| In review | Complete upstream review and coordinate the two PRs. | Merge SU2 #2992 first; switch website #232 to upstream SU2 `develop` and verify its checks before merging. Fork deployment does not establish upstream approval. |
 
 ## How to go further
 
@@ -127,7 +127,8 @@ These are proposed next priorities. The page records completed work; it does not
 | 22 October 2026 | Repaired all 180 historical link findings, eight template names and the obsolete structural output keyword; reviewed nine setup guides and four model pages; added a hyphenated-enum regression check. | Review scope and primary references above; current build manifest and check results identify this batch. Eleven tooling tests; CFD validation remains pending. |
 | 23 October 2026 | Added the V&V case "NACA 0021 Beyond Stall: Hybrid RANS/LES" (SA and SST DDES/EDDES against experiment and published DES). Described the SST DES variants and the new `SA_EDDES` cell size of SU2 PR #2150 on the hybrid RANS/LES, turbulence model and unsteady setup pages. | Website `7279f4d`. Page content checked against PR #2150 at `e9e85686ad`. The V&V data come from local runs. Website commits through `c71d420` add mesh/flow figures, equal 520 c/U sample windows and the reference averaging times. |
 | 26 October 2026 | Reviewed the NACA 0021 case for PR preparation: corrected convergence monitoring, restored the physical-time limit, excluded the transient from output averages, clarified SA/SST free-stream inputs, provided steady-restart instructions and unrounded result values, and qualified the statistical interpretation. | The mesh exists locally; its public repository/location will be agreed with reviewers before a separate data PR. Table values match the archived 520 c/U summary; SU2 preprocessing passed for all four hybrid configurations and the steady-start conversion. No new CFD time steps were run. |
-| 26 October 2026 | Corrected generated references: ignore C++ comments and quoted examples, keep commas and parentheses inside strings, handle member calls in argument lists, and show string default values instead of constructor expressions. Fixed the renamed-option regex and made intentional text joins explicit. | [SU2 PR #2992](https://github.com/su2code/SU2/pull/2992). Eighteen tooling tests include reproductions of the extraction and regex failures. All 770 current option registrations retain their argument lists; source error messages and output descriptions are checked against the implementation. Current build results are recorded in the manifest and check report. |
+| 26 October 2026 | Corrected generated references: ignore C++ comments and quoted examples, keep commas and parentheses inside strings, handle member calls in argument lists, and show string default values instead of constructor expressions. Fixed the renamed-option regex and made intentional text joins explicit. | Originally prepared in [SU2 PR #2992](https://github.com/su2code/SU2/pull/2992); the generator now belongs to [website PR #232](https://github.com/su2code/su2code.github.io/pull/232). Eighteen tooling tests include reproductions of the extraction and regex failures. All 770 current option registrations retain their argument lists; source error messages and output descriptions are checked against the implementation. Current build results are recorded in the manifest and check report. |
+| 12 November 2026 | Moved the developer guides and generator to website PR #232; retained the source corrections in SU2 PR #2992. Updated the fork preview workflow to build both PR branches. | [Website checks](https://github.com/su2code/su2code.github.io/actions/runs/43191313575) and [combined preview build and deployment](https://github.com/rois1995/SU2/actions/runs/43191850816) passed. This checks the documentation build, not scientific validity. |
 
 ## Keeping this page current
 
@@ -138,8 +139,8 @@ For each completed batch:
 1. Update the status date and the relevant implemented/backlog row. State what remains unreviewed or unsupported.
 2. Add a dated history entry with source and website commit or pull-request links, the checks performed, and any numerical evidence actually obtained.
 3. Remove resolved historical findings individually. Keep current generated counts in the generated reports; label any numbers quoted here with their milestone and date.
-4. Run the shared documentation build and the relevant checks. Use **Docs Website** with the reviewed website commit SHA when publishing website-only changes.
+4. Run the shared documentation build and the relevant checks. Use the fork **Docs Website** workflow with the reviewed website commit SHA when publishing website changes.
 
-See [Contribute](../contribute/) for page ownership and editing steps. Build commands and contributor details are in [developer-docs/README.md](https://github.com/su2code/su2code.github.io/blob/develop/developer-docs/README.md).
+See [Contribute](../contribute/) for page ownership and editing steps. Build commands and contributor details are in [developer-docs/README.md](https://github.com/rois1995/su2code.github.io/blob/docs/developer-guides-site/developer-docs/README.md).
 
-Maintained against the two `docs_site` branches. Current source revisions and check totals are recorded in this build’s manifest and check report.
+The preview currently follows the two PR branches. Current source revisions and check totals are recorded in this build’s manifest and check report.
