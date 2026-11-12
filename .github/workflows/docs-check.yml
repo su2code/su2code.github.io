@@ -29,7 +29,7 @@ jobs:
           fetch-depth: 0
           filter: blob:none
           persist-credentials: false
-      - name: Checkout SU2 documentation tools
+      - name: Checkout SU2 source
         uses: actions/checkout@v4
         with:
           repository: rois1995/SU2
@@ -59,7 +59,7 @@ jobs:
         env:
           GITHUB_REPOSITORY: rois1995/SU2
           BUNDLE_PATH: ${{ github.workspace }}/site/vendor/bundle
-        run: python3 su2/Docs/website/tools/build_docs.py --su2 su2 --site site --build-dir "$RUNNER_TEMP/docs-site" --baseurl /SU2 --mark-changes
+        run: python3 site/developer-docs/tools/build_docs.py --su2 su2 --site site --build-dir "$RUNNER_TEMP/docs-site" --baseurl /SU2 --mark-changes
       - name: Upload checked preview
         uses: actions/upload-artifact@v4
         with:
