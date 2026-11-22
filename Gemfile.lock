@@ -40,11 +40,12 @@ GEM
     eventmachine (1.2.7)
     execjs (2.10.2)
       json (>= 2)
-    faraday (2.8.1)
-      base64
-      faraday-net_http (>= 2.0, < 3.1)
-      ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.2)
+    faraday (2.14.3)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.4)
+      net-http (~> 0.5)
     ffi (1.17.4)
     forwardable-extended (2.6.0)
     gemoji (4.1.0)
@@ -233,6 +234,11 @@ GEM
       jekyll-seo-tag (~> 2.1)
     minitest (5.26.1)
     mutex_m (0.3.0)
+    net-http (0.10.0)
+      net-protocol (>= 0.3.0)
+      uri (>= 0.11.1)
+    net-protocol (0.4.0)
+      timeout
     nokogiri (1.15.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -248,7 +254,6 @@ GEM
       ffi (~> 1.0)
     rexml (3.4.4)
     rouge (3.30.0)
-    ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     safe_yaml (1.0.5)
     sass (3.7.4)
@@ -263,11 +268,13 @@ GEM
     simpleidn (0.2.3)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    timeout (0.6.1)
     typhoeus (1.6.0)
       ethon (>= 0.18.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.8.0)
+    uri (1.1.2)
     webrick (1.9.2)
 
 PLATFORMS
