@@ -302,6 +302,16 @@ MARKER_OUTLET = (outlet, 1e1)
 | --- | --- |
 | `NAVIER_STOKES`, `RANS`, `INC_NAVIER_STOKES`, `INC_RANS`, `FEM_NAVIER_STOKES` | 7.0.0 |
 
+A pair of periodic markers is defined with `MARKER_PERIODIC`. Each pair is given as the periodic marker, the donor marker, the rotation center, the rotation angles in degrees about the x, y and z axes, and the translation. The rotation and translation map the first marker onto the second. Several pairs can be listed in one option.
+
+```
+MARKER_PERIODIC= ( periodic_1, periodic_2, 0.0, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0 )
+```
+
+The example is a 5 degree wedge around the x axis. Vector quantities (velocity, momentum) are rotated between the two sides.
+
+**Implicit time integration**: a point on a periodic marker and its image on the other marker form one control volume. The point on the second marker of the pair (the master) carries the unknowns of the linear system; its image on the first marker is passive and receives the master's solution after each linear solve. The diagonal Jacobian blocks of the two points are always combined. The off-diagonal blocks of the passive point are also moved to its master (rotated) when the master is on the same MPI rank, the point lies on only one periodic marker, and every moved block exists in the sparsity pattern of the master. This is the case on meshes that are one cell thick in the periodic direction, such as axisymmetric wedges, where the Newton method then converges at high CFL numbers. On these meshes the edge between a point and its own periodic image is also left out of the local time step. On thicker meshes the off-diagonal blocks of passive points are not coupled.
+
 ## Structural Boundary Conditions ##
 
 ### Clamped Boundary ###
