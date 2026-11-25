@@ -8,12 +8,12 @@ permalink: /docs/FAQ/
 If the answer to your question is not here, try the [forum](http://cfd-online.com/Forums/su2/).
 
 ### I am new to CFD and I don't know where to start. Can you help me?
-The best place to start for a new user after installing the code is the [Quick Start](/docs/Quick-Start/) tutorial. 
+The best place to start for a new user after installing the code is the [Quick Start](https://su2code.github.io/docs_v7/Quick-Start/) tutorial.
 
 ### Where is the documentation?
-The most easy-to-use documentation is the github wiki, and you just found it! Try starting with the [[Quick Start]].
-For more detail on what configuration options are available and their syntax, see the file config_template.cfg in the SU2 root directory: https://github.com/su2code/SU2/blob/master/config_template.cfg
-Further documentation is available in the su2code/Documentation repository.
+The SU2 documentation is hosted at [su2code.github.io](https://su2code.github.io/docs_v7/home/). 
+Try starting with the [Quick Start](https://su2code.github.io/docs_v7/Quick-Start/) tutorial.
+For more detail on what configuration options are available and their syntax, see the file `config_template.cfg` in the SU2 root directory: https://github.com/su2code/SU2/blob/master/config_template.cfg
 
 ### My simulation diverges. What should I do?
 Adjust the configuration file options, or improve mesh quality. Refer to the forum, tutorials, and TestCases for more specific examples. The most common option to change is to lower the CFL number, usually to something around 1.0. 
@@ -56,4 +56,4 @@ When running in serial (or a parallel version on one MPI rank), SU2_CFD will wri
 A nonphysical point means the solution has encountered a negative density. If the warnings stop after a few iterations it's ok. If the warnings continue, the solution is likely diverging and you may need to adjust the config file options. 
 
 ### Where can I get the suite of test cases for SU2?
-The test case config files are found in the SU2 code repo, while the meshes are located in a separate repository under the SU2 organization. We recommend copying the meshes into place within the SU2 source directory where the config files reside (under version control). See [this page](/docs/Test-Cases/) for directions.
+The test case config files are found in the SU2 code repo, while the meshes are located in a separate repository under the SU2 organization. We recommend copying the meshes into place within the SU2 source directory where the config files reside (under version control).See [this page](https://su2code.github.io/docs_v7/Test-Cases/) for directions.
