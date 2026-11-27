@@ -132,7 +132,7 @@ The restart file `restart_flow.dat` has the same fields as separate columns (`Ad
 The metric eigenvalues are $$1/h^2$$, so the metric is largest where the mesh should be finest and spans many orders of magnitude. Two derived quantities are easier to read:
 
 - the **requested vertex density** $$\sqrt{\det \mathcal{M}} = 1/(h_1 h_2)$$, whose integral over the domain is the complexity;
-- the **requested cells**, drawn as ellipses whose axes are the eigenvectors of the metric and whose diameters are the requested sizes $$h_i$$.
+- the **requested cell sizes**, drawn as ellipses whose axes are the eigenvectors of the metric and whose diameters are the requested sizes $$h_i$$.
 
 The steps below were checked with ParaView 6.0. Open `flow.vtu`, click **Apply**, switch the view to 2D (the **2D/3D** button at the top left of the render view) and zoom to the airfoil.
 
@@ -168,7 +168,7 @@ Setting `SCALE = 1` in the script draws the unit ball of the metric instead, who
 
 ![Size tensor glyphs at the shock](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Builtin_Sensors/images/size_glyphs_shock.png)
 
-Figure (4): Requested cells of the pressure metric at the upper-surface shock.
+Figure (4): requested cell sizes of the pressure metric at the upper-surface shock.
 
 At the upper-surface shock, the ellipses are thin across the shock and long along it: the metric asks for small cells only in the direction in which the pressure jumps. Near the wall, they are stretched along the surface, and far from the airfoil they are nearly round. Near the weaker shock on the lower surface, the ellipses are less regular. There, the shock is spread over a few cells of the initial mesh, and the recovered Hessian is noisy; converging the flow solution further does not change this. The metric of a coarse initial mesh is only the first step of an adaptation, and it becomes more regular as the mesh is adapted.
 
