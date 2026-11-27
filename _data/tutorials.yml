@@ -65,6 +65,11 @@
   - Species_Transport
   - Inc_Turbulent_Bend_Opt
 
+- title: Mesh Adaptation
+  tutorials:
+  - Adaptive_Metric_Builtin_Sensors
+  - Adaptive_Metric_Custom_Sensor
+
 - title: Workflow Setup
   tutorials:
   - paraview_live

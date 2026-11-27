@@ -132,3 +132,10 @@ Shape optimization of an 2D airfoil in unsteady flow conditions.
 Optimization of internal, turbulent, incompressible flow through a mixing channel.
 * [Optimizing pressure drop of a pipe bend](/tutorials/Inc_Turbulent_Bend_Opt/)    
 Optimization of the pressure drop (also known as head loss), of a pipe bend. 
+
+#### Mesh Adaptation
+
+* [Adaptive Metric with Built-In Sensors](/tutorials/Adaptive_Metric_Builtin_Sensors/)    
+Compute the adaptive metric of a transonic inviscid airfoil for anisotropic mesh adaptation, and visualize the requested cell sizes in ParaView.
+* [Adaptive Metric with a Custom Sensor](/tutorials/Adaptive_Metric_Custom_Sensor/)    
+Define a sensor in Python with the Python wrapper and compute its adaptive metric for a turbulent airfoil.
