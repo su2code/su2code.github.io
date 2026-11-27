@@ -2,7 +2,7 @@
 title: Adaptive Metric with Built-In Sensors
 permalink: /tutorials/Adaptive_Metric_Builtin_Sensors/
 written_by: bmunguia
-for_version: develop
+for_version: 8.6.0
 solver: Euler
 requires: SU2_CFD, ParaView
 complexity: basic

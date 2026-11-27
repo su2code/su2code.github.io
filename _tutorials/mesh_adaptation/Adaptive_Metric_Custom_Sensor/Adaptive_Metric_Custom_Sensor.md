@@ -2,7 +2,7 @@
 title: Adaptive Metric with a Custom Sensor
 permalink: /tutorials/Adaptive_Metric_Custom_Sensor/
 written_by: bmunguia
-for_version: develop
+for_version: 8.6.0
 solver: RANS
 requires: SU2_CFD, Python wrapper, mpi4py, ParaView
 complexity: intermediate
