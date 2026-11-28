@@ -87,10 +87,9 @@ The global term now involves all sub-intervals, so the metric of any sub-interva
 
 ## Implementation in SU2
 
-- **Sensors and options.** Each sensor in `ADAPTIVE_METRIC_SENSOR` gets its own metric. The target complexity $$\mathcal{N}$$ is `ADAPTIVE_METRIC_COMPLEXITY`, the norm $$p$$ is `ADAPTIVE_METRIC_NORM`, and $$T$$ is `ADAP_TIME_SUBINTERVAL`. The integral $$G$$ is computed as a sum over the vertices, weighted by the volumes $$\lvert \Omega_i \rvert$$ of their dual control volumes, and is printed for each sensor.
-- **Eigenvalue floor.** SU2 uses $$\epsilon = 10^{-20}$$. It applies the floor only when it integrates and normalizes the metric, and never stores the floored eigenvalues.
-- **Size and aspect ratio limits.** After the normalization, SU2 clips the eigenvalues of each metric to $$[1/h_{max}^2, 1/h_{min}^2]$$, then raises the smallest ones to at least $$\lambda_{max}/AR_{max}^2$$, with $$h_{min}$$, $$h_{max}$$ and $$AR_{max}$$ set by `ADAPTIVE_METRIC_HMIN`, `ADAPTIVE_METRIC_HMAX` and `ADAPTIVE_METRIC_ARMAX`. The limits change the complexity of the metric where they are active.
-- **Unsteady flows.** SU2 accumulates the Hessian-metric of one sub-interval during the run, using the time step that the solver actually takes, and normalizes it when the run stops. Since G needs every sub-interval, a run with several sub-intervals uses `NORMALIZE_ADAPTIVE_METRIC= NO`, and the metrics are normalized outside of SU2 with the integrals printed by each run.
+- **Sensors and options.** Each sensor in `ADAPTIVE_METRIC_SENSOR` gets its own metric. The target complexity $$\mathcal{N}$$ is `ADAPTIVE_METRIC_COMPLEXITY`, the norm $$p$$ is `ADAPTIVE_METRIC_NORM`, and $$T$$ is `ADAP_TIME_SUBINTERVAL` (currently always 1 in SU2). The integral $$G$$ is computed as a sum over the vertices, weighted by the volumes $$\lvert \Omega_i \rvert$$ of their dual control volumes, and is printed for each sensor.
+- **Size and aspect ratio limits.** After the normalization, SU2 clips the eigenvalues of each metric to $$[1/h_{max}^2, 1/h_{min}^2]$$, then raises the smallest ones to at least $$\lambda_{max}/AR_{max}^2$$, with $$h_{min}$$, $$h_{max}$$ and $$AR_{max}$$ set by `ADAPTIVE_METRIC_HMIN`, `ADAPTIVE_METRIC_HMAX` and `ADAPTIVE_METRIC_ARMAX`.
+- **Unsteady flows.** SU2 accumulates the Hessian-metric over the whole run, as a single sub-interval, and normalizes it when the run stops.
 
 ## References
 

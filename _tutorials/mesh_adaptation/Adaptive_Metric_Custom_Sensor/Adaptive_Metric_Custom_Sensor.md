@@ -9,9 +9,9 @@ complexity: intermediate
 follows: Adaptive_Metric_Builtin_Sensors
 ---
 
-![Size tensor glyphs of the total pressure metric](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/size_glyphs_total_pressure.png)
+![Total pressure sensor](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/sensor_total_pressure.png)
 
-Figure (1): Cell sizes and stretching requested by the total pressure metric around the NACA0012, drawn as ellipses colored by the Mach number over the initial mesh.
+Figure (1): Total pressure around the NACA0012, computed in Python and used as a custom sensor (`Sensor_Total_pressure`).
 
 ## Goals
 
@@ -167,25 +167,31 @@ The volume file `flow.vtu` contains `Sensor_Total_pressure`, `Gradient_Total_pre
 
 Follow the [ParaView steps of the built-in sensor tutorial](/tutorials/Adaptive_Metric_Builtin_Sensors/#visualizing-the-metric-in-paraview), with `AdaptiveMetric_Total_pressure` or `AdaptiveMetric_Mach` in the Calculator expression for the vertex density, and `SENSOR = "Total_pressure"` in `size_ellipses_2d.py` for the ellipses.
 
-![Total pressure sensor](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/sensor_total_pressure.png)
-
-Figure (2): Total pressure computed in Python (`Sensor_Total_pressure`).
+#### Requested vertex density
 
 ![Vertex density of the total pressure metric](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/metric_density_total_pressure.png)
 
-Figure (3): Requested vertex density of the total pressure metric (log scale).
+Figure (2): Requested vertex density of the total pressure metric (log scale).
 
 ![Vertex density of the Mach metric](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/metric_density_mach.png)
 
-Figure (4): Requested vertex density of the Mach metric of the same run (log scale, same range as Figure 3).
+Figure (3): Requested vertex density of the Mach metric of the same run (log scale, same range as Figure 2).
 
-![Size tensor glyphs of the Mach metric](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/size_glyphs_mach.png)
+#### Requested cell sizes and stretching
 
-Figure (5): Cell sizes and stretching requested by the Mach metric of the same run, in the same view as Figure 1.
+![Ellipses of the total pressure metric](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/size_glyphs_total_pressure.png)
 
-The total pressure is constant outside of the boundary layers and the wake (Figure 2), so the total pressure metric requests the highest vertex density along the wall, especially near the leading edge, and in the wake (Figure 3). There, the ellipses are strongly stretched along the flow (Figure 1). Away from the airfoil, the total pressure is nearly constant, so its recovered Hessian is small and noisy: the requested density is low but irregular, and the ellipses are large and randomly oriented.
+Figure (4): Cell sizes and stretching requested by the total pressure metric, drawn as ellipses colored by the Mach number over the initial mesh.
 
-The Mach metric (Figures 4 and 5) also refines the wall and the wake, with ellipses stretched along the flow, but in addition the shock on the upper surface and, more weakly, the flow below the airfoil. Upstream and around the leading edge, its ellipses are small and regular, and only the far wake is noisy. This is why the Mach number is the usual choice for RANS, while a custom sensor such as the total pressure can target a specific feature, here the viscous losses.
+![Ellipses of the Mach metric](../../tutorials_files/mesh_adaptation/Adaptive_Metric_Custom_Sensor/images/size_glyphs_mach.png)
+
+Figure (5): Cell sizes and stretching requested by the Mach metric of the same run, in the same view as Figure 4.
+
+#### Comparison
+
+The total pressure is constant outside of the boundary layers and the wake (Figure 1), so the total pressure metric requests the highest vertex density along the wall, especially near the leading edge, and in the wake (Figure 2). There, the ellipses are strongly stretched along the flow (Figure 4). Away from the airfoil, the total pressure is nearly constant, so its recovered Hessian is small and noisy: the requested density is low but irregular, and the ellipses are large and randomly oriented.
+
+The Mach metric (Figures 3 and 5) also refines the wall and the wake, with ellipses stretched along the flow, but in addition the shock on the upper surface and, more weakly, the flow below the airfoil. Upstream and around the leading edge, its ellipses are small and regular, and only the far wake is noisy. This is why the Mach number is the usual choice for RANS, while a custom sensor such as the total pressure can target a specific feature, here the viscous losses.
 
 ### Things to Try
 

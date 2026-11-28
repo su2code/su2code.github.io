@@ -107,7 +107,7 @@ Resolving adaptive metric sensor indices.
 Successfully resolved 2 adaptive metric sensors.
 ```
 
-The flow solver runs until the density residual has dropped by three orders of magnitude. SU2 then computes the Hessians and the metrics, and prints the normalization integral of each sensor:
+The flow solver runs until the density residual has dropped by six orders of magnitude. SU2 then computes the Hessians and the metrics, and prints the normalization integral of each sensor:
 
 ```
 ------------------------ Compute Adaptive Metric ------------------------
@@ -125,7 +125,7 @@ The volume file `flow.vtu` contains:
 - `Hessian_Pressure` and `Hessian_Mach`, the Green-Gauss Hessians (symmetric tensors);
 - `AdaptiveMetric_Pressure` and `AdaptiveMetric_Mach`, the metrics (symmetric tensors).
 
-The restart file `restart_flow.dat` has the same fields as separate columns (`AdaptiveMetric_Pressure_xx`, `_xy`, `_yy`, ...), which is the form a remeshing script would read.
+Since the configuration sets `WRT_RESTART_COMPACT= NO`, the restart file `restart_flow.dat` also contains these fields, one column per component (`AdaptiveMetric_Pressure_xx`, `_xy`, `_yy`, ...).
 
 ### Visualizing the Metric in ParaView
 
@@ -152,7 +152,7 @@ Figure (2): Requested vertex density of the pressure metric (log scale).
 
 Figure (3): Requested vertex density of the Mach metric (log scale, same range as Figure 2).
 
-Both metrics request the highest vertex density at the leading and trailing edges, and a higher density in a band across the upper-surface shock and around the weaker shock on the lower surface. The density increases only moderately at the shocks, since the metric refines them anisotropically: it asks for small cells across the shock only. The Mach metric also refines the region above the upper surface and the wake behind the trailing edge more than the pressure metric.
+Both metrics request the highest vertex density at the leading and trailing edges, as well as across the upper- and lower-surface shocks.
 
 #### Requested cell sizes and stretching
 
@@ -170,14 +170,6 @@ Setting `SCALE = 1` in the script draws the unit ball of the metric instead, who
 
 Figure (4): requested cell sizes of the pressure metric at the upper-surface shock.
 
-At the upper-surface shock, the ellipses are thin across the shock and long along it: the metric asks for small cells only in the direction in which the pressure jumps. Near the wall, they are stretched along the surface, and far from the airfoil they are nearly round. Near the weaker shock on the lower surface, the ellipses are less regular. There, the shock is spread over a few cells of the initial mesh, and the recovered Hessian is noisy; converging the flow solution further does not change this. The metric of a coarse initial mesh is only the first step of an adaptation, and it becomes more regular as the mesh is adapted.
-
-### Things to Try
-
-- Change `ADAPTIVE_METRIC_NORM`. A larger norm concentrates the vertices more at the shocks, a smaller one spreads them more evenly.
-- Change `ADAPTIVE_METRIC_COMPLEXITY`. The requested sizes scale as $$\mathcal{N}^{-1/2}$$ in 2D; the shape of the metric does not change.
-- Set `ADAPTIVE_METRIC_ARMAX= 10.0` (uncomment it in the configuration). Without it, the requested aspect ratio is below 10 at 99% of the vertices, but reaches about 130 at the shocks, so the limit mainly shortens the ellipses there.
-- Set limits per sensor, for example `ADAPTIVE_METRIC_HMIN= ( 1.0e-4, 1.0e-3 )` for the pressure and Mach metrics.
-- Set `NORMALIZE_ADAPTIVE_METRIC= NO` to write the absolute value of the Hessians instead of the normalized metrics.
+At the upper-surface shock, the ellipses are thin across the shock and long along it: the metric requests small element sizes only in the direction of the pressure jump. Far from the airfoil, the requested sizes are large and nearly isotropic.
 
 To compute the metric of a sensor that is not built in, see [Adaptive Metric with a Custom Sensor](/tutorials/Adaptive_Metric_Custom_Sensor/).

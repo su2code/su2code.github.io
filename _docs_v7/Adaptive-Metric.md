@@ -22,12 +22,12 @@ This page explains how to compute the adaptive metric for anisotropic mesh adapt
 
 ## Limitations
 
-- SU2 computes the metric field only. Generating the adapted mesh (remeshing) and the adaptation loop are not part of SU2 yet.
+- SU2 computes the metric field only. Generating the adapted mesh (remeshing) and the adaptation loop are not yet supported.
 - The metric is available for single-zone flow problems only. SU2 stops with an error for periodic boundaries, multizone problems, harmonic balance and the discrete adjoint.
 - Only the Green-Gauss Hessian is available (`NUM_METHOD_HESS= GREEN_GAUSS`).
 - Each sensor gets its own metric; metric intersection (to combine several sensors) and size gradation are not available.
 - Only feature-based metrics are available; goal-oriented (adjoint-based) metrics are not, and the `GOAL` sensor is rejected.
-- An unsteady run computes the metric of one time sub-interval. Several sub-intervals need a sequence of runs, with the solution interpolated between the meshes and the metrics normalized outside of SU2.
+- For unsteady flows, SU2 computes a single metric over the entire time series; adaptation over several time sub-intervals is not yet supported.
 
 ## Workflow
 
@@ -65,8 +65,6 @@ The options are listed in the [Option Reference](../Option-Reference-adaptation-
 | `ADAPTIVE_METRIC_HMIN` | Minimum cell size, one value or one per sensor. | `1e-8` |
 | `ADAPTIVE_METRIC_HMAX` | Maximum cell size, one value or one per sensor. | `100` |
 | `ADAPTIVE_METRIC_ARMAX` | Maximum cell aspect ratio, one value or one per sensor. | `1e6` |
-| `NUM_METHOD_HESS` | Hessian method; only `GREEN_GAUSS` is available. | `GREEN_GAUSS` |
-| `ADAP_TIME_SUBINTERVAL` | Number of time sub-intervals T of an unsteady adaptation; the normalization uses the complexity T × N. A run computes the metric of one sub-interval, see [Steady and Unsteady Flows](#steady-and-unsteady-flows). | `1` |
 
 The sizes are in mesh units. `ADAPTIVE_METRIC_HGRAD`, `ADAP_ITER` and `ADAP_COMPLEXITIES` are read only by the Python tools of the adaptation loop, not by `SU2_CFD`.
 
@@ -143,7 +141,7 @@ ADAPTIVE_METRIC_HMIN= ( 1e-4, 1e-3 )
 ADAPTIVE_METRIC_HMAX= 10.0
 ```
 
-The limits change the complexity of the metric when they are active. They also set the requested sizes where a sensor is constant in some direction, since the Hessian gives no size there.
+The limits keep the metric well defined: `ADAPTIVE_METRIC_HMAX` and `ADAPTIVE_METRIC_ARMAX` bound the sizes where the Hessian is singular, for example in regions of nearly constant flow, and `ADAPTIVE_METRIC_HMIN` prevents null volume sizes, for example at discontinuities. They affect the complexity when they are active.
 
 ## Steady and Unsteady Flows
 
@@ -153,14 +151,12 @@ The limits change the complexity of the metric when they are active. They also s
 For each sensor, SU2 prints the global integral used by the normalization:
 
 ```
-Global adaptive metric normalization integral for sensor PRESSURE: 1.234e+02
+Global adaptive metric normalization integral for sensor PRESSURE: 18523.8
 ```
-
-It is printed with `NORMALIZE_ADAPTIVE_METRIC= NO` too. With several time sub-intervals, the normalization of each sub-interval's metric needs the integrals of all sub-intervals (see [Unsteady Flows](../Metric-Based-Mesh-Adaptation/#unsteady-flows)), so run each sub-interval with `NORMALIZE_ADAPTIVE_METRIC= NO` and normalize the metrics outside of SU2 with these integrals.
 
 ## Output Fields
 
-With `COMPUTE_ADAPTIVE_METRIC= YES`, these volume output groups are available. `<Sensor>` is the sensor name with only its first letter in upper case, for example `Pressure` or `Total_pressure`.
+With `COMPUTE_ADAPTIVE_METRIC= YES`, the following volume output groups are available. In the field names, `<Sensor>` is the sensor name with only its first letter capitalized, for example `Pressure` or `Total_pressure`.
 
 | Group | Fields | Content |
 | --- | --- | --- |
@@ -169,4 +165,4 @@ With `COMPUTE_ADAPTIVE_METRIC= YES`, these volume output groups are available. `
 | `SENSOR_HESSIAN` | `Hessian_<Sensor>_xx`, `_xy`, `_yy` (, `_xz`, `_yz`, `_zz`) | Green-Gauss Hessian of the sensor |
 | `ADAPTIVE_METRIC` | `AdaptiveMetric_<Sensor>_xx`, `_xy`, `_yy` (, `_xz`, `_yz`, `_zz`) | Adaptive metric of the sensor |
 
-The ParaView writers (`PARAVIEW`, `PARAVIEW_ASCII`, `PARAVIEW_LEGACY`) group the gradients as vectors and the Hessians and metrics as symmetric tensors, named `Gradient_<Sensor>`, `Hessian_<Sensor>` and `AdaptiveMetric_<Sensor>`. In 2D, the z components of the tensors are written as zero. The restart file contains the same fields as separate columns when `WRT_RESTART_COMPACT= NO`. The [built-in sensor tutorial](/tutorials/Adaptive_Metric_Builtin_Sensors/) shows how to visualize the metric in ParaView.
+The ParaView writers (`PARAVIEW`, `PARAVIEW_ASCII`, `PARAVIEW_LEGACY`) group the gradients as vectors and the Hessians and metrics as symmetric tensors, named `Gradient_<Sensor>`, `Hessian_<Sensor>` and `AdaptiveMetric_<Sensor>`. In 2D, the z components of the tensors are written as zero. By default, the restart file only contains the variables needed to restart the solver; with `WRT_RESTART_COMPACT= NO`, it also contains these fields, one column per component. The [built-in sensor tutorial](/tutorials/Adaptive_Metric_Builtin_Sensors/) shows how to visualize the metric in ParaView.
