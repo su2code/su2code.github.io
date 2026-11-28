@@ -191,9 +191,4 @@ Figure (5): Cell sizes and stretching requested by the Mach metric of the same r
 
 The total pressure is constant outside of the boundary layers and the wake (Figure 1), so the total pressure metric requests the highest vertex density along the wall, especially near the leading edge, and in the wake (Figure 2). There, the ellipses are strongly stretched along the flow (Figure 4). Away from the airfoil, the total pressure is nearly constant, so its recovered Hessian is small and noisy: the requested density is low but irregular, and the ellipses are large and randomly oriented.
 
-The Mach metric (Figures 3 and 5) also refines the wall and the wake, with ellipses stretched along the flow, but in addition the shock on the upper surface and, more weakly, the flow below the airfoil. Upstream and around the leading edge, its ellipses are small and regular, and only the far wake is noisy. This is why the Mach number is the usual choice for RANS, while a custom sensor such as the total pressure can target a specific feature, here the viscous losses.
-
-### Things to Try
-
-- Write another sensor, for example the entropy $$s = \ln(p/\rho^\gamma)$$, register it under a new name, and list it in `ADAPTIVE_METRIC_SENSOR` and `ADAPTIVE_METRIC_CUSTOM_SENSOR`.
-- Change `ADAPTIVE_METRIC_NORM` back to 2 and compare the vertex densities.
+The Mach metric (Figures 3 and 5) also refines the wall and the wake, with sizing tensors stretched along the flow, as well as in the vicinity of the shocks.
