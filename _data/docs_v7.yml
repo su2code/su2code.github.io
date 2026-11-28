@@ -33,6 +33,7 @@
   - Theory
   - Streamwise-Periodicity
   - Thermochemical-Nonequilibrium
+  - Metric-Based-Mesh-Adaptation
 
 - title: Users Guide
   docs_v7:
@@ -47,6 +48,7 @@
   - Custom-Output
   - Linear-Solvers-and-Preconditioners
   - Multizone
+  - Adaptive-Metric
   - Execution
 
 - title: Physical Models
