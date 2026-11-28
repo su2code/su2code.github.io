@@ -34,7 +34,7 @@ The following sections explain the configuration, run the case and visualize the
 
 ### Background
 
-A metric field is a symmetric positive definite tensor $$\mathcal{M}$$ at every point. It prescribes the mesh that a remesher should build, a mesh that is unit in the metric: its eigenvectors are the directions of the cells, and its eigenvalues $$\lambda_i$$ give the requested cell sizes $$h_i = \lambda_i^{-1/2}$$ along them. SU2 computes, for each *sensor* field $$u$$, the metric that minimizes the $$L^p$$ norm of the interpolation error of $$u$$ for a target complexity $$\mathcal{N}$$ (approximately the number of vertices):
+A metric field is a symmetric positive definite tensor $$\mathcal{M}$$ at every point. It prescribes the mesh that a remesher should build, a mesh that is unit in the metric: its eigenvectors are the directions of the cells, and its eigenvalues $$\lambda_i$$ give the requested cell sizes $$h_i = \lambda_i^{-1/2}$$ along them. SU2 computes, for each *sensor* field $$u$$, the metric that minimizes the $$L^p$$-norm of the interpolation error of $$u$$ for a target complexity $$\mathcal{N}$$ (approximately the number of vertices):
 
 $$\mathcal{M}(\mathbf{x}) = \left( \frac{\mathcal{N}}{G} \right)^{2/d} \left( \det \lvert \mathcal{H}(\mathbf{x}) \rvert \right)^{-\frac{1}{2p+d}} \lvert \mathcal{H}(\mathbf{x}) \rvert, \qquad G = \int_\Omega \left( \det \lvert \mathcal{H}(\mathbf{x}) \rvert \right)^{\frac{p}{2p+d}} d\mathbf{x},$$
 
@@ -73,7 +73,7 @@ ADAP_TIME_SUBINTERVAL= 1
 ```
 
 - `ADAPTIVE_METRIC_SENSOR` lists two sensors: the pressure, a primitive variable, and the Mach number, which SU2 computes. Each sensor gets its own metric.
-- `ADAPTIVE_METRIC_NORM= 2` and `ADAPTIVE_METRIC_COMPLEXITY= 10000` select the $$L^2$$ norm of the interpolation error and a target of about 10000 vertices, about twice the current mesh.
+- `ADAPTIVE_METRIC_NORM= 2` and `ADAPTIVE_METRIC_COMPLEXITY= 10000` select the $$L^2$$-norm of the interpolation error and a target of about 10000 vertices, about twice the current mesh.
 - `ADAPTIVE_METRIC_HMIN` and `ADAPTIVE_METRIC_HMAX` bound the requested cell sizes, in mesh units (the chord is 1). The far field is about 20 chords away, so `ADAPTIVE_METRIC_HMAX= 10.0` lets the metric coarsen there. The maximum aspect ratio is left at its default, 10<sup>6</sup>.
 
 The metric and the fields it is computed from are written with the volume output groups `SENSOR_VALUE`, `SENSOR_GRADIENT`, `SENSOR_HESSIAN` and `ADAPTIVE_METRIC`:

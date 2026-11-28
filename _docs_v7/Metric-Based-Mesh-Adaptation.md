@@ -51,7 +51,7 @@ $$e_\mathbf{M}(\mathbf{x}) = c_d \, \mathrm{tr}\!\left( \mathcal{M}^{-1/2}(\math
 
 with $$c_2 = 1/8$$ and $$c_3 = 1/10$$. Here, $$\lvert \mathcal{H} \rvert$$ is the matrix absolute value of the Hessian, which has the eigenvectors of $$\mathcal{H}$$ and the absolute values of its eigenvalues (see [Hessian Recovery](#hessian-recovery)). Using $$\lvert \mathcal{H} \rvert$$ instead of $$\mathcal{H}$$ overestimates the error where the Hessian is indefinite.
 
-The optimal metric minimizes the $$L^p$$ norm of this error for a target complexity $$\mathcal{N}$$:
+The optimal metric minimizes the $$L^p$$-norm of this error for a target complexity $$\mathcal{N}$$:
 
 $$\mathbf{M}_{L^p} = \underset{\mathbf{M}}{\mathrm{argmin}} \; E_{L^p}(\mathbf{M}) = \left( \int_\Omega e_\mathbf{M}(\mathbf{x})^p \, d\mathbf{x} \right)^{1/p} \qquad \text{subject to} \qquad \mathcal{C}(\mathbf{M}) = \mathcal{N} .$$
 
@@ -59,7 +59,7 @@ The complexity constraint prevents the trivial solution of vanishing element siz
 
 $$\mathcal{M}_{L^p}(\mathbf{x}) = \left( \frac{\mathcal{N}}{G} \right)^{2/d} D(\mathbf{x}) \, \lvert \mathcal{H}(\mathbf{x}) \rvert, \qquad D(\mathbf{x}) = \left( \det \lvert \mathcal{H}(\mathbf{x}) \rvert \right)^{-\frac{1}{2p+d}}, \qquad G = \int_\Omega \left( \det \lvert \mathcal{H}(\mathbf{x}) \rvert \right)^{\frac{p}{2p+d}} d\mathbf{x} .$$
 
-The optimal metric is aligned with the eigenvectors of $$\lvert \mathcal{H} \rvert$$ and has the same anisotropy. The local term $$D$$ accounts for the sensitivity of the $$L^p$$ norm, and the global term $$G$$ enforces the complexity constraint. The corresponding error converges at second order with respect to the complexity, $$E_{L^p}(\mathbf{M}_{L^p}) \leq C \mathcal{N}^{-2/d}$$. As $$p \to \infty$$, the metric tends to the one that controls the error in the $$L^\infty$$ norm, which equidistributes the error and focuses on the largest scales of the solution; smaller values of $$p$$ also capture its weaker features.
+The optimal metric is aligned with the eigenvectors of $$\lvert \mathcal{H} \rvert$$ and has the same anisotropy. The local term $$D$$ accounts for the sensitivity of the $$L^p$$-norm, and the global term $$G$$ enforces the complexity constraint. The corresponding error converges at second order with respect to the complexity, $$E_{L^p}(\mathbf{M}_{L^p}) \leq C \mathcal{N}^{-2/d}$$. As $$p \to \infty$$, the metric tends to the one that controls the error in the $$L^\infty$$ norm, which equidistributes the error and focuses on the largest scales of the solution; smaller values of $$p$$ also capture its weaker features.
 
 ## Hessian Recovery
 

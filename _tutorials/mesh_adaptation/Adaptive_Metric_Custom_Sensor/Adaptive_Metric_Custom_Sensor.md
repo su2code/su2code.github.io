@@ -69,7 +69,7 @@ ADAP_TIME_SUBINTERVAL= 1
 
 - `ADAPTIVE_METRIC_SENSOR` lists all sensors: the custom `TOTAL_PRESSURE` and the built-in `MACH`.
 - `ADAPTIVE_METRIC_CUSTOM_SENSOR` marks `TOTAL_PRESSURE` as filled through the Python wrapper. Without it, SU2 would stop with an error, since `TOTAL_PRESSURE` is not a built-in sensor.
-- `ADAPTIVE_METRIC_NORM= 4` concentrates the vertices more at the strongest features (the shock, the wake and the boundary layers) than the $$L^2$$ norm of the built-in sensor tutorial.
+- `ADAPTIVE_METRIC_NORM= 4` concentrates the vertices more at the strongest features (the shock, the wake and the boundary layers) than the $$L^2$$-norm of the built-in sensor tutorial.
 
 ### The Python Script
 

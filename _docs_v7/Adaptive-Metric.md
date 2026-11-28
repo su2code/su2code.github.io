@@ -120,7 +120,7 @@ driver.Output(0)
 driver.Finalize()
 ```
 
-Each function takes the driver and returns a list with one value per domain node (or per node, including halo nodes). The [custom sensor tutorial](/tutorials/Adaptive_Metric_Custom_Sensor/) shows a complete example.
+Each function takes the driver and returns the sensor values at the owned nodes of the current MPI rank. The [custom sensor tutorial](/tutorials/Adaptive_Metric_Custom_Sensor/) shows a complete example.
 
 ## Choosing the Norm
 
@@ -141,14 +141,14 @@ ADAPTIVE_METRIC_HMIN= ( 1e-4, 1e-3 )
 ADAPTIVE_METRIC_HMAX= 10.0
 ```
 
-The limits keep the metric well defined: `ADAPTIVE_METRIC_HMAX` and `ADAPTIVE_METRIC_ARMAX` bound the sizes where the Hessian is singular, for example in regions of nearly constant flow, and `ADAPTIVE_METRIC_HMIN` prevents null volume sizes, for example at discontinuities. They affect the complexity when they are active.
+The limits keep the metric well defined: `ADAPTIVE_METRIC_HMAX` and `ADAPTIVE_METRIC_ARMAX` bound the sizes where the Hessian is singular, for example in regions of nearly constant flow, and `ADAPTIVE_METRIC_HMIN` prevents null sizes, for example at discontinuities. They affect the complexity whenever they are active.
 
 ## Steady and Unsteady Flows
 
 - **Steady flows.** SU2 computes the metric once, from the final solution.
 - **Unsteady flows.** SU2 integrates the absolute value of the Hessians in time with the trapezoidal rule, using the time step that the solver actually takes (which may vary, for example with `UNST_CFL_NUMBER`). The first sample is the solution after the first time step, or the restart solution of an unsteady restart. SU2 normalizes the metric when the run stops (at `TIME_ITER`, `MAX_TIME` or time convergence), so only the last volume output holds the final metric; earlier outputs hold the running time integral. With the Python wrapper, call `driver.FinalizeAdaptiveMetric()` before the last `driver.Output()`.
 
-For each sensor, SU2 prints the global integral used by the normalization:
+SU2 prints the global integral used by the $$L^p$$-norm normalization for each sensor (even when normalization is disabled):
 
 ```
 Global adaptive metric normalization integral for sensor PRESSURE: 18523.8
